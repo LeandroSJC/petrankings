@@ -93,6 +93,7 @@ export function formatDate(date: Date | string | null | undefined): string {
   const d = new Date(date);
   if (isNaN(d.getTime())) return 'Data inválida';
   return d.toLocaleDateString('pt-BR', {
+    timeZone: 'UTC',
     day: '2-digit',
     month: 'long',
     year: 'numeric',
@@ -104,6 +105,7 @@ export function formatShortDate(date: Date | string | null | undefined): string 
   const d = new Date(date);
   if (isNaN(d.getTime())) return 'Data inválida';
   return d.toLocaleDateString('pt-BR', {
+    timeZone: 'UTC',
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',

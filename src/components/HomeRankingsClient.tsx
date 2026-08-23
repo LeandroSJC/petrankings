@@ -67,95 +67,130 @@ export default function HomeRankingsClient({
               gap: '26px',
             }}
           >
-            {filteredRankings.map((ranking) => (
-              <article
-                key={ranking.id}
-                style={{
-                  backgroundColor: '#ffffff',
-                  borderRadius: 'var(--radius-lg)',
-                  border: '1.5px solid var(--border-cream)',
-                  padding: '28px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  boxShadow: 'var(--shadow-sm)',
-                  transition: 'var(--transition)',
-                }}
-                className="ranking-card"
-              >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {/* Tags */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    <span
-                      className={`tag-pill ${
-                        ranking.species === 'caes' ? 'tag-caes' : 'tag-gatos'
-                      }`}
-                    >
-                      {ranking.species === 'caes' ? '🐕 Cães' : '🐈 Gatos'}
-                    </span>
-                    <span className="tag-pill tag-type">{ranking.productType}</span>
+            {filteredRankings.map((ranking) => {
+              const isDog = ranking.species === 'caes';
+              const productCount = ranking._count?.products || 4;
+              return (
+                <article
+                  key={ranking.id}
+                  style={{
+                    backgroundColor: '#ffffff',
+                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #faf8f4 100%)',
+                    borderRadius: 'var(--radius-lg)',
+                    border: '1.5px solid #dfd7c7',
+                    padding: '28px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 18px rgba(8, 33, 21, 0.06)',
+                    transition: 'var(--transition)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                  }}
+                  className="ranking-card"
+                >
+                  {/* Faixa decorativa superior com cor da espécie */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: '4px',
+                      backgroundColor: isDog ? '#b45309' : '#4338ca',
+                    }}
+                  />
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', paddingTop: '4px' }}>
+                    {/* Tags e Quantidade de Produtos */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        <span
+                          className={`tag-pill ${isDog ? 'tag-caes' : 'tag-gatos'}`}
+                        >
+                          {isDog ? '🐕 Cães' : '🐈 Gatos'}
+                        </span>
+                        <span className="tag-pill tag-type">{ranking.productType}</span>
+                      </div>
+
+                      <span
+                        style={{
+                          fontSize: '0.76rem',
+                          fontWeight: 800,
+                          color: 'var(--brand-forest-800)',
+                          backgroundColor: 'rgba(8, 33, 21, 0.05)',
+                          padding: '4px 10px',
+                          borderRadius: 'var(--radius-full)',
+                          border: '1px solid var(--border-cream)',
+                        }}
+                      >
+                        {productCount} opções no pódio
+                      </span>
+                    </div>
+
+                    <h3 style={{ fontSize: '1.35rem', lineHeight: 1.3, marginTop: '4px' }}>
+                      <Link
+                        href={`/ranking/${ranking.slug}`}
+                        style={{ color: 'var(--brand-forest-900)', textDecoration: 'none' }}
+                      >
+                        {ranking.title}
+                      </Link>
+                    </h3>
+
+                    {ranking.description && (
+                      <p style={{ fontSize: '0.96rem', color: 'var(--text-body)', lineHeight: 1.6 }}>
+                        {ranking.description}
+                      </p>
+                    )}
                   </div>
 
-                  <h3 style={{ fontSize: '1.35rem', lineHeight: 1.3 }}>
+                  <div
+                    style={{
+                      borderTop: '1.5px solid #eae3d6',
+                      paddingTop: '18px',
+                      marginTop: '22px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      gap: '12px',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                      <span>Revisado em: </span>
+                      <strong style={{ color: 'var(--brand-forest-900)' }}>
+                        {formatDate(ranking.dataUpdatedAt)}
+                      </strong>
+                    </div>
+
                     <Link
                       href={`/ranking/${ranking.slug}`}
-                      style={{ color: 'var(--brand-forest-900)', textDecoration: 'none' }}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontSize: '0.88rem',
+                        fontWeight: 800,
+                        color: '#ffffff',
+                        backgroundColor: '#082115',
+                        padding: '10px 18px',
+                        borderRadius: 'var(--radius-full)',
+                        transition: 'var(--transition-fast)',
+                        border: '1.5px solid #174e35',
+                        boxShadow: '0 2px 8px rgba(8, 33, 21, 0.2)',
+                        minHeight: '40px',
+                        textDecoration: 'none',
+                      }}
+                      className="ranking-cta-btn"
+                      aria-label={`Ver comparativo completo: ${ranking.title}`}
                     >
-                      {ranking.title}
+                      <span>Ver Ranking 🐾</span>
+                      <ArrowUpRight size={16} aria-hidden="true" />
                     </Link>
-                  </h3>
-
-                  {ranking.description && (
-                    <p style={{ fontSize: '0.96rem', color: 'var(--text-body)', lineHeight: 1.6 }}>
-                      {ranking.description}
-                    </p>
-                  )}
-                </div>
-
-                <div
-                  style={{
-                    borderTop: '1px solid var(--border-cream-light)',
-                    paddingTop: '18px',
-                    marginTop: '22px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: '12px',
-                  }}
-                >
-                  <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                    <span>Revisado em: </span>
-                    <strong style={{ color: 'var(--brand-forest-900)' }}>
-                      {formatDate(ranking.dataUpdatedAt)}
-                    </strong>
                   </div>
-
-                  <Link
-                    href={`/ranking/${ranking.slug}`}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      fontSize: '0.88rem',
-                      fontWeight: 800,
-                      color: 'var(--brand-forest-900)',
-                      backgroundColor: 'var(--brand-forest-50)',
-                      padding: '10px 18px',
-                      borderRadius: 'var(--radius-full)',
-                      transition: 'var(--transition-fast)',
-                      border: '1.5px solid var(--brand-forest-200)',
-                      minHeight: '40px',
-                    }}
-                    className="ranking-cta-btn"
-                    aria-label={`Ver comparativo completo: ${ranking.title}`}
-                  >
-                    <span>Ver Ranking 🐾</span>
-                    <ArrowUpRight size={16} aria-hidden="true" />
-                  </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         ) : (
           /* Estado Vazio */

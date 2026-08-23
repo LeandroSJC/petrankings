@@ -91,8 +91,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${plusJakarta.variable} ${outfit.variable}`}>
-      <head>
+    <html lang="pt-BR" className={`${playfair.variable} ${plusJakarta.variable} ${outfit.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         {adsenseClientId && (
           <Script
             id="google-adsense"
@@ -102,8 +102,6 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
-      </head>
-      <body>
         <a href="#main-content" className="skip-link">
           Pular para o conteúdo principal
         </a>
