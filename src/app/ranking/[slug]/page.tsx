@@ -1,12 +1,11 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Award, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowLeft, Award, ShieldCheck, Sparkles } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { sortRankingProducts } from '@/lib/ranking-engine';
 import ProductCard from '@/components/ProductCard';
 import AdPlaceholder from '@/components/AdPlaceholder';
-import { formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -294,34 +293,12 @@ export default async function RankingDetailPage({
                 color: 'var(--text-body)',
                 lineHeight: 1.68,
                 maxWidth: '880px',
-                marginBottom: '24px',
+                marginBottom: '8px',
               }}
             >
               {ranking.description}
             </p>
           )}
-
-          {/* Data de Atualização dos Dados */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '0.86rem',
-              color: 'var(--text-body)',
-              backgroundColor: 'var(--bg-cream-subtle)',
-              padding: '9px 18px',
-              borderRadius: 'var(--radius-full)',
-              border: '1.5px solid var(--border-cream)',
-              boxShadow: 'var(--shadow-xs)',
-            }}
-          >
-            <Calendar size={16} color="var(--brand-forest-700)" aria-hidden="true" />
-            <span>Última conferência de notas deste ranking: </span>
-            <strong style={{ color: 'var(--brand-forest-900)' }}>
-              {formatDate(ranking.dataUpdatedAt)}
-            </strong>
-          </div>
         </div>
       </section>
 
