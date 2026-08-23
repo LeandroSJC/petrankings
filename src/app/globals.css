@@ -1,0 +1,609 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ==========================================================================
+     1. PALETA DE CORES EDITORIAL & WCAG 2.1 AA COMPLIANT
+     ========================================================================== */
+  
+  /* Verde Floresta Nobre (Primário Editorial) */
+  --brand-forest-950: #04140c;
+  --brand-forest-900: #082115;
+  --brand-forest-800: #0f3623;
+  --brand-forest-700: #174e35;
+  --brand-forest-600: #1f6b4a;
+  --brand-forest-500: #2a885f;
+  --brand-forest-400: #3ea576;
+  --brand-forest-300: #6fc49a;
+  --brand-forest-200: #b0e3cb;
+  --brand-forest-100: #dcf4e8;
+  --brand-forest-50:  #f0faf5;
+
+  /* Superfícies Quentes & Creme Nobre */
+  --bg-cream-main: #fbf9f5;
+  --bg-cream-subtle: #f4ede2;
+  --bg-cream-card: #ffffff;
+  --bg-cream-card-hover: #fdfcf9;
+  --border-cream: #e4dbc9;
+  --border-cream-light: #efe8dc;
+  --border-cream-dark: #cec2ab;
+
+  /* Dourado Nobre / Ouro Polido */
+  --gold-300: #ecd586;
+  --gold-400: #dfba45;
+  --gold-500: #cf9f22;
+  --gold-600: #ac7d12;
+  --gold-700: #875c08; /* Alto contraste para texto em fundos claros (>4.5:1) */
+  --gold-800: #684504;
+  --gold-100: #fbf5df;
+  --gold-50:  #fdfbf3;
+  --gold-gradient: linear-gradient(135deg, #d4af37 0%, #faebb0 45%, #b58d1f 100%);
+  --gold-glow: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0) 70%);
+
+  /* Medalhas Metálicas Polidas */
+  --silver-400: #cbd5e1;
+  --silver-500: #94a3b8;
+  --silver-700: #334155;
+  --silver-gradient: linear-gradient(135deg, #cbd5e1 0%, #f8fafc 45%, #94a3b8 100%);
+  
+  --bronze-400: #d97706;
+  --bronze-500: #b45309;
+  --bronze-700: #78350f;
+  --bronze-gradient: linear-gradient(135deg, #f59e0b 0%, #fef3c7 45%, #b45309 100%);
+
+  /* Cores de Acento para Espécies (WCAG AAA Contrast > 7:1) */
+  --dog-accent-bg: #fff8e6;
+  --dog-accent-border: #fcd34d;
+  --dog-accent-text: #78350f;
+  --dog-accent-solid: #b45309;
+
+  --cat-accent-bg: #eef2ff;
+  --cat-accent-border: #c7d2fe;
+  --cat-accent-text: #312e81;
+  --cat-accent-solid: #4338ca;
+
+  /* Texto com Alto Contraste (WCAG 2.1 AA compliant) */
+  --text-main: #0c1c13;     /* Contraste > 14:1 no fundo creme */
+  --text-body: #1e3327;     /* Contraste > 10:1 no fundo creme */
+  --text-muted: #3d5447;    /* Contraste > 6.2:1 no fundo creme */
+  --text-subtle: #4d6657;   /* Contraste > 4.8:1 no fundo creme */
+  --text-light: #fbf9f4;
+
+  /* Tipografia */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+
+  /* Sombras Multicamadas Profundas & Efeitos */
+  --shadow-xs: 0 1px 3px rgba(8, 33, 21, 0.04);
+  --shadow-sm: 0 3px 8px rgba(8, 33, 21, 0.05), 0 1px 2px rgba(8, 33, 21, 0.03);
+  --shadow-md: 0 8px 24px rgba(8, 33, 21, 0.07), 0 2px 6px rgba(8, 33, 21, 0.04);
+  --shadow-lg: 0 18px 40px rgba(8, 33, 21, 0.09), 0 4px 12px rgba(8, 33, 21, 0.04);
+  --shadow-xl: 0 24px 56px rgba(8, 33, 21, 0.13), 0 8px 20px rgba(8, 33, 21, 0.05);
+  --shadow-gold: 0 8px 26px rgba(212, 175, 55, 0.28);
+  --shadow-emerald: 0 8px 26px rgba(15, 54, 35, 0.25);
+  --shadow-hover: 0 14px 34px rgba(8, 33, 21, 0.11), 0 3px 8px rgba(8, 33, 21, 0.05);
+
+  /* Raios de Borda */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Transições Suaves */
+  --transition-fast: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   2. RESET & ACESSIBILIDADE WCAG
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg-cream-main);
+  color: var(--text-main);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.65;
+  overflow-x: hidden;
+  background-color: var(--bg-cream-main);
+  background-image: 
+    radial-gradient(circle at 95% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 5% 100%, rgba(15, 54, 35, 0.05) 0%, transparent 45%);
+  background-attachment: fixed;
+}
+
+/* Skip Link para Usuários de Teclado (WCAG 2.4.1) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background-color: var(--brand-forest-900);
+  color: var(--gold-300);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 0.95rem;
+  z-index: 9999;
+  border: 2px solid var(--gold-400);
+  box-shadow: var(--shadow-xl);
+  transition: top 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 20px;
+  outline: none;
+}
+
+/* Indicador de Foco Visível Universal de Alta Visibilidade (WCAG 2.4.7) */
+:focus-visible {
+  outline: 3px solid var(--gold-500);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Respeito às preferências de animação reduzida (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-cream-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5bba8;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg-cream-subtle);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-forest-700);
+}
+
+/* ==========================================================================
+   3. LAYOUT & TIPOGRAFIA
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+  color: var(--brand-forest-900);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+
+/* ==========================================================================
+   4. BADGES DE MEDALHAS METÁLICAS DOS RANKINGS
+   ========================================================================== */
+.rank-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  user-select: none;
+  position: relative;
+  transition: var(--transition);
+}
+
+.rank-badge.rank-gold {
+  background: var(--gold-gradient);
+  color: #3b2800;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.rank-badge.rank-silver {
+  background: var(--silver-gradient);
+  color: #0f172a;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 6px 18px rgba(148, 163, 184, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.rank-badge.rank-bronze {
+  background: var(--bronze-gradient);
+  color: #381302;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 6px 18px rgba(180, 83, 9, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.rank-badge.rank-standard {
+  background: #ffffff;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border-cream);
+  box-shadow: var(--shadow-xs);
+  font-size: 1.18rem;
+}
+
+/* ==========================================================================
+   5. TAGS & PILLS DE ESPÉCIE E CATEGORIA
+   ========================================================================== */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  transition: var(--transition-fast);
+}
+
+.tag-pill.tag-caes {
+  background-color: var(--dog-accent-bg);
+  color: var(--dog-accent-text);
+  border: 1.5px solid var(--dog-accent-border);
+}
+
+.tag-pill.tag-gatos {
+  background-color: var(--cat-accent-bg);
+  color: var(--cat-accent-text);
+  border: 1.5px solid var(--cat-accent-border);
+}
+
+.tag-pill.tag-type {
+  background-color: var(--brand-forest-50);
+  color: var(--brand-forest-800);
+  border: 1.5px solid var(--brand-forest-200);
+}
+
+/* ==========================================================================
+   6. CARDS DE PRODUTOS & RANKINGS
+   ========================================================================== */
+.product-card {
+  background: #ffffff;
+  border: 1.5px solid var(--border-cream);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
+}
+
+.product-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-cream-dark);
+  transform: translateY(-2px);
+}
+
+.product-card.card-gold {
+  border: 2px solid rgba(212, 175, 55, 0.7);
+  background: linear-gradient(180deg, #fffefa 0%, #ffffff 100%);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.16), var(--shadow-sm);
+}
+
+.product-card.card-gold:hover {
+  box-shadow: 0 14px 40px rgba(212, 175, 55, 0.24), var(--shadow-md);
+}
+
+.ranking-card {
+  background: #ffffff;
+  border: 1.5px solid var(--border-cream);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.ranking-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold-500);
+}
+
+/* ==========================================================================
+   7. BOTÕES DE LOJAS PARCEIRAS (STORE BUTTONS)
+   ========================================================================== */
+.store-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+@media (min-width: 580px) {
+  .store-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+.store-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  border: 1.5px solid var(--border-cream);
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text-main);
+  min-height: 56px;
+  box-shadow: var(--shadow-xs);
+}
+
+.store-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--gold-600);
+  background: #fffefb;
+}
+
+.store-btn:focus-visible {
+  outline: 3px solid var(--gold-600);
+  outline-offset: 2px;
+}
+
+.store-btn-logo {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #faf7f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border: 1px solid var(--border-cream-light);
+}
+
+.store-btn-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.store-btn-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  color: var(--brand-forest-900);
+}
+
+.store-btn-rating {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 1px;
+}
+
+.store-btn-cta {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--brand-forest-800);
+  background: var(--brand-forest-50);
+  padding: 6px 10px;
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--brand-forest-200);
+  transition: var(--transition-fast);
+}
+
+.store-btn:hover .store-btn-cta {
+  background: var(--brand-forest-800);
+  color: #ffffff;
+  border-color: var(--brand-forest-800);
+}
+
+/* ==========================================================================
+   8. COMPONENTES INSTITUCIONAIS & UTILITÁRIOS
+   ========================================================================== */
+.ad-slot-reserved {
+  border: 1.5px dashed #d5ccbd;
+  background: rgba(244, 237, 226, 0.6);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90px;
+  margin: 24px 0;
+}
+
+.footer-link {
+  color: #cbd5e1;
+  transition: var(--transition-fast);
+  display: inline-block;
+  font-size: 0.92rem;
+}
+
+.footer-link:hover {
+  color: var(--gold-300) !important;
+  transform: translateX(3px);
+}
+
+.footer-link:focus-visible {
+  color: var(--gold-300) !important;
+  outline: 2px solid var(--gold-400);
+  outline-offset: 2px;
+}
+
+.hero-primary-btn {
+  background-color: var(--brand-forest-800);
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-size: 0.96rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(15, 54, 35, 0.25);
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hero-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(15, 54, 35, 0.35);
+  background-color: var(--brand-forest-700);
+}
+
+.hero-secondary-btn {
+  background-color: #ffffff;
+  color: var(--brand-forest-900);
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-size: 0.96rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--border-cream);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.hero-secondary-btn:hover {
+  background-color: #ffffff;
+  border-color: var(--gold-500);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.mascot-card {
+  transition: var(--transition);
+}
+
+.mascot-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 24px 50px rgba(8, 33, 21, 0.18) !important;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-cream);
+  background-color: #ffffff;
+  color: var(--text-main);
+  font-size: 0.96rem;
+  font-family: inherit;
+  transition: var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--gold-600) !important;
+  box-shadow: 0 0 0 3px rgba(207, 159, 34, 0.22) !important;
+  outline: none;
+}
+
+.submit-btn {
+  background-color: var(--brand-forest-800);
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(15, 54, 35, 0.25);
+  transition: var(--transition);
+  width: 100%;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: var(--brand-forest-700);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(15, 54, 35, 0.35);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

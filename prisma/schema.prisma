@@ -1,0 +1,92 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String?
+  email        String    @unique
+  passwordHash String
+  role         String    @default("admin") // "admin" | "usuario"
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Ranking {
+  id            String           @id @default(cuid())
+  slug          String           @unique
+  title         String
+  species       String           // "caes" | "gatos"
+  productType   String           // Ex: "Ração seca", "Areia", "Brinquedo", "Petisco"
+  description   String?
+  isPublished   Boolean          @default(false)
+  dataUpdatedAt DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  products      RankingProduct[]
+}
+
+model Product {
+  id              String           @id @default(cuid())
+  title           String
+  species         String           // "caes" | "gatos"
+  productType     String           // Ex: "Ração seca", "Areia", "Brinquedo", "Petisco"
+  brand           String?
+  description     String?
+  imageUrl        String?
+  averageRating   Float?           // Calculado dinamicamente pelas avaliações
+  ratingUpdatedAt DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  stores          ProductStore[]
+  rankings        RankingProduct[]
+}
+
+model ProductStore {
+  id           String   @id @default(cuid())
+  productId    String
+  store        String   // "amazon" | "mercadolivre" | "petlove" | "cobasi" | "shopee"
+  productUrl   String
+  affiliateUrl String?
+  rating       Float?   // Nota de 0 a 5 lançada manualmente
+  reviewCount  Int?     // Quantidade de avaliações (número inteiro >= 0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, store])
+}
+
+model RankingProduct {
+  id        String   @id @default(cuid())
+  rankingId String
+  productId String
+  createdAt DateTime @default(now())
+  ranking   Ranking  @relation(fields: [rankingId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@unique([rankingId, productId])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  status    String   @default("nova") // "nova" | "lida" | "arquivada"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactRateLimit {
+  id        String   @id @default(cuid())
+  email     String
+  createdAt DateTime @default(now())
+}
