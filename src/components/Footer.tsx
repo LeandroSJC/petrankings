@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Award, Lock, Sparkles, Heart } from 'lucide-react';
+import { Award, Sparkles, Heart } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -157,28 +157,6 @@ export default function Footer() {
               Criado com <Heart size={13} fill="#ef4444" color="#ef4444" aria-hidden="true" /> para tutores de cães e gatos.
             </span>
           </div>
-
-          {/* Acesso Administrativo Discreto (WCAG 2.5.5 Touch Target 44x44px) */}
-          <Link
-            href="/admin"
-            aria-label="Acesso Administrativo ao Painel"
-            title="Acesso Administrativo"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '44px',
-              height: '44px',
-              borderRadius: '8px',
-              color: '#94a3b8',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              transition: 'var(--transition-fast)',
-            }}
-            className="admin-lock-link"
-          >
-            <Lock size={17} aria-hidden="true" />
-          </Link>
         </div>
       </div>
     </footer>

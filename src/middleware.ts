@@ -14,7 +14,16 @@ const TOKEN_COOKIE_NAME = 'petrankings_admin_token';
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Apenas rotas /admin (exceto a tela de login /admin/login)
+  // 1. Bloqueio em Produção: A área administrativa (/admin) só existe localmente
+  const isProduction = process.env.NODE_ENV === 'production';
+  const allowAdminInProd = process.env.ALLOW_ADMIN_IN_PRODUCTION === 'true';
+
+  if (pathname.startsWith('/admin') && isProduction && !allowAdminInProd) {
+    // Em produção, finge que a rota /admin não existe (Retorna 404 Not Found)
+    return NextResponse.rewrite(new URL('/_not-found', req.url));
+  }
+
+  // 2. Proteção JWT da área administrativa no ambiente local
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
     const token = req.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
