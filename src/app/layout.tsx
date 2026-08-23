@@ -8,20 +8,20 @@ import { ToastProvider } from '@/components/Toast';
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-inter',
   display: 'swap',
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  variable: '--font-heading',
+  variable: '--font-plus-jakarta',
   display: 'swap',
   weight: ['500', '600', '700', '800'],
 });
 
 const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-display',
+  variable: '--font-outfit',
   display: 'swap',
   weight: ['600', '700', '800', '900'],
 });
