@@ -1,81 +1,44 @@
-'use client';
-
-import React, { useState, useEffect, useMemo } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Award, 
-  ChevronRight, 
-  CheckCircle2, 
-  HelpCircle, 
-  ShieldCheck, 
-  ChevronDown, 
-  RefreshCw, 
-  ShoppingBag, 
-  Star, 
-  ArrowUpRight,
-  Sparkles,
-  Heart
+import {
+  ChevronRight,
+  CheckCircle2,
+  ShieldCheck,
+  ShoppingBag,
+  Star,
+  Award,
+  Heart,
 } from 'lucide-react';
-import FilterBar from '@/components/FilterBar';
+import prisma from '@/lib/prisma';
 import AdPlaceholder from '@/components/AdPlaceholder';
-import { formatDate } from '@/lib/utils';
+import HomeRankingsClient from '@/components/HomeRankingsClient';
+import FaqAccordion from '@/components/FaqAccordion';
 
-interface RankingItem {
-  id: string;
-  slug: string;
-  title: string;
-  species: string;
-  productType: string;
-  description?: string | null;
-  dataUpdatedAt?: Date | string | null;
-  _count?: {
-    products: number;
-  };
-}
+// Revalidar a cada 60 segundos para garantir performance e dados frescos
+export const revalidate = 60;
 
-export default function HomePage() {
-  const [rankings, setRankings] = useState<RankingItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedSpecies, setSelectedSpecies] = useState('todos');
-  const [selectedType, setSelectedType] = useState('todos');
-  const [faqOpen, setFaqOpen] = useState<number | null>(null);
+export default async function HomePage() {
+  // Busca direta no banco de dados (Server-Side Rendering instantâneo)
+  const rawRankings = await prisma.ranking.findMany({
+    where: { isPublished: true },
+    include: {
+      _count: {
+        select: { products: true },
+      },
+    },
+    orderBy: [
+      { dataUpdatedAt: 'desc' },
+      { createdAt: 'desc' },
+    ],
+  });
 
-  useEffect(() => {
-    async function loadRankings() {
-      try {
-        setLoading(true);
-        const res = await fetch('/api/rankings');
-        const data = await res.json();
-        if (data.rankings) {
-          setRankings(data.rankings);
-        }
-      } catch (error) {
-        console.error('Erro ao buscar rankings:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadRankings();
-  }, []);
-
-  // Extrair tipos disponíveis baseados na espécie selecionada
-  const availableTypes = useMemo(() => {
-    const relevant = selectedSpecies === 'todos'
-      ? rankings
-      : rankings.filter((r) => r.species === selectedSpecies);
-    const types = Array.from(new Set(relevant.map((r) => r.productType))).filter(Boolean);
-    return types;
-  }, [rankings, selectedSpecies]);
-
-  // Filtrar rankings
-  const filteredRankings = useMemo(() => {
-    return rankings.filter((r) => {
-      if (selectedSpecies !== 'todos' && r.species !== selectedSpecies) return false;
-      if (selectedType !== 'todos' && r.productType !== selectedType) return false;
-      return true;
-    });
-  }, [rankings, selectedSpecies, selectedType]);
+  const rankings = rawRankings.map((r) => ({
+    ...r,
+    dataUpdatedAt: r.dataUpdatedAt ? r.dataUpdatedAt.toISOString() : null,
+    createdAt: r.createdAt.toISOString(),
+    updatedAt: r.updatedAt.toISOString(),
+  }));
 
   const faqs = [
     {
@@ -114,7 +77,8 @@ export default function HomePage() {
     '@type': 'WebSite',
     name: 'PetRankings',
     url: 'https://petrankings.com.br',
-    description: 'Comparações sinceras e transparentes baseadas nas avaliações reais de tutores nas principais lojas do Brasil.',
+    description:
+      'Comparações sinceras e transparentes baseadas nas avaliações reais de tutores nas principais lojas do Brasil.',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://petrankings.com.br/?q={search_term_string}',
@@ -206,7 +170,7 @@ export default function HomePage() {
                 Escolher ração, areia sanitária ou brinquedos não precisa ser um quebra-cabeça. Reunimos as opiniões e notas reais de milhares de tutores nas maiores lojas online do Brasil para você acertar de primeira no que faz o seu melhor amigo feliz.
               </p>
 
-              {/* Botões de Ação Hero (WCAG 2.5.5 Touch Target >= 44px) */}
+              {/* Botões de Ação Hero */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', paddingTop: '10px' }}>
                 <a
                   href="#rankings-section"
@@ -561,170 +525,8 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Barra de Filtros */}
-        <FilterBar
-          selectedSpecies={selectedSpecies}
-          onSelectSpecies={setSelectedSpecies}
-          selectedType={selectedType}
-          onSelectType={setSelectedType}
-          availableTypes={availableTypes}
-        />
-
-        {/* Grade de Rankings */}
-        <div style={{ marginTop: '36px' }}>
-          {loading ? (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '64px',
-                gap: '12px',
-                color: 'var(--text-body)',
-              }}
-              aria-live="polite"
-            >
-              <RefreshCw size={24} className="animate-spin" aria-hidden="true" />
-              <span style={{ fontSize: '1.05rem', fontWeight: 700 }}>Carregando os melhores rankings para você...</span>
-            </div>
-          ) : filteredRankings.length > 0 ? (
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-                gap: '26px',
-              }}
-            >
-              {filteredRankings.map((ranking) => (
-                <article
-                  key={ranking.id}
-                  style={{
-                    backgroundColor: '#ffffff',
-                    borderRadius: 'var(--radius-lg)',
-                    border: '1.5px solid var(--border-cream)',
-                    padding: '28px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: 'var(--shadow-sm)',
-                    transition: 'var(--transition)',
-                  }}
-                  className="ranking-card"
-                >
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    {/* Tags */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      <span className={`tag-pill ${ranking.species === 'caes' ? 'tag-caes' : 'tag-gatos'}`}>
-                        {ranking.species === 'caes' ? '🐕 Cães' : '🐈 Gatos'}
-                      </span>
-                      <span className="tag-pill tag-type">
-                        {ranking.productType}
-                      </span>
-                    </div>
-
-                    <h3 style={{ fontSize: '1.35rem', lineHeight: 1.3 }}>
-                      <Link
-                        href={`/ranking/${ranking.slug}`}
-                        style={{ color: 'var(--brand-forest-900)', textDecoration: 'none' }}
-                      >
-                        {ranking.title}
-                      </Link>
-                    </h3>
-
-                    {ranking.description && (
-                      <p style={{ fontSize: '0.96rem', color: 'var(--text-body)', lineHeight: 1.6 }}>
-                        {ranking.description}
-                      </p>
-                    )}
-                  </div>
-
-                  <div
-                    style={{
-                      borderTop: '1px solid var(--border-cream-light)',
-                      paddingTop: '18px',
-                      marginTop: '22px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      flexWrap: 'wrap',
-                      gap: '12px',
-                    }}
-                  >
-                    <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                      <span>Revisado em: </span>
-                      <strong style={{ color: 'var(--brand-forest-900)' }}>
-                        {formatDate(ranking.dataUpdatedAt)}
-                      </strong>
-                    </div>
-
-                    <Link
-                      href={`/ranking/${ranking.slug}`}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        fontSize: '0.88rem',
-                        fontWeight: 800,
-                        color: 'var(--brand-forest-900)',
-                        backgroundColor: 'var(--brand-forest-50)',
-                        padding: '10px 18px',
-                        borderRadius: 'var(--radius-full)',
-                        transition: 'var(--transition-fast)',
-                        border: '1.5px solid var(--brand-forest-200)',
-                        minHeight: '40px',
-                      }}
-                      className="ranking-cta-btn"
-                      aria-label={`Ver comparativo completo: ${ranking.title}`}
-                    >
-                      <span>Ver Ranking 🐾</span>
-                      <ArrowUpRight size={16} aria-hidden="true" />
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            /* Estado Vazio */
-            <div
-              style={{
-                backgroundColor: '#ffffff',
-                border: '1.5px dashed var(--border-cream)',
-                borderRadius: 'var(--radius-lg)',
-                padding: '56px 24px',
-                textAlign: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '16px',
-              }}
-            >
-              <Award size={48} color="var(--gold-600)" aria-hidden="true" />
-              <h3 style={{ fontSize: '1.3rem', color: 'var(--brand-forest-900)' }}>
-                Nenhum ranking encontrado para esta seleção
-              </h3>
-              <p style={{ color: 'var(--text-body)', fontSize: '0.96rem', maxWidth: '440px' }}>
-                Tente selecionar outra espécie ou categoria para visualizar os rankings publicados.
-              </p>
-              <button
-                onClick={() => {
-                  setSelectedSpecies('todos');
-                  setSelectedType('todos');
-                }}
-                style={{
-                  backgroundColor: 'var(--brand-forest-800)',
-                  color: '#ffffff',
-                  padding: '12px 24px',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '0.94rem',
-                  fontWeight: 700,
-                  minHeight: '44px',
-                }}
-              >
-                Ver Todos os Rankings
-              </button>
-            </div>
-          )}
-        </div>
+        {/* Componente Interativo com dados pré-renderizados do Servidor */}
+        <HomeRankingsClient initialRankings={rankings} />
       </section>
 
       {/* 5. Espaço Publicitário Intermediário */}
@@ -886,88 +688,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div
-          style={{
-            maxWidth: '840px',
-            margin: '0 auto',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          {faqs.map((faq, idx) => {
-            const isOpen = faqOpen === idx;
-            const buttonId = `faq-trigger-${idx}`;
-            const panelId = `faq-panel-${idx}`;
-
-            return (
-              <div
-                key={idx}
-                style={{
-                  backgroundColor: '#ffffff',
-                  border: '1.5px solid var(--border-cream)',
-                  borderRadius: 'var(--radius-md)',
-                  overflow: 'hidden',
-                  transition: 'var(--transition)',
-                  boxShadow: isOpen ? 'var(--shadow-sm)' : 'var(--shadow-xs)',
-                }}
-              >
-                <button
-                  id={buttonId}
-                  onClick={() => setFaqOpen(isOpen ? null : idx)}
-                  aria-expanded={isOpen}
-                  aria-controls={panelId}
-                  style={{
-                    width: '100%',
-                    padding: '22px 26px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '16px',
-                    textAlign: 'left',
-                    fontWeight: 700,
-                    fontSize: '1.08rem',
-                    color: 'var(--brand-forest-900)',
-                    minHeight: '48px',
-                  }}
-                >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <HelpCircle size={22} color="var(--gold-700)" style={{ flexShrink: 0 }} aria-hidden="true" />
-                    {faq.q}
-                  </span>
-                  <ChevronDown
-                    size={22}
-                    aria-hidden="true"
-                    style={{
-                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.25s ease',
-                      flexShrink: 0,
-                      color: 'var(--brand-forest-700)',
-                    }}
-                  />
-                </button>
-
-                {isOpen && (
-                  <div
-                    id={panelId}
-                    role="region"
-                    aria-labelledby={buttonId}
-                    style={{
-                      padding: '0 26px 24px 60px',
-                      fontSize: '1rem',
-                      color: 'var(--text-body)',
-                      lineHeight: 1.7,
-                      borderTop: '1px solid var(--border-cream-light)',
-                      paddingTop: '18px',
-                    }}
-                  >
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <FaqAccordion faqs={faqs} />
       </section>
     </div>
   );
