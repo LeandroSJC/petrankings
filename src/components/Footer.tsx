@@ -45,7 +45,7 @@ export default function Footer() {
               </div>
               <span
                 style={{
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-heading)',
                   fontSize: '1.45rem',
                   fontWeight: 800,
                   color: '#ffffff',
@@ -63,7 +63,7 @@ export default function Footer() {
           <nav aria-label="Navegação do rodapé">
             <h2
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: 'var(--font-heading)',
                 fontSize: '1.2rem',
                 color: '#ffffff',
                 marginBottom: '20px',
@@ -105,7 +105,7 @@ export default function Footer() {
           <div>
             <h2
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: 'var(--font-heading)',
                 fontSize: '1.2rem',
                 color: '#ffffff',
                 marginBottom: '20px',

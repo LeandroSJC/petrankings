@@ -169,7 +169,7 @@ export default function SobrePage() {
                   fontWeight: 800,
                   fontSize: '1.05rem',
                   flexShrink: 0,
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-display)',
                   boxShadow: 'var(--shadow-xs)',
                 }}
               >
@@ -200,7 +200,7 @@ export default function SobrePage() {
                   fontWeight: 800,
                   fontSize: '1.05rem',
                   flexShrink: 0,
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-display)',
                   boxShadow: 'var(--shadow-xs)',
                 }}
               >
@@ -231,7 +231,7 @@ export default function SobrePage() {
                   fontWeight: 800,
                   fontSize: '1.05rem',
                   flexShrink: 0,
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-display)',
                   boxShadow: 'var(--shadow-xs)',
                 }}
               >
@@ -262,7 +262,7 @@ export default function SobrePage() {
                   fontWeight: 800,
                   fontSize: '1.05rem',
                   flexShrink: 0,
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-display)',
                   boxShadow: 'var(--shadow-xs)',
                 }}
               >
@@ -293,7 +293,7 @@ export default function SobrePage() {
                   fontWeight: 800,
                   fontSize: '1.05rem',
                   flexShrink: 0,
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-display)',
                   boxShadow: 'var(--shadow-xs)',
                 }}
               >

@@ -76,7 +76,7 @@ export default function AdminNav() {
           >
             <ShieldCheck size={18} />
           </div>
-          <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', fontWeight: 700 }}>
+          <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: 800 }}>
             Painel PetRankings
           </span>
         </Link>

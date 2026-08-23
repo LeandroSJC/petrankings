@@ -287,7 +287,7 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
             >
               <span
                 style={{
-                  fontFamily: 'var(--font-serif)',
+                  fontFamily: 'var(--font-display)',
                   fontSize: '1.45rem',
                   fontWeight: 800,
                   color: 'var(--brand-forest-900)',

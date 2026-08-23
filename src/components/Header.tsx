@@ -92,7 +92,7 @@ export default function Header() {
           <div>
             <span
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: 'var(--font-heading)',
                 fontSize: '1.55rem',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
@@ -243,7 +243,7 @@ export default function Header() {
                 </div>
                 <span
                   style={{
-                    fontFamily: 'var(--font-serif)',
+                    fontFamily: 'var(--font-heading)',
                     fontSize: '1.3rem',
                     fontWeight: 800,
                     color: 'var(--brand-forest-900)',
