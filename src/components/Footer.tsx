@@ -98,6 +98,11 @@ export default function Footer() {
                   Fale com a Nossa Equipe
                 </Link>
               </li>
+              <li>
+                <Link href="/politica-de-privacidade" className="footer-link">
+                  Política de Privacidade e Cookies
+                </Link>
+              </li>
             </ul>
           </nav>
 
