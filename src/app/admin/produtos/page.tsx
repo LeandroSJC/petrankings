@@ -1296,8 +1296,8 @@ function AdminProductsContent() {
                           Cole a URL da Imagem (da loja online ou fabricante):
                         </label>
                         <input
-                          type="url"
-                          placeholder="https://images.petlove.com.br/... ou https://m.media-amazon.com/..."
+                          type="text"
+                          placeholder="https://images.petlove.com.br/... ou /uploads/..."
                           value={productForm.imageUrl}
                           onChange={(e) => setProductForm({ ...productForm, imageUrl: e.target.value })}
                           style={{
