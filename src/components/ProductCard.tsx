@@ -349,21 +349,24 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
         )}
       </div>
 
-      {/* 5. Última Atualização no Rodapé do Card */}
+      {/* 5. Última Atualização no Rodapé do Card (Alinhado à Direita) */}
       <div
         style={{
           borderTop: '1px solid var(--border-cream-light)',
-          paddingTop: '16px',
+          paddingTop: '14px',
           marginTop: 'auto',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
+          gap: '6px',
           fontSize: '0.82rem',
           color: 'var(--text-muted)',
+          flexWrap: 'wrap',
+          textAlign: 'right',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Clock size={14} color="var(--brand-forest-700)" aria-hidden="true" />
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+          <Clock size={13} color="var(--brand-forest-700)" aria-hidden="true" />
           <span>Última conferência de notas:</span>
         </div>
         <strong style={{ color: 'var(--brand-forest-900)' }}>
