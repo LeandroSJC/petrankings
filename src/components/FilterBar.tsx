@@ -77,20 +77,7 @@ export default function FilterBar({
               onSelectSpecies('todos');
               onSelectType('todos');
             }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '9px 20px',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.9rem',
-              fontWeight: selectedSpecies === 'todos' ? 800 : 600,
-              backgroundColor: selectedSpecies === 'todos' ? 'var(--brand-forest-900)' : 'transparent',
-              color: selectedSpecies === 'todos' ? '#ffffff' : 'var(--text-body)',
-              boxShadow: selectedSpecies === 'todos' ? 'var(--shadow-sm)' : 'none',
-              transition: 'var(--transition-fast)',
-              minHeight: '44px',
-            }}
+            className={`filter-tab ${selectedSpecies === 'todos' ? 'filter-tab-active-todos' : ''}`}
             aria-pressed={selectedSpecies === 'todos'}
           >
             <Sparkles size={16} color={selectedSpecies === 'todos' ? 'var(--gold-400)' : 'currentColor'} aria-hidden="true" />
@@ -102,20 +89,7 @@ export default function FilterBar({
               onSelectSpecies('caes');
               onSelectType('todos');
             }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '9px 20px',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.9rem',
-              fontWeight: selectedSpecies === 'caes' ? 800 : 600,
-              backgroundColor: selectedSpecies === 'caes' ? 'var(--dog-accent-solid)' : 'transparent',
-              color: selectedSpecies === 'caes' ? '#ffffff' : 'var(--dog-accent-text)',
-              boxShadow: selectedSpecies === 'caes' ? '0 3px 10px rgba(180, 83, 9, 0.3)' : 'none',
-              transition: 'var(--transition-fast)',
-              minHeight: '44px',
-            }}
+            className={`filter-tab ${selectedSpecies === 'caes' ? 'filter-tab-active-caes' : ''}`}
             aria-pressed={selectedSpecies === 'caes'}
           >
             <Dog size={17} aria-hidden="true" />
@@ -127,20 +101,7 @@ export default function FilterBar({
               onSelectSpecies('gatos');
               onSelectType('todos');
             }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '9px 20px',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.9rem',
-              fontWeight: selectedSpecies === 'gatos' ? 800 : 600,
-              backgroundColor: selectedSpecies === 'gatos' ? 'var(--cat-accent-solid)' : 'transparent',
-              color: selectedSpecies === 'gatos' ? '#ffffff' : 'var(--cat-accent-text)',
-              boxShadow: selectedSpecies === 'gatos' ? '0 3px 10px rgba(67, 56, 202, 0.3)' : 'none',
-              transition: 'var(--transition-fast)',
-              minHeight: '44px',
-            }}
+            className={`filter-tab ${selectedSpecies === 'gatos' ? 'filter-tab-active-gatos' : ''}`}
             aria-pressed={selectedSpecies === 'gatos'}
           >
             <Cat size={17} aria-hidden="true" />
@@ -178,18 +139,7 @@ export default function FilterBar({
           <button
             onClick={() => onSelectType('todos')}
             aria-pressed={selectedType === 'todos'}
-            style={{
-              padding: '8px 16px',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.88rem',
-              fontWeight: selectedType === 'todos' ? 800 : 600,
-              backgroundColor: selectedType === 'todos' ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
-              color: selectedType === 'todos' ? '#ffffff' : 'var(--text-body)',
-              border: selectedType === 'todos' ? '1.5px solid var(--brand-forest-900)' : '1.5px solid var(--border-cream)',
-              boxShadow: selectedType === 'todos' ? 'var(--shadow-sm)' : 'none',
-              transition: 'var(--transition-fast)',
-              minHeight: '38px',
-            }}
+            className={`filter-chip ${selectedType === 'todos' ? 'filter-chip-active' : ''}`}
           >
             Tudo em destaque ({availableTypes.length})
           </button>
@@ -201,18 +151,7 @@ export default function FilterBar({
                 key={type}
                 onClick={() => onSelectType(type)}
                 aria-pressed={isSelected}
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '0.88rem',
-                  fontWeight: isSelected ? 800 : 600,
-                  backgroundColor: isSelected ? 'var(--brand-forest-800)' : '#ffffff',
-                  color: isSelected ? '#ffffff' : 'var(--text-body)',
-                  border: isSelected ? '1.5px solid var(--brand-forest-900)' : '1.5px solid var(--border-cream)',
-                  boxShadow: isSelected ? 'var(--shadow-sm)' : 'none',
-                  transition: 'var(--transition-fast)',
-                  minHeight: '38px',
-                }}
+                className={`filter-chip ${isSelected ? 'filter-chip-active' : ''}`}
               >
                 {type}
               </button>
