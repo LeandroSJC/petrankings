@@ -27,7 +27,7 @@ const outfit = Outfit({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
-const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-2889031150261887';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -78,6 +78,9 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  other: {
+    'google-adsense-account': 'ca-pub-2889031150261887',
   },
 };
 

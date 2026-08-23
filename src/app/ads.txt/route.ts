@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
  * Retorna a linha de autorização para rastreamento de anúncios programáticos.
  */
 export async function GET() {
-  const rawClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'pub-0000000000000000';
+  const rawClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-2889031150261887';
   const publisherId = rawClientId.replace(/^ca-/, '');
 
   const content = `# PetRankings Google AdSense Authorized Digital Sellers
