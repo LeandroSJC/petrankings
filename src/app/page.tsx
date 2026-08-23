@@ -175,20 +175,6 @@ export default async function HomePage() {
                 <a
                   href="#rankings-section"
                   className="hero-primary-btn"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    backgroundColor: 'var(--brand-forest-800)',
-                    color: '#ffffff',
-                    padding: '16px 32px',
-                    borderRadius: 'var(--radius-full)',
-                    fontWeight: 700,
-                    fontSize: '1rem',
-                    boxShadow: 'var(--shadow-emerald)',
-                    transition: 'var(--transition)',
-                    minHeight: '48px',
-                  }}
                 >
                   <span>Explorar Rankings com Amor 🐾</span>
                   <ChevronRight size={18} aria-hidden="true" />
@@ -197,20 +183,6 @@ export default async function HomePage() {
                 <Link
                   href="/sobre#como-calculamos"
                   className="hero-secondary-btn"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    backgroundColor: 'var(--bg-cream-subtle)',
-                    color: 'var(--brand-forest-900)',
-                    padding: '16px 28px',
-                    borderRadius: 'var(--radius-full)',
-                    fontWeight: 700,
-                    fontSize: '0.98rem',
-                    border: '1.5px solid var(--border-cream)',
-                    transition: 'var(--transition)',
-                    minHeight: '48px',
-                  }}
                 >
                   <span>Como Avaliamos</span>
                 </Link>
