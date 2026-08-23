@@ -1,9 +1,28 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { Playfair_Display, Plus_Jakarta_Sans, Outfit } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ToastProvider } from '@/components/Toast';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-heading',
+  display: 'swap',
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
@@ -72,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${playfair.variable} ${plusJakarta.variable} ${outfit.variable}`}>
       <head>
         {adsenseClientId && (
           <Script

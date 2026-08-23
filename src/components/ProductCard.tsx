@@ -378,40 +378,6 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
         isOpen={isLightboxOpen}
         onClose={() => setIsLightboxOpen(false)}
       />
-
-      <style jsx>{`
-        :global(.product-top-grid) {
-          grid-template-columns: 1fr;
-          gap: 20px;
-        }
-        @media (min-width: 600px) {
-          :global(.product-top-grid) {
-            grid-template-columns: 180px 1fr !important;
-            gap: 28px !important;
-            align-items: start;
-          }
-        }
-        @media (min-width: 900px) {
-          :global(.product-top-grid) {
-            grid-template-columns: 200px 1fr !important;
-          }
-        }
-        :global(.product-img-box:hover) {
-          border-color: var(--gold-500) !important;
-          box-shadow: var(--shadow-md) !important;
-        }
-        :global(.product-img-hover):hover {
-          transform: scale(1.08);
-        }
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 0.6;
-          }
-          50% {
-            opacity: 0.3;
-          }
-        }
-      `}</style>
     </article>
   );
 }

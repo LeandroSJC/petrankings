@@ -124,7 +124,6 @@ export default function Header() {
         <nav
           aria-label="Navegação principal"
           style={{
-            display: 'none',
             alignItems: 'center',
             gap: '10px',
           }}
@@ -177,7 +176,6 @@ export default function Header() {
           aria-controls="mobile-navigation-drawer"
           className="mobile-menu-btn"
           style={{
-            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             width: '44px',
@@ -324,29 +322,6 @@ export default function Header() {
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        @media (min-width: 768px) {
-          :global(.desktop-nav) {
-            display: flex !important;
-          }
-          :global(.mobile-menu-btn) {
-            display: none !important;
-          }
-        }
-        :global(.nav-link-hover:hover) {
-          color: var(--brand-forest-900) !important;
-          background-color: var(--bg-cream-subtle) !important;
-        }
-        @keyframes drawerSlide {
-          from {
-            transform: translateX(100%);
-          }
-          to {
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </header>
   );
 }

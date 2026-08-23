@@ -161,24 +161,6 @@ export default function ImageLightbox({ src, alt, isOpen, onClose }: ImageLightb
           {alt}
         </p>
       </div>
-
-      <style jsx>{`
-        :global(.lightbox-close-btn:hover) {
-          background-color: var(--brand-forest-800) !important;
-          color: #ffffff !important;
-          transform: rotate(90deg);
-        }
-        @keyframes lightboxFadeIn {
-          from {
-            opacity: 0;
-            transform: scale(0.97);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-      `}</style>
     </div>
   );
 

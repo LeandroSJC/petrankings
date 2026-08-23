@@ -969,40 +969,6 @@ export default function HomePage() {
           })}
         </div>
       </section>
-
-      <style jsx>{`
-        :global(.hero-primary-btn:hover) {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 28px rgba(15, 54, 35, 0.35) !important;
-          background-color: var(--brand-forest-700) !important;
-        }
-        :global(.hero-secondary-btn:hover) {
-          background-color: #ffffff !important;
-          border-color: var(--gold-600) !important;
-          transform: translateY(-2px);
-        }
-        :global(.mascot-card:hover) {
-          transform: translateY(-6px) scale(1.02) !important;
-          box-shadow: 0 24px 48px rgba(8, 33, 21, 0.18) !important;
-        }
-        :global(.ranking-card:hover) {
-          transform: translateY(-3px);
-          box-shadow: var(--shadow-hover);
-          border-color: var(--gold-600);
-        }
-        :global(.ranking-cta-btn:hover) {
-          background-color: var(--brand-forest-800) !important;
-          color: #ffffff !important;
-          border-color: var(--brand-forest-800) !important;
-        }
-        :global(.animate-spin) {
-          animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }

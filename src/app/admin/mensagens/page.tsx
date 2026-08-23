@@ -501,13 +501,6 @@ export default function AdminMessagesPage() {
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        :global(.message-row:hover) {
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-md);
-        }
-      `}</style>
     </div>
   );
 }
