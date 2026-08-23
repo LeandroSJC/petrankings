@@ -1241,23 +1241,128 @@ function AdminProductsContent() {
                   />
                 </div>
 
-                {/* Upload de Imagem */}
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                    Imagem do Produto (Máx 5 MB, JPG/PNG/WebP)
-                  </label>
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <input
-                      type="file"
-                      accept="image/jpeg,image/png,image/webp,image/avif"
-                      onChange={handleImageUpload}
-                      disabled={uploadingImage}
-                      style={{ fontSize: '0.85rem' }}
-                    />
-                    {uploadingImage && <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Enviando foto...</span>}
+                {/* Seção de Imagem do Produto com URL Direta, Upload e Preview */}
+                <div style={{ backgroundColor: 'var(--bg-cream-subtle)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-cream)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <label style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
+                      Foto do Produto
+                    </label>
                     {productForm.imageUrl && (
-                      <span style={{ fontSize: '0.8rem', color: 'var(--brand-forest-700)', fontWeight: 600 }}>✓ Imagem configurada</span>
+                      <span style={{ fontSize: '0.78rem', color: 'var(--brand-forest-700)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <CheckCircle2 size={13} color="var(--brand-forest-600)" /> Imagem ativa
+                      </span>
                     )}
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                    {/* Preview Visual da Imagem */}
+                    <div
+                      style={{
+                        width: '84px',
+                        height: '84px',
+                        borderRadius: 'var(--radius-sm)',
+                        border: '1.5px solid var(--border-cream)',
+                        backgroundColor: '#ffffff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        flexShrink: 0,
+                        boxShadow: 'var(--shadow-xs)',
+                      }}
+                    >
+                      {productForm.imageUrl ? (
+                        <Image
+                          src={productForm.imageUrl}
+                          alt="Pré-visualização do produto"
+                          fill
+                          sizes="84px"
+                          style={{ objectFit: 'contain', padding: '4px' }}
+                        />
+                      ) : (
+                        <div style={{ textAlign: 'center', color: 'var(--text-subtle)', fontSize: '0.72rem' }}>
+                          <Package size={28} color="#94a3b8" style={{ margin: '0 auto 2px auto' }} />
+                          <span>Sem foto</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Controles de URL e Upload */}
+                    <div style={{ flex: 1, minWidth: '240px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {/* Opção 1: Colar URL Direta */}
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                          Cole a URL da Imagem (da loja online ou fabricante):
+                        </label>
+                        <input
+                          type="url"
+                          placeholder="https://images.petlove.com.br/... ou https://m.media-amazon.com/..."
+                          value={productForm.imageUrl}
+                          onChange={(e) => setProductForm({ ...productForm, imageUrl: e.target.value })}
+                          style={{
+                            width: '100%',
+                            padding: '8px 12px',
+                            borderRadius: 'var(--radius-sm)',
+                            border: '1px solid var(--border-cream)',
+                            fontSize: '0.85rem',
+                            backgroundColor: '#ffffff',
+                          }}
+                        />
+                      </div>
+
+                      {/* Opção 2: Ou fazer Upload de Arquivo Local */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                        <label
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            backgroundColor: '#ffffff',
+                            color: 'var(--brand-forest-800)',
+                            border: '1px solid var(--brand-forest-300)',
+                            padding: '6px 12px',
+                            borderRadius: 'var(--radius-sm)',
+                            fontSize: '0.82rem',
+                            fontWeight: 600,
+                            cursor: uploadingImage ? 'not-allowed' : 'pointer',
+                            boxShadow: 'var(--shadow-xs)',
+                          }}
+                        >
+                          <Upload size={14} />
+                          <span>{uploadingImage ? 'Enviando foto...' : 'Escolher arquivo do computador'}</span>
+                          <input
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp,image/avif"
+                            onChange={handleImageUpload}
+                            disabled={uploadingImage}
+                            style={{ display: 'none' }}
+                          />
+                        </label>
+
+                        {productForm.imageUrl && (
+                          <button
+                            type="button"
+                            onClick={() => setProductForm({ ...productForm, imageUrl: '' })}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              color: '#ef4444',
+                              backgroundColor: 'transparent',
+                              border: 'none',
+                              fontSize: '0.8rem',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              padding: '4px 8px',
+                            }}
+                          >
+                            <Trash2 size={13} />
+                            <span>Remover foto</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
