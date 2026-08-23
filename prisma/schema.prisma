@@ -72,6 +72,7 @@ model RankingProduct {
   product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
 
   @@unique([rankingId, productId])
+  @@index([productId])
 }
 
 model ContactMessage {
@@ -89,4 +90,6 @@ model ContactRateLimit {
   id        String   @id @default(cuid())
   email     String
   createdAt DateTime @default(now())
+
+  @@index([email])
 }
