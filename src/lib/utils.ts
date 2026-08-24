@@ -1,3 +1,5 @@
+export const SITE_URL = 'https://petrankings.com.br';
+
 export function slugify(text: string): string {
   return text
     .toString()

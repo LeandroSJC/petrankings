@@ -1,13 +1,16 @@
 import type { MetadataRoute } from 'next';
 import prisma from '@/lib/prisma';
+import { SITE_URL } from '@/lib/utils';
+
+export const revalidate = 3600; // Revalida o sitemap a cada 1 hora
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
+  const siteUrl = SITE_URL;
 
   // 1. Páginas estáticas principais
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: `${siteUrl}/`,
+      url: `${siteUrl}`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
@@ -16,13 +19,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteUrl}/sobre`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.5,
+      priority: 0.6,
     },
     {
       url: `${siteUrl}/contato`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5,
+    },
+    {
+      url: `${siteUrl}/politica-de-privacidade`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.4,
     },
   ];
 

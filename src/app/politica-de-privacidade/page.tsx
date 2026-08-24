@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Shield, Cookie, ArrowLeft } from 'lucide-react';
@@ -81,7 +81,7 @@ export default function PoliticaPrivacidadePage() {
               1. Visão Geral e Compromisso com sua Privacidade
             </h2>
             <p>
-              O <strong>PetRankings</strong> (acessível em <a href="https://petrankings.vercel.app" style={{ color: 'var(--brand-forest-800)', fontWeight: 600 }}>https://petrankings.vercel.app</a>) tem o compromisso de proteger a privacidade e os dados pessoais de todos os tutores e visitantes que utilizam nossa plataforma editorial de comparação de produtos para cães e gatos.
+              O <strong>PetRankings</strong> (acessível em <a href="https://petrankings.com.br" style={{ color: 'var(--brand-forest-800)', fontWeight: 600 }}>https://petrankings.com.br</a>) tem o compromisso de proteger a privacidade e os dados pessoais de todos os tutores e visitantes que utilizam nossa plataforma editorial de comparação de produtos para cães e gatos.
             </p>
             <p style={{ marginTop: '10px' }}>
               Esta Política de Privacidade está em total conformidade com a <strong>LGPD (Lei Geral de Proteção de Dados - Lei nº 13.709/2018)</strong> no Brasil e com o <strong>GDPR (Regulamento Geral sobre a Proteção de Dados)</strong> da União Europeia.

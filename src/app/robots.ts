@@ -1,13 +1,14 @@
 import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/utils';
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
+  const siteUrl = SITE_URL;
 
   return {
     rules: [
       {
         userAgent: '*',
-        allow: ['/', '/ranking/', '/sobre', '/contato'],
+        allow: ['/', '/ranking/', '/sobre', '/contato', '/politica-de-privacidade'],
         disallow: ['/admin/', '/api/'],
       },
     ],

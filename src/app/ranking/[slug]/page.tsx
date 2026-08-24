@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Award, ShieldCheck, Sparkles } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { sortRankingProducts } from '@/lib/ranking-engine';
+import { SITE_URL } from '@/lib/utils';
 import ProductCard from '@/components/ProductCard';
 import AdPlaceholder from '@/components/AdPlaceholder';
 import type { Metadata } from 'next';
@@ -36,7 +37,7 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
+  const siteUrl = SITE_URL;
   const canonicalUrl = `${siteUrl}/ranking/${ranking.slug}`;
   const speciesLabel = ranking.species === 'caes' ? 'cães' : 'gatos';
   const productCount = ranking.products.length;
@@ -134,7 +135,7 @@ export default async function RankingDetailPage({
   const rawProducts = ranking.products.map((rp) => rp.product);
   const sortedProducts = sortRankingProducts(rawProducts);
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
+  const siteUrl = SITE_URL;
   const canonicalUrl = `${siteUrl}/ranking/${ranking.slug}`;
 
   // Structured Data: BreadcrumbList (Schema.org)

@@ -5,6 +5,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ToastProvider } from '@/components/Toast';
+import { SITE_URL } from '@/lib/utils';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,7 +27,7 @@ const outfit = Outfit({
   weight: ['600', '700', '800', '900'],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
+const siteUrl = SITE_URL;
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-2889031150261887';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'bmf06L8G62Qwe_rb5epMccxaUByc1ICghJ9MdrW10qU';
 
