@@ -79,7 +79,7 @@ export default async function AdminDashboardPage() {
 
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             <Link
-              href="/admin/produtos"
+              href="/admin/produtos/novo"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -93,8 +93,47 @@ export default async function AdminDashboardPage() {
                 transition: 'var(--transition)',
               }}
             >
+              <Plus size={16} />
+              <span>Novo Produto</span>
+            </Link>
+
+            <Link
+              href="/admin/rankings/novo"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                backgroundColor: 'var(--gold-500)',
+                color: '#453300',
+                padding: '10px 18px',
+                borderRadius: 'var(--radius-full)',
+                fontWeight: 700,
+                fontSize: '0.88rem',
+                transition: 'var(--transition)',
+              }}
+            >
+              <Plus size={16} />
+              <span>Novo Ranking</span>
+            </Link>
+
+            <Link
+              href="/admin/produtos"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                backgroundColor: '#ffffff',
+                color: 'var(--brand-forest-900)',
+                padding: '10px 18px',
+                borderRadius: 'var(--radius-full)',
+                fontWeight: 600,
+                fontSize: '0.88rem',
+                border: '1px solid var(--border-cream)',
+                transition: 'var(--transition)',
+              }}
+            >
               <Package size={16} />
-              <span>Gerenciar Produtos</span>
+              <span>Catálogo</span>
             </Link>
 
             <Link

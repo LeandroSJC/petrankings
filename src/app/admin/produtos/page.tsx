@@ -1,15 +1,16 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import {
   Package, Plus, Edit2, Star, Link as LinkIcon, Trash2,
-  RefreshCw, AlertTriangle, AlertCircle, ExternalLink, CheckCircle2,
-  Upload, X, Check, Search, Filter, ShieldAlert, Download, FileSpreadsheet, FileDown, FileUp
+  AlertTriangle, AlertCircle, ExternalLink,
+  Upload, X, Search, Filter, Download, FileSpreadsheet, FileDown, FileUp
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
-import { formatDate, formatShortDate, isOlderThanDays, VALID_STORES, StoreKey, getStoreInfo } from '@/lib/utils';
+import { formatDate, isOlderThanDays, VALID_STORES, getStoreInfo } from '@/lib/utils';
 import { parseCsv, serializeToCsv, downloadCsvFile, PRODUCT_CSV_HEADERS, PRODUCT_CSV_TEMPLATE, ParsedCsvRow } from '@/lib/csv-helper';
 
 interface ProductItem {
@@ -58,40 +59,20 @@ function AdminProductsContent() {
   const [sortOrder, setSortOrder] = useState('recent'); // recent | oldest | unreviewed | name
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Modais
-  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<ProductItem | null>(null);
-
+  // Modal Rápido de Avaliações
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [reviewProduct, setReviewProduct] = useState<ProductItem | null>(null);
+  const [reviewForm, setReviewForm] = useState<Array<{ storeId: string; store: string; productUrl: string; rating: string; reviewCount: string }>>([]);
+  const [savingReviews, setSavingReviews] = useState(false);
 
+  // Modal Rápido de Vínculos
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [linkProduct, setLinkProduct] = useState<ProductItem | null>(null);
   const [linkedRankings, setLinkedRankings] = useState<Array<{ id: string; title: string; slug: string }>>([]);
   const [availableRankings, setAvailableRankings] = useState<Array<{ id: string; title: string; slug: string }>>([]);
   const [loadingLinks, setLoadingLinks] = useState(false);
 
-  // Form de Produto
-  const [productForm, setProductForm] = useState({
-    title: '',
-    species: 'caes',
-    productType: '',
-    brand: '',
-    description: '',
-    imageUrl: '',
-    stores: [
-      { store: 'amazon', productUrl: '', affiliateUrl: '', rating: '', reviewCount: '' },
-    ],
-  });
-  const [savingProduct, setSavingProduct] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const [productFormError, setProductFormError] = useState('');
-
-  // Form de Avaliações
-  const [reviewForm, setReviewForm] = useState<Array<{ storeId: string; store: string; productUrl: string; rating: string; reviewCount: string }>>([]);
-  const [savingReviews, setSavingReviews] = useState(false);
-
-  // Média aritmética calculada em tempo real no cliente
+  // Média aritmética calculada em tempo real no modal rápido
   const liveAverage = useMemo(() => {
     const validRatings = reviewForm
       .map((rf) => parseFloat(rf.rating))
@@ -114,7 +95,7 @@ function AdminProductsContent() {
     showToast('Modelo de planilha CSV baixado com sucesso!', 'info');
   };
 
-  // Exportação do Catálogo para CSV em conformidade total com o modelo de importação
+  // Exportação do Catálogo para CSV
   const exportProductsToCsv = () => {
     if (products.length === 0) {
       showToast('Nenhum produto para exportar', 'info');
@@ -250,7 +231,6 @@ function AdminProductsContent() {
         setProducts(data.products);
         setNeedsReviewCount(data.needsReviewCount || 0);
 
-        // Se veio query param para abrir modal de review
         if (editReviewParam) {
           const target = data.products.find((p: ProductItem) => p.id === editReviewParam);
           if (target) {
@@ -275,142 +255,12 @@ function AdminProductsContent() {
     fetchProducts();
   };
 
-  // Tipos disponíveis para o filtro
   const availableTypes = useMemo(() => {
     const relevant = selectedSpecies === 'todos' ? products : products.filter((p) => p.species === selectedSpecies);
     return Array.from(new Set(relevant.map((p) => p.productType))).filter(Boolean);
   }, [products, selectedSpecies]);
 
-  // Modal Produto: Abrir Novo
-  const openCreateProduct = () => {
-    setEditingProduct(null);
-    setProductForm({
-      title: '',
-      species: 'caes',
-      productType: '',
-      brand: '',
-      description: '',
-      imageUrl: '',
-      stores: [
-        { store: 'amazon', productUrl: '', affiliateUrl: '', rating: '', reviewCount: '' },
-      ],
-    });
-    setProductFormError('');
-    setIsProductModalOpen(true);
-  };
-
-  // Modal Produto: Abrir Edição
-  const openEditProduct = (prod: ProductItem) => {
-    setEditingProduct(prod);
-    setProductForm({
-      title: prod.title,
-      species: prod.species,
-      productType: prod.productType,
-      brand: prod.brand || '',
-      description: prod.description || '',
-      imageUrl: prod.imageUrl || '',
-      stores: prod.stores.map((s) => ({
-        store: s.store,
-        productUrl: s.productUrl,
-        affiliateUrl: s.affiliateUrl || '',
-        rating: s.rating !== null && s.rating !== undefined ? s.rating.toString() : '',
-        reviewCount: s.reviewCount !== null && s.reviewCount !== undefined ? s.reviewCount.toString() : '',
-      })),
-    });
-    setProductFormError('');
-    setIsProductModalOpen(true);
-  };
-
-  // Upload de Imagem
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 5 * 1024 * 1024) {
-      showToast('A imagem deve ter no máximo 5 MB.', 'error');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    setUploadingImage(true);
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        showToast(data.error || 'Erro no upload', 'error');
-        return;
-      }
-      setProductForm((prev) => ({ ...prev, imageUrl: data.url }));
-      showToast('Imagem carregada com sucesso!', 'success');
-    } catch {
-      showToast('Falha no upload da imagem', 'error');
-    } finally {
-      setUploadingImage(false);
-    }
-  };
-
-  // Salvar Produto
-  const handleSaveProduct = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setProductFormError('');
-
-    if (productForm.title.trim().length < 3 || productForm.title.trim().length > 220) {
-      setProductFormError('O título deve conter entre 3 e 220 caracteres.');
-      return;
-    }
-    if (productForm.productType.trim().length < 2 || productForm.productType.trim().length > 120) {
-      setProductFormError('O tipo de produto deve conter entre 2 e 120 caracteres.');
-      return;
-    }
-
-    if (productForm.stores.length === 0) {
-      setProductFormError('Adicione ao menos uma loja participante.');
-      return;
-    }
-
-    for (const st of productForm.stores) {
-      if (!st.productUrl.trim()) {
-        setProductFormError(`Informe a URL do produto para a loja ${st.store}.`);
-        return;
-      }
-    }
-
-    setSavingProduct(true);
-    try {
-      const url = editingProduct ? `/api/products/${editingProduct.id}` : '/api/products';
-      const method = editingProduct ? 'PUT' : 'POST';
-
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(productForm),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setProductFormError(data.error || 'Erro ao salvar produto.');
-        showToast(data.error || 'Erro ao salvar', 'error');
-        return;
-      }
-
-      showToast(editingProduct ? 'Produto atualizado com sucesso!' : 'Produto cadastrado com sucesso!', 'success');
-      setIsProductModalOpen(false);
-      fetchProducts();
-    } catch (err) {
-      console.error(err);
-      setProductFormError('Erro ao conectar com o servidor.');
-    } finally {
-      setSavingProduct(false);
-    }
-  };
-
-  // Modal Avaliações: Abrir
+  // Modal Rápido de Avaliações
   const openReviewModal = (prod: ProductItem) => {
     setReviewProduct(prod);
     setReviewForm(
@@ -425,7 +275,6 @@ function AdminProductsContent() {
     setIsReviewModalOpen(true);
   };
 
-  // Salvar Avaliações Manuais
   const handleSaveReviews = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!reviewProduct) return;
@@ -445,7 +294,7 @@ function AdminProductsContent() {
         return;
       }
 
-      showToast('Avaliações salvas e média propagada para os rankings!', 'success');
+      showToast('Avaliações salvas e média recalculada com sucesso!', 'success');
       setIsReviewModalOpen(false);
       fetchProducts();
     } catch {
@@ -455,7 +304,7 @@ function AdminProductsContent() {
     }
   };
 
-  // Modal Vínculos: Abrir
+  // Modal Rápido de Vínculos
   const openLinkModal = async (prod: ProductItem) => {
     setLinkProduct(prod);
     setIsLinkModalOpen(true);
@@ -475,7 +324,6 @@ function AdminProductsContent() {
     }
   };
 
-  // Ação Vínculo: Adicionar / Remover
   const handleToggleLink = async (rankingId: string, action: 'link' | 'unlink') => {
     if (!linkProduct) return;
 
@@ -495,7 +343,6 @@ function AdminProductsContent() {
 
       showToast(action === 'link' ? 'Produto vinculado ao ranking!' : 'Vínculo removido com sucesso!', 'success');
 
-      // Atualizar lista modal
       const resUpdated = await fetch(`/api/products/${linkProduct.id}/rankings`);
       const dataUpdated = await resUpdated.json();
       if (dataUpdated) {
@@ -551,7 +398,7 @@ function AdminProductsContent() {
               Catálogo Central de Produtos
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-              Cadastre produtos, lance avaliações manuais por loja e controle os vínculos com os rankings compatíveis.
+              Cadastre produtos em tela cheia, lance avaliações por loja e controle os vínculos com os rankings compatíveis.
             </p>
           </div>
 
@@ -627,8 +474,9 @@ function AdminProductsContent() {
               <span>Exportar CSV</span>
             </button>
 
-            <button
-              onClick={openCreateProduct}
+            {/* Novo Produto -> Redireciona para /admin/produtos/novo */}
+            <Link
+              href="/admin/produtos/novo"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -640,15 +488,17 @@ function AdminProductsContent() {
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 boxShadow: 'var(--shadow-sm)',
+                textDecoration: 'none',
+                transition: 'var(--transition)',
               }}
             >
               <Plus size={18} />
               <span>Novo Produto</span>
-            </button>
+            </Link>
           </div>
         </div>
 
-        {/* Alerta de Produtos Desatualizados (>30 dias ou sem nota) - Seção 7.2 */}
+        {/* Alerta de Produtos Desatualizados */}
         {needsReviewCount > 0 && (
           <div
             style={{
@@ -685,6 +535,8 @@ function AdminProductsContent() {
                 borderRadius: 'var(--radius-full)',
                 fontSize: '0.82rem',
                 fontWeight: 700,
+                border: 'none',
+                cursor: 'pointer',
               }}
             >
               Filtrar Pendentes
@@ -700,167 +552,131 @@ function AdminProductsContent() {
             border: '1px solid var(--border-cream)',
             padding: '20px',
             marginBottom: '24px',
+            boxShadow: 'var(--shadow-sm)',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
-            boxShadow: 'var(--shadow-sm)',
           }}
         >
-          {/* Linha 1: Pesquisa e Ordenação */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-            <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '8px', flex: 1, minWidth: '260px', maxWidth: '480px' }}>
-              <div style={{ position: 'relative', width: '100%' }}>
-                <input
-                  type="text"
-                  placeholder="Buscar por título, marca ou categoria..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px 8px 36px',
-                    borderRadius: 'var(--radius-full)',
-                    border: '1px solid var(--border-cream)',
-                    fontSize: '0.88rem',
-                  }}
-                />
-                <Search size={16} color="var(--text-subtle)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
-              </div>
-              <button
-                type="submit"
-                style={{
-                  backgroundColor: 'var(--brand-forest-800)',
-                  color: '#ffffff',
-                  padding: '8px 16px',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                }}
-              >
-                Buscar
-              </button>
-            </form>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-muted)' }}>
-                Ordenar por:
-              </span>
-              <select
-                value={sortOrder}
-                onChange={(e) => setSortOrder(e.target.value)}
-                style={{
-                  padding: '8px 14px',
-                  borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--border-cream)',
-                  fontSize: '0.85rem',
-                  backgroundColor: '#ffffff',
-                  fontWeight: 600,
-                  color: 'var(--brand-forest-900)',
-                }}
-              >
-                <option value="recent">Última atualização: mais recente</option>
-                <option value="oldest">Última atualização: mais antiga</option>
-                <option value="unreviewed">Sem revisão primeiro</option>
-                <option value="name">Nome do produto (A-Z)</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Linha 2: Espécies e Tipos */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', borderTop: '1px solid var(--border-cream-light)', paddingTop: '12px' }}>
-            <span style={{ fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--brand-forest-800)' }}>
-              Filtro:
-            </span>
-
-            <div style={{ display: 'flex', gap: '6px' }}>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* Espécie */}
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <button
                 onClick={() => { setSelectedSpecies('todos'); setSelectedType('todos'); }}
                 style={{
-                  padding: '4px 12px',
+                  padding: '6px 14px',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.8rem',
-                  fontWeight: selectedSpecies === 'todos' ? 700 : 500,
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
                   backgroundColor: selectedSpecies === 'todos' ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
-                  color: selectedSpecies === 'todos' ? '#ffffff' : 'var(--text-main)',
+                  color: selectedSpecies === 'todos' ? '#ffffff' : 'var(--brand-forest-900)',
+                  border: '1px solid var(--border-cream)',
+                  cursor: 'pointer',
                 }}
               >
-                Todos
+                Todas as Espécies
               </button>
-
               <button
                 onClick={() => { setSelectedSpecies('caes'); setSelectedType('todos'); }}
                 style={{
-                  padding: '4px 12px',
+                  padding: '6px 14px',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.8rem',
-                  fontWeight: selectedSpecies === 'caes' ? 700 : 500,
-                  backgroundColor: selectedSpecies === 'caes' ? '#92400e' : '#fef3c7',
-                  color: selectedSpecies === 'caes' ? '#ffffff' : '#92400e',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  backgroundColor: selectedSpecies === 'caes' ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
+                  color: selectedSpecies === 'caes' ? '#ffffff' : 'var(--brand-forest-900)',
+                  border: '1px solid var(--border-cream)',
+                  cursor: 'pointer',
                 }}
               >
                 🐕 Cães
               </button>
-
               <button
                 onClick={() => { setSelectedSpecies('gatos'); setSelectedType('todos'); }}
                 style={{
-                  padding: '4px 12px',
+                  padding: '6px 14px',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.8rem',
-                  fontWeight: selectedSpecies === 'gatos' ? 700 : 500,
-                  backgroundColor: selectedSpecies === 'gatos' ? '#3730a3' : '#e0e7ff',
-                  color: selectedSpecies === 'gatos' ? '#ffffff' : '#3730a3',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  backgroundColor: selectedSpecies === 'gatos' ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
+                  color: selectedSpecies === 'gatos' ? '#ffffff' : 'var(--brand-forest-900)',
+                  border: '1px solid var(--border-cream)',
+                  cursor: 'pointer',
                 }}
               >
                 🐈 Gatos
               </button>
             </div>
 
+            {/* Ordenação */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-subtle)', fontWeight: 600 }}>Ordenar:</span>
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--border-cream)',
+                  fontSize: '0.82rem',
+                  backgroundColor: '#ffffff',
+                }}
+              >
+                <option value="recent">Mais Recentes</option>
+                <option value="oldest">Mais Antigos</option>
+                <option value="unreviewed">Pendentes de Revisão</option>
+                <option value="name">Ordem Alfabética</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Linha 2: Busca e Filtro de Tipo */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <form onSubmit={handleSearchSubmit} style={{ flex: 1, minWidth: '240px', position: 'relative' }}>
+              <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-subtle)' }} />
+              <input
+                type="text"
+                placeholder="Buscar por título, marca ou categoria..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '8px 12px 8px 36px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--border-cream)',
+                  fontSize: '0.88rem',
+                }}
+              />
+            </form>
+
             {availableTypes.length > 0 && (
-              <div style={{ display: 'flex', gap: '6px', marginLeft: 'auto', flexWrap: 'wrap' }}>
-                <button
-                  onClick={() => setSelectedType('todos')}
-                  style={{
-                    padding: '4px 10px',
-                    borderRadius: 'var(--radius-full)',
-                    fontSize: '0.78rem',
-                    fontWeight: selectedType === 'todos' ? 700 : 500,
-                    backgroundColor: selectedType === 'todos' ? 'var(--gold-500)' : 'transparent',
-                    color: selectedType === 'todos' ? '#453300' : 'var(--text-muted)',
-                    border: '1px solid var(--border-cream)',
-                  }}
-                >
-                  Todas categorias
-                </button>
+              <select
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                style={{
+                  padding: '8px 12px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--border-cream)',
+                  fontSize: '0.85rem',
+                  backgroundColor: '#ffffff',
+                }}
+              >
+                <option value="todos">Todos os Tipos ({availableTypes.length})</option>
                 {availableTypes.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setSelectedType(t)}
-                    style={{
-                      padding: '4px 10px',
-                      borderRadius: 'var(--radius-full)',
-                      fontSize: '0.78rem',
-                      fontWeight: selectedType === t ? 700 : 500,
-                      backgroundColor: selectedType === t ? 'var(--gold-500)' : 'transparent',
-                      color: selectedType === t ? '#453300' : 'var(--text-muted)',
-                      border: '1px solid var(--border-cream)',
-                    }}
-                  >
-                    {t}
-                  </button>
+                  <option key={t} value={t}>{t}</option>
                 ))}
-              </div>
+              </select>
             )}
           </div>
         </div>
 
-        {/* Lista de Produtos do Catálogo */}
+        {/* Listagem de Produtos */}
         {loading ? (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '64px', gap: '10px', color: 'var(--text-muted)' }}>
-            <RefreshCw size={20} className="animate-spin" />
-            <span>Carregando catálogo de produtos...</span>
+          <div style={{ textAlign: 'center', padding: '64px', color: 'var(--text-muted)' }}>
+            Carregando catálogo de produtos...
           </div>
         ) : products.length > 0 ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {products.map((prod) => {
               const needsReview = !prod.ratingUpdatedAt || isOlderThanDays(prod.ratingUpdatedAt, 30);
 
@@ -870,37 +686,47 @@ function AdminProductsContent() {
                   style={{
                     backgroundColor: '#ffffff',
                     borderRadius: 'var(--radius-lg)',
-                    border: needsReview ? '1px solid #fde68a' : '1px solid var(--border-cream)',
-                    padding: '20px',
+                    border: '1px solid var(--border-cream)',
+                    padding: '18px 24px',
+                    boxShadow: 'var(--shadow-xs)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '16px',
-                    boxShadow: 'var(--shadow-sm)',
+                    gap: '14px',
+                    transition: 'var(--transition)',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
-                    {/* Imagem + Info */}
-                    <div style={{ display: 'flex', gap: '16px', flex: 1, minWidth: '280px' }}>
-                      <div
+                    {/* Imagem e Dados Principais */}
+                    <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', flex: 1, minWidth: '280px' }}>
+                      <Link
+                        href={`/admin/produtos/${prod.id}/editar`}
                         style={{
-                          position: 'relative',
                           width: '72px',
                           height: '72px',
-                          borderRadius: 'var(--radius-md)',
+                          borderRadius: 'var(--radius-sm)',
                           border: '1px solid var(--border-cream)',
-                          overflow: 'hidden',
                           backgroundColor: '#ffffff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          position: 'relative',
+                          overflow: 'hidden',
                           flexShrink: 0,
+                          textDecoration: 'none',
                         }}
                       >
-                        <Image
-                          src={prod.imageUrl || (prod.species === 'caes' ? '/mascots/dog-mascot.jpg' : '/mascots/cat-mascot.jpg')}
-                          alt={prod.title}
-                          fill
-                          sizes="72px"
-                          style={{ objectFit: 'contain', padding: '4px' }}
-                        />
-                      </div>
+                        {prod.imageUrl ? (
+                          <Image
+                            src={prod.imageUrl}
+                            alt={prod.title}
+                            fill
+                            sizes="72px"
+                            style={{ objectFit: 'contain', padding: '4px' }}
+                          />
+                        ) : (
+                          <Package size={28} color="#94a3b8" />
+                        )}
+                      </Link>
 
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
@@ -917,12 +743,20 @@ function AdminProductsContent() {
                           )}
                         </div>
 
-                        <strong style={{ fontSize: '1.05rem', color: 'var(--brand-forest-900)' }}>
+                        <Link
+                          href={`/admin/produtos/${prod.id}/editar`}
+                          style={{
+                            fontSize: '1.05rem',
+                            color: 'var(--brand-forest-950)',
+                            fontWeight: 700,
+                            textDecoration: 'none',
+                          }}
+                        >
                           {prod.title}
-                        </strong>
+                        </Link>
 
                         {prod.description && (
-                          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', margin: 0 }}>
                             {prod.description}
                           </p>
                         )}
@@ -1010,7 +844,7 @@ function AdminProductsContent() {
 
                     {/* Botões de Ação */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      {/* Lançar Avaliações */}
+                      {/* Lançar Avaliações (Rápido) */}
                       <button
                         onClick={() => openReviewModal(prod)}
                         style={{
@@ -1023,13 +857,15 @@ function AdminProductsContent() {
                           borderRadius: 'var(--radius-full)',
                           fontSize: '0.8rem',
                           fontWeight: 700,
+                          border: 'none',
+                          cursor: 'pointer',
                         }}
                       >
                         <Star size={13} fill="#453300" />
                         <span>Lançar Avaliações</span>
                       </button>
 
-                      {/* Gerenciar Vínculos */}
+                      {/* Gerenciar Vínculos (Rápido) */}
                       <button
                         onClick={() => openLinkModal(prod)}
                         style={{
@@ -1043,28 +879,33 @@ function AdminProductsContent() {
                           fontSize: '0.8rem',
                           fontWeight: 600,
                           border: '1px solid var(--border-cream)',
+                          cursor: 'pointer',
                         }}
                       >
                         <LinkIcon size={13} />
                         <span>Vínculos</span>
                       </button>
 
-                      {/* Editar Produto */}
-                      <button
-                        onClick={() => openEditProduct(prod)}
-                        title="Editar Informações do Produto"
+                      {/* Editar Produto (Página Dedicada) */}
+                      <Link
+                        href={`/admin/produtos/${prod.id}/editar`}
+                        title="Editar Informações do Produto em Tela Dedicada"
                         style={{
                           padding: '6px 10px',
                           borderRadius: '6px',
                           backgroundColor: 'var(--bg-cream-subtle)',
                           color: 'var(--brand-forest-900)',
                           fontSize: '0.8rem',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          textDecoration: 'none',
+                          border: '1px solid var(--border-cream)',
                         }}
                       >
                         <Edit2 size={14} />
-                      </button>
+                      </Link>
 
-                      {/* Excluir Produto (com verificação de segurança) */}
+                      {/* Excluir Produto */}
                       <button
                         onClick={() => handleDeleteProduct(prod)}
                         title="Excluir Produto"
@@ -1074,6 +915,8 @@ function AdminProductsContent() {
                           backgroundColor: '#fef2f2',
                           color: '#ef4444',
                           fontSize: '0.8rem',
+                          border: '1px solid #fecaca',
+                          cursor: 'pointer',
                         }}
                       >
                         <Trash2 size={14} />
@@ -1091,415 +934,28 @@ function AdminProductsContent() {
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>
               Tente alterar os termos de busca ou cadastre um novo produto.
             </p>
-            <button
-              onClick={openCreateProduct}
+            <Link
+              href="/admin/produtos/novo"
               style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
                 backgroundColor: 'var(--brand-forest-800)',
                 color: '#ffffff',
                 padding: '8px 18px',
                 borderRadius: 'var(--radius-full)',
                 fontWeight: 700,
                 fontSize: '0.88rem',
+                textDecoration: 'none',
               }}
             >
-              Cadastrar Produto
-            </button>
+              <Plus size={16} />
+              <span>Cadastrar Produto</span>
+            </Link>
           </div>
         )}
 
-        {/* MODAL 1: CADASTRO / EDIÇÃO DE PRODUTO (Seção 7.3) */}
-        {isProductModalOpen && (
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              backgroundColor: 'rgba(6, 24, 16, 0.7)',
-              backdropFilter: 'blur(4px)',
-              zIndex: 1000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '20px',
-            }}
-            onClick={() => setIsProductModalOpen(false)}
-          >
-            <div
-              style={{
-                backgroundColor: '#ffffff',
-                borderRadius: 'var(--radius-lg)',
-                border: '1px solid var(--border-cream)',
-                padding: '32px',
-                maxWidth: '720px',
-                width: '100%',
-                maxHeight: '90vh',
-                overflowY: 'auto',
-                boxShadow: 'var(--shadow-lg)',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2 style={{ fontSize: '1.4rem', marginBottom: '6px' }}>
-                {editingProduct ? 'Editar Produto do Catálogo' : 'Novo Produto'}
-              </h2>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
-                Cadastre informações editoriais e ao menos uma loja vinculada.
-              </p>
-
-              {productFormError && (
-                <div
-                  style={{
-                    backgroundColor: '#fef2f2',
-                    border: '1px solid #fecaca',
-                    borderRadius: 'var(--radius-sm)',
-                    padding: '12px',
-                    color: '#991b1b',
-                    fontSize: '0.88rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <AlertCircle size={16} />
-                  <span>{productFormError}</span>
-                </div>
-              )}
-
-              <form onSubmit={handleSaveProduct} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                    Título do Produto * (3 a 220 caracteres)
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    minLength={3}
-                    maxLength={220}
-                    value={productForm.title}
-                    onChange={(e) => setProductForm({ ...productForm, title: e.target.value })}
-                    placeholder="Ex: Ração Royal Canin Maxi Adult Cães Adultos"
-                    style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-cream)', fontSize: '0.92rem' }}
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                      Espécie *
-                    </label>
-                    <select
-                      value={productForm.species}
-                      onChange={(e) => setProductForm({ ...productForm, species: e.target.value })}
-                      style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-cream)', fontSize: '0.92rem', backgroundColor: '#fff' }}
-                    >
-                      <option value="caes">Cães</option>
-                      <option value="gatos">Gatos</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                      Tipo de Produto *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      minLength={2}
-                      maxLength={120}
-                      value={productForm.productType}
-                      onChange={(e) => setProductForm({ ...productForm, productType: e.target.value })}
-                      placeholder="Ex: Ração seca, Areia"
-                      style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-cream)', fontSize: '0.92rem' }}
-                    />
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                      Marca (Opcional)
-                    </label>
-                    <input
-                      type="text"
-                      maxLength={120}
-                      value={productForm.brand}
-                      onChange={(e) => setProductForm({ ...productForm, brand: e.target.value })}
-                      placeholder="Ex: Royal Canin"
-                      style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-cream)', fontSize: '0.92rem' }}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                    Descrição Pública (Opcional, até 3.000 caracteres)
-                  </label>
-                  <textarea
-                    rows={3}
-                    maxLength={3000}
-                    value={productForm.description}
-                    onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
-                    placeholder="Descrição objetiva das características do produto..."
-                    style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-cream)', fontSize: '0.92rem', fontFamily: 'inherit' }}
-                  />
-                </div>
-
-                {/* Seção de Imagem do Produto com URL Direta, Upload e Preview */}
-                <div style={{ backgroundColor: 'var(--bg-cream-subtle)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-cream)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <label style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
-                      Foto do Produto
-                    </label>
-                    {productForm.imageUrl && (
-                      <span style={{ fontSize: '0.78rem', color: 'var(--brand-forest-700)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <CheckCircle2 size={13} color="var(--brand-forest-600)" /> Imagem ativa
-                      </span>
-                    )}
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                    {/* Preview Visual da Imagem */}
-                    <div
-                      style={{
-                        width: '84px',
-                        height: '84px',
-                        borderRadius: 'var(--radius-sm)',
-                        border: '1.5px solid var(--border-cream)',
-                        backgroundColor: '#ffffff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        flexShrink: 0,
-                        boxShadow: 'var(--shadow-xs)',
-                      }}
-                    >
-                      {productForm.imageUrl ? (
-                        <Image
-                          src={productForm.imageUrl}
-                          alt="Pré-visualização do produto"
-                          fill
-                          sizes="84px"
-                          style={{ objectFit: 'contain', padding: '4px' }}
-                        />
-                      ) : (
-                        <div style={{ textAlign: 'center', color: 'var(--text-subtle)', fontSize: '0.72rem' }}>
-                          <Package size={28} color="#94a3b8" style={{ margin: '0 auto 2px auto' }} />
-                          <span>Sem foto</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Controles de URL e Upload */}
-                    <div style={{ flex: 1, minWidth: '240px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      {/* Opção 1: Colar URL Direta */}
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
-                          Cole a URL da Imagem (da loja online ou fabricante):
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="https://images.petlove.com.br/... ou /uploads/..."
-                          value={productForm.imageUrl}
-                          onChange={(e) => setProductForm({ ...productForm, imageUrl: e.target.value })}
-                          style={{
-                            width: '100%',
-                            padding: '8px 12px',
-                            borderRadius: 'var(--radius-sm)',
-                            border: '1px solid var(--border-cream)',
-                            fontSize: '0.85rem',
-                            backgroundColor: '#ffffff',
-                          }}
-                        />
-                      </div>
-
-                      {/* Opção 2: Ou fazer Upload de Arquivo Local */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                        <label
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            backgroundColor: '#ffffff',
-                            color: 'var(--brand-forest-800)',
-                            border: '1px solid var(--brand-forest-300)',
-                            padding: '6px 12px',
-                            borderRadius: 'var(--radius-sm)',
-                            fontSize: '0.82rem',
-                            fontWeight: 600,
-                            cursor: uploadingImage ? 'not-allowed' : 'pointer',
-                            boxShadow: 'var(--shadow-xs)',
-                          }}
-                        >
-                          <Upload size={14} />
-                          <span>{uploadingImage ? 'Enviando foto...' : 'Escolher arquivo do computador'}</span>
-                          <input
-                            type="file"
-                            accept="image/jpeg,image/png,image/webp,image/avif"
-                            onChange={handleImageUpload}
-                            disabled={uploadingImage}
-                            style={{ display: 'none' }}
-                          />
-                        </label>
-
-                        {productForm.imageUrl && (
-                          <button
-                            type="button"
-                            onClick={() => setProductForm({ ...productForm, imageUrl: '' })}
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '4px',
-                              color: '#ef4444',
-                              backgroundColor: 'transparent',
-                              border: 'none',
-                              fontSize: '0.8rem',
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              padding: '4px 8px',
-                            }}
-                          >
-                            <Trash2 size={13} />
-                            <span>Remover foto</span>
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Lojas Vinculadas */}
-                <div style={{ borderTop: '1px solid var(--border-cream-light)', paddingTop: '16px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <strong style={{ fontSize: '0.95rem', color: 'var(--brand-forest-900)' }}>
-                      Lojas Vinculadas (Ao menos 1 loja obrigatória)
-                    </strong>
-
-                    {productForm.stores.length < VALID_STORES.length && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const existingKeys = productForm.stores.map((s) => s.store);
-                          const nextStore = VALID_STORES.find((k) => !existingKeys.includes(k)) || 'amazon';
-                          setProductForm({
-                            ...productForm,
-                            stores: [...productForm.stores, { store: nextStore, productUrl: '', affiliateUrl: '', rating: '', reviewCount: '' }],
-                          });
-                        }}
-                        style={{
-                          fontSize: '0.8rem',
-                          color: 'var(--brand-forest-800)',
-                          fontWeight: 700,
-                          backgroundColor: 'var(--brand-forest-50)',
-                          padding: '4px 10px',
-                          borderRadius: 'var(--radius-full)',
-                        }}
-                      >
-                        + Adicionar Loja
-                      </button>
-                    )}
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {productForm.stores.map((st, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          backgroundColor: 'var(--bg-cream-subtle)',
-                          padding: '14px',
-                          borderRadius: 'var(--radius-md)',
-                          border: '1px solid var(--border-cream)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '8px',
-                        }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                          <select
-                            value={st.store}
-                            onChange={(e) => {
-                              const updated = [...productForm.stores];
-                              updated[idx].store = e.target.value;
-                              setProductForm({ ...productForm, stores: updated });
-                            }}
-                            style={{ padding: '6px 10px', borderRadius: '4px', border: '1px solid var(--border-cream)', fontWeight: 700 }}
-                          >
-                            {VALID_STORES.map((k) => (
-                              <option key={k} value={k}>
-                                {getStoreInfo(k)?.name || k}
-                              </option>
-                            ))}
-                          </select>
-
-                          {productForm.stores.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const updated = productForm.stores.filter((_, i) => i !== idx);
-                                setProductForm({ ...productForm, stores: updated });
-                              }}
-                              style={{ color: '#ef4444', fontSize: '0.8rem', fontWeight: 600 }}
-                            >
-                              Remover loja
-                            </button>
-                          )}
-                        </div>
-
-                        <div>
-                          <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)' }}>URL do Produto *</label>
-                          <input
-                            type="url"
-                            required
-                            placeholder="https://..."
-                            value={st.productUrl}
-                            onChange={(e) => {
-                              const updated = [...productForm.stores];
-                              updated[idx].productUrl = e.target.value;
-                              setProductForm({ ...productForm, stores: updated });
-                            }}
-                            style={{ width: '100%', padding: '6px 10px', borderRadius: '4px', border: '1px solid var(--border-cream)', fontSize: '0.85rem' }}
-                          />
-                        </div>
-
-                        <div>
-                          <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)' }}>URL de Afiliado (Opcional - destino prioritário do botão)</label>
-                          <input
-                            type="url"
-                            placeholder="https://..."
-                            value={st.affiliateUrl}
-                            onChange={(e) => {
-                              const updated = [...productForm.stores];
-                              updated[idx].affiliateUrl = e.target.value;
-                              setProductForm({ ...productForm, stores: updated });
-                            }}
-                            style={{ width: '100%', padding: '6px 10px', borderRadius: '4px', border: '1px solid var(--border-cream)', fontSize: '0.85rem' }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '16px' }}>
-                  <button
-                    type="button"
-                    onClick={() => setIsProductModalOpen(false)}
-                    style={{ padding: '10px 20px', borderRadius: 'var(--radius-full)', border: '1px solid var(--border-cream)', fontWeight: 600, fontSize: '0.88rem' }}
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={savingProduct}
-                    style={{ padding: '10px 24px', borderRadius: 'var(--radius-full)', backgroundColor: 'var(--brand-forest-800)', color: '#ffffff', fontWeight: 700, fontSize: '0.88rem', opacity: savingProduct ? 0.7 : 1 }}
-                  >
-                    {savingProduct ? 'Salvando...' : 'Salvar Produto'}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-
-        {/* MODAL 2: LANÇAMENTO MANUAL DE AVALIAÇÕES (Seção 7.5) */}
+        {/* MODAL 2: LANÇAMENTO MANUAL RÁPIDO DE AVALIAÇÕES (Sem fechamento acidental por backdrop) */}
         {isReviewModalOpen && reviewProduct && (
           <div
             style={{
@@ -1513,7 +969,6 @@ function AdminProductsContent() {
               justifyContent: 'center',
               padding: '20px',
             }}
-            onClick={() => setIsReviewModalOpen(false)}
           >
             <div
               style={{
@@ -1527,15 +982,30 @@ function AdminProductsContent() {
                 overflowY: 'auto',
                 boxShadow: 'var(--shadow-lg)',
               }}
-              onClick={(e) => e.stopPropagation()}
             >
-              <h2 style={{ fontSize: '1.35rem', marginBottom: '4px' }}>
-                Lançamento Manual de Avaliações
-              </h2>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <h2 style={{ fontSize: '1.35rem', margin: 0 }}>
+                  Lançamento de Avaliações
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setIsReviewModalOpen(false)}
+                  style={{
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--text-muted)',
+                    padding: '4px',
+                  }}
+                >
+                  <X size={20} />
+                </button>
+              </div>
               <p style={{ fontSize: '0.88rem', color: 'var(--brand-forest-800)', fontWeight: 700, marginBottom: '16px' }}>
                 {reviewProduct.title}
               </p>
-              {/* Banner de Média em Tempo Real (admin-dashboard-engineer) */}
+
+              {/* Banner de Média em Tempo Real */}
               <div
                 style={{
                   backgroundColor: 'var(--brand-forest-50)',
@@ -1545,7 +1015,7 @@ function AdminProductsContent() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  marginBottom: '6px',
+                  marginBottom: '16px',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1560,7 +1030,7 @@ function AdminProductsContent() {
                   </div>
                 </div>
 
-                <div style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--brand-forest-900)', fontFamily: 'var(--font-serif)' }}>
+                <div style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
                   {liveAverage !== null ? `${liveAverage.toFixed(2)} ★` : '—'}
                 </div>
               </div>
@@ -1627,7 +1097,7 @@ function AdminProductsContent() {
 
                         <div>
                           <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '4px' }}>
-                            Qtd. Avaliações (Opcional - desempate)
+                            Qtd. Avaliações (Desempate)
                           </label>
                           <input
                             type="number"
@@ -1651,7 +1121,7 @@ function AdminProductsContent() {
                   <button
                     type="button"
                     onClick={() => setIsReviewModalOpen(false)}
-                    style={{ padding: '10px 20px', borderRadius: 'var(--radius-full)', border: '1px solid var(--border-cream)', fontWeight: 600, fontSize: '0.88rem' }}
+                    style={{ padding: '10px 20px', borderRadius: 'var(--radius-full)', border: '1px solid var(--border-cream)', fontWeight: 600, fontSize: '0.88rem', cursor: 'pointer' }}
                   >
                     Cancelar
                   </button>
@@ -1659,9 +1129,9 @@ function AdminProductsContent() {
                   <button
                     type="submit"
                     disabled={savingReviews}
-                    style={{ padding: '10px 24px', borderRadius: 'var(--radius-full)', backgroundColor: 'var(--brand-forest-800)', color: '#ffffff', fontWeight: 700, fontSize: '0.88rem', opacity: savingReviews ? 0.7 : 1 }}
+                    style={{ padding: '10px 24px', borderRadius: 'var(--radius-full)', backgroundColor: 'var(--brand-forest-800)', color: '#ffffff', fontWeight: 700, fontSize: '0.88rem', opacity: savingReviews ? 0.7 : 1, border: 'none', cursor: 'pointer' }}
                   >
-                    {savingReviews ? 'Gravando e recalculando...' : 'Salvar Avaliações'}
+                    {savingReviews ? 'Gravando...' : 'Salvar Avaliações'}
                   </button>
                 </div>
               </form>
@@ -1669,7 +1139,7 @@ function AdminProductsContent() {
           </div>
         )}
 
-        {/* MODAL 3: GERENCIAR VÍNCULOS COM RANKINGS COMPATÍVEIS (Seção 7.4) */}
+        {/* MODAL 3: GERENCIAR VÍNCULOS COM RANKINGS (Sem fechamento acidental por backdrop) */}
         {isLinkModalOpen && linkProduct && (
           <div
             style={{
@@ -1683,7 +1153,6 @@ function AdminProductsContent() {
               justifyContent: 'center',
               padding: '20px',
             }}
-            onClick={() => setIsLinkModalOpen(false)}
           >
             <div
               style={{
@@ -1697,11 +1166,25 @@ function AdminProductsContent() {
                 overflowY: 'auto',
                 boxShadow: 'var(--shadow-lg)',
               }}
-              onClick={(e) => e.stopPropagation()}
             >
-              <h2 style={{ fontSize: '1.35rem', marginBottom: '4px' }}>
-                Gerenciar Vínculos de Ranking
-              </h2>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <h2 style={{ fontSize: '1.35rem', margin: 0 }}>
+                  Vínculos de Ranking
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setIsLinkModalOpen(false)}
+                  style={{
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--text-muted)',
+                    padding: '4px',
+                  }}
+                >
+                  <X size={20} />
+                </button>
+              </div>
               <p style={{ fontSize: '0.88rem', color: 'var(--brand-forest-800)', fontWeight: 700, marginBottom: '6px' }}>
                 {linkProduct.title}
               </p>
@@ -1748,6 +1231,7 @@ function AdminProductsContent() {
                                 borderRadius: '4px',
                                 backgroundColor: '#ffffff',
                                 border: '1px solid #fecaca',
+                                cursor: 'pointer',
                               }}
                             >
                               Remover Vínculo
@@ -1794,6 +1278,8 @@ function AdminProductsContent() {
                                 fontWeight: 700,
                                 padding: '4px 10px',
                                 borderRadius: 'var(--radius-full)',
+                                border: 'none',
+                                cursor: 'pointer',
                               }}
                             >
                               + Vincular
@@ -1803,7 +1289,7 @@ function AdminProductsContent() {
                       </div>
                     ) : (
                       <p style={{ fontSize: '0.82rem', color: 'var(--text-subtle)', fontStyle: 'italic' }}>
-                        Não há outros rankings compatíveis para esta espécie e categoria. Crie um novo ranking na aba &quot;Rankings&quot;.
+                        Não há outros rankings compatíveis para esta espécie e categoria.
                       </p>
                     )}
                   </div>
@@ -1811,9 +1297,9 @@ function AdminProductsContent() {
                   <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
                     <button
                       onClick={() => setIsLinkModalOpen(false)}
-                      style={{ padding: '8px 20px', borderRadius: 'var(--radius-full)', backgroundColor: 'var(--brand-forest-800)', color: '#ffffff', fontWeight: 600, fontSize: '0.88rem' }}
+                      style={{ padding: '8px 20px', borderRadius: 'var(--radius-full)', backgroundColor: 'var(--brand-forest-800)', color: '#ffffff', fontWeight: 600, fontSize: '0.88rem', border: 'none', cursor: 'pointer' }}
                     >
-                      Concluir
+                      Fechar
                     </button>
                   </div>
                 </div>
@@ -1822,7 +1308,7 @@ function AdminProductsContent() {
           </div>
         )}
 
-        {/* MODAL 4: IMPORTAÇÃO DE PRODUTOS EM CSV (admin-dashboard-engineer) */}
+        {/* MODAL 4: IMPORTAÇÃO DE PRODUTOS EM CSV (Sem fechamento acidental por backdrop) */}
         {isImportModalOpen && (
           <div
             style={{
@@ -1835,9 +1321,6 @@ function AdminProductsContent() {
               alignItems: 'center',
               justifyContent: 'center',
               padding: '20px',
-            }}
-            onClick={() => {
-              if (!importing) setIsImportModalOpen(false);
             }}
           >
             <div
@@ -1852,7 +1335,6 @@ function AdminProductsContent() {
                 overflowY: 'auto',
                 boxShadow: 'var(--shadow-xl)',
               }}
-              onClick={(e) => e.stopPropagation()}
             >
               {/* Header do Modal */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
@@ -1873,7 +1355,7 @@ function AdminProductsContent() {
                     <FileSpreadsheet size={22} />
                   </div>
                   <div>
-                    <h2 style={{ fontSize: '1.4rem', color: 'var(--brand-forest-900)' }}>
+                    <h2 style={{ fontSize: '1.4rem', color: 'var(--brand-forest-900)', margin: 0 }}>
                       Importação de Catálogo em Lote (CSV)
                     </h2>
                     <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
@@ -1884,7 +1366,9 @@ function AdminProductsContent() {
 
                 <button
                   type="button"
-                  onClick={() => setIsImportModalOpen(false)}
+                  onClick={() => {
+                    if (!importing) setIsImportModalOpen(false);
+                  }}
                   disabled={importing}
                   style={{
                     backgroundColor: 'var(--bg-cream-subtle)',
@@ -2086,7 +1570,7 @@ function AdminProductsContent() {
                     fontSize: '0.88rem',
                     opacity: parsedPreview.length === 0 || importing ? 0.6 : 1,
                     cursor: parsedPreview.length === 0 || importing ? 'not-allowed' : 'pointer',
-                    boxShadow: 'var(--shadow-emerald)',
+                    border: 'none',
                   }}
                 >
                   {importing ? 'Importando e recalculando...' : `Confirmar e Importar (${parsedPreview.length})`}

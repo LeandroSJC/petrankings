@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Award, Plus, Edit2, Trash2, CheckCircle2, XCircle, RefreshCw,
-  Eye, ExternalLink, AlertCircle, Download, FileSpreadsheet, FileDown, FileUp, Upload, X
+  Eye, Download, FileSpreadsheet, FileDown, FileUp, Upload, X, AlertCircle
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 import { formatDate } from '@/lib/utils';
@@ -29,19 +29,6 @@ export default function AdminRankingsPage() {
   const { showToast } = useToast();
   const [rankings, setRankings] = useState<RankingAdminItem[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Modal de Criação / Edição
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingRanking, setEditingRanking] = useState<RankingAdminItem | null>(null);
-  const [formData, setFormData] = useState({
-    title: '',
-    species: 'caes',
-    productType: '',
-    description: '',
-    isPublished: true,
-  });
-  const [saving, setSaving] = useState(false);
-  const [formError, setFormError] = useState('');
 
   // Delete Confirmation State
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -163,75 +150,6 @@ export default function AdminRankingsPage() {
     }
   };
 
-  const openCreateModal = () => {
-    setEditingRanking(null);
-    setFormData({
-      title: '',
-      species: 'caes',
-      productType: '',
-      description: '',
-      isPublished: true,
-    });
-    setFormError('');
-    setIsModalOpen(true);
-  };
-
-  const openEditModal = (ranking: RankingAdminItem) => {
-    setEditingRanking(ranking);
-    setFormData({
-      title: ranking.title,
-      species: ranking.species,
-      productType: ranking.productType,
-      description: ranking.description || '',
-      isPublished: ranking.isPublished,
-    });
-    setFormError('');
-    setIsModalOpen(true);
-  };
-
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormError('');
-
-    if (formData.title.trim().length < 3 || formData.title.trim().length > 180) {
-      setFormError('O título deve conter entre 3 e 180 caracteres.');
-      return;
-    }
-    if (formData.productType.trim().length < 2 || formData.productType.trim().length > 120) {
-      setFormError('O tipo de produto deve conter entre 2 e 120 caracteres.');
-      return;
-    }
-
-    setSaving(true);
-    try {
-      const url = editingRanking ? `/api/rankings/${editingRanking.id}` : '/api/rankings';
-      const method = editingRanking ? 'PUT' : 'POST';
-
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setFormError(data.error || 'Erro ao salvar ranking.');
-        showToast(data.error || 'Erro ao salvar', 'error');
-        return;
-      }
-
-      showToast(editingRanking ? 'Ranking atualizado com sucesso!' : 'Ranking criado com sucesso!', 'success');
-      setIsModalOpen(false);
-      fetchRankings();
-    } catch (err) {
-      console.error(err);
-      setFormError('Erro ao conectar ao servidor.');
-    } finally {
-      setSaving(false);
-    }
-  };
-
   const handleDelete = async (id: string, title: string) => {
     if (!window.confirm(`Tem certeza que deseja excluir o ranking "${title}"? Os produtos vinculados NÃO serão excluídos do catálogo.`)) {
       return;
@@ -273,10 +191,10 @@ export default function AdminRankingsPage() {
         >
           <div>
             <h1 style={{ fontSize: '1.8rem', marginBottom: '4px' }}>
-              Gestão de Rankings
+              Gestão de Rankings Editoriais
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-              Cadastre e publique categorias. A associação de produtos é feita diretamente no Catálogo Central.
+              Crie rankings comparativos, configure status de publicação e gerencie os produtos vinculados em tela cheia.
             </p>
           </div>
 
@@ -352,8 +270,9 @@ export default function AdminRankingsPage() {
               <span>Exportar CSV</span>
             </button>
 
-            <button
-              onClick={openCreateModal}
+            {/* Novo Ranking -> Redireciona para /admin/rankings/novo */}
+            <Link
+              href="/admin/rankings/novo"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -365,12 +284,13 @@ export default function AdminRankingsPage() {
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 boxShadow: 'var(--shadow-sm)',
+                textDecoration: 'none',
                 transition: 'var(--transition)',
               }}
             >
               <Plus size={18} />
               <span>Novo Ranking</span>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -406,11 +326,20 @@ export default function AdminRankingsPage() {
                   {rankings.map((r) => (
                     <tr key={r.id} style={{ borderBottom: '1px solid var(--border-cream-light)' }}>
                       <td style={{ padding: '16px 18px' }}>
-                        <strong style={{ fontSize: '0.95rem', color: 'var(--brand-forest-900)', display: 'block' }}>
+                        <Link
+                          href={`/admin/rankings/${r.id}/editar`}
+                          style={{
+                            fontSize: '0.95rem',
+                            color: 'var(--brand-forest-900)',
+                            fontWeight: 700,
+                            textDecoration: 'none',
+                            display: 'block',
+                          }}
+                        >
                           {r.title}
-                        </strong>
+                        </Link>
                         <span style={{ fontSize: '0.78rem', color: 'var(--text-subtle)' }}>
-                          slug: /{r.slug}
+                          /{r.species}/{r.slug}
                         </span>
                       </td>
 
@@ -475,7 +404,7 @@ export default function AdminRankingsPage() {
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                           {r.isPublished && (
                             <Link
-                              href={`/ranking/${r.slug}`}
+                              href={`/${r.species}/${r.slug}`}
                               target="_blank"
                               title="Visualizar página pública"
                               style={{
@@ -483,25 +412,34 @@ export default function AdminRankingsPage() {
                                 borderRadius: '6px',
                                 color: 'var(--brand-forest-700)',
                                 backgroundColor: 'var(--brand-forest-50)',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                textDecoration: 'none',
                               }}
                             >
                               <Eye size={15} />
                             </Link>
                           )}
 
-                          <button
-                            onClick={() => openEditModal(r)}
-                            title="Editar informações do ranking"
+                          {/* Editar Ranking (Página Dedicada) */}
+                          <Link
+                            href={`/admin/rankings/${r.id}/editar`}
+                            title="Editar informações e produtos do ranking"
                             style={{
                               padding: '6px',
                               borderRadius: '6px',
                               color: 'var(--brand-forest-900)',
                               backgroundColor: 'var(--bg-cream-subtle)',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              textDecoration: 'none',
+                              border: '1px solid var(--border-cream)',
                             }}
                           >
                             <Edit2 size={15} />
-                          </button>
+                          </Link>
 
+                          {/* Excluir Ranking */}
                           <button
                             onClick={() => handleDelete(r.id, r.title)}
                             disabled={deletingId === r.id}
@@ -511,6 +449,8 @@ export default function AdminRankingsPage() {
                               borderRadius: '6px',
                               color: '#ef4444',
                               backgroundColor: '#fef2f2',
+                              border: '1px solid #fecaca',
+                              cursor: 'pointer',
                             }}
                           >
                             <Trash2 size={15} />
@@ -530,220 +470,28 @@ export default function AdminRankingsPage() {
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>
               Crie seu primeiro ranking para começar a classificar produtos.
             </p>
-            <button
-              onClick={openCreateModal}
+            <Link
+              href="/admin/rankings/novo"
               style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
                 backgroundColor: 'var(--brand-forest-800)',
                 color: '#ffffff',
                 padding: '8px 18px',
                 borderRadius: 'var(--radius-full)',
                 fontWeight: 700,
                 fontSize: '0.88rem',
+                textDecoration: 'none',
               }}
             >
-              Criar Ranking
-            </button>
+              <Plus size={16} />
+              <span>Criar Ranking</span>
+            </Link>
           </div>
         )}
 
-        {/* Modal de Criação / Edição */}
-        {isModalOpen && (
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              backgroundColor: 'rgba(6, 24, 16, 0.7)',
-              backdropFilter: 'blur(4px)',
-              zIndex: 1000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '20px',
-            }}
-            onClick={() => setIsModalOpen(false)}
-          >
-            <div
-              style={{
-                backgroundColor: '#ffffff',
-                borderRadius: 'var(--radius-lg)',
-                border: '1px solid var(--border-cream)',
-                padding: '32px',
-                maxWidth: '600px',
-                width: '100%',
-                maxHeight: '90vh',
-                overflowY: 'auto',
-                boxShadow: 'var(--shadow-lg)',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2 style={{ fontSize: '1.4rem', marginBottom: '6px' }}>
-                {editingRanking ? 'Editar Ranking' : 'Novo Ranking Editorial'}
-              </h2>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
-                O endereço amigável (slug) será gerado automaticamente a partir do título.
-              </p>
-
-              {formError && (
-                <div
-                  style={{
-                    backgroundColor: '#fef2f2',
-                    border: '1px solid #fecaca',
-                    borderRadius: 'var(--radius-sm)',
-                    padding: '12px',
-                    color: '#991b1b',
-                    fontSize: '0.88rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <AlertCircle size={16} />
-                  <span>{formError}</span>
-                </div>
-              )}
-
-              <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                    Título do Ranking * (3 a 180 caracteres)
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    minLength={3}
-                    maxLength={180}
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="Ex: Melhores Rações Secas para Gatos Castrados"
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px',
-                      borderRadius: 'var(--radius-sm)',
-                      border: '1px solid var(--border-cream)',
-                      fontSize: '0.92rem',
-                    }}
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                      Espécie *
-                    </label>
-                    <select
-                      value={formData.species}
-                      onChange={(e) => setFormData({ ...formData, species: e.target.value })}
-                      style={{
-                        width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: 'var(--radius-sm)',
-                        border: '1px solid var(--border-cream)',
-                        fontSize: '0.92rem',
-                        backgroundColor: '#fff',
-                      }}
-                    >
-                      <option value="caes">Cães</option>
-                      <option value="gatos">Gatos</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                      Tipo de Produto * (Ex: Ração seca, Areia)
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      minLength={2}
-                      maxLength={120}
-                      value={formData.productType}
-                      onChange={(e) => setFormData({ ...formData, productType: e.target.value })}
-                      placeholder="Ex: Ração seca"
-                      style={{
-                        width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: 'var(--radius-sm)',
-                        border: '1px solid var(--border-cream)',
-                        fontSize: '0.92rem',
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-                    Descrição Editorial (Opcional, até 3.000 caracteres)
-                  </label>
-                  <textarea
-                    rows={4}
-                    maxLength={3000}
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Explicação do propósito desta categoria de produtos..."
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px',
-                      borderRadius: 'var(--radius-sm)',
-                      border: '1px solid var(--border-cream)',
-                      fontSize: '0.92rem',
-                      fontFamily: 'inherit',
-                      resize: 'vertical',
-                    }}
-                  />
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingTop: '4px' }}>
-                  <input
-                    type="checkbox"
-                    id="isPublished"
-                    checked={formData.isPublished}
-                    onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
-                    style={{ width: '18px', height: '18px', accentColor: 'var(--brand-forest-800)' }}
-                  />
-                  <label htmlFor="isPublished" style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--brand-forest-900)', cursor: 'pointer' }}>
-                    Publicar ranking no site público
-                  </label>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '16px' }}>
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    style={{
-                      padding: '10px 20px',
-                      borderRadius: 'var(--radius-full)',
-                      border: '1px solid var(--border-cream)',
-                      backgroundColor: 'transparent',
-                      fontWeight: 600,
-                      fontSize: '0.88rem',
-                    }}
-                  >
-                    Cancelar
-                  </button>
-
-                  <button
-                    type="submit"
-                    disabled={saving}
-                    style={{
-                      padding: '10px 24px',
-                      borderRadius: 'var(--radius-full)',
-                      backgroundColor: 'var(--brand-forest-800)',
-                      color: '#ffffff',
-                      fontWeight: 700,
-                      fontSize: '0.88rem',
-                      opacity: saving ? 0.7 : 1,
-                    }}
-                  >
-                    {saving ? 'Salvando...' : 'Salvar Ranking'}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-
-        {/* MODAL 2: IMPORTAÇÃO DE RANKINGS EM CSV (admin-dashboard-engineer) */}
+        {/* MODAL: IMPORTAÇÃO DE RANKINGS EM CSV (Sem fechamento acidental por backdrop) */}
         {isImportModalOpen && (
           <div
             style={{
@@ -757,9 +505,6 @@ export default function AdminRankingsPage() {
               justifyContent: 'center',
               padding: '20px',
             }}
-            onClick={() => {
-              if (!importing) setIsImportModalOpen(false);
-            }}
           >
             <div
               style={{
@@ -767,15 +512,13 @@ export default function AdminRankingsPage() {
                 borderRadius: 'var(--radius-xl)',
                 border: '1.5px solid var(--border-cream)',
                 padding: '32px',
-                maxWidth: '740px',
+                maxWidth: '780px',
                 width: '100%',
-                maxHeight: '92vh',
+                maxHeight: '90vh',
                 overflowY: 'auto',
                 boxShadow: 'var(--shadow-xl)',
               }}
-              onClick={(e) => e.stopPropagation()}
             >
-              {/* Header do Modal */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div
@@ -794,18 +537,20 @@ export default function AdminRankingsPage() {
                     <FileSpreadsheet size={22} />
                   </div>
                   <div>
-                    <h2 style={{ fontSize: '1.4rem', color: 'var(--brand-forest-900)' }}>
-                      Importação de Rankings em Lote (CSV)
+                    <h2 style={{ fontSize: '1.35rem', color: 'var(--brand-forest-900)', margin: 0 }}>
+                      Importar Rankings em Lote (CSV)
                     </h2>
                     <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                      Cadastre ou atualize múltiplas categorias de ranking simultaneamente via planilha.
+                      Cadastre ou atualize múltiplos rankings através de arquivo de planilha CSV.
                     </span>
                   </div>
                 </div>
 
                 <button
                   type="button"
-                  onClick={() => setIsImportModalOpen(false)}
+                  onClick={() => {
+                    if (!importing) setIsImportModalOpen(false);
+                  }}
                   disabled={importing}
                   style={{
                     backgroundColor: 'var(--bg-cream-subtle)',
@@ -823,7 +568,7 @@ export default function AdminRankingsPage() {
                 </button>
               </div>
 
-              {/* Botão de Ajuda para Baixar o Modelo */}
+              {/* Botão de Ajuda */}
               <div
                 style={{
                   backgroundColor: 'var(--bg-cream-subtle)',
@@ -839,7 +584,7 @@ export default function AdminRankingsPage() {
                 }}
               >
                 <div style={{ fontSize: '0.84rem', color: 'var(--text-body)' }}>
-                  Baixe nossa planilha modelo de rankings com colunas e exemplos pré-configurados.
+                  Precisa do arquivo modelo? Baixe o modelo oficial com todas as colunas editoriais.
                 </div>
                 <button
                   type="button"
@@ -908,21 +653,24 @@ export default function AdminRankingsPage() {
                 <label htmlFor="csv-ranking-input" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                   <Upload size={32} color="var(--brand-forest-700)" />
                   <span style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
-                    {importFile ? `Arquivo selecionado: ${importFile.name}` : 'Clique para selecionar o arquivo CSV de rankings'}
+                    {importFile ? `Arquivo selecionado: ${importFile.name}` : 'Clique para selecionar o arquivo CSV ou arraste aqui'}
                   </span>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    Formato .csv UTF-8 com colunas titulo, especie, tipo_produto, descricao, publicado
+                    Formato .csv codificado em UTF-8
                   </span>
                 </label>
               </div>
 
-              {/* Pré-visualização dos Registros */}
+              {/* Pré-visualização */}
               {parsedPreview.length > 0 && (
                 <div style={{ marginBottom: '24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
                     <strong style={{ fontSize: '0.92rem', color: 'var(--brand-forest-900)' }}>
-                      Pré-visualização dos Dados ({parsedPreview.length} rankings encontrados):
+                      Pré-visualização dos Rankings ({parsedPreview.length} encontrados):
                     </strong>
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                      Exibindo até 10 primeiras linhas
+                    </span>
                   </div>
 
                   <div style={{ overflowX: 'auto', border: '1px solid var(--border-cream)', borderRadius: 'var(--radius-md)', maxHeight: '240px' }}>
@@ -933,7 +681,7 @@ export default function AdminRankingsPage() {
                           <th style={{ padding: '8px 12px' }}>Título</th>
                           <th style={{ padding: '8px 12px' }}>Espécie</th>
                           <th style={{ padding: '8px 12px' }}>Tipo</th>
-                          <th style={{ padding: '8px 12px' }}>Status</th>
+                          <th style={{ padding: '8px 12px' }}>Publicado</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -941,21 +689,17 @@ export default function AdminRankingsPage() {
                           const title = row.titulo || row.title || '—';
                           const species = row.especie || row.species || '—';
                           const pType = row.tipo_produto || row.productType || row.tipo || '—';
-                          const isPub = row.publicado !== undefined ? String(row.publicado).toLowerCase() === 'true' || row.publicado === '1' : true;
+                          const isPub = (row.publicado || row.isPublished || 'true').toLowerCase() !== 'false';
 
                           return (
                             <tr key={idx} style={{ borderBottom: '1px solid var(--border-cream-light)' }}>
                               <td style={{ padding: '8px 12px', color: 'var(--text-muted)' }}>{idx + 1}</td>
                               <td style={{ padding: '8px 12px', fontWeight: 600, color: 'var(--brand-forest-900)' }}>{title}</td>
-                              <td style={{ padding: '8px 12px' }}>
-                                <span style={{ textTransform: 'capitalize', color: species.includes('gato') ? 'var(--cat-accent-text)' : 'var(--dog-accent-text)' }}>
-                                  {species}
-                                </span>
-                              </td>
+                              <td style={{ padding: '8px 12px', textTransform: 'capitalize' }}>{species}</td>
                               <td style={{ padding: '8px 12px' }}>{pType}</td>
                               <td style={{ padding: '8px 12px' }}>
-                                <span style={{ color: isPub ? '#166534' : 'var(--text-muted)', fontWeight: 700 }}>
-                                  {isPub ? '✓ Publicado' : 'Rascunho'}
+                                <span style={{ color: isPub ? '#16a34a' : '#64748b', fontWeight: 700 }}>
+                                  {isPub ? 'Sim' : 'Rascunho'}
                                 </span>
                               </td>
                             </tr>
@@ -998,10 +742,10 @@ export default function AdminRankingsPage() {
                     fontSize: '0.88rem',
                     opacity: parsedPreview.length === 0 || importing ? 0.6 : 1,
                     cursor: parsedPreview.length === 0 || importing ? 'not-allowed' : 'pointer',
-                    boxShadow: 'var(--shadow-emerald)',
+                    border: 'none',
                   }}
                 >
-                  {importing ? 'Importando rankings...' : `Confirmar e Importar (${parsedPreview.length})`}
+                  {importing ? 'Importando...' : `Confirmar e Importar (${parsedPreview.length})`}
                 </button>
               </div>
             </div>
