@@ -21,7 +21,7 @@ export interface StoreInfo {
   themeColor: string;
   accentColor: string;
   bgLight: string;
-  logo: string;
+  logo?: string;
 }
 
 export const STORES_INFO: Record<StoreKey, StoreInfo> = {
@@ -32,7 +32,6 @@ export const STORES_INFO: Record<StoreKey, StoreInfo> = {
     themeColor: '#FF9900',
     accentColor: '#131921',
     bgLight: '#FFF8ED',
-    logo: '/stores/amazon.svg',
   },
   mercadolivre: {
     key: 'mercadolivre',
@@ -41,7 +40,6 @@ export const STORES_INFO: Record<StoreKey, StoreInfo> = {
     themeColor: '#FFE600',
     accentColor: '#2D3277',
     bgLight: '#FFFDEB',
-    logo: '/stores/mercadolivre.svg',
   },
   petlove: {
     key: 'petlove',
@@ -50,7 +48,6 @@ export const STORES_INFO: Record<StoreKey, StoreInfo> = {
     themeColor: '#7B2CBF',
     accentColor: '#5A189A',
     bgLight: '#F7EDFF',
-    logo: '/stores/petlove.svg',
   },
   cobasi: {
     key: 'cobasi',
@@ -59,7 +56,6 @@ export const STORES_INFO: Record<StoreKey, StoreInfo> = {
     themeColor: '#008037',
     accentColor: '#005926',
     bgLight: '#EDF9F1',
-    logo: '/stores/cobasi.svg',
   },
   shopee: {
     key: 'shopee',
@@ -68,7 +64,6 @@ export const STORES_INFO: Record<StoreKey, StoreInfo> = {
     themeColor: '#EE4D2D',
     accentColor: '#C43618',
     bgLight: '#FFF0ED',
-    logo: '/stores/shopee.svg',
   },
 };
 
