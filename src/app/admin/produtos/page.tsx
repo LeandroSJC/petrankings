@@ -72,15 +72,21 @@ function AdminProductsContent() {
   const [availableRankings, setAvailableRankings] = useState<Array<{ id: string; title: string; slug: string }>>([]);
   const [loadingLinks, setLoadingLinks] = useState(false);
 
+  // Lojas válidas para cálculo da média no modal rápido (apenas com reviewCount > 0 e nota válida)
+  const validReviewStores = useMemo(() => {
+    return reviewForm.filter((rf) => {
+      const rating = parseFloat(rf.rating);
+      const reviewCount = parseInt(rf.reviewCount, 10);
+      return !isNaN(rating) && rating >= 0 && rating <= 5 && !isNaN(reviewCount) && reviewCount > 0;
+    });
+  }, [reviewForm]);
+
   // Média aritmética calculada em tempo real no modal rápido
   const liveAverage = useMemo(() => {
-    const validRatings = reviewForm
-      .map((rf) => parseFloat(rf.rating))
-      .filter((r) => !isNaN(r) && r >= 0 && r <= 5);
-    if (validRatings.length === 0) return null;
-    const sum = validRatings.reduce((acc, curr) => acc + curr, 0);
-    return Number((sum / validRatings.length).toFixed(2));
-  }, [reviewForm]);
+    if (validReviewStores.length === 0) return null;
+    const sum = validReviewStores.reduce((acc, curr) => acc + parseFloat(curr.rating), 0);
+    return Number((sum / validReviewStores.length).toFixed(2));
+  }, [validReviewStores]);
 
   // Modal de Importação CSV
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
@@ -1025,7 +1031,7 @@ function AdminProductsContent() {
                       Nova Média Calculada em Tempo Real:
                     </span>
                     <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                      Baseada em {reviewForm.filter((rf) => !isNaN(parseFloat(rf.rating)) && parseFloat(rf.rating) >= 0).length} loja(s) com notas válidas
+                      Baseada em {validReviewStores.length} loja(s) com nota e avaliações (&gt; 0)
                     </span>
                   </div>
                 </div>

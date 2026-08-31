@@ -34,32 +34,36 @@ interface ProductFormProps {
   productId?: string;
 }
 
-const CATEGORY_SUGGESTIONS = {
-  caes: [
-    'Ração Seca',
-    'Ração Úmida / Sachê',
-    'Petiscos & Bifinhos',
-    'Antipulgas & Carrapatos',
-    'Brinquedos Mordedores',
-    'Camas & Tapetes Higiênicos',
-    'Shampoos & Higiene',
-    'Coleiras & Guias',
-  ],
-  gatos: [
-    'Ração Seca Super Premium',
-    'Ração Úmida / Sachê',
-    'Areia Sanitária',
-    'Arranhadores & Torres',
-    'Antipulgas Felino',
-    'Petiscos & Catnip',
-    'Fontes de Água',
-    'Brinquedos Interativos',
-  ],
-};
-
 export default function ProductForm({ mode, initialData, productId }: ProductFormProps) {
   const router = useRouter();
   const { showToast } = useToast();
+
+  // Categorias existentes no banco de dados
+  const [categories, setCategories] = useState<{ caes: string[]; gatos: string[]; all: string[] }>({
+    caes: [],
+    gatos: [],
+    all: [],
+  });
+
+  // Carregar categorias dinâmicas cadastradas no banco
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const res = await fetch('/api/categories');
+        if (res.ok) {
+          const data = await res.json();
+          setCategories({
+            caes: data.caes || [],
+            gatos: data.gatos || [],
+            all: data.all || [],
+          });
+        }
+      } catch (err) {
+        console.error('Erro ao carregar categorias dinâmicas:', err);
+      }
+    }
+    loadCategories();
+  }, []);
 
   const [formData, setFormData] = useState<ProductFormData>(() => {
     if (initialData) {
@@ -76,7 +80,7 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
               rating: s.rating !== undefined && s.rating !== null ? String(s.rating) : '',
               reviewCount: s.reviewCount !== undefined && s.reviewCount !== null ? String(s.reviewCount) : '',
             }))
-          : [{ store: 'amazon', productUrl: '', affiliateUrl: '', rating: '', reviewCount: '' }],
+          : [],
       };
     }
     return {
@@ -86,9 +90,7 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
       brand: '',
       description: '',
       imageUrl: '',
-      stores: [
-        { store: 'amazon', productUrl: '', affiliateUrl: '', rating: '', reviewCount: '' },
-      ],
+      stores: [],
     };
   });
 
@@ -158,16 +160,30 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
     setFormError('');
   };
 
+  // Lojas válidas para cálculo da média (apenas com reviewCount > 0 e nota entre 0 e 5)
+  const storesWithValidReviews = useMemo(() => {
+    return formData.stores.filter((s) => {
+      const rating = parseFloat(String(s.rating || ''));
+      const reviewCount = parseInt(String(s.reviewCount || ''), 10);
+      return (
+        !isNaN(rating) &&
+        rating >= 0 &&
+        rating <= 5 &&
+        !isNaN(reviewCount) &&
+        reviewCount > 0
+      );
+    });
+  }, [formData.stores]);
+
   // Média aritmética calculada em tempo real
   const liveAverage = useMemo(() => {
-    const validRatings = formData.stores
-      .map((s) => parseFloat(String(s.rating || '')))
-      .filter((r) => !isNaN(r) && r >= 0 && r <= 5);
-
-    if (validRatings.length === 0) return null;
-    const sum = validRatings.reduce((acc, curr) => acc + curr, 0);
-    return Number((sum / validRatings.length).toFixed(2));
-  }, [formData.stores]);
+    if (storesWithValidReviews.length === 0) return null;
+    const sum = storesWithValidReviews.reduce(
+      (acc, curr) => acc + parseFloat(String(curr.rating || '0')),
+      0
+    );
+    return Number((sum / storesWithValidReviews.length).toFixed(2));
+  }, [storesWithValidReviews]);
 
   // Total de avaliações somadas
   const totalReviews = useMemo(() => {
@@ -228,17 +244,30 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
       return;
     }
 
-    if (formData.stores.length === 0) {
-      setFormError('Adicione ao menos uma loja parceira para o produto.');
-      showToast('Adicione ao menos 1 loja', 'error');
-      return;
-    }
+    // Filtrar lojas preenchidas e validar URLs obrigatórias para lojas adicionadas
+    const cleanedStores: Array<{
+      store: string;
+      productUrl: string;
+      affiliateUrl?: string;
+      rating?: string | number;
+      reviewCount?: string | number;
+    }> = [];
 
     for (const st of formData.stores) {
-      if (!st.productUrl.trim()) {
-        setFormError(`Informe a URL do produto na loja ${getStoreInfo(st.store)?.name || st.store}.`);
-        showToast(`URL obrigatória para ${st.store}`, 'error');
-        return;
+      const productUrl = (st.productUrl || '').trim();
+      const hasAnyData = productUrl || st.rating || st.reviewCount || st.affiliateUrl;
+
+      if (hasAnyData) {
+        if (!productUrl) {
+          setFormError(`Informe a URL do produto na loja ${getStoreInfo(st.store)?.name || st.store}.`);
+          showToast(`URL obrigatória para ${st.store}`, 'error');
+          return;
+        }
+        cleanedStores.push({
+          ...st,
+          productUrl,
+          affiliateUrl: st.affiliateUrl ? st.affiliateUrl.trim() : '',
+        });
       }
     }
 
@@ -250,7 +279,10 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          stores: cleanedStores,
+        }),
       });
 
       const data = await res.json();
@@ -542,6 +574,7 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                     required
                     minLength={2}
                     maxLength={120}
+                    list="product-categories-datalist"
                     value={formData.productType}
                     onChange={(e) => updateField('productType', e.target.value)}
                     placeholder="Ex: Ração Seca, Areia Higiênica"
@@ -553,6 +586,11 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                       fontSize: '0.92rem',
                     }}
                   />
+                  <datalist id="product-categories-datalist">
+                    {(categories[formData.species as 'caes' | 'gatos'] || []).map((cat) => (
+                      <option key={cat} value={cat} />
+                    ))}
+                  </datalist>
                 </div>
 
                 {/* Marca */}
@@ -577,33 +615,39 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                 </div>
               </div>
 
-              {/* Sugestões rápidas de tipos populares */}
+              {/* Sugestões baseadas apenas nas categorias já cadastradas */}
               <div>
                 <span style={{ fontSize: '0.78rem', color: 'var(--text-subtle)', display: 'block', marginBottom: '6px' }}>
-                  Sugestões frequentes para {formData.species === 'caes' ? 'Cães' : 'Gatos'}:
+                  Categorias já cadastradas para {formData.species === 'caes' ? 'Cães' : 'Gatos'}:
                 </span>
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                  {(CATEGORY_SUGGESTIONS[formData.species as 'caes' | 'gatos'] || []).map((cat) => (
-                    <button
-                      key={cat}
-                      type="button"
-                      onClick={() => updateField('productType', cat)}
-                      style={{
-                        fontSize: '0.76rem',
-                        backgroundColor: formData.productType === cat ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
-                        color: formData.productType === cat ? '#ffffff' : 'var(--brand-forest-900)',
-                        border: '1px solid var(--border-cream)',
-                        padding: '4px 10px',
-                        borderRadius: 'var(--radius-full)',
-                        cursor: 'pointer',
-                        fontWeight: 600,
-                        transition: 'var(--transition)',
-                      }}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
+                {(categories[formData.species as 'caes' | 'gatos'] || []).length > 0 ? (
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    {(categories[formData.species as 'caes' | 'gatos'] || []).map((cat) => (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => updateField('productType', cat)}
+                        style={{
+                          fontSize: '0.76rem',
+                          backgroundColor: formData.productType.toLowerCase() === cat.toLowerCase() ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
+                          color: formData.productType.toLowerCase() === cat.toLowerCase() ? '#ffffff' : 'var(--brand-forest-900)',
+                          border: '1px solid var(--border-cream)',
+                          padding: '4px 10px',
+                          borderRadius: 'var(--radius-full)',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          transition: 'var(--transition)',
+                        }}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ fontSize: '0.76rem', color: 'var(--text-muted)', fontStyle: 'italic', margin: 0 }}>
+                    Nenhuma categoria cadastrada ainda para {formData.species === 'caes' ? 'cães' : 'gatos'}. Digite no campo acima para cadastrar a primeira!
+                  </p>
+                )}
               </div>
 
               {/* Descrição */}
@@ -860,8 +904,8 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                   </strong>
                   <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
                     {liveAverage !== null
-                      ? `Calculada com base em ${formData.stores.filter((s) => !isNaN(parseFloat(String(s.rating))) && parseFloat(String(s.rating)) >= 0).length} loja(s) com nota`
-                      : 'Nenhuma nota informada ainda'}
+                      ? `Calculada com base em ${storesWithValidReviews.length} loja(s) com nota e avaliações (> 0)`
+                      : 'Nenhuma loja com nota e avaliações (> 0)'}
                     {totalReviews > 0 && ` • ${totalReviews.toLocaleString('pt-BR')} avaliações no total`}
                   </span>
                 </div>
@@ -875,76 +919,124 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
               </div>
             </div>
 
-            {/* Lista de Lojas */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {formData.stores.map((st, idx) => {
-                const storeInfo = getStoreInfo(st.store);
-                return (
-                  <div
-                    key={idx}
-                    style={{
-                      backgroundColor: 'var(--bg-cream-subtle)',
-                      border: '1px solid var(--border-cream)',
-                      borderRadius: 'var(--radius-md)',
-                      padding: '18px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '12px',
-                    }}
-                  >
-                    {/* Linha 1: Loja e Ações */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <select
-                          value={st.store}
-                          onChange={(e) => {
-                            const updated = [...formData.stores];
-                            updated[idx].store = e.target.value;
-                            setFormData({ ...formData, stores: updated });
-                            setIsDirty(true);
-                          }}
-                          style={{
-                            padding: '8px 12px',
-                            borderRadius: 'var(--radius-sm)',
-                            border: '1.5px solid var(--border-cream)',
-                            fontWeight: 700,
-                            fontSize: '0.92rem',
-                            backgroundColor: '#ffffff',
-                          }}
-                        >
-                          {VALID_STORES.map((k) => (
-                            <option key={k} value={k}>
-                              {getStoreInfo(k)?.name || k}
-                            </option>
-                          ))}
-                        </select>
-
-                        {st.productUrl && (
-                          <a
-                            href={st.productUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
+            {/* Lista de Lojas ou Estado Vazio */}
+            {formData.stores.length === 0 ? (
+              <div
+                style={{
+                  backgroundColor: 'var(--bg-cream-subtle)',
+                  border: '1.5px dashed var(--border-cream)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '32px 20px',
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '12px',
+                }}
+              >
+                <div style={{ fontSize: '0.92rem', color: 'var(--brand-forest-900)', fontWeight: 600 }}>
+                  Nenhuma loja parceira cadastrada para este produto (opcional).
+                </div>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', maxWidth: '460px', margin: 0 }}>
+                  Você pode cadastrar o produto agora e adicionar links e avaliações de lojas parceiras mais tarde.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      stores: [{ store: 'amazon', productUrl: '', affiliateUrl: '', rating: '', reviewCount: '' }],
+                    }));
+                    setIsDirty(true);
+                  }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: 'var(--brand-forest-800)',
+                    color: '#ffffff',
+                    padding: '8px 18px',
+                    borderRadius: 'var(--radius-full)',
+                    fontWeight: 700,
+                    fontSize: '0.86rem',
+                    border: 'none',
+                    cursor: 'pointer',
+                    marginTop: '6px',
+                  }}
+                >
+                  <Plus size={16} />
+                  <span>Adicionar Primeira Loja</span>
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {formData.stores.map((st, idx) => {
+                  const storeInfo = getStoreInfo(st.store);
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        backgroundColor: 'var(--bg-cream-subtle)',
+                        border: '1px solid var(--border-cream)',
+                        borderRadius: 'var(--radius-md)',
+                        padding: '18px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '12px',
+                      }}
+                    >
+                      {/* Linha 1: Loja e Ações */}
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <select
+                            value={st.store}
+                            onChange={(e) => {
+                              const updated = [...formData.stores];
+                              updated[idx].store = e.target.value;
+                              setFormData({ ...formData, stores: updated });
+                              setIsDirty(true);
+                            }}
                             style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '4px',
-                              fontSize: '0.78rem',
-                              color: 'var(--brand-forest-700)',
-                              textDecoration: 'none',
-                              fontWeight: 600,
+                              padding: '8px 12px',
+                              borderRadius: 'var(--radius-sm)',
+                              border: '1.5px solid var(--border-cream)',
+                              fontWeight: 700,
+                              fontSize: '0.92rem',
                               backgroundColor: '#ffffff',
-                              padding: '4px 10px',
-                              borderRadius: 'var(--radius-full)',
-                              border: '1px solid var(--border-cream)',
                             }}
                           >
-                            <span>Testar link</span>
-                            <ExternalLink size={12} />
-                          </a>
-                        )}
-                      </div>
+                            {VALID_STORES.map((k) => (
+                              <option key={k} value={k}>
+                                {getStoreInfo(k)?.name || k}
+                              </option>
+                            ))}
+                          </select>
 
-                      {formData.stores.length > 1 && (
+                          {st.productUrl && (
+                            <a
+                              href={st.productUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                fontSize: '0.78rem',
+                                color: 'var(--brand-forest-700)',
+                                textDecoration: 'none',
+                                fontWeight: 600,
+                                backgroundColor: '#ffffff',
+                                padding: '4px 10px',
+                                borderRadius: 'var(--radius-full)',
+                                border: '1px solid var(--border-cream)',
+                              }}
+                            >
+                              <span>Testar link</span>
+                              <ExternalLink size={12} />
+                            </a>
+                          )}
+                        </div>
+
                         <button
                           type="button"
                           onClick={() => {
@@ -965,8 +1057,7 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                         >
                           Remover loja
                         </button>
-                      )}
-                    </div>
+                      </div>
 
                     {/* Linha 2: URLs */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
@@ -1082,7 +1173,8 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                 );
               })}
             </div>
-          </div>
+          )}
+        </div>
 
           {/* CARD 4: VÍNCULOS COM RANKINGS (APENAS MODO DE EDIÇÃO) */}
           {mode === 'edit' && productId && (

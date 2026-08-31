@@ -41,30 +41,36 @@ interface RankingFormProps {
   rankingId?: string;
 }
 
-const CATEGORY_SUGGESTIONS = {
-  caes: [
-    'Ração Seca',
-    'Ração Úmida / Sachê',
-    'Petiscos & Bifinhos',
-    'Antipulgas & Carrapatos',
-    'Brinquedos Mordedores',
-    'Camas & Tapetes Higiênicos',
-    'Shampoos & Higiene',
-  ],
-  gatos: [
-    'Ração Seca Super Premium',
-    'Ração Úmida / Sachê',
-    'Areia Sanitária',
-    'Arranhadores & Torres',
-    'Antipulgas Felino',
-    'Petiscos & Catnip',
-    'Fontes de Água',
-  ],
-};
-
 export default function RankingForm({ mode, initialData, rankingId }: RankingFormProps) {
   const router = useRouter();
   const { showToast } = useToast();
+
+  // Categorias existentes no banco de dados
+  const [categories, setCategories] = useState<{ caes: string[]; gatos: string[]; all: string[] }>({
+    caes: [],
+    gatos: [],
+    all: [],
+  });
+
+  // Carregar categorias dinâmicas cadastradas no banco
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const res = await fetch('/api/categories');
+        if (res.ok) {
+          const data = await res.json();
+          setCategories({
+            caes: data.caes || [],
+            gatos: data.gatos || [],
+            all: data.all || [],
+          });
+        }
+      } catch (err) {
+        console.error('Erro ao carregar categorias dinâmicas:', err);
+      }
+    }
+    loadCategories();
+  }, []);
 
   const [formData, setFormData] = useState<RankingFormData>(() => {
     if (initialData) {
@@ -543,6 +549,7 @@ export default function RankingForm({ mode, initialData, rankingId }: RankingFor
                     required
                     minLength={2}
                     maxLength={120}
+                    list="ranking-categories-datalist"
                     value={formData.productType}
                     onChange={(e) => updateField('productType', e.target.value)}
                     placeholder="Ex: Ração Seca, Areia Sanitária"
@@ -554,6 +561,11 @@ export default function RankingForm({ mode, initialData, rankingId }: RankingFor
                       fontSize: '0.92rem',
                     }}
                   />
+                  <datalist id="ranking-categories-datalist">
+                    {(categories[formData.species as 'caes' | 'gatos'] || []).map((cat) => (
+                      <option key={cat} value={cat} />
+                    ))}
+                  </datalist>
                 </div>
 
                 {/* Status de Publicação */}
@@ -595,32 +607,38 @@ export default function RankingForm({ mode, initialData, rankingId }: RankingFor
                 </div>
               </div>
 
-              {/* Sugestões rápidas de categoria */}
+              {/* Sugestões rápidas de categoria baseadas nas já cadastradas */}
               <div>
                 <span style={{ fontSize: '0.78rem', color: 'var(--text-subtle)', display: 'block', marginBottom: '6px' }}>
-                  Sugestões para {formData.species === 'caes' ? 'Cães' : 'Gatos'}:
+                  Categorias já cadastradas para {formData.species === 'caes' ? 'Cães' : 'Gatos'}:
                 </span>
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                  {(CATEGORY_SUGGESTIONS[formData.species as 'caes' | 'gatos'] || []).map((cat) => (
-                    <button
-                      key={cat}
-                      type="button"
-                      onClick={() => updateField('productType', cat)}
-                      style={{
-                        fontSize: '0.76rem',
-                        backgroundColor: formData.productType === cat ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
-                        color: formData.productType === cat ? '#ffffff' : 'var(--brand-forest-900)',
-                        border: '1px solid var(--border-cream)',
-                        padding: '4px 10px',
-                        borderRadius: 'var(--radius-full)',
-                        cursor: 'pointer',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
+                {(categories[formData.species as 'caes' | 'gatos'] || []).length > 0 ? (
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    {(categories[formData.species as 'caes' | 'gatos'] || []).map((cat) => (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => updateField('productType', cat)}
+                        style={{
+                          fontSize: '0.76rem',
+                          backgroundColor: formData.productType.toLowerCase() === cat.toLowerCase() ? 'var(--brand-forest-800)' : 'var(--bg-cream-subtle)',
+                          color: formData.productType.toLowerCase() === cat.toLowerCase() ? '#ffffff' : 'var(--brand-forest-900)',
+                          border: '1px solid var(--border-cream)',
+                          padding: '4px 10px',
+                          borderRadius: 'var(--radius-full)',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                        }}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ fontSize: '0.76rem', color: 'var(--text-muted)', fontStyle: 'italic', margin: 0 }}>
+                    Nenhuma categoria cadastrada ainda para {formData.species === 'caes' ? 'cães' : 'gatos'}. Digite no campo acima para criar!
+                  </p>
+                )}
               </div>
 
               {/* Descrição Editorial */}

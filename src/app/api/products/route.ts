@@ -131,35 +131,53 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!Array.isArray(stores) || stores.length === 0) {
-      return NextResponse.json(
-        { error: 'O produto deve possuir ao menos uma loja vinculada' },
-        { status: 400 }
-      );
-    }
+    // Validar e filtrar lojas (opcional)
+    const validStorePayloads: Array<{
+      store: string;
+      productUrl: string;
+      affiliateUrl: string | null;
+      rating: number | null;
+      reviewCount: number | null;
+    }> = [];
 
-    // Verificar unicidade de lojas por produto
-    const seenStores = new Set<string>();
-    for (const st of stores) {
-      if (!VALID_STORES.includes(st.store as StoreKey)) {
-        return NextResponse.json(
-          { error: `Loja inválida: ${st.store}` },
-          { status: 400 }
-        );
-      }
-      if (seenStores.has(st.store)) {
-        return NextResponse.json(
-          { error: `A loja "${st.store}" foi informada mais de uma vez` },
-          { status: 400 }
-        );
-      }
-      seenStores.add(st.store);
+    if (Array.isArray(stores) && stores.length > 0) {
+      const seenStores = new Set<string>();
+      for (const st of stores) {
+        if (!st || !st.store) continue;
+        const productUrl = (st.productUrl || '').trim();
+        // Se a loja não tem URL e nem outros dados, pode ser uma linha vazia ignorada
+        if (!productUrl && !st.rating && !st.reviewCount && !st.affiliateUrl) {
+          continue;
+        }
 
-      if (!st.productUrl || typeof st.productUrl !== 'string') {
-        return NextResponse.json(
-          { error: `O endereço da página do produto é obrigatório para a loja ${st.store}` },
-          { status: 400 }
-        );
+        if (!VALID_STORES.includes(st.store as StoreKey)) {
+          return NextResponse.json(
+            { error: `Loja inválida: ${st.store}` },
+            { status: 400 }
+          );
+        }
+        if (seenStores.has(st.store)) {
+          return NextResponse.json(
+            { error: `A loja "${st.store}" foi informada mais de uma vez` },
+            { status: 400 }
+          );
+        }
+        seenStores.add(st.store);
+
+        if (!productUrl) {
+          return NextResponse.json(
+            { error: `O endereço da página do produto é obrigatório para a loja ${st.store}` },
+            { status: 400 }
+          );
+        }
+
+        validStorePayloads.push({
+          store: st.store,
+          productUrl,
+          affiliateUrl: st.affiliateUrl ? st.affiliateUrl.trim() : null,
+          rating: st.rating !== undefined && st.rating !== null && st.rating !== '' && Number(st.rating) >= 0 && Number(st.rating) <= 5 ? Number(st.rating) : null,
+          reviewCount: st.reviewCount !== undefined && st.reviewCount !== null && st.reviewCount !== '' && Number(st.reviewCount) >= 0 ? Number(st.reviewCount) : null,
+        });
       }
     }
 
@@ -172,15 +190,13 @@ export async function POST(req: NextRequest) {
         brand: brand ? brand.trim() : null,
         description: description ? description.trim() : null,
         imageUrl: imageUrl ? imageUrl.trim() : null,
-        stores: {
-          create: stores.map((s: { store: string; productUrl: string; affiliateUrl?: string; rating?: number; reviewCount?: number }) => ({
-            store: s.store,
-            productUrl: s.productUrl.trim(),
-            affiliateUrl: s.affiliateUrl ? s.affiliateUrl.trim() : null,
-            rating: s.rating !== undefined && s.rating !== null && s.rating >= 0 && s.rating <= 5 ? Number(s.rating) : null,
-            reviewCount: s.reviewCount !== undefined && s.reviewCount !== null && s.reviewCount >= 0 ? Number(s.reviewCount) : null,
-          })),
-        },
+        ...(validStorePayloads.length > 0
+          ? {
+              stores: {
+                create: validStorePayloads,
+              },
+            }
+          : {}),
       },
     });
 

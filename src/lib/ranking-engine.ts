@@ -20,15 +20,22 @@ export async function recalculateProductRating(productId: string) {
     throw new Error('Produto não encontrado');
   }
 
-  // 1. Filtrar notas válidas (entre 0 e 5)
-  const validRatings = product.stores
-    .map((s) => s.rating)
-    .filter((r): r is number => r !== null && r !== undefined && r >= 0 && r <= 5);
+  // 1. Filtrar lojas com nota válida (entre 0 e 5) e Total de Avaliações maior que 0
+  const validStores = product.stores.filter(
+    (s) =>
+      s.reviewCount !== null &&
+      s.reviewCount !== undefined &&
+      s.reviewCount > 0 &&
+      s.rating !== null &&
+      s.rating !== undefined &&
+      s.rating >= 0 &&
+      s.rating <= 5
+  );
 
   let averageRating: number | null = null;
-  if (validRatings.length > 0) {
-    const sum = validRatings.reduce((acc, curr) => acc + curr, 0);
-    const avg = sum / validRatings.length;
+  if (validStores.length > 0) {
+    const sum = validStores.reduce((acc, curr) => acc + (curr.rating as number), 0);
+    const avg = sum / validStores.length;
     averageRating = Math.round(avg * 100) / 100;
   }
 
