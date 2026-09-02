@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ToastProvider } from '@/components/Toast';
 import { SITE_URL } from '@/lib/utils';
+import { getAdSlotsMap } from '@/lib/ads';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -95,22 +96,34 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const adSlots = await getAdSlotsMap();
+  const globalHead = adSlots['global_head'];
+  const hasCustomGlobalHead = globalHead?.isActive && Boolean(globalHead?.code?.trim());
+
   return (
     <html lang="pt-BR" className={`${inter.variable} ${plusJakarta.variable} ${outfit.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        {adsenseClientId && (
-          <Script
-            id="google-adsense"
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
+        {hasCustomGlobalHead ? (
+          <div
+            id="adsense-custom-global-head"
+            dangerouslySetInnerHTML={{ __html: globalHead.code }}
+            style={{ display: 'none' }}
           />
+        ) : (
+          adsenseClientId && (
+            <Script
+              id="google-adsense"
+              async
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
+              crossOrigin="anonymous"
+              strategy="afterInteractive"
+            />
+          )
         )}
         <a href="#main-content" className="skip-link">
           Pular para o conteúdo principal

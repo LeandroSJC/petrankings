@@ -30,7 +30,7 @@ export default function StoreButton({
     <a
       href={targetUrl}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer sponsored"
       className="store-btn"
       aria-label={`Ver produto na loja ${storeInfo.name}${rating ? ` - Nota de avaliação: ${rating.toFixed(1)} estrelas` : ''}`}
     >

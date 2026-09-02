@@ -1,7 +1,7 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Award, Package, MessageSquare, AlertTriangle, Plus, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
+import { Award, Package, MessageSquare, Megaphone, AlertTriangle, Plus, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { formatDate } from '@/lib/utils';
@@ -17,8 +17,16 @@ export default async function AdminDashboardPage() {
   const publishedRankings = await prisma.ranking.count({ where: { isPublished: true } });
   const draftRankings = totalRankings - publishedRankings;
 
-  // 2. Estatísticas de Produtos
-  const totalProducts = await prisma.product.count();
+  // 2. Estatísticas de Produtos e Lojas
+  const allProductsForStats = await prisma.product.findMany({
+    select: {
+      id: true,
+      stores: { select: { id: true } },
+    },
+  });
+  const totalProducts = allProductsForStats.length;
+  const zeroStoresCount = allProductsForStats.filter((p) => p.stores.length === 0).length;
+  const incompleteStoresCount = allProductsForStats.filter((p) => p.stores.length < 5).length;
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
   // Produtos que precisam de revisão (>30 dias ou sem data)
@@ -52,6 +60,12 @@ export default async function AdminDashboardPage() {
   // 3. Mensagens
   const unreadMessagesCount = await prisma.contactMessage.count({
     where: { status: 'nova' },
+  });
+
+  // 4. Publicidade AdSense
+  const totalAdSlots = await prisma.adSlot.count();
+  const activeAdSlots = await prisma.adSlot.count({
+    where: { isActive: true },
   });
 
   return (
@@ -155,6 +169,26 @@ export default async function AdminDashboardPage() {
               <Award size={16} color="var(--gold-600)" />
               <span>Rankings</span>
             </Link>
+
+            <Link
+              href="/admin/publicidade"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                backgroundColor: '#ffffff',
+                color: 'var(--brand-forest-900)',
+                padding: '10px 18px',
+                borderRadius: 'var(--radius-full)',
+                fontWeight: 600,
+                fontSize: '0.88rem',
+                border: '1px solid var(--border-cream)',
+                transition: 'var(--transition)',
+              }}
+            >
+              <Megaphone size={16} color="var(--brand-forest-700)" />
+              <span>Publicidade</span>
+            </Link>
           </div>
         </div>
 
@@ -162,8 +196,8 @@ export default async function AdminDashboardPage() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '20px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '16px',
             marginBottom: '36px',
           }}
         >
@@ -216,8 +250,26 @@ export default async function AdminDashboardPage() {
             <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: 'var(--brand-forest-900)' }}>
               {totalProducts}
             </div>
-            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '8px' }}>
-              Produtos cadastrados no sistema
+            <div style={{ fontSize: '0.82rem', marginTop: '8px' }}>
+              {incompleteStoresCount > 0 ? (
+                <Link
+                  href="/admin/produtos"
+                  style={{
+                    color: '#b45309',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <span>⚠ {incompleteStoresCount} com lojas pendentes</span>
+                </Link>
+              ) : (
+                <span style={{ color: 'var(--brand-forest-700)', fontWeight: 600 }}>
+                  ✓ Todas as lojas cadastradas
+                </span>
+              )}
             </div>
           </div>
 
@@ -273,6 +325,35 @@ export default async function AdminDashboardPage() {
             <div style={{ fontSize: '0.82rem', color: unreadMessagesCount > 0 ? '#166534' : 'var(--text-muted)', marginTop: '8px' }}>
               <Link href="/admin/mensagens" style={{ textDecoration: 'underline', fontWeight: 600 }}>
                 {unreadMessagesCount} novas mensagens de contato
+              </Link>
+            </div>
+          </div>
+
+          {/* Card 5: Publicidade & AdSense */}
+          <div
+            style={{
+              backgroundColor: activeAdSlots > 0 ? '#f5f3ff' : '#ffffff',
+              borderRadius: 'var(--radius-lg)',
+              border: activeAdSlots > 0 ? '1px solid #ddd6fe' : '1px solid var(--border-cream)',
+              padding: '24px',
+              boxShadow: 'var(--shadow-sm)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <span style={{ fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: activeAdSlots > 0 ? '#6d28d9' : 'var(--text-muted)' }}>
+                Publicidade AdSense
+              </span>
+              <Megaphone size={20} color={activeAdSlots > 0 ? '#7c3aed' : 'var(--text-muted)'} />
+            </div>
+            <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: activeAdSlots > 0 ? '#6d28d9' : 'var(--brand-forest-900)' }}>
+              {activeAdSlots} / {totalAdSlots || 5}
+            </div>
+            <div style={{ fontSize: '0.82rem', color: activeAdSlots > 0 ? '#5b21b6' : 'var(--text-muted)', marginTop: '8px' }}>
+              <Link href="/admin/publicidade" style={{ textDecoration: 'underline', fontWeight: 600 }}>
+                {activeAdSlots > 0 ? `${activeAdSlots} slots ativos no site` : 'Gerenciar posições e códigos'}
               </Link>
             </div>
           </div>

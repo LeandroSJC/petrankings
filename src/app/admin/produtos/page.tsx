@@ -52,11 +52,15 @@ function AdminProductsContent() {
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [needsReviewCount, setNeedsReviewCount] = useState(0);
+  const [incompleteStoresCount, setIncompleteStoresCount] = useState(0);
+  const [zeroStoresCount, setZeroStoresCount] = useState(0);
+  const [totalCatalogCount, setTotalCatalogCount] = useState(0);
 
   // Filtros e Ordenação
   const [selectedSpecies, setSelectedSpecies] = useState('todos');
   const [selectedType, setSelectedType] = useState('todos');
-  const [sortOrder, setSortOrder] = useState('recent'); // recent | oldest | unreviewed | name
+  const [selectedStoreStatus, setSelectedStoreStatus] = useState('todos'); // todos | none | incomplete | complete | missing_amazon | missing_mercadolivre | missing_petlove | missing_cobasi | missing_shopee
+  const [sortOrder, setSortOrder] = useState('recent'); // recent | oldest | unreviewed | missing_stores | name
   const [searchQuery, setSearchQuery] = useState('');
 
   // Modal Rápido de Avaliações
@@ -228,6 +232,7 @@ function AdminProductsContent() {
       const params = new URLSearchParams();
       if (selectedSpecies !== 'todos') params.set('species', selectedSpecies);
       if (selectedType !== 'todos') params.set('productType', selectedType);
+      if (selectedStoreStatus !== 'todos') params.set('storeStatus', selectedStoreStatus);
       if (sortOrder) params.set('sort', sortOrder);
       if (searchQuery) params.set('q', searchQuery);
 
@@ -236,6 +241,9 @@ function AdminProductsContent() {
       if (data.products) {
         setProducts(data.products);
         setNeedsReviewCount(data.needsReviewCount || 0);
+        setIncompleteStoresCount(data.incompleteStoresCount || 0);
+        setZeroStoresCount(data.zeroStoresCount || 0);
+        setTotalCatalogCount(data.totalCount || 0);
 
         if (editReviewParam) {
           const target = data.products.find((p: ProductItem) => p.id === editReviewParam);
@@ -254,7 +262,7 @@ function AdminProductsContent() {
 
   useEffect(() => {
     fetchProducts();
-  }, [selectedSpecies, selectedType, sortOrder]);
+  }, [selectedSpecies, selectedType, selectedStoreStatus, sortOrder]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -504,51 +512,118 @@ function AdminProductsContent() {
           </div>
         </div>
 
-        {/* Alerta de Produtos Desatualizados */}
-        {needsReviewCount > 0 && (
-          <div
-            style={{
-              backgroundColor: '#fffbeb',
-              border: '1px solid #fde68a',
-              borderRadius: 'var(--radius-md)',
-              padding: '16px 20px',
-              marginBottom: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '12px',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <AlertTriangle size={22} color="#d97706" />
-              <div>
-                <strong style={{ color: '#92400e', fontSize: '0.92rem' }}>
-                  {needsReviewCount} produto(s) precisam de revisão editorial
-                </strong>
-                <span style={{ color: '#b45309', fontSize: '0.82rem', display: 'block' }}>
-                  Itens sem avaliações lançadas ou com mais de 30 dias desde a última checagem de notas.
-                </span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setSortOrder('unreviewed')}
+        {/* Alertas de Ação Editorial: Revisão e Lojas Faltantes */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
+          {/* Alerta de Produtos Desatualizados */}
+          {needsReviewCount > 0 && (
+            <div
               style={{
-                backgroundColor: '#b45309',
-                color: '#ffffff',
-                padding: '6px 14px',
-                borderRadius: 'var(--radius-full)',
-                fontSize: '0.82rem',
-                fontWeight: 700,
-                border: 'none',
-                cursor: 'pointer',
+                backgroundColor: '#fffbeb',
+                border: '1px solid #fde68a',
+                borderRadius: 'var(--radius-md)',
+                padding: '14px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
               }}
             >
-              Filtrar Pendentes
-            </button>
-          </div>
-        )}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <AlertTriangle size={20} color="#d97706" />
+                <div>
+                  <strong style={{ color: '#92400e', fontSize: '0.9rem' }}>
+                    {needsReviewCount} produto(s) precisam de revisão editorial
+                  </strong>
+                  <span style={{ color: '#b45309', fontSize: '0.8rem', display: 'block' }}>
+                    Itens sem avaliações lançadas ou com mais de 30 dias desde a última checagem de notas.
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSortOrder('unreviewed')}
+                style={{
+                  backgroundColor: '#b45309',
+                  color: '#ffffff',
+                  padding: '6px 14px',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                Filtrar Pendentes de Nota
+              </button>
+            </div>
+          )}
+
+          {/* Alerta de Produtos com Lojas Faltantes */}
+          {incompleteStoresCount > 0 && (
+            <div
+              style={{
+                backgroundColor: zeroStoresCount > 0 ? '#fef2f2' : '#f0fdf4',
+                border: zeroStoresCount > 0 ? '1px solid #fecaca' : '1px solid #bbf7d0',
+                borderRadius: 'var(--radius-md)',
+                padding: '14px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <AlertCircle size={20} color={zeroStoresCount > 0 ? '#ef4444' : '#16a34a'} />
+                <div>
+                  <strong style={{ color: zeroStoresCount > 0 ? '#991b1b' : '#166534', fontSize: '0.9rem' }}>
+                    {incompleteStoresCount} produto(s) com lojas pendentes
+                    {zeroStoresCount > 0 && ` (${zeroStoresCount} sem nenhuma loja cadastrada)`}
+                  </strong>
+                  <span style={{ color: zeroStoresCount > 0 ? '#b91c1c' : '#15803d', fontSize: '0.8rem', display: 'block' }}>
+                    Produtos que ainda não possuem as 5 lojas parceiras cadastradas com links e notas.
+                  </span>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {zeroStoresCount > 0 && (
+                  <button
+                    onClick={() => setSelectedStoreStatus('none')}
+                    style={{
+                      backgroundColor: '#dc2626',
+                      color: '#ffffff',
+                      padding: '6px 12px',
+                      borderRadius: 'var(--radius-full)',
+                      fontSize: '0.8rem',
+                      fontWeight: 700,
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Sem Lojas (0/5)
+                  </button>
+                )}
+                <button
+                  onClick={() => setSelectedStoreStatus('incomplete')}
+                  style={{
+                    backgroundColor: 'var(--brand-forest-800)',
+                    color: '#ffffff',
+                    padding: '6px 12px',
+                    borderRadius: 'var(--radius-full)',
+                    fontSize: '0.8rem',
+                    fontWeight: 700,
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Ver Incompletos (&lt; 5)
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Barra de Filtros, Pesquisa e Ordenação */}
         <div
@@ -566,7 +641,7 @@ function AdminProductsContent() {
         >
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
             {/* Espécie */}
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={() => { setSelectedSpecies('todos'); setSelectedType('todos'); }}
                 style={{
@@ -631,14 +706,15 @@ function AdminProductsContent() {
                 <option value="recent">Mais Recentes</option>
                 <option value="oldest">Mais Antigos</option>
                 <option value="unreviewed">Pendentes de Revisão</option>
+                <option value="missing_stores">Faltando Lojas (Prioridade)</option>
                 <option value="name">Ordem Alfabética</option>
               </select>
             </div>
           </div>
 
-          {/* Linha 2: Busca e Filtro de Tipo */}
+          {/* Linha 2: Busca, Filtro de Tipo e Filtro de Lojas */}
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
-            <form onSubmit={handleSearchSubmit} style={{ flex: 1, minWidth: '240px', position: 'relative' }}>
+            <form onSubmit={handleSearchSubmit} style={{ flex: 1, minWidth: '220px', position: 'relative' }}>
               <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-subtle)' }} />
               <input
                 type="text"
@@ -654,6 +730,31 @@ function AdminProductsContent() {
                 }}
               />
             </form>
+
+            {/* Filtro de Situação de Lojas */}
+            <select
+              value={selectedStoreStatus}
+              onChange={(e) => setSelectedStoreStatus(e.target.value)}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--border-cream)',
+                fontSize: '0.85rem',
+                backgroundColor: selectedStoreStatus !== 'todos' ? '#f0fdf4' : '#ffffff',
+                fontWeight: selectedStoreStatus !== 'todos' ? 700 : 500,
+                color: selectedStoreStatus !== 'todos' ? 'var(--brand-forest-900)' : 'inherit',
+              }}
+            >
+              <option value="todos">Status das Lojas: Todos</option>
+              <option value="none">🔴 Sem nenhuma loja (0/5)</option>
+              <option value="incomplete">🟠 Lojas incompletas (&lt; 5 lojas)</option>
+              <option value="complete">🟢 5 Lojas cadastradas (5/5)</option>
+              <option value="missing_amazon">Falta cadastrar: Amazon</option>
+              <option value="missing_petlove">Falta cadastrar: Petlove</option>
+              <option value="missing_cobasi">Falta cadastrar: Cobasi</option>
+              <option value="missing_mercadolivre">Falta cadastrar: Mercado Livre</option>
+              <option value="missing_shopee">Falta cadastrar: Shopee</option>
+            </select>
 
             {availableTypes.length > 0 && (
               <select
@@ -672,6 +773,25 @@ function AdminProductsContent() {
                   <option key={t} value={t}>{t}</option>
                 ))}
               </select>
+            )}
+
+            {selectedStoreStatus !== 'todos' && (
+              <button
+                type="button"
+                onClick={() => setSelectedStoreStatus('todos')}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid #fecaca',
+                  backgroundColor: '#fef2f2',
+                  color: '#dc2626',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                Limpar filtro de lojas ✕
+              </button>
             )}
           </div>
         </div>
@@ -807,7 +927,133 @@ function AdminProductsContent() {
                     </div>
                   </div>
 
-                  {/* Lojas e Vínculos */}
+                  {/* Status e Matriz de Lojas Parceiras */}
+                  <div
+                    style={{
+                      borderTop: '1px solid var(--border-cream-light)',
+                      paddingTop: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      gap: '12px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ fontSize: '0.78rem', color: 'var(--text-subtle)', fontWeight: 700 }}>
+                          Lojas Parceiras:
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '0.72rem',
+                            fontWeight: 800,
+                            padding: '2px 8px',
+                            borderRadius: '12px',
+                            backgroundColor:
+                              prod.stores.length === 5
+                                ? '#ecfdf5'
+                                : prod.stores.length === 0
+                                ? '#fef2f2'
+                                : '#fffbeb',
+                            color:
+                              prod.stores.length === 5
+                                ? '#059669'
+                                : prod.stores.length === 0
+                                ? '#dc2626'
+                                : '#b45309',
+                            border: `1px solid ${
+                              prod.stores.length === 5
+                                ? '#a7f3d0'
+                                : prod.stores.length === 0
+                                ? '#fecaca'
+                                : '#fde68a'
+                            }`,
+                          }}
+                        >
+                          {prod.stores.length === 5
+                            ? '✓ 5/5 Completas'
+                            : prod.stores.length === 0
+                            ? '⚠ 0/5 Sem Lojas'
+                            : `⚠ ${prod.stores.length}/5 (faltam ${5 - prod.stores.length})`}
+                        </span>
+                      </div>
+
+                      {/* Badges das 5 Lojas */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                        {VALID_STORES.map((storeKey) => {
+                          const found = (prod.stores || []).find((s) => s.store === storeKey);
+                          const storeInfo = getStoreInfo(storeKey);
+
+                          if (found) {
+                            return (
+                              <a
+                                key={storeKey}
+                                href={found.productUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title={`Loja ${storeInfo?.name || storeKey} cadastrada - ${found.rating !== null && found.rating !== undefined ? `Nota: ${Number(found.rating).toFixed(1)} (${found.reviewCount || 0} avaliações)` : 'Sem nota lançada'}`}
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  padding: '2px 8px',
+                                  borderRadius: '6px',
+                                  backgroundColor: '#ffffff',
+                                  border: '1px solid var(--border-cream)',
+                                  fontSize: '0.74rem',
+                                  color: 'var(--brand-forest-900)',
+                                  textDecoration: 'none',
+                                  fontWeight: 600,
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    width: '6px',
+                                    height: '6px',
+                                    borderRadius: '50%',
+                                    backgroundColor: '#10b981',
+                                  }}
+                                />
+                                <span>{storeInfo?.name || storeKey}</span>
+                                {found.rating !== null && found.rating !== undefined && (
+                                  <span style={{ color: 'var(--gold-700)', fontWeight: 800 }}>
+                                    ★ {Number(found.rating).toFixed(1)}
+                                  </span>
+                                )}
+                                <ExternalLink size={10} color="var(--text-subtle)" />
+                              </a>
+                            );
+                          }
+
+                          return (
+                            <Link
+                              key={storeKey}
+                              href={`/admin/produtos/${prod.id}/editar`}
+                              title={`Clique para cadastrar a loja ${storeInfo?.name || storeKey}`}
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                padding: '2px 8px',
+                                borderRadius: '6px',
+                                backgroundColor: '#f8fafc',
+                                border: '1px dashed #cbd5e1',
+                                fontSize: '0.74rem',
+                                color: '#94a3b8',
+                                textDecoration: 'none',
+                                fontWeight: 500,
+                              }}
+                            >
+                              <span>+ {storeInfo?.name || storeKey}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Vínculos e Botões de Ação */}
                   <div
                     style={{
                       borderTop: '1px solid var(--border-cream-light)',

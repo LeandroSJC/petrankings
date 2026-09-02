@@ -72,7 +72,7 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
           }}
         >
           <Crown size={14} color="var(--gold-400)" aria-hidden="true" />
-          <span>🏆 O Mais Amado pelos Tutores #1</span>
+          <span>🏆 1º Lugar • Mais Bem Avaliado</span>
         </div>
       )}
 
@@ -270,7 +270,7 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-body)' }}>
-            Nota dos tutores:
+            Nota média consolidada:
           </span>
           {product.averageRating !== null ? (
             <div
@@ -300,7 +300,7 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
             </div>
           ) : (
             <span style={{ fontSize: '0.88rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>
-              Ainda sendo avaliado
+              Em apuração
             </span>
           )}
         </div>
@@ -327,7 +327,7 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
         }}
       >
         <ShoppingBag size={16} color="var(--gold-700)" aria-hidden="true" />
-        <span>Onde encontrar com o melhor preço e entrega:</span>
+        <span>Lojas parceiras para comparar preço e disponibilidade:</span>
       </div>
 
       {/* 4. Grade de Botões de Lojas */}
@@ -367,7 +367,7 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
       >
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <Clock size={13} color="var(--brand-forest-700)" aria-hidden="true" />
-          <span>Última conferência de notas:</span>
+          <span>Última checagem de notas:</span>
         </div>
         <strong style={{ color: 'var(--brand-forest-900)' }}>
           {formatDate(product.ratingUpdatedAt)}

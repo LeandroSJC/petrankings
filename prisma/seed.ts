@@ -453,7 +453,53 @@ async function main() {
       },
     ],
   });
-  console.log('✓ Mensagens de contato de teste criadas.');
+  // 4. Slots de Publicidade Padrão
+  const defaultAdSlots = [
+    {
+      slotKey: 'topo',
+      name: 'Publicidade Topo (Header)',
+      description: 'Exibida no topo das páginas logo abaixo do cabeçalho ou após a introdução principal.',
+      isActive: false,
+      code: '',
+    },
+    {
+      slotKey: 'meio_produtos',
+      name: 'Publicidade Meio dos Produtos (In-Feed)',
+      description: 'Exibida de forma integrada entre os produtos nas listas de rankings comparativos.',
+      isActive: false,
+      code: '',
+    },
+    {
+      slotKey: 'rodape',
+      name: 'Publicidade Rodapé (Footer)',
+      description: 'Exibida na parte inferior das páginas de rankings e institucionais antes do rodapé.',
+      isActive: false,
+      code: '',
+    },
+    {
+      slotKey: 'lateral_artigo',
+      name: 'Publicidade Lateral / Artigos',
+      description: 'Exibida em barras laterais ou entre parágrafos de artigos informativos e institucionais.',
+      isActive: false,
+      code: '',
+    },
+    {
+      slotKey: 'global_head',
+      name: 'Script Global AdSense (Head)',
+      description: 'Código de script assíncrono principal do Google AdSense (ex: verificação do site / auto ads).',
+      isActive: false,
+      code: '',
+    },
+  ];
+
+  for (const slot of defaultAdSlots) {
+    await prisma.adSlot.upsert({
+      where: { slotKey: slot.slotKey },
+      update: {},
+      create: slot,
+    });
+  }
+  console.log('✓ Slots de publicidade padrão inicializados.');
 
   console.log('--- Seed do PetRankings concluído com sucesso! ---');
 }

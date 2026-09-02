@@ -24,7 +24,7 @@ export default function Footer() {
             marginBottom: '48px',
           }}
         >
-          {/* Coluna 1: Missão de Cuidado */}
+          {/* Coluna 1: Sobre o Projeto */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px' }}>
               <div
@@ -55,11 +55,11 @@ export default function Footer() {
               </span>
             </div>
             <p style={{ fontSize: '0.92rem', color: '#cbd5e1', lineHeight: 1.7 }}>
-              Feito por quem ama animais para quem ama seus pets. Comparamos rações, areias, petiscos e brinquedos usando avaliações reais de tutores de todo o Brasil, para você escolher com o coração leve e a certeza de estar oferecendo o melhor.
+              Guia comparador independente de produtos para cães e gatos. Consolidamos avaliações e notas de compradores reais nas principais lojas do Brasil para ajudar você a escolher o melhor produto e economizar tempo.
             </p>
           </div>
 
-          {/* Coluna 2: Navegação Amigável */}
+          {/* Coluna 2: Navegação */}
           <nav aria-label="Navegação do rodapé">
             <h2
               style={{
@@ -70,7 +70,7 @@ export default function Footer() {
                 letterSpacing: '-0.2px',
               }}
             >
-              Conheça Mais
+              Navegação
             </h2>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.94rem' }}>
               <li>
@@ -80,12 +80,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/sobre" className="footer-link">
-                  Nossa História & Propósito
+                  Sobre o PetRankings
                 </Link>
               </li>
               <li>
                 <Link href="/sobre#como-calculamos" className="footer-link">
-                  Como Calculamos com Transparência
+                  Metodologia de Avaliação
                 </Link>
               </li>
               <li>
@@ -95,7 +95,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/contato" className="footer-link">
-                  Fale com a Nossa Equipe
+                  Fale Conosco
                 </Link>
               </li>
               <li>
@@ -106,7 +106,7 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* Coluna 3: Cuidado & Transparência */}
+          {/* Coluna 3: Transparência & Saúde Pet */}
           <div>
             <h2
               style={{
@@ -117,10 +117,10 @@ export default function Footer() {
                 letterSpacing: '-0.2px',
               }}
             >
-              Cuidado com seu Pet
+              Aviso Editorial
             </h2>
             <p style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: 1.65, marginBottom: '14px' }}>
-              Dica com carinho: O PetRankings é um guia amigo de compras baseado nas experiências de outros tutores. Nunca deixe de consultar o médico veterinário do seu pet!
+              O PetRankings é um serviço de comparação de consumo e não substitui consultas, diagnósticos ou prescrições veterinárias. Consulte sempre o médico veterinário do seu pet.
             </p>
             <div
               style={{
@@ -136,7 +136,7 @@ export default function Footer() {
               }}
             >
               <Sparkles size={16} color="var(--gold-400)" aria-hidden="true" />
-              <span>Avaliações sinceras, feitas à mão e sem posições pagas.</span>
+              <span>Notas calculadas a partir de avaliações reais de e-commerce.</span>
             </div>
           </div>
         </div>

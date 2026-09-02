@@ -30,6 +30,9 @@ model Ranking {
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
   products      RankingProduct[]
+
+  @@index([isPublished, species])
+  @@index([isPublished, dataUpdatedAt])
 }
 
 model Product {
@@ -46,6 +49,9 @@ model Product {
   updatedAt       DateTime         @updatedAt
   stores          ProductStore[]
   rankings        RankingProduct[]
+
+  @@index([species, productType])
+  @@index([averageRating])
 }
 
 model ProductStore {
@@ -84,6 +90,8 @@ model ContactMessage {
   status    String   @default("nova") // "nova" | "lida" | "arquivada"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([status])
 }
 
 model ContactRateLimit {
@@ -92,4 +100,15 @@ model ContactRateLimit {
   createdAt DateTime @default(now())
 
   @@index([email])
+}
+
+model AdSlot {
+  id          String   @id @default(cuid())
+  slotKey     String   @unique // "topo" | "meio_produtos" | "rodape" | "lateral_artigo" | "global_head"
+  name        String   // Ex: "Publicidade Topo"
+  description String?  // Onde o anúncio é exibido
+  code        String   @default("") // Código HTML / Script do Google AdSense colado integralmente
+  isActive    Boolean  @default(false) // Ativar ou desativar exibição
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

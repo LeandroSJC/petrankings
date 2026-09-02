@@ -134,8 +134,8 @@ export default function ContatoPage() {
               boxShadow: 'var(--shadow-xs)',
             }}
           >
-            <Heart size={16} color="var(--gold-700)" aria-hidden="true" fill="var(--gold-700)" />
-            <span>Adoramos Conversar com Outros Tutores</span>
+            <Mail size={16} color="var(--brand-forest-700)" aria-hidden="true" />
+            <span>Canal Direto com a Redação</span>
           </div>
 
           <h1
@@ -146,11 +146,11 @@ export default function ContatoPage() {
               color: 'var(--brand-forest-900)',
             }}
           >
-            Queremos muito ouvir você!
+            Fale com a Nossa Equipe
           </h1>
 
           <p style={{ fontSize: '1.12rem', color: 'var(--text-body)', lineHeight: 1.68 }}>
-            Tem uma sugestão de categoria para analisarmos, quer indicar aquele produto que o seu cão ou gato ama, ou notou algo para melhorar? Mande uma mensagem — nossa equipe responde com todo o prazer!
+            Tem uma sugestão de categoria para analisarmos, quer indicar um produto para inclusão no catálogo, notou alguma divergência em notas ou deseja enviar uma proposta de parceria? Preencha o formulário abaixo que responderemos o mais breve possível.
           </p>
         </div>
       </section>

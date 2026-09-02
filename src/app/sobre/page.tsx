@@ -1,21 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
-import { Award, ShieldCheck, HeartHandshake, Calculator, ArrowLeft, Heart, Sparkles } from 'lucide-react';
-import AdPlaceholder from '@/components/AdPlaceholder';
+import { ShieldCheck, HeartHandshake, Calculator, ArrowLeft, Heart, CheckCircle2 } from 'lucide-react';
+import { getAdSlotsMap } from '@/lib/ads';
+import AdSlotRenderer from '@/components/AdSlotRenderer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Nossa História & Como Avaliamos com Carinho',
-  description: 'Conheça o propósito, a equipe e os critérios matemáticos e manuais que utilizamos para calcular os rankings e notas de produtos para pets.',
+  title: 'Sobre o PetRankings & Como Avaliamos os Produtos',
+  description: 'Conheça o propósito, a metodologia matemática e o compromisso de transparência editorial do PetRankings.',
   alternates: {
     canonical: '/sobre',
   },
 };
 
-export default function SobrePage() {
+export default async function SobrePage() {
+  const adSlots = await getAdSlotsMap();
   return (
     <div style={{ paddingBottom: '72px' }}>
-      {/* Header Institucional Acolhedor */}
+      {/* Header Institucional */}
       <section
         style={{
           backgroundColor: '#ffffff',
@@ -62,8 +64,8 @@ export default function SobrePage() {
               boxShadow: 'var(--shadow-xs)',
             }}
           >
-            <Heart size={16} color="var(--gold-700)" aria-hidden="true" fill="var(--gold-700)" />
-            <span>Nosso Propósito & Compromisso com Você</span>
+            <ShieldCheck size={16} color="var(--brand-forest-700)" aria-hidden="true" />
+            <span>Transparência Editorial & Metodologia</span>
           </div>
 
           <h1
@@ -78,7 +80,7 @@ export default function SobrePage() {
           </h1>
 
           <p style={{ fontSize: '1.15rem', color: 'var(--text-body)', lineHeight: 1.68 }}>
-            Criamos o PetRankings para que você nunca mais se sinta perdido na hora de escolher a ração, o brinquedo ou os cuidados do seu melhor amigo de quatro patas. Aqui, a voz de milhares de tutores reais se transforma em rankings claros, fáceis de entender e 100% sinceros.
+            O <strong>PetRankings</strong> é um guia comparador independente criado para ajudar tutores de cães e gatos a tomarem decisões de compra mais conscientes, rápidas e seguras. Consolidamos as notas e opiniões reais de quem já comprou e testou produtos nas maiores lojas de e-commerce do Brasil.
           </p>
         </div>
       </section>
@@ -87,7 +89,7 @@ export default function SobrePage() {
         className="container"
         style={{ maxWidth: '880px', marginTop: '44px', display: 'flex', flexDirection: 'column', gap: '48px' }}
       >
-        {/* 1. Nossa Missão */}
+        {/* 1. Nossa Proposta */}
         <section
           style={{
             backgroundColor: '#ffffff',
@@ -103,14 +105,14 @@ export default function SobrePage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <ShieldCheck size={28} color="var(--brand-forest-700)" aria-hidden="true" />
             <h2 style={{ fontSize: '1.8rem', color: 'var(--brand-forest-900)' }}>
-              Por que fazemos o que fazemos?
+              O que fazemos e por que existimos
             </h2>
           </div>
           <p style={{ color: 'var(--text-body)', lineHeight: 1.75, fontSize: '1.05rem' }}>
-            Quem tem cão ou gato em casa sabe: são tantas marcas, tipos de ração, areias sanitárias e acessórios que fica difícil saber o que realmente funciona e agrada aos pets. O <strong>PetRankings</strong> nasceu para ser o seu porto seguro: organizamos produtos em categorias certinhas, registramos as notas de compradores nas maiores lojas do país e calculamos uma classificação totalmente transparente.
+            O mercado pet brasileiro conta com centenas de opções de rações, areias sanitárias, petiscos e brinquedos. Analisar individualmente a reputação de cada produto em múltiplos sites exige muito tempo e paciência.
           </p>
           <p style={{ color: 'var(--text-body)', lineHeight: 1.75, fontSize: '1.05rem' }}>
-            Não vendemos produtos diretamente, não temos carrinho de compras próprio e jamais criamos avaliações fictícias. Tudo o que você vê aqui foi apurado e organizado com muito carinho e rigor por nossa equipe.
+            Nossa equipe pesquisa, organiza por categorias específicas e calcula a nota média consolidada dos principais itens disponíveis no mercado. <strong>Não vendemos produtos diretamente</strong>, não possuímos estoque e não processamos pagamentos: nosso papel é 100% informativo e comparativo.
           </p>
         </section>
 
@@ -148,7 +150,7 @@ export default function SobrePage() {
                 Como calculamos as notas e rankings
               </h2>
               <span style={{ fontSize: '0.92rem', color: 'var(--text-muted)', fontWeight: 700 }}>
-                Critérios simples, matemáticos e sem segredos
+                Critérios objetivos, matemáticos e transparentes
               </span>
             </div>
           </div>
@@ -177,10 +179,10 @@ export default function SobrePage() {
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', color: 'var(--brand-forest-900)', marginBottom: '4px' }}>
-                  Reunimos as notas das 5 maiores lojas online
+                  Coleta de notas nas 5 maiores lojas parceiras
                 </h3>
                 <p style={{ color: 'var(--text-body)', fontSize: '0.98rem', lineHeight: 1.68 }}>
-                  Nossa equipe pesquisa e cadastra manualmente as notas atribuídas pelos compradores nas maiores lojas online do Brasil: <strong>Amazon, Mercado Livre, Petlove, Cobasi e Shopee</strong>. Apenas notas válidas de 0 a 5 estrelas são consideradas.
+                  Registramos periodicamente as avaliações públicas deixadas por compradores reais em cinco grandes plataformas de comércio eletrônico no Brasil: <strong>Amazon, Mercado Livre, Petlove, Cobasi e Shopee</strong>.
                 </p>
               </div>
             </div>
@@ -208,10 +210,10 @@ export default function SobrePage() {
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', color: 'var(--brand-forest-900)', marginBottom: '4px' }}>
-                  Calculamos a média simples e justa
+                  Cálculo da média simples
                 </h3>
                 <p style={{ color: 'var(--text-body)', fontSize: '0.98rem', lineHeight: 1.68 }}>
-                  Somamos todas as notas registradas nas lojas parceiras e dividimos pela quantidade de lojas disponíveis. O resultado é uma nota média nítida e arredondada em duas casas decimais (ex: 4.85 ★).
+                  A pontuação consolidada é a média aritmética das notas válidas (de 0 a 5) registradas para o produto nas lojas parceiras, arredondada em duas casas decimais (exemplo: 4.85 ★).
                 </p>
               </div>
             </div>
@@ -239,10 +241,10 @@ export default function SobrePage() {
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', color: 'var(--brand-forest-900)', marginBottom: '4px' }}>
-                  A maior nota média assume o topo (#1 Ouro)
+                  Ordenação automática pelo desempenho (#1 ao #N)
                 </h3>
                 <p style={{ color: 'var(--text-body)', fontSize: '0.98rem', lineHeight: 1.68 }}>
-                  A ordem no ranking é automática: o produto com a pontuação mais alta fica em 1º lugar com medalha de ouro, seguido pelo 2º lugar (prata), 3º lugar (bronze) e assim sucessivamente.
+                  O posicionamento nos rankings é 100% automático: o item com maior média assume o 1º lugar (medalha de ouro), seguido pelo 2º (prata), 3º (bronze) e demais posições. Nenhuma marca pode comprar posições.
                 </p>
               </div>
             </div>
@@ -270,10 +272,10 @@ export default function SobrePage() {
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', color: 'var(--brand-forest-900)', marginBottom: '4px' }}>
-                  Desempate pelo carinho de mais tutores
+                  Critério de desempate por volume de avaliações
                 </h3>
                 <p style={{ color: 'var(--text-body)', fontSize: '0.98rem', lineHeight: 1.68 }}>
-                  Se dois produtos tiverem a mesma nota média exata, o desempate é decidido pelo volume total de avaliações somadas entre as lojas. O produto testado e aprovado por mais tutores fica à frente.
+                  Caso dois produtos apresentem a mesma nota média exata, o desempate é definido pela soma total de avaliações recebidas nas lojas, priorizando o produto com maior amostragem de consumidores.
                 </p>
               </div>
             </div>
@@ -301,20 +303,22 @@ export default function SobrePage() {
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', color: 'var(--brand-forest-900)', marginBottom: '4px' }}>
-                  Acesso direto às lojas e transparência de parcerias
+                  Links de lojas e modelo de sustentabilidade
                 </h3>
                 <p style={{ color: 'var(--text-body)', fontSize: '0.98rem', lineHeight: 1.68 }}>
-                  Nossos botões levam você diretamente para as páginas oficiais das lojas. Alguns links podem conter códigos de parceiro afiliado, pelos quais podemos receber uma comissão caso você compre, sem nenhum custo a mais para você. Isso mantém nosso site 100% gratuito e nunca afeta notas ou posições!
+                  Para facilitar a sua compra, disponibilizamos links diretos para as páginas oficiais das lojas parceiras. Como forma de monetização para manter o serviço gratuito e atualizado, participamos de programas de afiliados e podemos receber uma comissão caso você decida comprar — sem nenhum custo adicional para você. Esse relacionamento comercial jamais afeta as notas ou as posições dos rankings.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Espaço de Anúncio Reservado */}
-        <AdPlaceholder label="Espaço Publicitário Reservado" />
+        {/* Espaço de Anúncio Rodapé / Artigo */}
+        {adSlots['rodape']?.isActive && (
+          <AdSlotRenderer slot={adSlots['rodape']} />
+        )}
 
-        {/* 3. Princípios e Limites Responsáveis */}
+        {/* 3. Princípios e Aviso Veterinário */}
         <section
           style={{
             backgroundColor: 'var(--bg-cream-subtle)',
@@ -326,11 +330,11 @@ export default function SobrePage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
             <HeartHandshake size={26} color="var(--brand-forest-700)" aria-hidden="true" />
             <h2 style={{ fontSize: '1.6rem', color: 'var(--brand-forest-900)' }}>
-              Amor, Respeito & Orientação Veterinária
+              Aviso Importante: Orientação Veterinária
             </h2>
           </div>
           <p style={{ color: 'var(--text-body)', fontSize: '1.02rem', lineHeight: 1.75 }}>
-            O PetRankings não substitui a consulta nem a orientação de um médico veterinário. Cada cão e gato possui necessidades nutricionais, de saúde e comportamento únicas. Nossos rankings servem como um ponto de partida para economizar tempo e comparar a satisfação de outros tutores — mas para cuidados de saúde, consulte sempre o veterinário de sua confiança!
+            O PetRankings é um serviço editorial e comparador de mercado. O conteúdo aqui disponibilizado não substitui consultas, diagnósticos ou prescrições médicas. Cada cão e gato possui necessidades nutricionais, clínicas e comportamentais específicas. Antes de realizar trocas na ração ou no manejo de saúde do seu animal, consulte sempre um médico veterinário.
           </p>
         </section>
 
@@ -352,7 +356,7 @@ export default function SobrePage() {
               alignItems: 'center',
             }}
           >
-            Explorar Rankings com Amor 🐾
+            Explorar Rankings
           </Link>
 
           <Link
@@ -371,7 +375,7 @@ export default function SobrePage() {
               alignItems: 'center',
             }}
           >
-            Mandar um Oi ou Sugestão
+            Fale Conosco
           </Link>
         </div>
       </div>

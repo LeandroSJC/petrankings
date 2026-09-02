@@ -5,8 +5,9 @@ import { ArrowLeft, Award, ShieldCheck, Sparkles } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { sortRankingProducts } from '@/lib/ranking-engine';
 import { SITE_URL } from '@/lib/utils';
+import { getAdSlotsMap } from '@/lib/ads';
 import ProductCard from '@/components/ProductCard';
-import AdPlaceholder from '@/components/AdPlaceholder';
+import AdSlotRenderer from '@/components/AdSlotRenderer';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -134,6 +135,9 @@ export default async function RankingDetailPage({
   // Ordenar dinamicamente os produtos de acordo com a Seção 5.2
   const rawProducts = ranking.products.map((rp) => rp.product);
   const sortedProducts = sortRankingProducts(rawProducts);
+
+  // Carregar configurações de publicidade dinâmicas
+  const adSlots = await getAdSlotsMap();
 
   const siteUrl = SITE_URL;
   const canonicalUrl = `${siteUrl}/ranking/${ranking.slug}`;
@@ -303,10 +307,12 @@ export default async function RankingDetailPage({
         </div>
       </section>
 
-      {/* Espaço Publicitário Reservado Topo do Ranking */}
-      <div className="container" style={{ marginTop: '24px' }}>
-        <AdPlaceholder label="Espaço Publicitário Reservado — Ranking Topo" />
-      </div>
+      {/* Espaço Publicitário Topo do Ranking */}
+      {adSlots['topo']?.isActive && (
+        <div className="container" style={{ marginTop: '24px' }}>
+          <AdSlotRenderer slot={adSlots['topo']} />
+        </div>
+      )}
 
       {/* Lista de Produtos Ordenada */}
       <section className="container" aria-label="Lista ordenada de produtos avaliados" style={{ marginTop: '28px' }}>
@@ -319,11 +325,10 @@ export default async function RankingDetailPage({
                   product={product}
                   rankingTitle={ranking.title}
                 />
-                {index === 2 && sortedProducts.length >= 5 && (
+                {index === 2 && sortedProducts.length >= 5 && adSlots['meio_produtos']?.isActive && (
                   <div style={{ margin: '8px 0' }}>
-                    <AdPlaceholder
-                      label="Publicidade — Espaço Reservado In-Feed"
-                      slotId={process.env.NEXT_PUBLIC_ADSENSE_SLOT_FEED}
+                    <AdSlotRenderer
+                      slot={adSlots['meio_produtos']}
                       minHeight="120px"
                     />
                   </div>
@@ -372,10 +377,12 @@ export default async function RankingDetailPage({
         )}
       </section>
 
-      {/* Espaço Publicitário Reservado Rodapé do Ranking */}
-      <div className="container" style={{ marginTop: '36px' }}>
-        <AdPlaceholder label="Espaço Publicitário Reservado — Ranking Rodapé" />
-      </div>
+      {/* Espaço Publicitário Rodapé do Ranking */}
+      {adSlots['rodape']?.isActive && (
+        <div className="container" style={{ marginTop: '36px' }}>
+          <AdSlotRenderer slot={adSlots['rodape']} />
+        </div>
+      )}
     </div>
   );
 }

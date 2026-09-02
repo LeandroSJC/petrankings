@@ -11,7 +11,8 @@ import {
   Heart,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
-import AdPlaceholder from '@/components/AdPlaceholder';
+import { getAdSlotsMap } from '@/lib/ads';
+import AdSlotRenderer from '@/components/AdSlotRenderer';
 import HomeRankingsClient from '@/components/HomeRankingsClient';
 import FaqAccordion from '@/components/FaqAccordion';
 
@@ -19,19 +20,22 @@ import FaqAccordion from '@/components/FaqAccordion';
 export const revalidate = 60;
 
 export default async function HomePage() {
-  // Busca direta no banco de dados (Server-Side Rendering instantâneo)
-  const rawRankings = await prisma.ranking.findMany({
-    where: { isPublished: true },
-    include: {
-      _count: {
-        select: { products: true },
+  // Carregar slots de anúncio e rankings em paralelo
+  const [rawRankings, adSlots] = await Promise.all([
+    prisma.ranking.findMany({
+      where: { isPublished: true },
+      include: {
+        _count: {
+          select: { products: true },
+        },
       },
-    },
-    orderBy: [
-      { dataUpdatedAt: 'desc' },
-      { createdAt: 'desc' },
-    ],
-  });
+      orderBy: [
+        { dataUpdatedAt: 'desc' },
+        { createdAt: 'desc' },
+      ],
+    }),
+    getAdSlotsMap(),
+  ]);
 
   const rankings = rawRankings.map((r) => ({
     ...r,
@@ -43,19 +47,23 @@ export default async function HomePage() {
   const faqs = [
     {
       q: 'Como o PetRankings calcula as notas de cada produto?',
-      a: 'Nossa equipe pesquisa com carinho as avaliações reais deixadas por compradores nas 5 maiores lojas online do Brasil (Amazon, Mercado Livre, Petlove, Cobasi e Shopee). Calculamos a média simples dessas notas para entregar uma pontuação justa, transparente e fácil de comparar.',
+      a: 'Nossa equipe coleta as notas e avaliações reais deixadas por compradores verificados nas 5 principais lojas online do Brasil: Amazon, Mercado Livre, Petlove, Cobasi e Shopee. Calculamos a média simples dessas notas para gerar uma pontuação clara de 0 a 5 estrelas.',
     },
     {
-      q: 'O que define qual produto fica em primeiro lugar (#1)?',
-      a: 'É pura matemática e sinceridade! O produto que tiver a maior nota média entre as lojas assume o 1º lugar no pódio. Se houver empate na pontuação, fica na frente o produto que tiver mais avaliações somadas, garantindo que a escolha favorita de mais tutores se destaque.',
+      q: 'O que define qual produto fica em 1º lugar (#1)?',
+      a: 'A classificação segue um critério estritamente matemático: o produto com a maior nota média entre as lojas assume a primeira posição do ranking. Em caso de empate na nota, fica à frente o produto que acumulou o maior número total de avaliações entre as lojas.',
     },
     {
-      q: 'Os links de compra influenciam a posição do ranking?',
-      a: 'De jeito nenhum! Alguns botões possuem links de parceiros afiliados pelos quais recebemos uma pequena comissão se você decidir comprar, o que nos ajuda a manter o site gratuito. No entanto, nenhum valor pago altera notas, posições ou os destaques dos rankings.',
+      q: 'O PetRankings vende produtos diretamente?',
+      a: 'Não. Nós somos um guia comparador independente e não possuímos estoque nem processamos pagamentos. Disponibilizamos botões que direcionam você com segurança para as lojas oficiais parceiras onde o produto pode ser adquirido.',
     },
     {
-      q: 'O PetRankings substitui uma consulta ao veterinário?',
-      a: 'Com certeza não! Nosso site é um guia amigo para te ajudar a comparar preços e a satisfação de outros tutores. Questões clínicas, dietas especiais e orientações de saúde devem ser sempre acompanhadas pelo médico veterinário de sua confiança.',
+      q: 'Os links de parceiros influenciam a posição do ranking?',
+      a: 'Não. Alguns links contêm identificadores de parceiros afiliados, o que nos permite receber uma pequena comissão das lojas caso você conclua uma compra — sem que você pague nada a mais por isso. Nenhuma marca ou loja parceira tem permissão para pagar por posições ou alterar as notas dos rankings.',
+    },
+    {
+      q: 'O site substitui a consulta com um médico veterinário?',
+      a: 'De forma alguma. O PetRankings é um guia de compras e satisfação de mercado. Alterações na dieta, manejo sanitário ou questões de saúde do seu animal de estimação devem ser sempre orientadas pelo médico veterinário de sua confiança.',
     },
   ];
 
@@ -78,7 +86,7 @@ export default async function HomePage() {
     name: 'PetRankings',
     url: 'https://petrankings.com.br',
     description:
-      'Comparações sinceras e transparentes baseadas nas avaliações reais de tutores nas principais lojas do Brasil.',
+      'Guia comparador independente com os produtos pet mais bem avaliados do Brasil, com base em compras reais na Amazon, Petlove, Cobasi, Mercado Livre e Shopee.',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://petrankings.com.br/?q={search_term_string}',
@@ -98,12 +106,14 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
 
-      {/* 1. Espaço Publicitário Superior Reservado */}
-      <div className="container" style={{ marginTop: '20px' }}>
-        <AdPlaceholder label="Espaço Publicitário Reservado — Topo" />
-      </div>
+      {/* 1. Espaço Publicitário Superior */}
+      {adSlots['topo']?.isActive && (
+        <div className="container" style={{ marginTop: '20px' }}>
+          <AdSlotRenderer slot={adSlots['topo']} />
+        </div>
+      )}
 
-      {/* 2. Hero Editorial Acolhedor com Mascotes e Luz Dourada */}
+      {/* 2. Hero Editorial com Proposta de Valor Clara */}
       <section
         aria-label="Apresentação do PetRankings"
         style={{
@@ -145,19 +155,19 @@ export default async function HomePage() {
                   boxShadow: 'var(--shadow-xs)',
                 }}
               >
-                <Heart size={16} color="var(--gold-700)" aria-hidden="true" fill="var(--gold-700)" />
-                <span>Feito com carinho para quem ama seus pets</span>
+                <ShieldCheck size={16} color="var(--brand-forest-700)" aria-hidden="true" />
+                <span>Guia Comparador Independente de Produtos Pet</span>
               </div>
 
               <h1
                 style={{
-                  fontSize: 'clamp(2.4rem, 4.6vw, 3.6rem)',
+                  fontSize: 'clamp(2.3rem, 4.4vw, 3.4rem)',
                   lineHeight: 1.15,
                   letterSpacing: '-0.02em',
                   color: 'var(--brand-forest-900)',
                 }}
               >
-                Descubra o que há de <span style={{ color: 'var(--gold-700)', fontStyle: 'italic' }}>melhor e mais amado</span> para o seu pet.
+                Os produtos pet <span style={{ color: 'var(--gold-700)' }}>mais bem avaliados</span> do Brasil, em um só lugar.
               </h1>
 
               <p
@@ -167,7 +177,7 @@ export default async function HomePage() {
                   lineHeight: 1.68,
                 }}
               >
-                Escolher ração, areia sanitária ou brinquedos não precisa ser um quebra-cabeça. Reunimos as opiniões e notas reais de milhares de tutores nas maiores lojas online do Brasil para você acertar de primeira no que faz o seu melhor amigo feliz.
+                Economize tempo e escolha com segurança. Consolidamos as notas e opiniões de milhares de compradores reais da <strong>Amazon, Petlove, Cobasi, Mercado Livre e Shopee</strong> para você saber exatamente o que funciona antes de comprar.
               </p>
 
               {/* Botões de Ação Hero */}
@@ -176,7 +186,7 @@ export default async function HomePage() {
                   href="#rankings-section"
                   className="hero-primary-btn"
                 >
-                  <span>Explorar Rankings com Amor 🐾</span>
+                  <span>Explorar Rankings de Produtos</span>
                   <ChevronRight size={18} aria-hidden="true" />
                 </a>
 
@@ -184,7 +194,7 @@ export default async function HomePage() {
                   href="/sobre#como-calculamos"
                   className="hero-secondary-btn"
                 >
-                  <span>Como Avaliamos</span>
+                  <span>Como Calculamos as Notas</span>
                 </Link>
               </div>
             </div>
@@ -306,7 +316,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3. Faixa de Métricas de Confiabilidade (Trust Ticker) */}
+      {/* 3. Faixa de Diferenciais e Confiabilidade */}
       <section className="container" aria-label="Diferenciais de confiabilidade do PetRankings">
         <div
           style={{
@@ -346,10 +356,10 @@ export default async function HomePage() {
             </div>
             <div>
               <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)', display: 'block', lineHeight: 1.25, marginBottom: '2px' }}>
-                Notas 100% Reais
+                Avaliações de Compradores Reais
               </strong>
               <span style={{ fontSize: '0.84rem', color: 'var(--text-body)', lineHeight: 1.35 }}>
-                Conferidas à mão de tutores reais
+                Notas de quem comprou e testou nas lojas
               </span>
             </div>
           </div>
@@ -385,10 +395,10 @@ export default async function HomePage() {
             </div>
             <div>
               <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)', display: 'block', lineHeight: 1.25, marginBottom: '2px' }}>
-                5 Grandes Lojas Online
+                As 5 Principais Lojas do País
               </strong>
               <span style={{ fontSize: '0.84rem', color: 'var(--text-body)', lineHeight: 1.35 }}>
-                Amazon, Petlove, Cobasi, ML e Shopee
+                Amazon, Petlove, Cobasi, Mercado Livre e Shopee
               </span>
             </div>
           </div>
@@ -424,10 +434,10 @@ export default async function HomePage() {
             </div>
             <div>
               <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)', display: 'block', lineHeight: 1.25, marginBottom: '2px' }}>
-                Média Sincera e Imparcial
+                Média Matemática Transparente
               </strong>
               <span style={{ fontSize: '0.84rem', color: 'var(--text-body)', lineHeight: 1.35 }}>
-                Sem favorecer nenhuma marca
+                Pontuação objetiva sem notas inventadas
               </span>
             </div>
           </div>
@@ -463,10 +473,10 @@ export default async function HomePage() {
             </div>
             <div>
               <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)', display: 'block', lineHeight: 1.25, marginBottom: '2px' }}>
-                Sem Posições Pagas
+                Zero Posições Pagas
               </strong>
               <span style={{ fontSize: '0.84rem', color: 'var(--text-body)', lineHeight: 1.35 }}>
-                O que é bom de verdade fica no topo
+                A pontuação dos produtos define o pódio
               </span>
             </div>
           </div>
@@ -487,13 +497,13 @@ export default async function HomePage() {
               marginBottom: '6px',
             }}
           >
-            Nossos Guias & Rankings
+            Catálogo Editorial & Rankings
           </span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.2vw, 2.4rem)', marginBottom: '8px' }}>
-            Rankings Feitos para Facilitar sua Escolha
+            Rankings Atualizados de Produtos
           </h2>
           <p style={{ color: 'var(--text-body)', fontSize: '1.05rem' }}>
-            Navegue pelas categorias e veja quais produtos conquistaram os maiores elogios de quem já comprou e testou em casa.
+            Selecione a espécie e categoria para conferir os itens que receberam as maiores notas médias dos consumidores.
           </p>
         </div>
 
@@ -501,12 +511,14 @@ export default async function HomePage() {
         <HomeRankingsClient initialRankings={rankings} />
       </section>
 
-      {/* 5. Espaço Publicitário Intermediário */}
-      <div className="container">
-        <AdPlaceholder label="Espaço Publicitário Reservado — Conteúdo" />
-      </div>
+      {/* 5. Espaço Publicitário Intermediário / Rodapé */}
+      {adSlots['rodape']?.isActive && (
+        <div className="container">
+          <AdSlotRenderer slot={adSlots['rodape']} />
+        </div>
+      )}
 
-      {/* 6. Resumo de Metodologia & Transparência Acolhedor */}
+      {/* 6. Metodologia Editorial e Transparência */}
       <section className="container" aria-label="Metodologia e Transparência Editorial">
         <div
           style={{
@@ -536,13 +548,13 @@ export default async function HomePage() {
                 marginBottom: '10px',
               }}
             >
-              Cuidado & Honestidade
+              Metodologia & Transparência
             </span>
             <h2 style={{ color: '#ffffff', fontSize: '2.2rem', marginBottom: '18px', lineHeight: 1.25 }}>
-              Como preparamos cada recomendação com carinho
+              Critérios claros e dados reais: como montamos cada ranking
             </h2>
             <p style={{ color: '#cbd5e1', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '26px' }}>
-              A saúde e a felicidade do seu bichinho vêm sempre em primeiro lugar. Não usamos inteligência artificial para inventar notas nem aceitamos patrocínios para mudar posições. É a voz e a experiência de quem ama pets reunida para você!
+              Nosso compromisso é com a transparência e com a saúde do seu pet. Não inventamos opiniões, não usamos avaliações sintéticas e não vendemos posições editoriais. Os rankings refletem puramente a satisfação dos tutores nas principais lojas online brasileiras.
             </p>
             <Link
               href="/sobre#como-calculamos"
@@ -561,7 +573,7 @@ export default async function HomePage() {
                 minHeight: '46px',
               }}
             >
-              <span>Conhecer nossa história e método 🐾</span>
+              <span>Conhecer a Metodologia Completa</span>
               <ChevronRight size={18} aria-hidden="true" />
             </Link>
           </div>
@@ -581,10 +593,10 @@ export default async function HomePage() {
               <CheckCircle2 size={24} color="var(--gold-400)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
               <div>
                 <strong style={{ color: '#ffffff', fontSize: '1.05rem', display: 'block', marginBottom: '3px' }}>
-                  Coleta atenta e manual
+                  Coleta manual e checagem periódica
                 </strong>
                 <span style={{ color: '#cbd5e1', fontSize: '0.92rem', lineHeight: 1.55 }}>
-                  Lançamos diretamente as avaliações de compradores de cada loja parceira.
+                  Compilamos as notas atribuídas pelos compradores verificados de cada loja parceira.
                 </span>
               </div>
             </div>
@@ -603,10 +615,10 @@ export default async function HomePage() {
               <CheckCircle2 size={24} color="var(--gold-400)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
               <div>
                 <strong style={{ color: '#ffffff', fontSize: '1.05rem', display: 'block', marginBottom: '3px' }}>
-                  Cálculo sincero e sem segredos
+                  Média aritmética justa
                 </strong>
                 <span style={{ color: '#cbd5e1', fontSize: '0.92rem', lineHeight: 1.55 }}>
-                  A média das notas define a ordem exata de cada ranking.
+                  A nota final de cada produto é a média das notas das lojas cadastradas, sem pesos ocultos.
                 </span>
               </div>
             </div>
@@ -625,10 +637,10 @@ export default async function HomePage() {
               <CheckCircle2 size={24} color="var(--gold-400)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
               <div>
                 <strong style={{ color: '#ffffff', fontSize: '1.05rem', display: 'block', marginBottom: '3px' }}>
-                  Nenhuma marca compra o 1º lugar
+                  Critério de desempate objetivo
                 </strong>
                 <span style={{ color: '#cbd5e1', fontSize: '0.92rem', lineHeight: 1.55 }}>
-                  O topo é reservado para os produtos que os tutores realmente amam.
+                  Em caso de empate na nota, o produto com maior volume total de avaliações assume a liderança.
                 </span>
               </div>
             </div>

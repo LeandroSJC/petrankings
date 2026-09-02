@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Award, Package, MessageSquare, LogOut, ExternalLink, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Award, Package, MessageSquare, Megaphone, LogOut, ExternalLink, ShieldCheck } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 
 export default function AdminNav() {
@@ -26,6 +26,7 @@ export default function AdminNav() {
     { href: '/admin', label: 'Visão Geral', icon: LayoutDashboard, exact: true },
     { href: '/admin/rankings', label: 'Rankings', icon: Award },
     { href: '/admin/produtos', label: 'Catálogo de Produtos', icon: Package },
+    { href: '/admin/publicidade', label: 'Publicidade', icon: Megaphone },
     { href: '/admin/mensagens', label: 'Caixa de Entrada', icon: MessageSquare },
   ];
 

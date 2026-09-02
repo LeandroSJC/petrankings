@@ -43,9 +43,7 @@ export default function Header() {
   return (
     <header
       style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.94)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        backgroundColor: '#ffffff',
         borderBottom: '1px solid var(--border-cream)',
         position: 'sticky',
         top: 0,
@@ -185,94 +183,51 @@ export default function Header() {
             backgroundColor: 'var(--bg-cream-subtle)',
             border: '1.5px solid var(--border-cream)',
             transition: 'var(--transition-fast)',
+            cursor: 'pointer',
           }}
         >
           {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
         </button>
       </div>
 
-      {/* Gaveta Mobile Lateral com Backdrop Blur & ARIA Dialog */}
+      {/* Menu Mobile Dropdown Full Width com Fundo 100% Branco Sólido */}
       {mobileMenuOpen && (
-        <div
-          id="mobile-navigation-drawer"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu de navegação móvel"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(4, 20, 12, 0.65)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            zIndex: 999,
-            display: 'flex',
-            justifyContent: 'flex-end',
-          }}
-          onClick={() => setMobileMenuOpen(false)}
-        >
+        <>
+          {/* Overlay de fundo para fechar ao clicar fora */}
           <div
             style={{
-              width: '320px',
-              maxWidth: '85%',
-              height: '100%',
+              position: 'fixed',
+              top: '78px',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(4, 20, 12, 0.65)',
+              zIndex: 998,
+            }}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          <div
+            id="mobile-navigation-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu de navegação móvel"
+            style={{
+              position: 'absolute',
+              top: '78px',
+              left: 0,
+              right: 0,
+              width: '100%',
               backgroundColor: '#ffffff',
-              padding: '28px 24px',
+              borderBottom: '2px solid var(--border-cream)',
+              boxShadow: '0 20px 48px rgba(4, 20, 12, 0.22)',
+              padding: '20px 24px 28px 24px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '24px',
-              boxShadow: 'var(--shadow-xl)',
-              animation: 'drawerSlide 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
+              gap: '16px',
+              zIndex: 999,
             }}
-            onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '8px',
-                    background: 'var(--brand-forest-800)',
-                    color: 'var(--gold-400)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Award size={20} aria-hidden="true" />
-                </div>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '1.3rem',
-                    fontWeight: 800,
-                    color: 'var(--brand-forest-900)',
-                  }}
-                >
-                  PetRankings
-                </span>
-              </div>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label="Fechar menu"
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--brand-forest-900)',
-                  borderRadius: '8px',
-                  backgroundColor: 'var(--bg-cream-subtle)',
-                  border: '1px solid var(--border-cream)',
-                }}
-              >
-                <X size={22} aria-hidden="true" />
-              </button>
-            </div>
-
-            <div style={{ borderBottom: '1px solid var(--border-cream-light)' }} />
-
             <nav
               aria-label="Links do menu móvel"
               style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
@@ -289,14 +244,34 @@ export default function Header() {
                       fontSize: '1.02rem',
                       fontWeight: active ? 800 : 600,
                       color: active ? 'var(--brand-forest-900)' : 'var(--text-main)',
-                      backgroundColor: active ? 'var(--brand-forest-50)' : 'transparent',
-                      padding: '14px 16px',
+                      backgroundColor: active ? 'var(--bg-cream-subtle)' : '#ffffff',
+                      padding: '14px 18px',
                       borderRadius: 'var(--radius-sm)',
+                      border: active ? '1px solid var(--border-cream)' : '1px solid #f1ece1',
                       borderLeft: active ? '4px solid var(--gold-600)' : '4px solid transparent',
                       transition: 'var(--transition-fast)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      textDecoration: 'none',
                     }}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
+                    {active && (
+                      <span
+                        style={{
+                          fontSize: '0.72rem',
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          color: 'var(--gold-800)',
+                          backgroundColor: 'var(--gold-100)',
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                        }}
+                      >
+                        Página Atual
+                      </span>
+                    )}
                   </Link>
                 );
               })}
@@ -304,8 +279,7 @@ export default function Header() {
 
             <div
               style={{
-                marginTop: 'auto',
-                padding: '16px',
+                padding: '14px 16px',
                 backgroundColor: 'var(--bg-cream-subtle)',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--border-cream)',
@@ -314,13 +288,13 @@ export default function Header() {
                 gap: '12px',
               }}
             >
-              <ShieldCheck size={24} color="var(--gold-700)" aria-hidden="true" />
+              <ShieldCheck size={22} color="var(--gold-700)" aria-hidden="true" />
               <span style={{ fontSize: '0.82rem', color: 'var(--text-body)', lineHeight: 1.4 }}>
                 Rankings 100% sinceros e transparentes, feitos para quem ama cuidar bem.
               </span>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

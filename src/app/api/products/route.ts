@@ -12,6 +12,8 @@ export async function GET(req: NextRequest) {
     const sort = searchParams.get('sort') || 'recent'; // recent | oldest | unreviewed | name
     const q = searchParams.get('q');
 
+    const storeStatus = searchParams.get('storeStatus'); // none | incomplete | complete | missing_amazon | missing_mercadolivre | missing_petlove | missing_cobasi | missing_shopee
+
     const where: Record<string, unknown> = {};
 
     if (species && species !== 'todos') {
@@ -30,7 +32,7 @@ export async function GET(req: NextRequest) {
       ];
     }
 
-    let products = await prisma.product.findMany({
+    let allProducts = await prisma.product.findMany({
       where,
       include: {
         stores: true,
@@ -41,6 +43,30 @@ export async function GET(req: NextRequest) {
         },
       },
     });
+
+    // Contadores gerais antes de aplicar filtro específico de loja
+    const totalProductsCount = allProducts.length;
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const needsReviewCount = allProducts.filter(
+      (p) => !p.ratingUpdatedAt || new Date(p.ratingUpdatedAt) < thirtyDaysAgo
+    ).length;
+    const zeroStoresCount = allProducts.filter((p) => (p.stores || []).length === 0).length;
+    const incompleteStoresCount = allProducts.filter((p) => (p.stores || []).length < 5).length;
+
+    // Filtro por situação de lojas
+    let products = allProducts;
+    if (storeStatus && storeStatus !== 'todos') {
+      if (storeStatus === 'none') {
+        products = products.filter((p) => (p.stores || []).length === 0);
+      } else if (storeStatus === 'incomplete') {
+        products = products.filter((p) => (p.stores || []).length < 5);
+      } else if (storeStatus === 'complete') {
+        products = products.filter((p) => (p.stores || []).length >= 5);
+      } else if (storeStatus.startsWith('missing_')) {
+        const storeKey = storeStatus.replace('missing_', '');
+        products = products.filter((p) => !(p.stores || []).some((s) => s.store === storeKey));
+      }
+    }
 
     // Ordenação conforme Seção 7.2
     products = products.sort((a, b) => {
@@ -62,22 +88,25 @@ export async function GET(req: NextRequest) {
         return aDate - bDate;
       }
 
+      if (sort === 'missing_stores') {
+        const aCount = (a.stores || []).length;
+        const bCount = (b.stores || []).length;
+        if (aCount !== bCount) return aCount - bCount; // primeiro os com menos lojas
+      }
+
       // 'recent' (default)
       const aDate = a.ratingUpdatedAt ? new Date(a.ratingUpdatedAt).getTime() : new Date(a.createdAt).getTime();
       const bDate = b.ratingUpdatedAt ? new Date(b.ratingUpdatedAt).getTime() : new Date(b.createdAt).getTime();
       return bDate - aDate;
     });
 
-    // Calcular quantos itens precisam de revisão (>30 dias ou sem revisão)
-    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-    const needsReviewCount = products.filter(
-      (p) => !p.ratingUpdatedAt || new Date(p.ratingUpdatedAt) < thirtyDaysAgo
-    ).length;
-
     return NextResponse.json({
       products,
-      totalCount: products.length,
+      totalCount: totalProductsCount,
+      filteredCount: products.length,
       needsReviewCount,
+      zeroStoresCount,
+      incompleteStoresCount,
     });
   } catch (error) {
     console.error('Erro ao listar produtos:', error);
