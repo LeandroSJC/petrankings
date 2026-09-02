@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://petrankings.com.br';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.br';
 
 export function slugify(text: string): string {
   return text

@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import { ExternalLink, Star } from 'lucide-react';
+import { sendGAEvent } from '@next/third-parties/google';
 import { getStoreInfo, StoreKey } from '@/lib/utils';
 
 interface StoreButtonProps {
@@ -7,6 +10,7 @@ interface StoreButtonProps {
   productUrl: string;
   affiliateUrl?: string | null;
   rating?: number | null;
+  productTitle?: string;
 }
 
 export default function StoreButton({
@@ -14,6 +18,7 @@ export default function StoreButton({
   productUrl,
   affiliateUrl,
   rating,
+  productTitle,
 }: StoreButtonProps) {
   const storeInfo = getStoreInfo(storeKey) || {
     key: storeKey as StoreKey,
@@ -26,12 +31,27 @@ export default function StoreButton({
 
   const targetUrl = affiliateUrl && affiliateUrl.trim().length > 0 ? affiliateUrl : productUrl;
 
+  const handleClick = () => {
+    try {
+      sendGAEvent({
+        event: 'affiliate_click',
+        store_name: storeInfo.name,
+        store_key: storeKey,
+        product_title: productTitle || '',
+        destination_url: targetUrl,
+      });
+    } catch {
+      // Ignora silenciosamente se o dataLayer não estiver inicializado
+    }
+  };
+
   return (
     <a
       href={targetUrl}
       target="_blank"
       rel="noopener noreferrer sponsored"
       className="store-btn"
+      onClick={handleClick}
       aria-label={`Ver produto na loja ${storeInfo.name}${rating ? ` - Nota de avaliação: ${rating.toFixed(1)} estrelas` : ''}`}
     >
       {/* Detalhes da Loja e Nota */}

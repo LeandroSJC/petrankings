@@ -340,6 +340,7 @@ export default function ProductCard({ rank, product, rankingTitle }: ProductCard
               productUrl={store.productUrl}
               affiliateUrl={store.affiliateUrl}
               rating={store.rating}
+              productTitle={product.title}
             />
           ))
         ) : (
