@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Award, ShieldCheck } from 'lucide-react';
 
+import HeaderSearch from './HeaderSearch';
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,6 +60,7 @@ export default function Header() {
           alignItems: 'center',
           justifyContent: 'space-between',
           height: '78px',
+          gap: '16px',
         }}
       >
         {/* Logotipo Editorial Premium */}
@@ -68,6 +71,7 @@ export default function Header() {
             alignItems: 'center',
             gap: '12px',
             textDecoration: 'none',
+            flexShrink: 0,
           }}
           aria-label="PetRankings - Página Inicial"
         >
@@ -118,76 +122,83 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Navegação Desktop */}
-        <nav
-          aria-label="Navegação principal"
-          style={{
-            alignItems: 'center',
-            gap: '10px',
-          }}
-          className="desktop-nav"
-        >
-          {navLinks.map((link) => {
-            const active = isActive(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={active ? 'page' : undefined}
-                style={{
-                  fontSize: '0.94rem',
-                  fontWeight: active ? 700 : 600,
-                  color: active ? 'var(--brand-forest-900)' : 'var(--text-body)',
-                  backgroundColor: active ? 'var(--bg-cream-subtle)' : 'transparent',
-                  padding: '10px 18px',
-                  borderRadius: 'var(--radius-full)',
-                  border: active ? '1.5px solid var(--border-cream)' : '1.5px solid transparent',
-                  transition: 'var(--transition-fast)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-                className="nav-link-hover"
-              >
-                {active && (
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      width: '7px',
-                      height: '7px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--gold-600)',
-                    }}
-                  />
-                )}
-                <span>{link.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+        {/* Busca Instantânea com Autocomplete */}
+        <HeaderSearch />
 
-        {/* Botão Menu Mobile (WCAG 2.5.5 Touch Target 44x44px) */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-navigation-drawer"
-          className="mobile-menu-btn"
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '44px',
-            height: '44px',
-            borderRadius: '10px',
-            color: 'var(--brand-forest-900)',
-            backgroundColor: 'var(--bg-cream-subtle)',
-            border: '1.5px solid var(--border-cream)',
-            transition: 'var(--transition-fast)',
-            cursor: 'pointer',
-          }}
-        >
-          {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-        </button>
+        {/* Lado Direito: Navegação Desktop e Botões Mobile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {/* Navegação Desktop */}
+          <nav
+            aria-label="Navegação principal"
+            style={{
+              alignItems: 'center',
+              gap: '10px',
+            }}
+            className="desktop-nav"
+          >
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? 'page' : undefined}
+                  style={{
+                    fontSize: '0.94rem',
+                    fontWeight: active ? 700 : 600,
+                    color: active ? 'var(--brand-forest-900)' : 'var(--text-body)',
+                    backgroundColor: active ? 'var(--bg-cream-subtle)' : 'transparent',
+                    padding: '10px 18px',
+                    borderRadius: 'var(--radius-full)',
+                    border: active ? '1.5px solid var(--border-cream)' : '1.5px solid transparent',
+                    transition: 'var(--transition-fast)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    whiteSpace: 'nowrap',
+                  }}
+                  className="nav-link-hover"
+                >
+                  {active && (
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: '7px',
+                        height: '7px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--gold-600)',
+                      }}
+                    />
+                  )}
+                  <span>{link.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Botão Menu Mobile (WCAG 2.5.5 Touch Target 44x44px) */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-drawer"
+            className="mobile-menu-btn"
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '44px',
+              height: '44px',
+              borderRadius: '10px',
+              color: 'var(--brand-forest-900)',
+              backgroundColor: 'var(--bg-cream-subtle)',
+              border: '1.5px solid var(--border-cream)',
+              transition: 'var(--transition-fast)',
+              cursor: 'pointer',
+            }}
+          >
+            {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+          </button>
+        </div>
       </div>
 
       {/* Menu Mobile Dropdown Full Width com Fundo 100% Branco Sólido */}

@@ -17,16 +17,18 @@ export default async function AdminDashboardPage() {
   const publishedRankings = await prisma.ranking.count({ where: { isPublished: true } });
   const draftRankings = totalRankings - publishedRankings;
 
-  // 2. Estatísticas de Produtos e Lojas
+  // 2. Estatísticas de Produtos, Lojas e Vínculos
   const allProductsForStats = await prisma.product.findMany({
     select: {
       id: true,
       stores: { select: { id: true } },
+      rankings: { select: { id: true } },
     },
   });
   const totalProducts = allProductsForStats.length;
   const zeroStoresCount = allProductsForStats.filter((p) => p.stores.length === 0).length;
   const incompleteStoresCount = allProductsForStats.filter((p) => p.stores.length < 5).length;
+  const unlinkedRankingsCount = allProductsForStats.filter((p) => p.rankings.length === 0).length;
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
   // Produtos que precisam de revisão (>30 dias ou sem data)
@@ -250,10 +252,25 @@ export default async function AdminDashboardPage() {
             <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: 'var(--brand-forest-900)' }}>
               {totalProducts}
             </div>
-            <div style={{ fontSize: '0.82rem', marginTop: '8px' }}>
+            <div style={{ fontSize: '0.82rem', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {unlinkedRankingsCount > 0 ? (
+                <Link
+                  href="/admin/produtos?rankingStatus=unlinked"
+                  style={{
+                    color: '#ea580c',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <span>⚠ {unlinkedRankingsCount} sem ranking vinculado</span>
+                </Link>
+              ) : null}
               {incompleteStoresCount > 0 ? (
                 <Link
-                  href="/admin/produtos"
+                  href="/admin/produtos?storeStatus=incomplete"
                   style={{
                     color: '#b45309',
                     fontWeight: 700,
@@ -265,9 +282,9 @@ export default async function AdminDashboardPage() {
                 >
                   <span>⚠ {incompleteStoresCount} com lojas pendentes</span>
                 </Link>
-              ) : (
+              ) : unlinkedRankingsCount === 0 && (
                 <span style={{ color: 'var(--brand-forest-700)', fontWeight: 600 }}>
-                  ✓ Todas as lojas cadastradas
+                  ✓ Catálogo 100% vinculado
                 </span>
               )}
             </div>

@@ -54,13 +54,15 @@ function AdminProductsContent() {
   const [needsReviewCount, setNeedsReviewCount] = useState(0);
   const [incompleteStoresCount, setIncompleteStoresCount] = useState(0);
   const [zeroStoresCount, setZeroStoresCount] = useState(0);
+  const [unlinkedRankingsCount, setUnlinkedRankingsCount] = useState(0);
   const [totalCatalogCount, setTotalCatalogCount] = useState(0);
 
   // Filtros e Ordenação
   const [selectedSpecies, setSelectedSpecies] = useState('todos');
   const [selectedType, setSelectedType] = useState('todos');
   const [selectedStoreStatus, setSelectedStoreStatus] = useState('todos'); // todos | none | incomplete | complete | missing_amazon | missing_mercadolivre | missing_petlove | missing_cobasi | missing_shopee
-  const [sortOrder, setSortOrder] = useState('recent'); // recent | oldest | unreviewed | missing_stores | name
+  const [selectedRankingStatus, setSelectedRankingStatus] = useState(searchParams.get('rankingStatus') || 'todos'); // todos | unlinked | linked
+  const [sortOrder, setSortOrder] = useState('recent'); // recent | oldest | unreviewed | missing_stores | unlinked_rankings | name
   const [searchQuery, setSearchQuery] = useState('');
 
   // Modal Rápido de Avaliações
@@ -233,6 +235,7 @@ function AdminProductsContent() {
       if (selectedSpecies !== 'todos') params.set('species', selectedSpecies);
       if (selectedType !== 'todos') params.set('productType', selectedType);
       if (selectedStoreStatus !== 'todos') params.set('storeStatus', selectedStoreStatus);
+      if (selectedRankingStatus !== 'todos') params.set('rankingStatus', selectedRankingStatus);
       if (sortOrder) params.set('sort', sortOrder);
       if (searchQuery) params.set('q', searchQuery);
 
@@ -243,6 +246,7 @@ function AdminProductsContent() {
         setNeedsReviewCount(data.needsReviewCount || 0);
         setIncompleteStoresCount(data.incompleteStoresCount || 0);
         setZeroStoresCount(data.zeroStoresCount || 0);
+        setUnlinkedRankingsCount(data.unlinkedRankingsCount || 0);
         setTotalCatalogCount(data.totalCount || 0);
 
         if (editReviewParam) {
@@ -262,7 +266,7 @@ function AdminProductsContent() {
 
   useEffect(() => {
     fetchProducts();
-  }, [selectedSpecies, selectedType, selectedStoreStatus, sortOrder]);
+  }, [selectedSpecies, selectedType, selectedStoreStatus, selectedRankingStatus, sortOrder]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -623,6 +627,51 @@ function AdminProductsContent() {
               </div>
             </div>
           )}
+
+          {/* Alerta de Produtos Sem Ranking Vinculado */}
+          {unlinkedRankingsCount > 0 && (
+            <div
+              style={{
+                backgroundColor: '#fff7ed',
+                border: '1px solid #fed7aa',
+                borderRadius: 'var(--radius-md)',
+                padding: '14px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <LinkIcon size={20} color="#ea580c" />
+                <div>
+                  <strong style={{ color: '#9a3412', fontSize: '0.9rem' }}>
+                    {unlinkedRankingsCount} produto(s) sem nenhum ranking vinculado
+                  </strong>
+                  <span style={{ color: '#c2410c', fontSize: '0.8rem', display: 'block' }}>
+                    Produtos cadastrados no catálogo que não estão associados a nenhum ranking público no momento.
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSelectedRankingStatus('unlinked')}
+                style={{
+                  backgroundColor: '#ea580c',
+                  color: '#ffffff',
+                  padding: '6px 14px',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                Filtrar Sem Ranking ({unlinkedRankingsCount})
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Barra de Filtros, Pesquisa e Ordenação */}
@@ -707,12 +756,13 @@ function AdminProductsContent() {
                 <option value="oldest">Mais Antigos</option>
                 <option value="unreviewed">Pendentes de Revisão</option>
                 <option value="missing_stores">Faltando Lojas (Prioridade)</option>
+                <option value="unlinked_rankings">Sem Ranking Vinculado (Prioridade)</option>
                 <option value="name">Ordem Alfabética</option>
               </select>
             </div>
           </div>
 
-          {/* Linha 2: Busca, Filtro de Tipo e Filtro de Lojas */}
+          {/* Linha 2: Busca, Filtro de Tipo, Filtro de Lojas e Filtro de Ranking */}
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
             <form onSubmit={handleSearchSubmit} style={{ flex: 1, minWidth: '220px', position: 'relative' }}>
               <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-subtle)' }} />
@@ -756,6 +806,25 @@ function AdminProductsContent() {
               <option value="missing_shopee">Falta cadastrar: Shopee</option>
             </select>
 
+            {/* Filtro de Status de Rankings */}
+            <select
+              value={selectedRankingStatus}
+              onChange={(e) => setSelectedRankingStatus(e.target.value)}
+              style={{
+                padding: '8px 12px',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--border-cream)',
+                fontSize: '0.85rem',
+                backgroundColor: selectedRankingStatus !== 'todos' ? '#fff7ed' : '#ffffff',
+                fontWeight: selectedRankingStatus !== 'todos' ? 700 : 500,
+                color: selectedRankingStatus !== 'todos' ? '#9a3412' : 'inherit',
+              }}
+            >
+              <option value="todos">Status de Ranking: Todos</option>
+              <option value="unlinked">⚠ Sem Ranking Vinculado (Órfãos)</option>
+              <option value="linked">✓ Com Ranking Vinculado</option>
+            </select>
+
             {availableTypes.length > 0 && (
               <select
                 value={selectedType}
@@ -791,6 +860,25 @@ function AdminProductsContent() {
                 }}
               >
                 Limpar filtro de lojas ✕
+              </button>
+            )}
+
+            {selectedRankingStatus !== 'todos' && (
+              <button
+                type="button"
+                onClick={() => setSelectedRankingStatus('todos')}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid #fed7aa',
+                  backgroundColor: '#fff7ed',
+                  color: '#c2410c',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                Limpar filtro de ranking ✕
               </button>
             )}
           </div>
@@ -1072,8 +1160,10 @@ function AdminProductsContent() {
                       </span>
                       {prod.rankings.length > 0 ? (
                         prod.rankings.map((r) => (
-                          <span
+                          <Link
                             key={r.rankingId}
+                            href={`/admin/rankings/${r.ranking.id}/editar`}
+                            title={`Editar ranking: ${r.ranking.title}`}
                             style={{
                               backgroundColor: 'var(--brand-forest-50)',
                               color: 'var(--brand-forest-800)',
@@ -1082,15 +1172,52 @@ function AdminProductsContent() {
                               fontSize: '0.75rem',
                               fontWeight: 600,
                               border: '1px solid var(--brand-forest-200)',
+                              textDecoration: 'none',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
                             }}
                           >
-                            {r.ranking.title}
-                          </span>
+                            <span>{r.ranking.title}</span>
+                            <ExternalLink size={10} color="var(--brand-forest-600)" />
+                          </Link>
                         ))
                       ) : (
-                        <span style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', fontStyle: 'italic' }}>
-                          Nenhum ranking vinculado
-                        </span>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                          <span
+                            style={{
+                              backgroundColor: '#fff7ed',
+                              color: '#c2410c',
+                              border: '1px solid #fed7aa',
+                              padding: '2px 8px',
+                              borderRadius: 'var(--radius-full)',
+                              fontSize: '0.75rem',
+                              fontWeight: 800,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                            }}
+                          >
+                            <AlertTriangle size={12} color="#ea580c" />
+                            <span>Sem Ranking Vinculado (Órfão)</span>
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => openLinkModal(prod)}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: 'var(--brand-forest-800)',
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              textDecoration: 'underline',
+                              cursor: 'pointer',
+                              padding: '2px 4px',
+                            }}
+                          >
+                            + Vincular a ranking
+                          </button>
+                        </div>
                       )}
                     </div>
 

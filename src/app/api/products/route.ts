@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
     const q = searchParams.get('q');
 
     const storeStatus = searchParams.get('storeStatus'); // none | incomplete | complete | missing_amazon | missing_mercadolivre | missing_petlove | missing_cobasi | missing_shopee
+    const rankingStatus = searchParams.get('rankingStatus'); // todos | unlinked | linked
 
     const where: Record<string, unknown> = {};
 
@@ -44,7 +45,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    // Contadores gerais antes de aplicar filtro específico de loja
+    // Contadores gerais antes de aplicar filtros específicos de loja ou ranking
     const totalProductsCount = allProducts.length;
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const needsReviewCount = allProducts.filter(
@@ -52,6 +53,7 @@ export async function GET(req: NextRequest) {
     ).length;
     const zeroStoresCount = allProducts.filter((p) => (p.stores || []).length === 0).length;
     const incompleteStoresCount = allProducts.filter((p) => (p.stores || []).length < 5).length;
+    const unlinkedRankingsCount = allProducts.filter((p) => (p.rankings || []).length === 0).length;
 
     // Filtro por situação de lojas
     let products = allProducts;
@@ -65,6 +67,15 @@ export async function GET(req: NextRequest) {
       } else if (storeStatus.startsWith('missing_')) {
         const storeKey = storeStatus.replace('missing_', '');
         products = products.filter((p) => !(p.stores || []).some((s) => s.store === storeKey));
+      }
+    }
+
+    // Filtro por situação de rankings vinculados
+    if (rankingStatus && rankingStatus !== 'todos') {
+      if (rankingStatus === 'unlinked') {
+        products = products.filter((p) => (p.rankings || []).length === 0);
+      } else if (rankingStatus === 'linked') {
+        products = products.filter((p) => (p.rankings || []).length > 0);
       }
     }
 
@@ -94,6 +105,12 @@ export async function GET(req: NextRequest) {
         if (aCount !== bCount) return aCount - bCount; // primeiro os com menos lojas
       }
 
+      if (sort === 'unlinked_rankings') {
+        const aRankings = (a.rankings || []).length;
+        const bRankings = (b.rankings || []).length;
+        if (aRankings !== bRankings) return aRankings - bRankings; // primeiro os sem nenhum ranking
+      }
+
       // 'recent' (default)
       const aDate = a.ratingUpdatedAt ? new Date(a.ratingUpdatedAt).getTime() : new Date(a.createdAt).getTime();
       const bDate = b.ratingUpdatedAt ? new Date(b.ratingUpdatedAt).getTime() : new Date(b.createdAt).getTime();
@@ -107,6 +124,7 @@ export async function GET(req: NextRequest) {
       needsReviewCount,
       zeroStoresCount,
       incompleteStoresCount,
+      unlinkedRankingsCount,
     });
   } catch (error) {
     console.error('Erro ao listar produtos:', error);

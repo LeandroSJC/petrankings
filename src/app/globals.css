@@ -727,8 +727,16 @@ h1, h2, h3, h4, .font-serif, .font-heading {
   display: none;
 }
 
+.desktop-search-container {
+  display: none;
+}
+
 .mobile-menu-btn {
   display: flex;
+}
+
+.mobile-search-trigger {
+  display: flex !important;
 }
 
 @media (min-width: 768px) {
@@ -736,6 +744,15 @@ h1, h2, h3, h4, .font-serif, .font-heading {
     display: flex !important;
   }
   .mobile-menu-btn {
+    display: none !important;
+  }
+}
+
+@media (min-width: 880px) {
+  .desktop-search-container {
+    display: block !important;
+  }
+  .mobile-search-trigger {
     display: none !important;
   }
 }
