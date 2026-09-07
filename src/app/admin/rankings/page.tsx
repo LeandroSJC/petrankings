@@ -404,7 +404,7 @@ export default function AdminRankingsPage() {
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                           {r.isPublished && (
                             <Link
-                              href={`/${r.species}/${r.slug}`}
+                              href={`/ranking/${r.slug}`}
                               target="_blank"
                               title="Visualizar página pública"
                               style={{

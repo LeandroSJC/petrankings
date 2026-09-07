@@ -36,6 +36,9 @@ const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: '/',
+  },
   title: {
     default: 'PetRankings — O Guia Amigo para Escolher o Melhor para o seu Pet',
     template: '%s | PetRankings',

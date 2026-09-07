@@ -6,6 +6,14 @@ import { Shield, Cookie, ArrowLeft } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Política de Privacidade e Cookies | PetRankings',
   description: 'Conheça nossa política de privacidade, uso de cookies e conformidade com a LGPD e GDPR no portal PetRankings.',
+  alternates: {
+    canonical: '/politica-de-privacidade',
+  },
+  openGraph: {
+    title: 'Política de Privacidade e Cookies | PetRankings',
+    description: 'Conheça nossa política de privacidade, uso de cookies e conformidade com a LGPD e GDPR no portal PetRankings.',
+    url: '/politica-de-privacidade',
+  },
 };
 
 export default function PoliticaPrivacidadePage() {

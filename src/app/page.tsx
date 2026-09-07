@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -15,6 +16,19 @@ import { getAdSlotsMap } from '@/lib/ads';
 import AdSlotRenderer from '@/components/AdSlotRenderer';
 import HomeRankingsClient from '@/components/HomeRankingsClient';
 import FaqAccordion from '@/components/FaqAccordion';
+
+export const metadata: Metadata = {
+  title: 'PetRankings — O Guia Amigo para Escolher o Melhor para o seu Pet',
+  description: 'Comparações transparentes e carinhosas de produtos para cães e gatos. Reunimos avaliações reais das melhores lojas do Brasil para você cuidar do seu melhor amigo com toda a tranquilidade.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    url: '/',
+    title: 'PetRankings — O Guia Amigo para Escolher o Melhor para o seu Pet',
+    description: 'Comparações sinceras e transparentes baseadas nas avaliações reais de tutores nas principais lojas do Brasil.',
+  },
+};
 
 // Revalidar a cada 60 segundos para garantir performance e dados frescos
 export const revalidate = 60;

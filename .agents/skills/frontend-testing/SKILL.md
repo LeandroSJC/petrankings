@@ -12,13 +12,21 @@ This skill provides step-by-step guidance for testing modern React and Next.js a
 
 ## 1. Testing Strategy
 
-1. **Unit & Component Tests** (React Testing Library / Vitest):
-   - Test component rendering, user events (clicks, typing, keyboard navigation), and state transitions.
-   - Query by user-facing roles and text (`getByRole`, `getByText`, `getByLabelText`) rather than implementation details (class names or IDs).
-2. **Integration Tests**:
-   - Test data fetching hooks, form submissions, and validation error messages.
-3. **End-to-End (E2E) Tests** (Playwright / Browser Subagent):
-   - Validate critical user journeys: Navigation, Authentication, CRUD actions, and responsive layout checks.
+1. **Native E2E Automation (Antigravity `browser_subagent` — Zero Setup)**:
+   - Use the native `browser_subagent` tool for immediate visual and interactive E2E validation of pages, forms, and responsive states.
+   - Automatically navigates, clicks, types, inspects the DOM, and records video/screenshots without requiring external test runner dependencies.
+2. **Component & Unit Tests (Vitest + React Testing Library)**:
+   - For local CLI test suites, install the testing dependencies if not already present:
+     ```bash
+     npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/jest-dom
+     ```
+   - Test component rendering, user interactions, and state transitions with user-facing queries (`getByRole`, `getByText`).
+3. **Headless E2E Test Suites (Playwright)**:
+   - For CI/CD automation pipelines:
+     ```bash
+     npm install -D @playwright/test
+     npx playwright install
+     ```
 
 ## 2. Best Practices for React Component Testing
 

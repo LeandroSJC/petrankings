@@ -30,23 +30,30 @@ When modifying product ratings or linked store reviews:
 
 ## 3. Database Migration Workflow
 
-### Local Development (SQLite):
+The project standardizes on **PostgreSQL** in all environments (local development via Docker/Neon/Supabase and production). The schema is natively configured with `provider = "postgresql"`.
+
+### Local Development & Prototyping:
 ```bash
-# Apply schema changes during development
+# Apply schema changes during rapid prototyping without generating migration files
 npx prisma db push
 
-# Generate updated client types
+# Generate updated Prisma Client types
 npx prisma generate
 
 # Populate database with default seeds
-npx prisma db seed # or npx tsx prisma/seed.ts
+npm run prisma:seed # runs tsx prisma/seed.ts
 ```
 
-### Production Transition (PostgreSQL / Supabase / Neon):
-1. Switch `provider = "postgresql"` in `prisma/schema.prisma`.
-2. Configure `DATABASE_URL` and `DIRECT_URL` (for connection pooling / PgBouncer).
-3. Generate formal SQL migrations with `npx prisma migrate dev --name <migration_name>`.
-4. Deploy migrations in production CI/CD with `npx prisma migrate deploy`.
+### Production Migration Lifecycle:
+1. Generate declarative SQL migrations for versioned schema changes:
+   ```bash
+   npx prisma migrate dev --name <migration_name>
+   ```
+2. Configure `DATABASE_URL` (and `DIRECT_URL` if using Supabase/Neon connection poolers like PgBouncer).
+3. Apply pending migrations in CI/CD and production environments:
+   ```bash
+   npx prisma migrate deploy
+   ```
 
 ## 4. Query Optimization & Safety Checklist
 

@@ -376,7 +376,7 @@ export default function RankingForm({ mode, initialData, rankingId }: RankingFor
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {mode === 'edit' && formData.slug && (
               <Link
-                href={`/${formData.species}/${formData.slug}`}
+                href={`/ranking/${formData.slug}`}
                 target="_blank"
                 style={{
                   display: 'inline-flex',

@@ -141,7 +141,10 @@ Invalidate cache immediately after admin mutations using `revalidatePath` and `r
 // src/app/api/rankings/[id]/route.ts
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const body = await req.json();
+
   // ... update ranking in DB ...
   const updated = await prisma.ranking.update({ where: { id }, data: body });
 
@@ -165,7 +168,9 @@ With `use cache`/`cacheTag` (section 3), invalidation is tag-based rather than p
 // src/app/api/rankings/[id]/route.ts — Route Handler, use revalidateTag (background refresh)
 import { revalidateTag } from 'next/cache';
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const body = await req.json();
   const updated = await prisma.ranking.update({ where: { id }, data: body });
 
   revalidateTag('rankings');

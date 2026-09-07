@@ -49,6 +49,12 @@ function validateImage(file: File): string | null {
 
 Neither option below actually validates or sanitizes the file — that has to happen first, on the raw bytes, regardless of where the file ends up:
 
+> 📦 **Prerequisites:** Server-side magic-bytes inspection and resizing require `file-type` and `sharp`. Install them before running this pipeline:
+> ```bash
+> npm install sharp file-type
+> npm install -D @types/sharp
+> ```
+
 ```typescript
 // src/lib/image-processing.ts
 import { fileTypeFromBuffer } from 'file-type'; // reads magic bytes — does NOT trust file.type or the extension
