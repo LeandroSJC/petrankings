@@ -28,7 +28,13 @@ Every linked product store (`ProductStore`) has two potential URLs:
 
 ## 2. Automated Link Audit Script Pattern
 
-To check store links asynchronously without blocking web requests:
+To audit all links in the database, execute the helper script [check-links.ts](./scripts/check-links.ts):
+
+```bash
+npx tsx .agents/skills/link-health-watchdog/scripts/check-links.ts
+```
+
+### Core Verification Engine:
 
 ```typescript
 // Example: HEAD/GET verification with timeout and custom user-agent

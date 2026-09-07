@@ -65,6 +65,10 @@ This skill provides procedures and guidelines for auditing and optimizing Next.j
 
 ### C. Sitemap & Robots
 - Implement `app/sitemap.ts` and `app/robots.ts` for dynamic search crawler indexing.
+- Validate sitemap entries against canonical tags using the automated validator [validate-sitemap-canonicals.ts](./scripts/validate-sitemap-canonicals.ts):
+  ```bash
+  npx tsx .agents/skills/nextjs-performance-seo/scripts/validate-sitemap-canonicals.ts
+  ```
 
 ## 3. Performance & SEO Checklist
 

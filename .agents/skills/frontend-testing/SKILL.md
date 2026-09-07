@@ -49,6 +49,25 @@ When verifying full application flows:
    - Assert visual changes and route transitions.
 3. Capture screenshots on test failure for quick debugging.
 
+### 3.1 Native `browser_subagent` Task Templates
+
+Use these ready-to-run task definitions when spawning subagents:
+
+#### Template A: Public Ranking & Store Outbound Flow
+```text
+Task: "Navigate to http://localhost:3000. Verify that the homepage hero and ranking cards load. Click on the first ranking card ('Ver Ranking Completo'). On the ranking detail page, verify that product items have numbered badges (1, 2, 3...), ratings, and store buttons. Inspect the DOM for <link rel='canonical'> and <script type='application/ld+json'>. Return a report confirming that store buttons have target='_blank' and rel='sponsored noopener noreferrer'."
+```
+
+#### Template B: Admin Backoffice & Dirty Form Guard
+```text
+Task: "Navigate to http://localhost:3000/admin. Log in using admin credentials. Go to /admin/produtos/novo. Type in a product title, brand, and a store row with rating 4.8. Verify that the arithmetic average updates to 4.80 in real time. Try to navigate away without saving and confirm the browser displays an unsaved-changes confirmation prompt."
+```
+
+#### Template C: Mobile Viewport & Responsiveness Audit (375px)
+```text
+Task: "Resize browser viewport to 375x812 (iPhone). Navigate to http://localhost:3000. Inspect header hamburger menu, category filter pills, and product comparison tables. Verify that no horizontal scrollbar appears on <body>, text remains legible, and tap target buttons have at least 44x44px clickable areas. Capture a screenshot of the category list."
+```
+
 ## 4. Test Verification Checklist
 
 - [ ] All critical user paths (happy path + edge cases) have coverage.

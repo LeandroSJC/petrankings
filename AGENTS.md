@@ -62,3 +62,4 @@ Sempre que atuar em uma área específica do projeto, ative e siga o runbook do 
 | **Modelagem & Migrações** | `prisma-database-architect` | Estrutura de dados relacional, migrações PostgreSQL, integridade referencial. |
 | **Consultas & Índices Prisma** | `prisma-query-patterns` | Índices de chaves estrangeiras, transações `$transaction`, paginação. |
 | **Rich Snippets & JSON-LD** | `schema-org-structured-data-expert` | Schemas `ItemList`, `Product`, `AggregateRating`, `FAQPage`, `BreadcrumbList`. |
+| **Indexação & Search Console** | `search-console-indexing-watchdog` | Resolução de erros no GSC, canônicas, crawl budget e requisição de indexação. |
