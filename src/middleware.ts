@@ -35,10 +35,10 @@ export async function middleware(req: NextRequest) {
   const normalizedPath = pathname.replace(/\/$/, '') || '/';
   const isGatePath = normalizedPath === gatePath.replace(/\/$/, '');
   const isAdminPath = pathname === '/admin' || pathname.startsWith('/admin/');
-  const isAuthLoginApi = pathname === '/api/auth/login';
+  const isAuthApi = pathname.startsWith('/api/auth/') && pathname !== '/api/auth/logout';
 
   // 1. Otimização de Performance: Se não for rota administrativa nem portão, passa direto
-  if (!isGatePath && !isAdminPath && !isAuthLoginApi) {
+  if (!isGatePath && !isAdminPath && !isAuthApi) {
     return NextResponse.next();
   }
 
@@ -78,20 +78,20 @@ export async function middleware(req: NextRequest) {
     return response;
   }
 
-  // 4. Verificação do Portão para rotas administrativas e API de login
+  // 4. Verificação do Portão para rotas administrativas e APIs de autenticação
   const gateCookie = req.cookies.get(GATE_COOKIE_NAME)?.value;
   const isGateUnlocked = await verifyGateToken(gateCookie);
 
   // Se o portão estiver trancado (sem cookie ou inválido): Camuflagem ativa (404 Not Found)
   if (!isGateUnlocked) {
-    if (isAuthLoginApi) {
+    if (isAuthApi) {
       return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     }
     return NextResponse.rewrite(new URL('/_not-found', req.url));
   }
 
-  // Se a rota for a API de login e o portão estiver aberto, permite prosseguir
-  if (isAuthLoginApi) {
+  // Se a rota for API de autenticação e o portão estiver aberto, permite prosseguir
+  if (isAuthApi) {
     return NextResponse.next();
   }
 

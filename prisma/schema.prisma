@@ -1,6 +1,7 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -11,7 +12,7 @@ model User {
   id           String    @id @default(cuid())
   name         String?
   email        String    @unique
-  passwordHash String
+  passwordHash String?
   role         String    @default("admin") // "admin" | "usuario"
   lastLoginAt  DateTime?
   createdAt    DateTime  @default(now())
@@ -111,4 +112,16 @@ model AdSlot {
   isActive    Boolean  @default(false) // Ativar ou desativar exibição
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model AdminOtp {
+  id        String    @id @default(cuid())
+  email     String
+  codeHash  String
+  expiresAt DateTime
+  attempts  Int       @default(0)
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([email, createdAt])
 }

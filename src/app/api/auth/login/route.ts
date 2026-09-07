@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       where: { email: email.trim().toLowerCase() },
     });
 
-    if (!user) {
+    if (!user || !user.passwordHash) {
       return NextResponse.json(
         { error: 'Credenciais inválidas' },
         { status: 401 }
