@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Award, Package, MessageSquare, Megaphone, LogOut, ExternalLink, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Award, Package, MessageSquare, Megaphone, LogOut, ExternalLink, ShieldCheck, Lock } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 
 export default function AdminNav() {
@@ -11,14 +11,19 @@ export default function AdminNav() {
   const router = useRouter();
   const { showToast } = useToast();
 
-  const handleLogout = async () => {
+  const handleLogout = async (lockGate = false) => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
-      showToast('Sessão encerrada com sucesso', 'info');
-      router.push('/admin/login');
+      await fetch(`/api/auth/logout${lockGate ? '?lockGate=true' : ''}`, { method: 'POST' });
+      if (lockGate) {
+        showToast('Portão trancado! Acesso administrativo camuflado com 404.', 'info');
+        router.push('/');
+      } else {
+        showToast('Sessão encerrada com sucesso.', 'info');
+        router.push('/admin/login');
+      }
       router.refresh();
     } catch {
-      router.push('/admin/login');
+      router.push(lockGate ? '/' : '/admin/login');
     }
   };
 
@@ -135,7 +140,27 @@ export default function AdminNav() {
         </Link>
 
         <button
-          onClick={handleLogout}
+          onClick={() => handleLogout(true)}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '0.82rem',
+            color: 'var(--gold-400)',
+            padding: '6px 12px',
+            borderRadius: '6px',
+            backgroundColor: 'rgba(207, 159, 34, 0.12)',
+            border: '1px solid rgba(207, 159, 34, 0.3)',
+            transition: 'var(--transition)',
+          }}
+          title="Trancar Portão Secreto e Reativar Camuflagem 404 neste Navegador"
+        >
+          <Lock size={13} />
+          <span>Trancar Portão</span>
+        </button>
+
+        <button
+          onClick={() => handleLogout(false)}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -147,7 +172,7 @@ export default function AdminNav() {
             backgroundColor: 'rgba(239, 68, 68, 0.1)',
             transition: 'var(--transition)',
           }}
-          title="Encerrar Sessão Administrativa"
+          title="Encerrar Sessão do Usuário"
         >
           <LogOut size={14} />
           <span>Sair</span>

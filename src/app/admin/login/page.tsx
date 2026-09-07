@@ -89,6 +89,24 @@ export default function AdminLoginPage() {
           <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
             Autenticação restrita para editores e administradores
           </p>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              marginTop: '12px',
+              padding: '4px 12px',
+              borderRadius: 'var(--radius-full)',
+              backgroundColor: 'var(--brand-forest-50)',
+              border: '1px solid var(--brand-forest-200)',
+              color: 'var(--brand-forest-800)',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+            }}
+          >
+            <ShieldCheck size={13} color="var(--brand-forest-600)" />
+            <span>Portão Desbloqueado • Camuflagem 404 Ativa</span>
+          </div>
         </div>
 
         {errorMessage && (

@@ -1,6 +1,12 @@
 import { SignJWT, jwtVerify } from 'jose';
 import bcrypt from 'bcryptjs';
 import { cookies } from 'next/headers';
+import {
+  GATE_COOKIE_NAME,
+  GATE_EXPIRATION_DAYS,
+  createGateToken,
+  verifyGateToken,
+} from './gate';
 
 const SECRET_KEY = new TextEncoder().encode(
   process.env.JWT_SECRET || 'petrankings_editorial_jwt_secret_token_2026_super_secure'
@@ -60,4 +66,17 @@ export async function requireAdmin(): Promise<UserSessionPayload> {
   return session;
 }
 
-export { TOKEN_COOKIE_NAME };
+export async function hasGateAccess(): Promise<boolean> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(GATE_COOKIE_NAME)?.value;
+  if (!token) return false;
+  return verifyGateToken(token);
+}
+
+export {
+  TOKEN_COOKIE_NAME,
+  GATE_COOKIE_NAME,
+  GATE_EXPIRATION_DAYS,
+  createGateToken,
+  verifyGateToken,
+};

@@ -30,10 +30,11 @@
 4. **Cálculo Aritmético de Avaliações:**
    - A nota média de um produto é a média aritmética simples das notas válidas (0.0 a 5.0) cadastradas manualmente nas lojas vinculadas.
    - É estritamente proibido inventar avaliações falsas ou criar dados simulados.
-5. **Segurança e Proteção de Dados (AppSec):**
-   - Todas as mutações administrativas exigem verificação de JWT.
+5. **Segurança e Proteção de Dados (AppSec & Stealth Gatekeeper):**
+   - **Camuflagem do Painel Administrativo:** As rotas `/admin`, `/admin/*` e `/api/auth/login` retornam estritamente 404 (Not Found) para qualquer acesso direto ou scanner. O acesso é destravado apenas através do Portão Secreto (`ADMIN_SECRET_GATE_PATH` com `ADMIN_GATE_KEY`), gerando o cookie assinado `petrankings_admin_gate`. Em produção, `ALLOW_ADMIN_IN_PRODUCTION="true"` atua como disjuntor mestre.
+   - Todas as mutações administrativas exigem verificação de JWT de sessão (`petrankings_admin_token`).
    - Rotas públicas com formulários (contato) devem ter proteção tripla: campo invisível honeypot (`website_hp`), trava temporal mínima (2,5s) e rate limit por IP/e-mail.
-   - Nunca exponha variáveis confidenciais (`DATABASE_URL`, `JWT_SECRET`) com o prefixo `NEXT_PUBLIC_`.
+   - Nunca exponha variáveis confidenciais (`DATABASE_URL`, `JWT_SECRET`, `ADMIN_GATE_KEY`) com o prefixo `NEXT_PUBLIC_`.
 
 ---
 

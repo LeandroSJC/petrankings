@@ -22,25 +22,38 @@ This skill provides procedures and security guidelines for protecting the PetRan
   - Use a minimum salt round of 10 (`bcrypt.hash(password, 10)`).
   - Never log raw passwords or plain credentials in error traces or console logs.
 
-## 2. Middleware-Level Route Protection
+## 2. Middleware-Level Route Protection & Stealth Gatekeeper
 
-The middleware (`src/middleware.ts`) enforces two layers of protection:
+The middleware (`src/middleware.ts`) enforces three defense-in-depth layers of protection:
 
-### Layer 1 — Production Block (default behavior):
+### Layer 1 — Production Master Switch:
 ```typescript
-// Admin routes return 404 in production unless explicitly enabled
 const isProduction = process.env.NODE_ENV === 'production';
 const allowAdminInProd = process.env.ALLOW_ADMIN_IN_PRODUCTION === 'true';
 
-if (pathname.startsWith('/admin') && isProduction && !allowAdminInProd) {
+if (isProduction && !allowAdminInProd) {
   return NextResponse.rewrite(new URL('/_not-found', req.url));
 }
 ```
-> Set `ALLOW_ADMIN_IN_PRODUCTION=true` in your hosting environment to enable the admin panel in production.
+> Set `ALLOW_ADMIN_IN_PRODUCTION=true` in production to allow the stealth gate to operate.
 
-### Layer 2 — JWT Verification:
+### Layer 2 — Stealth Gatekeeper (Camuflagem 404):
 ```typescript
-// Verify JWT and role for all /admin/* routes (except /admin/login)
+// O painel (/admin) e a API de login (/api/auth/login) retornam 404 sem o cookie do portão
+const gateCookie = req.cookies.get(GATE_COOKIE_NAME)?.value;
+const isGateUnlocked = await verifyGateToken(gateCookie);
+
+if (!isGateUnlocked) {
+  return NextResponse.rewrite(new URL('/_not-found', req.url));
+}
+```
+- Access is unlocked by visiting `ADMIN_SECRET_GATE_PATH?key=ADMIN_GATE_KEY`.
+- Unlocking issues a signed `petrankings_admin_gate` cookie (7 days) and redirects cleanly to `/admin/login`.
+- Anyone visiting `/admin` or `/bastidores` directly without the key receives a standard 404 page.
+
+### Layer 3 — JWT Session Verification:
+```typescript
+// Valida o token de sessão do usuário logado (petrankings_admin_token)
 const { payload } = await jwtVerify(token, SECRET_KEY);
 if (payload.role !== 'admin') {
   return NextResponse.redirect(loginUrl);
