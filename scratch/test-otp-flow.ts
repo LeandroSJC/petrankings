@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
 async function testOtpFlow() {
   console.log('🧪 Iniciando testes do Fluxo Passwordless via OTP por E-mail...\n');
 
-  const testEmail = 'admin@petrankings.com.br';
+  const testEmail = 'leandrosantossjc@gmail.com';
   const gateToken = await createGateToken();
 
   // Teste 1: Tentar solicitar sem cookie de portão -> Deve retornar 404
