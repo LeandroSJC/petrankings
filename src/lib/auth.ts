@@ -1,5 +1,4 @@
 import { SignJWT, jwtVerify } from 'jose';
-import bcrypt from 'bcryptjs';
 import { cookies } from 'next/headers';
 import {
   GATE_COOKIE_NAME,
@@ -13,14 +12,6 @@ const SECRET_KEY = new TextEncoder().encode(
 );
 
 const TOKEN_COOKIE_NAME = 'petrankings_admin_token';
-
-export async function hashPassword(password: string): Promise<string> {
-  return bcrypt.hash(password, 10);
-}
-
-export async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  return bcrypt.compare(password, hash);
-}
 
 export interface UserSessionPayload {
   userId: string;
