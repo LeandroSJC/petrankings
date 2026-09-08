@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
 
 interface ImageLightboxProps {
   src: string;
@@ -147,19 +147,46 @@ export default function ImageLightbox({ src, alt, isOpen, onClose }: ImageLightb
           />
         </div>
 
-        <p
-          style={{
-            marginTop: '16px',
-            fontSize: '0.96rem',
-            fontWeight: 700,
-            color: 'var(--brand-forest-900)',
-            textAlign: 'center',
-            maxWidth: '480px',
-            lineHeight: 1.4,
-          }}
-        >
-          {alt}
-        </p>
+        {alt && (
+          <p
+            style={{
+              marginTop: '16px',
+              fontSize: '0.96rem',
+              fontWeight: 700,
+              color: 'var(--brand-forest-900)',
+              textAlign: 'center',
+              maxWidth: '480px',
+              lineHeight: 1.4,
+            }}
+          >
+            {alt}
+          </p>
+        )}
+
+        <div style={{ marginTop: '12px', display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <a
+            href={src}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '0.82rem',
+              fontWeight: 600,
+              color: 'var(--brand-forest-800)',
+              backgroundColor: 'var(--bg-cream-subtle)',
+              padding: '6px 14px',
+              borderRadius: 'var(--radius-full)',
+              border: '1px solid var(--border-cream)',
+              textDecoration: 'none',
+              transition: 'var(--transition-fast)',
+            }}
+          >
+            <ExternalLink size={14} />
+            <span>Abrir arquivo original</span>
+          </a>
+        </div>
       </div>
     </div>
   );

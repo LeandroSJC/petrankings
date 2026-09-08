@@ -6,9 +6,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   Package, ArrowLeft, Save, Star, Trash2, ExternalLink,
-  Upload, AlertCircle, CheckCircle2, ShieldAlert, Plus, Sparkles, Link as LinkIcon
+  Upload, AlertCircle, AlertTriangle, CheckCircle2, ShieldAlert, Plus, Sparkles, Link as LinkIcon, ZoomIn, Check
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
+import ImageLightbox from '@/components/ImageLightbox';
 import { VALID_STORES, StoreKey, getStoreInfo } from '@/lib/utils';
 
 export interface ProductFormData {
@@ -98,6 +99,14 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [formError, setFormError] = useState('');
+  const [showLightbox, setShowLightbox] = useState(false);
+
+  // Preenchimento Inteligente via URL (IA Gemini)
+  const [aiUrl, setAiUrl] = useState('');
+  const [loadingAi, setLoadingAi] = useState(false);
+  const [aiStatus, setAiStatus] = useState<{ type: 'error' | 'warning' | 'success' | 'info'; text: string } | null>(null);
+
+
 
   // Rankings vinculados (apenas no modo de edição)
   const [linkedRankings, setLinkedRankings] = useState<Array<{ id: string; title: string; slug: string }>>([]);
@@ -223,6 +232,102 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
       showToast('Falha na comunicação ao enviar imagem', 'error');
     } finally {
       setUploadingImage(false);
+    }
+  };
+
+  // Preenchimento Inteligente via URL (Fabricante / Loja Parceira) com Gemini AI
+  const handleExtractWithAi = async () => {
+    setAiStatus(null);
+
+    if (!aiUrl.trim()) {
+      const msg = 'Por favor, cole a URL do produto (fabricante ou loja parceira).';
+      setAiStatus({ type: 'info', text: msg });
+      showToast(msg, 'info');
+      return;
+    }
+
+    try {
+      new URL(aiUrl.trim());
+    } catch {
+      const msg = 'URL inválida. Certifique-se de incluir https://';
+      setAiStatus({ type: 'error', text: msg });
+      showToast(msg, 'error');
+      return;
+    }
+
+    setLoadingAi(true);
+    try {
+      const res = await fetch('/api/admin/extract-product', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: aiUrl.trim() }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        const errorMsg = data.error || 'Não foi possível extrair dados desta página.';
+        setAiStatus({ type: 'error', text: errorMsg });
+        showToast(errorMsg, 'error');
+        return;
+      }
+
+      // Preencher formulário de forma inteligente
+      const extracted = data.data || data;
+
+      setFormData((prev) => {
+        const next = { ...prev };
+        if (extracted.title) next.title = extracted.title;
+        if (extracted.species && (extracted.species === 'caes' || extracted.species === 'gatos')) {
+          next.species = extracted.species;
+        }
+        if (extracted.productType) next.productType = extracted.productType;
+        if (extracted.brand) next.brand = extracted.brand;
+        if (extracted.description) next.description = extracted.description;
+        if (extracted.imageUrl && !next.imageUrl) next.imageUrl = extracted.imageUrl;
+
+        // Se detectou loja parceira (ex: petlove, cobasi, amazon...), cadastra na lista de lojas
+        const storeName = data.detectedStore || extracted.detectedStore || extracted.store?.store;
+        if (storeName) {
+          const storeIdx = next.stores.findIndex((s) => s.store === storeName);
+          if (storeIdx >= 0) {
+            if (!next.stores[storeIdx].productUrl) {
+              next.stores[storeIdx].productUrl = aiUrl.trim();
+            }
+          } else {
+            next.stores.push({
+              store: storeName,
+              productUrl: aiUrl.trim(),
+              affiliateUrl: '',
+              rating: '',
+              reviewCount: '',
+            });
+          }
+        }
+
+        return next;
+      });
+
+      setIsDirty(true);
+      if (data.aiWarning || data.source === 'metadata_fallback' || data.source === 'metadata_only') {
+        const warnMsg =
+          data.warning ||
+          'Aviso de IA: Nenhum modelo de inteligência artificial respondeu no momento. Os campos foram preenchidos com os dados brutos da página.';
+        setAiStatus({ type: 'warning', text: warnMsg });
+        showToast(warnMsg, 'warning');
+      } else {
+        const successMsg = data.warning
+          ? data.warning
+          : 'Produto analisado e preenchido com sucesso pelo Google Gemini AI!';
+        setAiStatus({ type: 'success', text: successMsg });
+        showToast(successMsg, 'success');
+      }
+    } catch (err) {
+      console.error('Erro na extração IA:', err);
+      const failMsg = 'Falha na comunicação com o assistente de IA.';
+      setAiStatus({ type: 'error', text: failMsg });
+      showToast(failMsg, 'error');
+    } finally {
+      setLoadingAi(false);
     }
   };
 
@@ -492,6 +597,199 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
         {/* Formulário Central */}
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           
+          {/* CARD 0: CADASTRO INTELIGENTE VIA LINK COM IA */}
+          <div
+            style={{
+              backgroundColor: 'var(--bg-cream-subtle)',
+              borderRadius: 'var(--radius-lg)',
+              border: '1.5px dashed var(--gold-500)',
+              padding: '24px 28px',
+              boxShadow: 'var(--shadow-sm)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', flexWrap: 'wrap', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div
+                  style={{
+                    backgroundColor: 'var(--gold-100, #fef3c7)',
+                    color: 'var(--gold-700, #b45309)',
+                    padding: '8px',
+                    borderRadius: 'var(--radius-sm)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <h2 style={{ fontSize: '1.08rem', color: 'var(--brand-forest-950)', margin: 0, fontWeight: 700 }}>
+                    Preenchimento Inteligente via Link (Google Gemini AI)
+                  </h2>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '2px 0 0 0' }}>
+                    Cole o link do fabricante (ex: Whiskas, Royal Canin, PremieR) ou loja parceira para extrair ficha e redigir o card com SEO.
+                  </p>
+                </div>
+              </div>
+              <span
+                style={{
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  backgroundColor: 'var(--brand-forest-100, #dcfce7)',
+                  color: 'var(--brand-forest-800, #166534)',
+                  padding: '4px 10px',
+                  borderRadius: 'var(--radius-full)',
+                  border: '1px solid var(--brand-forest-200, #bbf7d0)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                }}
+              >
+                <Sparkles size={12} /> Google AI Pro / Gemini Flash
+              </span>
+            </div>
+
+            <div style={{ marginTop: '14px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <div style={{ flex: '1 1 340px', position: 'relative' }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: 'var(--text-muted)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <LinkIcon size={16} />
+                </div>
+                <input
+                  type="url"
+                  value={aiUrl}
+                  onChange={(e) => setAiUrl(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleExtractWithAi();
+                    }
+                  }}
+                  placeholder="https://www.whiskas.com.br/products/... ou link de loja oficial"
+                  disabled={loadingAi}
+                  style={{
+                    width: '100%',
+                    padding: '11px 14px 11px 36px',
+                    borderRadius: 'var(--radius-sm)',
+                    border: '1px solid var(--border-cream)',
+                    backgroundColor: '#ffffff',
+                    fontSize: '0.88rem',
+                    color: 'var(--text-main)',
+                  }}
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleExtractWithAi}
+                disabled={loadingAi || !aiUrl.trim()}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  backgroundColor: loadingAi || !aiUrl.trim() ? '#94a3b8' : 'var(--brand-forest-800)',
+                  color: '#ffffff',
+                  padding: '11px 22px',
+                  borderRadius: 'var(--radius-sm)',
+                  fontWeight: 700,
+                  fontSize: '0.88rem',
+                  border: 'none',
+                  cursor: loadingAi || !aiUrl.trim() ? 'not-allowed' : 'pointer',
+                  transition: 'var(--transition)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <Sparkles size={16} />
+                <span>{loadingAi ? 'Analisando e Redigindo...' : 'Analisar e Preencher'}</span>
+              </button>
+            </div>
+
+            {/* Mensagem Inline de Status/Aviso da IA */}
+            {aiStatus && (
+              <div
+                style={{
+                  marginTop: '14px',
+                  padding: '12px 16px',
+                  borderRadius: 'var(--radius-sm)',
+                  fontSize: '0.86rem',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '10px',
+                  lineHeight: 1.45,
+                  backgroundColor:
+                    aiStatus.type === 'error'
+                      ? '#fef2f2'
+                      : aiStatus.type === 'warning'
+                      ? '#fffbeb'
+                      : aiStatus.type === 'info'
+                      ? '#eff6ff'
+                      : '#f0fdf4',
+                  border: `1px solid ${
+                    aiStatus.type === 'error'
+                      ? '#fecaca'
+                      : aiStatus.type === 'warning'
+                      ? '#fde68a'
+                      : aiStatus.type === 'info'
+                      ? '#bfdbfe'
+                      : '#bbf7d0'
+                  }`,
+                  color:
+                    aiStatus.type === 'error'
+                      ? '#991b1b'
+                      : aiStatus.type === 'warning'
+                      ? '#92400e'
+                      : aiStatus.type === 'info'
+                      ? '#1e40af'
+                      : '#166534',
+                }}
+              >
+                <div style={{ flexShrink: 0, marginTop: '2px' }}>
+                  {aiStatus.type === 'error' ? (
+                    <AlertCircle size={18} color="#dc2626" />
+                  ) : aiStatus.type === 'warning' ? (
+                    <AlertTriangle size={18} color="#d97706" />
+                  ) : aiStatus.type === 'info' ? (
+                    <AlertCircle size={18} color="#2563eb" />
+                  ) : (
+                    <CheckCircle2 size={18} color="#16a34a" />
+                  )}
+                </div>
+                <span style={{ flex: 1 }}>{aiStatus.text}</span>
+                <button
+                  type="button"
+                  onClick={() => setAiStatus(null)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'inherit',
+                    opacity: 0.7,
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '2px',
+                  }}
+                  aria-label="Fechar mensagem"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+
+            <p style={{ fontSize: '0.76rem', color: 'var(--text-subtle)', marginTop: '10px', marginBottom: 0 }}>
+              💡 O assistente lê a ficha técnica, busca a foto oficial e redige o título e descrição otimizados para SEO. Os campos abaixo serão preenchidos para sua revisão antes de salvar.
+            </p>
+          </div>
+
           {/* CARD 1: INFORMAÇÕES BÁSICAS */}
           <div
             style={{
@@ -707,11 +1005,14 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
             <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
               {/* Preview da Imagem */}
               <div
+                onClick={() => {
+                  if (formData.imageUrl) setShowLightbox(true);
+                }}
                 style={{
                   width: '120px',
                   height: '120px',
                   borderRadius: 'var(--radius-md)',
-                  border: '2px dashed var(--border-cream)',
+                  border: formData.imageUrl ? '1.5px solid var(--brand-forest-300)' : '2px dashed var(--border-cream)',
                   backgroundColor: 'var(--bg-cream-subtle)',
                   display: 'flex',
                   alignItems: 'center',
@@ -720,16 +1021,40 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                   overflow: 'hidden',
                   flexShrink: 0,
                   boxShadow: 'var(--shadow-xs)',
+                  cursor: formData.imageUrl ? 'pointer' : 'default',
+                  transition: 'var(--transition)',
                 }}
+                title={formData.imageUrl ? 'Clique para ampliar a imagem do produto' : undefined}
               >
                 {formData.imageUrl ? (
-                  <Image
-                    src={formData.imageUrl}
-                    alt="Pré-visualização da imagem do produto"
-                    fill
-                    sizes="120px"
-                    style={{ objectFit: 'contain', padding: '6px' }}
-                  />
+                  <>
+                    <Image
+                      src={formData.imageUrl}
+                      alt="Pré-visualização da imagem do produto"
+                      fill
+                      sizes="120px"
+                      style={{ objectFit: 'contain', padding: '6px' }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '6px',
+                        right: '6px',
+                        backgroundColor: 'rgba(4, 20, 12, 0.75)',
+                        color: '#ffffff',
+                        borderRadius: 'var(--radius-full)',
+                        width: '26px',
+                        height: '26px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                      }}
+                      title="Ampliar foto"
+                    >
+                      <ZoomIn size={14} />
+                    </div>
+                  </>
                 ) : (
                   <div style={{ textAlign: 'center', color: 'var(--text-subtle)', fontSize: '0.75rem', padding: '8px' }}>
                     <Package size={32} color="#94a3b8" style={{ margin: '0 auto 4px auto' }} />
@@ -761,7 +1086,7 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                   />
                 </div>
 
-                {/* Upload Local */}
+                {/* Upload Local e Ações */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                   <label
                     style={{
@@ -792,29 +1117,64 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                   </label>
 
                   {formData.imageUrl && (
-                    <button
-                      type="button"
-                      onClick={() => updateField('imageUrl', '')}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        color: '#ef4444',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        fontSize: '0.82rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        padding: '6px 10px',
-                      }}
-                    >
-                      <Trash2 size={14} />
-                      <span>Remover foto</span>
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setShowLightbox(true)}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          backgroundColor: 'var(--bg-cream-subtle)',
+                          color: 'var(--brand-forest-900)',
+                          border: '1.5px solid var(--border-cream)',
+                          padding: '8px 16px',
+                          borderRadius: 'var(--radius-full)',
+                          fontSize: '0.85rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          boxShadow: 'var(--shadow-xs)',
+                          transition: 'var(--transition)',
+                        }}
+                      >
+                        <ZoomIn size={15} color="var(--brand-forest-700)" />
+                        <span>Ampliar foto</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => updateField('imageUrl', '')}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          color: '#ef4444',
+                          backgroundColor: 'transparent',
+                          border: 'none',
+                          fontSize: '0.82rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          padding: '6px 10px',
+                        }}
+                      >
+                        <Trash2 size={14} />
+                        <span>Remover foto</span>
+                      </button>
+                    </>
                   )}
                 </div>
               </div>
             </div>
+
+            {/* Modal de Zoom da Imagem */}
+            {showLightbox && formData.imageUrl && (
+              <ImageLightbox
+                src={formData.imageUrl}
+                alt={formData.title || 'Foto do produto'}
+                isOpen={showLightbox}
+                onClose={() => setShowLightbox(false)}
+              />
+            )}
           </div>
 
           {/* CARD 3: LOJAS VINCULADAS & AVALIAÇÕES */}
@@ -827,7 +1187,7 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '6px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
               <div>
                 <h2 style={{ fontSize: '1.15rem', color: 'var(--brand-forest-950)', margin: 0 }}>
                   3. Lojas Parceiras & Avaliações Coletadas
@@ -853,20 +1213,80 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    backgroundColor: 'var(--brand-forest-50)',
-                    color: 'var(--brand-forest-900)',
-                    border: '1.5px solid var(--brand-forest-200)',
-                    padding: '6px 14px',
+                    backgroundColor: 'var(--brand-forest-800)',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '8px 18px',
                     borderRadius: 'var(--radius-full)',
                     fontWeight: 700,
-                    fontSize: '0.82rem',
+                    fontSize: '0.86rem',
                     cursor: 'pointer',
+                    boxShadow: 'var(--shadow-xs)',
+                    transition: 'var(--transition)',
                   }}
                 >
-                  <Plus size={15} />
+                  <Plus size={16} />
                   <span>Adicionar Loja</span>
                 </button>
               )}
+            </div>
+
+            {/* Atalhos Rápidos por Loja */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                flexWrap: 'wrap',
+                marginTop: '10px',
+                marginBottom: '16px',
+                padding: '10px 14px',
+                backgroundColor: 'var(--bg-cream-subtle)',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--border-cream)',
+              }}
+            >
+              <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
+                Adicionar rapidamente:
+              </span>
+              {VALID_STORES.map((k) => {
+                const isAdded = formData.stores.some((s) => s.store === k);
+                const info = getStoreInfo(k);
+                return (
+                  <button
+                    key={k}
+                    type="button"
+                    onClick={() => {
+                      if (isAdded) return;
+                      setFormData((prev) => ({
+                        ...prev,
+                        stores: [...prev.stores, { store: k, productUrl: '', affiliateUrl: '', rating: '', reviewCount: '' }],
+                      }));
+                      setIsDirty(true);
+                    }}
+                    disabled={isAdded}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      backgroundColor: isAdded ? '#ffffff' : 'var(--brand-forest-50)',
+                      color: isAdded ? 'var(--text-muted)' : 'var(--brand-forest-900)',
+                      border: `1px solid ${isAdded ? 'var(--border-cream)' : 'var(--brand-forest-300)'}`,
+                      padding: '4px 10px',
+                      borderRadius: 'var(--radius-full)',
+                      fontSize: '0.76rem',
+                      fontWeight: isAdded ? 500 : 700,
+                      cursor: isAdded ? 'default' : 'pointer',
+                      opacity: isAdded ? 0.6 : 1,
+                      transition: 'var(--transition)',
+                    }}
+                    title={isAdded ? `${info?.name || k} já está na lista` : `Clique para adicionar ${info?.name || k}`}
+                  >
+                    {isAdded ? <Check size={12} color="var(--brand-forest-600)" /> : <Plus size={12} />}
+                    <span>{info?.name || k}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Painel de Média em Tempo Real */}
@@ -1071,8 +1491,26 @@ export default function ProductForm({ mode, initialData, productId }: ProductFor
                           placeholder={`https://www.${st.store}.com.br/...`}
                           value={st.productUrl}
                           onChange={(e) => {
+                            const val = e.target.value;
                             const updated = [...formData.stores];
-                            updated[idx].productUrl = e.target.value;
+                            updated[idx].productUrl = val;
+
+                            // Auto-identificar a loja correspondente ao link colado
+                            const lower = val.toLowerCase();
+                            let detected: string | null = null;
+                            if (lower.includes('amazon.')) detected = 'amazon';
+                            else if (lower.includes('mercadolivr') || lower.includes('mercadolibr')) detected = 'mercadolivre';
+                            else if (lower.includes('petlove.')) detected = 'petlove';
+                            else if (lower.includes('cobasi.')) detected = 'cobasi';
+                            else if (lower.includes('shopee.')) detected = 'shopee';
+
+                            if (detected && detected !== updated[idx].store) {
+                              const alreadyUsed = updated.some((s, i) => i !== idx && s.store === detected);
+                              if (!alreadyUsed) {
+                                updated[idx].store = detected;
+                              }
+                            }
+
                             setFormData({ ...formData, stores: updated });
                             setIsDirty(true);
                           }}

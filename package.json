@@ -12,9 +12,11 @@
     "prisma:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@google/genai": "^2.21.0",
     "@next/third-parties": "^16.3.4",
     "@prisma/client": "^6.4.1",
     "bcryptjs": "^3.0.2",
+    "cheerio": "^1.2.0",
     "clsx": "^2.1.1",
     "jose": "^6.0.8",
     "lucide-react": "^1.16.0",

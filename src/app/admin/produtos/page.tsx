@@ -7,9 +7,10 @@ import { useSearchParams } from 'next/navigation';
 import {
   Package, Plus, Edit2, Star, Link as LinkIcon, Trash2,
   AlertTriangle, AlertCircle, ExternalLink,
-  Upload, X, Search, Filter, Download, FileSpreadsheet, FileDown, FileUp
+  Upload, X, Search, Filter, Download, FileSpreadsheet, FileDown, FileUp, ZoomIn
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
+import ImageLightbox from '@/components/ImageLightbox';
 import { formatDate, isOlderThanDays, VALID_STORES, getStoreInfo } from '@/lib/utils';
 import { parseCsv, serializeToCsv, downloadCsvFile, PRODUCT_CSV_HEADERS, PRODUCT_CSV_TEMPLATE, ParsedCsvRow } from '@/lib/csv-helper';
 
@@ -100,6 +101,7 @@ function AdminProductsContent() {
   const [parsedPreview, setParsedPreview] = useState<ParsedCsvRow[]>([]);
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState('');
+  const [previewImage, setPreviewImage] = useState<{ src: string; title: string } | null>(null);
 
   // Baixar Modelo CSV
   const handleDownloadTemplate = () => {
@@ -912,13 +914,12 @@ function AdminProductsContent() {
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
                     {/* Imagem e Dados Principais */}
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', flex: 1, minWidth: '280px' }}>
-                      <Link
-                        href={`/admin/produtos/${prod.id}/editar`}
+                      <div
                         style={{
                           width: '72px',
                           height: '72px',
                           borderRadius: 'var(--radius-sm)',
-                          border: '1px solid var(--border-cream)',
+                          border: '1.5px solid var(--border-cream)',
                           backgroundColor: '#ffffff',
                           display: 'flex',
                           alignItems: 'center',
@@ -926,21 +927,66 @@ function AdminProductsContent() {
                           position: 'relative',
                           overflow: 'hidden',
                           flexShrink: 0,
-                          textDecoration: 'none',
                         }}
                       >
-                        {prod.imageUrl ? (
-                          <Image
-                            src={prod.imageUrl}
-                            alt={prod.title}
-                            fill
-                            sizes="72px"
-                            style={{ objectFit: 'contain', padding: '4px' }}
-                          />
-                        ) : (
-                          <Package size={28} color="#94a3b8" />
+                        <Link
+                          href={`/admin/produtos/${prod.id}/editar`}
+                          title={`Editar ${prod.title}`}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            position: 'relative',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textDecoration: 'none',
+                          }}
+                        >
+                          {prod.imageUrl ? (
+                            <Image
+                              src={prod.imageUrl}
+                              alt={prod.title}
+                              fill
+                              sizes="72px"
+                              style={{ objectFit: 'contain', padding: '4px' }}
+                            />
+                          ) : (
+                            <Package size={28} color="#94a3b8" />
+                          )}
+                        </Link>
+                        {prod.imageUrl && (
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setPreviewImage({ src: prod.imageUrl!, title: prod.title });
+                            }}
+                            title="Ampliar foto do produto"
+                            aria-label={`Ampliar foto de ${prod.title}`}
+                            style={{
+                              position: 'absolute',
+                              bottom: '3px',
+                              right: '3px',
+                              width: '22px',
+                              height: '22px',
+                              borderRadius: 'var(--radius-full)',
+                              backgroundColor: 'rgba(4, 20, 12, 0.8)',
+                              color: '#ffffff',
+                              border: 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              cursor: 'pointer',
+                              zIndex: 5,
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+                              transition: 'transform 0.15s ease',
+                            }}
+                          >
+                            <ZoomIn size={12} />
+                          </button>
                         )}
-                      </Link>
+                      </div>
 
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
@@ -1957,6 +2003,16 @@ function AdminProductsContent() {
               </div>
             </div>
           </div>
+        )}
+
+        {/* Modal de Zoom da Foto do Produto */}
+        {previewImage && (
+          <ImageLightbox
+            src={previewImage.src}
+            alt={previewImage.title}
+            isOpen={Boolean(previewImage)}
+            onClose={() => setPreviewImage(null)}
+          />
         )}
       </div>
     </div>
