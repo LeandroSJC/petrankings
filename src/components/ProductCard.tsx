@@ -12,6 +12,7 @@ import {
   Stethoscope,
   Camera,
   ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
@@ -82,7 +83,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   }
 
   const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
-  const tier = getFaixaVisual(product.classificationTier, isCoadjuvante);
+  const isComplementar = product.legalCategory === 'ALIMENTO_COMPLEMENTAR';
+  const tier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
 
   // Normalização para base seca
   const fatorMS = (100 - (product.moistureMaxPct || 10)) / 100;
@@ -227,7 +229,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Coluna 3: Score Circular e Ações Claras */}
         <div className="editorial-card-actions">
-          {!isCoadjuvante && product.scoreTotal !== null ? (
+          {!isCoadjuvante && !isComplementar && product.scoreTotal !== null ? (
             <div
               className="editorial-card-score-box"
               style={{
@@ -245,6 +247,23 @@ export default function ProductCard({ product }: ProductCardProps) {
                   Conformidade
                 </span>
                 <span className="editorial-card-tier-label">{tier.shortLabel}</span>
+              </div>
+            </div>
+          ) : isComplementar ? (
+            <div
+              className="editorial-card-score-box"
+              style={{
+                backgroundColor: '#fdf4ff',
+                borderColor: '#e879f9',
+                color: '#701a75',
+              }}
+            >
+              <Sparkles size={24} />
+              <div>
+                <span style={{ fontSize: '0.66rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>
+                  Categoria
+                </span>
+                <span className="editorial-card-tier-label">Complementar</span>
               </div>
             </div>
           ) : (

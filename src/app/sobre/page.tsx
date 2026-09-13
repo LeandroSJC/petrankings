@@ -145,6 +145,15 @@ export default function SobrePage() {
                   Consagra o direito fundamental do tutor de animais de companhia à informação clara, precisa e ostensiva sobre a composição, características nutricionais, eventuais riscos e atributos dos produtos ofertados no mercado de consumo.
                 </p>
               </div>
+
+              <div style={{ padding: '16px 20px', backgroundColor: 'var(--bg-cream-main)', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #8b5cf6' }}>
+                <strong style={{ display: 'block', color: 'var(--brand-forest-900)', fontSize: '0.98rem', marginBottom: '4px' }}>
+                  Diretrizes Internacionais FEDIAF (2024) e NRC (2006) para Alimentos Úmidos
+                </strong>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.55, margin: 0 }}>
+                  Padrões científicos internacionais adotados para balizar tetos nutricionais seguros em Matéria Seca (como o cálcio de até 3,00% MS) e parâmetros analíticos de alimentos úmidos de alta hidratação (sachês e latas), onde a diluição aquosa física exige calibração específica sobre a base seca.
+                </p>
+              </div>
             </div>
           </section>
 
@@ -216,6 +225,22 @@ export default function SobrePage() {
                 <span style={{ fontFamily: 'monospace', fontSize: '0.80rem', color: 'var(--brand-forest-800)' }}>EM_Cão = ED - (1,04 × PB_g/kg)<br />EM_Gato = ED - (0,77 × PB_g/kg)</span>
               </div>
             </div>
+
+            <h3 style={{ fontSize: '1.08rem', fontWeight: 800, color: 'var(--brand-forest-800)', marginTop: '24px', marginBottom: '8px' }}>
+              2.3. Critérios Científicos para Alimentos Úmidos (Sachês e Latas) — Diluição em MS e Diretrizes FEDIAF / NRC
+            </h3>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-body)', lineHeight: 1.7, marginBottom: '14px' }}>
+              Os alimentos úmidos contêm elevado teor de umidade (geralmente entre 80% e 88%), restando apenas 12% a 20% de sólidos nutritivos (Matéria Seca). Esse baixo volume de matéria seca gera uma <strong>amplificação matemática expressiva</strong> sobre as tolerâncias analíticas declaradas nas embalagens:
+            </p>
+
+            <div style={{ padding: '16px 20px', backgroundColor: 'var(--bg-cream-main)', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #8b5cf6', marginBottom: '16px' }}>
+              <strong style={{ display: 'block', color: 'var(--brand-forest-900)', fontSize: '0.95rem', marginBottom: '4px' }}>
+                Calibração do Teto Seguro de Cálcio em Alimentos Úmidos (Até 3,00% MS)
+              </strong>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', lineHeight: 1.6, margin: 0 }}>
+                Quando um sachê com 86% de umidade declara <em>Cálcio (máx.) de 0,40%</em> em Matéria Natural, a conversão para a base seca resulta em <strong>2,86% de cálcio em MS</strong>. Enquanto em rações secas o teto de segurança da ABINPET é de 2,00% a 2,50% MS, os guias nutricionais internacionais de referência — <strong>FEDIAF (2024)</strong> e <strong>NRC (2006)</strong> — estabelecem que para felinos e caninos em dietas úmidas, teores de cálcio de até <strong>3,00% em Matéria Seca</strong> são plenamente seguros e fisiológicos em virtude da presença de carnes frescas e tecidos osteocartilaginosos naturais. O PetRankings adota formalmente o teto de 3,00% MS para rações úmidas completas, salvaguardando a precisão sem penalizar alimentos de excelência biológica.
+              </p>
+            </div>
           </section>
 
           {/* Seção 3: Matriz dos 4 Pilares do Score (0 a 100) */}
@@ -254,7 +279,7 @@ export default function SobrePage() {
                   <span style={{ fontWeight: 800, color: 'var(--brand-forest-700)', backgroundColor: 'var(--brand-forest-50)', padding: '4px 10px', borderRadius: 'var(--radius-full)', fontSize: '0.88rem' }}>40 Pontos</span>
                 </div>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                  Verifica se Proteína Bruta, Extrato Etéreo (Gordura), Cálcio e Fósforo atendem aos pisos e respeitam os limites máximos na MS com margem técnica de segurança industrial (+40 pts) ou no limite estrito (+20 pts). Caso algum nutriente esteja abaixo do piso seguro, o pilar zera (0 pts).
+                  Verifica se Proteína Bruta, Extrato Etéreo (Gordura), Cálcio e Fósforo atendem aos pisos e respeitam os limites máximos na MS com margem técnica de segurança industrial (+40 pts) ou no limite estrito (+20 pts), consoante os parâmetros da ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos. Caso algum nutriente essencial esteja fora dos parâmetros seguros, o pilar zera (0 pts).
                 </p>
               </div>
 
@@ -274,7 +299,7 @@ export default function SobrePage() {
                   <span style={{ fontWeight: 800, color: 'var(--brand-forest-700)', backgroundColor: 'var(--brand-forest-50)', padding: '4px 10px', borderRadius: 'var(--radius-full)', fontSize: '0.88rem' }}>25 Pontos</span>
                 </div>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                  Em obediência à IN MAPA 30/2009 e ao Decreto nº 12.031/2024, os ingredientes aparecem em ordem decrescente de quantidade na declaração oficial do produto. Primeiro ingrediente de fonte cárnea de alta digestibilidade confere +15 pts; segundo ingrediente de origem animal ou carboidrato nobre confere +10 pts adicionais.
+                  Em obediência à IN MAPA 30/2009 e ao Decreto nº 12.031/2024, os ingredientes aparecem em ordem decrescente de quantidade na declaração oficial do produto. Primeiro ingrediente de fonte cárnea de alta digestibilidade confere +15 pts; segundo ingrediente de origem animal ou carboidrato nobre confere +10 pts adicionais. <em>(Nota para alimentos úmidos: como a água/caldo é legalmente obrigatória como veículo físico de cocção no 1º lugar da batelada, o motor filtra a água inerte e pontua a qualidade biológica a partir dos dois primeiros ingredientes nutritivos reais).</em>
                 </p>
               </div>
 
@@ -387,21 +412,32 @@ export default function SobrePage() {
                   margin: 0,
                 }}
               >
-                5. Segregação e Critérios de Alimentos Coadjuvantes
+                5. Segregação de Alimentos Coadjuvantes e Alimentos Complementares
               </h2>
             </div>
 
             <p style={{ fontSize: '0.94rem', color: 'var(--text-body)', lineHeight: 1.7, marginBottom: '16px' }}>
-              Alimentos formulados para suporte a patologias específicas (como doença renal crônica, cardiopatias, diabetes, intolerâncias alimentares ou cálculos urinários) são denominados legalmente como <strong>Alimentos Coadjuvantes</strong> e possuem regras próprias de apresentação:
+              Nem todos os produtos para animais de companhia são rações completas para uso diário exclusivo de pets sadios. O marco regulatório do MAPA e a literatura veterinária distinguem claramente as seguintes categorias com regras próprias de apresentação:
             </p>
 
-            <div style={{ padding: '16px 20px', backgroundColor: '#eff6ff', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #3b82f6', marginBottom: '16px' }}>
-              <strong style={{ display: 'block', color: '#1e3a8a', fontSize: '0.96rem', marginBottom: '6px' }}>
-                Ausência de Pontuação Competitiva & Prescrição Obrigatória
-              </strong>
-              <p style={{ fontSize: '0.88rem', color: '#1e40af', lineHeight: 1.6, margin: 0 }}>
-                Dietas coadjuvantes frequentemente restringem determinados nutrientes de propósito clínico (por exemplo, fósforo e sódio reduzidos para pacientes renais). Por essa razão biológica, <strong>não concorrem nas tabelas de pontuação de cães e gatos sadios</strong> e contam com catálogo isolado em <Link href="/coadjuvantes" style={{ fontWeight: 800, textDecoration: 'underline' }}>Alimentos Coadjuvantes</Link>, acompanhadas do alerta obrigatório de uso sob prescrição médico-veterinária.
-              </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ padding: '16px 20px', backgroundColor: '#eff6ff', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #3b82f6' }}>
+                <strong style={{ display: 'block', color: '#1e3a8a', fontSize: '0.96rem', marginBottom: '6px' }}>
+                  Alimentos Coadjuvantes (Dietas Clínicas / Terapêuticas)
+                </strong>
+                <p style={{ fontSize: '0.88rem', color: '#1e40af', lineHeight: 1.6, margin: 0 }}>
+                  Dietas formuladas para suporte a patologias específicas (como doença renal crônica, obesidade, diabetes ou distúrbios urinários). Frequentemente restringem determinados nutrientes por finalidade médica (ex: fósforo reduzido para renais). Por essa razão fisiológica, <strong>não concorrem nas tabelas de pontuação de pets sadios</strong> e contam com catálogo isolado em <Link href="/coadjuvantes" style={{ fontWeight: 800, textDecoration: 'underline' }}>Alimentos Coadjuvantes</Link>, com alerta mandatório de uso sob prescrição médico-veterinária.
+                </p>
+              </div>
+
+              <div style={{ padding: '16px 20px', backgroundColor: '#fdf4ff', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #c026d3' }}>
+                <strong style={{ display: 'block', color: '#701a75', fontSize: '0.96rem', marginBottom: '6px' }}>
+                  Alimentos Específicos e Complementares (Toppers / Sachês de Hidratação / Petiscos)
+                </strong>
+                <p style={{ fontSize: '0.88rem', color: '#86198f', lineHeight: 1.6, margin: 0 }}>
+                  Produtos compostos por cortes nobres desfiados (como peito de frango ou lombo de atum) em caldo/água, formulados sem premix mineral completo (ausência de ossos moídos ou fosfato bicálcico). São legalmente indicados como <em>complemento alimentar para hidratação e agrado</em>, devendo ser oferecidos associados a um alimento completo. No PetRankings, são categorizados como <strong>Alimento Complementar</strong> e não recebem nota comparativa de ração completa, orientando com precisão o tutor.
+                </p>
+              </div>
             </div>
           </section>
 

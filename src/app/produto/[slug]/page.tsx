@@ -21,6 +21,7 @@ import {
   Globe,
   Store,
   FlaskConical,
+  Sparkles,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import prisma from '@/lib/prisma';
@@ -117,10 +118,15 @@ export default async function ProductDetailPage({
   }
 
   const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
+  const isComplementar = product.legalCategory === 'ALIMENTO_COMPLEMENTAR';
 
-  const tier = getFaixaVisual(product.classificationTier, isCoadjuvante);
+  const tier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
   const isFilhote = product.lifeStage === 'CRESCIMENTO_INICIAL' || product.lifeStage === 'CRESCIMENTO_FINAL' || product.lifeStage === 'FILHOTE';
-  const abinpetPadrao = getAbinpetStandard(product.species as any, isFilhote ? 'CRESCIMENTO_INICIAL' : 'ADULTO');
+  const abinpetPadrao = getAbinpetStandard(
+    product.species as any,
+    isFilhote ? 'CRESCIMENTO_INICIAL' : 'ADULTO',
+    product.foodType as any
+  );
 
   // Estimativa de Energia Metabolizável (NRC/ABINPET - Seção 3.2 do DRS 8.0)
   const em = calcularEnergiaMetabolizavel(
@@ -186,8 +192,8 @@ export default async function ProductDetailPage({
               backgroundColor: '#ffffff',
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-cream)',
-              padding: '32px',
-              marginBottom: '32px',
+              padding: '24px 28px',
+              marginBottom: '24px',
               boxShadow: 'var(--shadow-sm)',
             }}
           >
@@ -197,16 +203,16 @@ export default async function ProductDetailPage({
                 alignItems: 'flex-start',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '24px',
+                gap: '20px',
               }}
             >
-              <div style={{ display: 'flex', gap: '20px', flex: 1, minWidth: '280px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '18px', flex: 1, minWidth: '280px', flexWrap: 'wrap' }}>
                 {product.frontLabelImageUrl && (
                   <div
                     style={{
                       position: 'relative',
-                      width: '140px',
-                      height: '180px',
+                      width: '125px',
+                      height: '160px',
                       flexShrink: 0,
                       backgroundColor: 'var(--bg-cream-subtle)',
                       borderRadius: 'var(--radius-sm)',
@@ -218,26 +224,27 @@ export default async function ProductDetailPage({
                       src={product.frontLabelImageUrl}
                       alt={`Packshot oficial de ${product.commercialName}`}
                       fill
-                      sizes="140px"
+                      sizes="125px"
                       priority
-                      style={{ objectFit: 'contain', padding: '8px' }}
+                      style={{ objectFit: 'contain', padding: '6px' }}
                     />
                   </div>
                 )}
                 <div style={{ flex: 1, minWidth: '240px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
                     <span className={tier.badgeClass}>
-                      {isCoadjuvante ? <Stethoscope size={14} /> : <ShieldCheck size={14} />}
+                      {isComplementar ? <Sparkles size={13} /> : isCoadjuvante ? <Stethoscope size={13} /> : <ShieldCheck size={13} />}
                       {tier.label}
                     </span>
                     <span
                       style={{
-                        fontSize: '0.78rem',
-                        fontWeight: 700,
+                        fontSize: '0.74rem',
+                        fontWeight: 600,
                         backgroundColor: 'var(--bg-cream-subtle)',
                         color: 'var(--text-muted)',
-                        padding: '4px 10px',
+                        padding: '3px 8px',
                         borderRadius: 'var(--radius-xs)',
+                        border: '1px solid var(--border-cream-light)',
                       }}
                     >
                       Espécie: {formatarTermo(product.species)} • Fase: {formatarTermo(product.lifeStage)}{product.breedSize && ` • ${formatarTermo(product.breedSize)}`} • Formato: {formatarTermo(product.foodType)}
@@ -247,31 +254,34 @@ export default async function ProductDetailPage({
                   <h1
                     style={{
                       fontFamily: 'var(--font-heading)',
-                      fontSize: 'clamp(1.8rem, 3.2vw, 2.3rem)',
-                      fontWeight: 900,
+                      fontSize: 'clamp(1.25rem, 1.8vw, 1.55rem)',
+                      fontWeight: 800,
                       color: 'var(--brand-forest-900)',
-                      lineHeight: 1.2,
-                      marginBottom: '10px',
+                      lineHeight: 1.25,
+                      letterSpacing: '-0.3px',
+                      marginBottom: '8px',
                     }}
                   >
                     {product.commercialName}
                   </h1>
 
-                  <div style={{ fontSize: '0.92rem', color: 'var(--text-body)', lineHeight: 1.5, marginBottom: '16px' }}>
-                    <strong>Marca:</strong> {product.brand}{product.manufacturerLegalName ? ` • ${product.manufacturerLegalName}` : ''}
+                  <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.45, marginBottom: '12px' }}>
+                    <span>Marca:</span> <strong style={{ color: 'var(--text-main)' }}>{product.brand}</strong>{product.manufacturerLegalName ? ` • ${product.manufacturerLegalName}` : ''}
                   </div>
 
                   {product.editorialOpinion && (
                     <p
                       style={{
-                        fontSize: '0.95rem',
-                        color: 'var(--text-muted)',
+                        fontSize: '0.84rem',
+                        color: 'var(--text-body)',
                         fontStyle: 'italic',
-                        lineHeight: 1.65,
-                        textAlign: 'justify',
-                        textJustify: 'inter-word',
+                        lineHeight: 1.55,
+                        textAlign: 'left',
                         borderLeft: '3px solid var(--gold-500)',
-                        paddingLeft: '14px',
+                        backgroundColor: 'var(--bg-cream-subtle)',
+                        padding: '8px 12px',
+                        borderRadius: '0 var(--radius-xs) var(--radius-xs) 0',
+                        marginBottom: '12px',
                       }}
                     >
                       "{product.editorialOpinion}"
@@ -279,24 +289,24 @@ export default async function ProductDetailPage({
                   )}
 
                   {product.affiliateLinks && product.affiliateLinks.length > 0 && (
-                    <div style={{ marginTop: '14px' }}>
+                    <div style={{ marginTop: '10px' }}>
                       <a
                         href="#onde-comprar"
                         style={{
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '6px',
-                          padding: '6px 14px',
+                          padding: '5px 12px',
                           borderRadius: '20px',
                           backgroundColor: 'var(--brand-forest-50)',
                           border: '1px solid var(--border-cream)',
                           color: 'var(--brand-forest-800)',
-                          fontSize: '0.82rem',
+                          fontSize: '0.78rem',
                           fontWeight: 700,
                           textDecoration: 'none',
                         }}
                       >
-                        <Store size={14} color="var(--brand-forest-700)" />
+                        <Store size={13} color="var(--brand-forest-700)" />
                         <span>Disponível em {product.affiliateLinks.length} {product.affiliateLinks.length === 1 ? 'loja' : 'lojas'} • Ver Ofertas</span>
                       </a>
                     </div>
@@ -304,30 +314,53 @@ export default async function ProductDetailPage({
                 </div>
               </div>
 
-              {/* Score Grande Auditado */}
-              {!isCoadjuvante && product.scoreTotal !== null ? (
+              {/* Score Grande Auditado / Status */}
+              {!isCoadjuvante && !isComplementar && product.scoreTotal !== null ? (
                 <div
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '24px 32px',
+                    padding: '16px 22px',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: tier.bgColor,
                     border: `2px solid ${tier.borderColor}`,
                     textAlign: 'center',
-                    minWidth: '170px',
+                    minWidth: '150px',
                   }}
                 >
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: tier.color, letterSpacing: '0.5px' }}>
+                  <span style={{ fontSize: '0.70rem', fontWeight: 800, textTransform: 'uppercase', color: tier.color, letterSpacing: '0.5px' }}>
                     Índice de Conformidade
                   </span>
-                  <span style={{ fontFamily: 'var(--font-heading)', fontSize: '3.2rem', fontWeight: 900, color: tier.color, lineHeight: 1 }}>
+                  <span style={{ fontFamily: 'var(--font-heading)', fontSize: '2.4rem', fontWeight: 900, color: tier.color, lineHeight: 1, margin: '2px 0' }}>
                     {product.scoreTotal}
                   </span>
-                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: tier.color }}>
+                  <span style={{ fontSize: '0.76rem', fontWeight: 700, color: tier.color }}>
                     de 100 pontos
+                  </span>
+                </div>
+              ) : isComplementar ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '16px 20px',
+                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: '#fdf4ff',
+                    border: '1.5px solid #f5d0fe',
+                    textAlign: 'center',
+                    minWidth: '150px',
+                  }}
+                >
+                  <Sparkles size={24} color="#a21caf" style={{ marginBottom: '4px' }} />
+                  <span style={{ fontSize: '0.80rem', fontWeight: 800, color: '#701a75' }}>
+                    Alimento Complementar
+                  </span>
+                  <span style={{ fontSize: '0.72rem', color: '#86198f', marginTop: '2px' }}>
+                    Uso Combinado (MAPA)
                   </span>
                 </div>
               ) : (
@@ -337,18 +370,19 @@ export default async function ProductDetailPage({
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '20px 28px',
+                    padding: '16px 20px',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: '#eef2ff',
-                    border: '2px solid #818cf8',
+                    border: '1.5px solid #818cf8',
                     textAlign: 'center',
+                    minWidth: '150px',
                   }}
                 >
-                  <Stethoscope size={32} color="#4338ca" style={{ marginBottom: '6px' }} />
-                  <span style={{ fontSize: '0.90rem', fontWeight: 800, color: '#3730a3' }}>
+                  <Stethoscope size={24} color="#4338ca" style={{ marginBottom: '4px' }} />
+                  <span style={{ fontSize: '0.80rem', fontWeight: 800, color: '#3730a3' }}>
                     Finalidade Clínica
                   </span>
-                  <span style={{ fontSize: '0.78rem', color: '#4f46e5' }}>
+                  <span style={{ fontSize: '0.72rem', color: '#4f46e5', marginTop: '2px' }}>
                     {product.coadjuvanteCondition}
                   </span>
                 </div>
@@ -358,17 +392,17 @@ export default async function ProductDetailPage({
             {/* BOTÃO VISÍVEL NOVO LOTE / RETIFICAÇÃO */}
             <div
               style={{
-                marginTop: '28px',
-                paddingTop: '20px',
+                marginTop: '18px',
+                paddingTop: '14px',
                 borderTop: '1px solid var(--border-cream-light)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '14px',
+                gap: '12px',
               }}
             >
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '0.80rem', color: 'var(--text-muted)' }}>
                 Fonte Documental: <strong>Website Oficial da Marca</strong>
               </div>
 
@@ -377,18 +411,18 @@ export default async function ProductDetailPage({
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '8px',
-                  padding: '9px 18px',
+                  gap: '6px',
+                  padding: '7px 14px',
                   borderRadius: 'var(--radius-sm)',
                   backgroundColor: 'var(--gold-50)',
                   border: '1.5px solid var(--gold-500)',
                   color: 'var(--gold-800)',
-                  fontSize: '0.85rem',
+                  fontSize: '0.78rem',
                   fontWeight: 800,
                   textDecoration: 'none',
                 }}
               >
-                <Building2 size={16} />
+                <Building2 size={14} />
                 <span>Fabricante: Solicite Atualização de Dados Oficiais</span>
               </Link>
             </div>
@@ -495,7 +529,7 @@ export default async function ProductDetailPage({
                 Demonstrativo pilar a pilar da pontuação obtida segundo o algoritmo determinístico.
               </p>
 
-              {extratoItens.length > 0 ? (
+              {extratoItens.length > 0 && !isComplementar && !isCoadjuvante ? (
                 <div>
                   {extratoItens.map((item, idx) => (
                     <div key={idx} className="extrato-item">
@@ -508,6 +542,13 @@ export default async function ProductDetailPage({
                       <p className="extrato-item-just">{item.justificativa}</p>
                     </div>
                   ))}
+                </div>
+              ) : isComplementar ? (
+                <div style={{ fontSize: '0.85rem', color: '#701a75', backgroundColor: '#fdf4ff', padding: '18px', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #c026d3', lineHeight: 1.6 }}>
+                  <strong style={{ display: 'block', fontSize: '0.92rem', marginBottom: '6px' }}>
+                    Alimento Complementar / Específico (Topper / Petisco):
+                  </strong>
+                  Este produto é classificado pelo MAPA como <em>complemento alimentar para hidratação e agrado</em> à base de filés nobres em caldo, formulado sem premix mineral completo. Deve ser oferecido associado a um alimento completo. Em consonância com a regulação zootécnica, <strong>não possui nota comparativa de ração completa diária</strong>.
                 </div>
               ) : (
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', padding: '20px 0' }}>
@@ -535,7 +576,9 @@ export default async function ProductDetailPage({
               </h2>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
-              A conversão para Matéria Seca desconsidera a umidade do produto ({product.moistureMaxPct}%), permitindo comparar a densidade real dos nutrientes contra os limites oficiais da 11ª Edição do Manual ABINPET.
+              {product.foodType === 'UMIDO'
+                ? `A conversão para Matéria Seca desconsidera a elevada umidade do produto (${product.moistureMaxPct.toFixed(1)}%). Para alimentos úmidos, a conformidade de minerais e segurança de cálcio é aferida consoante as diretrizes internacionais da FEDIAF/NRC e o Manual ABINPET 11ª Edição.`
+                : `A conversão para Matéria Seca desconsidera a umidade do produto (${product.moistureMaxPct.toFixed(1)}%), permitindo comparar a densidade real dos nutrientes contra os limites oficiais da 11ª Edição do Manual ABINPET.`}
             </p>
 
             <div className="table-nutri-wrapper">
@@ -545,7 +588,7 @@ export default async function ProductDetailPage({
                     <th>Nutriente / Parâmetro</th>
                     <th>Garantia Declarada (Matéria Natural)</th>
                     <th>Calculado em Matéria Seca (MS)</th>
-                    <th>Parâmetro de Referência ABINPET 11ª Ed.</th>
+                    <th>Parâmetro de Referência {product.foodType === 'UMIDO' ? 'ABINPET / FEDIAF' : 'ABINPET 11ª Ed.'}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -553,7 +596,7 @@ export default async function ProductDetailPage({
                     <td><strong>Umidade (Máx.)</strong></td>
                     <td>{product.moistureMaxPct.toFixed(1)}%</td>
                     <td>0.0% (Base Seca)</td>
-                    <td>Padrão industrial: até 10-12%</td>
+                    <td>{product.foodType === 'UMIDO' ? 'Padrão sachê/lata úmido: 80-88%' : 'Padrão industrial: até 10-12%'}</td>
                   </tr>
                   <tr>
                     <td><strong>Proteína Bruta (Mín.)</strong></td>
@@ -589,7 +632,11 @@ export default async function ProductDetailPage({
                       {ms.calcioMinPct.toFixed(2)}%
                       {ms.calcioMaxPct ? ` a ${ms.calcioMaxPct.toFixed(2)}%` : ''}
                     </td>
-                    <td>Faixa segura: {abinpetPadrao.calcioMinMS.toFixed(2)}% a {abinpetPadrao.calcioMaxSeguroMS.toFixed(2)}% MS</td>
+                    <td>
+                      {product.foodType === 'UMIDO'
+                        ? `Faixa segura: ${abinpetPadrao.calcioMinMS.toFixed(2)}% a ${abinpetPadrao.calcioMaxSeguroMS.toFixed(2)}% MS (Diretriz Internacional FEDIAF / NRC para Alimentos Úmidos)`
+                        : `Faixa segura: ${abinpetPadrao.calcioMinMS.toFixed(2)}% a ${abinpetPadrao.calcioMaxSeguroMS.toFixed(2)}% MS`}
+                    </td>
                   </tr>
                   <tr>
                     <td><strong>Fósforo (Mín.)</strong></td>

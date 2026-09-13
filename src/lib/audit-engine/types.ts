@@ -7,7 +7,7 @@ export type Especie = 'CAO' | 'GATO';
 export type FaseVida = 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR';
 export type Porte = 'MINI_PEQUENO' | 'MEDIO_GRANDE' | 'TODOS';
 export type TipoAlimento = 'SECO' | 'UMIDO';
-export type CategoriaLegal = 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE';
+export type CategoriaLegal = 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR';
 
 export type CondicaoClinica =
   | 'RENAL'
@@ -18,6 +18,7 @@ export type CondicaoClinica =
   | 'GASTROINTESTINAL'
   | 'CARDIOPATA'
   | 'DIABETES'
+  | 'RECUPERACAO'
   | 'OUTRO';
 
 export type FaixaClassificacao =
@@ -68,6 +69,7 @@ export interface RotulagemAnaliseInput {
   omega3OuPrebioticosGarantidos: boolean;
   claimCarneTipo: ClaimCarneTipo;
   claimCarneAdequado?: boolean; // Se cumpre IN MAPA 30/2009
+  foodType?: TipoAlimento;
 }
 
 /** Detalhe de cada pilar no Extrato da Análise de Rótulo */

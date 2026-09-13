@@ -40,6 +40,8 @@ const MAPA_TERMOS: Record<string, string> = {
   // Categorias Legais MAPA
   ALIMENTO_COMPLETO: 'Alimento Completo',
   ALIMENTO_COADJUVANTE: 'Alimento Coadjuvante (Prescrição)',
+  ALIMENTO_COMPLEMENTAR: 'Alimento Complementar (Topper / Petisco)',
+  COMPLEMENTAR: 'Alimento Complementar (Topper / Petisco)',
 
   // Condições Coadjuvantes
   RENAL: 'Coadjuvante Renal',
@@ -49,6 +51,7 @@ const MAPA_TERMOS: Record<string, string> = {
   HEPATICO: 'Coadjuvante Hepático',
   GASTROINTESTINAL: 'Coadjuvante Gastrointestinal',
   DIABETES: 'Coadjuvante Diabetes e Glicemia',
+  RECUPERACAO: 'Recuperação e Convalescença',
 
   // Status e Tipos de Chamados de Fabricantes
   ABERTO: 'Aberto',
@@ -97,7 +100,18 @@ export function formatarTermo(valor: string | null | undefined): string {
 /**
  * Retorna as propriedades visuais da faixa de classificação (cor, badge, rótulo oficial).
  */
-export function getFaixaVisual(faixa: string | null | undefined, isCoadjuvante = false) {
+export function getFaixaVisual(faixa: string | null | undefined, isCoadjuvante = false, isComplementar = false) {
+  if (isComplementar || (faixa || '').toUpperCase() === 'COMPLEMENTAR') {
+    return {
+      label: 'Alimento Complementar (Topper / Petisco)',
+      shortLabel: 'Complementar',
+      badgeClass: 'badge-tier badge-complementar',
+      color: '#701a75',
+      bgColor: '#fdf4ff',
+      borderColor: '#e879f9',
+    };
+  }
+
   if (isCoadjuvante) {
     return {
       label: 'Alimento Coadjuvante (Prescrição)',

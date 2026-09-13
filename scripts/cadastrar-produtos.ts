@@ -15,7 +15,7 @@ interface ProductMetadata {
   lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR';
   foodType: 'SECO' | 'UMIDO';
   breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE';
-  legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE';
+  legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR';
   coadjuvanteCondition: string | null;
   sourceUrl: string;
 
@@ -79,21 +79,34 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   if (!commercialName || commercialName.length < 5) {
     commercialName = baseName;
   }
-  if (!commercialName.startsWith('PremieR')) {
+  if (
+    !commercialName.startsWith('PremieR') &&
+    !commercialName.startsWith('GoldeN') &&
+    !commercialName.startsWith('Golden') &&
+    !commercialName.startsWith('Vitta')
+  ) {
     commercialName = 'PremieR ' + commercialName;
   }
 
   // 4. Marca e Fabricante
   let brand = 'PremieR';
-  if (/nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) || /nutri[çc][ãa]o cl[íi]nica/i.test(baseName)) {
+  if (/golden/i.test(commercialName) || /golden/i.test(baseName)) {
+    brand = 'GoldeN';
+  } else if (/vitta\s*natural/i.test(commercialName) || /vitta\s*natural/i.test(baseName)) {
+    brand = 'Vitta Natural';
+  } else if (/nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) || /nutri[çc][ãa]o cl[íi]nica/i.test(baseName)) {
     brand = 'PremieR Nutrição Clínica';
-  } else if (/nattu/i.test(commercialName)) {
+  } else if (/nattu/i.test(commercialName) || /nattu/i.test(baseName)) {
     brand = 'PremieR Nattu';
+  } else if (/org[âa]nico/i.test(commercialName) || /org[âa]nico/i.test(baseName)) {
+    brand = 'PremieR Orgânico';
   }
   const manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
 
   // 5. Espécie e Fase de Vida
-  const species: 'GATO' | 'CAO' = /c[ãa]o|c[ãa]es|cachorro/i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro/i.test(baseName) ? 'CAO' : 'GATO';
+  const isCao = /c[ãa]o|c[ãa]es|cachorro/i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro/i.test(baseName);
+  const species: 'GATO' | 'CAO' = isCao && !/gato/i.test(commercialName) ? 'CAO' : 'GATO';
+
   let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
   if (/filhote|crescimento/i.test(commercialName)) {
     lifeStage = 'CRESCIMENTO_INICIAL';
@@ -101,8 +114,20 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     lifeStage = 'SENIOR';
   }
 
+  // Porte
+  let breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE' = 'TODOS';
+  if (/porte pequeno|mini/i.test(commercialName) || /porte pequeno|mini/i.test(baseName)) {
+    breedSize = 'MINI_PEQUENO';
+  } else if (/porte grande|m[ée]dio/i.test(commercialName) || /porte grande|m[ée]dio/i.test(baseName)) {
+    breedSize = 'MEDIO_GRANDE';
+  }
+
+  // Formato do alimento
+  let foodType: 'SECO' | 'UMIDO' =
+    /úmido|umido|gourmet/i.test(baseName) || /úmido|umido|gourmet/i.test(commercialName) ? 'UMIDO' : 'SECO';
+
   // 5.1 Categoria Legal e Condição Coadjuvante
-  let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' = 'ALIMENTO_COMPLETO';
+  let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
   let coadjuvanteCondition: string | null = null;
 
   if (
@@ -122,6 +147,8 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
       coadjuvanteCondition = 'DIABETES';
     } else if (/gastro|gastrointestinal/i.test(targetText)) {
       coadjuvanteCondition = 'GASTROINTESTINAL';
+    } else if (/recupera[çc][ãa]o|convalesc/i.test(targetText)) {
+      coadjuvanteCondition = 'RECUPERACAO';
     } else if (/hipoalerg|pele sens[íi]vel/i.test(targetText)) {
       coadjuvanteCondition = 'HIPOALERGENICO';
     } else if (/hep[áa]t/i.test(targetText)) {
@@ -129,11 +156,28 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     } else {
       coadjuvanteCondition = 'OUTRO';
     }
+  } else if (
+    /complemento alimentar/i.test(text) ||
+    /alimento complementar/i.test(text) ||
+    /alimento espec[íi]fico/i.test(text)
+  ) {
+    legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
 
-  // 6. Níveis de Garantia (Suporte a % e g/kg ou mg/kg)
+  // 6. Ingredientes (COMPOSIÇÃO até o início da tabela de garantias)
+  const compIdx = text.indexOf('COMPOSIÇÃO');
+  let endIdx = -1;
+  const stopWords = ['NÍVEIS DE GARANTIA', 'Níveis de Garantia', 'Proteína Bruta', 'Proteína Cruda', 'Umidade'];
+  for (const w of stopWords) {
+    const idx = text.indexOf(w, compIdx !== -1 ? compIdx + 10 : 0);
+    if (idx !== -1 && (endIdx === -1 || idx < endIdx)) endIdx = idx;
+  }
+  let compRaw = compIdx !== -1 && endIdx !== -1 ? text.slice(compIdx + 10, endIdx) : '';
+  const tableText = compIdx !== -1 ? text.slice(compIdx) : text;
+
+  // 7. Níveis de Garantia (Suporte a % e g/kg ou mg/kg)
   const parseGuarantee = (pattern: RegExp): number => {
-    const m = text.match(pattern);
+    const m = tableText.match(pattern);
     if (!m) return 0;
     const rawVal = m[1].replace(/\./g, '').replace(',', '.');
     const val = parseFloat(rawVal);
@@ -143,18 +187,38 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     return val;
   };
 
-  const umidadeMaxPct = parseGuarantee(/Umidade[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 10.0;
-  const proteinaBrutaMinPct = parseGuarantee(/Prote[íi]na Bruta[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+  const umidadeMaxPct =
+    parseGuarantee(/Umidade[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || (foodType === 'UMIDO' ? 86.0 : 10.0);
+  if (umidadeMaxPct > 50) {
+    foodType = 'UMIDO';
+  }
+
+  const proteinaBrutaMinPct = parseGuarantee(
+    /Prote[íi]na\s+(?:Bruta|Cruda)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i
+  );
   const extratoEtereoMinPct = parseGuarantee(/Extrato Et[ée]reo[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
-  const materiaMineralMaxPct = parseGuarantee(/Mat[ée]ria Mineral[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 8.0;
-  const materiaFibrosaMaxPct = parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 3.5;
-  const calcioMinPct = parseGuarantee(/C[áa]lcio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0.8;
-  const calcioMaxPct = parseGuarantee(/C[áa]lcio\s*\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 1.5;
-  const fosforoMinPct = parseGuarantee(/F[óo]sforo\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0.7;
-  const sodioMinPct = parseGuarantee(/S[óo]dio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0.25;
+  const materiaMineralMaxPct =
+    parseGuarantee(/Mat[ée]ria Mineral[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    (foodType === 'UMIDO' ? 2.5 : 8.0);
+  const materiaFibrosaMaxPct =
+    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    (foodType === 'UMIDO' ? 1.5 : 3.5);
+  const calcioMinPct =
+    parseGuarantee(/C[áa]lcio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    (foodType === 'UMIDO' ? 0.2 : 0.8);
+  const calcioMaxPct =
+    parseGuarantee(/C[áa]lcio\s*\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    (foodType === 'UMIDO' ? 0.45 : 1.5);
+  const fosforoMinPct =
+    parseGuarantee(/F[óo]sforo\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    (foodType === 'UMIDO' ? 0.15 : 0.7);
+  const sodioMinPct =
+    parseGuarantee(/S[óo]dio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    (foodType === 'UMIDO' ? 0.1 : 0.25);
   const omega3MinPct =
     parseGuarantee(/[ÔO]mega\s*3[^\d]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/[ÔO]mega\s*3[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/EPA\s*\+\s*DHA[^\d]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     0.2;
 
   // Energia Metabolizável
@@ -165,11 +229,6 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     const val = parseFloat(rawEm);
     energiaMetabolizavelKcalKg = Math.round(val);
   }
-
-  // 7. Ingredientes (COMPOSIÇÃO até Umidade)
-  const compIdx = text.indexOf('COMPOSIÇÃO');
-  const umidIdx = text.indexOf('Umidade', compIdx !== -1 ? compIdx : 0);
-  let compRaw = compIdx !== -1 && umidIdx !== -1 ? text.slice(compIdx + 10, umidIdx) : '';
 
   // Transgênicos (Conformidade com Decreto nº 4.680/2003 e Rotulagem Oficial MAPA)
   const hasNaoTransgExplicit = /n[ãa]o transg[êe]nico/i.test(compRaw) || /n[ãa]o transg[êe]nico/i.test(text);
@@ -243,14 +302,16 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   let editorialOpinion = '';
   if (legalCategory === 'ALIMENTO_COADJUVANTE') {
-    const descMatch = text.match(/PremieR[®\s]+Nutrição Clínica[^\n]+\s*é um alimento coadjuvante desenvolvido especialmente para[^\.\n]+\./i)
-      || text.match(/PremieR[®\s]+Nutrição Clínica[^\.\n]+\./i);
+    const descMatch = text.match(/PremieR[®\s]+(?:Nutrição Clínica|NC)[^\n]+\s*é um alimento coadjuvante desenvolvido especialmente para[^\.\n]+\./i)
+      || text.match(/PremieR[®\s]+(?:Nutrição Clínica|NC)[^\.\n]+\./i);
     const descClinica = descMatch
       ? descMatch[0].replace(/\s+/g, ' ').trim()
       : `Alimento coadjuvante desenvolvido especialmente para suporte clínico a ${species === 'GATO' ? 'gatos' : 'cães'} (${coadjuvanteCondition?.toLowerCase()}).`;
     editorialOpinion = `${descClinica} Formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Alimento dietoterápico coadjuvante de uso sob orientação veterinária.`;
   } else {
-    editorialOpinion = `Alimento Super Premium para ${species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Relação cálcio:fósforo equilibrada e atendimento integral aos limites da 11ª Edição do Manual ABINPET.`;
+    const tierLabel = brand === 'GoldeN' ? 'Premium Especial' : (brand === 'Vitta Natural' ? 'Premium' : 'Super Premium');
+    const foodTypeLabel = foodType === 'UMIDO' ? 'úmido ' : '';
+    editorialOpinion = `Alimento ${foodTypeLabel}${tierLabel} para ${species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Relação cálcio:fósforo equilibrada e atendimento integral aos limites da 11ª Edição do Manual ABINPET.`;
   }
 
   return {
@@ -260,8 +321,8 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     manufacturerLegalName,
     species,
     lifeStage,
-    breedSize: 'TODOS',
-    foodType: 'SECO',
+    breedSize,
+    foodType,
     legalCategory,
     coadjuvanteCondition,
     sourceUrl,
@@ -372,22 +433,30 @@ async function processAll() {
       omega3MinPct: meta.omega3MinPct,
     };
 
+    const isCoadjuvante = meta.legalCategory === 'ALIMENTO_COADJUVANTE';
+    const isComplementar = meta.legalCategory === 'ALIMENTO_COMPLEMENTAR';
+
     const audit = calcularScoreAnaliseRotulo(
       meta.species,
       auditFase,
       garantias,
       {
-        topIngredientes: meta.topIngredientsList.slice(0, 3),
+        topIngredientes: meta.topIngredientsList,
         antioxidanteTipo: meta.antioxidantType,
         omega3OuPrebioticosGarantidos: (meta.omega3MinPct ?? 0) > 0,
         claimCarneTipo: 'COM_CARNE',
         claimCarneAdequado: true,
-      }
+        foodType: meta.foodType,
+      },
+      meta.foodType
     );
 
-    const isCoadjuvante = meta.legalCategory === 'ALIMENTO_COADJUVANTE';
-    const finalScoreTotal = isCoadjuvante ? null : audit.scoreTotal;
-    const finalClassificationTier = isCoadjuvante ? 'COADJUVANTE' : audit.classificacaoFaixa;
+    const finalScoreTotal = isCoadjuvante || isComplementar ? null : audit.scoreTotal;
+    const finalClassificationTier = isCoadjuvante
+      ? 'COADJUVANTE'
+      : isComplementar
+      ? 'COMPLEMENTAR'
+      : audit.classificacaoFaixa;
 
     // 7. Upsert no PostgreSQL via Prisma
     const saved = await prisma.product.upsert({

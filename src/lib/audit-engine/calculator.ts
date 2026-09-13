@@ -12,13 +12,16 @@ import { getAbinpetStandard } from './abinpet-standards';
 
 /** Palavras-chave para identificação de fontes nobres e proteínas cárneas */
 const PROTEINAS_ANIMAIS_REGEX =
-  /(farinha\s+de\s+(v[ií]sceras|carne|frango|aves|peixe|salm[aã]o|cordeiro|peru|su[ií]no|torresmo))|(torresmo)|(plasma(\s+sangu[ií]neo)?(\s+desidratado)?)|(albumina(\s+de\s+ovo)?)|(prote[ií]na\s+(hidrolisada|isolada)\s+de\s+(su[ií]no|frango|aves|peixe|carne))|(carne\s+mecanicamente\s+separada)|(carne\s+(desidratada|fresca|bovina|de\s+frango|de\s+salm[aã]o|de\s+su[ií]no|de\s+cordeiro|de\s+peru|de\s+atum))|(peito\s+de\s+(frango|peru|aves))|(fil[eé]\s+de\s+(frango|salm[aã]o|peixe|atum))|((v[ií]sceras|mi[uú]dos|f[ií]gado|cora[cç][aã]o)\s+de\s+(aves|frango|bovino|su[ií]no|peru|peixe))|(ovo\s+em\s+p[oó])|(\b(salm[aã]o|atum|sardinha)\b)/i;
+  /(farinha\s+de\s+(v[ií]sceras|carne|frango|aves|peixe|salm[aã]o|cordeiro|peru|su[ií]no|torresmo))|(torresmo)|(plasma(\s+sangu[ií]neo)?(\s+desidratado)?)|(albumina(\s+de\s+ovo)?)|(prote[ií]na\s+(hidrolisada|isolada)\s+de\s+(su[ií]no|frango|aves|peixe|carne))|(carne\s+mecanicamente\s+(separada|recuperada))|(carne\s+(desidratada|fresca|bovina|de\s+(frango|bovino|salm[aã]o|su[ií]no|cordeiro|peru|atum|aves|peixe)))|(peito\s+de\s+(frango|peru|aves))|(fil[eé]\s+de\s+(frango|salm[aã]o|peixe|atum))|((v[ií]sceras|mi[uú]dos|f[ií]gado|cora[cç][aã]o|pesco[çc]o|dorso)\s+de\s+(aves|frango|bovino|su[ií]no|peru|peixe))|(ovo\s+em\s+p[oó])|(\b(salm[aã]o|atum|sardinha)\b)/i;
 
 const CARBOIDRATOS_NOBRES_REGEX =
   /(arroz|quirera\s+de\s+arroz|arroz\s+integral|aveia|cevada|batata|batata-doce|mandioca|farinha\s+de\s+mandioca|lentilha|ervilha)/i;
 
 const VEGETAIS_FARELOS_SECUNDARIOS_REGEX =
   /(milho|farelo\s+de\s+soja|farelo\s+de\s+trigo|gl[uú]ten\s+de\s+milho|subprodutos|casca\s+de\s+soja)/i;
+
+/** Veículos líquidos de cocção e hidratação de alimentos úmidos (IN MAPA 30/2009) */
+const VEICULO_LIQUIDO_REGEX = /^(água|agua|caldo)\b/i;
 
 /** Converte níveis de garantia de Matéria Natural (MN) para Matéria Seca (MS) */
 export function calcularNutrientesMS(garantias: GarantiasMN): NutrientesMS {
@@ -43,9 +46,11 @@ export function calcularScoreAnaliseRotulo(
   especie: Especie,
   faseVida: FaseVida,
   garantias: GarantiasMN,
-  rotulagem: RotulagemAnaliseInput
+  rotulagem: RotulagemAnaliseInput,
+  foodTypeParam?: 'SECO' | 'UMIDO'
 ): AnaliseScoreResult {
-  const standard = getAbinpetStandard(especie, faseVida);
+  const foodType = foodTypeParam || rotulagem.foodType || 'SECO';
+  const standard = getAbinpetStandard(especie, faseVida, foodType);
   const ms = calcularNutrientesMS(garantias);
   const extrato: ExtratoPilarItem[] = [];
 
@@ -67,7 +72,9 @@ export function calcularScoreAnaliseRotulo(
   if (!atendePisosLegais) {
     pilar1Pontos = 0;
     pilar1Justificativa =
-      'Nutrientes essenciais em Matéria Seca abaixo do piso ou acima do teto de segurança da ABINPET / MAPA.';
+      foodType === 'UMIDO'
+        ? 'Nutrientes essenciais em Matéria Seca abaixo do piso ou acima do teto de segurança da ABINPET / FEDIAF / MAPA.'
+        : 'Nutrientes essenciais em Matéria Seca abaixo do piso ou acima do teto de segurança da ABINPET / MAPA.';
   } else {
     // Verifica margem de segurança industrial
     const pbComMargem = ms.proteinaBrutaPct >= standard.proteinaBrutaMargemSegurancaMS;
@@ -76,11 +83,15 @@ export function calcularScoreAnaliseRotulo(
     if (pbComMargem && eeComMargem) {
       pilar1Pontos = 40;
       pilar1Justificativa =
-        'Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem com margem técnica de segurança na MS.';
+        foodType === 'UMIDO'
+          ? 'Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem aos parâmetros ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos com margem técnica de segurança na MS.'
+          : 'Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem com margem técnica de segurança na MS.';
     } else {
       pilar1Pontos = 20;
       pilar1Justificativa =
-        'Atinge os pisos legais mínimos da ABINPET em MS, porém no limite estrito sem margem de segurança industrial.';
+        foodType === 'UMIDO'
+          ? 'Atinge os pisos legais da ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos em MS, porém no limite estrito sem margem de segurança industrial.'
+          : 'Atinge os pisos legais mínimos da ABINPET em MS, porém no limite estrito sem margem de segurança industrial.';
     }
   }
 
@@ -121,8 +132,15 @@ export function calcularScoreAnaliseRotulo(
   // PILAR 3: Qualidade Declarada dos Ingredientes Principais (25 pontos)
   // =========================================================================
   let pilar3Pontos = 0;
-  const ing1 = rotulagem.topIngredientes[0] || '';
-  const ing2 = rotulagem.topIngredientes[1] || '';
+
+  // Em alimentos úmidos, a água/caldo é legalmente obrigatória como veículo físico de cocção (IN MAPA 30/2009).
+  // Filtramos os veículos líquidos para avaliar os 2 primeiros ingredientes nutritivos reais.
+  const ingredientesParaAnalise = foodType === 'UMIDO'
+    ? rotulagem.topIngredientes.filter((ing) => !VEICULO_LIQUIDO_REGEX.test(ing.trim()))
+    : rotulagem.topIngredientes;
+
+  const ing1 = ingredientesParaAnalise[0] || '';
+  const ing2 = ingredientesParaAnalise[1] || '';
 
   const ing1IsAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing1);
   const ing2IsAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing2);
@@ -131,21 +149,23 @@ export function calcularScoreAnaliseRotulo(
   let ing1Texto = '';
   let ing2Texto = '';
 
+  const prefixoUmido = foodType === 'UMIDO' ? ' (desconsiderando a água de cocção exigida pelo MAPA)' : '';
+
   if (ing1IsAnimal) {
     pilar3Pontos += 15;
-    ing1Texto = '1º ingrediente é proteína cárnea de alta digestibilidade (+15)';
+    ing1Texto = `1º ingrediente nutritivo${prefixoUmido} é proteína cárnea de alta digestibilidade (+15)`;
   } else {
     const isVegetal = VEGETAIS_FARELOS_SECUNDARIOS_REGEX.test(ing1);
     ing1Texto = isVegetal
-      ? '1º ingrediente de origem vegetal ou farelos secundários (+0)'
-      : '1º ingrediente não cárneo (+0)';
+      ? `1º ingrediente nutritivo${prefixoUmido} de origem vegetal ou farelos secundários (+0)`
+      : `1º ingrediente nutritivo${prefixoUmido} não cárneo (+0)`;
   }
 
   if (ing2IsAnimal || ing2IsCarbNobre) {
     pilar3Pontos += 10;
-    ing2Texto = '2º ingrediente nobre/animal declarado (+10)';
+    ing2Texto = '2º ingrediente nutritivo nobre/animal declarado (+10)';
   } else {
-    ing2Texto = '2º ingrediente de menor aproveitamento biológico (+0)';
+    ing2Texto = '2º ingrediente nutritivo de menor aproveitamento biológico (+0)';
   }
 
   extrato.push({
