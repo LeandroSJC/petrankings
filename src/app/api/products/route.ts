@@ -102,6 +102,7 @@ export async function POST(req: NextRequest) {
 
     const product = await prisma.product.create({
       data: {
+        id: body.id ? String(body.id).trim() : undefined,
         slug,
         commercialName: body.commercialName,
         brand: body.brand,
@@ -146,6 +147,23 @@ export async function POST(req: NextRequest) {
         isPublished: body.isPublished ?? true,
       },
     });
+
+    // Vincula lojas e links do produto se informados
+    const validLinks = Array.isArray(body.affiliateLinks)
+      ? body.affiliateLinks.filter((l: any) => l && l.store?.trim() && l.productUrl?.trim())
+      : [];
+
+    if (validLinks.length > 0) {
+      await prisma.affiliateLink.createMany({
+        data: validLinks.map((l: any) => ({
+          productId: product.id,
+          store: l.store.trim(),
+          productUrl: l.productUrl.trim(),
+          affiliateUrl: l.affiliateUrl?.trim() || l.productUrl.trim(),
+        })),
+        skipDuplicates: true,
+      });
+    }
 
     return NextResponse.json({ success: true, product });
   } catch (error) {

@@ -5,19 +5,26 @@ import path from 'path';
 
 const ALLOWED_MIME_TYPES = [
   'image/jpeg',
+  'image/jpg',
+  'image/pjpeg',
   'image/png',
+  'image/x-png',
   'image/webp',
   'image/avif',
   'application/pdf',
+  'application/x-pdf',
+  'application/octet-stream',
 ];
+
+const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.avif', '.pdf'];
 
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15 MB
 
 export async function POST(req: NextRequest) {
   try {
     const session = await getSession();
-    if (!session || session.role !== 'admin') {
-      return NextResponse.json({ error: 'Acesso restrito a administradores' }, { status: 403 });
+    if (!session || (session.role !== 'admin' && session.role !== 'curador')) {
+      return NextResponse.json({ error: 'Acesso restrito a administradores e curadores' }, { status: 403 });
     }
 
     const formData = await req.formData();
@@ -27,7 +34,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Nenhum arquivo enviado' }, { status: 400 });
     }
 
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+    const originalName = file.name || '';
+    const ext = path.extname(originalName).toLowerCase();
+
+    // Validação ampla por extensão ou por MIME type (vital para compatibilidade Windows)
+    const isExtensionAllowed = ALLOWED_EXTENSIONS.includes(ext);
+    const isMimeAllowed = ALLOWED_MIME_TYPES.includes(file.type.toLowerCase()) || !file.type;
+
+    if (!isExtensionAllowed && !isMimeAllowed) {
       return NextResponse.json(
         { error: 'Formato inválido. Formatos aceitos: PDF, JPG, PNG, WebP e AVIF.' },
         { status: 400 }
@@ -44,10 +58,23 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Gerar nome de arquivo único e seguro
-    const ext = path.extname(file.name) || (file.type === 'application/pdf' ? '.pdf' : '.jpg');
-    const prefix = file.type === 'application/pdf' ? 'comprovante' : 'produto';
-    const filename = `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 8)}${ext}`;
+    const productId = (formData.get('productId') as string)?.trim();
+    const fileKind = (formData.get('fileKind') as string)?.trim();
+
+    // Determina se é PDF ou imagem
+    const isPdf = ext === '.pdf' || file.type.includes('pdf');
+    const safeExt = ext || (isPdf ? '.pdf' : '.jpg');
+
+    let filename: string;
+    if (productId) {
+      // Sanitiza o ID do produto para garantir nome de arquivo seguro
+      const sanitizedId = productId.replace(/[^a-zA-Z0-9_-]/g, '');
+      const prefix = fileKind === 'ficha' || isPdf ? 'ficha' : 'produto';
+      filename = `${prefix}_${sanitizedId}${safeExt}`;
+    } else {
+      const prefix = isPdf ? 'comprovante' : 'produto';
+      filename = `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 8)}${safeExt}`;
+    }
 
     const uploadDir = path.join(process.cwd(), 'public', 'uploads');
     await mkdir(uploadDir, { recursive: true });
@@ -62,7 +89,7 @@ export async function POST(req: NextRequest) {
       url: publicUrl,
     });
   } catch (error) {
-    console.error('Erro no upload de imagem:', error);
-    return NextResponse.json({ error: 'Erro ao processar upload da imagem' }, { status: 500 });
+    console.error('Erro no upload de arquivo:', error);
+    return NextResponse.json({ error: 'Erro ao processar upload do arquivo' }, { status: 500 });
   }
 }

@@ -17,6 +17,7 @@ export default async function EditarProdutoPage({
   const { id } = await params;
   const product = await prisma.product.findUnique({
     where: { id },
+    include: { affiliateLinks: true },
   });
 
   if (!product) {

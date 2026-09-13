@@ -31,7 +31,7 @@ const outfit = Outfit({
 const siteUrl = SITE_URL;
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-2889031150261887';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'bmf06L8G62Qwe_rb5epMccxaUByc1ICghJ9MdrW10qU';
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-7D421FSVLC';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

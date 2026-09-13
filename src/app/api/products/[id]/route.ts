@@ -114,6 +114,29 @@ export async function PUT(
       },
     });
 
+    // Sincroniza lojas e links de compra se enviados no corpo
+    if (body.affiliateLinks !== undefined) {
+      await prisma.affiliateLink.deleteMany({
+        where: { productId: id },
+      });
+
+      const validLinks = Array.isArray(body.affiliateLinks)
+        ? body.affiliateLinks.filter((l: any) => l && l.store?.trim() && l.productUrl?.trim())
+        : [];
+
+      if (validLinks.length > 0) {
+        await prisma.affiliateLink.createMany({
+          data: validLinks.map((l: any) => ({
+            productId: id,
+            store: l.store.trim(),
+            productUrl: l.productUrl.trim(),
+            affiliateUrl: l.affiliateUrl?.trim() || l.productUrl.trim(),
+          })),
+          skipDuplicates: true,
+        });
+      }
+    }
+
     return NextResponse.json({ success: true, product });
   } catch (error) {
     console.error('Erro ao atualizar produto:', error);

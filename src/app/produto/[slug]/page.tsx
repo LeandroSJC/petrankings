@@ -19,6 +19,7 @@ import {
   Stethoscope,
   Info,
   Globe,
+  Store,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { calcularNutrientesMS, calcularEnergiaMetabolizavel } from '@/lib/audit-engine';
@@ -260,6 +261,30 @@ export default async function ProductDetailPage({
                     <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontStyle: 'italic', lineHeight: 1.6, borderLeft: '3px solid var(--gold-500)', paddingLeft: '14px' }}>
                       "{product.editorialOpinion}"
                     </p>
+                  )}
+
+                  {product.affiliateLinks && product.affiliateLinks.length > 0 && (
+                    <div style={{ marginTop: '14px' }}>
+                      <a
+                        href="#onde-comprar"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          padding: '6px 14px',
+                          borderRadius: '20px',
+                          backgroundColor: 'var(--brand-forest-50)',
+                          border: '1px solid var(--border-cream)',
+                          color: 'var(--brand-forest-800)',
+                          fontSize: '0.82rem',
+                          fontWeight: 700,
+                          textDecoration: 'none',
+                        }}
+                      >
+                        <Store size={14} color="var(--brand-forest-700)" />
+                        <span>Disponível em {product.affiliateLinks.length} {product.affiliateLinks.length === 1 ? 'loja' : 'lojas'} • Ver Ofertas</span>
+                      </a>
+                    </div>
                   )}
                 </div>
               </div>
@@ -663,7 +688,7 @@ export default async function ProductDetailPage({
               }}
             >
               <strong style={{ color: 'var(--brand-forest-900)', display: 'block', marginBottom: '6px' }}>
-                Lista Completa dos Principais Ingredientes (Ordem Decrescente de Quantidade - IN MAPA 30/2009):
+                Composição Básica Declarada pelo Fabricante (Ordem Decrescente de Inclusão — IN MAPA nº 30/2009):
               </strong>
               {parsedIngredients.join(', ')}.
             </div>
@@ -709,7 +734,7 @@ export default async function ProductDetailPage({
                       textDecoration: 'none',
                     }}
                   >
-                    <span>Ver na {link.store.toUpperCase()}</span>
+                    <span>Ver na {link.store}</span>
                     <ExternalLink size={14} />
                   </a>
                 ))}

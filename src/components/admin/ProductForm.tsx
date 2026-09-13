@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -15,6 +15,14 @@ import {
   Eye,
   ShieldCheck,
   UploadCloud,
+  FileText,
+  ExternalLink,
+  Globe,
+  Calendar,
+  X,
+  Store,
+  Plus,
+  Trash2,
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
@@ -31,6 +39,56 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [uploadingDoc, setUploadingDoc] = useState(false);
   const [uploadingImg, setUploadingImg] = useState(false);
+  const frontImgInputRef = useRef<HTMLInputElement>(null);
+  const docInputRef = useRef<HTMLInputElement>(null);
+
+  // ID persistente ou pré-alocado do produto para nomear arquivos e chave primária
+  const [productId] = useState<string>(() => {
+    if (initialProduct?.id) return initialProduct.id;
+    return `pr_${Date.now().toString(36)}_${Math.random().toString(36).substring(2, 8)}`;
+  });
+
+  // Estado de lojas e links de compra
+  const [affiliateLinks, setAffiliateLinks] = useState<{ id?: string; store: string; productUrl: string }[]>(() => {
+    if (initialProduct?.affiliateLinks && Array.isArray(initialProduct.affiliateLinks)) {
+      return initialProduct.affiliateLinks.map((al: any) => ({
+        id: al.id,
+        store: al.store || '',
+        productUrl: al.productUrl || al.affiliateUrl || '',
+      }));
+    }
+    return [];
+  });
+
+  const [storeSuggestions, setStoreSuggestions] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch('/api/stores')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.stores && Array.isArray(data.stores)) {
+          setStoreSuggestions(data.stores);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleAddStore = () => {
+    setAffiliateLinks((prev) => [...prev, { store: '', productUrl: '' }]);
+    setHasUnsavedChanges(true);
+  };
+
+  const handleRemoveStore = (index: number) => {
+    setAffiliateLinks((prev) => prev.filter((_, i) => i !== index));
+    setHasUnsavedChanges(true);
+  };
+
+  const handleStoreChange = (index: number, field: 'store' | 'productUrl', value: string) => {
+    setAffiliateLinks((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, [field]: value } : item))
+    );
+    setHasUnsavedChanges(true);
+  };
 
   // Form State
   const [formData, setFormData] = useState({
@@ -113,6 +171,8 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
     try {
       const data = new FormData();
       data.append('file', file);
+      data.append('productId', productId);
+      data.append('fileKind', isDoc ? 'ficha' : 'produto');
 
       const res = await fetch('/api/upload', {
         method: 'POST',
@@ -191,10 +251,18 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
       const endpoint = isEdit ? `/api/products/${initialProduct.id}` : '/api/products';
       const method = isEdit ? 'PUT' : 'POST';
 
+      const payload = {
+        ...formData,
+        id: productId,
+        affiliateLinks: affiliateLinks
+          .map((l) => ({ store: l.store.trim(), productUrl: l.productUrl.trim() }))
+          .filter((l) => l.store && l.productUrl),
+      };
+
       const res = await fetch(endpoint, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -508,131 +576,353 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
             style={{
               backgroundColor: '#ffffff',
               borderRadius: 'var(--radius-md)',
-              border: '1.5px solid #cbd5e1',
+              border: '1px solid var(--border-cream)',
               padding: '24px',
+              boxShadow: 'var(--shadow-xs)',
             }}
           >
             <legend style={{ padding: '0 8px', fontWeight: 800, color: 'var(--brand-forest-900)', fontSize: '1.1rem' }}>
               3. Custódia Digital e Fonte Oficial do Fabricante
             </legend>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
-              Especificações técnicas oficiais extraídas diretamente do website do fabricante com respaldo nos Arts. 30 e 31 do CDC.
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
+              Especificações técnicas e documentos arquivados comprovando as declarações do fabricante (Arts. 30 e 31 do CDC).
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
-                  URL Oficial da Página do Produto (Website do Fabricante) *
-                </label>
-                <input
-                  type="url"
-                  required
-                  value={formData.sourceUrl}
-                  onChange={(e) => handleChange('sourceUrl', e.target.value)}
-                  placeholder="https://www.marca.com.br/produtos/..."
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
-                />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
-                  Data da Coleta Digital dos Dados *
-                </label>
-                <input
-                  type="date"
-                  required
-                  value={formData.labelCollectionDate}
-                  onChange={(e) => handleChange('labelCollectionDate', e.target.value)}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
-                />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
-                  URL da Imagem Oficial do Produto (Packshot da Marca)
-                </label>
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* Linha 1: URL da Fonte Oficial + Data da Coleta */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '16px',
+                  alignItems: 'start',
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
+                    <Globe size={15} color="var(--brand-forest-700)" />
+                    <span>URL Oficial da Página do Produto (Website do Fabricante) *</span>
+                  </label>
                   <input
                     type="url"
-                    value={formData.frontLabelImageUrl}
-                    onChange={(e) => handleChange('frontLabelImageUrl', e.target.value)}
-                    placeholder="https://...imagem-produto.png"
-                    style={{ flex: 1, padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
+                    required
+                    value={formData.sourceUrl}
+                    onChange={(e) => handleChange('sourceUrl', e.target.value)}
+                    placeholder="https://www.marca.com.br/produtos/..."
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
                   />
-                  <label
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '9px 14px',
-                      borderRadius: '4px',
-                      backgroundColor: 'var(--bg-cream-main)',
-                      border: '1.5px solid var(--border-cream)',
-                      fontSize: '0.82rem',
-                      fontWeight: 700,
-                      color: 'var(--brand-forest-900)',
-                      cursor: uploadingImg ? 'not-allowed' : 'pointer',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {uploadingImg ? <Loader2 size={15} className="animate-spin" /> : <UploadCloud size={15} />}
-                    <span>{uploadingImg ? 'Enviando...' : 'Subir Imagem'}</span>
+                  <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                    Endereço público da ficha técnica no portal oficial da marca ou fabricante.
+                  </span>
+                </div>
+
+                <div>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
+                    <Calendar size={15} color="var(--brand-forest-700)" />
+                    <span>Data da Coleta Digital *</span>
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={formData.labelCollectionDate}
+                    onChange={(e) => handleChange('labelCollectionDate', e.target.value)}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
+                  />
+                  <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                    Data do registro dos dados públicos oficiais.
+                  </span>
+                </div>
+              </div>
+
+              {/* Linha 2: Cards de Upload (Imagem e PDF) lado a lado em cards dedicados */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                  gap: '16px',
+                }}
+              >
+                {/* Card A: Imagem / Packshot */}
+                <div
+                  style={{
+                    backgroundColor: 'var(--bg-cream-main)',
+                    border: '1.5px solid var(--border-cream)',
+                    borderRadius: 'var(--radius-sm)',
+                    padding: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', fontWeight: 700, margin: 0 }}>
+                      <Camera size={15} color="var(--brand-forest-700)" />
+                      <span>Packshot Oficial (Imagem do Produto)</span>
+                    </label>
+                    {formData.frontLabelImageUrl && (
+                      <button
+                        type="button"
+                        onClick={() => handleChange('frontLabelImageUrl', '')}
+                        style={{
+                          fontSize: '0.72rem',
+                          color: '#b91c1c',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '3px',
+                          fontWeight: 600,
+                        }}
+                      >
+                        <X size={12} /> Limpar
+                      </button>
+                    )}
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <input
+                      type="text"
+                      value={formData.frontLabelImageUrl}
+                      onChange={(e) => handleChange('frontLabelImageUrl', e.target.value)}
+                      placeholder="URL da imagem ou clique em Subir..."
+                      style={{
+                        flex: 1,
+                        minWidth: 0,
+                        padding: '9px 12px',
+                        borderRadius: '4px',
+                        border: '1.5px solid var(--border-cream)',
+                        backgroundColor: '#ffffff',
+                        fontSize: '0.84rem',
+                      }}
+                    />
+                    <input
+                      ref={frontImgInputRef}
                       type="file"
-                      accept="image/jpeg,image/png,image/webp,image/avif"
+                      accept="image/jpeg,image/png,image/webp,image/avif,image/jpg,.jpg,.jpeg,.png,.webp,.avif"
                       disabled={uploadingImg}
                       onChange={(e) => handleFileUpload(e, 'frontLabelImageUrl')}
                       style={{ display: 'none' }}
                     />
-                  </label>
-                </div>
-                <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                  Foto da frente ou packshot em alta resolução divulgado pela marca.
-                </span>
-              </div>
+                    <button
+                      type="button"
+                      disabled={uploadingImg}
+                      onClick={() => frontImgInputRef.current?.click()}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '9px 14px',
+                        borderRadius: '4px',
+                        backgroundColor: '#ffffff',
+                        border: '1.5px solid var(--border-cream)',
+                        fontSize: '0.80rem',
+                        fontWeight: 700,
+                        color: 'var(--brand-forest-900)',
+                        cursor: uploadingImg ? 'not-allowed' : 'pointer',
+                        whiteSpace: 'nowrap',
+                        boxShadow: 'var(--shadow-xs)',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {uploadingImg ? <Loader2 size={14} className="animate-spin" /> : <UploadCloud size={14} />}
+                      <span>{uploadingImg ? 'Enviando...' : 'Subir Imagem'}</span>
+                    </button>
+                  </div>
 
-              <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
-                  URL do Comprovante da Ficha Técnica Oficial (PDF) *
-                </label>
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <input
-                    type="url"
-                    value={formData.sourceDocumentUrl}
-                    onChange={(e) => handleChange('sourceDocumentUrl', e.target.value)}
-                    placeholder="https://...comprovante-ficha.pdf"
-                    style={{ flex: 1, padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
-                  />
-                  <label
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '9px 14px',
-                      borderRadius: '4px',
-                      backgroundColor: 'var(--bg-cream-main)',
-                      border: '1.5px solid var(--border-cream)',
-                      fontSize: '0.82rem',
-                      fontWeight: 700,
-                      color: 'var(--brand-forest-900)',
-                      cursor: uploadingDoc ? 'not-allowed' : 'pointer',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {uploadingDoc ? <Loader2 size={15} className="animate-spin" /> : <UploadCloud size={15} />}
-                    <span>{uploadingDoc ? 'Enviando...' : 'Subir PDF'}</span>
+                  {formData.frontLabelImageUrl ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '8px 10px',
+                        backgroundColor: '#ffffff',
+                        borderRadius: '4px',
+                        border: '1px solid var(--border-cream)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: '4px',
+                          border: '1px solid var(--border-cream)',
+                          overflow: 'hidden',
+                          backgroundColor: 'var(--bg-cream-subtle)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <img
+                          src={formData.frontLabelImageUrl}
+                          alt="Packshot Preview"
+                          style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                        />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand-forest-800)' }}>
+                          ✓ Imagem vinculada com sucesso
+                        </span>
+                        <span style={{ display: 'block', fontSize: '0.70rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {formData.frontLabelImageUrl}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <span style={{ display: 'block', fontSize: '0.73rem', color: 'var(--text-muted)' }}>
+                      Formatos aceitos: JPG, PNG, WebP ou AVIF oficial do fabricante (máx. 15MB).
+                    </span>
+                  )}
+                </div>
+
+                {/* Card B: Ficha Técnica PDF */}
+                <div
+                  style={{
+                    backgroundColor: 'var(--bg-cream-main)',
+                    border: '1.5px solid var(--border-cream)',
+                    borderRadius: 'var(--radius-sm)',
+                    padding: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', fontWeight: 700, margin: 0 }}>
+                      <FileText size={15} color="var(--brand-forest-700)" />
+                      <span>Comprovante da Ficha Técnica (PDF) *</span>
+                    </label>
+                    {formData.sourceDocumentUrl && (
+                      <button
+                        type="button"
+                        onClick={() => handleChange('sourceDocumentUrl', '')}
+                        style={{
+                          fontSize: '0.72rem',
+                          color: '#b91c1c',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '3px',
+                          fontWeight: 600,
+                        }}
+                      >
+                        <X size={12} /> Limpar
+                      </button>
+                    )}
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <input
+                      type="text"
+                      value={formData.sourceDocumentUrl}
+                      onChange={(e) => handleChange('sourceDocumentUrl', e.target.value)}
+                      placeholder="URL do PDF ou clique em Subir..."
+                      style={{
+                        flex: 1,
+                        minWidth: 0,
+                        padding: '9px 12px',
+                        borderRadius: '4px',
+                        border: '1.5px solid var(--border-cream)',
+                        backgroundColor: '#ffffff',
+                        fontSize: '0.84rem',
+                      }}
+                    />
+                    <input
+                      ref={docInputRef}
                       type="file"
-                      accept="application/pdf"
+                      accept="application/pdf,.pdf"
                       disabled={uploadingDoc}
                       onChange={(e) => handleFileUpload(e, 'sourceDocumentUrl')}
                       style={{ display: 'none' }}
                     />
-                  </label>
+                    <button
+                      type="button"
+                      disabled={uploadingDoc}
+                      onClick={() => docInputRef.current?.click()}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '9px 14px',
+                        borderRadius: '4px',
+                        backgroundColor: '#ffffff',
+                        border: '1.5px solid var(--border-cream)',
+                        fontSize: '0.80rem',
+                        fontWeight: 700,
+                        color: 'var(--brand-forest-900)',
+                        cursor: uploadingDoc ? 'not-allowed' : 'pointer',
+                        whiteSpace: 'nowrap',
+                        boxShadow: 'var(--shadow-xs)',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {uploadingDoc ? <Loader2 size={14} className="animate-spin" /> : <UploadCloud size={14} />}
+                      <span>{uploadingDoc ? 'Enviando...' : 'Subir PDF'}</span>
+                    </button>
+                  </div>
+
+                  {formData.sourceDocumentUrl ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '8px 10px',
+                        backgroundColor: '#ffffff',
+                        borderRadius: '4px',
+                        border: '1px solid var(--border-cream)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: '4px',
+                          backgroundColor: '#fef2f2',
+                          color: '#dc2626',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          border: '1px solid #fecaca',
+                        }}
+                      >
+                        <FileText size={22} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand-forest-800)' }}>
+                          ✓ PDF anexado e auditável
+                        </span>
+                        <a
+                          href={formData.sourceDocumentUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            fontSize: '0.72rem',
+                            color: 'var(--brand-forest-700)',
+                            fontWeight: 700,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            textDecoration: 'underline',
+                          }}
+                        >
+                          <span>Abrir arquivo em nova aba</span>
+                          <ExternalLink size={11} />
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    <span style={{ display: 'block', fontSize: '0.73rem', color: 'var(--text-muted)' }}>
+                      Documento PDF oficial arquivado no servidor para custódia perene.
+                    </span>
+                  )}
                 </div>
-                <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                  O comprovante documental oficial da ficha técnica deve ser sempre em formato PDF. Insira o link ou anexe o arquivo PDF diretamente.
-                </span>
               </div>
             </div>
           </fieldset>
@@ -788,16 +1078,19 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '12px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
-                  Principais Ingredientes em Ordem Decrescente (Separados por vírgula) *
+                  Composição Básica Completa / Ingredientes em Ordem Decrescente *
                 </label>
                 <textarea
-                  rows={3}
+                  rows={4}
                   required
                   value={formData.topIngredients}
                   onChange={(e) => handleChange('topIngredients', e.target.value)}
-                  placeholder="Ex: Farinha de vísceras de frango, Quirera de arroz, Gordura de aves, Óleo de salmão..."
+                  placeholder="Copie e cole a lista de ingredientes do site oficial ou do rótulo físico (separados por vírgula)..."
                   style={{ width: '100%', padding: '10px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)', fontFamily: 'inherit' }}
                 />
+                <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                  Você pode colar a lista integral de ingredientes exatamente como declarada pelo fabricante (incluindo matérias-primas e aditivos). O algoritmo analisa a ordem decrescente oficial para classificar a qualidade proteica e carboidratos nobres (Pilar 3).
+                </span>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
@@ -849,7 +1142,218 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                   </label>
                 </div>
               </div>
+
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px', flexWrap: 'wrap', gap: '8px' }}>
+                  <label style={{ fontSize: '0.82rem', fontWeight: 700 }}>
+                    Parecer Editorial / Opinião Descritiva (Exibido no Topo da Página do Produto)
+                  </label>
+                  {liveAudit.parecerSugerido && (
+                    <button
+                      type="button"
+                      onClick={() => handleChange('editorialOpinion', liveAudit.parecerSugerido)}
+                      style={{
+                        fontSize: '0.75rem',
+                        color: 'var(--brand-forest-700)',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        textDecoration: 'underline',
+                        cursor: 'pointer',
+                        fontWeight: 600,
+                        padding: 0,
+                      }}
+                    >
+                      Preencher com sugestão automática do algoritmo
+                    </button>
+                  )}
+                </div>
+                <textarea
+                  rows={3}
+                  value={formData.editorialOpinion}
+                  onChange={(e) => handleChange('editorialOpinion', e.target.value)}
+                  placeholder={liveAudit.parecerSugerido || 'Parecer descritivo e transparente sobre a formulação do alimento...'}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)', fontFamily: 'inherit' }}
+                />
+                <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                  Este texto é exibido em destaque logo abaixo do título, marca e fabricante na página do produto. Se deixado em branco, o sistema utilizará o parecer gerado automaticamente pelo algoritmo com base na nota.
+                </span>
+              </div>
             </div>
+          </fieldset>
+
+          {/* 6. ONDE COMPRAR / LOJAS VINCULADAS */}
+          <fieldset
+            style={{
+              backgroundColor: '#ffffff',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-cream)',
+              padding: '24px',
+              boxShadow: 'var(--shadow-xs)',
+            }}
+          >
+            <legend
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '0 8px',
+                fontWeight: 800,
+                color: 'var(--brand-forest-900)',
+                fontSize: '1.1rem',
+              }}
+            >
+              <Store size={18} color="var(--brand-forest-700)" />
+              6. Onde Comprar / Lojas Vinculadas
+            </legend>
+
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
+              Cadastre as lojas onde este produto é vendido e o link direto da página da oferta. O nome da loja é livre: você pode digitar qualquer nome ou escolher uma das sugestões automáticas baseadas nas lojas já cadastradas.
+            </p>
+
+            <datalist id="store-suggestions-list">
+              {storeSuggestions.map((s) => (
+                <option key={s} value={s} />
+              ))}
+            </datalist>
+
+            {affiliateLinks.length === 0 ? (
+              <div
+                style={{
+                  padding: '24px',
+                  textAlign: 'center',
+                  backgroundColor: 'var(--bg-cream-main)',
+                  border: '1.5px dashed var(--border-cream)',
+                  borderRadius: 'var(--radius-sm)',
+                }}
+              >
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0 0 12px 0' }}>
+                  Nenhuma loja vinculada a este produto até o momento.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleAddStore}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 16px',
+                    backgroundColor: 'var(--brand-forest-900)',
+                    color: '#ffffff',
+                    borderRadius: 'var(--radius-xs)',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Plus size={15} />
+                  Adicionar Primeira Loja
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {affiliateLinks.map((linkItem, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'minmax(160px, 240px) 1fr auto',
+                      gap: '12px',
+                      alignItems: 'center',
+                      padding: '12px 14px',
+                      backgroundColor: 'var(--bg-cream-main)',
+                      border: '1px solid var(--border-cream)',
+                      borderRadius: 'var(--radius-sm)',
+                    }}
+                  >
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                        Nome da Loja
+                      </label>
+                      <input
+                        type="text"
+                        list="store-suggestions-list"
+                        placeholder="Ex: Petlove, Amazon, Cobasi..."
+                        value={linkItem.store}
+                        onChange={(e) => handleStoreChange(idx, 'store', e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '9px 12px',
+                          borderRadius: '4px',
+                          border: '1.5px solid var(--border-cream)',
+                          fontSize: '0.85rem',
+                          backgroundColor: '#ffffff',
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                        Link da Oferta / Página do Produto
+                      </label>
+                      <input
+                        type="url"
+                        placeholder="https://..."
+                        value={linkItem.productUrl}
+                        onChange={(e) => handleStoreChange(idx, 'productUrl', e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '9px 12px',
+                          borderRadius: '4px',
+                          border: '1.5px solid var(--border-cream)',
+                          fontSize: '0.85rem',
+                          backgroundColor: '#ffffff',
+                        }}
+                      />
+                    </div>
+
+                    <div style={{ paddingTop: '18px' }}>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveStore(idx)}
+                        title="Remover loja"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '8px 10px',
+                          backgroundColor: '#fef2f2',
+                          color: '#b91c1c',
+                          border: '1px solid #fecaca',
+                          borderRadius: '4px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+
+                <div style={{ marginTop: '6px' }}>
+                  <button
+                    type="button"
+                    onClick={handleAddStore}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 16px',
+                      backgroundColor: 'transparent',
+                      color: 'var(--brand-forest-900)',
+                      border: '1.5px dashed var(--brand-forest-700)',
+                      borderRadius: 'var(--radius-xs)',
+                      fontSize: '0.82rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Plus size={15} />
+                    Adicionar Outra Loja
+                  </button>
+                </div>
+              </div>
+            )}
           </fieldset>
         </div>
       </div>
