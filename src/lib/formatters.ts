@@ -48,6 +48,7 @@ const MAPA_TERMOS: Record<string, string> = {
   HIPOALERGENICO: 'Hipoalergênico / Alergias',
   HEPATICO: 'Coadjuvante Hepático',
   GASTROINTESTINAL: 'Coadjuvante Gastrointestinal',
+  DIABETES: 'Coadjuvante Diabetes e Glicemia',
 
   // Status e Tipos de Chamados de Fabricantes
   ABERTO: 'Aberto',

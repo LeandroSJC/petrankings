@@ -12,7 +12,7 @@ import { getAbinpetStandard } from './abinpet-standards';
 
 /** Palavras-chave para identificação de fontes nobres e proteínas cárneas */
 const PROTEINAS_ANIMAIS_REGEX =
-  /(farinha\s+de\s+(v[ií]sceras|carne|frango|aves|peixe|salm[aã]o|cordeiro|peru|su[ií]no|torresmo))|(torresmo)|(plasma(\s+sangu[ií]neo)?(\s+desidratado)?)|(carne\s+mecanicamente\s+separada)|(carne\s+(desidratada|fresca|bovina|de\s+frango|de\s+salm[aã]o|de\s+su[ií]no|de\s+cordeiro|de\s+peru|de\s+atum))|(peito\s+de\s+(frango|peru|aves))|(fil[eé]\s+de\s+(frango|salm[aã]o|peixe|atum))|((v[ií]sceras|mi[uú]dos|f[ií]gado|cora[cç][aã]o)\s+de\s+(aves|frango|bovino|su[ií]no|peru|peixe))|(ovo\s+em\s+p[oó])|(prote[ií]na\s+isolada\s+de\s+(su[ií]no|frango))|(\b(salm[aã]o|atum|sardinha)\b)/i;
+  /(farinha\s+de\s+(v[ií]sceras|carne|frango|aves|peixe|salm[aã]o|cordeiro|peru|su[ií]no|torresmo))|(torresmo)|(plasma(\s+sangu[ií]neo)?(\s+desidratado)?)|(albumina(\s+de\s+ovo)?)|(prote[ií]na\s+(hidrolisada|isolada)\s+de\s+(su[ií]no|frango|aves|peixe|carne))|(carne\s+mecanicamente\s+separada)|(carne\s+(desidratada|fresca|bovina|de\s+frango|de\s+salm[aã]o|de\s+su[ií]no|de\s+cordeiro|de\s+peru|de\s+atum))|(peito\s+de\s+(frango|peru|aves))|(fil[eé]\s+de\s+(frango|salm[aã]o|peixe|atum))|((v[ií]sceras|mi[uú]dos|f[ií]gado|cora[cç][aã]o)\s+de\s+(aves|frango|bovino|su[ií]no|peru|peixe))|(ovo\s+em\s+p[oó])|(\b(salm[aã]o|atum|sardinha)\b)/i;
 
 const CARBOIDRATOS_NOBRES_REGEX =
   /(arroz|quirera\s+de\s+arroz|arroz\s+integral|aveia|cevada|batata|batata-doce|mandioca|farinha\s+de\s+mandioca|lentilha|ervilha)/i;

@@ -84,11 +84,16 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   }
 
   // 4. Marca e Fabricante
-  const brand = /nattu/i.test(commercialName) ? 'PremieR Nattu' : 'PremieR';
+  let brand = 'PremieR';
+  if (/nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) || /nutri[çc][ãa]o cl[íi]nica/i.test(baseName)) {
+    brand = 'PremieR Nutrição Clínica';
+  } else if (/nattu/i.test(commercialName)) {
+    brand = 'PremieR Nattu';
+  }
   const manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
 
   // 5. Espécie e Fase de Vida
-  const species: 'GATO' | 'CAO' = /c[ãa]o|c[ãa]es|cachorro/i.test(commercialName) ? 'CAO' : 'GATO';
+  const species: 'GATO' | 'CAO' = /c[ãa]o|c[ãa]es|cachorro/i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro/i.test(baseName) ? 'CAO' : 'GATO';
   let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
   if (/filhote|crescimento/i.test(commercialName)) {
     lifeStage = 'CRESCIMENTO_INICIAL';
@@ -96,23 +101,61 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     lifeStage = 'SENIOR';
   }
 
-  // 6. Níveis de Garantia
-  const parseNum = (regex: RegExp): number => {
-    const m = text.match(regex);
+  // 5.1 Categoria Legal e Condição Coadjuvante
+  let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' = 'ALIMENTO_COMPLETO';
+  let coadjuvanteCondition: string | null = null;
+
+  if (
+    /nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) ||
+    /nutri[çc][ãa]o cl[íi]nica/i.test(baseName) ||
+    /alimento coadjuvante/i.test(text)
+  ) {
+    legalCategory = 'ALIMENTO_COADJUVANTE';
+    const targetText = (commercialName + ' ' + baseName).toLowerCase();
+    if (/renal/i.test(targetText)) {
+      coadjuvanteCondition = 'RENAL';
+    } else if (/urin[áa]rio|estruvita|oxalate/i.test(targetText)) {
+      coadjuvanteCondition = 'URINARIO';
+    } else if (/obesidade|perda de peso|controle de peso/i.test(targetText)) {
+      coadjuvanteCondition = 'OBESIDADE';
+    } else if (/diabet/i.test(targetText)) {
+      coadjuvanteCondition = 'DIABETES';
+    } else if (/gastro|gastrointestinal/i.test(targetText)) {
+      coadjuvanteCondition = 'GASTROINTESTINAL';
+    } else if (/hipoalerg|pele sens[íi]vel/i.test(targetText)) {
+      coadjuvanteCondition = 'HIPOALERGENICO';
+    } else if (/hep[áa]t/i.test(targetText)) {
+      coadjuvanteCondition = 'HEPATICO';
+    } else {
+      coadjuvanteCondition = 'OUTRO';
+    }
+  }
+
+  // 6. Níveis de Garantia (Suporte a % e g/kg ou mg/kg)
+  const parseGuarantee = (pattern: RegExp): number => {
+    const m = text.match(pattern);
     if (!m) return 0;
-    return parseFloat(m[1].replace(/\./g, '').replace(',', '.'));
+    const rawVal = m[1].replace(/\./g, '').replace(',', '.');
+    const val = parseFloat(rawVal);
+    const unit = (m[2] || '%').toLowerCase();
+    if (unit.includes('mg')) return Number((val / 10000).toFixed(4));
+    if (unit.includes('g/kg') || unit === 'g') return Number((val / 10).toFixed(2));
+    return val;
   };
 
-  const umidadeMaxPct = parseNum(/Umidade[^\d]*(\d+[\.,]\d+)\s*%/i) || 10.0;
-  const proteinaBrutaMinPct = parseNum(/Prote[íi]na Bruta[^\d]*(\d+[\.,]\d+)\s*%/i);
-  const extratoEtereoMinPct = parseNum(/Extrato Et[ée]reo[^\d]*(\d+[\.,]\d+)\s*%/i);
-  const materiaMineralMaxPct = parseNum(/Mat[ée]ria Mineral[^\d]*(\d+[\.,]\d+)\s*%/i) || 8.0;
-  const materiaFibrosaMaxPct = parseNum(/Mat[ée]ria Fibrosa[^\d]*(\d+[\.,]\d+)\s*%/i) || 3.5;
-  const calcioMinPct = parseNum(/C[áa]lcio\s*\(m[íi]n\.?\)[^\d]*(\d+[\.,]\d+)\s*%/i) || 0.8;
-  const calcioMaxPct = parseNum(/C[áa]lcio\s*\(m[áa]x\.?\)[^\d]*(\d+[\.,]\d+)\s*%/i) || 1.5;
-  const fosforoMinPct = parseNum(/F[óo]sforo[^\d]*(\d+[\.,]\d+)\s*%/i) || 0.7;
-  const sodioMinPct = parseNum(/(?:^|\n)\s*S[óo]dio\s*\(m[íi]n\.?\)\s*(\d+[\.,]\d+)/i) || 0.25;
-  const omega3MinPct = parseNum(/[ÔO]mega\s*3[^\d]*(\d+[\.,]\d+)\s*%/i) || 0.2;
+  const umidadeMaxPct = parseGuarantee(/Umidade[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 10.0;
+  const proteinaBrutaMinPct = parseGuarantee(/Prote[íi]na Bruta[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+  const extratoEtereoMinPct = parseGuarantee(/Extrato Et[ée]reo[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+  const materiaMineralMaxPct = parseGuarantee(/Mat[ée]ria Mineral[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 8.0;
+  const materiaFibrosaMaxPct = parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 3.5;
+  const calcioMinPct = parseGuarantee(/C[áa]lcio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0.8;
+  const calcioMaxPct = parseGuarantee(/C[áa]lcio\s*\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 1.5;
+  const fosforoMinPct = parseGuarantee(/F[óo]sforo\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0.7;
+  const sodioMinPct = parseGuarantee(/S[óo]dio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0.25;
+  const omega3MinPct =
+    parseGuarantee(/[ÔO]mega\s*3[^\d]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/[ÔO]mega\s*3[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    0.2;
 
   // Energia Metabolizável
   let energiaMetabolizavelKcalKg: number | null = null;
@@ -161,7 +204,7 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     .replace(/Blogs\s*Gatos\s*Cães\s*Alimento\s*Ideal/gi, ' ')
     .replace(/https:\/\/premierpet\.com\.br[^\s]*/gi, ' ')
     .replace(/\d{2}\/\d{2}\/\d{4}[^\n]*/g, ' ')
-    .replace(/Benefícios/gi, ' ')
+    .replace(/Benefícios[^\n]*/gi, ' ')
     .replace(/\?/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -198,7 +241,17 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   const conservStr = antioxidantType === 'NATURAL' ? 'conservantes 100% naturais' : 'antioxidantes sintéticos (BHA/BHT)';
   const faseLabel = lifeStage === 'CRESCIMENTO_INICIAL' ? 'filhotes em fase de crescimento' : (lifeStage === 'SENIOR' ? 'idosos / sênior' : 'adultos');
 
-  const editorialOpinion = `Alimento Super Premium para ${species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Relação cálcio:fósforo equilibrada e atendimento integral aos limites da 11ª Edição do Manual ABINPET.`;
+  let editorialOpinion = '';
+  if (legalCategory === 'ALIMENTO_COADJUVANTE') {
+    const descMatch = text.match(/PremieR[®\s]+Nutrição Clínica[^\n]+\s*é um alimento coadjuvante desenvolvido especialmente para[^\.\n]+\./i)
+      || text.match(/PremieR[®\s]+Nutrição Clínica[^\.\n]+\./i);
+    const descClinica = descMatch
+      ? descMatch[0].replace(/\s+/g, ' ').trim()
+      : `Alimento coadjuvante desenvolvido especialmente para suporte clínico a ${species === 'GATO' ? 'gatos' : 'cães'} (${coadjuvanteCondition?.toLowerCase()}).`;
+    editorialOpinion = `${descClinica} Formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Alimento dietoterápico coadjuvante de uso sob orientação veterinária.`;
+  } else {
+    editorialOpinion = `Alimento Super Premium para ${species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Relação cálcio:fósforo equilibrada e atendimento integral aos limites da 11ª Edição do Manual ABINPET.`;
+  }
 
   return {
     commercialName,
@@ -209,8 +262,8 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     lifeStage,
     breedSize: 'TODOS',
     foodType: 'SECO',
-    legalCategory: 'ALIMENTO_COMPLETO',
-    coadjuvanteCondition: null,
+    legalCategory,
+    coadjuvanteCondition,
     sourceUrl,
     umidadeMaxPct,
     proteinaBrutaMinPct,
@@ -332,6 +385,10 @@ async function processAll() {
       }
     );
 
+    const isCoadjuvante = meta.legalCategory === 'ALIMENTO_COADJUVANTE';
+    const finalScoreTotal = isCoadjuvante ? null : audit.scoreTotal;
+    const finalClassificationTier = isCoadjuvante ? 'COADJUVANTE' : audit.classificacaoFaixa;
+
     // 7. Upsert no PostgreSQL via Prisma
     const saved = await prisma.product.upsert({
       where: { slug: meta.slug },
@@ -370,8 +427,8 @@ async function processAll() {
         topIngredients: JSON.stringify(meta.topIngredientsList),
         editorialOpinion: meta.editorialOpinion,
 
-        scoreTotal: audit.scoreTotal,
-        classificationTier: audit.classificacaoFaixa,
+        scoreTotal: finalScoreTotal,
+        classificationTier: finalClassificationTier,
         scoreBreakdown: audit.extratoPontos as any,
         calculatedAt: new Date(),
         isPublished: true,
@@ -413,8 +470,8 @@ async function processAll() {
         topIngredients: JSON.stringify(meta.topIngredientsList),
         editorialOpinion: meta.editorialOpinion,
 
-        scoreTotal: audit.scoreTotal,
-        classificationTier: audit.classificacaoFaixa,
+        scoreTotal: finalScoreTotal,
+        classificationTier: finalClassificationTier,
         scoreBreakdown: audit.extratoPontos as any,
         calculatedAt: new Date(),
         isPublished: true,
@@ -423,7 +480,8 @@ async function processAll() {
 
     console.log(`✅ [CADASTRADO] ${saved.commercialName}`);
     console.log(`   ID: ${saved.id} | Slug: ${saved.slug}`);
-    console.log(`   Score: ${saved.scoreTotal} (${saved.classificationTier})`);
+    console.log(`   Categoria: ${saved.legalCategory} ${saved.coadjuvanteCondition ? '(' + saved.coadjuvanteCondition + ')' : ''}`);
+    console.log(`   Score: ${saved.scoreTotal !== null ? saved.scoreTotal + ' (' + saved.classificationTier + ')' : 'Prescrição Clínica (Sem Score de Ranking)'}`);
     console.log(`   Transgênicos: ${saved.containsGmo ? 'SIM (' + (saved.gmoIngredients || 'Declarado') + ')' : 'NÃO (LIVRE)'}`);
     console.log(`   Conservantes: ${saved.antioxidantType}`);
     console.log(`   Ingredientes: ${meta.topIngredientsList.length} itens cadastrados`);

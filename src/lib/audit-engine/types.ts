@@ -17,6 +17,7 @@ export type CondicaoClinica =
   | 'HIPOALERGENICO'
   | 'GASTROINTESTINAL'
   | 'CARDIOPATA'
+  | 'DIABETES'
   | 'OUTRO';
 
 export type FaixaClassificacao =
