@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     default: 'PetRankings — O Guia Amigo para Escolher o Melhor para o seu Pet',
     template: '%s | PetRankings',
   },
-  description: 'Comparações transparentes e carinhosas de produtos para cães e gatos. Reunimos avaliações reais das melhores lojas do Brasil para você cuidar do seu melhor amigo com toda a tranquilidade.',
+  description: 'Comparações transparentes e técnicas de alimentos para cães e gatos com base nas fontes oficiais dos fabricantes e diretrizes da ABINPET e MAPA.',
   keywords: [
     'pet',
     'melhores produtos pet',
@@ -68,12 +68,12 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: 'PetRankings',
     title: 'PetRankings — O Guia Amigo para Escolher o Melhor para o seu Pet',
-    description: 'Comparações sinceras e transparentes baseadas nas avaliações reais de tutores nas principais lojas do Brasil.',
+    description: 'Análise nutricional comparativa e transparente de produtos para cães e gatos com links de ofertas nos grandes varejistas parceiros.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'PetRankings — O Guia Amigo para Escolher o Melhor para o seu Pet',
-    description: 'Comparações sinceras e transparentes baseadas nas avaliações reais de tutores nas principais lojas do Brasil.',
+    description: 'Análise nutricional comparativa e transparente de produtos para cães e gatos com links de ofertas nos grandes varejistas parceiros.',
   },
   robots: {
     index: true,

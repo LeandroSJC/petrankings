@@ -140,7 +140,7 @@ export default function PoliticaPrivacidadePage() {
               4. Transparência de Parcerias e Afiliados
             </h2>
             <p>
-              O PetRankings participa de programas de parceiros afiliados com grandes varejistas brasileiros (como <em>Amazon Brasil, Petlove, Cobasi, Mercado Livre e Shopee</em>). Quando você clica em um botão de compra para visitar uma loja, podemos receber uma comissão caso você finalize um pedido.
+              O PetRankings pode participar de programas de parceiros afiliados com grandes varejistas e lojas parceiras do comércio eletrônico brasileiro. Quando você clica em um botão de oferta para visitar a página de um grande varejista ou loja parceira, podemos receber uma comissão caso você finalize um pedido.
             </p>
             <p style={{ marginTop: '10px' }}>
               <strong>Importante:</strong> Isso não acarreta nenhum custo adicional para você e não influencia de forma alguma o índice de conformidade ou a classificação dos produtos nas faixas oficiais, que decorrem de cálculos estritamente objetivos baseados nos dados impressos no rótulo e nas diretrizes técnicas da ABINPET e do MAPA.

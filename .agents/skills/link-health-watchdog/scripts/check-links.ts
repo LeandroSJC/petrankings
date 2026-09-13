@@ -19,13 +19,12 @@ interface CheckResult {
   error?: string;
 }
 
-const AFFILIATE_TAG_PATTERNS: Record<string, RegExp> = {
-  amazon: /tag=/i,
-  shopee: /(shp\.ee|af_id=|universal-link)/i,
-  petlove: /(lomadee|awin|parceiro|utm_source=)/i,
-  cobasi: /(lomadee|awin|parceiro|utm_source=)/i,
-  mercadolivre: /(matt_tool|afiliados|tracking)/i,
-};
+const GENERIC_AFFILIATE_PATTERNS = [
+  /tag=/i,
+  /(shp\.ee|af_id=|universal-link)/i,
+  /(lomadee|awin|parceiro|utm_source=)/i,
+  /(matt_tool|afiliados|tracking)/i,
+];
 
 async function checkUrl(url: string, timeoutMs = 8000): Promise<{ status: number; ok: boolean; latencyMs: number; error?: string }> {
   const start = Date.now();
@@ -43,7 +42,7 @@ async function checkUrl(url: string, timeoutMs = 8000): Promise<{ status: number
       redirect: 'follow',
     });
 
-    // Some retailers (e.g. Amazon, ML) block HEAD requests with 403/405, so retry with GET
+    // Some retail platforms block HEAD requests with 403/405, so retry with GET
     if (res.status === 405 || res.status === 403) {
       res = await fetch(url, {
         method: 'GET',
@@ -103,10 +102,9 @@ async function runAudit() {
   for (const item of stores) {
     const targetUrl = item.affiliateUrl || item.productUrl;
     const isAffiliate = Boolean(item.affiliateUrl);
-    const storeKey = item.store.toLowerCase();
-
-    const pattern = AFFILIATE_TAG_PATTERNS[storeKey];
-    const hasTag = isAffiliate && pattern ? pattern.test(targetUrl) : true;
+    const hasTag = isAffiliate
+      ? GENERIC_AFFILIATE_PATTERNS.some((pattern) => pattern.test(targetUrl))
+      : true;
 
     process.stdout.write(`⏳ Testando [${item.store.toUpperCase()}] ${item.product.title.slice(0, 30)}... `);
 

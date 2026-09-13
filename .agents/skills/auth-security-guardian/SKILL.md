@@ -78,7 +78,7 @@ if (payload.role !== 'admin') {
   - Escape or disallow raw HTML tags in user-generated messages and product descriptions.
 - **URL Validation for Stores & Affiliates**:
   - Verify that submitted URLs start with valid protocols (`https://`).
-  - Restrict affiliate store domains to known whitelist keys (`amazon.com.br`, `mercadolivre.com.br`, `petlove.com.br`, `cobasi.com.br`, `shopee.com.br`).
+  - Validate that store and offer links are well-formed HTTPS URLs from authorized retail partners.
 
 ## 5. Security Audit Checklist
 

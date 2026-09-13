@@ -90,7 +90,7 @@ model Product {
 model AffiliateLink {
   id           String   @id @default(cuid())
   productId    String
-  store        String   // "amazon" | "mercadolivre" | "petlove" | "cobasi" | "shopee"
+  store        String   // Nome da loja ou grande varejista cadastrado livremente
   productUrl   String
   affiliateUrl String?
   createdAt    DateTime @default(now())

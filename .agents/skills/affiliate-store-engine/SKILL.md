@@ -2,8 +2,8 @@
 name: affiliate-store-engine
 description: >-
   Manages e-commerce store configurations, affiliate link normalization, partner tracking parameters,
-  store review aggregation, and link integrity verification across Brazilian pet retail partners.
-  Use this skill when adding or updating partner stores (Amazon, Mercado Livre, Petlove, Cobasi, Shopee),
+  and link integrity verification across Brazilian retail partners.
+  Use this skill when adding or updating partner stores and large retailers,
   configuring affiliate tracking tags, or auditing outbound buy links.
 ---
 
@@ -11,17 +11,9 @@ description: >-
 
 This skill guides the integration, normalization, and management of e-commerce partner stores and monetization links within the PetRankings platform.
 
-## 1. Supported Store Registry
+## 1. Flexible Retailer & Partner Store Registry
 
-The platform currently tracks and standardizes outbound links for the 5 leading pet stores in Brazil:
-
-| Store Key | Partner Name | Tracking / Domain Details |
-| :--- | :--- | :--- |
-| `amazon` | **Amazon Brasil** | Amazon Associates tag parameters (`tag=...`). |
-| `mercadolivre` | **Mercado Livre** | Mercado Livre Afiliados / link de produto oficial. |
-| `petlove` | **Petlove** | Links diretos de catálogo / rede de afiliados Lomadee/Awin. |
-| `cobasi` | **Cobasi** | E-commerce Cobasi com tracking de campanha. |
-| `shopee` | **Shopee Brasil** | Shopee Affiliate Program (`shp.ee` ou links parametrizados). |
+The platform supports flexible store registration across large Brazilian retailers and pet specialty stores, allowing any store name with optional suggested autocompletion based on stores previously registered in the database. Outbound links are standardized with `rel="nofollow noopener sponsored"` and direct product URLs.
 
 ## 2. Link Structure & Fallback Logic
 

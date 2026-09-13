@@ -2,7 +2,7 @@
 name: link-health-watchdog
 description: >-
   Audits and monitors the health of external store links, affiliate URLs, and product availability
-  across Brazilian e-commerce partners (Amazon, Mercado Livre, Petlove, Cobasi, Shopee).
+  across Brazilian e-commerce partners and large retailers.
   Detects broken links (404/500), missing tracking tags, redirect loops, and out-of-stock anomalies.
   Use this skill when implementing automated URL verification scripts, running health checks,
   auditing affiliate parameters, or building link monitoring tools.
@@ -14,17 +14,14 @@ This skill guides automated verification, URL integrity auditing, affiliate para
 
 ## 1. Outbound URL Health Protocol
 
-Every linked product store (`ProductStore`) has two potential URLs:
+Every linked product store has two potential URLs:
 - `productUrl`: The canonical product page on the store's website.
 - `affiliateUrl`: The monetized tracking link with affiliate campaign parameters.
 
 ### Health Criteria:
 - **HTTP Status**: Response must return `200 OK` (or valid client redirect `301/302/307/308` resolving to `200`).
 - **SSL / HTTPS**: Protocol must be strictly secure (`https://`).
-- **Affiliate Tag Presence**: Verify that mandatory partner parameters exist:
-  - `amazon`: `tag=...`
-  - `shopee`: `shp.ee` or `universal-link` / affiliate sub-ids.
-  - `petlove` / `cobasi` / `mercadolivre`: Lomadee/Awin affiliate campaign parameters or clean product URLs.
+- **Affiliate Tag Presence**: Verify that valid partner parameters and clean product URLs exist across large retailers and partner stores.
 
 ## 2. Automated Link Audit Script Pattern
 

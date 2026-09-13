@@ -1207,7 +1207,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
             </legend>
 
             <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
-              Cadastre as lojas onde este produto é vendido e o link direto da página da oferta. O nome da loja é livre: você pode digitar qualquer nome ou escolher uma das sugestões automáticas baseadas nas lojas já cadastradas.
+              Cadastre os grandes varejistas ou lojas parceiras onde este produto é vendido e o link direto da oferta. O nome do varejista é livre: você pode digitar qualquer nome ou escolher uma das sugestões automáticas baseadas nas lojas já cadastradas.
             </p>
 
             <datalist id="store-suggestions-list">
@@ -1268,12 +1268,12 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                   >
                     <div>
                       <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '4px' }}>
-                        Nome da Loja
+                        Nome da Loja / Varejista
                       </label>
                       <input
                         type="text"
                         list="store-suggestions-list"
-                        placeholder="Ex: Petlove, Amazon, Cobasi..."
+                        placeholder="Ex: Nome do varejista ou loja..."
                         value={linkItem.store}
                         onChange={(e) => handleStoreChange(idx, 'store', e.target.value)}
                         style={{

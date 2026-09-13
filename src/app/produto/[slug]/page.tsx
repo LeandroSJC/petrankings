@@ -711,7 +711,7 @@ export default async function ProductDetailPage({
                 Onde Encontrar este Produto
               </h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
-                Consulte disponibilidade e ofertas nas principais lojas especializadas do Brasil:
+                Consulte disponibilidade e ofertas nos grandes varejistas e lojas parceiras:
               </p>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>

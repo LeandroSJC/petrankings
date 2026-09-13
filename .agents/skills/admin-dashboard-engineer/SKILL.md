@@ -63,7 +63,7 @@ useEffect(() => {
 ## 3. Real-Time Rating Calculation Protocol
 
 When creating or editing products in the admin panel:
-1. Allow dynamic addition/removal of store rows (`amazon`, `mercadolivre`, `petlove`, `cobasi`, `shopee`).
+1. Allow dynamic addition/removal of store rows for large retailers and partner stores with autocompletion suggestions.
 2. Validate store URLs (ensure protocol starts with `https://`).
 3. Compute the arithmetic average in real time on the client:
    $$\text{average} = \frac{\sum \text{valid ratings}}{\text{count of stores with valid ratings}}$$

@@ -33,13 +33,10 @@
 1. **Seleção de Produtos Reais:**
    - Mínimo recomendado: 4 a 10 produtos para garantir densidade de comparação.
    - Cadastrar marca (`brand`), título oficial e imagem clara de alta qualidade.
-2. **Lançamento das Lojas e Notas (`affiliate-store-engine`):**
-   - Adicionar as lojas vinculadas (`amazon`, `mercadolivre`, `petlove`, `cobasi`, `shopee`).
-   - Inserir a nota real (0.0 a 5.0) e contagem de avaliações coletadas na loja.
-   - **Cálculo da Média:**
-     $$\text{averageRating} = \frac{\sum \text{notas válidas}}{\text{número de lojas avaliadas}}$$
-3. **Links de Afiliados:**
-   - Inserir URLs com tag de rastreamento do parceiro (ex: `tag=...` na Amazon).
+2. **Lançamento das Lojas e Links (`affiliate-store-engine`):**
+   - Adicionar as lojas vinculadas (grandes varejistas e lojas parceiras).
+3. **Links de Oferta e Afiliados:**
+   - Inserir URLs diretas com tag de rastreamento do parceiro.
    - Manter a URL canônica do produto como fallback caso o afiliado expire.
 
 ---

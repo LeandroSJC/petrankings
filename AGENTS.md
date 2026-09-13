@@ -46,7 +46,7 @@ Sempre que atuar em uma área específica do projeto, ative e siga o runbook do 
 | :--- | :--- | :--- |
 | **Backoffice & CRUD Admin** | `admin-dashboard-engineer` | Formulários em rotas dedicadas, guardião `beforeunload`, tabelas de dados. |
 | **Monetização & AdSense** | `adsense-monetization-architect` | Conformidade Google 2026 (Consent Mode v2, TCF v2.3, slots anti-CLS). |
-| **Lojas & Afiliados** | `affiliate-store-engine` | Links Amazon, Mercado Livre, Petlove, Cobasi, Shopee com `rel="sponsored"`. |
+| **Lojas & Afiliados** | `affiliate-store-engine` | Links de grandes varejistas e lojas parceiras com `rel="sponsored"`. |
 | **Segurança & Headers** | `appsec-data-shield` | Cabeçalhos HTTP (`next.config.mjs`), OWASP Top 10, sanitização. |
 | **Autenticação & Sessões** | `auth-security-guardian` | JWT com `jose`, middleware em duas camadas, proteção contra brute-force. |
 | **Cache & Performance ISR** | `content-caching-strategy` | `unstable_cache` no Prisma, `revalidatePath`, invalidação por tags. |

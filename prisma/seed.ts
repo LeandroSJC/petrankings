@@ -73,11 +73,7 @@ async function main() {
       },
       containsGmo: true,
       gmoIngredients: 'Milho transgênico (Bt), Soja transgênica (RR)',
-      stores: [
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'cobasi', url: 'https://www.cobasi.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // CÃO ADULTO - PREMIER FORMULA (SUPER PREMIUM)
@@ -121,11 +117,7 @@ async function main() {
       },
       containsGmo: false,
       gmoIngredients: null,
-      stores: [
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-        { store: 'cobasi', url: 'https://www.cobasi.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // CÃO ADULTO - GOLDEN FORMULA (PREMIUM ESPECIAL)
@@ -169,10 +161,7 @@ async function main() {
       },
       containsGmo: true,
       gmoIngredients: 'Milho transgênico (Bt), Soja transgênica (RR)',
-      stores: [
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // CÃO ADULTO - PEDIGREE NUTRIÇÃO COMPLETA (ECONÔMICO)
@@ -216,10 +205,7 @@ async function main() {
       },
       containsGmo: true,
       gmoIngredients: 'Milho e soja geneticamente modificados',
-      stores: [
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-        { store: 'mercadolivre', url: 'https://www.mercadolivre.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // CÃO FILHOTE - PREMIER FORMULA FILHOTES (SUPER PREMIUM)
@@ -263,10 +249,7 @@ async function main() {
       },
       containsGmo: false,
       gmoIngredients: null,
-      stores: [
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'cobasi', url: 'https://www.cobasi.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // GATO ADULTO - PREMIER GATOS CASTRADOS (SUPER PREMIUM)
@@ -310,10 +293,7 @@ async function main() {
       },
       containsGmo: false,
       gmoIngredients: null,
-      stores: [
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // GATO FILHOTE - ROYAL CANIN KITTEN (SUPER PREMIUM)
@@ -357,10 +337,7 @@ async function main() {
       },
       containsGmo: true,
       gmoIngredients: 'Milho geneticamente modificado',
-      stores: [
-        { store: 'cobasi', url: 'https://www.cobasi.com.br' },
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // ALIMENTO COADJUVANTE (PRESCRIÇÃO CLÍNICA - ISOLADO)
@@ -404,10 +381,7 @@ async function main() {
       },
       containsGmo: true,
       gmoIngredients: 'Milho transgênico (Bt)',
-      stores: [
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'cobasi', url: 'https://www.cobasi.com.br' },
-      ],
+      stores: [],
     },
     {
       slug: 'hills-prescription-diet-cd-multicare-feline-urinario',
@@ -448,10 +422,7 @@ async function main() {
       },
       containsGmo: true,
       gmoIngredients: 'Milho geneticamente modificado',
-      stores: [
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // CÃO ADULTO - PREMIER GOURMET SACHÊ (ÚMIDO / SUPER PREMIUM)
@@ -495,11 +466,7 @@ async function main() {
       },
       containsGmo: false,
       gmoIngredients: null,
-      stores: [
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-        { store: 'cobasi', url: 'https://www.cobasi.com.br' },
-      ],
+      stores: [],
     },
     // -------------------------------------------------------------
     // GATO ADULTO - ROYAL CANIN SENSORY TASTE SACHÊ (ÚMIDO / SUPER PREMIUM)
@@ -543,11 +510,7 @@ async function main() {
       },
       containsGmo: false,
       gmoIngredients: null,
-      stores: [
-        { store: 'petlove', url: 'https://www.petlove.com.br' },
-        { store: 'cobasi', url: 'https://www.cobasi.com.br' },
-        { store: 'amazon', url: 'https://www.amazon.com.br' },
-      ],
+      stores: [],
     },
   ];
 
@@ -610,7 +573,7 @@ async function main() {
         calculatedAt: new Date(),
 
         affiliateLinks: {
-          create: item.stores.map((s) => ({
+          create: (item.stores as { store: string; url: string }[]).map((s) => ({
             store: s.store,
             productUrl: s.url,
             affiliateUrl: s.url,
