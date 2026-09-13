@@ -20,7 +20,9 @@ import {
   Info,
   Globe,
   Store,
+  FlaskConical,
 } from 'lucide-react';
+import TransgenicIcon from '@/components/TransgenicIcon';
 import prisma from '@/lib/prisma';
 import { calcularNutrientesMS, calcularEnergiaMetabolizavel } from '@/lib/audit-engine';
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
@@ -258,7 +260,18 @@ export default async function ProductDetailPage({
                   </div>
 
                   {product.editorialOpinion && (
-                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontStyle: 'italic', lineHeight: 1.6, borderLeft: '3px solid var(--gold-500)', paddingLeft: '14px' }}>
+                    <p
+                      style={{
+                        fontSize: '0.95rem',
+                        color: 'var(--text-muted)',
+                        fontStyle: 'italic',
+                        lineHeight: 1.65,
+                        textAlign: 'justify',
+                        textJustify: 'inter-word',
+                        borderLeft: '3px solid var(--gold-500)',
+                        paddingLeft: '14px',
+                      }}
+                    >
                       "{product.editorialOpinion}"
                     </p>
                   )}
@@ -633,12 +646,22 @@ export default async function ProductDetailPage({
                   borderRadius: 'var(--radius-xs)',
                   backgroundColor: product.antioxidantType === 'NATURAL' ? '#ecfdf5' : '#fffbeb',
                   color: product.antioxidantType === 'NATURAL' ? '#065f46' : '#92400e',
+                  border: product.antioxidantType === 'NATURAL' ? '1px solid #a7f3d0' : '1px solid #fde68a',
                   fontSize: '0.82rem',
                   fontWeight: 700,
                 }}
               >
-                <Leaf size={14} />
-                Conservantes: {product.antioxidantType === 'NATURAL' ? '100% Naturais (Tocoferóis e Alecrim)' : 'Sintéticos (BHA/BHT)'}
+                {product.antioxidantType === 'NATURAL' ? (
+                  <>
+                    <Leaf size={14} color="#059669" />
+                    <span>Conservantes 100% Naturais (Tocoferóis e Alecrim)</span>
+                  </>
+                ) : (
+                  <>
+                    <FlaskConical size={14} color="#d97706" />
+                    <span>Conservantes Sintéticos (BHA/BHT)</span>
+                  </>
+                )}
               </span>
 
               <span
@@ -650,11 +673,22 @@ export default async function ProductDetailPage({
                   borderRadius: 'var(--radius-xs)',
                   backgroundColor: product.containsGmo ? '#fef3c7' : '#f0fdf4',
                   color: product.containsGmo ? '#92400e' : '#166534',
+                  border: product.containsGmo ? '1px solid #fde68a' : '1px solid #bbf7d0',
                   fontSize: '0.82rem',
                   fontWeight: 700,
                 }}
               >
-                OGM: {product.containsGmo ? `Contém Transgênicos (${product.gmoIngredients || 'Milho/Soja'})` : 'Livre de Transgênicos'}
+                {product.containsGmo ? (
+                  <>
+                    <TransgenicIcon size={14} />
+                    <span>Contém Transgênicos {product.gmoIngredients ? `(${product.gmoIngredients})` : ''}</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 size={14} color="#16a34a" />
+                    <span>Livre de Transgênicos</span>
+                  </>
+                )}
               </span>
 
               {product.omega3MinPct && product.omega3MinPct > 0 && (
@@ -680,14 +714,16 @@ export default async function ProductDetailPage({
               style={{
                 backgroundColor: 'var(--bg-cream-main)',
                 borderRadius: 'var(--radius-sm)',
-                padding: '16px',
+                padding: '18px 20px',
                 fontSize: '0.88rem',
                 color: 'var(--text-body)',
-                lineHeight: 1.6,
+                lineHeight: 1.7,
+                textAlign: 'justify',
+                textJustify: 'inter-word',
                 border: '1px solid var(--border-cream-light)',
               }}
             >
-              <strong style={{ color: 'var(--brand-forest-900)', display: 'block', marginBottom: '6px' }}>
+              <strong style={{ color: 'var(--brand-forest-900)', display: 'block', marginBottom: '8px' }}>
                 Composição Básica Declarada pelo Fabricante (Ordem Decrescente de Inclusão — IN MAPA nº 30/2009):
               </strong>
               {parsedIngredients.join(', ')}.

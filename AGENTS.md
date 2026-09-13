@@ -35,6 +35,10 @@
    - Todas as mutações administrativas exigem verificação de JWT de sessão (`petrankings_admin_token`).
    - Rotas públicas com formulários (contato) devem ter proteção tripla: campo invisível honeypot (`website_hp`), trava temporal mínima (2,5s) e rate limit por IP/e-mail.
    - Nunca exponha variáveis confidenciais (`DATABASE_URL`, `JWT_SECRET`, `ADMIN_GATE_KEY`) com o prefixo `NEXT_PUBLIC_`.
+6. **Fidelidade Estrita ao PDF e Proibição Absoluta de Invenção de Dados:**
+   - Toda e qualquer informação cadastrada no sistema (níveis de garantia, ingredientes na ordem decrescente, conservantes, transgênicos e notas) deve seguir estrita e fielmente o conteúdo do **PDF da ficha técnica oficial do produto**.
+   - É terminantemente proibido inventar, simular, deduzir ou estimar dados não verificáveis.
+   - Se algo não for possível de ser verificado na documentação oficial com certeza probatória, a impossibilidade deve ser informada ao usuário/curador e o dado **não deve ser inventado**, permanecendo nulo ou não declarado.
 
 ---
 

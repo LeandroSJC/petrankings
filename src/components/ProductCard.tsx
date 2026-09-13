@@ -7,10 +7,13 @@ import {
   ShieldCheck,
   ShoppingCart,
   Leaf,
+  FlaskConical,
+  CheckCircle2,
   Stethoscope,
   Camera,
   ArrowRight,
 } from 'lucide-react';
+import TransgenicIcon from '@/components/TransgenicIcon';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
 
 export interface ProductCardProps {
@@ -167,15 +170,57 @@ export default function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
             <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: product.antioxidantType === 'NATURAL' ? '#065f46' : 'var(--text-muted)' }}>
-              <Leaf size={13} />
-              {product.antioxidantType === 'NATURAL' ? 'Conservantes Naturais' : 'Conservantes Sintéticos'}
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                color: product.antioxidantType === 'NATURAL' ? '#065f46' : '#b45309',
+                fontSize: '0.78rem',
+                fontWeight: 600,
+              }}
+            >
+              {product.antioxidantType === 'NATURAL' ? (
+                <>
+                  <Leaf size={13} color="#059669" />
+                  <span>Conservantes Naturais</span>
+                </>
+              ) : (
+                <>
+                  <FlaskConical size={13} color="#d97706" />
+                  <span>Conservantes Sintéticos (BHA/BHT)</span>
+                </>
+              )}
             </span>
-            {product.containsGmo && (
-              <>
-                <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
-                <span style={{ color: '#92400e', fontSize: '0.75rem', fontWeight: 600 }}>Contém OGM</span>
-              </>
+            <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
+            {product.containsGmo ? (
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  color: '#92400e',
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                }}
+              >
+                <TransgenicIcon size={14} />
+                <span>Contém Transgênicos</span>
+              </span>
+            ) : (
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  color: '#166534',
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                }}
+              >
+                <CheckCircle2 size={13} color="#16a34a" />
+                <span>Livre de Transgênicos</span>
+              </span>
             )}
           </div>
         </div>
