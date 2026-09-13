@@ -8,13 +8,11 @@ async function main() {
   // Lista de tabelas essenciais conhecidas do Prisma
   const fallbackTables = [
     'User',
-    'Ranking',
     'Product',
-    'ProductStore',
-    'RankingProduct',
+    'AffiliateLink',
+    'ManufacturerTicket',
     'ContactMessage',
     'ContactRateLimit',
-    'AdSlot',
     'AdminOtp',
   ];
 

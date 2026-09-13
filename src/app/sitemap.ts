@@ -7,7 +7,7 @@ export const revalidate = 3600; // Revalida o sitemap a cada 1 hora
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = SITE_URL;
 
-  // 1. Páginas estáticas principais
+  // 1. Páginas estáticas e categorias oficiais
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${siteUrl}`,
@@ -16,10 +16,46 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
+      url: `${siteUrl}/indice/caes-adultos`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/indice/caes-filhotes`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/indice/gatos-adultos`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/indice/gatos-filhotes`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/coadjuvantes`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/sobre`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.6,
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/fabricante`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${siteUrl}/contato`,
@@ -35,27 +71,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Rankings publicados dinâmicos
+  // 2. Produtos analisados dinâmicos
   try {
-    const rankings = await prisma.ranking.findMany({
+    const products = await prisma.product.findMany({
       where: {
         isPublished: true,
       },
       select: {
         slug: true,
-        dataUpdatedAt: true,
         updatedAt: true,
       },
     });
 
-    const rankingRoutes: MetadataRoute.Sitemap = rankings.map((ranking) => ({
-      url: `${siteUrl}/ranking/${ranking.slug}`,
-      lastModified: ranking.dataUpdatedAt || ranking.updatedAt || new Date(),
+    const productRoutes: MetadataRoute.Sitemap = products.map((prod) => ({
+      url: `${siteUrl}/produto/${prod.slug}`,
+      lastModified: prod.updatedAt || new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.8,
     }));
 
-    return [...staticRoutes, ...rankingRoutes];
+    return [...staticRoutes, ...productRoutes];
   } catch (error) {
     console.error('Erro ao gerar sitemap dinâmico:', error);
     return staticRoutes;

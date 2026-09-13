@@ -3,7 +3,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Award, Package, MessageSquare, Megaphone, LogOut, ExternalLink, ShieldCheck, Lock } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Package,
+  Building2,
+  MessageSquare,
+  LogOut,
+  ExternalLink,
+  ShieldCheck,
+  Lock,
+  PawPrint,
+} from 'lucide-react';
 import { useToast } from '@/components/Toast';
 
 export default function AdminNav() {
@@ -29,10 +39,9 @@ export default function AdminNav() {
 
   const navItems = [
     { href: '/admin', label: 'Visão Geral', icon: LayoutDashboard, exact: true },
-    { href: '/admin/rankings', label: 'Rankings', icon: Award },
     { href: '/admin/produtos', label: 'Catálogo de Produtos', icon: Package },
-    { href: '/admin/publicidade', label: 'Publicidade', icon: Megaphone },
-    { href: '/admin/mensagens', label: 'Caixa de Entrada', icon: MessageSquare },
+    { href: '/admin/chamados', label: 'Chamados Fabricantes', icon: Building2 },
+    { href: '/admin/mensagens', label: 'Contatos', icon: MessageSquare },
   ];
 
   const isActive = (item: { href: string; exact?: boolean }) => {
@@ -80,15 +89,15 @@ export default function AdminNav() {
               justifyContent: 'center',
             }}
           >
-            <ShieldCheck size={18} />
+            <PawPrint size={18} fill="currentColor" strokeWidth={1.5} />
           </div>
-          <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: 800 }}>
-            Painel PetRankings
+          <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800 }}>
+            Curadoria Pet Food
           </span>
         </Link>
 
         {/* Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           {navItems.map((item) => {
             const active = isActive(item);
             const Icon = item.icon;
@@ -102,12 +111,13 @@ export default function AdminNav() {
                   gap: '6px',
                   padding: '8px 14px',
                   borderRadius: 'var(--radius-sm)',
-                  fontSize: '0.88rem',
+                  fontSize: '0.86rem',
                   fontWeight: active ? 700 : 500,
                   backgroundColor: active ? 'rgba(255, 255, 255, 0.12)' : 'transparent',
                   color: active ? '#ffffff' : '#94a3b8',
                   borderBottom: active ? '2px solid var(--gold-500)' : '2px solid transparent',
                   transition: 'var(--transition)',
+                  textDecoration: 'none',
                 }}
               >
                 <Icon size={16} color={active ? 'var(--gold-500)' : '#94a3b8'} />
@@ -119,7 +129,7 @@ export default function AdminNav() {
       </div>
 
       {/* Ações Direitas */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
         <Link
           href="/"
           target="_blank"
@@ -133,9 +143,10 @@ export default function AdminNav() {
             borderRadius: '6px',
             backgroundColor: 'rgba(255, 255, 255, 0.06)',
             transition: 'var(--transition)',
+            textDecoration: 'none',
           }}
         >
-          <span>Ver Site Público</span>
+          <span>Ver Site</span>
           <ExternalLink size={13} />
         </Link>
 
@@ -152,8 +163,9 @@ export default function AdminNav() {
             backgroundColor: 'rgba(207, 159, 34, 0.12)',
             border: '1px solid rgba(207, 159, 34, 0.3)',
             transition: 'var(--transition)',
+            cursor: 'pointer',
           }}
-          title="Trancar Portão Secreto e Reativar Camuflagem 404 neste Navegador"
+          title="Trancar Portão Secreto e Reativar Camuflagem 404"
         >
           <Lock size={13} />
           <span>Trancar Portão</span>
@@ -170,9 +182,11 @@ export default function AdminNav() {
             padding: '6px 12px',
             borderRadius: '6px',
             backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            border: 'none',
             transition: 'var(--transition)',
+            cursor: 'pointer',
           }}
-          title="Encerrar Sessão do Usuário"
+          title="Encerrar Sessão"
         >
           <LogOut size={14} />
           <span>Sair</span>

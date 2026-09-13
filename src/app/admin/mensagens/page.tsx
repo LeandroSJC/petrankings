@@ -46,7 +46,7 @@ export default function AdminMessagesPage() {
     fetchMessages();
   }, [selectedStatus]);
 
-  // Ao abrir mensagem, marcar automaticamente como lida se era nova (Seção 7.6)
+  // Ao abrir mensagem, marcar automaticamente como lida se era nova
   const openMessage = async (msg: ContactMessageItem) => {
     setViewingMessage(msg);
 
@@ -352,7 +352,7 @@ export default function AdminMessagesPage() {
           </div>
         )}
 
-        {/* MODAL DE LEITURA E RESPOSTA DA MENSAGEM (Seção 7.6) */}
+        {/* MODAL DE LEITURA E RESPOSTA DA MENSAGEM */}
         {viewingMessage && (
           <div
             style={{
@@ -477,7 +477,7 @@ export default function AdminMessagesPage() {
                   )}
                 </div>
 
-                {/* Responder pelo cliente de e-mail (Seção 7.6) */}
+                {/* Responder pelo cliente de e-mail */}
                 <a
                   href={`mailto:${viewingMessage.email}?subject=Re: ${encodeURIComponent(viewingMessage.subject || 'Contato PetRankings')}`}
                   style={{

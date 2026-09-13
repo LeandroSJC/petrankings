@@ -97,31 +97,3 @@ export function formatDate(date: Date | string | null | undefined): string {
     year: 'numeric',
   });
 }
-
-export function formatShortDate(date: Date | string | null | undefined): string {
-  if (!date) return 'Sem dados';
-  const d = new Date(date);
-  if (isNaN(d.getTime())) return 'Data inválida';
-  return d.toLocaleDateString('pt-BR', {
-    timeZone: 'UTC',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
-}
-
-export function isOlderThanDays(date: Date | string | null | undefined, days: number = 30): boolean {
-  if (!date) return true;
-  const d = new Date(date);
-  const now = new Date();
-  const diffTime = Math.abs(now.getTime() - d.getTime());
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays > days;
-}
-
-export function getRankBadgeClass(rank: number): string {
-  if (rank === 1) return 'rank-gold';
-  if (rank === 2) return 'rank-silver';
-  if (rank === 3) return 'rank-bronze';
-  return 'rank-standard';
-}

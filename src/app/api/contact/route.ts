@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: antispamCheck.reason }, { status: 400 });
     }
 
-    // 2. Validações de conteúdo conforme Seção 4.6
+    // 2. Validações de campos obrigatórios e limites de caracteres
     if (!name || name.trim().length < 2 || name.trim().length > 120) {
       return NextResponse.json(
         { error: 'O nome deve conter entre 2 e 120 caracteres' },

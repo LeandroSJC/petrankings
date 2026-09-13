@@ -1,387 +1,247 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Star, ShoppingBag, ZoomIn, Crown, Clock } from 'lucide-react';
-import StoreButton from './StoreButton';
-import ShareButton from './ShareButton';
-import ImageLightbox from './ImageLightbox';
-import { formatDate, getRankBadgeClass } from '@/lib/utils';
+import Link from 'next/link';
+import {
+  ShieldCheck,
+  ShoppingCart,
+  Leaf,
+  Stethoscope,
+  Camera,
+  ArrowRight,
+} from 'lucide-react';
+import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
 
 export interface ProductCardProps {
-  rank: number;
   product: {
     id: string;
-    title: string;
-    brand?: string | null;
+    slug: string;
+    commercialName: string;
+    brand: string;
+    manufacturerLegalName?: string;
+    legalCategory: string;
     species: string;
-    productType: string;
-    description?: string | null;
-    imageUrl?: string | null;
-    averageRating: number | null;
-    ratingUpdatedAt?: Date | string | null;
-    stores: Array<{
-      id: string;
+    lifeStage: string;
+    breedSize: string;
+    foodType: string;
+    coadjuvanteCondition?: string | null;
+    sourceUrl?: string;
+    sourceArchiveUrl?: string | null;
+    sourceDocumentUrl?: string | null;
+    analyzedBatch?: string | null;
+    labelCollectionDate: string | Date;
+    frontLabelImageUrl?: string | null;
+    backLabelImageUrl?: string | null;
+
+    moistureMaxPct: number;
+    crudeProteinMinPct: number;
+    etherExtractMinPct: number;
+    crudeFiberMaxPct: number;
+    mineralMatterMaxPct: number;
+    calciumMinPct: number;
+    calciumMaxPct?: number | null;
+    phosphorusMinPct: number;
+    sodiumMinPct?: number | null;
+    omega3MinPct?: number | null;
+
+    meatClaimType: string;
+    containsGmo: boolean;
+    gmoIngredients?: string | null;
+    antioxidantType: string;
+    topIngredients: string; // JSON string or text
+    editorialOpinion?: string | null;
+
+    scoreTotal: number | null;
+    classificationTier: string;
+    scoreBreakdown?: any;
+
+    affiliateLinks?: Array<{
       store: string;
       productUrl: string;
       affiliateUrl?: string | null;
-      rating?: number | null;
     }>;
   };
-  rankingTitle?: string;
+  rankPosition?: number;
 }
 
-export default function ProductCard({ rank, product, rankingTitle }: ProductCardProps) {
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+export default function ProductCard({ product }: ProductCardProps) {
+  // Parse dos ingredientes
+  let parsedIngredients: string[] = [];
+  try {
+    parsedIngredients = Array.isArray(product.topIngredients)
+      ? product.topIngredients
+      : JSON.parse(product.topIngredients);
+  } catch {
+    parsedIngredients = product.topIngredients
+      ? product.topIngredients.split(',').map((s) => s.trim())
+      : [];
+  }
 
-  const fallbackImage =
-    product.species === 'caes'
-      ? 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600&auto=format&fit=crop&q=80'
-      : 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&auto=format&fit=crop&q=80';
+  const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
+  const tier = getFaixaVisual(product.classificationTier, isCoadjuvante);
 
-  const imageSrc = product.imageUrl || fallbackImage;
-  const rankClass = getRankBadgeClass(rank);
+  // Normalização para base seca
+  const fatorMS = (100 - (product.moistureMaxPct || 10)) / 100;
+  const divisor = fatorMS > 0 ? fatorMS : 1;
+  const pbMS = (product.crudeProteinMinPct / divisor).toFixed(1);
+  const eeMS = (product.etherExtractMinPct / divisor).toFixed(1);
+  const relacaoCaP = (product.calciumMinPct / (product.phosphorusMinPct || 0.01)).toFixed(2);
+
+  const isWet = product.foodType === 'UMIDO';
+  const hasAffiliates = product.affiliateLinks && product.affiliateLinks.length > 0;
 
   return (
     <article
-      className={`product-card ${rank === 1 ? 'card-gold' : ''}`}
-      aria-label={`Posição ${rank}: ${product.title}`}
+      id={`produto-${product.slug}`}
+      className="editorial-card"
     >
-      {/* Faixa de Destaque para o 1º Lugar */}
-      {rank === 1 && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '-13px',
-            left: '28px',
-            backgroundColor: 'var(--brand-forest-950)',
-            color: 'var(--gold-300)',
-            padding: '5px 16px',
-            borderRadius: 'var(--radius-full)',
-            fontSize: '0.76rem',
-            fontWeight: 800,
-            letterSpacing: '0.8px',
-            textTransform: 'uppercase',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            boxShadow: '0 4px 14px rgba(4, 20, 12, 0.35)',
-            border: '1.5px solid var(--gold-400)',
-            zIndex: 2,
-          }}
-        >
-          <Crown size={14} color="var(--gold-400)" aria-hidden="true" />
-          <span>🏆 1º Lugar • Mais Bem Avaliado</span>
-        </div>
-      )}
-
-      {/* 1. GRID SUPERIOR: Imagem na Esquerda | Informações na Direita */}
-      <div
-        className="product-top-grid"
-        style={{
-          display: 'grid',
-          gap: '24px',
-          paddingTop: rank === 1 ? '8px' : '0',
-          alignItems: 'start',
-        }}
-      >
-        {/* Coluna Esquerda: Imagem com Badge de Posição Sobreposta */}
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-          }}
-        >
-          {/* Medalha de Posição Sobreposta no Canto Superior Esquerdo */}
-          <div
-            className={`rank-badge ${rankClass}`}
-            title={`Classificação: #${rank}`}
-            aria-label={`Posição número ${rank} no ranking`}
+      <div className="editorial-card-main">
+        {/* Coluna 1: Imagem com Badge Discreta de Formato */}
+        <div className="editorial-card-thumb">
+          <span
+            className="editorial-card-format-tag"
             style={{
-              position: 'absolute',
-              top: '-10px',
-              left: '-10px',
-              zIndex: 3,
+              backgroundColor: isWet ? '#e0f2fe' : 'rgba(255, 255, 255, 0.92)',
+              color: isWet ? '#0369a1' : 'var(--brand-forest-900)',
+              border: isWet ? '1px solid #bae6fd' : '1px solid var(--border-cream)',
             }}
           >
-            {rank}
+            {isWet ? '🥫 Sachê / Patê' : '🥣 Ração Seca'}
+          </span>
+
+          {product.frontLabelImageUrl ? (
+            <Image
+              src={product.frontLabelImageUrl}
+              alt={`Embalagem de ${product.commercialName}`}
+              fill
+              sizes="(max-width: 900px) 100vw, 140px"
+              style={{ objectFit: 'contain', padding: '10px' }}
+            />
+          ) : (
+            <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.72rem' }}>
+              <Camera size={24} style={{ margin: '0 auto 4px', display: 'block' }} />
+              Ficha Coletada
+            </div>
+          )}
+        </div>
+
+        {/* Coluna 2: Informações Principais e Mini-Tabela Bromatológica */}
+        <div className="editorial-card-info">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <span className="editorial-card-brand">{product.brand}</span>
+            <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+              {formatarTermo(product.species)} • {formatarTermo(product.lifeStage)}
+              {product.breedSize && product.breedSize !== 'TODOS' && ` • ${formatarTermo(product.breedSize)}`}
+            </span>
           </div>
 
-          {/* Container da Imagem com Efeito Hover e Lightbox */}
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              aspectRatio: '1 / 1',
-              minHeight: '170px',
-              maxHeight: '220px',
-              backgroundColor: '#ffffff',
-              borderRadius: 'var(--radius-md)',
-              border: '1.5px solid var(--border-cream)',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              boxShadow: 'var(--shadow-sm)',
-              transition: 'var(--transition)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onClick={() => setIsLightboxOpen(true)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setIsLightboxOpen(true);
-              }
-            }}
-            aria-label={`Ampliar foto do produto: ${product.title}`}
-            className="product-img-box"
-          >
-            {/* Skeleton de Carregamento Progressivo */}
-            {!imageLoaded && (
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundColor: 'var(--bg-cream-subtle)',
-                  animation: 'pulse 1.5s infinite ease-in-out',
-                }}
-              />
-            )}
+          <h3 className="editorial-card-title">
+            <Link href={`/produto/${product.slug}`}>
+              {product.commercialName}
+            </Link>
+          </h3>
 
-            <Image
-              src={imageSrc}
-              alt={product.title}
-              fill
-              sizes="(max-width: 640px) 100vw, 220px"
-              style={{
-                objectFit: 'contain',
-                padding: '12px',
-                transition: 'transform 0.3s ease, opacity 0.3s ease',
-                opacity: imageLoaded ? 1 : 0,
-              }}
-              onLoad={() => setImageLoaded(true)}
-              className="product-img-hover"
-            />
-
-            {/* Ícone de Dica de Ampliação */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '8px',
-                right: '8px',
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(4px)',
-                borderRadius: '6px',
-                padding: '4px 8px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                color: 'var(--brand-forest-900)',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
-                fontSize: '0.72rem',
-                fontWeight: 800,
-                border: '1px solid var(--border-cream-light)',
-              }}
-            >
-              <ZoomIn size={13} aria-hidden="true" />
-              <span>Ampliar</span>
+          {/* Mini-Grid de Métricas Bromatológicas Chave */}
+          <div className="nutri-stat-grid">
+            <div className="nutri-stat-item">
+              <span className="nutri-stat-label">Proteína (MS)</span>
+              <span className="nutri-stat-value">{pbMS}%</span>
+            </div>
+            <div className="nutri-stat-item">
+              <span className="nutri-stat-label">Gordura (MS)</span>
+              <span className="nutri-stat-value">{eeMS}%</span>
+            </div>
+            <div className="nutri-stat-item">
+              <span className="nutri-stat-label">Balanço Ca:P</span>
+              <span className="nutri-stat-value">{relacaoCaP}:1</span>
             </div>
           </div>
-        </div>
 
-        {/* Coluna Direita: Nome, Marca, Tags e Descrição */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            gap: '10px',
-            paddingTop: '2px',
-          }}
-        >
-          {product.brand && (
-            <span
-              style={{
-                fontSize: '0.82rem',
-                fontWeight: 800,
-                color: 'var(--brand-forest-700)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.8px',
-                display: 'block',
-              }}
-            >
-              {product.brand}
-            </span>
-          )}
-
-          <h2
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(1.25rem, 2.4vw, 1.45rem)',
-              fontWeight: 700,
-              color: 'var(--brand-forest-900)',
-              lineHeight: 1.3,
-            }}
-          >
-            {product.title}
-          </h2>
-
-          {/* Tags de Espécie e Categoria */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '2px' }}>
-            <span className={`tag-pill ${product.species === 'caes' ? 'tag-caes' : 'tag-gatos'}`}>
-              {product.species === 'caes' ? '🐕 Cães' : '🐈 Gatos'}
-            </span>
-            <span className="tag-pill tag-type">
-              {product.productType}
-            </span>
-          </div>
-
-          {product.description && (
-            <p
-              style={{
-                fontSize: '0.98rem',
-                color: 'var(--text-body)',
-                lineHeight: 1.68,
-                marginTop: '6px',
-              }}
-            >
-              {product.description}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* 2. ABAIXO DO GRID: Bloco de Nota dos Tutores e Compartilhamento */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '12px',
-          padding: '16px 20px',
-          backgroundColor: 'var(--bg-cream-subtle)',
-          borderRadius: 'var(--radius-md)',
-          border: '1.5px solid var(--border-cream)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-body)' }}>
-            Nota média consolidada:
-          </span>
-          {product.averageRating !== null ? (
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                backgroundColor: '#ffffff',
-                padding: '6px 14px',
-                borderRadius: 'var(--radius-full)',
-                border: '1.5px solid var(--gold-500)',
-                boxShadow: 'var(--shadow-xs)',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.45rem',
-                  fontWeight: 800,
-                  color: 'var(--brand-forest-900)',
-                  lineHeight: 1,
-                }}
-              >
-                {product.averageRating.toFixed(2)}
+          {/* Linha Consolidada de Ingredientes & Selos */}
+          <div className="editorial-card-ingredients">
+            {parsedIngredients.length > 0 && (
+              <span>
+                <strong>1º Ingrediente:</strong> {parsedIngredients[0]}
               </span>
-              <Star size={18} fill="var(--gold-500)" color="var(--gold-600)" aria-hidden="true" />
+            )}
+            <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: product.antioxidantType === 'NATURAL' ? '#065f46' : 'var(--text-muted)' }}>
+              <Leaf size={13} />
+              {product.antioxidantType === 'NATURAL' ? 'Conservantes Naturais' : 'Conservantes Sintéticos'}
+            </span>
+            {product.containsGmo && (
+              <>
+                <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
+                <span style={{ color: '#92400e', fontSize: '0.75rem', fontWeight: 600 }}>Contém OGM</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Coluna 3: Score Circular e Ações Claras */}
+        <div className="editorial-card-actions">
+          {!isCoadjuvante && product.scoreTotal !== null ? (
+            <div
+              className="editorial-card-score-box"
+              style={{
+                backgroundColor: tier.bgColor,
+                borderColor: tier.borderColor,
+                color: tier.color,
+              }}
+            >
+              <div className="editorial-card-score-circle">
+                <span className="num">{product.scoreTotal}</span>
+                <span className="unit">pts</span>
+              </div>
+              <div>
+                <span style={{ fontSize: '0.66rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', opacity: 0.85 }}>
+                  Conformidade
+                </span>
+                <span className="editorial-card-tier-label">{tier.shortLabel}</span>
+              </div>
             </div>
           ) : (
-            <span style={{ fontSize: '0.88rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>
-              Em apuração
-            </span>
+            <div
+              className="editorial-card-score-box"
+              style={{
+                backgroundColor: '#eef2ff',
+                borderColor: '#c7d2fe',
+                color: '#3730a3',
+              }}
+            >
+              <Stethoscope size={24} />
+              <div>
+                <span style={{ fontSize: '0.66rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>
+                  Finalidade
+                </span>
+                <span className="editorial-card-tier-label">Terapêutica</span>
+              </div>
+            </div>
           )}
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+            <Link
+              href={`/produto/${product.slug}`}
+              className="editorial-btn-primary"
+            >
+              <span>Ver Análise Completa</span>
+              <ArrowRight size={14} />
+            </Link>
+
+            {hasAffiliates && (
+              <Link
+                href={`/produto/${product.slug}#onde-comprar`}
+                className="editorial-btn-secondary"
+              >
+                <ShoppingCart size={13} />
+                <span>Onde Comprar</span>
+              </Link>
+            )}
+          </div>
         </div>
-
-        <ShareButton
-          productTitle={product.title}
-          averageRating={product.averageRating}
-          rankingTitle={rankingTitle}
-        />
       </div>
-
-      {/* 3. Orientação de Lojas com Ícone de Carrinho */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          fontSize: '0.82rem',
-          fontWeight: 800,
-          color: 'var(--brand-forest-900)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.6px',
-          marginTop: '2px',
-        }}
-      >
-        <ShoppingBag size={16} color="var(--gold-700)" aria-hidden="true" />
-        <span>Lojas parceiras para comparar preço e disponibilidade:</span>
-      </div>
-
-      {/* 4. Grade de Botões de Lojas */}
-      <div className="store-grid">
-        {product.stores && product.stores.length > 0 ? (
-          product.stores.map((store) => (
-            <StoreButton
-              key={store.id}
-              storeKey={store.store}
-              productUrl={store.productUrl}
-              affiliateUrl={store.affiliateUrl}
-              rating={store.rating}
-              productTitle={product.title}
-            />
-          ))
-        ) : (
-          <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>
-            Nenhuma loja cadastrada para este produto no momento.
-          </p>
-        )}
-      </div>
-
-      {/* 5. Última Atualização no Rodapé do Card (Alinhado à Direita) */}
-      <div
-        style={{
-          borderTop: '1px solid var(--border-cream-light)',
-          paddingTop: '14px',
-          marginTop: 'auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          gap: '6px',
-          fontSize: '0.82rem',
-          color: 'var(--text-muted)',
-          flexWrap: 'wrap',
-          textAlign: 'right',
-        }}
-      >
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-          <Clock size={13} color="var(--brand-forest-700)" aria-hidden="true" />
-          <span>Última checagem de notas:</span>
-        </div>
-        <strong style={{ color: 'var(--brand-forest-900)' }}>
-          {formatDate(product.ratingUpdatedAt)}
-        </strong>
-      </div>
-
-      {/* Lightbox Modal */}
-      <ImageLightbox
-        src={imageSrc}
-        alt={product.title}
-        isOpen={isLightboxOpen}
-        onClose={() => setIsLightboxOpen(false)}
-      />
     </article>
   );
 }

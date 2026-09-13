@@ -143,7 +143,7 @@ export default function PoliticaPrivacidadePage() {
               O PetRankings participa de programas de parceiros afiliados com grandes varejistas brasileiros (como <em>Amazon Brasil, Petlove, Cobasi, Mercado Livre e Shopee</em>). Quando você clica em um botão de compra para visitar uma loja, podemos receber uma comissão caso você finalize um pedido.
             </p>
             <p style={{ marginTop: '10px' }}>
-              <strong>Importante:</strong> Isso não acarreta nenhum custo adicional para você e não influencia de forma alguma a ordem das posições ou as notas médias calculadas no ranking, que são 100% matemáticas e imparciais.
+              <strong>Importante:</strong> Isso não acarreta nenhum custo adicional para você e não influencia de forma alguma o índice de conformidade ou a classificação dos produtos nas faixas oficiais, que decorrem de cálculos estritamente objetivos baseados nos dados impressos no rótulo e nas diretrizes técnicas da ABINPET e do MAPA.
             </p>
           </section>
 

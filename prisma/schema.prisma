@@ -13,56 +13,86 @@ model User {
   name         String?
   email        String    @unique
   passwordHash String?
-  role         String    @default("admin") // "admin" | "usuario"
+  role         String    @default("admin") // "admin" | "curador"
   lastLoginAt  DateTime?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
 
-model Ranking {
-  id            String           @id @default(cuid())
-  slug          String           @unique
-  title         String
-  species       String           // "caes" | "gatos"
-  productType   String           // Ex: "Ração seca", "Areia", "Brinquedo", "Petisco"
-  description   String?
-  isPublished   Boolean          @default(false)
-  dataUpdatedAt DateTime?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  products      RankingProduct[]
-
-  @@index([isPublished, species])
-  @@index([isPublished, dataUpdatedAt])
-}
-
 model Product {
-  id              String           @id @default(cuid())
-  title           String
-  species         String           // "caes" | "gatos"
-  productType     String           // Ex: "Ração seca", "Areia", "Brinquedo", "Petisco"
-  brand           String?
-  description     String?
-  imageUrl        String?
-  averageRating   Float?           // Calculado dinamicamente pelas avaliações
-  ratingUpdatedAt DateTime?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  stores          ProductStore[]
-  rankings        RankingProduct[]
+  id                     String    @id @default(cuid())
+  slug                   String    @unique
+  commercialName         String    // Nome comercial completo
+  brand                  String    // Marca comercial (ex: "PremieR Pet", "Golden", "Royal Canin")
+  manufacturerLegalName  String    @default("") // Fabricante / Razão Social / Grupo Fabricante
 
-  @@index([species, productType])
-  @@index([averageRating])
+  // Classificação Regulatória e Taxonomia Estrita
+  legalCategory          String    @default("ALIMENTO_COMPLETO") // "ALIMENTO_COMPLETO" | "ALIMENTO_COADJUVANTE"
+  species                String    // "CAO" | "GATO"
+  lifeStage              String    // "ADULTO" | "CRESCIMENTO_INICIAL" | "CRESCIMENTO_FINAL" | "SENIOR"
+  breedSize              String    @default("TODOS") // "MINI_PEQUENO" | "MEDIO_GRANDE" | "TODOS"
+  foodType               String    @default("SECO") // "SECO" | "UMIDO"
+  coadjuvanteCondition   String?   // "RENAL" | "URINARIO" | "OBESIDADE" | "HEPATICO" | "HIPOALERGENICO" | "GASTROINTESTINAL" | "OUTRO"
+
+  // Custódia e Rastreabilidade Documental Jurídica (Website Oficial do Fabricante)
+  sourceUrl              String    @default("") // URL oficial do produto no website do fabricante
+  sourceArchiveUrl       String?   // URL do snapshot público permanente no Wayback Machine (web.archive.org)
+  sourceDocumentUrl      String?   // Caminho do PDF ou print de alta resolução da ficha técnica arquivado
+  labelCollectionDate    DateTime  @default(now()) // Data da coleta digital dos dados oficiais
+  analyzedBatch          String?   // [Metadado Legado / Opcional]
+  frontLabelImageUrl     String?   // Imagem oficial do produto divulgada pelo fabricante (packshot)
+  backLabelImageUrl      String?   // [Opcional] Foto complementar ou comprovante adicional
+  curatorResponsible    String?   // Identificação do curador responsável pelo lançamento
+
+  // Níveis de Garantia Declarados no Rótulo (Matéria Natural - MN)
+  moistureMaxPct         Float     // Umidade Máxima % (MN)
+  crudeProteinMinPct     Float     // Proteína Bruta Mínima % (MN)
+  etherExtractMinPct     Float     // Extrato Etéreo Mínimo % (MN)
+  crudeFiberMaxPct       Float     // Matéria Fibrosa Máxima % (MN)
+  mineralMatterMaxPct    Float     // Matéria Mineral Máxima % (MN)
+  calciumMinPct          Float     // Cálcio Mínimo % (MN)
+  calciumMaxPct          Float?    // Cálcio Máximo % (MN)
+  phosphorusMinPct       Float     // Fósforo Mínimo % (MN)
+  sodiumMinPct           Float?    // Sódio Mínimo % (MN)
+  omega3MinPct           Float?    // Ômega-3 Mínimo % (MN)
+
+  // Análise de Rotulagem e Ingredientes
+  meatClaimType          String    @default("NENHUM") // "COM_CARNE" | "SABOR_CARNE" | "NENHUM"
+  containsGmo            Boolean   @default(false)   // Contém Transgênico (OGM)
+  gmoIngredients         String?   // Espécies transgênicas declaradas
+  antioxidantType        String    @default("NATURAL") // "NATURAL" | "SINTETICO" | "MISTO"
+  topIngredients         String    // Top ingredientes em ordem decrescente (JSON string ou texto)
+  editorialOpinion       String?   // Parecer editorial descritivo
+
+  // Pontuação e Índice de Conformidade (Gerada pelo Motor Determinístico V5)
+  scoreTotal             Int?      // 0 a 100 pontos (nulo se coadjuvante sem score competitivo)
+  classificationTier     String    @default("SUPER_PREMIUM") // "SUPER_PREMIUM" | "PREMIUM_ESPECIAL" | "ECONOMICO" | "PARAMETRO_LIMITROFE"
+  scoreBreakdown         Json?     // Extrato da análise pilar a pilar (pontos_obtidos, pontos_max, justificativa)
+  calculatedAt           DateTime? @default(now())
+
+  // Canais Comerciais / Afiliados
+  affiliateLinks         AffiliateLink[]
+
+  // Vínculo com Chamados do Fabricante
+  manufacturerTickets    ManufacturerTicket[]
+
+  // Publicação e Curadoria
+  isPublished            Boolean   @default(true)
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  @@index([isPublished, species, legalCategory])
+  @@index([isPublished, species, lifeStage])
+  @@index([scoreTotal])
+  @@index([classificationTier])
 }
 
-model ProductStore {
+model AffiliateLink {
   id           String   @id @default(cuid())
   productId    String
   store        String   // "amazon" | "mercadolivre" | "petlove" | "cobasi" | "shopee"
   productUrl   String
   affiliateUrl String?
-  rating       Float?   // Nota de 0 a 5 lançada manualmente
-  reviewCount  Int?     // Quantidade de avaliações (número inteiro >= 0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
@@ -70,16 +100,32 @@ model ProductStore {
   @@unique([productId, store])
 }
 
-model RankingProduct {
-  id        String   @id @default(cuid())
-  rankingId String
-  productId String
-  createdAt DateTime @default(now())
-  ranking   Ranking  @relation(fields: [rankingId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+model ManufacturerTicket {
+  id                 String    @id @default(cuid())
+  ticketNumber       String    @unique // Ex: "PR-FAB-2026-0001"
+  productId          String?
+  companyName        String
+  cnpj               String?
+  mapaRegistration   String?
+  requesterName      String
+  requesterRole      String    // Ex: "Responsável Técnico (CRMV)", "Assuntos Regulatórios"
+  requesterEmail     String
+  requesterPhone     String?
+  requestType        String    // "ATUALIZACAO_LOTE" | "RETIFICACAO_DADOS" | "DIVERGENCIA_ANALITICA"
+  message            String
+  documentUrl        String?   // Link ou upload da nova arte aprovada pelo RT ou laudo acreditado
+  batchNumber        String?   // Novo lote em circulação
+  status             String    @default("ABERTO") // "ABERTO" | "EM_ANALISE" | "DEFERIDO" | "INDEFERIDO"
+  slaDeadline        DateTime  // Prazo de resposta (até 5 dias úteis)
+  internalNotes      String?
+  resolvedAt         DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
-  @@unique([rankingId, productId])
-  @@index([productId])
+  product            Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([status, slaDeadline])
+  @@index([cnpj])
 }
 
 model ContactMessage {
@@ -101,17 +147,6 @@ model ContactRateLimit {
   createdAt DateTime @default(now())
 
   @@index([email])
-}
-
-model AdSlot {
-  id          String   @id @default(cuid())
-  slotKey     String   @unique // "topo" | "meio_produtos" | "rodape" | "lateral_artigo" | "global_head"
-  name        String   // Ex: "Publicidade Topo"
-  description String?  // Onde o anúncio é exibido
-  code        String   @default("") // Código HTML / Script do Google AdSense colado integralmente
-  isActive    Boolean  @default(false) // Ativar ou desativar exibição
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 }
 
 model AdminOtp {

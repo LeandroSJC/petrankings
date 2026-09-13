@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Award, ShieldCheck } from 'lucide-react';
+import { Menu, X, ShieldCheck, PawPrint, FileSpreadsheet, Building2, Stethoscope } from 'lucide-react';
 
 import HeaderSearch from './HeaderSearch';
 
@@ -11,10 +11,14 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { href: '/', label: 'Início & Rankings' },
-    { href: '/sobre', label: 'Sobre & Como Funciona' },
-    { href: '/contato', label: 'Fale com a Gente' },
+  const mobileNavLinks = [
+    { href: '/', label: 'Índice Geral' },
+    { href: '/indice/caes-adultos', label: 'Cães Adultos' },
+    { href: '/indice/gatos-adultos', label: 'Gatos Adultos' },
+    { href: '/coadjuvantes', label: 'Coadjuvantes (Prescrição)', icon: Stethoscope },
+    { href: '/sobre', label: 'Metodologia & Pilares' },
+    { href: '/fabricante', label: 'Área do Fabricante', icon: Building2 },
+    { href: '/contato', label: 'Fale Conosco' },
   ];
 
   const isActive = (href: string) => {
@@ -22,7 +26,6 @@ export default function Header() {
     return pathname.startsWith(href);
   };
 
-  // Fechar menu mobile ao pressionar a tecla Escape (WCAG 2.1.2)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && mobileMenuOpen) {
@@ -33,7 +36,6 @@ export default function Header() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileMenuOpen]);
 
-  // Bloquear scroll de fundo quando o menu mobile estiver aberto
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -59,7 +61,7 @@ export default function Header() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '78px',
+          height: '76px',
           gap: '16px',
         }}
       >
@@ -73,12 +75,12 @@ export default function Header() {
             textDecoration: 'none',
             flexShrink: 0,
           }}
-          aria-label="PetRankings - Página Inicial"
+          aria-label="PetRankings - Avaliação Nutricional de Pet Food"
         >
           <div
             style={{
-              width: '44px',
-              height: '44px',
+              width: '42px',
+              height: '42px',
               borderRadius: '12px',
               background: 'linear-gradient(135deg, #082115 0%, #174e35 100%)',
               color: 'var(--gold-400)',
@@ -89,13 +91,13 @@ export default function Header() {
               border: '1.5px solid rgba(212, 175, 55, 0.4)',
             }}
           >
-            <Award size={24} aria-hidden="true" />
+            <PawPrint size={22} aria-hidden="true" fill="currentColor" strokeWidth={1.5} />
           </div>
           <div>
             <span
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '1.55rem',
+                fontSize: '1.45rem',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
                 letterSpacing: '-0.5px',
@@ -107,87 +109,46 @@ export default function Header() {
             </span>
             <span
               style={{
-                fontSize: '0.72rem',
+                fontSize: '0.66rem',
                 color: 'var(--text-muted)',
                 fontWeight: 800,
                 textTransform: 'uppercase',
-                letterSpacing: '1.2px',
+                letterSpacing: '1px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '4px',
               }}
             >
-              Guia Amigo dos Pets
+              Avaliação Nutricional de Pet Food
             </span>
           </div>
         </Link>
 
-        {/* Busca Instantânea com Autocomplete */}
-        <HeaderSearch />
+        {/* Busca Ampla Desobstruída com Espaço Generoso */}
+        <div
+          style={{
+            flex: 1,
+            maxWidth: '680px',
+            minWidth: '220px',
+            margin: '0 24px',
+          }}
+        >
+          <HeaderSearch />
+        </div>
 
-        {/* Lado Direito: Navegação Desktop e Botões Mobile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          {/* Navegação Desktop */}
-          <nav
-            aria-label="Navegação principal"
-            style={{
-              alignItems: 'center',
-              gap: '10px',
-            }}
-            className="desktop-nav"
-          >
-            {navLinks.map((link) => {
-              const active = isActive(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  aria-current={active ? 'page' : undefined}
-                  style={{
-                    fontSize: '0.94rem',
-                    fontWeight: active ? 700 : 600,
-                    color: active ? 'var(--brand-forest-900)' : 'var(--text-body)',
-                    backgroundColor: active ? 'var(--bg-cream-subtle)' : 'transparent',
-                    padding: '10px 18px',
-                    borderRadius: 'var(--radius-full)',
-                    border: active ? '1.5px solid var(--border-cream)' : '1.5px solid transparent',
-                    transition: 'var(--transition-fast)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    whiteSpace: 'nowrap',
-                  }}
-                  className="nav-link-hover"
-                >
-                  {active && (
-                    <span
-                      aria-hidden="true"
-                      style={{
-                        width: '7px',
-                        height: '7px',
-                        borderRadius: '50%',
-                        backgroundColor: 'var(--gold-600)',
-                      }}
-                    />
-                  )}
-                  <span>{link.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Botão Menu Mobile (WCAG 2.5.5 Touch Target 44x44px) */}
+        {/* Lado Direito: Menu de Navegação */}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation-drawer"
-            className="mobile-menu-btn"
             style={{
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '44px',
-              height: '44px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
               color: 'var(--brand-forest-900)',
               backgroundColor: 'var(--bg-cream-subtle)',
@@ -196,15 +157,14 @@ export default function Header() {
               cursor: 'pointer',
             }}
           >
-            {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+            {mobileMenuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
           </button>
         </div>
       </div>
 
-      {/* Menu Mobile Dropdown Full Width com Fundo 100% Branco Sólido */}
+      {/* Menu Mobile */}
       {mobileMenuOpen && (
         <>
-          {/* Overlay de fundo para fechar ao clicar fora */}
           <div
             style={{
               position: 'fixed',
@@ -243,7 +203,7 @@ export default function Header() {
               aria-label="Links do menu móvel"
               style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
             >
-              {navLinks.map((link) => {
+              {mobileNavLinks.map((link) => {
                 const active = isActive(link.href);
                 return (
                   <Link
@@ -252,11 +212,11 @@ export default function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                     aria-current={active ? 'page' : undefined}
                     style={{
-                      fontSize: '1.02rem',
+                      fontSize: '0.98rem',
                       fontWeight: active ? 800 : 600,
                       color: active ? 'var(--brand-forest-900)' : 'var(--text-main)',
                       backgroundColor: active ? 'var(--bg-cream-subtle)' : '#ffffff',
-                      padding: '14px 18px',
+                      padding: '12px 16px',
                       borderRadius: 'var(--radius-sm)',
                       border: active ? '1px solid var(--border-cream)' : '1px solid #f1ece1',
                       borderLeft: active ? '4px solid var(--gold-600)' : '4px solid transparent',
@@ -280,7 +240,7 @@ export default function Header() {
                           borderRadius: '6px',
                         }}
                       >
-                        Página Atual
+                        Ativo
                       </span>
                     )}
                   </Link>
@@ -301,7 +261,7 @@ export default function Header() {
             >
               <ShieldCheck size={22} color="var(--gold-700)" aria-hidden="true" />
               <span style={{ fontSize: '0.82rem', color: 'var(--text-body)', lineHeight: 1.4 }}>
-                Rankings 100% sinceros e transparentes, feitos para quem ama cuidar bem.
+                Índice 100% determinístico baseado nas informações oficiais dos fabricantes e no Manual ABINPET 11ª Edição.
               </span>
             </div>
           </div>

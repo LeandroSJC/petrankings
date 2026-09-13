@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Send, CheckCircle2, AlertCircle, ArrowLeft, Heart, MessageCircle } from 'lucide-react';
+import { Mail, Send, CheckCircle2, AlertCircle, ArrowLeft, Heart, MessageCircle, Building2 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 
 export default function ContatoClient() {
@@ -150,13 +150,42 @@ export default function ContatoClient() {
           </h1>
 
           <p style={{ fontSize: '1.12rem', color: 'var(--text-body)', lineHeight: 1.68 }}>
-            Tem uma sugestão de categoria para analisarmos, quer indicar um produto para inclusão no catálogo, notou alguma divergência em notas ou deseja enviar uma proposta de parceria? Preencha o formulário abaixo que responderemos o mais breve possível.
+            Tem uma dúvida sobre a metodologia, deseja sugerir um produto para análise comparativa de rótulo, notou alguma divergência em dados técnicos ou deseja enviar uma proposta institucional? Preencha o formulário abaixo que nossa equipe responderá com atenção.
           </p>
         </div>
       </section>
 
       {/* Conteúdo do Formulário */}
       <div className="container" style={{ maxWidth: '840px', marginTop: '40px' }}>
+        {/* Box de Redirecionamento Institucional para Fabricantes */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '14px',
+            padding: '18px 22px',
+            backgroundColor: '#ffffff',
+            borderRadius: 'var(--radius-lg)',
+            border: '1.5px solid var(--gold-400)',
+            marginBottom: '28px',
+            boxShadow: 'var(--shadow-xs)',
+          }}
+        >
+          <Building2 size={24} color="var(--brand-forest-700)" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <div style={{ fontSize: '0.92rem', color: 'var(--brand-forest-900)', lineHeight: 1.55 }}>
+            <strong style={{ display: 'block', fontSize: '0.96rem', marginBottom: '4px' }}>
+              É fabricante, responsável técnico (RT) ou departamento regulatório?
+            </strong>
+            <p style={{ margin: 0, color: 'var(--text-body)', fontSize: '0.88rem' }}>
+              Para solicitação formal de atualização de novo lote comercial, retificação de níveis de garantia ou contestação técnica com laudo credenciado pelo MAPA, utilize nosso{' '}
+              <Link href="/fabricante" style={{ color: 'var(--brand-forest-800)', fontWeight: 800, textDecoration: 'underline' }}>
+                Canal Institucional do Fabricante
+              </Link>{' '}
+              com geração de protocolo oficial e SLA de 5 dias úteis.
+            </p>
+          </div>
+        </div>
+
         <div
           style={{
             backgroundColor: '#ffffff',

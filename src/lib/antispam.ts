@@ -13,7 +13,7 @@ export interface AntispamResult {
 }
 
 /**
- * Validação de antispam em 3 camadas conforme a Seção 8 da Especificação:
+ * Validação de antispam em 3 camadas de segurança:
  * 1. Campo isca (Honeypot): ignorado silenciosamente se preenchido.
  * 2. Tempo mínimo: rejeitar se enviado em menos de 2.500 ms (2,5s).
  * 3. Limite por e-mail: rejeitar novo envio do mesmo e-mail nos últimos 60 segundos.

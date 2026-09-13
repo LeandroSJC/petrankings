@@ -1,74 +1,78 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Award, Package, MessageSquare, Megaphone, AlertTriangle, Plus, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
+import {
+  Package,
+  Building2,
+  MessageSquare,
+  Plus,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  PawPrint,
+  AlertTriangle,
+} from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
-import { formatDate } from '@/lib/utils';
 
 export default async function AdminDashboardPage() {
   const session = await getSession();
-  if (!session || session.role !== 'admin') {
+  if (!session || (session.role !== 'admin' && session.role !== 'curador')) {
     redirect('/admin/login');
   }
 
-  // 1. Estatísticas de Rankings
-  const totalRankings = await prisma.ranking.count();
-  const publishedRankings = await prisma.ranking.count({ where: { isPublished: true } });
-  const draftRankings = totalRankings - publishedRankings;
-
-  // 2. Estatísticas de Produtos, Lojas e Vínculos
-  const allProductsForStats = await prisma.product.findMany({
-    select: {
-      id: true,
-      stores: { select: { id: true } },
-      rankings: { select: { id: true } },
-    },
-  });
-  const totalProducts = allProductsForStats.length;
-  const zeroStoresCount = allProductsForStats.filter((p) => p.stores.length === 0).length;
-  const incompleteStoresCount = allProductsForStats.filter((p) => p.stores.length < 5).length;
-  const unlinkedRankingsCount = allProductsForStats.filter((p) => p.rankings.length === 0).length;
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-
-  // Produtos que precisam de revisão (>30 dias ou sem data)
-  const productsNeedingReview = await prisma.product.findMany({
-    where: {
-      OR: [
-        { ratingUpdatedAt: null },
-        { ratingUpdatedAt: { lt: thirtyDaysAgo } },
-      ],
-    },
-    include: {
-      stores: true,
-      rankings: { include: { ranking: true } },
-    },
-    orderBy: [
-      { ratingUpdatedAt: 'asc' },
-      { createdAt: 'desc' },
-    ],
-    take: 6,
-  });
-
-  const totalNeedsReviewCount = await prisma.product.count({
-    where: {
-      OR: [
-        { ratingUpdatedAt: null },
-        { ratingUpdatedAt: { lt: thirtyDaysAgo } },
-      ],
-    },
-  });
-
-  // 3. Mensagens
-  const unreadMessagesCount = await prisma.contactMessage.count({
-    where: { status: 'nova' },
-  });
-
-  // 4. Publicidade AdSense
-  const totalAdSlots = await prisma.adSlot.count();
-  const activeAdSlots = await prisma.adSlot.count({
-    where: { isActive: true },
-  });
+  // Estatísticas do Sistema de Análise Nutricional
+  const [
+    totalProducts,
+    superPremiumCount,
+    premiumEspecialCount,
+    economicoCount,
+    naoConformeCount,
+    coadjuvantesCount,
+    openTicketsCount,
+    unreadMessagesCount,
+    recentProducts,
+    urgentTickets,
+  ] = await Promise.all([
+    prisma.product.count(),
+    prisma.product.count({ where: { classificationTier: { in: ['NIVEL_OURO', 'SUPER_PREMIUM'] } } }),
+    prisma.product.count({ where: { classificationTier: { in: ['NIVEL_PRATA', 'PREMIUM_ESPECIAL'] } } }),
+    prisma.product.count({ where: { classificationTier: { in: ['NIVEL_BRONZE', 'ECONOMICO'] } } }),
+    prisma.product.count({ where: { classificationTier: { in: ['SOB_OBSERVACAO', 'PARAMETRO_LIMITROFE', 'NAO_CONFORME'] } } }),
+    prisma.product.count({ where: { legalCategory: 'ALIMENTO_COADJUVANTE' } }),
+    prisma.manufacturerTicket.count({ where: { status: 'ABERTO' } }),
+    prisma.contactMessage.count({ where: { status: 'nova' } }),
+    prisma.product.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 6,
+      select: {
+        id: true,
+        slug: true,
+        commercialName: true,
+        brand: true,
+        species: true,
+        analyzedBatch: true,
+        scoreTotal: true,
+        classificationTier: true,
+        legalCategory: true,
+        updatedAt: true,
+      },
+    }),
+    prisma.manufacturerTicket.findMany({
+      where: { status: 'ABERTO' },
+      orderBy: { slaDeadline: 'asc' },
+      take: 4,
+      select: {
+        id: true,
+        ticketNumber: true,
+        companyName: true,
+        requestType: true,
+        slaDeadline: true,
+        createdAt: true,
+      },
+    }),
+  ]);
 
   return (
     <div style={{ padding: '32px 0 64px 0' }}>
@@ -85,11 +89,15 @@ export default async function AdminDashboardPage() {
           }}
         >
           <div>
-            <h1 style={{ fontSize: '2rem', marginBottom: '4px' }}>
-              Painel de Controle Editorial
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--brand-forest-700)', fontWeight: 700, fontSize: '0.85rem' }}>
+              <PawPrint size={16} fill="currentColor" strokeWidth={1.5} />
+              <span>Painel de Curadoria e Governança Regulatória</span>
+            </div>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', color: 'var(--brand-forest-900)', marginTop: '4px' }}>
+              Visão Geral de Análise de Rótulos
             </h1>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem' }}>
-              Bem-vindo, <strong>{session.name || session.email}</strong>. Gerencie rankings, catálogo e lançamentos de avaliações.
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.90rem' }}>
+              Sessão ativa: <strong>{session.name || session.email}</strong> ({session.role})
             </p>
           </div>
 
@@ -99,385 +107,225 @@ export default async function AdminDashboardPage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                backgroundColor: 'var(--brand-forest-800)',
+                gap: '8px',
+                padding: '10px 18px',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: 'var(--brand-forest-900)',
                 color: '#ffffff',
-                padding: '10px 18px',
-                borderRadius: 'var(--radius-full)',
-                fontWeight: 700,
                 fontSize: '0.88rem',
-                transition: 'var(--transition)',
+                fontWeight: 700,
+                textDecoration: 'none',
               }}
             >
               <Plus size={16} />
-              <span>Novo Produto</span>
+              <span>Analisar Novo Produto</span>
             </Link>
 
             <Link
-              href="/admin/rankings/novo"
+              href="/admin/chamados"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                backgroundColor: 'var(--gold-500)',
-                color: '#453300',
+                gap: '8px',
                 padding: '10px 18px',
-                borderRadius: 'var(--radius-full)',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: 'var(--gold-50)',
+                border: '1.5px solid var(--gold-500)',
+                color: 'var(--gold-800)',
+                fontSize: '0.88rem',
                 fontWeight: 700,
-                fontSize: '0.88rem',
-                transition: 'var(--transition)',
+                textDecoration: 'none',
               }}
             >
-              <Plus size={16} />
-              <span>Novo Ranking</span>
-            </Link>
-
-            <Link
-              href="/admin/produtos"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                backgroundColor: '#ffffff',
-                color: 'var(--brand-forest-900)',
-                padding: '10px 18px',
-                borderRadius: 'var(--radius-full)',
-                fontWeight: 600,
-                fontSize: '0.88rem',
-                border: '1px solid var(--border-cream)',
-                transition: 'var(--transition)',
-              }}
-            >
-              <Package size={16} />
-              <span>Catálogo</span>
-            </Link>
-
-            <Link
-              href="/admin/rankings"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                backgroundColor: '#ffffff',
-                color: 'var(--brand-forest-900)',
-                padding: '10px 18px',
-                borderRadius: 'var(--radius-full)',
-                fontWeight: 600,
-                fontSize: '0.88rem',
-                border: '1px solid var(--border-cream)',
-                transition: 'var(--transition)',
-              }}
-            >
-              <Award size={16} color="var(--gold-600)" />
-              <span>Rankings</span>
-            </Link>
-
-            <Link
-              href="/admin/publicidade"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                backgroundColor: '#ffffff',
-                color: 'var(--brand-forest-900)',
-                padding: '10px 18px',
-                borderRadius: 'var(--radius-full)',
-                fontWeight: 600,
-                fontSize: '0.88rem',
-                border: '1px solid var(--border-cream)',
-                transition: 'var(--transition)',
-              }}
-            >
-              <Megaphone size={16} color="var(--brand-forest-700)" />
-              <span>Publicidade</span>
+              <Building2 size={16} />
+              <span>Chamados Fabricantes ({openTicketsCount})</span>
             </Link>
           </div>
         </div>
 
-        {/* Grade de Métricas */}
+        {/* Métricas Principais */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
             gap: '16px',
-            marginBottom: '36px',
+            marginBottom: '32px',
           }}
         >
-          {/* Card 1: Rankings */}
-          <div
-            style={{
-              backgroundColor: '#ffffff',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--border-cream)',
-              padding: '24px',
-              boxShadow: 'var(--shadow-sm)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-                Rankings
-              </span>
-              <Award size={20} color="var(--gold-600)" />
+          <div style={{ backgroundColor: '#ffffff', borderRadius: 'var(--radius-md)', padding: '20px', border: '1px solid var(--border-cream)', boxShadow: 'var(--shadow-xs)' }}>
+            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>
+              Produtos no Catálogo
             </div>
-            <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: 'var(--brand-forest-900)' }}>
-              {totalRankings}
-            </div>
-            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '8px' }}>
-              <strong style={{ color: 'var(--brand-forest-700)' }}>{publishedRankings} publicados</strong> • {draftRankings} rascunhos
-            </div>
-          </div>
-
-          {/* Card 2: Produtos */}
-          <div
-            style={{
-              backgroundColor: '#ffffff',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--border-cream)',
-              padding: '24px',
-              boxShadow: 'var(--shadow-sm)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-                Catálogo Total
-              </span>
-              <Package size={20} color="var(--brand-forest-700)" />
-            </div>
-            <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: 'var(--brand-forest-900)' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', fontWeight: 900, color: 'var(--brand-forest-900)', marginTop: '4px' }}>
               {totalProducts}
             </div>
-            <div style={{ fontSize: '0.82rem', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              {unlinkedRankingsCount > 0 ? (
-                <Link
-                  href="/admin/produtos?rankingStatus=unlinked"
-                  style={{
-                    color: '#ea580c',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                  }}
-                >
-                  <span>⚠ {unlinkedRankingsCount} sem ranking vinculado</span>
-                </Link>
-              ) : null}
-              {incompleteStoresCount > 0 ? (
-                <Link
-                  href="/admin/produtos?storeStatus=incomplete"
-                  style={{
-                    color: '#b45309',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                  }}
-                >
-                  <span>⚠ {incompleteStoresCount} com lojas pendentes</span>
-                </Link>
-              ) : unlinkedRankingsCount === 0 && (
-                <span style={{ color: 'var(--brand-forest-700)', fontWeight: 600 }}>
-                  ✓ Catálogo 100% vinculado
-                </span>
-              )}
+            <div style={{ fontSize: '0.78rem', color: '#065f46', marginTop: '4px' }}>
+              {superPremiumCount} Nível Ouro • {premiumEspecialCount} Nível Prata
             </div>
           </div>
 
-          {/* Card 3: Produtos precisando de revisão (>30 dias) */}
-          <div
-            style={{
-              backgroundColor: totalNeedsReviewCount > 0 ? '#fffbeb' : '#ffffff',
-              borderRadius: 'var(--radius-lg)',
-              border: totalNeedsReviewCount > 0 ? '1px solid #fde68a' : '1px solid var(--border-cream)',
-              padding: '24px',
-              boxShadow: 'var(--shadow-sm)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: totalNeedsReviewCount > 0 ? '#b45309' : 'var(--text-muted)' }}>
-                Revisão Pendente
-              </span>
-              <AlertTriangle size={20} color={totalNeedsReviewCount > 0 ? '#d97706' : 'var(--text-muted)'} />
+          <div style={{ backgroundColor: '#ffffff', borderRadius: 'var(--radius-md)', padding: '20px', border: '1px solid var(--border-cream)', boxShadow: 'var(--shadow-xs)' }}>
+            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>
+              Nível Bronze / Sob Observação
             </div>
-            <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: totalNeedsReviewCount > 0 ? '#b45309' : 'var(--brand-forest-900)' }}>
-              {totalNeedsReviewCount}
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', fontWeight: 900, color: '#92400e', marginTop: '4px' }}>
+              {economicoCount + naoConformeCount}
             </div>
-            <div style={{ fontSize: '0.82rem', color: totalNeedsReviewCount > 0 ? '#92400e' : 'var(--text-muted)', marginTop: '8px' }}>
-              {totalNeedsReviewCount > 0 ? 'Itens sem revisão ou com >30 dias' : 'Todos os itens revisados recentemente'}
+            <div style={{ fontSize: '0.78rem', color: '#991b1b', marginTop: '4px' }}>
+              {economicoCount} Bronze • {naoConformeCount} Sob Observação (&lt;60 pts)
             </div>
           </div>
 
-          {/* Card 4: Mensagens não lidas */}
-          <div
-            style={{
-              backgroundColor: unreadMessagesCount > 0 ? '#f0fdf4' : '#ffffff',
-              borderRadius: 'var(--radius-lg)',
-              border: unreadMessagesCount > 0 ? '1px solid #bbf7d0' : '1px solid var(--border-cream)',
-              padding: '24px',
-              boxShadow: 'var(--shadow-sm)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: unreadMessagesCount > 0 ? '#15803d' : 'var(--text-muted)' }}>
-                Caixa de Entrada
-              </span>
-              <MessageSquare size={20} color={unreadMessagesCount > 0 ? '#16a34a' : 'var(--text-muted)'} />
+          <div style={{ backgroundColor: '#ffffff', borderRadius: 'var(--radius-md)', padding: '20px', border: '1px solid var(--border-cream)', boxShadow: 'var(--shadow-xs)' }}>
+            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>
+              Alimentos Coadjuvantes
             </div>
-            <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: unreadMessagesCount > 0 ? '#15803d' : 'var(--brand-forest-900)' }}>
-              {unreadMessagesCount}
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', fontWeight: 900, color: '#4338ca', marginTop: '4px' }}>
+              {coadjuvantesCount}
             </div>
-            <div style={{ fontSize: '0.82rem', color: unreadMessagesCount > 0 ? '#166534' : 'var(--text-muted)', marginTop: '8px' }}>
-              <Link href="/admin/mensagens" style={{ textDecoration: 'underline', fontWeight: 600 }}>
-                {unreadMessagesCount} novas mensagens de contato
-              </Link>
+            <div style={{ fontSize: '0.78rem', color: '#6366f1', marginTop: '4px' }}>
+              Prescrição clínica isolada
             </div>
           </div>
 
-          {/* Card 5: Publicidade & AdSense */}
-          <div
-            style={{
-              backgroundColor: activeAdSlots > 0 ? '#f5f3ff' : '#ffffff',
-              borderRadius: 'var(--radius-lg)',
-              border: activeAdSlots > 0 ? '1px solid #ddd6fe' : '1px solid var(--border-cream)',
-              padding: '24px',
-              boxShadow: 'var(--shadow-sm)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: activeAdSlots > 0 ? '#6d28d9' : 'var(--text-muted)' }}>
-                Publicidade AdSense
-              </span>
-              <Megaphone size={20} color={activeAdSlots > 0 ? '#7c3aed' : 'var(--text-muted)'} />
+          <div style={{ backgroundColor: '#ffffff', borderRadius: 'var(--radius-md)', padding: '20px', border: '1px solid var(--border-cream)', boxShadow: 'var(--shadow-xs)' }}>
+            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>
+              Chamados Right of Reply
             </div>
-            <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: 'var(--font-serif)', color: activeAdSlots > 0 ? '#6d28d9' : 'var(--brand-forest-900)' }}>
-              {activeAdSlots} / {totalAdSlots || 5}
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', fontWeight: 900, color: openTicketsCount > 0 ? '#b45309' : 'var(--brand-forest-900)', marginTop: '4px' }}>
+              {openTicketsCount}
             </div>
-            <div style={{ fontSize: '0.82rem', color: activeAdSlots > 0 ? '#5b21b6' : 'var(--text-muted)', marginTop: '8px' }}>
-              <Link href="/admin/publicidade" style={{ textDecoration: 'underline', fontWeight: 600 }}>
-                {activeAdSlots > 0 ? `${activeAdSlots} slots ativos no site` : 'Gerenciar posições e códigos'}
-              </Link>
+            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+              SLA de 5 dias úteis
             </div>
           </div>
         </div>
 
-        {/* Tabela de Produtos que Precisam de Revisão Urgente (Seção 7.2) */}
+        {/* Grid de Conteúdo Recente */}
         <div
           style={{
-            backgroundColor: '#ffffff',
-            borderRadius: 'var(--radius-lg)',
-            border: '1px solid var(--border-cream)',
-            padding: '28px',
-            boxShadow: 'var(--shadow-sm)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+            gap: '24px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
-            <div>
-              <h2 style={{ fontSize: '1.3rem', marginBottom: '4px' }}>
-                Itens Prioritários para Revisão de Avaliações
+          {/* Tabela de Produtos Auditados Recentemente */}
+          <section
+            style={{
+              backgroundColor: '#ffffff',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-cream)',
+              padding: '24px',
+              boxShadow: 'var(--shadow-xs)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
+                Análises Mais Recentes
               </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                Produtos com dados mais antigos ou ainda sem lançamento manual de notas.
-              </p>
+              <Link href="/admin/produtos" style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--brand-forest-700)', textDecoration: 'none' }}>
+                Ver Todos →
+              </Link>
             </div>
 
-            <Link
-              href="/admin/produtos?sort=unreviewed"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: '0.85rem',
-                fontWeight: 700,
-                color: 'var(--brand-forest-800)',
-              }}
-            >
-              <span>Ver catálogo completo</span>
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          {productsNeedingReview.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {productsNeedingReview.map((prod) => (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {recentProducts.map((p) => (
                 <div
-                  key={prod.id}
+                  key={p.id}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: '16px',
-                    padding: '14px 18px',
-                    backgroundColor: 'var(--bg-cream-subtle)',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-cream)',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-xs)',
+                    backgroundColor: 'var(--bg-cream-main)',
+                    border: '1px solid var(--border-cream-light)',
                   }}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', maxWidth: '550px' }}>
-                    <div style={{ display: 'flex', gap: '6px' }}>
-                      <span className={`tag-pill ${prod.species === 'caes' ? 'tag-caes' : 'tag-gatos'}`}>
-                        {prod.species === 'caes' ? '🐕 Cães' : '🐈 Gatos'}
-                      </span>
-                      <span className="tag-pill tag-type">
-                        {prod.productType}
-                      </span>
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {p.commercialName}
                     </div>
-                    <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)' }}>
-                      {prod.title}
-                    </strong>
-                    <div style={{ fontSize: '0.78rem', color: 'var(--text-subtle)' }}>
-                      {prod.rankings.length} ranking(s) vinculado(s) • {prod.stores.length} loja(s) configurada(s)
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                      {p.brand} • {p.species === 'CAO' ? 'Cão' : 'Gato'} • Ficha Técnica Oficial
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <div style={{ textAlign: 'right', fontSize: '0.82rem' }}>
-                      <span style={{ color: 'var(--text-subtle)', display: 'block' }}>Última revisão:</span>
-                      <span style={{ fontWeight: 700, color: prod.ratingUpdatedAt ? 'var(--text-main)' : '#b45309' }}>
-                        {formatDate(prod.ratingUpdatedAt)}
-                      </span>
-                    </div>
-
-                    <Link
-                      href={`/admin/produtos?editReview=${prod.id}`}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '12px' }}>
+                    <span
                       style={{
-                        backgroundColor: 'var(--brand-forest-800)',
-                        color: '#ffffff',
-                        padding: '8px 14px',
-                        borderRadius: 'var(--radius-full)',
-                        fontSize: '0.82rem',
-                        fontWeight: 700,
-                        whiteSpace: 'nowrap',
+                        padding: '3px 8px',
+                        borderRadius: 'var(--radius-xs)',
+                        fontSize: '0.80rem',
+                        fontWeight: 800,
+                        backgroundColor: p.scoreTotal !== null && p.scoreTotal >= 75 ? '#ecfdf5' : '#fffbeb',
+                        color: p.scoreTotal !== null && p.scoreTotal >= 75 ? '#065f46' : '#92400e',
                       }}
                     >
-                      Lançar Avaliações
+                      {p.scoreTotal !== null ? `${p.scoreTotal} pts` : 'Clínico'}
+                    </span>
+                    <Link
+                      href={`/admin/produtos/${p.id}/editar`}
+                      style={{ fontSize: '0.78rem', color: 'var(--brand-forest-700)', fontWeight: 700, textDecoration: 'none' }}
+                    >
+                      Editar
                     </Link>
                   </div>
                 </div>
               ))}
             </div>
-          ) : (
-            <div style={{ textAlign: 'center', padding: '32px', color: 'var(--text-muted)', fontSize: '0.92rem' }}>
-              <CheckCircle2 size={32} color="var(--brand-forest-600)" style={{ margin: '0 auto 12px auto' }} />
-              <p>Parabéns! Todos os produtos do catálogo foram revisados nos últimos 30 dias.</p>
+          </section>
+
+          {/* Chamados Pendentes de Fabricantes (Right of Reply) */}
+          <section
+            style={{
+              backgroundColor: '#ffffff',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-cream)',
+              padding: '24px',
+              boxShadow: 'var(--shadow-xs)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
+                Fila de Chamados dos Fabricantes
+              </h2>
+              <Link href="/admin/chamados" style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--gold-700)', textDecoration: 'none' }}>
+                Gerenciar Fila →
+              </Link>
             </div>
-          )}
+
+            {urgentTickets.length > 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {urgentTickets.map((t) => (
+                  <div
+                    key={t.id}
+                    style={{
+                      padding: '12px 14px',
+                      borderRadius: 'var(--radius-xs)',
+                      backgroundColor: '#fffbeb',
+                      border: '1px solid #fde68a',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                      <strong style={{ fontSize: '0.85rem', color: '#92400e' }}>{t.ticketNumber}</strong>
+                      <span style={{ fontSize: '0.72rem', color: '#b45309', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Clock size={12} />
+                        Prazo SLA: {new Date(t.slaDeadline).toLocaleDateString('pt-BR')}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '0.82rem', color: 'var(--text-main)' }}>
+                      {t.companyName} ({t.requestType})
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ padding: '30px 10px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                Nenhum chamado aberto de fabricante no momento. SLA 100% em dia!
+              </div>
+            )}
+          </section>
         </div>
       </div>
     </div>

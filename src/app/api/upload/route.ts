@@ -8,9 +8,10 @@ const ALLOWED_MIME_TYPES = [
   'image/png',
   'image/webp',
   'image/avif',
+  'application/pdf',
 ];
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15 MB
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,14 +29,14 @@ export async function POST(req: NextRequest) {
 
     if (!ALLOWED_MIME_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { error: 'Formato de imagem inválido. Aceitos: JPG, PNG, WebP e AVIF.' },
+        { error: 'Formato inválido. Formatos aceitos: PDF, JPG, PNG, WebP e AVIF.' },
         { status: 400 }
       );
     }
 
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
-        { error: 'Tamanho da imagem excede o limite máximo permitido de 5 MB.' },
+        { error: 'Tamanho do arquivo excede o limite máximo de 15 MB.' },
         { status: 400 }
       );
     }
@@ -44,8 +45,9 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(bytes);
 
     // Gerar nome de arquivo único e seguro
-    const ext = path.extname(file.name) || '.jpg';
-    const filename = `product_${Date.now()}_${Math.random().toString(36).substring(2, 8)}${ext}`;
+    const ext = path.extname(file.name) || (file.type === 'application/pdf' ? '.pdf' : '.jpg');
+    const prefix = file.type === 'application/pdf' ? 'comprovante' : 'produto';
+    const filename = `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 8)}${ext}`;
 
     const uploadDir = path.join(process.cwd(), 'public', 'uploads');
     await mkdir(uploadDir, { recursive: true });
