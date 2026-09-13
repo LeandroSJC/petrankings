@@ -106,9 +106,11 @@ export default async function ProductDetailPage({
   // Parse do extrato da análise de rótulo
   let extratoItens: ExtratoPilarItem[] = [];
   if (product.scoreBreakdown) {
-    extratoItens = Array.isArray(product.scoreBreakdown)
-      ? (product.scoreBreakdown as any)
-      : [];
+    if (Array.isArray(product.scoreBreakdown)) {
+      extratoItens = product.scoreBreakdown as any;
+    } else if (Array.isArray((product.scoreBreakdown as any).extratoPontos)) {
+      extratoItens = (product.scoreBreakdown as any).extratoPontos;
+    }
   }
 
   const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
@@ -193,48 +195,73 @@ export default async function ProductDetailPage({
                 gap: '24px',
               }}
             >
-              <div style={{ flex: 1, minWidth: '280px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', flexWrap: 'wrap' }}>
-                  <span className={tier.badgeClass}>
-                    {isCoadjuvante ? <Stethoscope size={14} /> : <ShieldCheck size={14} />}
-                    {tier.label}
-                  </span>
-                  <span
+              <div style={{ display: 'flex', gap: '20px', flex: 1, minWidth: '280px', flexWrap: 'wrap' }}>
+                {product.frontLabelImageUrl && (
+                  <div
                     style={{
-                      fontSize: '0.78rem',
-                      fontWeight: 700,
+                      position: 'relative',
+                      width: '140px',
+                      height: '180px',
+                      flexShrink: 0,
                       backgroundColor: 'var(--bg-cream-subtle)',
-                      color: 'var(--text-muted)',
-                      padding: '4px 10px',
-                      borderRadius: 'var(--radius-xs)',
+                      borderRadius: 'var(--radius-sm)',
+                      border: '1px solid var(--border-cream)',
+                      overflow: 'hidden',
                     }}
                   >
-                    Espécie: {formatarTermo(product.species)} • Fase: {formatarTermo(product.lifeStage)}{product.breedSize && ` • ${formatarTermo(product.breedSize)}`} • Formato: {formatarTermo(product.foodType)}
-                  </span>
-                </div>
-
-                <h1
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(1.8rem, 3.2vw, 2.3rem)',
-                    fontWeight: 900,
-                    color: 'var(--brand-forest-900)',
-                    lineHeight: 1.2,
-                    marginBottom: '10px',
-                  }}
-                >
-                  {product.commercialName}
-                </h1>
-
-                <div style={{ fontSize: '0.92rem', color: 'var(--text-body)', lineHeight: 1.5, marginBottom: '16px' }}>
-                  <strong>Marca:</strong> {product.brand}{product.manufacturerLegalName ? ` • ${product.manufacturerLegalName}` : ''}
-                </div>
-
-                {product.editorialOpinion && (
-                  <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontStyle: 'italic', lineHeight: 1.6, borderLeft: '3px solid var(--gold-500)', paddingLeft: '14px' }}>
-                    "{product.editorialOpinion}"
-                  </p>
+                    <Image
+                      src={product.frontLabelImageUrl}
+                      alt={`Packshot oficial de ${product.commercialName}`}
+                      fill
+                      sizes="140px"
+                      priority
+                      style={{ objectFit: 'contain', padding: '8px' }}
+                    />
+                  </div>
                 )}
+                <div style={{ flex: 1, minWidth: '240px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', flexWrap: 'wrap' }}>
+                    <span className={tier.badgeClass}>
+                      {isCoadjuvante ? <Stethoscope size={14} /> : <ShieldCheck size={14} />}
+                      {tier.label}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '0.78rem',
+                        fontWeight: 700,
+                        backgroundColor: 'var(--bg-cream-subtle)',
+                        color: 'var(--text-muted)',
+                        padding: '4px 10px',
+                        borderRadius: 'var(--radius-xs)',
+                      }}
+                    >
+                      Espécie: {formatarTermo(product.species)} • Fase: {formatarTermo(product.lifeStage)}{product.breedSize && ` • ${formatarTermo(product.breedSize)}`} • Formato: {formatarTermo(product.foodType)}
+                    </span>
+                  </div>
+
+                  <h1
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: 'clamp(1.8rem, 3.2vw, 2.3rem)',
+                      fontWeight: 900,
+                      color: 'var(--brand-forest-900)',
+                      lineHeight: 1.2,
+                      marginBottom: '10px',
+                    }}
+                  >
+                    {product.commercialName}
+                  </h1>
+
+                  <div style={{ fontSize: '0.92rem', color: 'var(--text-body)', lineHeight: 1.5, marginBottom: '16px' }}>
+                    <strong>Marca:</strong> {product.brand}{product.manufacturerLegalName ? ` • ${product.manufacturerLegalName}` : ''}
+                  </div>
+
+                  {product.editorialOpinion && (
+                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontStyle: 'italic', lineHeight: 1.6, borderLeft: '3px solid var(--gold-500)', paddingLeft: '14px' }}>
+                      "{product.editorialOpinion}"
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Score Grande Auditado */}
@@ -383,30 +410,6 @@ export default async function ProductDetailPage({
 
               {/* Ações de Custódia Probatória Digital */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '14px' }}>
-                {product.sourceArchiveUrl && (
-                  <a
-                    href={product.sourceArchiveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="editorial-btn-secondary"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      width: '100%',
-                      padding: '8px 12px',
-                      fontSize: '0.78rem',
-                      backgroundColor: 'var(--bg-cream-subtle)',
-                    }}
-                  >
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      <ShieldCheck size={14} color="var(--brand-forest-700)" />
-                      <span>Snapshot no Wayback Machine (Archive.org)</span>
-                    </span>
-                    <ExternalLink size={12} />
-                  </a>
-                )}
-
                 {product.sourceDocumentUrl && (
                   <a
                     href={product.sourceDocumentUrl}
@@ -424,7 +427,7 @@ export default async function ProductDetailPage({
                   >
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                       <FileText size={14} color="var(--brand-forest-700)" />
-                      <span>Comprovante da Ficha Técnica (PDF / Print)</span>
+                      <span>Comprovante Oficial da Ficha Técnica (PDF)</span>
                     </span>
                     <ExternalLink size={12} />
                   </a>

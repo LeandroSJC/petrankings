@@ -536,33 +536,6 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
 
               <div>
                 <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
-                  URL do Snapshot no Wayback Machine (web.archive.org)
-                </label>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <input
-                    type="url"
-                    value={formData.sourceArchiveUrl}
-                    onChange={(e) => handleChange('sourceArchiveUrl', e.target.value)}
-                    placeholder="https://web.archive.org/web/..."
-                    style={{ flex: 1, padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
-                  />
-                  {formData.sourceUrl && (
-                    <a
-                      href={`https://web.archive.org/save/${formData.sourceUrl}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="editorial-btn-secondary"
-                      style={{ fontSize: '0.72rem', padding: '0 10px', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center' }}
-                      title="Abrir Wayback Machine para arquivar a URL"
-                    >
-                      Salvar Snapshot ↗
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
                   Data da Coleta Digital dos Dados *
                 </label>
                 <input
@@ -613,11 +586,14 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                     />
                   </label>
                 </div>
+                <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                  Foto da frente ou packshot em alta resolução divulgado pela marca.
+                </span>
               </div>
 
               <div>
                 <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '6px' }}>
-                  URL do Comprovante da Ficha Técnica (Print ou PDF)
+                  URL do Comprovante da Ficha Técnica Oficial (PDF) *
                 </label>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <input
@@ -644,10 +620,10 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                     }}
                   >
                     {uploadingDoc ? <Loader2 size={15} className="animate-spin" /> : <UploadCloud size={15} />}
-                    <span>{uploadingDoc ? 'Enviando...' : 'Subir PDF / Print'}</span>
+                    <span>{uploadingDoc ? 'Enviando...' : 'Subir PDF'}</span>
                     <input
                       type="file"
-                      accept="application/pdf,image/jpeg,image/png,image/webp"
+                      accept="application/pdf"
                       disabled={uploadingDoc}
                       onChange={(e) => handleFileUpload(e, 'sourceDocumentUrl')}
                       style={{ display: 'none' }}
@@ -655,7 +631,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                   </label>
                 </div>
                 <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                  Cole o link público ou clique em <strong>Subir PDF / Print</strong> para enviar o arquivo diretamente do seu computador.
+                  O comprovante documental oficial da ficha técnica deve ser sempre em formato PDF. Insira o link ou anexe o arquivo PDF diretamente.
                 </span>
               </div>
             </div>

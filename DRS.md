@@ -2,7 +2,7 @@
 
 ## Sistema de Análise Nutricional e Índice de Conformidade de Rótulos de Pet Food
 
-- **Versão:** 9.0 (Transição para Custódia Digital Exclusiva: Informações do Website Oficial do Fabricante & Protocolo Wayback Machine)
+- **Versão:** 9.1 (Custódia Documental Oficial: Website do Fabricante & Comprovante Oficial em PDF)
 - **Status:** Aprovado para Arquitetura, Modelagem de Banco, Algoritmo de Análise, Segurança e Interface
 - **Ambiente Regulatório:** Brasil (Manual Pet Food Brasil - ABINPET 11ª Edição, Instruções Normativas do MAPA nº 30/2009, 110/2020, 87/2021, Decreto nº 12.031/2024, Decreto nº 4.680/2003, Lei nº 11.105/2005 e Código de Defesa do Consumidor - Lei nº 8.078/1990)
 
@@ -79,10 +79,10 @@
 ## 2. Princípios de Blindagem Jurídica e Custódia Digital Oficial
 
 1. **Fidelidade Estrita aos Dados Oficiais do Fabricante:** O portal opera em caráter estritamente documental e consultivo. Avalia exclusivamente as garantias nutricionais e composições declaradas publicamente pelos próprios fabricantes em seus websites institucionais oficiais (domínio próprio da marca ou do grupo fabricante). O portal não realiza ensaios bromatológicos laboratoriais próprios nem emite parecer sobre eficácia biológica *in vivo*. Sob os **Arts. 30 e 31 da Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor)**, toda informação técnica veiculada pelo fornecedor em meio digital obriga a empresa e integra a oferta perante o mercado consumidor.
-2. **Protocolo de Tríplice Custódia Digital Probatória:** Cada registro técnico indexado no portal é permanentemente respaldado por quatro âncoras de integridade:
-   - **URL Oficial do Fabricante (`sourceUrl`):** Endereço público de onde as especificações técnicas foram extraídas.
-   - **Snapshot no Wayback Machine (`sourceArchiveUrl`):** Espelho público e imutável arquivado no [web.archive.org](https://web.archive.org) com carimbo temporal independente de terceiro.
-   - **Comprovante Digital Local (`sourceDocumentUrl`):** Cópia em PDF ou captura de tela em alta resolução (print) da seção de níveis de garantia e ingredientes arquivada no servidor.
+2. **Protocolo de Custódia Documental Oficial Probatória:** Cada registro técnico indexado no portal é permanentemente respaldado por âncoras documentais de integridade:
+   - **URL Oficial do Fabricante (`sourceUrl`):** Endereço público no domínio da marca de onde as especificações técnicas foram extraídas.
+   - **Comprovante Oficial da Ficha Técnica em PDF (`sourceDocumentUrl`):** Arquivo PDF autêntico da ficha técnica ou da página oficial arquivado no servidor para confrontação perene (dispensando serviços externos de terceiros como Wayback Machine que sofrem bloqueios automatizados por Cloudflare/anti-bots).
+   - **Imagem Oficial do Produto (`frontLabelImageUrl`):** Packshot ou fotografia da frente da embalagem em alta resolução disponibilizada pela marca.
    - **Carimbo de Data da Coleta Digital (`labelCollectionDate`):** Registro formal da data em que os dados estavam vigentes no canal do fabricante.
 3. **Algoritmo Determinístico:** Não há notas subjetivas, avaliações sensoriais de palatabilidade ou votação de usuários. Cada fração da pontuação é fundamentada matematicamente no Manual ABINPET (11ª Edição) e em Instruções Normativas do MAPA.
 4. **Muralha da China (Total Independência entre Curadoria Científica e Monetização):** Os links patrocinados e parcerias de afiliados (Amazon, Mercado Livre, Petlove, Cobasi, Shopee com `rel="sponsored"`) existem exclusivamente como conveniência de navegação comercial para o usuário. Nenhum vínculo comercial ou comissão de venda tem a prerrogativa de alterar a pontuação técnica (0 a 100), modificar o tier do produto ou alterar sua posição na listagem alfabética. A curadoria e a monetização operam em isolamento absoluto.

@@ -381,13 +381,13 @@ export default function FabricantePage() {
 
           <div>
             <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-              Link de Documento / Snapshot / Comprovante (Google Drive / OneDrive / Archive.org - Opcional)
+              Link do Documento / Ficha Técnica em PDF (Google Drive / OneDrive / Link Direto - Opcional)
             </label>
             <input
               type="url"
               value={formData.documentUrl}
               onChange={(e) => setFormData({ ...formData, documentUrl: e.target.value })}
-              placeholder="https://drive.google.com/... ou https://web.archive.org/..."
+              placeholder="https://drive.google.com/... ou https://.../ficha-tecnica.pdf"
               style={{
                 width: '100%',
                 padding: '10px 14px',

@@ -109,7 +109,7 @@ export default async function HomePage() {
     },
     {
       q: 'O portal realiza testes em laboratório ou exige envio de embalagens físicas?',
-      a: 'Não. O portal realiza estritamente o confronto técnico e documental das garantias e composições declaradas publicamente pelos próprios fabricantes nos sites oficiais de suas marcas. Cada produto catalogado possui registro de custódia com a URL oficial da marca e snapshot público no Wayback Machine (Archive.org), com pleno amparo nos Arts. 30 e 31 do Código de Defesa do Consumidor e parâmetros científicos da ABINPET/MAPA.',
+      a: 'Não. O portal realiza estritamente o confronto técnico e documental das garantias e composições declaradas publicamente pelos próprios fabricantes nos sites oficiais de suas marcas. Cada produto catalogado possui registro de custódia documental com a URL da página oficial do fabricante e o comprovante da ficha técnica oficial em PDF arquivado, com pleno amparo nos Arts. 30 e 31 do Código de Defesa do Consumidor e parâmetros científicos da ABINPET/MAPA.',
     },
     {
       q: 'Como fabricantes podem retificar ou atualizar dados cadastrados?',
