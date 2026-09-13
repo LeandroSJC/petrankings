@@ -128,10 +128,10 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   const umidIdx = text.indexOf('Umidade', compIdx !== -1 ? compIdx : 0);
   let compRaw = compIdx !== -1 && umidIdx !== -1 ? text.slice(compIdx + 10, umidIdx) : '';
 
-  // Transgênicos
-  const hasContemGmo = compRaw.includes('*Contém');
-  const isGmoFree = /glúten de milho \(não transgênico\)/i.test(compRaw) && !hasContemGmo;
-  const containsGmo = !isGmoFree && (hasContemGmo || /milho\*|soja\*/i.test(compRaw));
+  // Transgênicos (Conformidade com Decreto nº 4.680/2003 e Rotulagem Oficial MAPA)
+  const hasNaoTransgExplicit = /n[ãa]o transg[êe]nico/i.test(compRaw) || /n[ãa]o transg[êe]nico/i.test(text);
+  const hasContemGmo = /\*Cont[ée]m.*transg/i.test(compRaw) || /\*Cont[ée]m.*transg/i.test(text);
+  const containsGmo = hasContemGmo && !hasNaoTransgExplicit;
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
@@ -147,9 +147,12 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     }
   }
 
-  // Remove a parte de declaração de transgênicos do final da lista de ingredientes
-  if (hasContemGmo) {
+  // Remove a nota de rodapé de transgênicos ou "não transgênicos" do final da lista de ingredientes
+  if (compRaw.includes('*Contém')) {
     compRaw = compRaw.split('*Contém')[0];
+  }
+  if (compRaw.includes('*Ingredientes')) {
+    compRaw = compRaw.split('*Ingredientes')[0];
   }
 
   // Limpeza de ruídos de cabeçalho / rodapé de página dentro da composição
@@ -292,7 +295,12 @@ async function processAll() {
     const destImgPath = path.join(process.cwd(), 'public', destImgRel);
     const destPdfPath = path.join(process.cwd(), 'public', destPdfRel);
 
-    fs.copyFileSync(imgFullPath, destImgPath);
+    if (path.extname(imgFullPath).toLowerCase() === '.webp') {
+      fs.copyFileSync(imgFullPath, destImgPath);
+    } else {
+      const sharp = require('sharp');
+      await sharp(imgFullPath).webp({ quality: 85 }).toFile(destImgPath);
+    }
     fs.copyFileSync(pdfFullPath, destPdfPath);
 
     // 6. Executa Motor de Auditoria Oficial
