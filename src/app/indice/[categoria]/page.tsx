@@ -24,21 +24,21 @@ const CATEGORIAS_CONFIG: Record<string, CategoriaConfig> = {
   'caes-filhotes': {
     title: 'Guia Nutricional: Cães Filhotes — Alimentos Secos',
     species: 'CAO',
-    lifeStages: ['CRESCIMENTO_INICIAL', 'CRESCIMENTO_FINAL'],
+    lifeStages: ['CRESCIMENTO_INICIAL', 'CRESCIMENTO_FINAL', 'FILHOTE'],
     description:
       'Avaliação de conformidade para rações secas destinadas ao desenvolvimento e crescimento de filhotes de cães, com foco em densidade proteica e equilíbrio Cálcio-Fósforo.',
   },
   'gatos-adultos': {
     title: 'Guia Nutricional: Gatos Adultos — Alimentos Secos',
     species: 'GATO',
-    lifeStages: ['ADULTO', 'SENIOR'],
+    lifeStages: ['ADULTO', 'SENIOR', 'ADULTO_MANUTENCAO'],
     description:
       'Avaliação técnica de alimentos secos para felinos adultos e castrados. Verificação estrita de requisitos de proteína animal e moderação mineral.',
   },
   'gatos-filhotes': {
     title: 'Guia Nutricional: Gatos Filhotes — Alimentos Secos',
     species: 'GATO',
-    lifeStages: ['CRESCIMENTO_INICIAL', 'CRESCIMENTO_FINAL'],
+    lifeStages: ['CRESCIMENTO_INICIAL', 'CRESCIMENTO_FINAL', 'FILHOTE'],
     description:
       'Avaliação documental e nutricional de rações para filhotes de gatos conforme exigências nutricionais estritas para crescimento saudável na Matéria Seca.',
   },

@@ -12,11 +12,12 @@ interface ProductMetadata {
   brand: string;
   manufacturerLegalName: string;
   species: 'GATO' | 'CAO';
-  lifeStage: 'ADULTO' | 'FILHOTE' | 'SENIOR';
+  lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR';
   foodType: 'SECO' | 'UMIDO';
   breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE';
   legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE';
   coadjuvanteCondition: string | null;
+  sourceUrl: string;
 
   // Garantias Oficiais
   umidadeMaxPct: number;
@@ -88,9 +89,9 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   // 5. Espécie e Fase de Vida
   const species: 'GATO' | 'CAO' = /c[ãa]o|c[ãa]es|cachorro/i.test(commercialName) ? 'CAO' : 'GATO';
-  let lifeStage: 'ADULTO' | 'FILHOTE' | 'SENIOR' = 'ADULTO';
-  if (/filhote/i.test(commercialName)) {
-    lifeStage = 'FILHOTE';
+  let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
+  if (/filhote|crescimento/i.test(commercialName)) {
+    lifeStage = 'CRESCIMENTO_INICIAL';
   } else if (/7 a 11 anos|acima de 12 anos|senior|sênior/i.test(commercialName)) {
     lifeStage = 'SENIOR';
   }
@@ -192,8 +193,9 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   const calStr = energiaMetabolizavelKcalKg ? ` com densidade de ${energiaMetabolizavelKcalKg.toLocaleString('pt-BR')} kcal/kg` : '';
   const gmoStr = containsGmo ? 'e presença de cereais transgênicos' : 'e fórmula livre de transgênicos';
   const conservStr = antioxidantType === 'NATURAL' ? 'conservantes 100% naturais' : 'antioxidantes sintéticos (BHA/BHT)';
+  const faseLabel = lifeStage === 'CRESCIMENTO_INICIAL' ? 'filhotes em fase de crescimento' : (lifeStage === 'SENIOR' ? 'idosos / sênior' : 'adultos');
 
-  const editorialOpinion = `Alimento Super Premium para ${species === 'GATO' ? 'gatos' : 'cães'} (${lifeStage.toLowerCase()}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Relação cálcio:fósforo equilibrada e atendimento integral aos limites da 11ª Edição do Manual ABINPET.`;
+  const editorialOpinion = `Alimento Super Premium para ${species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} ${gmoStr}. Relação cálcio:fósforo equilibrada e atendimento integral aos limites da 11ª Edição do Manual ABINPET.`;
 
   return {
     commercialName,
@@ -294,7 +296,7 @@ async function processAll() {
     fs.copyFileSync(pdfFullPath, destPdfPath);
 
     // 6. Executa Motor de Auditoria Oficial
-    const auditFase: FaseVida = meta.lifeStage === 'FILHOTE' ? 'CRESCIMENTO_INICIAL' : 'ADULTO';
+    const auditFase: FaseVida = meta.lifeStage;
 
     const garantias = {
       umidadeMaxPct: meta.umidadeMaxPct,

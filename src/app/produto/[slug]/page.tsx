@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import prisma from '@/lib/prisma';
-import { calcularNutrientesMS, calcularEnergiaMetabolizavel } from '@/lib/audit-engine';
+import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard } from '@/lib/audit-engine';
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
 
@@ -119,6 +119,8 @@ export default async function ProductDetailPage({
   const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
 
   const tier = getFaixaVisual(product.classificationTier, isCoadjuvante);
+  const isFilhote = product.lifeStage === 'CRESCIMENTO_INICIAL' || product.lifeStage === 'CRESCIMENTO_FINAL' || product.lifeStage === 'FILHOTE';
+  const abinpetPadrao = getAbinpetStandard(product.species as any, isFilhote ? 'CRESCIMENTO_INICIAL' : 'ADULTO');
 
   // Estimativa de Energia Metabolizável (NRC/ABINPET - Seção 3.2 do DRS 8.0)
   const em = calcularEnergiaMetabolizavel(
@@ -557,13 +559,13 @@ export default async function ProductDetailPage({
                     <td><strong>Proteína Bruta (Mín.)</strong></td>
                     <td>{product.crudeProteinMinPct.toFixed(1)}%</td>
                     <td><strong style={{ color: '#065f46' }}>{ms.proteinaBrutaPct.toFixed(2)}%</strong></td>
-                    <td>Piso ABINPET: {product.species === 'CAO' ? '18.0%' : '26.0%'} MS (Manutenção)</td>
+                    <td>Piso ABINPET: {abinpetPadrao.proteinaBrutaMinMS.toFixed(1)}% MS ({isFilhote ? 'Crescimento / Filhotes' : 'Manutenção'})</td>
                   </tr>
                   <tr>
                     <td><strong>Extrato Etéreo / Gordura (Mín.)</strong></td>
                     <td>{product.etherExtractMinPct.toFixed(1)}%</td>
                     <td><strong style={{ color: '#065f46' }}>{ms.extratoEtereoPct.toFixed(2)}%</strong></td>
-                    <td>Piso ABINPET: {product.species === 'CAO' ? '5.5%' : '9.0%'} MS</td>
+                    <td>Piso ABINPET: {abinpetPadrao.extratoEtereoMinMS.toFixed(1)}% MS</td>
                   </tr>
                   <tr>
                     <td><strong>Matéria Fibrosa (Máx.)</strong></td>
@@ -587,22 +589,22 @@ export default async function ProductDetailPage({
                       {ms.calcioMinPct.toFixed(2)}%
                       {ms.calcioMaxPct ? ` a ${ms.calcioMaxPct.toFixed(2)}%` : ''}
                     </td>
-                    <td>Faixa segura: {product.species === 'CAO' ? '0,50% a 2,50%' : '0,60% a 2,00%'} MS</td>
+                    <td>Faixa segura: {abinpetPadrao.calcioMinMS.toFixed(2)}% a {abinpetPadrao.calcioMaxSeguroMS.toFixed(2)}% MS</td>
                   </tr>
                   <tr>
                     <td><strong>Fósforo (Mín.)</strong></td>
                     <td>{product.phosphorusMinPct.toFixed(2)}%</td>
                     <td>{ms.fosforoMinPct.toFixed(2)}%</td>
-                    <td>Piso seguro: {product.species === 'CAO' ? '0,40%' : '0,50%'} MS</td>
+                    <td>Piso seguro: {abinpetPadrao.fosforoMinMS.toFixed(2)}% MS</td>
                   </tr>
                   <tr style={{ backgroundColor: 'var(--bg-cream-main)' }}>
                     <td><strong>Relação Cálcio : Fósforo (Ca:P)</strong></td>
                     <td colSpan={2}>
-                      <strong style={{ fontSize: '0.98rem', color: relacaoCaP >= 1.1 && relacaoCaP <= 1.6 ? '#065f46' : '#92400e' }}>
+                      <strong style={{ fontSize: '0.98rem', color: relacaoCaP >= abinpetPadrao.relacaoCaPIdealMin && relacaoCaP <= abinpetPadrao.relacaoCaPIdealMax ? '#065f46' : '#92400e' }}>
                         {relacaoCaP}:1
                       </strong>
                     </td>
-                    <td>Faixa Ideal: 1,1:1 até 1,6:1 (Tolerância: 1,0:1 até 2,0:1)</td>
+                    <td>Faixa Ideal: {abinpetPadrao.relacaoCaPIdealMin.toFixed(1)}:1 até {abinpetPadrao.relacaoCaPIdealMax.toFixed(1)}:1 ({isFilhote ? 'Filhotes' : 'Adultos'})</td>
                   </tr>
                   <tr style={{ backgroundColor: 'var(--brand-forest-50)' }}>
                     <td><strong>Energia Metabolizável Estimada (EM)</strong></td>

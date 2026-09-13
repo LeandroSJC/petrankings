@@ -71,13 +71,17 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
     return (initialProducts || []).filter((p) => {
       // Filtro por Aba de Segmentação Estrita
       if (activeTab === 'CAO_ADULTO') {
-        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'CAO' || p.lifeStage !== 'ADULTO') return false;
+        const isAdulto = p.lifeStage === 'ADULTO' || p.lifeStage === 'SENIOR' || p.lifeStage === 'ADULTO_MANUTENCAO';
+        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'CAO' || !isAdulto) return false;
       } else if (activeTab === 'CAO_FILHOTE') {
-        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'CAO' || (p.lifeStage !== 'CRESCIMENTO_INICIAL' && p.lifeStage !== 'CRESCIMENTO_FINAL')) return false;
+        const isFilhote = p.lifeStage === 'CRESCIMENTO_INICIAL' || p.lifeStage === 'CRESCIMENTO_FINAL' || p.lifeStage === 'FILHOTE';
+        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'CAO' || !isFilhote) return false;
       } else if (activeTab === 'GATO_ADULTO') {
-        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'GATO' || p.lifeStage !== 'ADULTO') return false;
+        const isAdulto = p.lifeStage === 'ADULTO' || p.lifeStage === 'SENIOR' || p.lifeStage === 'ADULTO_MANUTENCAO';
+        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'GATO' || !isAdulto) return false;
       } else if (activeTab === 'GATO_FILHOTE') {
-        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'GATO' || (p.lifeStage !== 'CRESCIMENTO_INICIAL' && p.lifeStage !== 'CRESCIMENTO_FINAL')) return false;
+        const isFilhote = p.lifeStage === 'CRESCIMENTO_INICIAL' || p.lifeStage === 'CRESCIMENTO_FINAL' || p.lifeStage === 'FILHOTE';
+        if (p.legalCategory === 'ALIMENTO_COADJUVANTE' || p.species !== 'GATO' || !isFilhote) return false;
       } else if (activeTab === 'COADJUVANTE') {
         if (p.legalCategory !== 'ALIMENTO_COADJUVANTE') return false;
       } else {

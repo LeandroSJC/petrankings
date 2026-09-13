@@ -24,8 +24,9 @@ const MAPA_TERMOS: Record<string, string> = {
   TODOS: 'Todos os Portes',
 
   // Fases de Vida
-  CRESCIMENTO_INICIAL: 'Filhote (Fase Inicial)',
-  CRESCIMENTO_FINAL: 'Filhote (Fase Final)',
+  CRESCIMENTO_INICIAL: 'Filhote',
+  CRESCIMENTO_FINAL: 'Filhote',
+  FILHOTE: 'Filhote',
   ADULTO_MANUTENCAO: 'Adulto',
   ADULTO: 'Adulto',
   SENIOR: 'Sênior (Idoso)',
