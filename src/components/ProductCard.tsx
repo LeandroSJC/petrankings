@@ -67,9 +67,13 @@ export interface ProductCardProps {
     }>;
   };
   rankPosition?: number;
+  priority?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  priority = false,
+}: ProductCardProps) {
   // Parse dos ingredientes
   let parsedIngredients: string[] = [];
   try {
@@ -120,7 +124,8 @@ export default function ProductCard({ product }: ProductCardProps) {
               src={product.frontLabelImageUrl}
               alt={`Embalagem de ${product.commercialName}`}
               fill
-              sizes="(max-width: 900px) 100vw, 140px"
+              priority={priority}
+              sizes="(max-width: 640px) 280px, (max-width: 900px) 400px, 140px"
               style={{ objectFit: 'contain', padding: '10px' }}
             />
           ) : (

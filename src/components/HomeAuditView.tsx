@@ -542,10 +542,11 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
       {/* Grid de Cards dos Produtos Analisados */}
       {paginatedProducts.length > 0 ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {paginatedProducts.map((product) => (
+          {paginatedProducts.map((product, index) => (
             <ProductCard
               key={product.id}
               product={product}
+              priority={index === 0}
             />
           ))}
         </div>

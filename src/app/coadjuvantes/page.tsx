@@ -137,29 +137,35 @@ export default async function CoadjuvantesPage() {
         </div>
 
         {/* Listagem */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product as any}
-            />
-          ))}
+        <section aria-labelledby="coadjuvantes-list-heading">
+          <h2 id="coadjuvantes-list-heading" className="sr-only">
+            Alimentos Coadjuvantes Catalogados
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {products.map((product, idx) => (
+              <ProductCard
+                key={product.id}
+                product={product as any}
+                priority={idx === 0}
+              />
+            ))}
 
-          {products.length === 0 && (
-            <div
-              style={{
-                backgroundColor: '#ffffff',
-                padding: '60px 20px',
-                borderRadius: 'var(--radius-md)',
-                textAlign: 'center',
-                color: 'var(--text-muted)',
-                border: '1px dashed var(--border-cream)',
-              }}
-            >
-              Nenhum alimento coadjuvante cadastrado no momento.
-            </div>
-          )}
-        </div>
+            {products.length === 0 && (
+              <div
+                style={{
+                  backgroundColor: '#ffffff',
+                  padding: '60px 20px',
+                  borderRadius: 'var(--radius-md)',
+                  textAlign: 'center',
+                  color: 'var(--text-muted)',
+                  border: '1px dashed var(--border-cream)',
+                }}
+              >
+                Nenhum alimento coadjuvante cadastrado no momento.
+              </div>
+            )}
+          </div>
+        </section>
       </div>
     </main>
   );

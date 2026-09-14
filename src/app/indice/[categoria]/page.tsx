@@ -175,13 +175,18 @@ export default async function CategoriaPage({
         </header>
 
         {/* Listagem dos Produtos da Categoria */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {products.map((product, idx) => (
-            <ProductCard
-              key={product.id}
-              product={product as any}
-            />
-          ))}
+        <section aria-labelledby="categoria-list-heading">
+          <h2 id="categoria-list-heading" className="sr-only">
+            Alimentos Catalogados nesta Categoria
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {products.map((product, idx) => (
+              <ProductCard
+                key={product.id}
+                product={product as any}
+                priority={idx === 0}
+              />
+            ))}
 
           {products.length === 0 && (
             <div
@@ -198,6 +203,7 @@ export default async function CategoriaPage({
             </div>
           )}
         </div>
+        </section>
       </div>
     </main>
   );

@@ -30,6 +30,8 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false, // Remove o cabeçalho X-Powered-By para evitar fingerprinting de versão
   images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 2592000,
     remotePatterns: [
       {
         protocol: 'https',

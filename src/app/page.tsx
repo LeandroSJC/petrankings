@@ -239,9 +239,12 @@ export default async function HomePage() {
         </section>
 
         {/* COMPONENTE INTERATIVO DE AUDITORIA & LISTAGEM COM FILTROS */}
-        <div className="container" style={{ marginTop: '22px' }}>
+        <section aria-labelledby="catalogo-heading" className="container" style={{ marginTop: '22px' }}>
+          <h2 id="catalogo-heading" className="sr-only">
+            Catálogo e Avaliações Nutricionais de Alimentos
+          </h2>
           <HomeAuditView initialProducts={products} />
-        </div>
+        </section>
 
         {/* RIGHT OF REPLY / GOVERNANÇA INSTITUCIONAL */}
         <section
