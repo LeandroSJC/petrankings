@@ -1,41 +1,44 @@
 :root {
   /* ==========================================================================
-     1. PALETA DE CORES EDITORIAL & WCAG 2.1 AA COMPLIANT
+     1. PALETA EDITORIAL CIENTÍFICA & INDEPENDENTE (WCAG 2.1 AA COMPLIANT)
      ========================================================================== */
   
-  /* Verde Floresta Nobre (Primário Editorial) */
-  --brand-forest-950: #04140c;
-  --brand-forest-900: #082115;
-  --brand-forest-800: #0f3623;
-  --brand-forest-700: #174e35;
-  --brand-forest-600: #1f6b4a;
-  --brand-forest-500: #2a885f;
-  --brand-forest-400: #3ea576;
-  --brand-forest-300: #6fc49a;
-  --brand-forest-200: #b0e3cb;
-  --brand-forest-100: #dcf4e8;
-  --brand-forest-50:  #f0faf5;
+  /* Verde Esmeralda Técnico (Autoridade Editorial & Aprovação) */
+  --brand-forest-950: #020617; /* Ardósia quase preta para rodapé/contrastes máximos */
+  --brand-forest-900: #0f172a; /* Ardósia nobre profunda para títulos e superfícies escuras */
+  --brand-forest-800: #1e293b;
+  --brand-forest-700: #047857; /* Verde técnico profundo */
+  --brand-forest-600: #059669; /* Verde esmeralda principal de ação e aprovação */
+  --brand-forest-500: #10b981;
+  --brand-forest-400: #34d399;
+  --brand-forest-300: #6ee7b7;
+  --brand-forest-200: #a7f3d0;
+  --brand-forest-100: #d1fae5;
+  --brand-forest-50:  #ecfdf5;
 
-  /* Superfícies Quentes & Creme Nobre */
-  --bg-cream-main: #fbf9f5;
-  --bg-cream-subtle: #f4ede2;
+  /* Superfícies Neutras & Limpas (Padrão Wirecutter / White Clean) */
+  --bg-main: #ffffff;
+  --bg-subtle: #f8fafc;
+  --bg-muted: #f1f5f9;
+  --bg-cream-main: #f8fafc;        /* Redirecionado para neutro clean */
+  --bg-cream-subtle: #f1f5f9;      /* Redirecionado para neutro clean */
   --bg-cream-card: #ffffff;
-  --bg-cream-card-hover: #fdfcf9;
-  --border-cream: #e4dbc9;
-  --border-cream-light: #efe8dc;
-  --border-cream-dark: #cec2ab;
+  --bg-cream-card-hover: #f8fafc;
+  --border-cream: #e2e8f0;         /* Ardósia limpa e nítida */
+  --border-cream-light: #f1f5f9;
+  --border-cream-dark: #cbd5e1;
 
-  /* Dourado Nobre / Ouro Polido */
-  --gold-300: #ecd586;
-  --gold-400: #dfba45;
-  --gold-500: #cf9f22;
-  --gold-600: #ac7d12;
-  --gold-700: #875c08; /* Alto contraste para texto em fundos claros (>4.5:1) */
-  --gold-800: #684504;
-  --gold-100: #fbf5df;
-  --gold-50:  #fdfbf3;
-  --gold-gradient: linear-gradient(135deg, #d4af37 0%, #faebb0 45%, #b58d1f 100%);
-  --gold-glow: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0) 70%);
+  /* Acentos de Qualidade / Âmbar Sóbrio (Sem dourados reflexivos) */
+  --gold-300: #fcd34d;
+  --gold-400: #fbbf24;
+  --gold-500: #f59e0b;
+  --gold-600: #d97706;
+  --gold-700: #b45309;
+  --gold-800: #92400e;
+  --gold-100: #fef3c7;
+  --gold-50:  #fffbeb;
+  --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --gold-glow: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0) 70%);
 
   /* Medalhas Metálicas Polidas */
   --silver-400: #cbd5e1;
@@ -49,51 +52,51 @@
   --bronze-gradient: linear-gradient(135deg, #f59e0b 0%, #fef3c7 45%, #b45309 100%);
 
   /* Cores de Acento para Espécies (WCAG AAA Contrast > 7:1) */
-  --dog-accent-bg: #fff8e6;
-  --dog-accent-border: #fcd34d;
-  --dog-accent-text: #78350f;
+  --dog-accent-bg: #fffbeb;
+  --dog-accent-border: #fde68a;
+  --dog-accent-text: #92400e;
   --dog-accent-solid: #b45309;
 
   --cat-accent-bg: #eef2ff;
   --cat-accent-border: #c7d2fe;
-  --cat-accent-text: #312e81;
-  --cat-accent-solid: #4338ca;
+  --cat-accent-text: #3730a3;
+  --cat-accent-solid: #4f46e5;
 
-  /* Texto com Alto Contraste (WCAG 2.1 AA compliant) */
-  --text-main: #0c1c13;     /* Contraste > 14:1 no fundo creme */
-  --text-body: #1e3327;     /* Contraste > 10:1 no fundo creme */
-  --text-muted: #3d5447;    /* Contraste > 6.2:1 no fundo creme */
-  --text-subtle: #4d6657;   /* Contraste > 4.8:1 no fundo creme */
-  --text-light: #fbf9f4;
+  /* Texto com Altíssimo Contraste e Legibilidade Máxima */
+  --text-main: #0f172a;     /* Ardósia escura pura (Slate 900) */
+  --text-body: #334155;     /* Slate 700 */
+  --text-muted: #64748b;    /* Slate 500 */
+  --text-subtle: #94a3b8;   /* Slate 400 */
+  --text-light: #f8fafc;
 
-  /* Tipografia Ultra Nítida e Moderna */
+  /* Tipografia Editorial Nítida */
   --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: var(--font-plus-jakarta), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: var(--font-outfit), 'Outfit', 'Plus Jakarta Sans', sans-serif;
   --font-serif: var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif;
 
-  /* Sombras Multicamadas Profundas & Efeitos */
-  --shadow-xs: 0 1px 3px rgba(8, 33, 21, 0.04);
-  --shadow-sm: 0 3px 8px rgba(8, 33, 21, 0.05), 0 1px 2px rgba(8, 33, 21, 0.03);
-  --shadow-md: 0 8px 24px rgba(8, 33, 21, 0.07), 0 2px 6px rgba(8, 33, 21, 0.04);
-  --shadow-lg: 0 18px 40px rgba(8, 33, 21, 0.09), 0 4px 12px rgba(8, 33, 21, 0.04);
-  --shadow-xl: 0 24px 56px rgba(8, 33, 21, 0.13), 0 8px 20px rgba(8, 33, 21, 0.05);
-  --shadow-gold: 0 8px 26px rgba(212, 175, 55, 0.28);
-  --shadow-emerald: 0 8px 26px rgba(15, 54, 35, 0.25);
-  --shadow-hover: 0 14px 34px rgba(8, 33, 21, 0.11), 0 3px 8px rgba(8, 33, 21, 0.05);
+  /* Sombras Modernas, Naturais e Leves (Sem peso visual de template) */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.03);
+  --shadow-xl: 0 20px 32px -6px rgba(15, 23, 42, 0.10), 0 8px 16px -4px rgba(15, 23, 42, 0.04);
+  --shadow-gold: 0 4px 16px rgba(245, 158, 11, 0.16);
+  --shadow-emerald: 0 4px 16px rgba(5, 150, 105, 0.20);
+  --shadow-hover: 0 12px 24px -4px rgba(15, 23, 42, 0.09), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
 
   /* Raios de Borda */
   --radius-xs: 6px;
   --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-full: 9999px;
 
   /* Transições Suaves */
-  --transition-fast: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: all 0.40s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
@@ -107,7 +110,7 @@
 
 html {
   font-family: var(--font-sans);
-  background-color: var(--bg-cream-main);
+  background-color: var(--bg-subtle);
   color: var(--text-main);
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
@@ -123,11 +126,7 @@ body {
   line-height: 1.65;
   overflow-x: hidden;
   font-family: var(--font-sans);
-  background-color: var(--bg-cream-main);
-  background-image: 
-    radial-gradient(circle at 95% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 45%),
-    radial-gradient(circle at 5% 100%, rgba(15, 54, 35, 0.05) 0%, transparent 45%);
-  background-attachment: fixed;
+  background-color: var(--bg-subtle);
 }
 
 /* Skip Link para Usuários de Teclado (WCAG 2.4.1) */
@@ -505,11 +504,50 @@ h1, h2, h3, h4, .font-serif, .font-heading {
   box-shadow: 0 0 0 3px rgba(26, 136, 95, 0.12) !important;
 }
 
-.nav-link-hover:hover {
-  color: var(--brand-forest-900) !important;
-  background-color: var(--bg-cream-subtle) !important;
+.desktop-nav-link {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-body);
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: var(--transition-fast);
+  white-space: nowrap;
 }
 
+.desktop-nav-link:hover {
+  background-color: var(--bg-muted);
+  color: var(--brand-forest-900);
+}
+
+.desktop-nav-link.active {
+  font-weight: 700;
+  color: var(--brand-forest-700);
+  background-color: var(--brand-forest-50);
+  border-color: var(--brand-forest-200);
+}
+
+.gov-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  background-color: var(--brand-forest-600);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition-fast);
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3);
+}
+
+.gov-action-btn:hover {
+  background-color: var(--brand-forest-700);
+}
 
 .message-row:hover {
   transform: translateY(-2px);
@@ -1005,12 +1043,101 @@ h1, h2, h3, h4, .font-serif, .font-heading {
   color: var(--brand-forest-950);
 }
 
+
+/* Abas Principais do Hub Focado no Pet */
+.hub-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 800;
+  border: 1.5px solid var(--border-cream);
+  background-color: #ffffff;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.hub-tab-btn:hover {
+  border-color: var(--brand-forest-400);
+  color: var(--brand-forest-900);
+  background-color: var(--bg-subtle);
+}
+
+.hub-tab-btn.active {
+  background-color: var(--brand-forest-900) !important;
+  color: #ffffff !important;
+  border-color: var(--brand-forest-900) !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+}
+
+.hub-tab-btn.active.vet {
+  background-color: #3730a3 !important;
+  border-color: #3730a3 !important;
+  color: #ffffff !important;
+}
+
+/* Pílulas de Sub-filtro */
+.hub-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border-cream);
+  background-color: #ffffff;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.hub-pill-btn:hover {
+  border-color: var(--brand-forest-400);
+  background-color: var(--bg-subtle);
+  color: var(--brand-forest-900);
+}
+
+.hub-pill-btn.active {
+  background-color: var(--brand-forest-700) !important;
+  color: #ffffff !important;
+  border-color: var(--brand-forest-700) !important;
+}
+
+/* Campo de Busca Rápida no Catálogo */
+.hub-search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.hub-search-input {
+  width: 100%;
+  padding: 8px 14px 8px 34px;
+  border-radius: var(--radius-xs);
+  border: 1.5px solid var(--border-cream);
+  background-color: #ffffff;
+  font-size: 0.84rem;
+  color: var(--text-main);
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+.hub-search-input:focus {
+  border-color: var(--brand-forest-600);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.10);
+}
+
 /* Toolbar de Filtros Integrada & Minimalista */
 .toolbar-container {
   background-color: #ffffff;
   border: 1px solid var(--border-cream);
   border-radius: var(--radius-md);
-  padding: 18px 22px;
+  padding: 20px 24px;
   box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
@@ -1312,5 +1439,200 @@ h1, h2, h3, h4, .font-serif, .font-heading {
     font-size: 0.80rem;
   }
 }
+
+/* ==========================================================================
+   14. CONCEITO 1 — BUSCA CENTRAL MINIMALISTA & GRID AREJADO
+   ========================================================================== */
+.omni-search-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 28px auto;
+  gap: 16px;
+}
+
+/* Seletor em Pílula Central (Dogs | Cats | Veterinary Diet) */
+.omni-segment-bar {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f1f5f9;
+  padding: 5px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-cream-dark);
+  gap: 4px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.omni-segment-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 22px;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-body);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.omni-segment-pill:hover:not(.active) {
+  color: var(--brand-forest-950);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.omni-segment-pill.active {
+  background-color: var(--brand-forest-600) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.28);
+}
+
+.omni-segment-pill.active.vet {
+  background-color: #4338ca !important;
+  box-shadow: 0 2px 8px rgba(67, 56, 202, 0.28);
+}
+
+/* Barra de Busca Central Omni Ampla */
+.omni-search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+}
+
+.omni-search-input {
+  width: 100%;
+  height: 54px;
+  padding: 0 46px 0 50px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-cream-dark);
+  background-color: #ffffff;
+  font-size: 1rem;
+  color: var(--text-main);
+  outline: none;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+  transition: var(--transition-fast);
+}
+
+.omni-search-input::placeholder {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+.omni-search-input:focus {
+  border-color: var(--brand-forest-600);
+  box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.12);
+}
+
+.omni-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.omni-search-clear {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 0.9rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.omni-search-clear:hover {
+  color: var(--text-main);
+}
+
+/* Chips de Atalho Sutis abaixo da Busca */
+.omni-chips-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 740px;
+}
+
+.omni-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.80rem;
+  font-weight: 600;
+  border: 1px solid var(--border-cream-dark);
+  background-color: #ffffff;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.omni-chip-btn:hover {
+  border-color: var(--brand-forest-500);
+  background-color: var(--bg-muted);
+  color: var(--brand-forest-900);
+}
+
+.omni-chip-btn.active {
+  background-color: var(--brand-forest-50) !important;
+  color: var(--brand-forest-700) !important;
+  border-color: var(--brand-forest-600) !important;
+  font-weight: 700;
+}
+
+/* Barra de Status e Contagem */
+.omni-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 18px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-cream);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+/* Grid de Produtos Espaçoso (2 colunas desktop, 1 mobile) */
+.products-omni-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .products-omni-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .omni-segment-pill {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+  }
+}
+
 
 

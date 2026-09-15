@@ -896,7 +896,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <span style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand-forest-800)' }}>
-                          ✓ PDF anexado e auditável
+                          ✓ PDF oficial arquivado para conferência
                         </span>
                         <a
                           href={formData.sourceDocumentUrl}

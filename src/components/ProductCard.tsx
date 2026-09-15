@@ -139,7 +139,9 @@ export default function ProductCard({
         {/* Coluna 2: Informações Principais e Mini-Tabela Bromatológica */}
         <div className="editorial-card-info">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <span className="editorial-card-brand">{product.brand}</span>
+            <span style={{ fontSize: '0.76rem', fontWeight: 800, color: 'var(--brand-forest-700)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+              {product.brand}
+            </span>
             <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
             <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600 }}>
               {formatarTermo(product.species)} • {formatarTermo(product.lifeStage)}
@@ -172,34 +174,36 @@ export default function ProductCard({
           {/* Linha Consolidada de Ingredientes & Selos */}
           <div className="editorial-card-ingredients">
             {parsedIngredients.length > 0 && (
-              <span>
-                <strong>1º Ingrediente:</strong> {parsedIngredients[0]}
+              <span style={{ backgroundColor: 'var(--bg-muted)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.78rem' }}>
+                <strong style={{ color: 'var(--text-muted)' }}>1º Ingrediente:</strong> {parsedIngredients[0]}
               </span>
             )}
-            <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
             <span
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                color: product.antioxidantType === 'NATURAL' ? '#065f46' : '#b45309',
-                fontSize: '0.78rem',
+                color: product.antioxidantType === 'NATURAL' ? '#047857' : '#b45309',
+                backgroundColor: product.antioxidantType === 'NATURAL' ? '#ecfdf5' : '#fffbeb',
+                border: product.antioxidantType === 'NATURAL' ? '1px solid #a7f3d0' : '1px solid #fde68a',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                fontSize: '0.76rem',
                 fontWeight: 600,
               }}
             >
               {product.antioxidantType === 'NATURAL' ? (
                 <>
-                  <Leaf size={13} color="#059669" />
-                  <span>Conservantes Naturais</span>
+                  <Leaf size={12} color="#059669" />
+                  <span>Conservação Natural</span>
                 </>
               ) : (
                 <>
-                  <FlaskConical size={13} color="#d97706" />
-                  <span>Conservantes Sintéticos (BHA/BHT)</span>
+                  <FlaskConical size={12} color="#d97706" />
+                  <span>Conservantes Sintéticos</span>
                 </>
               )}
             </span>
-            <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
             {product.containsGmo ? (
               <span
                 style={{
@@ -207,12 +211,16 @@ export default function ProductCard({
                   alignItems: 'center',
                   gap: '4px',
                   color: '#92400e',
-                  fontSize: '0.78rem',
+                  backgroundColor: '#fffbeb',
+                  border: '1px solid #fde68a',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  fontSize: '0.76rem',
                   fontWeight: 600,
                 }}
               >
-                <TransgenicIcon size={14} />
-                <span>Contém Transgênicos</span>
+                <TransgenicIcon size={12} />
+                <span>Transgênico</span>
               </span>
             ) : (
               <span
@@ -220,19 +228,23 @@ export default function ProductCard({
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
-                  color: '#166534',
-                  fontSize: '0.78rem',
+                  color: '#047857',
+                  backgroundColor: '#ecfdf5',
+                  border: '1px solid #a7f3d0',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  fontSize: '0.76rem',
                   fontWeight: 600,
                 }}
               >
-                <CheckCircle2 size={13} color="#16a34a" />
-                <span>Livre de Transgênicos</span>
+                <CheckCircle2 size={12} color="#059669" />
+                <span>Zero Transgênicos</span>
               </span>
             )}
           </div>
         </div>
 
-        {/* Coluna 3: Score Circular e Ações Claras */}
+        {/* Coluna 3: Score e Ações Claras */}
         <div className="editorial-card-actions">
           {!isCoadjuvante && !isComplementar && product.scoreTotal !== null ? (
             <div
@@ -241,17 +253,34 @@ export default function ProductCard({
                 backgroundColor: tier.bgColor,
                 borderColor: tier.borderColor,
                 color: tier.color,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                padding: '10px 14px',
               }}
             >
-              <div className="editorial-card-score-circle">
-                <span className="num">{product.scoreTotal}</span>
-                <span className="unit">pts</span>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.66rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', opacity: 0.85 }}>
-                  Conformidade
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: '2px',
+                }}
+              >
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.65rem', fontWeight: 900, lineHeight: 1 }}>
+                  {product.scoreTotal}
                 </span>
-                <span className="editorial-card-tier-label">{tier.shortLabel}</span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, opacity: 0.75 }}>
+                  /100
+                </span>
+              </div>
+              <div style={{ textAlign: 'left' }}>
+                <span style={{ fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', opacity: 0.85, fontWeight: 700 }}>
+                  Classificação
+                </span>
+                <span className="editorial-card-tier-label" style={{ fontSize: '0.82rem', fontWeight: 800 }}>
+                  {tier.shortLabel}
+                </span>
               </div>
             </div>
           ) : isComplementar ? (
@@ -261,11 +290,16 @@ export default function ProductCard({
                 backgroundColor: '#fdf4ff',
                 borderColor: '#e879f9',
                 color: '#701a75',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                padding: '10px 14px',
               }}
             >
-              <Sparkles size={24} />
+              <Sparkles size={20} />
               <div>
-                <span style={{ fontSize: '0.66rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>
+                <span style={{ fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', fontWeight: 700 }}>
                   Categoria
                 </span>
                 <span className="editorial-card-tier-label">Complementar</span>
@@ -278,11 +312,16 @@ export default function ProductCard({
                 backgroundColor: '#eef2ff',
                 borderColor: '#c7d2fe',
                 color: '#3730a3',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                padding: '10px 14px',
               }}
             >
-              <Stethoscope size={24} />
+              <Stethoscope size={20} />
               <div>
-                <span style={{ fontSize: '0.66rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block' }}>
+                <span style={{ fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', fontWeight: 700 }}>
                   Finalidade
                 </span>
                 <span className="editorial-card-tier-label">Terapêutica</span>
@@ -295,7 +334,7 @@ export default function ProductCard({
               href={`/produto/${product.slug}`}
               className="editorial-btn-primary"
             >
-              <span>Ver Análise Completa</span>
+              <span>Ver Laudo Completo</span>
               <ArrowRight size={14} />
             </Link>
 

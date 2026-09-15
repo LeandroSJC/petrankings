@@ -6,13 +6,12 @@ export default function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: 'var(--brand-forest-950)',
+        backgroundColor: '#090d16',
         color: '#f8fafc',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        borderTop: '1px solid #1e293b',
         marginTop: 'auto',
-        paddingTop: '60px',
-        paddingBottom: '40px',
-        backgroundImage: 'radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%)',
+        paddingTop: '50px',
+        paddingBottom: '36px',
       }}
     >
       <div className="container">
@@ -30,19 +29,18 @@ export default function Footer() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px' }}>
               <div
                 style={{
-                  width: '38px',
-                  height: '38px',
+                  width: '36px',
+                  height: '36px',
                   borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #082115 0%, #174e35 100%)',
-                  color: 'var(--gold-400)',
+                  backgroundColor: 'var(--brand-forest-700)',
+                  color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
-                  border: '1.5px solid rgba(212, 175, 55, 0.4)',
                 }}
               >
-                <PawPrint size={22} aria-hidden="true" fill="currentColor" strokeWidth={1.5} />
+                <PawPrint size={20} aria-hidden="true" fill="currentColor" strokeWidth={1.5} />
               </div>
               <span
                 style={{
@@ -52,13 +50,13 @@ export default function Footer() {
                   color: '#ffffff',
                 }}
               >
-                Pet<span style={{ color: 'var(--gold-400)' }}>Rankings</span>
+                Pet<span style={{ color: 'var(--brand-forest-400)' }}>Rankings</span>
               </span>
             </div>
-            <p style={{ fontSize: '0.90rem', color: '#cbd5e1', lineHeight: 1.65, marginBottom: '16px' }}>
+            <p style={{ fontSize: '0.90rem', color: '#94a3b8', lineHeight: 1.65, marginBottom: '16px' }}>
               Guia independente e avaliação nutricional de rações para cães e gatos. Classificação técnica baseada no Manual ABINPET (11ª Edição) e normas do MAPA.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--gold-300)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--brand-forest-400)' }}>
               <CheckCircle2 size={16} aria-hidden="true" />
               <span>Algoritmo 100% determinístico e sem juízo subjetivo</span>
             </div>
@@ -69,7 +67,7 @@ export default function Footer() {
             <h2
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '1.1rem',
+                fontSize: '1.05rem',
                 color: '#ffffff',
                 marginBottom: '16px',
                 letterSpacing: '-0.2px',
@@ -111,7 +109,7 @@ export default function Footer() {
             <h2
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '1.1rem',
+                fontSize: '1.05rem',
                 color: '#ffffff',
                 marginBottom: '16px',
                 letterSpacing: '-0.2px',
@@ -122,19 +120,19 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.92rem', marginBottom: '18px' }}>
               <li>
                 <Link href="/sobre" className="footer-link">
-                  <FileText size={16} aria-hidden="true" style={{ color: 'var(--gold-400)', flexShrink: 0 }} />
+                  <FileText size={16} aria-hidden="true" style={{ color: 'var(--brand-forest-400)', flexShrink: 0 }} />
                   <span>Metodologia e Pilares do Índice</span>
                 </Link>
               </li>
               <li>
                 <Link href="/contato" className="footer-link">
-                  <MessageSquare size={16} aria-hidden="true" style={{ color: 'var(--gold-400)', flexShrink: 0 }} />
+                  <MessageSquare size={16} aria-hidden="true" style={{ color: 'var(--brand-forest-400)', flexShrink: 0 }} />
                   <span>Canal do Consumidor / Fale Conosco</span>
                 </Link>
               </li>
               <li>
                 <Link href="/politica-de-privacidade" className="footer-link">
-                  <ShieldCheck size={16} aria-hidden="true" style={{ color: 'var(--gold-400)', flexShrink: 0 }} />
+                  <ShieldCheck size={16} aria-hidden="true" style={{ color: 'var(--brand-forest-400)', flexShrink: 0 }} />
                   <span>Política de Privacidade & Termos</span>
                 </Link>
               </li>
@@ -148,9 +146,9 @@ export default function Footer() {
                 alignItems: 'center',
                 gap: '8px',
                 padding: '10px 16px',
-                backgroundColor: 'rgba(212, 175, 55, 0.15)',
-                border: '1.5px solid var(--gold-400)',
-                color: 'var(--gold-300)',
+                backgroundColor: 'rgba(5, 150, 105, 0.12)',
+                border: '1px solid var(--brand-forest-500)',
+                color: 'var(--brand-forest-300)',
                 borderRadius: 'var(--radius-sm)',
                 fontSize: '0.84rem',
                 fontWeight: 700,
@@ -166,17 +164,17 @@ export default function Footer() {
         </div>
 
         {/* Disclaimer Jurídico Obrigatório na Íntegra */}
-        <div className="disclaimer-legal-box" style={{ marginBottom: '32px' }}>
+        <div className="disclaimer-legal-box" style={{ marginBottom: '32px', backgroundColor: '#0f172a', borderColor: '#1e293b' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-            <ShieldAlert size={20} color="var(--gold-400)" aria-hidden="true" />
-            <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--gold-300)' }}>
+            <ShieldAlert size={20} color="var(--brand-forest-400)" aria-hidden="true" />
+            <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.04em', textTransform: 'uppercase', color: '#f8fafc' }}>
               Termo de Transparência, Metodologia e Isenção de Responsabilidade
             </span>
           </div>
-          <p style={{ marginBottom: '10px' }}>
-            O presente portal tem caráter estritamente educativo, consultivo e informativo, visando à promoção da transparência e do direito do consumidor à informação clara e precisa, nos termos do <strong>Artigo 6º, Inciso III, e Artigo 31 da Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor)</strong>. As pontuações, semáforos visuais e índices de conformidade apresentados decorrem de análise comparativa documental baseada exclusivamente nas informações declaradas e publicadas pelos próprios fabricantes nos websites oficiais de suas marcas, confrontadas com as diretrizes do <strong>Manual Pet Food Brasil (ABINPET, 11ª Edição)</strong>.
+          <p style={{ marginBottom: '10px', color: '#94a3b8' }}>
+            O presente portal tem caráter estritamente educativo, consultivo e informativo, visando à promoção da transparência e do direito do consumidor à informação clara e precisa, nos termos do <strong style={{ color: '#e2e8f0' }}>Artigo 6º, Inciso III, e Artigo 31 da Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor)</strong>. As pontuações, semáforos visuais e índices de conformidade apresentados decorrem de análise comparativa documental baseada exclusivamente nas informações declaradas e publicadas pelos próprios fabricantes nos websites oficiais de suas marcas, confrontadas com as diretrizes do <strong style={{ color: '#e2e8f0' }}>Manual Pet Food Brasil (ABINPET, 11ª Edição)</strong>.
           </p>
-          <p>
+          <p style={{ color: '#94a3b8' }}>
             Este portal não realiza análises laboratoriais bromatológicas próprias nem emite juízos sobre a eficácia biológica in vivo dos produtos. Alimentos coadjuvantes (prescrição veterinária) são avaliados segundo seus objetivos clínicos específicos e não concorrem em listagens de alimentos de manutenção regular. O conteúdo não substitui a avaliação individual de um médico veterinário ou zootecnista. Fabricantes podem solicitar atualização de dados a qualquer momento por meio de nosso canal institucional.
           </p>
         </div>

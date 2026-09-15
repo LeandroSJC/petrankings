@@ -184,7 +184,7 @@ export default function HeaderSearch() {
             style={{
               position: 'absolute',
               right: '14px',
-              color: 'var(--gold-600)',
+              color: 'var(--brand-forest-600)',
             }}
           />
         )}

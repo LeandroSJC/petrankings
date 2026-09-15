@@ -58,7 +58,7 @@ export default function FaqAccordion({ faqs }: { faqs: FaqItem[] }) {
               }}
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <HelpCircle size={22} color="var(--gold-700)" style={{ flexShrink: 0 }} aria-hidden="true" />
+                <HelpCircle size={20} color="var(--brand-forest-600)" style={{ flexShrink: 0 }} aria-hidden="true" />
                 {faq.q}
               </span>
               <ChevronDown

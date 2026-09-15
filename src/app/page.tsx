@@ -11,6 +11,7 @@ import {
   FileText,
   HelpCircle,
   Stethoscope,
+  ArrowRight,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import HomeAuditView, { ProductItemData } from '@/components/HomeAuditView';
@@ -152,28 +153,34 @@ export default async function HomePage() {
       />
 
       <main style={{ paddingBottom: '60px' }}>
-        {/* HERO EDITORIAL COMPACTO & ACOLHEDOR */}
+        {/* HERO EDITORIAL COMPACTO & DE ALTA AUTORIDADE (Padrão Wirecutter) */}
         <section
           style={{
             backgroundColor: '#ffffff',
             borderBottom: '1px solid var(--border-cream)',
-            padding: '24px 0 18px 0',
+            padding: '28px 0 22px 0',
             backgroundImage:
-              'radial-gradient(ellipse at 50% 0%, rgba(26, 136, 95, 0.05) 0%, transparent 70%)',
+              'radial-gradient(ellipse at 50% 0%, rgba(5, 150, 105, 0.04) 0%, transparent 70%)',
           }}
         >
           <div className="container">
             <div style={{ maxWidth: '920px', margin: '0 auto', textAlign: 'center' }}>
-              {/* Título Natural, Proporcional e Convidativo */}
+              {/* Badge de Autoridade Independente */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 12px', borderRadius: '20px', backgroundColor: 'var(--brand-forest-50)', border: '1px solid var(--brand-forest-200)', color: 'var(--brand-forest-700)', fontSize: '0.76rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '12px' }}>
+                <ShieldCheck size={14} color="var(--brand-forest-600)" />
+                <span>Avaliação Nutricional Independente de Pet Food</span>
+              </div>
+
+              {/* Título Principal Editorial */}
               <h1
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(1.35rem, 2.2vw, 1.75rem)',
+                  fontSize: 'clamp(1.5rem, 2.5vw, 2.1rem)',
                   fontWeight: 800,
                   color: 'var(--brand-forest-900)',
-                  lineHeight: 1.25,
-                  letterSpacing: '-0.4px',
-                  marginBottom: '8px',
+                  lineHeight: 1.22,
+                  letterSpacing: '-0.5px',
+                  marginBottom: '10px',
                 }}
               >
                 Comparador Nutricional de Rações para Cães e Gatos
@@ -181,23 +188,18 @@ export default async function HomePage() {
 
               <p
                 style={{
-                  fontSize: 'clamp(0.92rem, 1.2vw, 1rem)',
+                  fontSize: 'clamp(0.95rem, 1.2vw, 1.05rem)',
                   color: 'var(--text-body)',
-                  lineHeight: 1.55,
-                  marginBottom: '14px',
-                  maxWidth: '860px',
-                  margin: '0 auto 14px auto',
+                  lineHeight: 1.6,
+                  marginBottom: '18px',
+                  maxWidth: '820px',
+                  margin: '0 auto 18px auto',
                 }}
               >
-                <span style={{ display: 'block' }}>
-                  Análise transparente e independente da composição das rações registradas no Brasil.
-                </span>
-                <span style={{ display: 'block' }}>
-                  Nutrientes convertidos para <strong>Matéria Seca (MS)</strong> a partir dos sites oficiais dos fabricantes.
-                </span>
+                Avaliação técnica e documental dos níveis de garantia e ingredientes divulgados nos sites oficiais dos fabricantes no Brasil. Nutrientes normalizados na <strong>Matéria Seca (MS)</strong> conforme os parâmetros científicos da <strong>ABINPET</strong>.
               </p>
 
-              {/* Destaques de Confiança e Metodologia */}
+              {/* Destaques de Confiança e Metodologia em Chips */}
               <div
                 style={{
                   display: 'flex',
@@ -205,43 +207,44 @@ export default async function HomePage() {
                   justifyContent: 'center',
                   flexWrap: 'wrap',
                   gap: '10px',
-                  fontSize: '0.80rem',
-                  color: 'var(--text-muted)',
+                  fontSize: '0.82rem',
                 }}
               >
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontWeight: 600, color: 'var(--brand-forest-900)', whiteSpace: 'nowrap' }}>
-                  <CheckCircle2 size={14} color="var(--brand-forest-700)" />
-                  100% Baseado nos Sites Oficiais dos Fabricantes
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: 'var(--radius-xs)', backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--border-cream)', fontWeight: 600, color: 'var(--brand-forest-900)' }}>
+                  <CheckCircle2 size={15} color="var(--brand-forest-600)" />
+                  100% Fontes Oficiais dos Fabricantes
                 </span>
-                <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontWeight: 600, color: 'var(--brand-forest-900)', whiteSpace: 'nowrap' }}>
-                  <ShieldCheck size={14} color="var(--brand-forest-700)" />
-                  Proteína e Minerais em Base Seca
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: 'var(--radius-xs)', backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--border-cream)', fontWeight: 600, color: 'var(--brand-forest-900)' }}>
+                  <ShieldCheck size={15} color="var(--brand-forest-600)" />
+                  Cálculo Baseado em Matéria Seca (MS)
                 </span>
-                <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
                 <Link
                   href="/sobre"
                   style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 12px',
+                    borderRadius: 'var(--radius-xs)',
+                    backgroundColor: 'var(--brand-forest-50)',
+                    border: '1px solid var(--brand-forest-200)',
                     color: 'var(--brand-forest-700)',
                     fontWeight: 700,
                     textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    whiteSpace: 'nowrap',
+                    transition: 'var(--transition-fast)',
                   }}
                 >
-                  <span>Conheça os critérios da nota →</span>
+                  <span>Entenda os Critérios da Nota →</span>
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* COMPONENTE INTERATIVO DE AUDITORIA & LISTAGEM COM FILTROS */}
-        <section aria-labelledby="catalogo-heading" className="container" style={{ marginTop: '22px' }}>
+        {/* COMPONENTE CENTRAL DE BUSCA & CATÁLOGO (CONCEITO 1) */}
+        <section aria-labelledby="catalogo-heading" className="container" style={{ marginTop: '32px' }}>
           <h2 id="catalogo-heading" className="sr-only">
-            Catálogo e Avaliações Nutricionais de Alimentos
+            Comparador e Avaliações Nutricionais de Alimentos
           </h2>
           <HomeAuditView initialProducts={products} />
         </section>
@@ -251,9 +254,9 @@ export default async function HomePage() {
           style={{
             backgroundColor: 'var(--brand-forest-900)',
             color: '#ffffff',
-            padding: '50px 0',
+            padding: '48px 0',
             marginTop: '60px',
-            borderTop: '1px solid rgba(212, 175, 55, 0.25)',
+            borderTop: '1px solid #1e293b',
           }}
         >
           <div className="container">
@@ -271,8 +274,8 @@ export default async function HomePage() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
-                    color: 'var(--gold-400)',
-                    fontSize: '0.82rem',
+                    color: 'var(--brand-forest-400)',
+                    fontSize: '0.80rem',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '1px',
@@ -280,68 +283,55 @@ export default async function HomePage() {
                   }}
                 >
                   <Building2 size={16} />
-                  <span>Módulo de Governança Institucional</span>
+                  <span>Governança Institucional & Transparência</span>
                 </div>
                 <h2
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: '1.85rem',
+                    fontSize: '1.75rem',
                     fontWeight: 800,
-                    lineHeight: 1.2,
-                    marginBottom: '14px',
+                    lineHeight: 1.25,
+                    marginBottom: '12px',
                     color: '#ffffff',
                   }}
                 >
-                  Canal Aberto para Fabricantes e Responsáveis Técnicos (Right of Reply)
+                  Canal Aberto para Fabricantes e Responsáveis Técnicos
                 </h2>
-                <p style={{ color: '#cbd5e1', fontSize: '0.94rem', lineHeight: 1.65 }}>
+                <p style={{ color: '#94a3b8', fontSize: '0.92rem', lineHeight: 1.65 }}>
                   Para resguardar a boa-fé e a máxima fidelidade técnica aos dados públicos, fabricantes e marcas podem solicitar a atualização de dados cadastrados a qualquer momento mediante o envio da URL oficial da página do produto atualizada, comunicação de reformulação ou contraprova documental.
                 </p>
               </div>
 
               <div
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  border: '1.5px solid rgba(212, 175, 55, 0.35)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid #334155',
                   borderRadius: 'var(--radius-md)',
-                  padding: '28px',
+                  padding: '26px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '16px',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <FileCheck2 size={24} color="var(--gold-400)" />
+                  <FileCheck2 size={24} color="var(--brand-forest-400)" />
                   <div>
-                    <strong style={{ display: 'block', fontSize: '1rem', color: '#ffffff' }}>
+                    <strong style={{ display: 'block', fontSize: '0.98rem', color: '#ffffff' }}>
                       SLA Institucional de 5 Dias Úteis
                     </strong>
-                    <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
-                      Análise técnica criteriosa com conferência na fonte oficial
+                    <span style={{ fontSize: '0.80rem', color: '#94a3b8' }}>
+                      Análise técnica criteriosa com conferência direta na fonte oficial
                     </span>
                   </div>
                 </div>
 
-                <p style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.5 }}>
                   Requisitos: Identificação do solicitante corporativo, nome da marca e URL da página oficial do produto no website do fabricante.
                 </p>
 
                 <Link
                   href="/fabricante"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    padding: '12px 22px',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: 'var(--gold-500)',
-                    color: '#082115',
-                    fontSize: '0.90rem',
-                    fontWeight: 800,
-                    textDecoration: 'none',
-                    transition: 'var(--transition-fast)',
-                  }}
+                  className="gov-action-btn"
                 >
                   <span>Fabricante: Solicite Atualização de Dados Oficiais</span>
                 </Link>

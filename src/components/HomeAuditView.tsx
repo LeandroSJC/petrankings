@@ -1,14 +1,11 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import ProductCard from '@/components/ProductCard';
 import {
-  Filter,
   Stethoscope,
   PawPrint,
-  Leaf,
-  Layers,
-  Sparkles,
+  Search,
   RotateCcw,
   ChevronLeft,
   ChevronRight,
@@ -63,13 +60,21 @@ interface HomeAuditViewProps {
   initialProducts: ProductItemData[];
 }
 
+type SegmentType = 'caes' | 'gatos' | 'prescricao';
+
 export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewProps) {
-  // Filtros Ortogonais Desacoplados
-  const [selectedSpecies, setSelectedSpecies] = useState<'TODOS' | 'CAO' | 'GATO'>('TODOS');
-  const [selectedCategory, setSelectedCategory] = useState<string>('TODOS');
+  // Seletor de Segmento Principal (Pílula Central: Cães | Gatos | Prescrição)
+  const [activeSegment, setActiveSegment] = useState<SegmentType>('caes');
+
+  // Campo de Busca Omni Central
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Filtros Sutis em Chips
   const [selectedLifeStage, setSelectedLifeStage] = useState<string>('TODOS');
-  const [selectedTier, setSelectedTier] = useState<string>('TODOS');
   const [selectedFoodType, setSelectedFoodType] = useState<string>('TODOS');
+  const [selectedTier, setSelectedTier] = useState<string>('TODOS');
+  const [selectedPrescriptionCondition, setSelectedPrescriptionCondition] = useState<string>('TODOS');
+  const [selectedPrescriptionSpecies, setSelectedPrescriptionSpecies] = useState<'TODOS' | 'CAO' | 'GATO'>('TODOS');
   const [onlyNaturalAntioxidants, setOnlyNaturalAntioxidants] = useState<boolean>(false);
   const [onlyGmoFree, setOnlyGmoFree] = useState<boolean>(false);
 
@@ -77,22 +82,60 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
   const [itemsPerPage, setItemsPerPage] = useState<number>(12);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  // Contadores para o Seletor Central
+  const dogCount = useMemo(
+    () => initialProducts.filter((p) => p.species === 'CAO' && p.legalCategory !== 'ALIMENTO_COADJUVANTE').length,
+    [initialProducts]
+  );
+  const catCount = useMemo(
+    () => initialProducts.filter((p) => p.species === 'GATO' && p.legalCategory !== 'ALIMENTO_COADJUVANTE').length,
+    [initialProducts]
+  );
+  const prescricaoCount = useMemo(
+    () => initialProducts.filter((p) => p.legalCategory === 'ALIMENTO_COADJUVANTE').length,
+    [initialProducts]
+  );
+
+  // Sincronização suave de hash (#caes, #gatos, #prescricao)
+  useEffect(() => {
+    const syncFromHash = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#caes') setActiveSegment('caes');
+      else if (hash === '#gatos') setActiveSegment('gatos');
+      else if (hash === '#prescricao') setActiveSegment('prescricao');
+    };
+
+    syncFromHash();
+    window.addEventListener('hashchange', syncFromHash);
+    return () => window.removeEventListener('hashchange', syncFromHash);
+  }, []);
+
+  const handleSegmentChange = (seg: SegmentType) => {
+    setActiveSegment(seg);
+    setCurrentPage(1);
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `#${seg}`);
+    }
+  };
+
   // Verificação de filtros ativos
   const hasActiveFilters =
-    selectedSpecies !== 'TODOS' ||
-    selectedCategory !== 'TODOS' ||
+    searchQuery.trim() !== '' ||
     selectedLifeStage !== 'TODOS' ||
-    selectedTier !== 'TODOS' ||
     selectedFoodType !== 'TODOS' ||
+    selectedTier !== 'TODOS' ||
+    selectedPrescriptionCondition !== 'TODOS' ||
+    selectedPrescriptionSpecies !== 'TODOS' ||
     onlyNaturalAntioxidants ||
     onlyGmoFree;
 
   const handleResetFilters = () => {
-    setSelectedSpecies('TODOS');
-    setSelectedCategory('TODOS');
+    setSearchQuery('');
     setSelectedLifeStage('TODOS');
-    setSelectedTier('TODOS');
     setSelectedFoodType('TODOS');
+    setSelectedTier('TODOS');
+    setSelectedPrescriptionCondition('TODOS');
+    setSelectedPrescriptionSpecies('TODOS');
     setOnlyNaturalAntioxidants(false);
     setOnlyGmoFree(false);
     setCurrentPage(1);
@@ -101,35 +144,37 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
   // Filtragem dos produtos
   const filteredProducts = useMemo(() => {
     return (initialProducts || []).filter((p) => {
-      // 1. Filtro de Espécie (Cão vs Gato vs Todos)
-      if (selectedSpecies !== 'TODOS') {
-        if (p.species !== selectedSpecies) return false;
-      }
-
-      // 2. Filtro de Categoria Legal (Completo vs Coadjuvante vs Complementar vs Todos)
-      // Quando selectedCategory === 'TODOS', NENHUM alimento é omitido.
-      if (selectedCategory !== 'TODOS') {
-        if (p.legalCategory !== selectedCategory) return false;
-      }
-
-      // 3. Filtro por Fase da Vida
-      if (selectedLifeStage !== 'TODOS') {
-        if (selectedLifeStage === 'ADULTO') {
-          const isAdulto = p.lifeStage === 'ADULTO' || p.lifeStage === 'ADULTO_MANUTENCAO';
-          if (!isAdulto) return false;
-        } else if (selectedLifeStage === 'FILHOTE') {
-          const isFilhote =
-            p.lifeStage === 'CRESCIMENTO_INICIAL' ||
-            p.lifeStage === 'CRESCIMENTO_FINAL' ||
-            p.lifeStage === 'FILHOTE';
-          if (!isFilhote) return false;
-        } else if (selectedLifeStage === 'SENIOR') {
-          if (p.lifeStage !== 'SENIOR') return false;
+      // 1. Segmentação Primária
+      if (activeSegment === 'caes') {
+        if (p.species !== 'CAO') return false;
+        if (p.legalCategory === 'ALIMENTO_COADJUVANTE') return false;
+      } else if (activeSegment === 'gatos') {
+        if (p.species !== 'GATO') return false;
+        if (p.legalCategory === 'ALIMENTO_COADJUVANTE') return false;
+      } else if (activeSegment === 'prescricao') {
+        if (p.legalCategory !== 'ALIMENTO_COADJUVANTE') return false;
+        if (selectedPrescriptionSpecies !== 'TODOS' && p.species !== selectedPrescriptionSpecies) {
+          return false;
+        }
+        if (selectedPrescriptionCondition !== 'TODOS') {
+          const cond = (p.coadjuvanteCondition || '').toUpperCase();
+          if (!cond.includes(selectedPrescriptionCondition.toUpperCase())) {
+            return false;
+          }
         }
       }
 
-      // 4. Filtro por Faixa de Classificação (apenas quando não é coadjuvante nem complementar)
-      if (selectedTier !== 'TODOS') {
+      // 2. Busca Omni
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchName = p.commercialName.toLowerCase().includes(q);
+        const matchBrand = p.brand.toLowerCase().includes(q);
+        const matchIngredients = p.topIngredients.toLowerCase().includes(q);
+        if (!matchName && !matchBrand && !matchIngredients) return false;
+      }
+
+      // 3. Faixa de Classificação
+      if (activeSegment !== 'prescricao' && selectedTier !== 'TODOS') {
         const t = p.classificationTier;
         if (selectedTier === 'NIVEL_OURO' || selectedTier === 'SUPER_PREMIUM') {
           if (t !== 'NIVEL_OURO' && t !== 'SUPER_PREMIUM') return false;
@@ -148,24 +193,40 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
         }
       }
 
-      // 5. Filtro por Formato / Tipo de Alimento (Seco vs Úmido)
+      // 4. Fase da Vida (Idade)
+      if (selectedLifeStage !== 'TODOS') {
+        if (selectedLifeStage === 'ADULTO') {
+          const isAdulto = p.lifeStage === 'ADULTO' || p.lifeStage === 'ADULTO_MANUTENCAO';
+          if (!isAdulto) return false;
+        } else if (selectedLifeStage === 'FILHOTE') {
+          const isFilhote =
+            p.lifeStage === 'CRESCIMENTO_INICIAL' ||
+            p.lifeStage === 'CRESCIMENTO_FINAL' ||
+            p.lifeStage === 'FILHOTE';
+          if (!isFilhote) return false;
+        } else if (selectedLifeStage === 'SENIOR') {
+          if (p.lifeStage !== 'SENIOR') return false;
+        }
+      }
+
+      // 5. Formato (Seco vs Úmido)
       if (selectedFoodType !== 'TODOS') {
         if (p.foodType !== selectedFoodType) return false;
       }
 
-      // 6. Filtro Antioxidantes Naturais
+      // 6. Antioxidantes Naturais
       if (onlyNaturalAntioxidants && p.antioxidantType !== 'NATURAL') {
         return false;
       }
 
-      // 7. Filtro Transgênicos
+      // 7. Sem Transgênicos
       if (onlyGmoFree && p.containsGmo) {
         return false;
       }
 
       return true;
     }).sort((a, b) => {
-      // Ordenação neutra (DRS 8.0 - Seção 5.3): Score decrescente, desempate alfabético
+      // Ordenação neutra: pontuação técnica decrescente, desempate alfabético
       const scoreA = a.scoreTotal ?? -1;
       const scoreB = b.scoreTotal ?? -1;
       if (scoreB !== scoreA) {
@@ -175,16 +236,18 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
     });
   }, [
     initialProducts,
-    selectedSpecies,
-    selectedCategory,
-    selectedLifeStage,
+    activeSegment,
+    searchQuery,
     selectedTier,
+    selectedLifeStage,
     selectedFoodType,
+    selectedPrescriptionCondition,
+    selectedPrescriptionSpecies,
     onlyNaturalAntioxidants,
     onlyGmoFree,
   ]);
 
-  // Cálculos de Paginação
+  // Paginação
   const totalPages = itemsPerPage > 0 ? Math.ceil(filteredProducts.length / itemsPerPage) : 1;
   const safeCurrentPage = Math.min(Math.max(1, currentPage), Math.max(1, totalPages));
 
@@ -224,241 +287,269 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      {/* Barra Consolidada de Filtros & Navegação */}
-      <div className="toolbar-container" id="catalogo-produtos">
-        {/* Linha 1: Espécie do Pet */}
-        <div
-          role="tablist"
-          aria-label="Espécie do Pet"
-          className="toolbar-nav-row"
-        >
-          {[
-            { id: 'TODOS', label: '🐾 Todos os Pets' },
-            { id: 'CAO', label: '🐶 Cães' },
-            { id: 'GATO', label: '🐱 Gatos' },
-          ].map((sp) => {
-            const isActive = selectedSpecies === sp.id;
-            return (
+    <div id="catalogo-produtos" style={{ display: 'flex', flexDirection: 'column', scrollMarginTop: '80px' }}>
+      {/* SEÇÃO CENTRAL OMNI — CONCEITO 1 (APROVADO) */}
+      <div className="omni-search-section">
+        {/* Seletor Central em Pílula (Dogs | Cats | Veterinary Diet) */}
+        <div className="omni-segment-bar" role="tablist" aria-label="Segmento de Alimento">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeSegment === 'caes'}
+            onClick={() => handleSegmentChange('caes')}
+            className={`omni-segment-pill ${activeSegment === 'caes' ? 'active' : ''}`}
+          >
+            <span>🐶 Cães</span>
+            <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({dogCount})</span>
+          </button>
+
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeSegment === 'gatos'}
+            onClick={() => handleSegmentChange('gatos')}
+            className={`omni-segment-pill ${activeSegment === 'gatos' ? 'active' : ''}`}
+          >
+            <span>🐱 Gatos</span>
+            <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({catCount})</span>
+          </button>
+
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeSegment === 'prescricao'}
+            onClick={() => handleSegmentChange('prescricao')}
+            className={`omni-segment-pill ${activeSegment === 'prescricao' ? 'active vet' : ''}`}
+          >
+            <Stethoscope size={15} />
+            <span>Prescrição Veterinária</span>
+            <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({prescricaoCount})</span>
+          </button>
+        </div>
+
+        {/* Único Campo de Busca Omni da Tela */}
+        <div className="omni-search-wrapper">
+          <Search size={20} className="omni-search-icon" />
+          <input
+            type="search"
+            placeholder={
+              activeSegment === 'caes'
+                ? 'Buscar ração para cães por marca (Premier, Royal Canin, Guabi...) ou ingrediente...'
+                : activeSegment === 'gatos'
+                ? 'Buscar ração para gatos por marca (Royal Canin, Farmina, GranPlus...) ou ingrediente...'
+                : 'Buscar por indicação clínica (Renal, Urinário, Obesidade) ou marca...'
+            }
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="omni-search-input"
+            aria-label="Buscar alimentos avaliados"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery('');
+                setCurrentPage(1);
+              }}
+              className="omni-search-clear"
+              title="Limpar busca"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+
+        {/* Chips Sutis de Atalho Logo Abaixo da Busca */}
+        <div className="omni-chips-row">
+          {activeSegment === 'prescricao' ? (
+            <>
               <button
-                key={sp.id}
-                role="tab"
-                aria-selected={isActive}
+                type="button"
                 onClick={() => {
-                  setSelectedSpecies(sp.id as any);
+                  setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'CAO' ? 'TODOS' : 'CAO');
                   setCurrentPage(1);
                 }}
-                className={`toolbar-tab ${isActive ? 'active' : ''}`}
+                className={`omni-chip-btn ${selectedPrescriptionSpecies === 'CAO' ? 'active' : ''}`}
               >
-                {sp.label}
+                🐶 Cães
               </button>
-            );
-          })}
-        </div>
-
-        {/* Linha 2: Categorias Oficiais (MAPA) */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            flexWrap: 'wrap',
-            paddingTop: '2px',
-          }}
-        >
-          <span
-            style={{
-              fontSize: '0.78rem',
-              fontWeight: 800,
-              color: 'var(--text-muted)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              marginRight: '2px',
-            }}
-          >
-            Categoria:
-          </span>
-
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedCategory('TODOS');
-              setCurrentPage(1);
-            }}
-            className={`toolbar-category-pill ${selectedCategory === 'TODOS' ? 'active' : ''}`}
-          >
-            Todas as Categorias
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedCategory('ALIMENTO_COMPLETO');
-              setCurrentPage(1);
-            }}
-            className={`toolbar-category-pill ${selectedCategory === 'ALIMENTO_COMPLETO' ? 'active' : ''}`}
-          >
-            🥣 Alimentos Completos
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedCategory('ALIMENTO_COADJUVANTE');
-              setSelectedTier('TODOS');
-              setCurrentPage(1);
-            }}
-            className={`toolbar-category-pill special ${selectedCategory === 'ALIMENTO_COADJUVANTE' ? 'active' : ''}`}
-          >
-            🏥 Dietas Coadjuvantes
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedCategory('ALIMENTO_COMPLEMENTAR');
-              setSelectedTier('TODOS');
-              setCurrentPage(1);
-            }}
-            className={`toolbar-category-pill purple ${selectedCategory === 'ALIMENTO_COMPLEMENTAR' ? 'active' : ''}`}
-          >
-            ⭐ Alimentos Complementares
-          </button>
-        </div>
-
-        {/* Linha 3: Filtros Principais (Dropdowns) + Seletor de Quantidade & Contagem */}
-        <div className="toolbar-filter-row">
-          <div className="toolbar-filter-group">
-            {/* Faixa / Tier (Apenas para Alimentos Completos ou Todos) */}
-            {selectedCategory !== 'ALIMENTO_COADJUVANTE' && selectedCategory !== 'ALIMENTO_COMPLEMENTAR' && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)' }}>
-                  <Filter size={14} />
-                  <span>Faixa:</span>
-                </div>
-                <select
-                  value={selectedTier}
-                  onChange={(e) => {
-                    setSelectedTier(e.target.value);
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'GATO' ? 'TODOS' : 'GATO');
+                  setCurrentPage(1);
+                }}
+                className={`omni-chip-btn ${selectedPrescriptionSpecies === 'GATO' ? 'active' : ''}`}
+              >
+                🐱 Gatos
+              </button>
+              {[
+                { id: 'RENAL', label: 'Suporte Renal' },
+                { id: 'URINARIO', label: 'Trato Urinário' },
+                { id: 'OBESIDADE', label: 'Obesidade & Diabetes' },
+                { id: 'GASTRO', label: 'Gastrointestinal' },
+                { id: 'HIPOALERGENICO', label: 'Hipoalergênico' },
+              ].map((cond) => (
+                <button
+                  key={cond.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedPrescriptionCondition(
+                      selectedPrescriptionCondition === cond.id ? 'TODOS' : cond.id
+                    );
                     setCurrentPage(1);
                   }}
-                  className="toolbar-select"
-                  aria-label="Filtrar por Faixa de Classificação"
+                  className={`omni-chip-btn ${selectedPrescriptionCondition === cond.id ? 'active' : ''}`}
                 >
-                  <option value="TODOS">Todas as Faixas</option>
-                  <option value="NIVEL_OURO">🥇 Nível Ouro (90 a 100 pts)</option>
-                  <option value="NIVEL_PRATA">🥈 Nível Prata (75 a 89 pts)</option>
-                  <option value="NIVEL_BRONZE">🥉 Nível Bronze (60 a 74 pts)</option>
-                  <option value="SOB_OBSERVACAO">⚠️ Sob Observação (&lt; 60 pts)</option>
-                </select>
-              </div>
-            )}
-
-            {/* Fase da Vida */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)' }}>Idade:</span>
-              <select
-                value={selectedLifeStage}
-                onChange={(e) => {
-                  setSelectedLifeStage(e.target.value);
+                  {cond.label}
+                </button>
+              ))}
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedFoodType(selectedFoodType === 'SECO' ? 'TODOS' : 'SECO');
                   setCurrentPage(1);
                 }}
-                className="toolbar-select"
-                aria-label="Filtrar por Fase da Vida"
+                className={`omni-chip-btn ${selectedFoodType === 'SECO' ? 'active' : ''}`}
               >
-                <option value="TODOS">Todas as Idades</option>
-                <option value="ADULTO">🐕 Adultos</option>
-                <option value="FILHOTE">🍼 Filhotes</option>
-                <option value="SENIOR">🧓 Sênior (Idosos)</option>
-              </select>
-            </div>
-
-            {/* Formato / Textura */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)' }}>
-                <Layers size={14} />
-                <span>Formato:</span>
-              </div>
-              <select
-                value={selectedFoodType}
-                onChange={(e) => {
-                  setSelectedFoodType(e.target.value);
+                🥣 Ração Seca
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedFoodType(selectedFoodType === 'UMIDO' ? 'TODOS' : 'UMIDO');
                   setCurrentPage(1);
                 }}
-                className="toolbar-select"
-                aria-label="Filtrar por Formato de Alimento"
+                className={`omni-chip-btn ${selectedFoodType === 'UMIDO' ? 'active' : ''}`}
               >
-                <option value="TODOS">Todos os Formatos</option>
-                <option value="SECO">🥣 Ração Seca</option>
-                <option value="UMIDO">🥫 Ração Úmida (Sachê / Patê)</option>
-              </select>
-            </div>
+                🥫 Sachê / Úmido
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedLifeStage(selectedLifeStage === 'FILHOTE' ? 'TODOS' : 'FILHOTE');
+                  setCurrentPage(1);
+                }}
+                className={`omni-chip-btn ${selectedLifeStage === 'FILHOTE' ? 'active' : ''}`}
+              >
+                🍼 Filhotes
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedLifeStage(selectedLifeStage === 'ADULTO' ? 'TODOS' : 'ADULTO');
+                  setCurrentPage(1);
+                }}
+                className={`omni-chip-btn ${selectedLifeStage === 'ADULTO' ? 'active' : ''}`}
+              >
+                {activeSegment === 'gatos' ? '🐈 Adultos & Castrados' : '🐕 Adultos'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedLifeStage(selectedLifeStage === 'SENIOR' ? 'TODOS' : 'SENIOR');
+                  setCurrentPage(1);
+                }}
+                className={`omni-chip-btn ${selectedLifeStage === 'SENIOR' ? 'active' : ''}`}
+              >
+                🧓 Sênior
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedTier(selectedTier === 'NIVEL_OURO' ? 'TODOS' : 'NIVEL_OURO');
+                  setCurrentPage(1);
+                }}
+                className={`omni-chip-btn ${selectedTier === 'NIVEL_OURO' ? 'active' : ''}`}
+              >
+                🥇 Nível Ouro
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setOnlyNaturalAntioxidants(!onlyNaturalAntioxidants);
+                  setCurrentPage(1);
+                }}
+                className={`omni-chip-btn ${onlyNaturalAntioxidants ? 'active' : ''}`}
+              >
+                🌿 Conservação Natural
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setOnlyGmoFree(!onlyGmoFree);
+                  setCurrentPage(1);
+                }}
+                className={`omni-chip-btn ${onlyGmoFree ? 'active' : ''}`}
+              >
+                Sem Transgênicos
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Alerta Contextual Suave para Dietas Coadjuvantes */}
+      {activeSegment === 'prescricao' && (
+        <div
+          style={{
+            backgroundColor: '#eff6ff',
+            border: '1.5px solid #bfdbfe',
+            borderRadius: 'var(--radius-md)',
+            padding: '14px 20px',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '12px',
+            color: '#1e3a8a',
+            fontSize: '0.86rem',
+            lineHeight: 1.5,
+            marginBottom: '20px',
+          }}
+        >
+          <Stethoscope size={20} color="#2563eb" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <div>
+            <strong style={{ color: '#1d4ed8', display: 'block', marginBottom: '2px' }}>
+              Isolamento Metodológico de Alimentos Coadjuvantes (Prescrição Veterinária)
+            </strong>
+            Alimentos coadjuvantes possuem formulações clínicas específicas para suporte terapêutico e não competem em notas comparativas gerais com rações regulares. Seus laudos detalham a conformidade dos níveis de garantia declarados pelos fabricantes oficiais.
           </div>
         </div>
+      )}
 
-        {/* Linha 4: Atributos de Composição (Checkboxes) & Limpar Filtros */}
-        <div className="toolbar-attributes-row">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <span
-              style={{
-                fontSize: '0.76rem',
-                fontWeight: 800,
-                color: 'var(--text-muted)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
-              Filtros Adicionais:
-            </span>
+      {/* Barra de Status e Contagem Limpa */}
+      <div className="omni-status-bar">
+        <div>
+          {filteredProducts.length === 0 ? (
+            'Nenhum alimento encontrado'
+          ) : (
+            <>
+              Exibindo <strong>{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</strong> de{' '}
+              <strong>{filteredProducts.length}</strong> alimentos avaliados
+            </>
+          )}
+        </div>
 
-            {/* Checkbox Conservantes Naturais */}
-            <label className="toolbar-checkbox" style={{ margin: 0 }}>
-              <input
-                type="checkbox"
-                checked={onlyNaturalAntioxidants}
-                onChange={(e) => {
-                  setOnlyNaturalAntioxidants(e.target.checked);
-                  setCurrentPage(1);
-                }}
-                style={{ width: '15px', height: '15px', accentColor: 'var(--brand-forest-700)', cursor: 'pointer' }}
-              />
-              <Leaf size={14} color="var(--brand-forest-600)" />
-              <span>Conservantes Naturais</span>
-            </label>
-
-            {/* Checkbox Transgênicos */}
-            <label className="toolbar-checkbox" style={{ margin: 0 }}>
-              <input
-                type="checkbox"
-                checked={onlyGmoFree}
-                onChange={(e) => {
-                  setOnlyGmoFree(e.target.checked);
-                  setCurrentPage(1);
-                }}
-                style={{ width: '15px', height: '15px', accentColor: 'var(--brand-forest-700)', cursor: 'pointer' }}
-              />
-              <span>Sem Transgênicos</span>
-            </label>
-          </div>
-
-          {/* Botão de Limpar Filtros */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           {hasActiveFilters && (
             <button
               type="button"
               onClick={handleResetFilters}
               className="toolbar-reset-btn"
-              title="Redefinir todos os filtros"
+              title="Redefinir filtros"
             >
-              <RotateCcw size={13} />
+              <RotateCcw size={12} />
               <span>Limpar filtros</span>
             </button>
           )}
-        </div>
 
-        {/* Linha 5: Seletor de Quantidade de Itens por Página & Contagem (Abaixo de Filtros Adicionais) */}
-        <div className="toolbar-display-row">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-            <span style={{ fontWeight: 700 }}>Exibir:</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>Exibir:</span>
             <select
               value={itemsPerPage}
               onChange={(e) => {
@@ -466,80 +557,18 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
                 setCurrentPage(1);
               }}
               className="toolbar-select"
-              style={{ padding: '4px 8px', fontSize: '0.80rem' }}
-              aria-label="Número de itens por página"
+              style={{ padding: '2px 6px', fontSize: '0.78rem' }}
+              aria-label="Itens por página"
             >
-              <option value={12}>12 por página</option>
-              <option value={24}>24 por página</option>
-              <option value={48}>48 por página</option>
+              <option value={12}>12</option>
+              <option value={24}>24</option>
+              <option value={48}>48</option>
             </select>
-          </div>
-
-          <div className="toolbar-count">
-            {filteredProducts.length === 0 ? (
-              '0 produtos'
-            ) : (
-              <>
-                Exibindo <strong>{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</strong> de <strong>{filteredProducts.length}</strong>
-              </>
-            )}
           </div>
         </div>
       </div>
 
-      {/* Aviso Metodológico ao visualizar Alimentos Coadjuvantes */}
-      {selectedCategory === 'ALIMENTO_COADJUVANTE' && (
-        <div
-          style={{
-            backgroundColor: '#eff6ff',
-            border: '1.5px solid #93c5fd',
-            borderRadius: 'var(--radius-md)',
-            padding: '16px 20px',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '12px',
-            color: '#1e3a8a',
-            fontSize: '0.88rem',
-            lineHeight: 1.5,
-          }}
-        >
-          <Stethoscope size={22} color="#2563eb" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <div>
-            <strong style={{ display: 'block', fontSize: '0.92rem', marginBottom: '3px', color: '#1d4ed8' }}>
-              Isolamento Metodológico de Alimentos Coadjuvantes (Prescrição Veterinária)
-            </strong>
-            Rações coadjuvantes (renais, urinárias, obesidade) possuem formulações terapêuticas específicas e não competem em rankings com alimentos de manutenção regular. Elas não recebem pontuação comparativa, exibindo a análise das garantias declaradas.
-          </div>
-        </div>
-      )}
-
-      {/* Aviso Regulatório ao visualizar Alimentos Complementares */}
-      {selectedCategory === 'ALIMENTO_COMPLEMENTAR' && (
-        <div
-          style={{
-            backgroundColor: '#fdf4ff',
-            border: '1.5px solid #f5d0fe',
-            borderRadius: 'var(--radius-md)',
-            padding: '16px 20px',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '12px',
-            color: '#701a75',
-            fontSize: '0.88rem',
-            lineHeight: 1.5,
-          }}
-        >
-          <Sparkles size={22} color="#a21caf" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <div>
-            <strong style={{ display: 'block', fontSize: '0.92rem', marginBottom: '3px', color: '#86198f' }}>
-              Diretriz Regulatória: Alimento Complementar (MAPA)
-            </strong>
-            Alimentos complementares (petiscos, sachês tipo sopa, caldos e toppers) não atendem sozinhos à totalidade das necessidades nutricionais diárias do pet. Por determinação normativa, não recebem pontuação comparativa de alimentos completos e devem ser servidos combinados à dieta regular.
-          </div>
-        </div>
-      )}
-
-      {/* Grid de Cards dos Produtos Analisados */}
+      {/* Grid de Produtos Limpo */}
       {paginatedProducts.length > 0 ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {paginatedProducts.map((product, index) => (
@@ -561,16 +590,12 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
             color: 'var(--text-muted)',
           }}
         >
-          <PawPrint size={40} style={{ margin: '0 auto 12px', color: 'var(--gold-600)' }} />
+          <PawPrint size={40} style={{ margin: '0 auto 12px', color: 'var(--brand-forest-600)' }} />
           <h3 style={{ fontSize: '1.1rem', color: 'var(--brand-forest-900)', marginBottom: '6px' }}>
-            {initialProducts.length === 0
-              ? 'Nenhum produto cadastrado no momento'
-              : 'Nenhum produto atende aos filtros selecionados'}
+            Nenhum alimento encontrado para os critérios selecionados
           </h3>
           <p style={{ fontSize: '0.88rem', marginBottom: hasActiveFilters ? '14px' : '0' }}>
-            {initialProducts.length === 0
-              ? 'O catálogo foi zerado e está pronto para receber os novos produtos oficiais.'
-              : 'Tente redefinir os filtros para visualizar mais alimentos avaliados.'}
+            Tente pesquisar por outro termo ou limpar os filtros para visualizar mais alimentos.
           </p>
           {hasActiveFilters && (
             <button
@@ -580,7 +605,7 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
               style={{ display: 'inline-flex', margin: '0 auto' }}
             >
               <RotateCcw size={14} />
-              <span>Redefinir filtros</span>
+              <span>Limpar filtros</span>
             </button>
           )}
         </div>
@@ -588,7 +613,7 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
 
       {/* Paginação do Catálogo */}
       {totalPages > 1 && itemsPerPage > 0 && (
-        <div className="pagination-container">
+        <div className="pagination-container" style={{ marginTop: '24px' }}>
           <div className="pagination-info">
             Página <strong>{safeCurrentPage}</strong> de <strong>{totalPages}</strong> ({filteredProducts.length} alimentos no total)
           </div>

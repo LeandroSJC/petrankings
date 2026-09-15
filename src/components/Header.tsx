@@ -10,19 +10,27 @@ import HeaderSearch from './HeaderSearch';
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentHash, setCurrentHash] = useState('');
+
+  useEffect(() => {
+    setCurrentHash(window.location.hash);
+    const onHashChange = () => setCurrentHash(window.location.hash);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   const mobileNavLinks = [
-    { href: '/', label: 'Índice Geral' },
-    { href: '/indice/caes-adultos', label: 'Cães Adultos' },
-    { href: '/indice/gatos-adultos', label: 'Gatos Adultos' },
-    { href: '/coadjuvantes', label: 'Coadjuvantes (Prescrição)', icon: Stethoscope },
+    { href: '/', label: 'Início (Comparador)' },
     { href: '/sobre', label: 'Metodologia & Pilares' },
     { href: '/fabricante', label: 'Área do Fabricante', icon: Building2 },
     { href: '/contato', label: 'Fale Conosco' },
   ];
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
+    if (href.startsWith('/#')) {
+      return pathname === '/' && currentHash === href.replace('/', '');
+    }
+    if (href === '/') return pathname === '/' && (!currentHash || currentHash === '#catalogo-produtos');
     return pathname.startsWith(href);
   };
 
@@ -79,25 +87,24 @@ export default function Header() {
         >
           <div
             style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #082115 0%, #174e35 100%)',
-              color: 'var(--gold-400)',
+              width: '38px',
+              height: '38px',
+              borderRadius: '10px',
+              backgroundColor: 'var(--brand-forest-700)',
+              color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 14px rgba(8, 33, 21, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.25)',
-              border: '1.5px solid rgba(212, 175, 55, 0.4)',
+              boxShadow: '0 2px 6px rgba(4, 120, 87, 0.22)',
             }}
           >
-            <PawPrint size={22} aria-hidden="true" fill="currentColor" strokeWidth={1.5} />
+            <PawPrint size={20} aria-hidden="true" fill="currentColor" strokeWidth={1.5} />
           </div>
           <div>
             <span
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '1.45rem',
+                fontSize: '1.35rem',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
                 letterSpacing: '-0.5px',
@@ -105,15 +112,15 @@ export default function Header() {
                 lineHeight: 1.05,
               }}
             >
-              Pet<span style={{ color: 'var(--gold-700)' }}>Rankings</span>
+              Pet<span style={{ color: 'var(--brand-forest-600)' }}>Rankings</span>
             </span>
             <span
               style={{
-                fontSize: '0.66rem',
+                fontSize: '0.64rem',
                 color: 'var(--text-muted)',
-                fontWeight: 800,
+                fontWeight: 700,
                 textTransform: 'uppercase',
-                letterSpacing: '1px',
+                letterSpacing: '0.8px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '4px',
@@ -124,40 +131,74 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Busca Ampla Desobstruída com Espaço Generoso */}
-        <div
-          style={{
-            flex: 1,
-            maxWidth: '680px',
-            minWidth: '220px',
-            margin: '0 24px',
-          }}
-        >
-          <HeaderSearch />
-        </div>
+        {/* Busca Ampla exibida apenas em páginas internas (na Home a busca é central) */}
+        {pathname !== '/' ? (
+          <div
+            style={{
+              flex: 1,
+              maxWidth: '680px',
+              minWidth: '220px',
+              margin: '0 24px',
+            }}
+          >
+            <HeaderSearch />
+          </div>
+        ) : (
+          <div style={{ flex: 1 }} />
+        )}
 
-        {/* Lado Direito: Menu de Navegação */}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        {/* Lado Direito: Navegação Desktop + Gatilho Mobile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Menu Desktop Visível e Limpo */}
+          <nav
+            aria-label="Navegação Principal"
+            className="desktop-nav"
+            style={{
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
+            {[
+              { href: '/', label: 'Início' },
+              { href: '/sobre', label: 'Metodologia' },
+              { href: '/fabricante', label: 'Fabricantes' },
+              { href: '/contato', label: 'Fale Conosco' },
+            ].map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={`desktop-nav-link ${active ? 'active' : ''}`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Botão Hambúrguer para Telas Menores */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation-drawer"
+            className="mobile-menu-btn"
             style={{
-              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '42px',
-              height: '42px',
-              borderRadius: '10px',
+              width: '40px',
+              height: '40px',
+              borderRadius: 'var(--radius-sm)',
               color: 'var(--brand-forest-900)',
-              backgroundColor: 'var(--bg-cream-subtle)',
-              border: '1.5px solid var(--border-cream)',
+              backgroundColor: 'var(--bg-muted)',
+              border: '1px solid var(--border-cream)',
               transition: 'var(--transition-fast)',
               cursor: 'pointer',
             }}
           >
-            {mobileMenuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            {mobileMenuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
           </button>
         </div>
       </div>
@@ -213,13 +254,13 @@ export default function Header() {
                     aria-current={active ? 'page' : undefined}
                     style={{
                       fontSize: '0.98rem',
-                      fontWeight: active ? 800 : 600,
-                      color: active ? 'var(--brand-forest-900)' : 'var(--text-main)',
-                      backgroundColor: active ? 'var(--bg-cream-subtle)' : '#ffffff',
+                      fontWeight: active ? 700 : 600,
+                      color: active ? 'var(--brand-forest-700)' : 'var(--text-main)',
+                      backgroundColor: active ? 'var(--brand-forest-50)' : '#ffffff',
                       padding: '12px 16px',
                       borderRadius: 'var(--radius-sm)',
-                      border: active ? '1px solid var(--border-cream)' : '1px solid #f1ece1',
-                      borderLeft: active ? '4px solid var(--gold-600)' : '4px solid transparent',
+                      border: active ? '1px solid var(--brand-forest-200)' : '1px solid var(--border-cream)',
+                      borderLeft: active ? '4px solid var(--brand-forest-600)' : '4px solid transparent',
                       transition: 'var(--transition-fast)',
                       display: 'flex',
                       alignItems: 'center',
@@ -232,10 +273,10 @@ export default function Header() {
                       <span
                         style={{
                           fontSize: '0.72rem',
-                          fontWeight: 800,
+                          fontWeight: 700,
                           textTransform: 'uppercase',
-                          color: 'var(--gold-800)',
-                          backgroundColor: 'var(--gold-100)',
+                          color: 'var(--brand-forest-700)',
+                          backgroundColor: 'var(--brand-forest-100)',
                           padding: '3px 8px',
                           borderRadius: '6px',
                         }}
@@ -251,7 +292,7 @@ export default function Header() {
             <div
               style={{
                 padding: '14px 16px',
-                backgroundColor: 'var(--bg-cream-subtle)',
+                backgroundColor: 'var(--bg-subtle)',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--border-cream)',
                 display: 'flex',
@@ -259,7 +300,7 @@ export default function Header() {
                 gap: '12px',
               }}
             >
-              <ShieldCheck size={22} color="var(--gold-700)" aria-hidden="true" />
+              <ShieldCheck size={20} color="var(--brand-forest-600)" aria-hidden="true" />
               <span style={{ fontSize: '0.82rem', color: 'var(--text-body)', lineHeight: 1.4 }}>
                 Índice 100% determinístico baseado nas informações oficiais dos fabricantes e no Manual ABINPET 11ª Edição.
               </span>
