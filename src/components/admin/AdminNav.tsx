@@ -10,7 +10,6 @@ import {
   MessageSquare,
   LogOut,
   ExternalLink,
-  ShieldCheck,
   Lock,
   PawPrint,
 } from 'lucide-react';

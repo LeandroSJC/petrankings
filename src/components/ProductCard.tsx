@@ -4,15 +4,14 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  ShieldCheck,
-  ShoppingCart,
   Leaf,
-  FlaskConical,
-  CheckCircle2,
   Stethoscope,
   Camera,
-  ArrowRight,
+  FlaskConical,
+  CheckCircle2,
   Sparkles,
+  ArrowRight,
+  ShoppingCart,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';

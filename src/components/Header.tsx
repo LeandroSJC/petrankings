@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ShieldCheck, PawPrint, FileSpreadsheet, Building2, Stethoscope } from 'lucide-react';
+import { Menu, X, PawPrint, Building2, ShieldCheck } from 'lucide-react';
 
 import HeaderSearch from './HeaderSearch';
 

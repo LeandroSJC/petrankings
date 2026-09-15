@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { PawPrint, ShieldAlert, FileText, Building2, CheckCircle2, MessageSquare, ShieldCheck } from 'lucide-react';
+import { PawPrint, CheckCircle2, FileText, MessageSquare, ShieldCheck, Building2, ShieldAlert } from 'lucide-react';
 
 export default function Footer() {
   return (

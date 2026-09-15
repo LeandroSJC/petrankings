@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, X, Loader2, ShieldCheck, Stethoscope, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { Search, X, Loader2, ShieldCheck, Stethoscope, ArrowRight } from 'lucide-react';
 import { formatarTermo } from '@/lib/formatters';
 
 interface SearchProductItem {

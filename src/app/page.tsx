@@ -2,16 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  PawPrint,
   ShieldCheck,
   CheckCircle2,
-  AlertTriangle,
   Building2,
   FileCheck2,
-  FileText,
   HelpCircle,
-  Stethoscope,
-  ArrowRight,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import HomeAuditView, { ProductItemData } from '@/components/HomeAuditView';
