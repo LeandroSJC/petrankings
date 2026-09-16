@@ -35,9 +35,6 @@ const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-7D421FSV
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  alternates: {
-    canonical: '/',
-  },
   title: {
     default: 'PetRankings — O Guia Amigo para Escolher o Melhor para o seu Pet',
     template: '%s | PetRankings',

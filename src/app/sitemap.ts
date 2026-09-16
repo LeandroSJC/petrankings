@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 1. Páginas estáticas e categorias oficiais
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: `${siteUrl}`,
+      url: `${siteUrl}/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
