@@ -24,6 +24,10 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()',
   },
+  {
+    key: 'Link',
+    value: '</llms.txt>; rel="describedby"',
+  },
 ];
 
 const nextConfig = {
