@@ -140,6 +140,50 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
     isPublished: initialProduct?.isPublished ?? true,
   });
 
+  // Estado de verificação de duplicidade no catálogo
+  const [duplicateCheck, setDuplicateCheck] = useState<{
+    checking: boolean;
+    exactMatch: any | null;
+    similar: any[];
+  }>({
+    checking: false,
+    exactMatch: null,
+    similar: [],
+  });
+  const [forceDuplicate, setForceDuplicate] = useState(false);
+
+  // Debounce na consulta de produtos duplicados ao digitar o nome comercial
+  useEffect(() => {
+    const query = formData.commercialName?.trim() || '';
+    if (query.length < 3) {
+      setDuplicateCheck({ checking: false, exactMatch: null, similar: [] });
+      return;
+    }
+
+    setDuplicateCheck((prev) => ({ ...prev, checking: true }));
+
+    const timer = setTimeout(async () => {
+      try {
+        const excludeParam = isEdit && initialProduct?.id ? `&excludeId=${encodeURIComponent(initialProduct.id)}` : '';
+        const res = await fetch(`/api/products/check-duplicate?name=${encodeURIComponent(query)}${excludeParam}`);
+        if (res.ok) {
+          const data = await res.json();
+          setDuplicateCheck({
+            checking: false,
+            exactMatch: data.exactMatch || null,
+            similar: data.similar || [],
+          });
+        } else {
+          setDuplicateCheck((prev) => ({ ...prev, checking: false }));
+        }
+      } catch {
+        setDuplicateCheck((prev) => ({ ...prev, checking: false }));
+      }
+    }, 450);
+
+    return () => clearTimeout(timer);
+  }, [formData.commercialName, isEdit, initialProduct?.id]);
+
   // Guardião beforeunload contra perda de dados acidental
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -254,6 +298,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
       const payload = {
         ...formData,
         id: productId,
+        forceDuplicate,
         affiliateLinks: affiliateLinks
           .map((l) => ({ store: l.store.trim(), productUrl: l.productUrl.trim() }))
           .filter((l) => l.store && l.productUrl),
@@ -266,6 +311,16 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
       });
 
       const data = await res.json();
+
+      if (res.status === 409) {
+        if (data.duplicateProduct) {
+          setDuplicateCheck((prev) => ({
+            ...prev,
+            exactMatch: data.duplicateProduct,
+          }));
+        }
+        throw new Error(data.error || 'Este produto já consta cadastrado no catálogo.');
+      }
 
       if (!res.ok) {
         throw new Error(data.error || 'Falha ao salvar produto.');
@@ -432,8 +487,140 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                   value={formData.commercialName}
                   onChange={(e) => handleChange('commercialName', e.target.value)}
                   placeholder="Ex: Ração Super Premium Cães Adultos Frango e Arroz"
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)' }}
+                  style={{
+                    width: '100%',
+                    padding: '9px 12px',
+                    borderRadius: '4px',
+                    border: duplicateCheck.exactMatch ? '2px solid #ef4444' : '1.5px solid var(--border-cream)',
+                    backgroundColor: duplicateCheck.exactMatch ? '#fff5f5' : '#ffffff',
+                    transition: 'border-color 0.2s, background-color 0.2s',
+                  }}
                 />
+
+                {/* Status de verificação em tempo real */}
+                {duplicateCheck.checking && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '6px' }}>
+                    <Loader2 size={13} className="animate-spin" />
+                    <span>Consultando catálogo de produtos cadastrados...</span>
+                  </div>
+                )}
+
+                {/* Alerta de Duplicata Exata Encontrada */}
+                {!duplicateCheck.checking && duplicateCheck.exactMatch && (
+                  <div
+                    style={{
+                      marginTop: '10px',
+                      padding: '14px 16px',
+                      borderRadius: 'var(--radius-sm)',
+                      backgroundColor: '#fef2f2',
+                      border: '1.5px solid #f87171',
+                      boxShadow: 'var(--shadow-xs)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                      <AlertTriangle size={20} color="#dc2626" style={{ flexShrink: 0, marginTop: '2px' }} />
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: 800, color: '#991b1b', fontSize: '0.90rem', marginBottom: '4px' }}>
+                          Atenção: Produto já cadastrado no sistema!
+                        </div>
+                        <p style={{ margin: 0, fontSize: '0.82rem', color: '#7f1d1d', lineHeight: 1.45 }}>
+                          Já existe um produto registrado com este nome ou identificador ({duplicateCheck.exactMatch.brand} — {duplicateCheck.exactMatch.commercialName}).
+                        </p>
+                        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                          <a
+                            href={`/admin/produtos/${duplicateCheck.exactMatch.id}/editar`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              padding: '6px 14px',
+                              borderRadius: 'var(--radius-xs)',
+                              backgroundColor: '#dc2626',
+                              color: '#ffffff',
+                              fontSize: '0.80rem',
+                              fontWeight: 700,
+                              textDecoration: 'none',
+                              boxShadow: 'var(--shadow-xs)',
+                            }}
+                          >
+                            <ExternalLink size={14} />
+                            <span>Abrir Produto Existente para Editar</span>
+                          </a>
+                          {!isEdit && (
+                            <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.80rem', color: '#991b1b', cursor: 'pointer', fontWeight: 600 }}>
+                              <input
+                                type="checkbox"
+                                checked={forceDuplicate}
+                                onChange={(e) => setForceDuplicate(e.target.checked)}
+                                style={{ cursor: 'pointer' }}
+                              />
+                              <span>Cadastrar como nova variação ou lote homônimo mesmo assim</span>
+                            </label>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Produtos com nomes semelhantes */}
+                {!duplicateCheck.checking && !duplicateCheck.exactMatch && duplicateCheck.similar.length > 0 && (
+                  <div
+                    style={{
+                      marginTop: '10px',
+                      padding: '12px 14px',
+                      borderRadius: 'var(--radius-sm)',
+                      backgroundColor: 'var(--bg-subtle)',
+                      border: '1px solid var(--border-cream)',
+                      boxShadow: 'var(--shadow-xs)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.80rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
+                      <Eye size={14} color="var(--brand-forest-700)" />
+                      <span>Produtos com nome semelhante já cadastrados no catálogo:</span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      {duplicateCheck.similar.map((sim: any) => (
+                        <div
+                          key={sim.id}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            fontSize: '0.78rem',
+                            padding: '6px 10px',
+                            borderRadius: '4px',
+                            backgroundColor: '#ffffff',
+                            border: '1px solid var(--border-cream-light)',
+                          }}
+                        >
+                          <span style={{ color: 'var(--text-body)' }}>
+                            <strong style={{ color: 'var(--brand-forest-900)' }}>{sim.brand}</strong> — {sim.commercialName}
+                          </span>
+                          <a
+                            href={`/admin/produtos/${sim.id}/editar`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: 'var(--brand-forest-700)',
+                              textDecoration: 'none',
+                              fontWeight: 700,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '3px',
+                              marginLeft: '8px',
+                            }}
+                          >
+                            <span>Conferir</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div>

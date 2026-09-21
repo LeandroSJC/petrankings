@@ -95,8 +95,33 @@ export async function POST(req: NextRequest) {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
 
-    const existingSlug = await prisma.product.findUnique({ where: { slug } });
-    if (existingSlug) {
+    // Verificar se já existe produto cadastrado com este slug ou nome comercial
+    const existingProduct = await prisma.product.findFirst({
+      where: {
+        OR: [
+          { slug },
+          { commercialName: { equals: body.commercialName.trim(), mode: 'insensitive' } },
+        ],
+      },
+      select: {
+        id: true,
+        commercialName: true,
+        brand: true,
+        slug: true,
+      },
+    });
+
+    if (existingProduct && !body.forceDuplicate) {
+      return NextResponse.json(
+        {
+          error: `Já existe um produto cadastrado com este nome comercial ou slug: "${existingProduct.commercialName}".`,
+          duplicateProduct: existingProduct,
+        },
+        { status: 409 }
+      );
+    }
+
+    if (existingProduct && body.forceDuplicate) {
       slug = `${slug}-${Date.now().toString().slice(-4)}`;
     }
 

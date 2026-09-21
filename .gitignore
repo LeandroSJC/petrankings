@@ -46,3 +46,7 @@ Thumbs.db
 # TypeScript Cache
 *.tsbuildinfo
 next-env.d.ts
+
+# Arquivos Temporários de Entrada / Importação
+produtos_cadastro/
+
