@@ -1350,5 +1350,91 @@ h1, h2, h3, h4, .font-serif, .font-heading {
   }
 }
 
+/* ==========================================================================
+   FOLHA DE ESTILO OFICIAL DE IMPRESSÃO / GERAÇÃO DE PDF (A4 LAUDO TÉCNICO)
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
 
+  *, *:before, *:after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
 
+  /* Oculta elementos estritamente interativos, anúncios e navegação de tela */
+  header,
+  footer,
+  nav,
+  .site-header,
+  .site-footer,
+  .no-print,
+  button,
+  #onde-comprar,
+  .omni-search-section,
+  .editorial-search-bar {
+    display: none !important;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10pt !important;
+    line-height: 1.45 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Previne sobreposição de elementos com position sticky ou fixed */
+  header, div, main, section, article {
+    position: static !important;
+  }
+
+  /* Garante que nenhum texto ou ingrediente seja truncado */
+  div, p, span, ul, li {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  /* Cards e seções com quebra controlada para não dividir no meio */
+  section,
+  article,
+  .editorial-card,
+  table,
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Tabelas nítidas com bordas visíveis na impressão */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 8px !important;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 5px 8px !important;
+    font-size: 8.5pt !important;
+  }
+
+  /* Links limpos sem azul de tela */
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+}
