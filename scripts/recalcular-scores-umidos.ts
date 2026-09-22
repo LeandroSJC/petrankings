@@ -11,6 +11,7 @@ async function main() {
       id: true,
       slug: true,
       commercialName: true,
+      brand: true,
       legalCategory: true,
       species: true,
       lifeStage: true,
@@ -25,6 +26,7 @@ async function main() {
       phosphorusMinPct: true,
       sodiumMinPct: true,
       omega3MinPct: true,
+      containsGmo: true,
       antioxidantType: true,
       meatClaimType: true,
       topIngredients: true,
@@ -41,12 +43,13 @@ async function main() {
 
   for (const p of umidos) {
     const isCoadjuvante = p.legalCategory === 'ALIMENTO_COADJUVANTE' || /nutri[çc][ãa]o cl[íi]nica/i.test(p.commercialName);
-    
-    // Alimentos Complementares (Toppers de 70g em caldo de filé desfiado sem premix mineral completo)
+
+    // Alimentos Complementares (Toppers em caldo de filé nobre sem premix mineral completo de cálcio/fósforo)
     const isComplementar =
-      /premier gourmet/i.test(p.commercialName) ||
-      (/nattu.*úmido|nattu.*umido/i.test(p.commercialName)) ||
-      (/org[âa]nico.*gato/i.test(p.commercialName) && p.calciumMinPct < 0.05);
+      /premier.*gourmet/i.test(p.commercialName) ||
+      (/nattu.*[úu]mido/i.test(p.commercialName) && (p.calciumMinPct || 0) <= 0.05) ||
+      (/org[âa]nico/i.test(p.commercialName) && (p.calciumMinPct || 0) <= 0.05) ||
+      ((p.calciumMinPct || 0) <= 0.05 && (p.phosphorusMinPct || 0) <= 0.08);
 
     if (isCoadjuvante) {
       console.log(`ℹ️ [COADJUVANTE] ${p.commercialName} — Mantido sem score competitivo.`);
@@ -55,6 +58,13 @@ async function main() {
     }
 
     if (isComplementar) {
+      const tierLabel = /golden/i.test(p.commercialName) ? 'Premium Especial' : 'Super Premium';
+      const faseLabel = p.lifeStage === 'CRESCIMENTO_INICIAL' ? 'filhotes' : (p.lifeStage === 'SENIOR' ? 'sênior' : 'adultos');
+      const gmoStr = p.containsGmo ? 'com ingredientes transgênicos' : 'livre de transgênicos';
+      const conservStr = p.antioxidantType === 'NATURAL' ? 'conservantes 100% naturais' : 'antioxidantes sintéticos';
+
+      const opinion = `Alimento úmido complementar ${tierLabel} para ${p.species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), à base de filés nobres em caldo com ${p.crudeProteinMinPct}% de proteína bruta, ${conservStr} e ${gmoStr}. Formulado sem premix mineral completo, destinado à hidratação suplementar e agrado, devendo ser oferecido em combinação com alimento completo habitual.`;
+
       // Reclassifica para ALIMENTO_COMPLEMENTAR
       await prisma.product.update({
         where: { id: p.id },
@@ -62,6 +72,7 @@ async function main() {
           legalCategory: 'ALIMENTO_COMPLEMENTAR',
           classificationTier: 'COMPLEMENTAR',
           scoreTotal: null,
+          editorialOpinion: opinion,
           scoreBreakdown: [
             {
               pilar: 'Classificação Legal MAPA',

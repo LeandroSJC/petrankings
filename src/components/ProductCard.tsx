@@ -97,6 +97,7 @@ export default function ProductCard({
   const relacaoCaP = (product.calciumMinPct / (product.phosphorusMinPct || 0.01)).toFixed(2);
 
   const isWet = product.foodType === 'UMIDO';
+  const isSnack = /cookie|biscoito|snack|petisco|bites/i.test(product.commercialName) || /cookie|biscoito|snack|petisco|bites/i.test(product.slug);
   const hasAffiliates = product.affiliateLinks && product.affiliateLinks.length > 0;
 
   return (
@@ -110,12 +111,12 @@ export default function ProductCard({
           <span
             className="editorial-card-format-tag"
             style={{
-              backgroundColor: isWet ? '#e0f2fe' : 'rgba(255, 255, 255, 0.92)',
-              color: isWet ? '#0369a1' : 'var(--brand-forest-900)',
-              border: isWet ? '1px solid #bae6fd' : '1px solid var(--border-cream)',
+              backgroundColor: isWet ? '#e0f2fe' : isSnack ? '#fef3c7' : 'rgba(255, 255, 255, 0.92)',
+              color: isWet ? '#0369a1' : isSnack ? '#92400e' : 'var(--brand-forest-900)',
+              border: isWet ? '1px solid #bae6fd' : isSnack ? '1px solid #fde68a' : '1px solid var(--border-cream)',
             }}
           >
-            {isWet ? '🥫 Sachê / Patê' : '🥣 Ração Seca'}
+            {isWet ? '🥫 Sachê / Patê' : isSnack ? '🍪 Cookie / Petisco' : '🥣 Ração Seca'}
           </span>
 
           {product.frontLabelImageUrl ? (

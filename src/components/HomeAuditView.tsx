@@ -96,26 +96,133 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
     [initialProducts]
   );
 
-  // Sincronização suave de hash (#caes, #gatos, #prescricao)
+  const [isRestored, setIsRestored] = useState<boolean>(false);
+
+  // 1. Restaurar filtros e paginação da URL ou do sessionStorage ao carregar
   useEffect(() => {
-    const syncFromHash = () => {
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
       const hash = window.location.hash.toLowerCase();
-      if (hash === '#caes') setActiveSegment('caes');
-      else if (hash === '#gatos') setActiveSegment('gatos');
-      else if (hash === '#prescricao') setActiveSegment('prescricao');
+
+      let saved: any = null;
+      const rawSaved = sessionStorage.getItem('petrankings_catalog_filters');
+      if (rawSaved) {
+        try {
+          saved = JSON.parse(rawSaved);
+        } catch {}
+      }
+
+      // Segmento: URL param > Hash > sessionStorage
+      const segParam = searchParams.get('aba') || (hash ? hash.replace('#', '') : null) || saved?.segment;
+      if (segParam === 'caes' || segParam === 'gatos' || segParam === 'prescricao') {
+        setActiveSegment(segParam);
+      }
+
+      // Busca
+      const qParam = searchParams.get('busca') ?? saved?.searchQuery;
+      if (qParam !== undefined && qParam !== null) {
+        setSearchQuery(qParam);
+      }
+
+      // Chips de Filtro
+      const faseParam = searchParams.get('fase') ?? saved?.selectedLifeStage;
+      if (faseParam) setSelectedLifeStage(faseParam);
+
+      const formatoParam = searchParams.get('formato') ?? saved?.selectedFoodType;
+      if (formatoParam) setSelectedFoodType(formatoParam);
+
+      const faixaParam = searchParams.get('faixa') ?? saved?.selectedTier;
+      if (faixaParam) setSelectedTier(faixaParam);
+
+      const condParam = searchParams.get('condicao') ?? saved?.selectedPrescriptionCondition;
+      if (condParam) setSelectedPrescriptionCondition(condParam);
+
+      const espPrescParam = searchParams.get('esp_presc') ?? saved?.selectedPrescriptionSpecies;
+      if (espPrescParam === 'TODOS' || espPrescParam === 'CAO' || espPrescParam === 'GATO') {
+        setSelectedPrescriptionSpecies(espPrescParam);
+      }
+
+      const natParam = searchParams.get('nat') !== null ? searchParams.get('nat') === '1' : saved?.onlyNaturalAntioxidants;
+      if (natParam !== undefined) setOnlyNaturalAntioxidants(Boolean(natParam));
+
+      const gmoParam = searchParams.get('gmo_free') !== null ? searchParams.get('gmo_free') === '1' : saved?.onlyGmoFree;
+      if (gmoParam !== undefined) setOnlyGmoFree(Boolean(gmoParam));
+
+      // Quantidade de itens por página
+      const itensParam = searchParams.get('itens') ? Number(searchParams.get('itens')) : saved?.itemsPerPage;
+      if (itensParam && [12, 24, 48].includes(Number(itensParam))) {
+        setItemsPerPage(Number(itensParam));
+      }
+
+      // Página atual
+      const pParam = searchParams.get('p') ? Number(searchParams.get('p')) : saved?.currentPage;
+      if (pParam && Number(pParam) >= 1) {
+        setCurrentPage(Number(pParam));
+      }
+    } catch (e) {
+      console.error('Erro ao restaurar filtros salvos:', e);
+    } finally {
+      setIsRestored(true);
+    }
+  }, []);
+
+  // 2. Persistir filtros e paginação no sessionStorage e na URL sempre que houver alteração
+  useEffect(() => {
+    if (!isRestored || typeof window === 'undefined') return;
+
+    const stateToSave = {
+      segment: activeSegment,
+      searchQuery,
+      selectedLifeStage,
+      selectedFoodType,
+      selectedTier,
+      selectedPrescriptionCondition,
+      selectedPrescriptionSpecies,
+      onlyNaturalAntioxidants,
+      onlyGmoFree,
+      itemsPerPage,
+      currentPage,
     };
 
-    syncFromHash();
-    window.addEventListener('hashchange', syncFromHash);
-    return () => window.removeEventListener('hashchange', syncFromHash);
-  }, []);
+    try {
+      sessionStorage.setItem('petrankings_catalog_filters', JSON.stringify(stateToSave));
+    } catch {}
+
+    // Sincronizar parâmetros na URL sem recarregar a página
+    const params = new URLSearchParams();
+    if (activeSegment !== 'caes') params.set('aba', activeSegment);
+    if (searchQuery.trim()) params.set('busca', searchQuery.trim());
+    if (selectedLifeStage !== 'TODOS') params.set('fase', selectedLifeStage);
+    if (selectedFoodType !== 'TODOS') params.set('formato', selectedFoodType);
+    if (selectedTier !== 'TODOS') params.set('faixa', selectedTier);
+    if (selectedPrescriptionCondition !== 'TODOS') params.set('condicao', selectedPrescriptionCondition);
+    if (selectedPrescriptionSpecies !== 'TODOS') params.set('esp_presc', selectedPrescriptionSpecies);
+    if (onlyNaturalAntioxidants) params.set('nat', '1');
+    if (onlyGmoFree) params.set('gmo_free', '1');
+    if (itemsPerPage !== 12) params.set('itens', String(itemsPerPage));
+    if (currentPage > 1) params.set('p', String(currentPage));
+
+    const qs = params.toString();
+    const newUrl = qs ? `?${qs}#${activeSegment}` : `#${activeSegment}`;
+    window.history.replaceState(null, '', newUrl);
+  }, [
+    isRestored,
+    activeSegment,
+    searchQuery,
+    selectedLifeStage,
+    selectedFoodType,
+    selectedTier,
+    selectedPrescriptionCondition,
+    selectedPrescriptionSpecies,
+    onlyNaturalAntioxidants,
+    onlyGmoFree,
+    itemsPerPage,
+    currentPage,
+  ]);
 
   const handleSegmentChange = (seg: SegmentType) => {
     setActiveSegment(seg);
     setCurrentPage(1);
-    if (typeof window !== 'undefined') {
-      window.history.replaceState(null, '', `#${seg}`);
-    }
   };
 
   // Verificação de filtros ativos
@@ -139,6 +246,12 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
     setOnlyNaturalAntioxidants(false);
     setOnlyGmoFree(false);
     setCurrentPage(1);
+    try {
+      sessionStorage.removeItem('petrankings_catalog_filters');
+    } catch {}
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `#${activeSegment}`);
+    }
   };
 
   // Filtragem dos produtos

@@ -40,8 +40,8 @@ const MAPA_TERMOS: Record<string, string> = {
   // Categorias Legais MAPA
   ALIMENTO_COMPLETO: 'Alimento Completo',
   ALIMENTO_COADJUVANTE: 'Alimento Coadjuvante (Prescrição)',
-  ALIMENTO_COMPLEMENTAR: 'Alimento Complementar (Topper / Petisco)',
-  COMPLEMENTAR: 'Alimento Complementar (Topper / Petisco)',
+  ALIMENTO_COMPLEMENTAR: 'Alimento Complementar / Específico',
+  COMPLEMENTAR: 'Alimento Complementar / Específico',
 
   // Condições Coadjuvantes
   RENAL: 'Coadjuvante Renal',
@@ -103,7 +103,7 @@ export function formatarTermo(valor: string | null | undefined): string {
 export function getFaixaVisual(faixa: string | null | undefined, isCoadjuvante = false, isComplementar = false) {
   if (isComplementar || (faixa || '').toUpperCase() === 'COMPLEMENTAR') {
     return {
-      label: 'Alimento Complementar (Topper / Petisco)',
+      label: 'Alimento Complementar / Específico',
       shortLabel: 'Complementar',
       badgeClass: 'badge-tier badge-complementar',
       color: '#701a75',

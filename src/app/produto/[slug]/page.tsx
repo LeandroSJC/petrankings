@@ -24,6 +24,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
+import BackButton from '@/components/BackButton';
 import prisma from '@/lib/prisma';
 import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard } from '@/lib/audit-engine';
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
@@ -119,6 +120,8 @@ export default async function ProductDetailPage({
 
   const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
   const isComplementar = product.legalCategory === 'ALIMENTO_COMPLEMENTAR';
+  const isSnack = /cookie|biscoito|snack|petisco|bites/i.test(product.commercialName) || /cookie|biscoito|snack|petisco|bites/i.test(product.slug);
+  const isWet = product.foodType === 'UMIDO';
 
   const tier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
   const isFilhote = product.lifeStage === 'CRESCIMENTO_INICIAL' || product.lifeStage === 'CRESCIMENTO_FINAL' || product.lifeStage === 'FILHOTE';
@@ -169,21 +172,7 @@ export default async function ProductDetailPage({
         <div className="container" style={{ paddingTop: '32px' }}>
           {/* Breadcrumb */}
           <div style={{ marginBottom: '20px' }}>
-            <Link
-              href="/"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: '0.85rem',
-                color: 'var(--brand-forest-700)',
-                fontWeight: 700,
-                textDecoration: 'none',
-              }}
-            >
-              <ArrowLeft size={16} />
-              <span>Voltar ao Índice Geral</span>
-            </Link>
+            <BackButton label="Voltar ao Índice Geral" />
           </div>
 
           {/* CABEÇALHO DO LAUDO AUDITADO */}
@@ -247,7 +236,7 @@ export default async function ProductDetailPage({
                         border: '1px solid var(--border-cream-light)',
                       }}
                     >
-                      Espécie: {formatarTermo(product.species)} • Fase: {formatarTermo(product.lifeStage)}{product.breedSize && ` • ${formatarTermo(product.breedSize)}`} • Formato: {formatarTermo(product.foodType)}
+                      Espécie: {formatarTermo(product.species)} • Fase: {formatarTermo(product.lifeStage)}{product.breedSize && ` • ${formatarTermo(product.breedSize)}`} • Formato: {isSnack ? 'Biscoito / Snack' : formatarTermo(product.foodType)}
                     </span>
                   </div>
 
@@ -546,9 +535,25 @@ export default async function ProductDetailPage({
               ) : isComplementar ? (
                 <div style={{ fontSize: '0.85rem', color: '#701a75', backgroundColor: '#fdf4ff', padding: '18px', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #c026d3', lineHeight: 1.6 }}>
                   <strong style={{ display: 'block', fontSize: '0.92rem', marginBottom: '6px' }}>
-                    Alimento Complementar / Específico (Topper / Petisco):
+                    {isSnack
+                      ? 'Alimento Específico / Complementar (Cookie / Petisco):'
+                      : isWet
+                      ? 'Alimento Úmido Complementar (Sachê / Topper de Hidratação):'
+                      : 'Alimento Específico / Complementar:'}
                   </strong>
-                  Este produto é classificado pelo MAPA como <em>complemento alimentar para hidratação e agrado</em> à base de filés nobres em caldo, formulado sem premix mineral completo. Deve ser oferecido associado a um alimento completo. Em consonância com a regulação zootécnica, <strong>não possui nota comparativa de ração completa diária</strong>.
+                  {isSnack ? (
+                    <>
+                      Este produto é classificado pelo MAPA (IN nº 30/2009 e Decreto nº 12.031/2024) como <em>alimento específico / complementar para agrado, recompensa e treino</em>. Formulado sem premix vitamínico-mineral completo de uso exclusivo, deve ser oferecido de forma moderada associado à ração diária completa e balanceada. Em consonância com as normas zootécnicas oficiais, <strong>não possui pontuação comparativa de ração completa diária</strong>.
+                    </>
+                  ) : isWet ? (
+                    <>
+                      Este produto é classificado pelo MAPA (IN nº 30/2009 e Decreto nº 12.031/2024) como <em>alimento complementar para hidratação e enriquecimento sensorial</em>, formulado sem suplementação mineral completa para uso exclusivo. Deve ser oferecido em combinação com o alimento diário balanceado do pet. Em consonância com a regulação zootécnica oficial, <strong>não possui nota comparativa de ração completa diária</strong>.
+                    </>
+                  ) : (
+                    <>
+                      Este produto é classificado pelo MAPA (IN nº 30/2009 e Decreto nº 12.031/2024) como <em>alimento complementar</em>, formulado sem suplementação vitamínico-mineral completa de uso exclusivo, devendo ser oferecido associado a um alimento completo e balanceado. Em consonância com a regulação zootécnica oficial, <strong>não possui nota comparativa de ração completa diária</strong>.
+                    </>
+                  )}
                 </div>
               ) : (
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', padding: '20px 0' }}>

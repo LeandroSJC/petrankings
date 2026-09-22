@@ -39,6 +39,9 @@
    - Toda e qualquer informação cadastrada no sistema (níveis de garantia, ingredientes na ordem decrescente, conservantes, transgênicos e notas) deve seguir estrita e fielmente o conteúdo do **PDF da ficha técnica oficial do produto**.
    - É terminantemente proibido inventar, simular, deduzir ou estimar dados não verificáveis.
    - Se algo não for possível de ser verificado na documentação oficial com certeza probatória, a impossibilidade deve ser informada ao usuário/curador e o dado **não deve ser inventado**, permanecendo nulo ou não declarado.
+7. **Biblioteca Regulatória e Marco Normativo Oficial (`biblioteca_regulatoria/`):**
+   - A pasta `biblioteca_regulatoria/` é o repositório mestre de consulta obrigatória para qualquer questão relativa a limites nutricionais (Manual Pet Food Brasil - ABINPET 11ª Edição), atos regulatórios do MAPA (Decreto nº 12.031/2024, IN 30/2009, IN 22/2009), legislação de rotulagem e normas de defesa do consumidor (CDC - Lei nº 8.078/1990).
+   - Quaisquer novas regras, faixas de nutrientes ou parâmetros do motor de auditoria devem obrigatoriamente estar fundamentados nos documentos e legislações arquivados nesta biblioteca.
 
 ---
 
