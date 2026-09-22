@@ -7,8 +7,17 @@ import {
   verifyGateToken,
 } from './gate';
 
+const isProduction = process.env.NODE_ENV === 'production';
+const rawJwtSecret = process.env.JWT_SECRET?.trim();
+
+if (isProduction && (!rawJwtSecret || rawJwtSecret.length < 32)) {
+  throw new Error(
+    'CRITICAL SECURITY ERROR: JWT_SECRET não configurado ou menor que 32 caracteres no ambiente de produção.'
+  );
+}
+
 const SECRET_KEY = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'petrankings_editorial_jwt_secret_token_2026_super_secure'
+  rawJwtSecret || 'petrankings_editorial_jwt_secret_token_2026_super_secure'
 );
 
 const TOKEN_COOKIE_NAME = 'petrankings_admin_token';

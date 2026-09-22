@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { searchRateLimiter, getClientIp } from '@/lib/rate-limit';
 
 export async function GET(req: NextRequest) {
   try {
+    const clientIp = getClientIp(req);
+    const ipCheck = searchRateLimiter.limit(clientIp);
+    if (!ipCheck.success) {
+      return NextResponse.json(
+        { error: 'Muitas buscas consecutivas. Por favor, aguarde alguns instantes.' },
+        { status: 429 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
-    const query = searchParams.get('q')?.trim();
+    const rawQuery = searchParams.get('q')?.trim() || '';
+    const query = rawQuery.slice(0, 100);
 
     if (!query || query.length < 2) {
       return NextResponse.json({ products: [], categories: [] });

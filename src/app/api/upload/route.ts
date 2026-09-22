@@ -20,6 +20,56 @@ const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.avif', '.pdf'];
 
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15 MB
 
+function detectFileType(buffer: Buffer): 'pdf' | 'jpeg' | 'png' | 'webp' | 'avif' | null {
+  if (buffer.length < 12) return null;
+
+  // PDF: %PDF- (0x25 0x50 0x44 0x46)
+  if (buffer[0] === 0x25 && buffer[1] === 0x50 && buffer[2] === 0x44 && buffer[3] === 0x46) {
+    return 'pdf';
+  }
+
+  // JPEG: FF D8 FF
+  if (buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) {
+    return 'jpeg';
+  }
+
+  // PNG: 89 50 4E 47 0D 0A 1A 0A
+  if (
+    buffer[0] === 0x89 &&
+    buffer[1] === 0x50 &&
+    buffer[2] === 0x4e &&
+    buffer[3] === 0x47 &&
+    buffer[4] === 0x0d &&
+    buffer[5] === 0x0a &&
+    buffer[6] === 0x1a &&
+    buffer[7] === 0x0a
+  ) {
+    return 'png';
+  }
+
+  // WebP: RIFF (bytes 0-3) + WEBP (bytes 8-11)
+  if (
+    buffer[0] === 0x52 &&
+    buffer[1] === 0x49 &&
+    buffer[2] === 0x46 &&
+    buffer[3] === 0x46 &&
+    buffer[8] === 0x57 &&
+    buffer[9] === 0x45 &&
+    buffer[10] === 0x42 &&
+    buffer[11] === 0x50
+  ) {
+    return 'webp';
+  }
+
+  // AVIF: ftypavif ou ftypavis a partir do offset 4
+  const ftyp = buffer.subarray(4, 12).toString('ascii');
+  if (ftyp.includes('avif') || ftyp.includes('avis')) {
+    return 'avif';
+  }
+
+  return null;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getSession();
@@ -37,13 +87,10 @@ export async function POST(req: NextRequest) {
     const originalName = file.name || '';
     const ext = path.extname(originalName).toLowerCase();
 
-    // Validação ampla por extensão ou por MIME type (vital para compatibilidade Windows)
-    const isExtensionAllowed = ALLOWED_EXTENSIONS.includes(ext);
-    const isMimeAllowed = ALLOWED_MIME_TYPES.includes(file.type.toLowerCase()) || !file.type;
-
-    if (!isExtensionAllowed && !isMimeAllowed) {
+    // Validação estrita de extensão permitida
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
       return NextResponse.json(
-        { error: 'Formato inválido. Formatos aceitos: PDF, JPG, PNG, WebP e AVIF.' },
+        { error: 'Extensão de arquivo inválida. Permitidos: PDF, JPG, PNG, WebP e AVIF.' },
         { status: 400 }
       );
     }
@@ -58,12 +105,27 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
+    // Validação de Magic Bytes (assinatura binária real do arquivo)
+    const detectedType = detectFileType(buffer);
+    if (!detectedType) {
+      return NextResponse.json(
+        { error: 'Assinatura binária do arquivo inválida. O arquivo não corresponde a uma imagem ou PDF legítimo.' },
+        { status: 400 }
+      );
+    }
+
+    const extMap: Record<string, string> = {
+      pdf: '.pdf',
+      jpeg: '.jpg',
+      png: '.png',
+      webp: '.webp',
+      avif: '.avif',
+    };
+    const safeExt = extMap[detectedType];
+    const isPdf = detectedType === 'pdf';
+
     const productId = (formData.get('productId') as string)?.trim();
     const fileKind = (formData.get('fileKind') as string)?.trim();
-
-    // Determina se é PDF ou imagem
-    const isPdf = ext === '.pdf' || file.type.includes('pdf');
-    const safeExt = ext || (isPdf ? '.pdf' : '.jpg');
 
     let filename: string;
     if (productId) {

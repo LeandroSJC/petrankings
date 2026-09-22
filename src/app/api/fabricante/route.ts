@@ -1,9 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { fabricanteTicketSchema } from '@/lib/schemas/fabricante';
+import { fabricanteRateLimiter, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    // 1. Rate Limiting por IP (defesa contra inundação de tickets)
+    const clientIp = getClientIp(req);
+    const ipCheck = fabricanteRateLimiter.limit(clientIp);
+    if (!ipCheck.success) {
+      return NextResponse.json(
+        {
+          error: `Muitas solicitações enviadas a partir desta conexão. Por favor, aguarde ${ipCheck.retryAfterSeconds}s antes de enviar nova solicitação.`,
+        },
+        { status: 429 }
+      );
+    }
+
+    // 2. Validação de Schema com Zod
+    const rawBody = await req.json().catch(() => null);
+    if (!rawBody) {
+      return NextResponse.json({ error: 'Corpo da requisição inválido.' }, { status: 400 });
+    }
+
+    const parsed = fabricanteTicketSchema.safeParse(rawBody);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message || 'Dados inválidos na solicitação institucional.';
+      return NextResponse.json({ error: firstError }, { status: 400 });
+    }
+
     const {
       companyName,
       cnpj,
@@ -17,15 +42,7 @@ export async function POST(req: NextRequest) {
       message,
       documentUrl,
       productSlug,
-    } = body;
-
-    // Validações obrigatórias
-    if (!companyName || !requesterName || !requesterRole || !requesterEmail || !message) {
-      return NextResponse.json(
-        { error: 'Por favor, preencha os dados de identificação e a mensagem.' },
-        { status: 400 }
-      );
-    }
+    } = parsed.data;
 
     // Buscar produto se informado o slug
     let productId: string | undefined = undefined;

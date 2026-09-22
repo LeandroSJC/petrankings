@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
+import { productInputSchema } from '@/lib/schemas/product';
 
 export async function GET(req: NextRequest) {
   try {
@@ -56,7 +57,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    const body = await req.json();
+    const rawBody = await req.json().catch(() => null);
+    if (!rawBody) {
+      return NextResponse.json({ error: 'Corpo da requisição inválido.' }, { status: 400 });
+    }
+
+    const parsed = productInputSchema.safeParse(rawBody);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message || 'Dados do produto inválidos.';
+      return NextResponse.json({ error: firstError }, { status: 400 });
+    }
+
+    const body = parsed.data;
 
     // Se for alimento completo, calcula determinístico
     const isCoadjuvante = body.legalCategory === 'ALIMENTO_COADJUVANTE';
@@ -65,16 +77,16 @@ export async function POST(req: NextRequest) {
       body.species,
       body.lifeStage,
       {
-        umidadeMaxPct: parseFloat(body.moistureMaxPct) || 10,
-        proteinaBrutaMinPct: parseFloat(body.crudeProteinMinPct) || 0,
-        extratoEtereoMinPct: parseFloat(body.etherExtractMinPct) || 0,
-        materiaFibrosaMaxPct: parseFloat(body.crudeFiberMaxPct) || 0,
-        materiaMineralMaxPct: parseFloat(body.mineralMatterMaxPct) || 0,
-        calcioMinPct: parseFloat(body.calciumMinPct) || 0,
-        calcioMaxPct: body.calciumMaxPct ? parseFloat(body.calciumMaxPct) : null,
-        fosforoMinPct: parseFloat(body.phosphorusMinPct) || 0,
-        sodioMinPct: body.sodiumMinPct ? parseFloat(body.sodiumMinPct) : null,
-        omega3MinPct: body.omega3MinPct ? parseFloat(body.omega3MinPct) : null,
+        umidadeMaxPct: body.moistureMaxPct ?? 10,
+        proteinaBrutaMinPct: body.crudeProteinMinPct ?? 0,
+        extratoEtereoMinPct: body.etherExtractMinPct ?? 0,
+        materiaFibrosaMaxPct: body.crudeFiberMaxPct ?? 0,
+        materiaMineralMaxPct: body.mineralMatterMaxPct ?? 0,
+        calcioMinPct: body.calciumMinPct ?? 0,
+        calcioMaxPct: body.calciumMaxPct ?? null,
+        fosforoMinPct: body.phosphorusMinPct ?? 0,
+        sodioMinPct: body.sodiumMinPct ?? null,
+        omega3MinPct: body.omega3MinPct ?? null,
       },
       {
         topIngredientes: Array.isArray(body.topIngredients)
@@ -82,7 +94,7 @@ export async function POST(req: NextRequest) {
           : (body.topIngredients || '').split(',').map((s: string) => s.trim()),
         antioxidanteTipo: body.antioxidantType || 'NATURAL',
         omega3OuPrebioticosGarantidos: body.omega3OuPrebioticosGarantidos ?? true,
-        claimCarneTipo: body.meatClaimType || 'NENHUM',
+        claimCarneTipo: (body.meatClaimType as any) || 'NENHUM',
         claimCarneAdequado: body.claimCarneAdequado ?? true,
       }
     );
@@ -147,16 +159,16 @@ export async function POST(req: NextRequest) {
         backLabelImageUrl: body.backLabelImageUrl || null,
         curatorResponsible: session.name || session.email,
 
-        moistureMaxPct: parseFloat(body.moistureMaxPct) || 10,
-        crudeProteinMinPct: parseFloat(body.crudeProteinMinPct) || 0,
-        etherExtractMinPct: parseFloat(body.etherExtractMinPct) || 0,
-        crudeFiberMaxPct: parseFloat(body.crudeFiberMaxPct) || 0,
-        mineralMatterMaxPct: parseFloat(body.mineralMatterMaxPct) || 0,
-        calciumMinPct: parseFloat(body.calciumMinPct) || 0,
-        calciumMaxPct: body.calciumMaxPct ? parseFloat(body.calciumMaxPct) : null,
-        phosphorusMinPct: parseFloat(body.phosphorusMinPct) || 0,
-        sodiumMinPct: body.sodiumMinPct ? parseFloat(body.sodiumMinPct) : null,
-        omega3MinPct: body.omega3MinPct ? parseFloat(body.omega3MinPct) : null,
+        moistureMaxPct: body.moistureMaxPct ?? 10,
+        crudeProteinMinPct: body.crudeProteinMinPct ?? 0,
+        etherExtractMinPct: body.etherExtractMinPct ?? 0,
+        crudeFiberMaxPct: body.crudeFiberMaxPct ?? 0,
+        mineralMatterMaxPct: body.mineralMatterMaxPct ?? 0,
+        calciumMinPct: body.calciumMinPct ?? 0,
+        calciumMaxPct: body.calciumMaxPct ?? null,
+        phosphorusMinPct: body.phosphorusMinPct ?? 0,
+        sodiumMinPct: body.sodiumMinPct ?? null,
+        omega3MinPct: body.omega3MinPct ?? null,
 
         meatClaimType: body.meatClaimType || 'NENHUM',
         containsGmo: Boolean(body.containsGmo),

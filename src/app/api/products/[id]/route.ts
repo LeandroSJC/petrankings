@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
+import { productInputSchema } from '@/lib/schemas/product';
 
 export async function GET(
   req: NextRequest,
@@ -38,7 +39,18 @@ export async function PUT(
     }
 
     const { id } = await params;
-    const body = await req.json();
+    const rawBody = await req.json().catch(() => null);
+    if (!rawBody) {
+      return NextResponse.json({ error: 'Corpo da requisição inválido.' }, { status: 400 });
+    }
+
+    const parsed = productInputSchema.partial().safeParse(rawBody);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message || 'Dados inválidos.';
+      return NextResponse.json({ error: firstError }, { status: 400 });
+    }
+
+    const body: any = parsed.data;
 
     const isCoadjuvante = body.legalCategory === 'ALIMENTO_COADJUVANTE';
 

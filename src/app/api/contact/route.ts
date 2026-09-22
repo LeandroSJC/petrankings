@@ -2,17 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { validateContactAntispam } from '@/lib/antispam';
+import { contactMessageSchema } from '@/lib/schemas/contact';
+import { contactRateLimiter, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { name, email, subject, message, honeypot, formOpenedAt } = body;
-
-    if (!email || !email.includes('@')) {
-      return NextResponse.json({ error: 'Informe um e-mail válido' }, { status: 400 });
+    // 1. Rate Limiting por IP (defesa contra DoS e inundação de banco)
+    const clientIp = getClientIp(req);
+    const ipCheck = contactRateLimiter.limit(clientIp);
+    if (!ipCheck.success) {
+      return NextResponse.json(
+        {
+          error: `Muitas mensagens enviadas a partir desta conexão. Aguarde ${ipCheck.retryAfterSeconds}s antes de tentar novamente.`,
+        },
+        { status: 429 }
+      );
     }
 
-    // 1. Antispam em 3 camadas
+    // 2. Validação rigorosa com Zod
+    const rawBody = await req.json().catch(() => null);
+    if (!rawBody) {
+      return NextResponse.json({ error: 'Corpo da requisição inválido.' }, { status: 400 });
+    }
+
+    const parsed = contactMessageSchema.safeParse(rawBody);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message || 'Dados de contato inválidos.';
+      return NextResponse.json({ error: firstError }, { status: 400 });
+    }
+
+    const { name, email, subject, message, honeypot, formOpenedAt } = parsed.data;
+
+    // 3. Antispam em 3 camadas (Honeypot, Trava Temporal, Limite por e-mail)
     const antispamCheck = await validateContactAntispam({
       honeypot,
       formOpenedAt,
@@ -21,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     if (!antispamCheck.allowed) {
       if (antispamCheck.isSilentDrop) {
-        // Honeypot: simular sucesso sem gravar no banco para não revelar a regra
+        // Honeypot: simular sucesso sem gravar no banco para não revelar a armadilha
         return NextResponse.json({
           success: true,
           message: 'Sua mensagem foi enviada com sucesso! Agradecemos o contato.',
@@ -30,41 +51,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: antispamCheck.reason }, { status: 400 });
     }
 
-    // 2. Validações de campos obrigatórios e limites de caracteres
-    if (!name || name.trim().length < 2 || name.trim().length > 120) {
-      return NextResponse.json(
-        { error: 'O nome deve conter entre 2 e 120 caracteres' },
-        { status: 400 }
-      );
-    }
-
-    if (email.length > 320) {
-      return NextResponse.json(
-        { error: 'O e-mail deve ter no máximo 320 caracteres' },
-        { status: 400 }
-      );
-    }
-
-    if (subject && subject.length > 160) {
-      return NextResponse.json(
-        { error: 'O assunto pode ter no máximo 160 caracteres' },
-        { status: 400 }
-      );
-    }
-
-    if (!message || message.trim().length < 10 || message.trim().length > 5000) {
-      return NextResponse.json(
-        { error: 'A mensagem deve conter entre 10 e 5.000 caracteres' },
-        { status: 400 }
-      );
-    }
-
     const savedMessage = await prisma.contactMessage.create({
       data: {
-        name: name.trim(),
-        email: email.trim().toLowerCase(),
-        subject: subject ? subject.trim() : null,
-        message: message.trim(),
+        name,
+        email: email.toLowerCase(),
+        subject: subject || null,
+        message,
         status: 'nova',
       },
     });
@@ -84,7 +76,7 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getSession();
     if (!session || session.role !== 'admin') {
-      return NextResponse.json({ error: 'Acesso restrito a administradores' }, { status: 403 });
+      return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     }
 
     const { searchParams } = new URL(req.url);
@@ -125,7 +117,7 @@ export async function PATCH(req: NextRequest) {
   try {
     const session = await getSession();
     if (!session || session.role !== 'admin') {
-      return NextResponse.json({ error: 'Acesso restrito a administradores' }, { status: 403 });
+      return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     }
 
     const body = await req.json();

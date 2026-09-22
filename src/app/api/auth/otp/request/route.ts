@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
 import { sendOtpEmail } from '@/lib/email';
 import { GATE_COOKIE_NAME, verifyGateToken } from '@/lib/gate';
+import { otpRequestRateLimiter, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,7 +16,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     }
 
-    const { email } = await req.json();
+    // 2. Rate Limiting por IP (defesa contra ataques distribuídos / força bruta)
+    const clientIp = getClientIp(req);
+    const ipCheck = otpRequestRateLimiter.limit(clientIp);
+    if (!ipCheck.success) {
+      return NextResponse.json(
+        { error: `Muitas solicitações a partir desta conexão. Aguarde ${ipCheck.retryAfterSeconds}s antes de tentar novamente.` },
+        { status: 429 }
+      );
+    }
+
+    const { email } = await req.json().catch(() => ({ email: null }));
 
     if (!email || typeof email !== 'string') {
       return NextResponse.json(
@@ -26,16 +37,17 @@ export async function POST(req: NextRequest) {
 
     const normalizedEmail = email.trim().toLowerCase();
 
-    // 2. Validação se o usuário existe e é administrador
+    // 3. Validação do usuário administrador
     const user = await prisma.user.findUnique({
       where: { email: normalizedEmail },
     });
 
     if (!user || user.role !== 'admin') {
-      return NextResponse.json(
-        { error: 'E-mail não encontrado ou sem permissão de administrador.' },
-        { status: 403 }
-      );
+      // Resposta neutra para prevenir enumeração de contas (OWASP Top 10)
+      return NextResponse.json({
+        success: true,
+        message: 'Se o e-mail informado estiver autorizado, o código de acesso foi enviado.',
+      });
     }
 
     // 3. Rate Limit Anti-Abuso (Máximo de 3 pedidos em 10 minutos)
@@ -103,8 +115,9 @@ export async function POST(req: NextRequest) {
     });
 
     if (!emailResult.success) {
+      console.error('[OTP Email] Falha no disparo de e-mail:', emailResult.error);
       return NextResponse.json(
-        { error: emailResult.error || 'Falha ao enviar e-mail de verificação.' },
+        { error: 'Não foi possível enviar o e-mail com o código de acesso. Tente novamente mais tarde.' },
         { status: 500 }
       );
     }

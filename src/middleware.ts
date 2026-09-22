@@ -2,8 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
 import { GATE_COOKIE_NAME, createGateToken, verifyGateToken } from '@/lib/gate';
 
+const isProduction = process.env.NODE_ENV === 'production';
+const allowAdminInProd = process.env.ALLOW_ADMIN_IN_PRODUCTION === 'true';
+
+const rawJwtSecret = process.env.JWT_SECRET?.trim();
+const rawGateKey = process.env.ADMIN_GATE_KEY?.trim();
+
+if (isProduction && allowAdminInProd) {
+  if (!rawJwtSecret || rawJwtSecret.length < 32) {
+    throw new Error('CRITICAL SECURITY ERROR: JWT_SECRET não configurado ou muito curto em produção.');
+  }
+  if (!rawGateKey || rawGateKey.length < 16) {
+    throw new Error('CRITICAL SECURITY ERROR: ADMIN_GATE_KEY não configurada ou muito curta em produção.');
+  }
+}
+
 const SECRET_KEY = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'petrankings_editorial_jwt_secret_token_2026_super_secure'
+  rawJwtSecret || 'petrankings_editorial_jwt_secret_token_2026_super_secure'
 );
 
 const TOKEN_COOKIE_NAME = 'petrankings_admin_token';
@@ -12,8 +27,8 @@ const TOKEN_COOKIE_NAME = 'petrankings_admin_token';
  * Next.js Edge Middleware de Segurança (appsec-data-shield & auth-security-guardian).
  * 
  * Implementa a Arquitetura de Portão Secreto (Stealth Gatekeeper):
- * 1. O painel administrativo (/admin) e a API de login (/api/auth/login) são camuflados com 404 (Not Found)
- *    para qualquer visitante, scanner ou bot que tente acessar diretamente.
+ * 1. O painel administrativo (/admin), rotas de API administrativa (/api/chamados, /api/upload, /api/products)
+ *    e a API de login (/api/auth/*) são camuflados com 404 (Not Found) para qualquer scanner ou bot direto.
  * 2. O acesso só é desbloqueado através de uma rota secreta não-convencional (ADMIN_SECRET_GATE_PATH)
  *    acompanhada da chave de acesso mestre (ADMIN_GATE_KEY).
  * 3. Uma vez validada a chave secreta, o navegador recebe o cookie assinado `petrankings_admin_gate` (7 dias)
@@ -27,23 +42,27 @@ export async function middleware(req: NextRequest) {
   // Configurações do Portão Secreto e Ambiente
   const configuredGatePath = (process.env.ADMIN_SECRET_GATE_PATH || '/bastidores').trim();
   const gatePath = configuredGatePath.startsWith('/') ? configuredGatePath : `/${configuredGatePath}`;
-  const gateKey = (process.env.ADMIN_GATE_KEY || 'petrankings_master_gate_2026_x9').trim();
-
-  const isProduction = process.env.NODE_ENV === 'production';
-  const allowAdminInProd = process.env.ALLOW_ADMIN_IN_PRODUCTION === 'true';
+  const gateKey = (rawGateKey || 'petrankings_master_gate_2026_x9').trim();
 
   const normalizedPath = pathname.replace(/\/$/, '') || '/';
   const isGatePath = normalizedPath === gatePath.replace(/\/$/, '');
   const isAdminPath = pathname === '/admin' || pathname.startsWith('/admin/');
   const isAuthApi = pathname.startsWith('/api/auth/') && pathname !== '/api/auth/logout';
+  const isRestrictedApi =
+    pathname.startsWith('/api/chamados') ||
+    pathname.startsWith('/api/upload') ||
+    pathname.startsWith('/api/products');
 
   // 1. Otimização de Performance: Se não for rota administrativa nem portão, passa direto
-  if (!isGatePath && !isAdminPath && !isAuthApi) {
+  if (!isGatePath && !isAdminPath && !isAuthApi && !isRestrictedApi) {
     return NextResponse.next();
   }
 
   // 2. Chave Geral de Produção: Se em produção e ALLOW_ADMIN_IN_PRODUCTION != true, bloqueio total 404
   if (isProduction && !allowAdminInProd) {
+    if (isAuthApi || isRestrictedApi) {
+      return NextResponse.json({ error: 'Not Found' }, { status: 404 });
+    }
     return NextResponse.rewrite(new URL('/_not-found', req.url));
   }
 
@@ -78,20 +97,20 @@ export async function middleware(req: NextRequest) {
     return response;
   }
 
-  // 4. Verificação do Portão para rotas administrativas e APIs de autenticação
+  // 4. Verificação do Portão para rotas administrativas e APIs restritas
   const gateCookie = req.cookies.get(GATE_COOKIE_NAME)?.value;
   const isGateUnlocked = await verifyGateToken(gateCookie);
 
   // Se o portão estiver trancado (sem cookie ou inválido): Camuflagem ativa (404 Not Found)
   if (!isGateUnlocked) {
-    if (isAuthApi) {
+    if (isAuthApi || isRestrictedApi) {
       return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     }
     return NextResponse.rewrite(new URL('/_not-found', req.url));
   }
 
-  // Se a rota for API de autenticação e o portão estiver aberto, permite prosseguir
-  if (isAuthApi) {
+  // Se a rota for API de autenticação ou restrita e o portão estiver aberto, permite prosseguir
+  if (isAuthApi || isRestrictedApi) {
     return NextResponse.next();
   }
 

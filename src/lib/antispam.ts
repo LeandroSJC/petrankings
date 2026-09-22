@@ -38,14 +38,39 @@ export async function validateContactAntispam(params: AntispamValidationParams):
     };
   }
 
-  const openedTimestamp = typeof formOpenedAt === 'string' ? parseInt(formOpenedAt, 10) : formOpenedAt;
+  const openedTimestamp = typeof formOpenedAt === 'string' ? parseInt(formOpenedAt, 10) : Number(formOpenedAt);
   const now = Date.now();
+
+  if (!openedTimestamp || isNaN(openedTimestamp)) {
+    return {
+      allowed: false,
+      reason: 'Sessão do formulário inválida. Por favor, recarregue a página.',
+    };
+  }
+
+  // Rejeita timestamp no futuro (manipulação de relógio do bot)
+  if (openedTimestamp > now + 5000) {
+    return {
+      allowed: false,
+      reason: 'Horário do formulário inconsistente. Por favor, tente novamente.',
+    };
+  }
+
   const timeElapsed = now - openedTimestamp;
 
-  if (isNaN(openedTimestamp) || timeElapsed < 2500) {
+  // Rejeita envio muito rápido (< 2.5s)
+  if (timeElapsed < 2500) {
     return {
       allowed: false,
       reason: 'O formulário foi enviado rápido demais. Por favor, aguarde alguns instantes e tente novamente.',
+    };
+  }
+
+  // Rejeita formulário aberto há mais de 2 horas (sessão expirada / replay de bot)
+  if (timeElapsed > 2 * 60 * 60 * 1000) {
+    return {
+      allowed: false,
+      reason: 'A sessão deste formulário expirou. Por favor, recarregue a página antes de enviar.',
     };
   }
 

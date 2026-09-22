@@ -30,6 +30,15 @@ import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard 
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
 
+function getSafeUrl(url?: string | null): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith('/uploads/') || trimmed.startsWith('/')) {
+    return trimmed;
+  }
+  return null;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -165,7 +174,7 @@ export default async function ProductDetailPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
 
       <main style={{ paddingBottom: '60px' }}>
@@ -441,9 +450,9 @@ export default async function ProductDetailPage({
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', fontSize: '0.82rem' }}>
                 <div>
                   <span style={{ color: 'var(--text-muted)', display: 'block' }}>Fonte Oficial:</span>
-                  {product.sourceUrl ? (
+                  {getSafeUrl(product.sourceUrl) ? (
                     <a
-                      href={product.sourceUrl}
+                      href={getSafeUrl(product.sourceUrl)!}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ color: 'var(--brand-forest-700)', fontWeight: 700, textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
@@ -473,9 +482,9 @@ export default async function ProductDetailPage({
 
               {/* Ações de Custódia Probatória Digital */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '14px' }}>
-                {product.sourceDocumentUrl && (
+                {getSafeUrl(product.sourceDocumentUrl) && (
                   <a
-                    href={product.sourceDocumentUrl}
+                    href={getSafeUrl(product.sourceDocumentUrl)!}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="editorial-btn-secondary"
@@ -805,29 +814,33 @@ export default async function ProductDetailPage({
               </p>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                {product.affiliateLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.affiliateUrl || link.productUrl}
-                    target="_blank"
-                    rel="nofollow noopener sponsored"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '10px 18px',
-                      borderRadius: 'var(--radius-sm)',
-                      backgroundColor: 'var(--brand-forest-900)',
-                      color: '#ffffff',
-                      fontSize: '0.88rem',
-                      fontWeight: 700,
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <span>Ver na {link.store}</span>
-                    <ExternalLink size={14} />
-                  </a>
-                ))}
+                {product.affiliateLinks.map((link) => {
+                  const safeTargetUrl = getSafeUrl(link.affiliateUrl || link.productUrl);
+                  if (!safeTargetUrl) return null;
+                  return (
+                    <a
+                      key={link.id}
+                      href={safeTargetUrl}
+                      target="_blank"
+                      rel="nofollow noopener sponsored"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 18px',
+                        borderRadius: 'var(--radius-sm)',
+                        backgroundColor: 'var(--brand-forest-900)',
+                        color: '#ffffff',
+                        fontSize: '0.88rem',
+                        fontWeight: 700,
+                        textDecoration: 'none',
+                      }}
+                    >
+                      <span>Ver na {link.store}</span>
+                      <ExternalLink size={14} />
+                    </a>
+                  );
+                })}
               </div>
             </section>
           )}
