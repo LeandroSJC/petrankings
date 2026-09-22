@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import prisma from '../src/lib/prisma';
-import { calcularScoreAnaliseRotulo } from '../src/lib/audit-engine';
+import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
 const { PDFParse } = require('pdf-parse');
 
@@ -37,28 +37,6 @@ interface ProductMetadata {
   containsGmo: boolean;
   gmoIngredients: string | null;
   antioxidantType: 'NATURAL' | 'SINTETICO' | 'MISTO';
-  editorialOpinion: string;
-}
-
-function extractOfficialDescription(text: string): string {
-  const lines = text.split(/\r?\n/).map((l) => l.trim()).filter((l) => l.length > 0);
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (
-      /(?:PremieR|GoldeN|Vitta)[\s®]+.*(?:é um|é indicado|foi desenvolvido|oferece|desenvolvido|combina)/i.test(line) ||
-      /(?:A Páscoa|Nattu Bites).*é/i.test(line)
-    ) {
-      let block = line;
-      for (let j = i + 1; j < Math.min(i + 8, lines.length); j++) {
-        const next = lines[j];
-        if (/^(?:ONDE COMPRAR|COMPOSIÇÃO|Composição|NÍVEIS|Blogs|21\/09|\d+g|\d+Kg)/i.test(next)) break;
-        block += ' ' + next;
-        if (next.endsWith('.')) break;
-      }
-      return block.replace(/\s+/g, ' ').trim();
-    }
-  }
-  return '';
 }
 
 /**
@@ -70,7 +48,9 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   const text: string = parsed.text;
 
   // 1. URL Oficial no rodapé
-  const urlMatch = text.match(/https:\/\/premierpet\.com\.br\/produto\/[^\s\t\n]+/);
+  const urlMatch =
+    text.match(/https:\/\/(?:www\.)?(?:premierpet\.com\.br\/produto\/|whiskas\.com\.br\/products\/[^\s\t\n\/]+\/)[^\s\t\n]+/i) ||
+    text.match(/https:\/\/[^\s\t\n]+/i);
   let sourceUrl = urlMatch ? urlMatch[0].trim() : '';
   if (!sourceUrl) {
     if (/wild/i.test(baseName)) {
@@ -81,7 +61,7 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   // 2. Slug
   let slug = '';
   if (sourceUrl) {
-    const m = sourceUrl.match(/\/produto\/([^/]+)\/?/);
+    const m = sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?/i);
     if (m) slug = m[1];
   }
   if (!slug) {
@@ -95,8 +75,11 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   // 3. Título e Nome Comercial
   const lines = text.split('\n').map((l: string) => l.trim()).filter(Boolean);
-  const breadcrumb = lines.find((l: string) => l.startsWith('Início » Linha »')) || '';
-  let commercialName = breadcrumb.replace('Início » Linha »', '').trim();
+  const breadcrumb = lines.find((l: string) => l.startsWith('Início » Linha »')) || lines.find((l: string) => l.startsWith('Início /')) || '';
+  let commercialName = breadcrumb
+    .replace(/^Início\s*(?:»\s*Linha\s*»|\/)\s*/, '')
+    .replace(/®/g, '')
+    .trim();
   if (!commercialName || commercialName.length < 5) {
     commercialName = baseName;
   }
@@ -104,32 +87,60 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     !commercialName.startsWith('PremieR') &&
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
-    !commercialName.startsWith('Vitta')
+    !commercialName.startsWith('Vitta') &&
+    !/whiskas|pedigree|royal|purina|biofresh|guabi/i.test(commercialName) &&
+    !/whiskas|pedigree|royal|purina|biofresh|guabi/i.test(baseName)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
 
   // 4. Marca e Fabricante
   let brand = 'PremieR';
-  if (/golden/i.test(commercialName) || /golden/i.test(baseName)) {
+  let manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
+
+  if (/whiskas/i.test(commercialName) || /whiskas/i.test(baseName)) {
+    brand = 'Whiskas';
+    manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
+  } else if (/pedigree/i.test(commercialName) || /pedigree/i.test(baseName)) {
+    brand = 'Pedigree';
+    manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
+  } else if (/royal\s*canin/i.test(commercialName) || /royal\s*canin/i.test(baseName)) {
+    brand = 'Royal Canin';
+    manufacturerLegalName = 'Royal Canin do Brasil Indústria e Comércio Ltda';
+  } else if (/golden/i.test(commercialName) || /golden/i.test(baseName)) {
     brand = 'GoldeN';
+    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
   } else if (/vitta\s*natural/i.test(commercialName) || /vitta\s*natural/i.test(baseName)) {
     brand = 'Vitta Natural';
+    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
   } else if (/nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) || /nutri[çc][ãa]o cl[íi]nica/i.test(baseName)) {
     brand = 'PremieR Nutrição Clínica';
+    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
   } else if (/nattu/i.test(commercialName) || /nattu/i.test(baseName)) {
     brand = 'PremieR Nattu';
+    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
   } else if (/org[âa]nico/i.test(commercialName) || /org[âa]nico/i.test(baseName)) {
     brand = 'PremieR Orgânico';
+    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
   }
-  const manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
 
   // 5. Espécie e Fase de Vida
+  const dogBreedsRegex =
+    /golden retriever|labrador|pit bull|bulldog|buldogue|pug|shih tzu|spitz|lhasa|malt[eê]s|yorkshire|rottweiler|pastor|poodle|beagle|dachshund|schnauzer|chihuahua|boxer|border collie|cocker|pinscher|dálmata|dalmata|basset/i;
+
+  const isGato =
+    /gato|gatos|felin/i.test(commercialName) ||
+    /gato|gatos|felin/i.test(baseName) ||
+    /desenvolvido para gatos|para gatos|nutri[çc][ãa]o felina/i.test(text);
+
   const isCao =
-    /c[ãa]o|c[ãa]es|cachorro/i.test(commercialName) ||
-    /c[ãa]o|c[ãa]es|cachorro/i.test(baseName) ||
-    /desenvolvido para c[ãa]es|para c[ãa]es|nutri[çc][ãa]o canina/i.test(text);
-  const species: 'GATO' | 'CAO' = isCao && !/gato/i.test(commercialName) ? 'CAO' : 'GATO';
+    dogBreedsRegex.test(commercialName) ||
+    dogBreedsRegex.test(baseName) ||
+    /c[ãa]o|c[ãa]es|cachorro|canin/i.test(commercialName) ||
+    /c[ãa]o|c[ãa]es|cachorro|canin/i.test(baseName) ||
+    /desenvolvido para c[ãa]es|para c[ãa]es|nutri[çc][ãa]o canina|c[ãa]es adultos|c[ãa]es filhotes/i.test(text);
+
+  const species: 'GATO' | 'CAO' = isGato && !isCao ? 'GATO' : 'CAO';
 
   let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
   if (/filhote|crescimento/i.test(commercialName)) {
@@ -192,17 +203,31 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
 
-  // 6. Ingredientes (COMPOSIÇÃO até o início da tabela de garantias)
-  const compMatch = text.match(/composi[çc][ãa]o/i);
+  // 6. Ingredientes (COMPOSIÇÃO / Ingredientes até o início da tabela de garantias ou seções subsequentes)
+  const compMatch = text.match(/composi[çc][ãa]o\s*(?:b[áa]sica)?/i) || text.match(/\bIngredientes\b/i);
   const compIdx = compMatch && compMatch.index !== undefined ? compMatch.index + compMatch[0].length : -1;
   let endIdx = -1;
-  const stopWords = ['NÍVEIS DE GARANTIA', 'Níveis de Garantia', 'Proteína Bruta', 'Proteína Cruda', 'Umidade', 'ONDE COMPRAR', 'Modo de Usar'];
+  const stopWords = [
+    'NÍVEIS DE GARANTIA',
+    'Níveis de Garantia',
+    'Análise garantida',
+    'Proteína Bruta',
+    'Proteína Cruda',
+    'Umidade',
+    'Eventuais Substitutivos',
+    '*Espécies doadoras',
+    'NUTRIÇÃO',
+    'Enriquecimento por',
+    'ONDE COMPRAR',
+    'Modo de Usar',
+    'Guia Alimentar',
+  ];
   for (const w of stopWords) {
     const idx = text.indexOf(w, compIdx !== -1 ? compIdx : 0);
     if (idx !== -1 && (endIdx === -1 || idx < endIdx)) endIdx = idx;
   }
   let compRaw = compIdx !== -1 && endIdx !== -1 ? text.slice(compIdx, endIdx) : (compIdx !== -1 ? text.slice(compIdx, compIdx + 1200) : '');
-  const tableText = compIdx !== -1 ? text.slice(compIdx) : text;
+  const tableText = text;
 
   // 7. Níveis de Garantia (Suporte a % e g/kg ou mg/kg)
   const parseGuarantee = (pattern: RegExp): number => {
@@ -257,7 +282,9 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   // Energia Metabolizável
   let energiaMetabolizavelKcalKg: number | null = null;
-  const emMatch = text.match(/Energia Metaboliz[áa]vel[^\d]*(\d[\d\.,]+)\s*kcal/i);
+  const emMatch =
+    text.match(/Energia\s+Metaboliz[áa]vel[^\d]*(\d[\d\.,]+)\s*kcal/i) ||
+    text.match(/(\d{4})\s*kcal\/kg/i);
   if (emMatch) {
     const rawEm = emMatch[1].replace(/\./g, '').replace(',', '.');
     const val = parseFloat(rawEm);
@@ -266,7 +293,13 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   // Transgênicos (Conformidade com Decreto nº 4.680/2003 e Rotulagem Oficial MAPA)
   const hasNaoTransgExplicit = /n[ãa]o transg[êe]nico/i.test(compRaw) || /n[ãa]o transg[êe]nico/i.test(text);
-  const hasContemGmo = /\*Cont[ée]m.*transg/i.test(compRaw) || /\*Cont[ée]m.*transg/i.test(text);
+  const hasContemGmo =
+    /\*Cont[ée]m.*transg/i.test(compRaw) ||
+    /\*Cont[ée]m.*transg/i.test(text) ||
+    /Esp[ée]cies\s+doadoras\s+d[eo]\s+gene/i.test(text) ||
+    /doadoras\s+d[eo]\s+gene/i.test(text) ||
+    /\btransg[êe]nic/i.test(text) ||
+    /\b(?:Milho|Soja)\s*\*/i.test(text);
   const containsGmo = hasContemGmo && !hasNaoTransgExplicit;
 
   let gmoIngredients: string | null = null;
@@ -279,7 +312,7 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
         .replace(/transgênicos.*$/gi, 'transgênicos')
         .trim();
     } else {
-      gmoIngredients = 'Milho transgênico, Glúten de milho transgênico, Proteína concentrada de soja transgênica';
+      gmoIngredients = 'Milho transgênico, Glúten de milho transgênico, Farelo de soja transgênico';
     }
   }
 
@@ -295,8 +328,9 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   const cleanCompText = compRaw
     .replace(/-- \d+ of \d+ --/g, ' ')
     .replace(/Blogs\s*Gatos\s*Cães\s*Alimento\s*Ideal/gi, ' ')
-    .replace(/https:\/\/premierpet\.com\.br[^\s]*/gi, ' ')
+    .replace(/https:\/\/[^\s]*/gi, ' ')
     .replace(/\d{2}\/\d{2}\/\d{4}[^\n]*/g, ' ')
+    .replace(/SECA|ÚMIDO|GATOS ADULTOS|GATOS FILHOTES/gi, ' ')
     .replace(/Benefícios[^\n]*/gi, ' ')
     .replace(/\?/g, ' ')
     .replace(/\s+/g, ' ')
@@ -325,44 +359,8 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   }
 
   // 8. Conservantes / Antioxidantes
-  const hasBhaBht = /BHA|BHT/i.test(text);
+  const hasBhaBht = /BHA|BHT|B\.H\.T\./i.test(text);
   const antioxidantType: 'NATURAL' | 'SINTETICO' = hasBhaBht ? 'SINTETICO' : 'NATURAL';
-
-  // 9. Parecer Técnico Justificado
-  const calStr = energiaMetabolizavelKcalKg ? ` com densidade de ${energiaMetabolizavelKcalKg.toLocaleString('pt-BR')} kcal/kg` : '';
-  const gmoStr = containsGmo ? 'e presença de cereais transgênicos' : 'e fórmula livre de transgênicos';
-  const conservStr = antioxidantType === 'NATURAL' ? 'conservantes 100% naturais' : 'antioxidantes sintéticos (BHA/BHT)';
-  const faseLabel = lifeStage === 'CRESCIMENTO_INICIAL' ? 'filhotes em fase de crescimento' : (lifeStage === 'SENIOR' ? 'idosos / sênior' : 'adultos');
-
-  const officialDesc = extractOfficialDescription(text);
-
-  let editorialOpinion = '';
-  if (officialDesc) {
-    if (legalCategory === 'ALIMENTO_COMPLEMENTAR') {
-      editorialOpinion = `${officialDesc} Formulado com ${conservStr} e ${gmoStr}. Produto complementar destinado a momentos de agrado, recompensa e enriquecimento, não devendo substituir o alimento completo diário.`;
-    } else if (legalCategory === 'ALIMENTO_COADJUVANTE') {
-      editorialOpinion = `${officialDesc} Formulado com ${conservStr} e ${gmoStr}. Alimento dietoterápico coadjuvante de uso sob estrita orientação e acompanhamento médico-veterinário.`;
-    } else {
-      editorialOpinion = `${officialDesc} Formulado com ${conservStr} e ${gmoStr}. Atendimento integral aos padrões nutricionais do Manual Pet Food Brasil (ABINPET 11ª Edição).`;
-    }
-  } else {
-    if (legalCategory === 'ALIMENTO_COADJUVANTE') {
-      const descMatch = text.match(/PremieR[®\s]+(?:Nutrição Clínica|NC)[^\n]+\s*é um alimento coadjuvante desenvolvido especialmente para[^\.\n]+\./i)
-        || text.match(/PremieR[®\s]+(?:Nutrição Clínica|NC)[^\.\n]+\./i);
-      const descClinica = descMatch
-        ? descMatch[0].replace(/\s+/g, ' ').trim()
-        : `Alimento coadjuvante desenvolvido especialmente para suporte clínico a ${species === 'GATO' ? 'gatos' : 'cães'} (${coadjuvanteCondition?.toLowerCase()}).`;
-      editorialOpinion = `${descClinica} Formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} e ${gmoStr}. Alimento dietoterápico coadjuvante de uso sob orientação veterinária.`;
-    } else if (legalCategory === 'ALIMENTO_COMPLEMENTAR') {
-      const isSnack = /cookie|biscoito|snack|petisco|bites/i.test(commercialName) || /cookie|biscoito|snack|petisco|bites/i.test(baseName);
-      const descTipo = isSnack ? 'petisco / cookie' : (foodType === 'UMIDO' ? 'sachê úmido complementar' : 'alimento complementar');
-      editorialOpinion = `Alimento específico / complementar (${descTipo}) para ${species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} e ${gmoStr}. Produto complementar de uso combinado, devendo ser oferecido em conjunto com o alimento completo habitual.`;
-    } else {
-      const tierLabel = brand === 'GoldeN' ? 'Premium Especial' : (brand === 'Vitta Natural' ? 'Premium' : 'Super Premium');
-      const foodTypeLabel = foodType === 'UMIDO' ? 'úmido ' : '';
-      editorialOpinion = `Alimento ${foodTypeLabel}${tierLabel} para ${species === 'GATO' ? 'gatos' : 'cães'} (${faseLabel}), formulado com ${proteinaBrutaMinPct}% de proteína bruta${calStr}, ${conservStr} e ${gmoStr}. Relação cálcio:fósforo equilibrada e atendimento integral aos limites da 11ª Edição do Manual ABINPET.`;
-    }
-  }
 
   return {
     commercialName,
@@ -391,7 +389,6 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     containsGmo,
     gmoIngredients,
     antioxidantType,
-    editorialOpinion,
   };
 }
 
@@ -422,49 +419,52 @@ async function processAll() {
 
   for (const pdfFile of pdfFiles) {
     const baseName = pdfFile.replace('.pdf', '');
-
-    // 1. Localiza imagem correspondente
-    const imgFile = allFiles.find((f) => {
-      const ext = path.extname(f).toLowerCase();
-      const name = path.basename(f, ext);
-      return name === baseName && ['.webp', '.png', '.jpg', '.jpeg'].includes(ext);
-    });
-
-    if (!imgFile) {
-      console.warn(`⚠️ [AVISO] Imagem correspondente não encontrada para: "${baseName}". Produto ignorado.`);
-      continue;
-    }
-
     const pdfFullPath = path.join(dir, pdfFile);
-    const imgFullPath = path.join(dir, imgFile);
 
-    // 2. Hash SHA-256 do PDF
+    // 1. Hash SHA-256 do PDF
     const pdfBuf = fs.readFileSync(pdfFullPath);
     const sha256 = crypto.createHash('sha256').update(pdfBuf).digest('hex');
 
-    // 3. Extrai metadados oficiais do PDF
+    // 2. Extrai metadados oficiais do PDF
     const meta = await parseProductFromPdf(baseName, pdfBuf);
 
-    // 4. Verifica se o produto já existe no banco por slug
+    // 3. Verifica se o produto já existe no banco por slug
     const existing = await prisma.product.findUnique({
       where: { slug: meta.slug },
+    });
+
+    // 4. Localiza imagem correspondente na pasta de entrada
+    const imgFile = allFiles.find((f) => {
+      const ext = path.extname(f).toLowerCase();
+      const name = path.basename(f, ext);
+      return name === baseName && ['.webp', '.png', '.jpg', '.jpeg', '.avif'].includes(ext);
     });
 
     // Mantém o ID existente ou gera um novo com prefixo cmtz
     const productId = existing ? existing.id : 'cmtz' + crypto.randomBytes(10).toString('hex');
 
     // 5. Destinos padronizados em public/uploads/
-    const destImgRel = `/uploads/produto_${productId}.webp`;
+    let destImgRel = `/uploads/produto_${productId}.webp`;
     const destPdfRel = `/uploads/ficha_${productId}.pdf`;
     const destImgPath = path.join(process.cwd(), 'public', destImgRel);
     const destPdfPath = path.join(process.cwd(), 'public', destPdfRel);
 
-    if (path.extname(imgFullPath).toLowerCase() === '.webp') {
-      fs.copyFileSync(imgFullPath, destImgPath);
+    if (imgFile) {
+      const imgFullPath = path.join(dir, imgFile);
+      if (path.extname(imgFullPath).toLowerCase() === '.webp') {
+        fs.copyFileSync(imgFullPath, destImgPath);
+      } else {
+        const sharp = require('sharp');
+        await sharp(imgFullPath).webp({ quality: 85 }).toFile(destImgPath);
+      }
+    } else if (existing?.frontLabelImageUrl && fs.existsSync(path.join(process.cwd(), 'public', existing.frontLabelImageUrl))) {
+      destImgRel = existing.frontLabelImageUrl;
+      console.log(`   ℹ️ Reutilizando imagem packshot existente: ${destImgRel}`);
     } else {
-      const sharp = require('sharp');
-      await sharp(imgFullPath).webp({ quality: 85 }).toFile(destImgPath);
+      console.warn(`⚠️ [AVISO] Imagem correspondente não encontrada para: "${baseName}" e produto não possui imagem anterior. Ignorado.`);
+      continue;
     }
+
     fs.copyFileSync(pdfFullPath, destPdfPath);
 
     // 6. Executa Motor de Auditoria Oficial
@@ -520,7 +520,31 @@ async function processAll() {
         ]
       : audit.extratoPontos;
 
-    // 7. Upsert no PostgreSQL via Prisma
+    // 7. Parecer Técnico com Inteligência Artificial Gemini (com fallback determinístico)
+    console.log(`🤖 Gerando parecer editorial técnico via Gemini AI...`);
+    const editorialOpinion = await generateEditorialOpinionWithGemini({
+      commercialName: meta.commercialName,
+      brand: meta.brand,
+      species: meta.species,
+      lifeStage: meta.lifeStage,
+      foodType: meta.foodType,
+      legalCategory: meta.legalCategory,
+      coadjuvanteCondition: meta.coadjuvanteCondition,
+      proteinaBrutaMinPct: meta.proteinaBrutaMinPct,
+      energiaMetabolizavelKcalKg: meta.energiaMetabolizavelKcalKg,
+      antioxidantType: meta.antioxidantType,
+      containsGmo: meta.containsGmo,
+      topIngredients: meta.topIngredientsList,
+      scoreTotal: finalScoreTotal,
+      classificationTier: finalClassificationTier,
+      extratoPontos: audit.extratoPontos,
+      calcioMinPct: meta.calcioMinPct,
+      calcioMaxPct: meta.calcioMaxPct,
+      fosforoMinPct: meta.fosforoMinPct,
+      umidadeMaxPct: meta.umidadeMaxPct,
+    });
+
+    // 8. Upsert no PostgreSQL via Prisma
     const saved = await prisma.product.upsert({
       where: { slug: meta.slug },
       update: {
@@ -556,7 +580,7 @@ async function processAll() {
         gmoIngredients: meta.gmoIngredients,
         antioxidantType: meta.antioxidantType,
         topIngredients: JSON.stringify(meta.topIngredientsList),
-        editorialOpinion: meta.editorialOpinion,
+        editorialOpinion: editorialOpinion,
 
         scoreTotal: finalScoreTotal,
         classificationTier: finalClassificationTier,
@@ -599,7 +623,7 @@ async function processAll() {
         gmoIngredients: meta.gmoIngredients,
         antioxidantType: meta.antioxidantType,
         topIngredients: JSON.stringify(meta.topIngredientsList),
-        editorialOpinion: meta.editorialOpinion,
+        editorialOpinion: editorialOpinion,
 
         scoreTotal: finalScoreTotal,
         classificationTier: finalClassificationTier,
@@ -623,7 +647,7 @@ async function processAll() {
     // 8. Exclusão segura dos arquivos da pasta de entrada após persistência bem-sucedida
     try {
       if (fs.existsSync(pdfFullPath)) fs.unlinkSync(pdfFullPath);
-      if (fs.existsSync(imgFullPath)) fs.unlinkSync(imgFullPath);
+      if (imgFile && fs.existsSync(path.join(dir, imgFile))) fs.unlinkSync(path.join(dir, imgFile));
       console.log(`   🗑️ Arquivos originais de produtos_cadastro/ removidos com sucesso.`);
     } catch (err) {
       console.warn(`   ⚠️ Não foi possível remover os arquivos de entrada:`, err);
