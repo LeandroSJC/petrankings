@@ -364,7 +364,7 @@ ${eeMS !== null ? `- Extrato Etéreo (Gordura): ${extratoEtereoMinPct}% (calcula
 - Extrato dos Pilares da Auditoria:
 ${pointsSummary}`;
 
-    const modelsToTry = ['gemini-3.6-flash', 'gemini-2.5-flash'];
+    const modelsToTry = ['gemini-3.6-flash', 'gemini-3.5-flash'];
     let res: Response | null = null;
 
     for (let attempt = 0; attempt < modelsToTry.length; attempt++) {
