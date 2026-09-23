@@ -147,6 +147,7 @@ async function main() {
       calcioMaxPct: product.calciumMaxPct,
       fosforoMinPct: product.phosphorusMinPct || 0,
       umidadeMaxPct: product.moistureMaxPct || 10,
+      extratoEtereoMinPct: product.etherExtractMinPct || 0,
     });
 
     console.log(`   📝 Parecer gerado:\n   "${newEditorialOpinion}"\n`);
@@ -165,8 +166,8 @@ async function main() {
 
     updatedCount++;
 
-    // Pausa preventiva de 1s para respeitar limites de taxa do Google AI Studio
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Pausa preventiva de 3s para respeitar limites de taxa do Google AI Studio
+    await new Promise((resolve) => setTimeout(resolve, 3000));
   }
 
   console.log(`\n================================================================`);

@@ -542,6 +542,7 @@ async function processAll() {
       calcioMaxPct: meta.calcioMaxPct,
       fosforoMinPct: meta.fosforoMinPct,
       umidadeMaxPct: meta.umidadeMaxPct,
+      extratoEtereoMinPct: meta.extratoEtereoMinPct,
     });
 
     // 8. Upsert no PostgreSQL via Prisma
@@ -652,6 +653,8 @@ async function processAll() {
     } catch (err) {
       console.warn(`   ⚠️ Não foi possível remover os arquivos de entrada:`, err);
     }
+    // Pausa preventiva de 3s para respeitar limites de taxa da API Gemini
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     console.log('----------------------------------------------------------------');
   }
 
