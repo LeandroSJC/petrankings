@@ -19,7 +19,7 @@ export default function robots(): MetadataRoute.Robots {
           '/contato',
           '/politica-de-privacidade',
         ],
-        disallow: ['/admin/', '/api/'],
+        disallow: ['/admin/', '/api/', '/fabricante?*'],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

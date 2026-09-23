@@ -128,7 +128,7 @@ export default function PoliticaPrivacidadePage() {
               </strong>
               <ul style={{ paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.94rem' }}>
                 <li>O Google, como fornecedor terceiro, utiliza cookies (incluindo cookies DoubleClick / DART) para veicular anúncios em nosso site com base nas visitas anteriores dos usuários a este ou a outros sites na internet.</li>
-                <li>Os usuários podem desativar a publicidade personalizada acessando as <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-forest-800)', fontWeight: 600, textDecoration: 'underline' }}>Configurações de Anúncios do Google</a> ou através da plataforma <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-forest-800)', fontWeight: 600, textDecoration: 'underline' }}>aboutads.info</a>.</li>
+                <li>Os usuários podem desativar a publicidade personalizada acessando as <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer nofollow" style={{ color: 'var(--brand-forest-800)', fontWeight: 600, textDecoration: 'underline' }}>Configurações de Anúncios do Google</a> ou através da plataforma <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer nofollow" style={{ color: 'var(--brand-forest-800)', fontWeight: 600, textDecoration: 'underline' }}>aboutads.info</a>.</li>
                 <li>Utilizamos uma Plataforma de Gestão de Consentimento (CMP) certificada pelo Google para coletar o consentimento explícito dos visitantes de acordo com as diretrizes do EEE, Reino Unido e Suíça.</li>
               </ul>
             </div>

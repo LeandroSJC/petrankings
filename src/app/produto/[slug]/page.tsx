@@ -406,6 +406,7 @@ export default async function ProductDetailPage({
 
               <Link
                 href={`/fabricante?produto=${product.slug}`}
+                rel="nofollow"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -454,7 +455,7 @@ export default async function ProductDetailPage({
                     <a
                       href={getSafeUrl(product.sourceUrl)!}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       style={{ color: 'var(--brand-forest-700)', fontWeight: 700, textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                     >
                       <span>Website da Marca</span>
@@ -486,7 +487,7 @@ export default async function ProductDetailPage({
                   <a
                     href={getSafeUrl(product.sourceDocumentUrl)!}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                     className="editorial-btn-secondary"
                     style={{
                       display: 'inline-flex',
