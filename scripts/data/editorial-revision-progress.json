@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-09-24T01:28:44.774Z",
+  "lastUpdated": "2026-09-24T01:28:51.273Z",
   "lastDenialReason": null,
   "summary": {
     "totalProducts": 275,
-    "processedByGemini": 188,
-    "pending": 87,
-    "percentComplete": "68.36%"
+    "processedByGemini": 189,
+    "pending": 86,
+    "percentComplete": "68.73%"
   },
   "processed": [
     {
@@ -1881,6 +1881,18 @@
       "editorialOpinionSnippet": "O PremieR Formula Úmidos Cães Adultos Porte Pequeno Carne, Brócolis e Cenoura alcançou a pontuação máxima em nossa auditoria nutricional por..."
     },
     {
+      "id": "cmtz8dfcf1a0d6143d60915c",
+      "slug": "premier-gatos-adultos-light",
+      "commercialName": "PremieR Gatos Adultos Salmão Light",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:50.963Z",
+      "editorialOpinionSnippet": "O PremieR Gatos Adultos Salmão Light obteve nota máxima na auditoria nutricional, atingindo o Nível Ouro por cumprir integralmente todas as ..."
+    },
+    {
       "id": "cmtz92d5caa9d5ec352b284e",
       "slug": "racao-umida-whiskas-sache-peixe-jelly-para-gatos-adultos-85-g",
       "commercialName": "Ração Úmida WHISKAS Sachê Peixe Jelly para Gatos Adultos 85 g",
@@ -2266,16 +2278,6 @@
     }
   ],
   "pending": [
-    {
-      "id": "cmtz8dfcf1a0d6143d60915c",
-      "slug": "premier-gatos-adultos-light",
-      "commercialName": "PremieR Gatos Adultos Salmão Light",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
     {
       "id": "cmtz8ecb6315fa8b6fe36bac",
       "slug": "premier-gatos-castrados-acima-de-12-anos-frango",
