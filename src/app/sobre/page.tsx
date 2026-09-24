@@ -81,7 +81,7 @@ export default function SobrePage() {
           </h1>
 
           <p style={{ fontSize: '1.05rem', color: 'var(--text-body)', lineHeight: 1.7 }}>
-            O <strong>PetRankings</strong> atua como um portal independente de avaliação técnica e confronto documental das informações nutricionais divulgadas pelas marcas em seus websites oficiais para alimentos de cães e gatos no Brasil. O portal não emite juízos subjetivos de mérito: cada nota decorre estritamente dos níveis de garantia e da ordem decrescente de ingredientes declarados publicamente pelos próprios fabricantes (com custódia probatória da página oficial e comprovante da ficha técnica oficial em PDF, amparados pelos Arts. 30 e 31 do Código de Defesa do Consumidor), confrontados matematicamente com os parâmetros do Manual Pet Food Brasil (ABINPET, 11ª Edição) e diretrizes do MAPA.
+            O <strong>PetRankings</strong> atua como um portal independente de avaliação técnica e confronto documental das informações nutricionais divulgadas pelas marcas em seus websites oficiais para alimentos de cães e gatos no Brasil. O portal não emite juízos subjetivos de mérito: cada nota decorre estritamente dos níveis de garantia e da ordem decrescente de ingredientes declarados publicamente pelos próprios fabricantes (com custódia probatória da página oficial e comprovante da ficha técnica oficial arquivada, amparados pelos Arts. 30 e 31 do Código de Defesa do Consumidor), confrontados matematicamente com os parâmetros do Manual Pet Food Brasil (ABINPET, 11ª Edição) e diretrizes do MAPA.
           </p>
         </div>
       </section>

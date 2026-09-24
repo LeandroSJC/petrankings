@@ -727,6 +727,7 @@ async function processAll() {
     }
 
     fs.copyFileSync(docFullPath, destDocPath);
+    console.log(`   📄 Arquivo Original Arquivado para Custódia: public${destDocRel}`);
 
     // 6. Executa Motor de Auditoria Oficial
     const auditFase: FaseVida = meta.lifeStage;
@@ -820,7 +821,7 @@ async function processAll() {
         foodType: meta.foodType,
         coadjuvanteCondition: meta.coadjuvanteCondition,
         sourceUrl: meta.sourceUrl,
-        sourceDocumentUrl: destPdfRel,
+        sourceDocumentUrl: destDocRel,
         frontLabelImageUrl: destImgRel,
         analyzedBatch: 'LOTE-WEB-2026-09',
         labelCollectionDate: new Date('2026-09-13T12:00:00Z'),
@@ -863,7 +864,7 @@ async function processAll() {
         foodType: meta.foodType,
         coadjuvanteCondition: meta.coadjuvanteCondition,
         sourceUrl: meta.sourceUrl,
-        sourceDocumentUrl: destPdfRel,
+        sourceDocumentUrl: destDocRel,
         frontLabelImageUrl: destImgRel,
         analyzedBatch: 'LOTE-WEB-2026-09',
         labelCollectionDate: new Date('2026-09-13T12:00:00Z'),
@@ -904,7 +905,7 @@ async function processAll() {
     console.log(`   Ingredientes: ${meta.topIngredientsList.length} itens cadastrados`);
     console.log(`   Packshot: ${saved.frontLabelImageUrl}`);
     console.log(`   PDF Ficha: ${saved.sourceDocumentUrl}`);
-    console.log(`   SHA-256: ${sha256}`);
+    console.log(`   SHA-256: ${docSha256}`);
 
     // 8. Exclusão segura dos arquivos da pasta de entrada após persistência bem-sucedida
     try {

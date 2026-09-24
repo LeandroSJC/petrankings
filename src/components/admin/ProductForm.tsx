@@ -981,7 +981,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', fontWeight: 700, margin: 0 }}>
                       <FileText size={15} color="var(--brand-forest-700)" />
-                      <span>Comprovante da Ficha Técnica (PDF) *</span>
+                      <span>Comprovante da Ficha Técnica Oficial *</span>
                     </label>
                     {formData.sourceDocumentUrl && (
                       <button
@@ -1009,7 +1009,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                       type="text"
                       value={formData.sourceDocumentUrl}
                       onChange={(e) => handleChange('sourceDocumentUrl', e.target.value)}
-                      placeholder="URL do PDF ou clique em Subir..."
+                      placeholder="URL do documento ou clique em Subir..."
                       style={{
                         flex: 1,
                         minWidth: 0,
@@ -1023,7 +1023,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                     <input
                       ref={docInputRef}
                       type="file"
-                      accept="application/pdf,.pdf"
+                      accept="application/pdf,.pdf,text/html,.html"
                       disabled={uploadingDoc}
                       onChange={(e) => handleFileUpload(e, 'sourceDocumentUrl')}
                       style={{ display: 'none' }}
@@ -1050,7 +1050,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                       }}
                     >
                       {uploadingDoc ? <Loader2 size={14} className="animate-spin" /> : <UploadCloud size={14} />}
-                      <span>{uploadingDoc ? 'Enviando...' : 'Subir PDF'}</span>
+                      <span>{uploadingDoc ? 'Enviando...' : 'Subir Arquivo'}</span>
                     </button>
                   </div>
 
@@ -1084,7 +1084,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <span style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand-forest-800)' }}>
-                          ✓ PDF oficial arquivado para conferência
+                          ✓ Documento oficial arquivado para conferência
                         </span>
                         <a
                           href={formData.sourceDocumentUrl}
@@ -1107,7 +1107,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                     </div>
                   ) : (
                     <span style={{ display: 'block', fontSize: '0.73rem', color: 'var(--text-muted)' }}>
-                      Documento PDF oficial arquivado no servidor para custódia perene.
+                      Documento oficial arquivado no servidor para custódia perene.
                     </span>
                   )}
                 </div>

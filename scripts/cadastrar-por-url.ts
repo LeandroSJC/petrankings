@@ -94,12 +94,27 @@ export async function processUrl(url: string) {
   console.log(`🥗 Ingredientes identificados: ${meta.topIngredientsList.length}`);
   console.log(`   #1: ${meta.topIngredientsList[0] || 'N/D'}`);
 
-  // Verifica se o produto já existe
-  const existing = await prisma.product.findUnique({
-    where: { slug: meta.slug },
+  // Verifica se o produto já existe (busca por URL oficial ou por slug)
+  const normalizedUrl = url.trim().replace(/\/$/, '');
+  const existing = await prisma.product.findFirst({
+    where: {
+      OR: [
+        { sourceUrl: url },
+        { sourceUrl: normalizedUrl },
+        { sourceUrl: normalizedUrl + '/' },
+        { slug: meta.slug },
+      ],
+    },
   });
 
+  const targetSlug = existing ? existing.slug : meta.slug;
   const productId = existing ? existing.id : 'cmtz' + crypto.randomBytes(10).toString('hex');
+  if (existing) {
+    console.log(`🔄 Produto já cadastrado detectado no catálogo! ID: "${productId}" | Slug: "${targetSlug}"`);
+    console.log(`   Atualizando dados oficiais com a nova extração web e gerando Ficha Técnica HTML atualizada...`);
+  } else {
+    console.log(`✨ Novo produto identificado. Criando registro no catálogo (ID: "${productId}")...`);
+  }
 
   // Destinos em public/uploads/
   const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
@@ -108,9 +123,6 @@ export async function processUrl(url: string) {
   }
 
   const destHtmlRel = `/uploads/ficha_${productId}.html`;
-  const destHtmlPath = path.join(process.cwd(), 'public', destHtmlRel);
-  fs.writeFileSync(destHtmlPath, html, 'utf-8');
-  console.log(`📄 Custódia Documental Arquivada: public${destHtmlRel}`);
 
   let destImgRel = existing?.frontLabelImageUrl || `/uploads/produto_${productId}.webp`;
   if (meta.imageUrl) {
@@ -198,9 +210,14 @@ export async function processUrl(url: string) {
     extratoEtereoMinPct: meta.extratoEtereoMinPct,
   });
 
+  // 7.1. Arquivamento do Código-Fonte HTML Original para Custódia Probatória
+  const destHtmlPath = path.join(process.cwd(), 'public', destHtmlRel);
+  fs.writeFileSync(destHtmlPath, html, 'utf-8');
+  console.log(`📄 Código-Fonte HTML Original Arquivado para Custódia: public${destHtmlRel}`);
+
   // 8. Upsert no Banco de Dados
   await prisma.product.upsert({
-    where: { slug: meta.slug },
+    where: { slug: targetSlug },
     update: {
       commercialName: meta.commercialName,
       brand: meta.brand,
@@ -244,7 +261,7 @@ export async function processUrl(url: string) {
     },
     create: {
       id: productId,
-      slug: meta.slug,
+      slug: targetSlug,
       commercialName: meta.commercialName,
       brand: meta.brand,
       manufacturerLegalName: meta.manufacturerLegalName,
@@ -287,7 +304,7 @@ export async function processUrl(url: string) {
   });
 
   console.log(`\n🎉 PRODUTO CADASTRADO / ATUALIZADO COM SUCESSO!`);
-  console.log(`👉 Visualizar no Portal: http://localhost:3000/produto/${meta.slug}\n`);
+  console.log(`👉 Visualizar no Portal: http://localhost:3000/produto/${targetSlug}\n`);
 }
 
 async function main() {

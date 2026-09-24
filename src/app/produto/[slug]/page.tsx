@@ -480,32 +480,6 @@ export default async function ProductDetailPage({
                   <strong style={{ color: 'var(--text-main)' }}>{product.curatorResponsible || 'Curadoria Oficial'}</strong>
                 </div>
               </div>
-
-              {/* Ações de Custódia Probatória Digital */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '14px' }}>
-                {getSafeUrl(product.sourceDocumentUrl) && (
-                  <a
-                    href={getSafeUrl(product.sourceDocumentUrl)!}
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="editorial-btn-secondary"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      width: '100%',
-                      padding: '8px 12px',
-                      fontSize: '0.78rem',
-                    }}
-                  >
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      <FileText size={14} color="var(--brand-forest-700)" />
-                      <span>Comprovante Oficial da Ficha Técnica (PDF)</span>
-                    </span>
-                    <ExternalLink size={12} />
-                  </a>
-                )}
-              </div>
             </section>
 
             {/* EXTRATO DA ANÁLISE DE RÓTULO DOS 4 PILARES */}
