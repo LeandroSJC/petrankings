@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio';
+import { stripWeightFromTitle } from '@/lib/utils';
 
 export interface ProductHtmlMetadata {
   commercialName: string;
@@ -57,7 +58,9 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     $('h1.product_title, h1.elementor-heading-title, h1').first().text().trim() ||
     $('meta[property="og:title"]').attr('content') ||
     '';
-  commercialName = commercialName.replace(/\s+/g, ' ').replace(/®/g, '').trim();
+  commercialName = stripWeightFromTitle(
+    commercialName.replace(/\s+/g, ' ').replace(/®/g, '').trim()
+  );
 
   let slug = '';
   if (sourceUrl) {
@@ -191,14 +194,30 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     ).text().trim();
   }
 
-  // 5c. Fallback de texto corrido
+  // 5c. Whiskas / Mars Petcare (Drupal)
+  if (!compText) {
+    $('.description-heading').each((_, el) => {
+      if (/ingrediente/i.test($(el).text())) {
+        const nextContent = $(el).next('.pdp_cooking_base_class__content-wysiwig, div').text().trim();
+        if (nextContent && !compText) compText = nextContent;
+      }
+    });
+  }
+  if (!garText) {
+    const nutritionTableText = $('.nutrition-table').text().trim();
+    if (nutritionTableText) garText = nutritionTableText;
+  }
+
+  // 5d. Fallback de texto corrido
   const bodyText = $('body').text();
   if (!compText) {
-    const m = bodyText.match(/composi[çc][ãa]o\s*b[áa]sica[^\n]*\n([\s\S]{50,1500}?)(?:N[íi]veis\s+de\s+garantia|Enriquecimento|$)/i);
+    const m =
+      bodyText.match(/composi[çc][ãa]o\s*b[áa]sica[^\n]*\n([\s\S]{50,1500}?)(?:N[íi]veis\s+de\s+garantia|An[áa]lise\s+garantida|Enriquecimento|$)/i) ||
+      bodyText.match(/Ingredientes\s*[:\n]\s*([\s\S]{50,1500}?)(?:An[áa]lise\s+garantida|N[íi]veis\s+de\s+garantia|Guia\s+alimentar|$)/i);
     if (m) compText = m[1].trim();
   }
   if (!garText) {
-    const m = bodyText.match(/N[íi]veis\s+de\s+garantia[\s\S]{50,2000}?(?:Enriquecimento|Tabela\s+de\s+consumo|$)/i);
+    const m = bodyText.match(/(?:N[íi]veis\s+de\s+garantia|An[áa]lise\s+garantida)[\s\S]{50,2000}?(?:Enriquecimento|Tabela\s+de\s+consumo|Guia\s+alimentar|$)/i);
     if (m) garText = m ? m[0] : bodyText;
   }
 

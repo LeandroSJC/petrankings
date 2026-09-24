@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
+import { stripWeightFromTitle } from '@/lib/utils';
 
 interface ProductFormProps {
   initialProduct?: any;
@@ -297,6 +298,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
 
       const payload = {
         ...formData,
+        commercialName: stripWeightFromTitle(formData.commercialName),
         id: productId,
         forceDuplicate,
         affiliateLinks: affiliateLinks
@@ -486,6 +488,12 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                   required
                   value={formData.commercialName}
                   onChange={(e) => handleChange('commercialName', e.target.value)}
+                  onBlur={() => {
+                    const cleaned = stripWeightFromTitle(formData.commercialName);
+                    if (cleaned && cleaned !== formData.commercialName) {
+                      handleChange('commercialName', cleaned);
+                    }
+                  }}
                   placeholder="Ex: Ração Super Premium Cães Adultos Frango e Arroz"
                   style={{
                     width: '100%',
@@ -496,6 +504,9 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                     transition: 'border-color 0.2s, background-color 0.2s',
                   }}
                 />
+                <span style={{ display: 'block', fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                  💡 Pesos e gramaturas (ex: 15kg, 85g, 290g) são ignorados e removidos automaticamente do nome.
+                </span>
 
                 {/* Status de verificação em tempo real */}
                 {duplicateCheck.checking && (

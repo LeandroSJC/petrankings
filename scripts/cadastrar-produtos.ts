@@ -5,6 +5,7 @@ import prisma from '../src/lib/prisma';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
+import { stripWeightFromTitle } from '../src/lib/utils';
 import { processUrl } from './cadastrar-por-url';
 const { PDFParse } = require('pdf-parse');
 
@@ -185,12 +186,14 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   // 3. Título e Nome Comercial
   const lines = text.split('\n').map((l: string) => l.trim()).filter(Boolean);
   const breadcrumb = lines.find((l: string) => l.startsWith('Início » Linha »')) || lines.find((l: string) => l.startsWith('Início /')) || '';
-  let commercialName = breadcrumb
-    .replace(/^Início\s*(?:»\s*Linha\s*»|\/)\s*/, '')
-    .replace(/®/g, '')
-    .trim();
+  let commercialName = stripWeightFromTitle(
+    breadcrumb
+      .replace(/^Início\s*(?:»\s*Linha\s*»|\/)\s*/, '')
+      .replace(/®/g, '')
+      .trim()
+  );
   if (!commercialName || commercialName.length < 5) {
-    commercialName = baseName;
+    commercialName = stripWeightFromTitle(baseName);
   }
   if (
     !commercialName.startsWith('PremieR') &&
@@ -644,7 +647,7 @@ async function processAll() {
       const htmlMeta = parseProductFromHtml(htmlContent, '');
       remoteImageUrl = htmlMeta.imageUrl;
       meta = {
-        commercialName: htmlMeta.commercialName || baseName,
+        commercialName: stripWeightFromTitle(htmlMeta.commercialName || baseName),
         slug: htmlMeta.slug || baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
         brand: htmlMeta.brand,
         manufacturerLegalName: htmlMeta.manufacturerLegalName,

@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { productInputSchema } from '@/lib/schemas/product';
+import { stripWeightFromTitle } from '@/lib/utils';
 
 export async function GET(
   req: NextRequest,
@@ -51,6 +52,9 @@ export async function PUT(
     }
 
     const body: any = parsed.data;
+    if (body.commercialName) {
+      body.commercialName = stripWeightFromTitle(body.commercialName);
+    }
 
     const isCoadjuvante = body.legalCategory === 'ALIMENTO_COADJUVANTE';
 
