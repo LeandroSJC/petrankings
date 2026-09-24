@@ -266,7 +266,11 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
         if (p.legalCategory === 'ALIMENTO_COADJUVANTE') return false;
       } else if (activeSegment === 'prescricao') {
         if (p.legalCategory !== 'ALIMENTO_COADJUVANTE') return false;
-        if (selectedPrescriptionSpecies !== 'TODOS' && p.species !== selectedPrescriptionSpecies) {
+        if (
+          selectedPrescriptionSpecies !== 'TODOS' &&
+          p.species !== selectedPrescriptionSpecies &&
+          p.species !== 'CAO_E_GATO'
+        ) {
           return false;
         }
         if (selectedPrescriptionCondition !== 'TODOS') {
@@ -505,6 +509,7 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
                 { id: 'OBESIDADE', label: 'Obesidade & Diabetes' },
                 { id: 'GASTRO', label: 'Gastrointestinal' },
                 { id: 'HIPOALERGENICO', label: 'Hipoalergênico' },
+                { id: 'RECUPERACAO', label: 'Recuperação & Convalescença' },
               ].map((cond) => (
                 <button
                   key={cond.id}

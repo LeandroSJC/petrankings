@@ -32,7 +32,7 @@ export async function GET(): Promise<Response> {
     if (products.length > 0) {
       productsMarkdown = products
         .map((p) => {
-          const speciesLabel = p.species === 'CAO' ? 'Cães' : 'Gatos';
+          const speciesLabel = p.species === 'CAO_E_GATO' ? 'Cães e Gatos' : p.species === 'CAO' ? 'Cães' : 'Gatos';
           const tierLabel = formatarTermo(p.classificationTier) || 'Classificação Técnica';
           const scoreLabel = p.scoreTotal !== null && p.scoreTotal !== undefined ? `${p.scoreTotal}/100` : 'N/A';
           return `- [${p.commercialName}](${siteUrl}/produto/${p.slug}): ${p.brand} | Espécie: ${speciesLabel} | Padrão: ${tierLabel} | Proteína Mín.: ${p.crudeProteinMinPct}% | Nota: ${scoreLabel}`;

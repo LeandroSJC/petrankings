@@ -684,6 +684,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                 >
                   <option value="CAO">🐶 Cão</option>
                   <option value="GATO">🐱 Gato</option>
+                  <option value="CAO_E_GATO">🐾 Cães e Gatos (Ambos)</option>
                 </select>
               </div>
 

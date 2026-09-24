@@ -11,7 +11,7 @@
     "prisma:push": "prisma db push",
     "prisma:seed": "tsx prisma/seed.ts",
     "db:enable-rls": "tsx scripts/enable-rls.ts",
-    "cadastrar-produtos": "tsx scripts/cadastrar-produtos.ts"
+    "cadastrar-produtos": "tsx --env-file=.env scripts/cadastrar-produtos.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.4",

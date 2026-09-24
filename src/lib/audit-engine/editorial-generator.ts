@@ -57,7 +57,7 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
   } = params;
 
   // 1. Identificação do Público-Alvo e Espécie
-  const speciesDesc = species === 'GATO' ? 'gatos' : 'cães';
+  const speciesDesc = species === 'CAO_E_GATO' ? 'cães e gatos' : species === 'GATO' ? 'gatos' : 'cães';
   const isCastrado = /castrad/i.test(commercialName);
   let faseDesc = 'adultos';
   if (lifeStage === 'CRESCIMENTO_INICIAL') {
@@ -348,7 +348,7 @@ DIRETRIZES INEGOCIÁVEIS:
     const userPrompt = `Redija o parecer editorial para o seguinte produto avaliado:
 - Nome Comercial: ${commercialName}
 - Marca: ${brand}
-- Espécie: ${species === 'GATO' ? 'Gatos (Felinos)' : 'Cães (Caninos)'}
+- Espécie: ${species === 'CAO_E_GATO' ? 'Cães e Gatos (Caninos e Felinos)' : species === 'GATO' ? 'Gatos (Felinos)' : 'Cães (Caninos)'}
 - Fase de Vida: ${lifeStage}
 - Tipo de Alimento: ${foodType} (${foodType === 'UMIDO' ? 'Úmido' : 'Seco'})
 - Categoria Legal MAPA: ${legalCategory} ${coadjuvanteCondition ? `(Condição: ${coadjuvanteCondition})` : ''}
@@ -364,14 +364,14 @@ ${eeMS !== null ? `- Extrato Etéreo (Gordura): ${extratoEtereoMinPct}% (calcula
 - Extrato dos Pilares da Auditoria:
 ${pointsSummary}`;
 
-    const modelsToTry = ['gemini-3.6-flash', 'gemini-3.5-flash'];
+    const modelsToTry = ['gemini-3.5-flash-lite', 'gemini-3.6-flash'];
     let res: Response | null = null;
 
     for (let attempt = 0; attempt < modelsToTry.length; attempt++) {
       const currentModel = modelsToTry[attempt];
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 45000);
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
 
         res = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${apiKey}`,
@@ -398,13 +398,13 @@ ${pointsSummary}`;
         }
 
         if (res.status === 503 || res.status === 429) {
-          console.warn(`[Gemini Editorial] Modelo ${currentModel} retornou status ${res.status}. Aguardando 3.5s...`);
-          await new Promise((r) => setTimeout(r, 3500));
+          console.warn(`[Gemini Editorial] Modelo ${currentModel} retornou status ${res.status}. Aguardando 2s...`);
+          await new Promise((r) => setTimeout(r, 2000));
         }
       } catch (err: any) {
         console.warn(`[Gemini Editorial] Erro na tentativa com ${currentModel}: ${err.message}.`);
         if (attempt < modelsToTry.length - 1) {
-          await new Promise((r) => setTimeout(r, 2500));
+          await new Promise((r) => setTimeout(r, 1500));
         }
       }
     }

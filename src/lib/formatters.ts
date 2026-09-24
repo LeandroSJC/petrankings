@@ -73,6 +73,7 @@ const MAPA_TERMOS: Record<string, string> = {
   // Espécies
   CAO: 'Cão',
   GATO: 'Gato',
+  CAO_E_GATO: 'Cães e Gatos',
 
   // Tipos de Alimento
   SECO: 'Seco',

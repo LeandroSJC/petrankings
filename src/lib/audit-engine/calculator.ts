@@ -307,8 +307,11 @@ export function calcularEnergiaMetabolizavel(
   let cdePct = 0;
   if (especie === 'CAO') {
     cdePct = 91.2 - (1.43 * fbMS);
-  } else {
+  } else if (especie === 'GATO') {
     cdePct = 87.9 - (0.88 * fbMS);
+  } else {
+    // CAO_E_GATO: média ponderada fisiológica de digestibilidade
+    cdePct = ((91.2 - (1.43 * fbMS)) + (87.9 - (0.88 * fbMS))) / 2;
   }
   cdePct = Math.min(Math.max(cdePct, 50), 95);
 
@@ -319,8 +322,11 @@ export function calcularEnergiaMetabolizavel(
   let emKcalKg = 0;
   if (especie === 'CAO') {
     emKcalKg = edKcalKg - (1.04 * pbGkg);
-  } else {
+  } else if (especie === 'GATO') {
     emKcalKg = edKcalKg - (0.77 * pbGkg);
+  } else {
+    // CAO_E_GATO: média de perda energética urinária
+    emKcalKg = edKcalKg - (0.905 * pbGkg);
   }
 
   return {

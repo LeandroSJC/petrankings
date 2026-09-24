@@ -3,7 +3,7 @@
  * Revisão Terminológica: Substituição formal de "Auditoria" por "Análise de Rótulo"
  */
 
-export type Especie = 'CAO' | 'GATO';
+export type Especie = 'CAO' | 'GATO' | 'CAO_E_GATO';
 export type FaseVida = 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR';
 export type Porte = 'MINI_PEQUENO' | 'MEDIO_GRANDE' | 'TODOS';
 export type TipoAlimento = 'SECO' | 'UMIDO';

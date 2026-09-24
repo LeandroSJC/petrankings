@@ -11,7 +11,7 @@ interface ProductMetadata {
   slug: string;
   brand: string;
   manufacturerLegalName: string;
-  species: 'GATO' | 'CAO';
+  species: 'GATO' | 'CAO' | 'CAO_E_GATO';
   lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR';
   foodType: 'SECO' | 'UMIDO';
   breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE';
@@ -49,6 +49,7 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   // 1. URL Oficial no rodapé
   const urlMatch =
+    text.match(/https:\/\/(?:www\.)?adimax\.com\.br\/produto\/[^\s\t\n\/]+\/?/i) ||
     text.match(/https:\/\/(?:www\.)?(?:premierpet\.com\.br\/produto\/|whiskas\.com\.br\/products\/[^\s\t\n\/]+\/)[^\s\t\n]+/i) ||
     text.match(/https:\/\/[^\s\t\n]+/i);
   let sourceUrl = urlMatch ? urlMatch[0].trim() : '';
@@ -60,7 +61,9 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   // 2. Slug
   let slug = '';
-  if (sourceUrl) {
+  if (/recupera/i.test(baseName) && /c[ãa]es\s*e\s*gatos/i.test(baseName)) {
+    slug = 'formula-natural-vet-care-recuperacao-caes-e-gatos';
+  } else if (sourceUrl) {
     const m = sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?/i);
     if (m) slug = m[1];
   }
@@ -88,8 +91,8 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/whiskas|pedigree|royal|purina|biofresh|guabi/i.test(commercialName) &&
-    !/whiskas|pedigree|royal|purina|biofresh|guabi/i.test(baseName)
+    !/f[óo]rmula\s*natural|adimax|whiskas|pedigree|royal|purina|biofresh|guabi/i.test(commercialName) &&
+    !/f[óo]rmula\s*natural|adimax|whiskas|pedigree|royal|purina|biofresh|guabi/i.test(baseName)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -98,7 +101,22 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   let brand = 'PremieR';
   let manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
 
-  if (/whiskas/i.test(commercialName) || /whiskas/i.test(baseName)) {
+  if (/f[óo]rmula\s*natural/i.test(commercialName) || /f[óo]rmula\s*natural/i.test(baseName)) {
+    if (/vet\s*care/i.test(commercialName) || /vet\s*care/i.test(baseName)) {
+      brand = 'Fórmula Natural Vet Care';
+    } else if (/fresh\s*meat/i.test(commercialName) || /fresh\s*meat/i.test(baseName)) {
+      brand = 'Fórmula Natural Fresh Meat';
+    } else if (/receitas\s*caseiras/i.test(commercialName) || /receitas\s*caseiras/i.test(baseName)) {
+      brand = 'Fórmula Natural Receitas Caseiras';
+    } else if (/life/i.test(commercialName) || /life/i.test(baseName)) {
+      brand = 'Fórmula Natural Life';
+    } else if (/gourmet/i.test(commercialName) || /gourmet/i.test(baseName)) {
+      brand = 'Fórmula Natural Gourmet';
+    } else {
+      brand = 'Fórmula Natural';
+    }
+    manufacturerLegalName = 'Adimax Indústria e Comércio de Alimentos Ltda';
+  } else if (/whiskas/i.test(commercialName) || /whiskas/i.test(baseName)) {
     brand = 'Whiskas';
     manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
   } else if (/pedigree/i.test(commercialName) || /pedigree/i.test(baseName)) {
@@ -128,24 +146,37 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   const dogBreedsRegex =
     /golden retriever|labrador|pit bull|bulldog|buldogue|pug|shih tzu|spitz|lhasa|malt[eê]s|yorkshire|rottweiler|pastor|poodle|beagle|dachshund|schnauzer|chihuahua|boxer|border collie|cocker|pinscher|dálmata|dalmata|basset/i;
 
+  const isDual =
+    /c[ãa]es\s*e\s*gatos/i.test(commercialName) ||
+    /c[ãa]es\s*e\s*gatos/i.test(baseName);
+
   const isGato =
     /gato|gatos|felin/i.test(commercialName) ||
-    /gato|gatos|felin/i.test(baseName) ||
-    /desenvolvido para gatos|para gatos|nutri[çc][ãa]o felina/i.test(text);
+    /gato|gatos|felin/i.test(baseName);
 
   const isCao =
     dogBreedsRegex.test(commercialName) ||
     dogBreedsRegex.test(baseName) ||
     /c[ãa]o|c[ãa]es|cachorro|canin/i.test(commercialName) ||
-    /c[ãa]o|c[ãa]es|cachorro|canin/i.test(baseName) ||
-    /desenvolvido para c[ãa]es|para c[ãa]es|nutri[çc][ãa]o canina|c[ãa]es adultos|c[ãa]es filhotes/i.test(text);
+    /c[ãa]o|c[ãa]es|cachorro|canin/i.test(baseName);
 
-  const species: 'GATO' | 'CAO' = isGato && !isCao ? 'GATO' : 'CAO';
+  let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
+  if (isDual) {
+    species = 'CAO_E_GATO';
+  } else if (isGato) {
+    species = 'GATO';
+  } else if (isCao) {
+    species = 'CAO';
+  } else if (/desenvolvido para gatos|para gatos|nutri[çc][ãa]o felina/i.test(text)) {
+    species = 'GATO';
+  } else {
+    species = 'CAO';
+  }
 
   let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
   if (/filhote|crescimento/i.test(commercialName)) {
     lifeStage = 'CRESCIMENTO_INICIAL';
-  } else if (/7 a 11 anos|acima de 12 anos|senior|sênior/i.test(commercialName)) {
+  } else if (/7 a 11 anos|acima de 12 anos|senior|sênior/i.test(commercialName) || /s[êe]nior/i.test(baseName)) {
     lifeStage = 'SENIOR';
   }
 
@@ -159,7 +190,7 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
 
   // Formato do alimento
   let foodType: 'SECO' | 'UMIDO' =
-    /úmido|umido|gourmet/i.test(baseName) || /úmido|umido|gourmet/i.test(commercialName) ? 'UMIDO' : 'SECO';
+    /úmido|umido|gourmet|sach[êe]|pat[êe]|lata/i.test(baseName) || /úmido|umido|gourmet|sach[êe]|pat[êe]|lata/i.test(commercialName) ? 'UMIDO' : 'SECO';
 
   // 5.1 Categoria Legal e Condição Coadjuvante
   let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
@@ -168,22 +199,24 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   if (
     /nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) ||
     /nutri[çc][ãa]o cl[íi]nica/i.test(baseName) ||
+    /vet\s*care/i.test(commercialName) ||
+    /vet\s*care/i.test(baseName) ||
     /alimento coadjuvante/i.test(text)
   ) {
     legalCategory = 'ALIMENTO_COADJUVANTE';
-    const targetText = (commercialName + ' ' + baseName).toLowerCase();
+    const targetText = (commercialName + ' ' + baseName + ' ' + text.slice(0, 1200)).toLowerCase();
     if (/renal/i.test(targetText)) {
       coadjuvanteCondition = 'RENAL';
-    } else if (/urin[áa]rio|estruvita|oxalate/i.test(targetText)) {
+    } else if (/urin[áa]ri/i.test(targetText)) {
       coadjuvanteCondition = 'URINARIO';
+    } else if (/recupera/i.test(targetText)) {
+      coadjuvanteCondition = 'RECUPERACAO';
     } else if (/obesidade|perda de peso|controle de peso/i.test(targetText)) {
       coadjuvanteCondition = 'OBESIDADE';
     } else if (/diabet/i.test(targetText)) {
       coadjuvanteCondition = 'DIABETES';
     } else if (/gastro|gastrointestinal/i.test(targetText)) {
       coadjuvanteCondition = 'GASTROINTESTINAL';
-    } else if (/recupera[çc][ãa]o|convalesc/i.test(targetText)) {
-      coadjuvanteCondition = 'RECUPERACAO';
     } else if (/hipoalerg|pele sens[íi]vel/i.test(targetText)) {
       coadjuvanteCondition = 'HIPOALERGENICO';
     } else if (/hep[áa]t/i.test(targetText)) {
@@ -192,13 +225,16 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
       coadjuvanteCondition = 'OUTRO';
     }
   } else if (
-    /complemento alimentar/i.test(text) ||
-    /alimento complementar/i.test(text) ||
-    /alimento espec[íi]fico/i.test(text) ||
     /cookie|biscoito|snack|petisco|bites/i.test(commercialName) ||
     /cookie|biscoito|snack|petisco|bites/i.test(baseName) ||
     /premier.*gourmet/i.test(commercialName) ||
-    /premier.*gourmet/i.test(baseName)
+    /premier.*gourmet/i.test(baseName) ||
+    /gourmet/i.test(commercialName) ||
+    /gourmet/i.test(baseName) ||
+    (!/alimento\s+completo/i.test(text.slice(0, 1000)) &&
+      (/complemento\s+alimentar/i.test(text.slice(0, 1000)) ||
+        /alimento\s+complementar/i.test(text.slice(0, 1000)) ||
+        /alimento\s+espec[íi]fico/i.test(text.slice(0, 1000))))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
@@ -227,9 +263,11 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     if (idx !== -1 && (endIdx === -1 || idx < endIdx)) endIdx = idx;
   }
   let compRaw = compIdx !== -1 && endIdx !== -1 ? text.slice(compIdx, endIdx) : (compIdx !== -1 ? text.slice(compIdx, compIdx + 1200) : '');
-  const tableText = text;
 
-  // 7. Níveis de Garantia (Suporte a % e g/kg ou mg/kg)
+  // 7. Níveis de Garantia (Suporte a %, g/kg e mg/kg)
+  const garMatch = text.match(/N[íi]veis\s+de\s+Garantia/i) || text.match(/An[áa]lise\s+garantida/i);
+  const tableText = garMatch && garMatch.index !== undefined ? text.slice(garMatch.index) : text;
+
   const parseGuarantee = (pattern: RegExp): number => {
     const m = tableText.match(pattern);
     if (!m) return 0;
@@ -242,37 +280,55 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   };
 
   const umidadeMaxPct =
-    parseGuarantee(/Umidade[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || (foodType === 'UMIDO' ? 86.0 : 10.0);
+    parseGuarantee(/(?:^|\n)\s*Umidade[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/Umidade[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    (foodType === 'UMIDO' ? 86.0 : 10.0);
   if (umidadeMaxPct > 50) {
     foodType = 'UMIDO';
   }
 
-  const proteinaBrutaMinPct = parseGuarantee(
-    /Prote[íi]na\s+(?:Bruta|Cruda)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i
-  );
-  const extratoEtereoMinPct = parseGuarantee(/Extrato Et[ée]reo[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+  const proteinaBrutaMinPct =
+    parseGuarantee(/(?:^|\n)\s*Prote[íi]na\s+(?:Bruta|Cruda)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+
+  const extratoEtereoMinPct =
+    parseGuarantee(/(?:^|\n)\s*Extrato Et[ée]reo[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/Extrato Et[ée]reo[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+
   const materiaMineralMaxPct =
+    parseGuarantee(/(?:^|\n)\s*Mat[ée]ria Mineral[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/Mat[ée]ria Mineral[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 2.5 : 8.0);
+
   const materiaFibrosaMaxPct =
+    parseGuarantee(/(?:^|\n)\s*(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 1.5 : 3.5);
+
   const calcioMinPct =
+    parseGuarantee(/(?:^|\n)\s*C[áa]lcio[^\n\(]*\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/C[áa]lcio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.2 : 0.8);
+
   const calcioMaxPct =
+    parseGuarantee(/(?:^|\n)\s*C[áa]lcio[^\n\(]*\(m[áa]x\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/C[áa]lcio\s*\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.45 : 1.5);
+
   const fosforoMinPct =
+    parseGuarantee(/(?:^|\n)\s*F[óo]sforo[^\n\(]*\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/F[óo]sforo\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.15 : 0.7);
+
   const sodioMinPct =
+    parseGuarantee(/(?:^|\n)\s*S[óo]dio[^\n\(]*\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/S[óo]dio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.1 : 0.25);
+
   const omega3MinPct =
+    parseGuarantee(/(?:^|\n)\s*[ÔO]mega\s*3.*?\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     parseGuarantee(/[ÔO]mega\s*3[^\d]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/[ÔO]mega\s*3[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/EPA\s*\+\s*DHA[^\d]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:^|\n)\s*EPA\s*\+\s*DHA.*?\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     0.2;
 
   // Se for alimento úmido com níveis residuais de cálcio e fósforo (sem premix mineral completo), é Alimento Complementar (Topper)
@@ -283,6 +339,8 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   // Energia Metabolizável
   let energiaMetabolizavelKcalKg: number | null = null;
   const emMatch =
+    tableText.match(/Energia\s+Metaboliz[áa]vel[^\d]*(\d[\d\.,]+)\s*kcal/i) ||
+    tableText.match(/(\d{4})\s*kcal\/kg/i) ||
     text.match(/Energia\s+Metaboliz[áa]vel[^\d]*(\d[\d\.,]+)\s*kcal/i) ||
     text.match(/(\d{4})\s*kcal\/kg/i);
   if (emMatch) {
@@ -292,14 +350,23 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
   }
 
   // Transgênicos (Conformidade com Decreto nº 4.680/2003 e Rotulagem Oficial MAPA)
-  const hasNaoTransgExplicit = /n[ãa]o transg[êe]nico/i.test(compRaw) || /n[ãa]o transg[êe]nico/i.test(text);
+  const hasNaoTransgExplicit =
+    /n[ãa]o\s+transg[êe]nico/i.test(compRaw) ||
+    /n[ãa]o\s+transg[êe]nico/i.test(text) ||
+    /livre\s+de\s+(?:ingredientes\s+)?transg[êe]nico/i.test(text) ||
+    /sem\s+(?:ingredientes\s+)?transg[êe]nico/i.test(text) ||
+    /100%\s+livre\s+de\s+transg[êe]nico/i.test(text) ||
+    /n[ãa]o\s+cont[ée]m\s+transg[êe]nico/i.test(text);
+
   const hasContemGmo =
     /\*Cont[ée]m.*transg/i.test(compRaw) ||
     /\*Cont[ée]m.*transg/i.test(text) ||
     /Esp[ée]cies\s+doadoras\s+d[eo]\s+gene/i.test(text) ||
     /doadoras\s+d[eo]\s+gene/i.test(text) ||
-    /\btransg[êe]nic/i.test(text) ||
-    /\b(?:Milho|Soja)\s*\*/i.test(text);
+    /\btransg[êe]nic[oa]s?\s*\*/i.test(text) ||
+    /\b(?:Milho|Soja)\s*\*/i.test(text) ||
+    /\(transg[êe]nico\)/i.test(compRaw);
+
   const containsGmo = hasContemGmo && !hasNaoTransgExplicit;
 
   let gmoIngredients: string | null = null;
@@ -659,6 +726,85 @@ async function processAll() {
   }
 
   console.log(`\n🎉 Todos os produtos de produtos_cadastro/ foram auditados e sincronizados com sucesso!\n`);
+
+  // Atualiza o arquivo de rastreamento editorial JSON
+  try {
+    const DETERMINISTIC_REGEX = /(?:Alimento (?:seco|úmido) do segmento|Alimento dietoterápico coadjuvante formulado especialmente|Alimento específico \/ complementar|ao demonstrar atendimento aos pisos regulatórios|demonstrando alta densidade nutricional e atendimento pleno aos parâmetros do Manual Pet Food Brasil|Classificado Sob Observação \(|na auditoria técnica do PetRankings\..*A pontuação foi penalizada porque)/i;
+    const allProducts = await prisma.product.findMany({
+      select: {
+        id: true,
+        slug: true,
+        commercialName: true,
+        brand: true,
+        species: true,
+        legalCategory: true,
+        scoreTotal: true,
+        classificationTier: true,
+        editorialOpinion: true,
+        updatedAt: true,
+      },
+      orderBy: { id: 'asc' },
+    });
+
+    const processed: any[] = [];
+    const pending: any[] = [];
+
+    for (const p of allProducts) {
+      const isDeterministic = !p.editorialOpinion || p.editorialOpinion.trim().length === 0 || DETERMINISTIC_REGEX.test(p.editorialOpinion);
+      if (isDeterministic) {
+        pending.push({
+          id: p.id,
+          slug: p.slug,
+          commercialName: p.commercialName,
+          brand: p.brand,
+          species: p.species,
+          legalCategory: p.legalCategory,
+          scoreTotal: p.scoreTotal,
+          classificationTier: p.classificationTier,
+        });
+      } else {
+        processed.push({
+          id: p.id,
+          slug: p.slug,
+          commercialName: p.commercialName,
+          brand: p.brand,
+          species: p.species,
+          legalCategory: p.legalCategory,
+          scoreTotal: p.scoreTotal,
+          classificationTier: p.classificationTier,
+          updatedAt: p.updatedAt,
+          editorialOpinionSnippet: p.editorialOpinion ? p.editorialOpinion.slice(0, 140) + '...' : '',
+        });
+      }
+    }
+
+    const outDir = path.join(process.cwd(), 'scripts', 'data');
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+    const progressFile = path.join(outDir, 'editorial-revision-progress.json');
+
+    fs.writeFileSync(
+      progressFile,
+      JSON.stringify(
+        {
+          lastUpdated: new Date().toISOString(),
+          summary: {
+            totalProducts: allProducts.length,
+            processedByGemini: processed.length,
+            pending: pending.length,
+            percentComplete: `${((processed.length / allProducts.length) * 100).toFixed(2)}%`,
+          },
+          processed,
+          pending,
+        },
+        null,
+        2
+      ),
+      'utf-8'
+    );
+    console.log(`📊 Arquivo de progresso editorial atualizado com ${allProducts.length} produtos no total.`);
+  } catch (err) {
+    console.warn(`⚠️ Não foi possível sincronizar o arquivo de progresso JSON:`, err);
+  }
 }
 
 processAll()

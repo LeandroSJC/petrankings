@@ -36,7 +36,7 @@ export const productInputSchema = z.object({
   brand: z.string().trim().min(1, 'Marca é obrigatória.').max(100),
   manufacturerLegalName: z.string().trim().max(200).optional().default(''),
   legalCategory: z.enum(['ALIMENTO_COMPLETO', 'ALIMENTO_COADJUVANTE', 'ALIMENTO_COMPLEMENTAR']).default('ALIMENTO_COMPLETO'),
-  species: z.enum(['CAO', 'GATO']),
+  species: z.enum(['CAO', 'GATO', 'CAO_E_GATO']),
   lifeStage: z.enum(['ADULTO', 'CRESCIMENTO_INICIAL', 'CRESCIMENTO_FINAL', 'SENIOR']),
   breedSize: z.string().trim().max(50).default('TODOS'),
   foodType: z.enum(['SECO', 'UMIDO']).default('SECO'),

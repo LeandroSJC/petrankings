@@ -89,7 +89,8 @@ export function getAbinpetStandard(
   foodType: 'SECO' | 'UMIDO' = 'SECO'
 ): AbinpetNutrientStandard {
   const isFilhote = faseVida === 'CRESCIMENTO_INICIAL' || faseVida === 'CRESCIMENTO_FINAL';
-  const key = `${especie}_${isFilhote ? 'FILHOTE' : 'ADULTO'}`;
+  const espKey = especie === 'CAO_E_GATO' ? 'CAO' : especie;
+  const key = `${espKey}_${isFilhote ? 'FILHOTE' : 'ADULTO'}`;
   const baseStandard = ABINPET_STANDARDS[key] || ABINPET_STANDARDS['CAO_ADULTO'];
 
   if (foodType === 'UMIDO') {

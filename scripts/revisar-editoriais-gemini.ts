@@ -1,8 +1,67 @@
+import fs from 'fs';
+import path from 'path';
 import prisma from '../src/lib/prisma';
 import { getAbinpetStandard } from '../src/lib/audit-engine/abinpet-standards';
 import { Especie, FaseVida, TipoAlimento } from '../src/lib/audit-engine/types';
 
 const DETERMINISTIC_REGEX = /(?:Alimento (?:seco|úmido) do segmento|Alimento dietoterápico coadjuvante formulado especialmente|Alimento específico \/ complementar|ao demonstrar atendimento aos pisos regulatórios|demonstrando alta densidade nutricional e atendimento pleno aos parâmetros do Manual Pet Food Brasil|Classificado Sob Observação \(|na auditoria técnica do PetRankings\..*A pontuação foi penalizada porque)/i;
+
+function syncProgressFile(allProducts: any[], lastDenialReason?: string) {
+  const processed: any[] = [];
+  const pending: any[] = [];
+
+  for (const p of allProducts) {
+    const isDeterministic = !p.editorialOpinion || p.editorialOpinion.trim().length === 0 || DETERMINISTIC_REGEX.test(p.editorialOpinion);
+
+    if (isDeterministic) {
+      pending.push({
+        id: p.id,
+        slug: p.slug,
+        commercialName: p.commercialName,
+        brand: p.brand,
+        species: p.species,
+        legalCategory: p.legalCategory,
+        scoreTotal: p.scoreTotal,
+        classificationTier: p.classificationTier,
+      });
+    } else {
+      processed.push({
+        id: p.id,
+        slug: p.slug,
+        commercialName: p.commercialName,
+        brand: p.brand,
+        species: p.species,
+        legalCategory: p.legalCategory,
+        scoreTotal: p.scoreTotal,
+        classificationTier: p.classificationTier,
+        updatedAt: p.updatedAt,
+        editorialOpinionSnippet: p.editorialOpinion ? p.editorialOpinion.slice(0, 140) + '...' : '',
+      });
+    }
+  }
+
+  const outDir = path.join(process.cwd(), 'scripts', 'data');
+  if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir, { recursive: true });
+  }
+
+  const filePath = path.join(outDir, 'editorial-revision-progress.json');
+
+  const payload = {
+    lastUpdated: new Date().toISOString(),
+    lastDenialReason: lastDenialReason || null,
+    summary: {
+      totalProducts: allProducts.length,
+      processedByGemini: processed.length,
+      pending: pending.length,
+      percentComplete: `${((processed.length / allProducts.length) * 100).toFixed(2)}%`,
+    },
+    processed,
+    pending,
+  };
+
+  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), 'utf-8');
+}
 
 async function runEditorialRevision() {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -37,9 +96,13 @@ async function runEditorialRevision() {
       classificationTier: true,
       scoreBreakdown: true,
       editorialOpinion: true,
+      updatedAt: true,
     },
     orderBy: { id: 'asc' },
   });
+
+  // Gera/sincroniza o arquivo JSON de progresso logo no início
+  syncProgressFile(allProducts);
 
   const targetProducts = allProducts.filter((p) => {
     if (!p.editorialOpinion || p.editorialOpinion.trim().length === 0) return true;
@@ -54,7 +117,6 @@ async function runEditorialRevision() {
     return;
   }
 
-  const model = 'gemini-3.6-flash';
   let successCount = 0;
   let stoppedDueToDenial = false;
   let stopReason = '';
@@ -133,27 +195,34 @@ ${eeMS !== null ? `- Extrato Etéreo (Gordura): ${product.etherExtractMinPct}% (
 ${pointsSummary}`;
 
     try {
-      const modelsToAttempt = ['gemini-3.6-flash', 'gemini-3.5-flash'];
+      const modelsToAttempt = ['gemini-3.5-flash-lite', 'gemini-3.6-flash'];
       let res: Response | null = null;
       let lastErrorText = '';
 
       for (const m of modelsToAttempt) {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 35000);
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-        res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              system_instruction: { parts: [{ text: systemPrompt }] },
-              contents: [{ parts: [{ text: userPrompt }] }],
-              generationConfig: { temperature: 0.2 },
-            }),
-            signal: controller.signal,
-          }
-        );
+        try {
+          res = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                system_instruction: { parts: [{ text: systemPrompt }] },
+                contents: [{ parts: [{ text: userPrompt }] }],
+                generationConfig: { temperature: 0.2 },
+              }),
+              signal: controller.signal,
+            }
+          );
+        } catch (fetchErr: any) {
+          clearTimeout(timeoutId);
+          lastErrorText = `Erro na requisição com ${m}: ${fetchErr.message}`;
+          console.warn(`   ⚠️ ${lastErrorText}`);
+          continue;
+        }
 
         clearTimeout(timeoutId);
 
@@ -185,6 +254,7 @@ ${pointsSummary}`;
         console.warn(`\n🛑 [INTERRUPÇÃO MANDATÓRIA] O Gemini negou serviço (${status}):`);
         console.warn(`   ${stopReason}`);
         console.warn(`   Parando o processo imediatamente conforme instrução do usuário.`);
+        syncProgressFile(allProducts, stopReason);
         break;
       }
 
@@ -200,7 +270,7 @@ ${pointsSummary}`;
       generatedText = generatedText.replace(/\*\*/g, '').trim();
 
       // Salvar imediatamente no banco de dados
-      await prisma.product.update({
+      const updated = await prisma.product.update({
         where: { id: product.id },
         data: {
           editorialOpinion: generatedText,
@@ -208,26 +278,29 @@ ${pointsSummary}`;
         },
       });
 
+      // Atualiza o produto na memória e no arquivo de progresso JSON
+      product.editorialOpinion = generatedText;
+      product.updatedAt = updated.updatedAt;
+      syncProgressFile(allProducts);
+
       successCount++;
       console.log(`✅ [${successCount} atualizados] Texto gerado e salvo:`);
       console.log(`   "${generatedText.slice(0, 100)}..."`);
 
-      // Pausa estratégica de 4 segundos entre requisições para evitar rate limit
+      // Pausa estratégica de 4.5 segundos entre requisições para evitar rate limit
       if (i < targetProducts.length - 1) {
-        await new Promise((r) => setTimeout(r, 4000));
+        await new Promise((r) => setTimeout(r, 4500));
       }
     } catch (err: any) {
-      if (err.name === 'AbortError') {
-        console.warn(`⚠️ Timeout na requisição.`);
-      } else {
-        console.warn(`⚠️ Erro de rede ou chamada:`, err.message);
-      }
       stoppedDueToDenial = true;
       stopReason = `Exceção na chamada de rede: ${err.message}`;
-      console.warn(`🛑 Parando o processo devido a erro de conexão.`);
+      console.warn(`🛑 Parando o processo devido a erro de conexão: ${stopReason}`);
+      syncProgressFile(allProducts, stopReason);
       break;
     }
   }
+
+  syncProgressFile(allProducts, stoppedDueToDenial ? stopReason : undefined);
 
   console.log('\n==================================================');
   console.log('📋 RELATÓRIO FINAL DA REVISÃO EDITORIAL:');
@@ -236,6 +309,7 @@ ${pointsSummary}`;
   if (stoppedDueToDenial) {
     console.log(`- Motivo da parada: ${stopReason}`);
   }
+  console.log('📁 Arquivo de progresso atualizado em: scripts/data/editorial-revision-progress.json');
   console.log('==================================================\n');
 }
 
