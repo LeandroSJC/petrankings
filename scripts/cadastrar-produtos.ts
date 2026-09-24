@@ -40,6 +40,109 @@ interface ProductMetadata {
 }
 
 /**
+ * Extrator e saneador especializado para fichas técnicas da Adimax / Fórmula Natural
+ * Remove cabeçalhos de accordions de layout web, notas de impressão e parágrafos de marketing
+ */
+export function cleanAdimaxIngredients(text: string): string[] {
+  const compMatch = text.match(/composi[çc][ãa]o\s*b[áa]sica/i) || text.match(/composi[çc][ãa]o/i);
+  if (!compMatch || compMatch.index === undefined) return [];
+
+  const afterComp = text.slice(compMatch.index);
+  const garTableMatch = afterComp.match(/(?:^|\n)\s*(?:Umidade|Prote[íi]na\s+Bruta|Prote[íi]na\s+Cruda)[^\n\d]*\d+/i);
+  const endOffset = garTableMatch && garTableMatch.index !== undefined ? garTableMatch.index : afterComp.length;
+  const rawSection = afterComp.slice(0, endOffset);
+
+  const lines = rawSection.split('\n').map((l) => l.trim()).filter(Boolean);
+
+  const filteredLines: string[] = [];
+  for (const l of lines) {
+    if (
+      /^Composição\s+básica\b/i.test(l) ||
+      /^Descrição\b/i.test(l) ||
+      /^Níveis\s+de\s+garantia\b/i.test(l) ||
+      /^Enriquecimento\b/i.test(l) ||
+      /^Tabela\s+de\s+consumo\b/i.test(l) ||
+      /^Inscreva-se\b/i.test(l) ||
+      /^Mais\s*[\uF107]?$/i.test(l) ||
+      /^--\s*\d+\s*of\s*\d+\s*--/i.test(l) ||
+      /^https?:\/\//i.test(l) ||
+      /^\d{2}\/\d{2}\/\d{4}/.test(l) ||
+      /^[\s]+$/.test(l)
+    ) {
+      continue;
+    }
+    const cleanedLine = l.replace(/[]/g, '').trim();
+    if (cleanedLine) {
+      filteredLines.push(cleanedLine);
+    }
+  }
+
+  const firstIngRegex = /^(?:Carnes?\b|Farinha\s+de\s+(?:v[íi]sceras|carne|peixes?)|[AÁ]gua\b|Atum\b|Peito\s+de\s+frango|Quirera\b)/i;
+
+  let ingredientStartLineIdx = -1;
+  for (let i = 0; i < filteredLines.length; i++) {
+    if (firstIngRegex.test(filteredLines[i])) {
+      ingredientStartLineIdx = i;
+      break;
+    }
+  }
+
+  if (ingredientStartLineIdx === -1) {
+    for (let i = 0; i < filteredLines.length; i++) {
+      const l = filteredLines[i];
+      const isMarketing =
+        /gatos são uma espécie|após a castração|por estarem em desenvolvimento|fórmula natural|feitos cuidadosamente|alimento úmido de alta qualidade|mudanças fisiológicas|a castração é um ato|alimento coadjuvante|gatos geriátricos|gatos de pelos longos|com um conceito natural/i.test(l);
+      if (!isMarketing) {
+        ingredientStartLineIdx = i;
+        break;
+      }
+    }
+  }
+
+  const ingLines = ingredientStartLineIdx !== -1 ? filteredLines.slice(ingredientStartLineIdx) : filteredLines;
+  let fullIngText = ingLines.join(' ');
+
+  fullIngText = fullIngText
+    .replace(/-- \d+ of \d+ --/g, ' ')
+    .replace(/https?:\/\/[^\s]*/gi, ' ')
+    .replace(/\d{2}\/\d{2}\/\d{4}[^\n]*/g, ' ')
+    .replace(/\bNíveis de garantia\b/gi, ' ')
+    .replace(/\bEnriquecimento\b/gi, ' ')
+    .replace(/\bTabela de consumo\b/gi, ' ')
+    .replace(/\bInscreva-se\b/gi, ' ')
+    .replace(/\bMais\s*[\uF107]?/gi, ' ')
+    .replace(/[]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (fullIngText.includes('*Contém')) fullIngText = fullIngText.split('*Contém')[0];
+  if (fullIngText.includes('*Ingredientes')) fullIngText = fullIngText.split('*Ingredientes')[0];
+
+  const ingredients: string[] = [];
+  let cur = '';
+  let parenDepth = 0;
+  for (let i = 0; i < fullIngText.length; i++) {
+    const c = fullIngText[i];
+    if (c === '(') parenDepth++;
+    else if (c === ')') parenDepth = Math.max(0, parenDepth - 1);
+
+    if (c === ',' && parenDepth === 0) {
+      const item = cur.trim().replace(/\.$/, '').trim();
+      if (item && item.length > 1) ingredients.push(item);
+      cur = '';
+    } else {
+      cur += c;
+    }
+  }
+  if (cur.trim()) {
+    const item = cur.trim().replace(/\.$/, '').trim();
+    if (item && item.length > 1) ingredients.push(item);
+  }
+
+  return ingredients;
+}
+
+/**
  * Extrator automático e determinístico de dados de rotulagem a partir do PDF oficial do fabricante
  */
 async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<ProductMetadata> {
@@ -403,26 +506,36 @@ async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<Pr
     .replace(/\s+/g, ' ')
     .trim();
 
-  // Divisão inteligente por vírgulas preservando parênteses
-  const topIngredientsList: string[] = [];
-  let cur = '';
-  let parenDepth = 0;
-  for (let i = 0; i < cleanCompText.length; i++) {
-    const c = cleanCompText[i];
-    if (c === '(') parenDepth++;
-    else if (c === ')') parenDepth = Math.max(0, parenDepth - 1);
+  const isAdimax =
+    /f[óo]rmula\s*natural|adimax/i.test(commercialName) ||
+    /f[óo]rmula\s*natural|adimax/i.test(baseName) ||
+    brand.includes('Fórmula Natural');
 
-    if (c === ',' && parenDepth === 0) {
+  let topIngredientsList: string[] = [];
+
+  if (isAdimax) {
+    topIngredientsList = cleanAdimaxIngredients(text);
+  } else {
+    // Divisão inteligente por vírgulas preservando parênteses
+    let cur = '';
+    let parenDepth = 0;
+    for (let i = 0; i < cleanCompText.length; i++) {
+      const c = cleanCompText[i];
+      if (c === '(') parenDepth++;
+      else if (c === ')') parenDepth = Math.max(0, parenDepth - 1);
+
+      if (c === ',' && parenDepth === 0) {
+        const item = cur.trim().replace(/\.$/, '');
+        if (item && item.length > 1) topIngredientsList.push(item);
+        cur = '';
+      } else {
+        cur += c;
+      }
+    }
+    if (cur.trim()) {
       const item = cur.trim().replace(/\.$/, '');
       if (item && item.length > 1) topIngredientsList.push(item);
-      cur = '';
-    } else {
-      cur += c;
     }
-  }
-  if (cur.trim()) {
-    const item = cur.trim().replace(/\.$/, '');
-    if (item && item.length > 1) topIngredientsList.push(item);
   }
 
   // 8. Conservantes / Antioxidantes

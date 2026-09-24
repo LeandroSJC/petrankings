@@ -6,7 +6,7 @@ import { Especie, FaseVida, TipoAlimento } from '../src/lib/audit-engine/types';
 
 const DETERMINISTIC_REGEX = /(?:Alimento (?:seco|úmido) do segmento|Alimento dietoterápico coadjuvante formulado especialmente|Alimento específico \/ complementar|ao demonstrar atendimento aos pisos regulatórios|demonstrando alta densidade nutricional e atendimento pleno aos parâmetros do Manual Pet Food Brasil|Classificado Sob Observação \(|na auditoria técnica do PetRankings\..*A pontuação foi penalizada porque)/i;
 
-function syncProgressFile(allProducts: any[], lastDenialReason?: string) {
+export function syncProgressFile(allProducts: any[], lastDenialReason?: string) {
   const processed: any[] = [];
   const pending: any[] = [];
 
