@@ -4,7 +4,9 @@ import crypto from 'crypto';
 import prisma from '../src/lib/prisma';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
+import { parseProductFromHtml } from '../src/lib/html-product-parser';
 const { PDFParse } = require('pdf-parse');
+
 
 interface ProductMetadata {
   commercialName: string;
@@ -585,28 +587,66 @@ async function processAll() {
   }
 
   const allFiles = fs.readdirSync(dir);
-  const pdfFiles = allFiles.filter((f) => f.endsWith('.pdf'));
+  const docFiles = allFiles.filter((f) => f.endsWith('.pdf') || f.endsWith('.html') || f.endsWith('.htm'));
 
-  if (pdfFiles.length === 0) {
-    console.log(`\n📁 Nenhum arquivo PDF pendente na pasta "produtos_cadastro/". Tudo atualizado!\n`);
+  if (docFiles.length === 0) {
+    console.log(`\n📁 Nenhum arquivo (.html, .htm ou .pdf) pendente na pasta "produtos_cadastro/". Tudo atualizado!\n`);
     return;
   }
 
   console.log(`\n================================================================`);
   console.log(`🤖 PIPELINE OFICIAL DE CADASTRO E AUDITORIA PETRANKINGS`);
-  console.log(`📁 Diretório de Entrada: produtos_cadastro/ (${pdfFiles.length} produtos pendentes)`);
+  console.log(`📁 Diretório de Entrada: produtos_cadastro/ (${docFiles.length} produtos pendentes)`);
   console.log(`================================================================\n`);
 
-  for (const pdfFile of pdfFiles) {
-    const baseName = pdfFile.replace('.pdf', '');
-    const pdfFullPath = path.join(dir, pdfFile);
+  for (const docFile of docFiles) {
+    const ext = path.extname(docFile).toLowerCase();
+    const baseName = path.basename(docFile, ext);
+    const docFullPath = path.join(dir, docFile);
+    const isHtml = ext === '.html' || ext === '.htm';
 
-    // 1. Hash SHA-256 do PDF
-    const pdfBuf = fs.readFileSync(pdfFullPath);
-    const sha256 = crypto.createHash('sha256').update(pdfBuf).digest('hex');
+    let meta: ProductMetadata;
+    let docSha256 = '';
+    let remoteImageUrl: string | null = null;
 
-    // 2. Extrai metadados oficiais do PDF
-    const meta = await parseProductFromPdf(baseName, pdfBuf);
+    if (isHtml) {
+      const htmlContent = fs.readFileSync(docFullPath, 'utf-8');
+      docSha256 = crypto.createHash('sha256').update(htmlContent).digest('hex');
+      const htmlMeta = parseProductFromHtml(htmlContent, '');
+      remoteImageUrl = htmlMeta.imageUrl;
+      meta = {
+        commercialName: htmlMeta.commercialName || baseName,
+        slug: htmlMeta.slug || baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        brand: htmlMeta.brand,
+        manufacturerLegalName: htmlMeta.manufacturerLegalName,
+        species: htmlMeta.species,
+        lifeStage: htmlMeta.lifeStage,
+        foodType: htmlMeta.foodType,
+        breedSize: htmlMeta.breedSize,
+        legalCategory: htmlMeta.legalCategory,
+        coadjuvanteCondition: htmlMeta.coadjuvanteCondition,
+        sourceUrl: htmlMeta.sourceUrl,
+        umidadeMaxPct: htmlMeta.umidadeMaxPct,
+        proteinaBrutaMinPct: htmlMeta.proteinaBrutaMinPct,
+        extratoEtereoMinPct: htmlMeta.extratoEtereoMinPct,
+        materiaMineralMaxPct: htmlMeta.materiaMineralMaxPct,
+        materiaFibrosaMaxPct: htmlMeta.materiaFibrosaMaxPct,
+        calcioMinPct: htmlMeta.calcioMinPct,
+        calcioMaxPct: htmlMeta.calcioMaxPct,
+        fosforoMinPct: htmlMeta.fosforoMinPct,
+        sodioMinPct: htmlMeta.sodioMinPct,
+        omega3MinPct: htmlMeta.omega3MinPct,
+        energiaMetabolizavelKcalKg: htmlMeta.energiaMetabolizavelKcalKg,
+        topIngredientsList: htmlMeta.topIngredientsList,
+        containsGmo: htmlMeta.containsGmo,
+        gmoIngredients: htmlMeta.gmoIngredients,
+        antioxidantType: htmlMeta.antioxidantType,
+      };
+    } else {
+      const pdfBuf = fs.readFileSync(docFullPath);
+      docSha256 = crypto.createHash('sha256').update(pdfBuf).digest('hex');
+      meta = await parseProductFromPdf(baseName, pdfBuf);
+    }
 
     // 3. Verifica se o produto já existe no banco por slug
     const existing = await prisma.product.findUnique({
@@ -615,9 +655,9 @@ async function processAll() {
 
     // 4. Localiza imagem correspondente na pasta de entrada
     const imgFile = allFiles.find((f) => {
-      const ext = path.extname(f).toLowerCase();
-      const name = path.basename(f, ext);
-      return name === baseName && ['.webp', '.png', '.jpg', '.jpeg', '.avif'].includes(ext);
+      const e = path.extname(f).toLowerCase();
+      const n = path.basename(f, e);
+      return n === baseName && ['.webp', '.png', '.jpg', '.jpeg', '.avif'].includes(e);
     });
 
     // Mantém o ID existente ou gera um novo com prefixo cmtz
@@ -625,9 +665,9 @@ async function processAll() {
 
     // 5. Destinos padronizados em public/uploads/
     let destImgRel = `/uploads/produto_${productId}.webp`;
-    const destPdfRel = `/uploads/ficha_${productId}.pdf`;
+    const destDocRel = isHtml ? `/uploads/ficha_${productId}.html` : `/uploads/ficha_${productId}.pdf`;
     const destImgPath = path.join(process.cwd(), 'public', destImgRel);
-    const destPdfPath = path.join(process.cwd(), 'public', destPdfRel);
+    const destDocPath = path.join(process.cwd(), 'public', destDocRel);
 
     if (imgFile) {
       const imgFullPath = path.join(dir, imgFile);
@@ -640,12 +680,24 @@ async function processAll() {
     } else if (existing?.frontLabelImageUrl && fs.existsSync(path.join(process.cwd(), 'public', existing.frontLabelImageUrl))) {
       destImgRel = existing.frontLabelImageUrl;
       console.log(`   ℹ️ Reutilizando imagem packshot existente: ${destImgRel}`);
+    } else if (remoteImageUrl) {
+      console.log(`   🖼️ Baixando packshot oficial a partir do HTML (${remoteImageUrl})...`);
+      try {
+        const imgRes = await fetch(remoteImageUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (imgRes.ok) {
+          const buf = Buffer.from(await imgRes.arrayBuffer());
+          fs.writeFileSync(destImgPath, buf);
+          console.log(`   ✅ Imagem salva em: public${destImgRel}`);
+        }
+      } catch {
+        console.warn(`   ⚠️ Falha ao baixar imagem remota.`);
+      }
     } else {
       console.warn(`⚠️ [AVISO] Imagem correspondente não encontrada para: "${baseName}" e produto não possui imagem anterior. Ignorado.`);
       continue;
     }
 
-    fs.copyFileSync(pdfFullPath, destPdfPath);
+    fs.copyFileSync(docFullPath, destDocPath);
 
     // 6. Executa Motor de Auditoria Oficial
     const auditFase: FaseVida = meta.lifeStage;
@@ -827,7 +879,7 @@ async function processAll() {
 
     // 8. Exclusão segura dos arquivos da pasta de entrada após persistência bem-sucedida
     try {
-      if (fs.existsSync(pdfFullPath)) fs.unlinkSync(pdfFullPath);
+      if (fs.existsSync(docFullPath)) fs.unlinkSync(docFullPath);
       if (imgFile && fs.existsSync(path.join(dir, imgFile))) fs.unlinkSync(path.join(dir, imgFile));
       console.log(`   🗑️ Arquivos originais de produtos_cadastro/ removidos com sucesso.`);
     } catch (err) {

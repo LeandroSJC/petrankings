@@ -11,6 +11,7 @@
     "prisma:push": "prisma db push",
     "prisma:seed": "tsx prisma/seed.ts",
     "db:enable-rls": "tsx scripts/enable-rls.ts",
+    "cadastrar:url": "tsx --env-file=.env scripts/cadastrar-por-url.ts",
     "cadastrar-produtos": "tsx --env-file=.env scripts/cadastrar-produtos.ts"
   },
   "dependencies": {
@@ -31,7 +32,9 @@
     "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "cheerio": "^1.2.0",
     "pdf-parse": "^2.4.5",
+    "playwright": "^1.63.0",
     "prisma": "^6.4.1",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
