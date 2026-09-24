@@ -5,6 +5,7 @@ import prisma from '../src/lib/prisma';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
+import { processUrl } from './cadastrar-por-url';
 const { PDFParse } = require('pdf-parse');
 
 
@@ -584,6 +585,34 @@ async function processAll() {
   const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
   if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+
+  // 1. Processa URLs pendentes em produtos_cadastro/urls_cadastro.txt (se houver)
+  const batchUrlFile = path.join(dir, 'urls_cadastro.txt');
+  if (fs.existsSync(batchUrlFile)) {
+    const rawBatch = fs.readFileSync(batchUrlFile, 'utf-8');
+    const urls = rawBatch
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.startsWith('http'));
+
+    if (urls.length > 0) {
+      console.log(`\n================================================================`);
+      console.log(`🌐 INGESTÃO DE URLs EM LOTE (${urls.length} encontradas em produtos_cadastro/urls_cadastro.txt)`);
+      console.log(`================================================================\n`);
+      for (const u of urls) {
+        await processUrl(u);
+      }
+      // Mantém o arquivo com o template explicativo para novos cadastros
+      const template = `# ==============================================================================
+# PetRankings — Cadastro em Lote por URL
+# ==============================================================================
+# Cole aqui as URLs oficiais das páginas de produtos que deseja cadastrar.
+# Uma URL por linha (linhas iniciadas com # são ignoradas).
+`;
+      fs.writeFileSync(batchUrlFile, template, 'utf-8');
+      console.log(`\n✅ URLs processadas com sucesso! Arquivo produtos_cadastro/urls_cadastro.txt limpo para novas inserções.\n`);
+    }
   }
 
   const allFiles = fs.readdirSync(dir);

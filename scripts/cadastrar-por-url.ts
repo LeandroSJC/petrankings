@@ -45,7 +45,7 @@ async function downloadImage(imgUrl: string, destPath: string): Promise<boolean>
   }
 }
 
-async function processUrl(url: string) {
+export async function processUrl(url: string) {
   console.log(`\n================================================================`);
   console.log(`🌐 INGESTÃO DIRETA POR URL`);
   console.log(`🔗 Alvo: ${url}`);
@@ -299,9 +299,14 @@ async function main() {
     return;
   }
 
-  // Se não passou URL via CLI, verifica arquivo de lote scripts/data/urls_cadastro.txt
-  const batchFile = path.join(process.cwd(), 'scripts', 'data', 'urls_cadastro.txt');
-  if (fs.existsSync(batchFile)) {
+  // Se não passou URL via CLI, verifica arquivo de lote (prioriza produtos_cadastro/urls_cadastro.txt)
+  const candidateBatchFiles = [
+    path.join(process.cwd(), 'produtos_cadastro', 'urls_cadastro.txt'),
+    path.join(process.cwd(), 'scripts', 'data', 'urls_cadastro.txt'),
+  ];
+  const batchFile = candidateBatchFiles.find((f) => fs.existsSync(f));
+
+  if (batchFile) {
     const content = fs.readFileSync(batchFile, 'utf-8');
     const urls = content
       .split('\n')
@@ -309,19 +314,29 @@ async function main() {
       .filter((l) => l.startsWith('http'));
 
     if (urls.length > 0) {
-      console.log(`📁 Encontradas ${urls.length} URLs no arquivo "scripts/data/urls_cadastro.txt".`);
+      console.log(`📁 Encontradas ${urls.length} URLs no arquivo "${path.relative(process.cwd(), batchFile)}".`);
       for (const u of urls) {
         await processUrl(u);
       }
+      const template = `# ==============================================================================
+# PetRankings — Cadastro em Lote por URL
+# ==============================================================================
+# Cole aqui as URLs oficiais das páginas de produtos que deseja cadastrar.
+# Uma URL por linha (linhas iniciadas com # são ignoradas).
+`;
+      fs.writeFileSync(batchFile, template, 'utf-8');
+      console.log(`\n✅ URLs processadas com sucesso! Arquivo "${path.relative(process.cwd(), batchFile)}" limpo para novos cadastros.\n`);
       return;
     }
   }
 
   console.log(`Uso do comando:`);
-  console.log(`  npx tsx scripts/cadastrar-por-url.ts <URL_DO_PRODUTO>`);
-  console.log(`Ou insira URLs (uma por linha) no arquivo: scripts/data/urls_cadastro.txt`);
+  console.log(`  npm run cadastrar:url <URL_DO_PRODUTO>`);
+  console.log(`Ou insira URLs (uma por linha) no arquivo: produtos_cadastro/urls_cadastro.txt`);
 }
 
-main()
-  .catch(console.error)
-  .finally(() => prisma.$disconnect());
+if (process.argv[1] && path.resolve(process.argv[1]).toLowerCase().includes('cadastrar-por-url')) {
+  main()
+    .catch(console.error)
+    .finally(() => prisma.$disconnect());
+}

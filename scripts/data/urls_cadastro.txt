@@ -1,3 +1,0 @@
-# Cole aqui as URLs oficiais dos produtos para cadastrar em lote (uma por linha)
-# Exemplo:
-# https://adimax.com.br/produto/formula-natural-fresh-meat-gatos-castrados-carne/
