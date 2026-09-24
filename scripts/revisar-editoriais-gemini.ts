@@ -178,7 +178,7 @@ DIRETRIZES INEGOCIÁVEIS:
     const userPrompt = `Redija o parecer editorial para o seguinte produto avaliado:
 - Nome Comercial: ${product.commercialName}
 - Marca: ${product.brand}
-- Espécie: ${product.species === 'GATO' ? 'Gatos (Felinos)' : 'Cães (Caninos)'}
+- Espécie: ${product.species === 'CAO_E_GATO' ? 'Cães e Gatos (Caninos e Felinos)' : product.species === 'GATO' ? 'Gatos (Felinos)' : 'Cães (Caninos)'}
 - Fase de Vida: ${product.lifeStage}
 - Tipo de Alimento: ${product.foodType} (${product.foodType === 'UMIDO' ? 'Úmido' : 'Seco'})
 - Categoria Legal MAPA: ${product.legalCategory} ${product.coadjuvanteCondition ? `(Condição: ${product.coadjuvanteCondition})` : ''}

@@ -1,10 +1,11 @@
 {
-  "lastUpdated": "2026-09-24T00:37:11.705Z",
+  "lastUpdated": "2026-09-24T01:28:44.774Z",
+  "lastDenialReason": null,
   "summary": {
     "totalProducts": 275,
-    "processedByGemini": 85,
-    "pending": 190,
-    "percentComplete": "30.91%"
+    "processedByGemini": 188,
+    "pending": 87,
+    "percentComplete": "68.36%"
   },
   "processed": [
     {
@@ -28,8 +29,8 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 65,
       "classificationTier": "NIVEL_BRONZE",
-      "updatedAt": "2026-09-24T00:35:22.752Z",
-      "editorialOpinionSnippet": "O alimento completo Fórmula Natural Fresh Meat Gatos Filhotes atende plenamente aos parâmetros regulatórios da ABINPET na matéria seca, apre..."
+      "updatedAt": "2026-09-24T00:39:44.302Z",
+      "editorialOpinionSnippet": "O alimento completo Fórmula Natural Fresh Meat Gatos Filhotes atende plenamente aos parâmetros regulatórios da ABINPET na matéria seca, dest..."
     },
     {
       "id": "cmtz03dd152aa257e71d73a7",
@@ -152,6 +153,18 @@
       "editorialOpinionSnippet": "Este alimento úmido completo para cães adultos de porte pequeno obteve pontuação máxima na auditoria, classificando-se no Nível Ouro devido ..."
     },
     {
+      "id": "cmtz1318f9ec75c648243976",
+      "slug": "racao-umida-whiskas-sache-frango-ao-molho-para-gatos-filhotes-85-g",
+      "commercialName": "Ração Úmida WHISKAS Sachê Frango ao Molho para Gatos Filhotes 85 g",
+      "brand": "Whiskas",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 75,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:18:43.784Z",
+      "editorialOpinionSnippet": "A Ração Úmida Whiskas Sachê Frango ao Molho para Gatos Filhotes alcançou o Nível Prata com 75 pontos na auditoria nutricional, demonstrando ..."
+    },
+    {
       "id": "cmtz13ef9e41596ae61cbaee",
       "slug": "premier-organico-gatos-adultos-frango-chia-e-quinoa",
       "commercialName": "PremieR Orgânico Gatos Adultos Frango, Chia e Quinoa",
@@ -164,6 +177,30 @@
       "editorialOpinionSnippet": "O PremieR Orgânico Gatos Adultos Frango, Chia e Quinoa é classificado legalmente como um alimento complementar úmido, formulado sem transgên..."
     },
     {
+      "id": "cmtz141f2070e781c56d7cbb",
+      "slug": "premier-racas-especificas-shih-tzu-caes-adultos-sabor-frango",
+      "commercialName": "PremieR Raças Específicas Shih Tzu Adultos Porte Pequeno Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:18:49.747Z",
+      "editorialOpinionSnippet": "O alimento PremieR Raças Específicas Shih Tzu Adultos Porte Pequeno Frango alcançou a pontuação máxima na auditoria técnica, atendendo integ..."
+    },
+    {
+      "id": "cmtz142101490e5ccf848705",
+      "slug": "premier-nattu-caes-adultos-sabor-mandioca",
+      "commercialName": "PremieR Nattu Cães Adultos Frango, Mandioca, Beterraba, Linhaça & Cranberry",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:18:55.559Z",
+      "editorialOpinionSnippet": "O alimento completo PremieR Nattu Cães Adultos alcançou o Nível Ouro com 90 pontos na auditoria nutricional, demonstrando excelente conformi..."
+    },
+    {
       "id": "cmtz17d978bd5c4e2dd6f113",
       "slug": "formula-natural-fresh-meat-gatos-castrados-sabor-salmao",
       "commercialName": "Fórmula Natural Fresh Meat Gatos Castrados Salmão, Abóbora e Cúrcuma",
@@ -172,8 +209,92 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 65,
       "classificationTier": "NIVEL_BRONZE",
-      "updatedAt": "2026-09-24T00:35:17.311Z",
-      "editorialOpinionSnippet": "O alimento completo seco Fórmula Natural Fresh Meat Gatos Castrados Salmão, Abóbora e Cúrcuma obteve score de 65 pontos, alcançando o Nível ..."
+      "updatedAt": "2026-09-24T00:39:40.710Z",
+      "editorialOpinionSnippet": "O alimento completo seco Fórmula Natural Fresh Meat Gatos Castrados Salmão, Abóbora e Cúrcuma alcançou a pontuação de 65 pontos, recebendo a..."
+    },
+    {
+      "id": "cmtz187cae657eed54259dd1",
+      "slug": "premier-selecao-natural-gatos-adultos-frango",
+      "commercialName": "PremieR Seleção Natural Gatos Adultos Sabor Frango Korin",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:19:01.439Z",
+      "editorialOpinionSnippet": "O alimento PremieR Seleção Natural Gatos Adultos Sabor Frango Korin atingiu a pontuação máxima em nossa auditoria nutricional independente, ..."
+    },
+    {
+      "id": "cmtz19c3adcec836e7aa1a8a",
+      "slug": "premier-gourmet-caes-adultos-porte-pequeno-peito-de-frango-e-arroz-integral",
+      "commercialName": "PremieR Gourmet Cães Adultos Porte Pequeno Peito de Frango e Arroz Integral",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:19:07.384Z",
+      "editorialOpinionSnippet": "O produto PremieR Gourmet Cães Adultos Porte Pequeno Peito de Frango e Arroz Integral é classificado tecnicamente como alimento complementar..."
+    },
+    {
+      "id": "cmtz19df8499033c44bbcaf6",
+      "slug": "vitta-natural-caes-adultos-frango-e-arroz",
+      "commercialName": "PremieR VittA Natural Cães Adultos Frango e Arroz",
+      "brand": "Vitta Natural",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 85,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:19:13.598Z",
+      "editorialOpinionSnippet": "O alimento PremieR VittA Natural Cães Adultos Frango e Arroz alcançou a classificação Nível Prata com o score de 85 pontos, demonstrando ple..."
+    },
+    {
+      "id": "cmtz1a1dd7d85695421be8ec",
+      "slug": "premier-caes-racas-especificas-spitz-alemao-filhotes-sabor-frango",
+      "commercialName": "PremieR Raças Específicas Spitz Alemão Filhotes Porte Pequeno Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:19:21.292Z",
+      "editorialOpinionSnippet": "O alimento PremieR Raças Específicas Spitz Alemão Filhotes Porte Pequeno Frango, classificado como alimento completo seco para cães em cresc..."
+    },
+    {
+      "id": "cmtz1a5c21d63338b4409542",
+      "slug": "premier-gourmet-gatos-castrados-peito-de-frango-e-arroz-integral",
+      "commercialName": "PremieR Gourmet Gatos Castrados Peito de Frango e Arroz Integral",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:19:27.125Z",
+      "editorialOpinionSnippet": "O PremieR Gourmet Gatos Castrados Peito de Frango e Arroz Integral é um alimento complementar classificado sob regime especial, formulado co..."
+    },
+    {
+      "id": "cmtz1ad04bb957c7b2f24b80",
+      "slug": "golden-gatos-adultos-carne",
+      "commercialName": "GoldeN Gatos Adultos Carne",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:19:32.959Z",
+      "editorialOpinionSnippet": "O alimento seco GoldeN Gatos Adultos Carne alcançou a pontuação máxima na auditoria nutricional, destacando-se pelo atendimento pleno e rigo..."
+    },
+    {
+      "id": "cmtz1b821396047531fbf837",
+      "slug": "premier-formula-gatos-adultos-frango",
+      "commercialName": "PremieR Formula Gatos Adultos Sabor Frango",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 85,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:19:38.943Z",
+      "editorialOpinionSnippet": "O alimento PremieR Formula Gatos Adultos Sabor Frango alcançou o Nível Prata com oitenta e cinco pontos na auditoria nutricional do PetRanki..."
     },
     {
       "id": "cmtz1d0b938fd61e73911b3f",
@@ -188,6 +309,66 @@
       "editorialOpinionSnippet": "O produto Whiskas Superfoods Salmão e Linhaça para Gatos Adultos Castrados foi classificado como Sob Observação por atingir 35 pontos na aud..."
     },
     {
+      "id": "cmtz1e9f3b24ed3a3633789b",
+      "slug": "golden-cookie-caes-filhotes-sabor-salmao-e-quinoa",
+      "commercialName": "GoldeN Cookie Cães Filhotes Salmão & Quinoa",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:19:44.866Z",
+      "editorialOpinionSnippet": "O GoldeN Cookie Cães Filhotes Salmão e Quinoa é um alimento complementar classificado sob regime especial, formulado exclusivamente como agr..."
+    },
+    {
+      "id": "cmtz1f4781b3c6f03feeea8b",
+      "slug": "golden-formula-mega-caes-adultos-sabor-frango-arroz",
+      "commercialName": "GoldeN Mega Cães Adultos Porte Grande & Gigantes Frango & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:19:50.968Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Mega Cães Adultos Porte Grande e Gigantes Frango e Arroz obteve nota noventa na auditoria e classifica-se no nível ouro, d..."
+    },
+    {
+      "id": "cmtz1ff9d0e9da84f65d7bcc",
+      "slug": "premier-nattu-caes-filhotes-porte-pequeno-sabor-mandioca",
+      "commercialName": "PremieR Nattu Cães Filhotes Porte Pequeno Frango, Mandioca, Beterraba, Linhaça e Cranberry",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:19:56.832Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Cães Filhotes Porte Pequeno alcançou o Nível Ouro na auditoria do PetRankings por apresentar densidade nutricional ..."
+    },
+    {
+      "id": "cmtz206d474720b2eb6f66b8",
+      "slug": "golden-selecao-natural-gatos-castrados-sabor-frango-com-batata-doce",
+      "commercialName": "GoldeN Seleção Natural Gatos Castrados Frango com Batata Doce",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:20:02.642Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Seleção Natural Gatos Castrados Frango com Batata Doce alcançou a classificação Nível Ouro com 90 pontos na auditoria nutr..."
+    },
+    {
+      "id": "cmtz21332e970e0198641ddd",
+      "slug": "golden-selecao-natural-caes-adultos-porte-pequeno-frango-abobora-e-alecrim",
+      "commercialName": "GoldeN Seleção Natural Cães Adultos Porte Pequeno Frango, Abóbora e Alecrim",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:20:09.116Z",
+      "editorialOpinionSnippet": "O GoldeN Seleção Natural Cães Adultos Porte Pequeno Frango, Abóbora e Alecrim alcançou o Nível Prata com 80 pontos, destacando-se por atende..."
+    },
+    {
       "id": "cmtz21701c0e4ad1497f02ac",
       "slug": "formula-natural-vet-care-renal-gatos",
       "commercialName": "Fórmula Natural Vet Care Renal Gatos",
@@ -196,8 +377,92 @@
       "legalCategory": "ALIMENTO_COADJUVANTE",
       "scoreTotal": null,
       "classificationTier": "COADJUVANTE",
-      "updatedAt": "2026-09-24T00:36:58.200Z",
-      "editorialOpinionSnippet": "O Fórmula Natural Vet Care Renal Gatos é um alimento coadjuvante formulado para auxiliar no manejo nutricional de felinos com Doença Renal C..."
+      "updatedAt": "2026-09-24T00:40:53.272Z",
+      "editorialOpinionSnippet": "O Fórmula Natural Vet Care Renal Gatos é um alimento coadjuvante desenvolvido especificamente para auxiliar no manejo nutricional de felinos..."
+    },
+    {
+      "id": "cmtz221a5ff0898635b6e962",
+      "slug": "premier-ambientes-internos-caes-adultos-porte-pequeno-frango-e-salmao-senior",
+      "commercialName": "PremieR Ambientes Internos Cães Adultos Porte Pequeno Frango e Salmão Senior",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:20:14.985Z",
+      "editorialOpinionSnippet": "O alimento PremieR Ambientes Internos Cães Adultos Porte Pequeno Frango e Salmão Senior alcançou a pontuação máxima de cem pontos na auditor..."
+    },
+    {
+      "id": "cmtz22272a2338350db8c0aa",
+      "slug": "premier-racas-especificas-bulldog-frances-adultos-sabor-frango",
+      "commercialName": "PremieR Raças Específicas Bulldog Francês Adultos Porte Pequeno Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:20:20.731Z",
+      "editorialOpinionSnippet": "O PremieR Raças Específicas Bulldog Francês Adultos Porte Pequeno Frango demonstrou excelência técnica em nossa auditoria nutricional, ating..."
+    },
+    {
+      "id": "cmtz228c88f688c051131544",
+      "slug": "golden-gourmet-gatos-castrados-frango-abobora-e-arroz-integral",
+      "commercialName": "GoldeN Gourmet Gatos Castrados Frango, Abóbora e Arroz Integral",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:20:26.561Z",
+      "editorialOpinionSnippet": "O alimento úmido GoldeN Gourmet Gatos Castrados Frango, Abóbora e Arroz Integral alcançou pontuação máxima na auditoria técnica, demonstrand..."
+    },
+    {
+      "id": "cmtz2568f96ff2ea31816eaf",
+      "slug": "golden-selecao-natural-gatos-castrados-sabor-frango-com-abobora-e-alecrim",
+      "commercialName": "GoldeN Seleção Natural Gatos Castrados Frango com Abóbora & Alecrim",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:20:32.347Z",
+      "editorialOpinionSnippet": "O alimento seco completo GoldeN Seleção Natural para Gatos Castrados alcançou nota máxima na auditoria nutricional do PetRankings, destacand..."
+    },
+    {
+      "id": "cmtz26b49fc7bb676a33444f",
+      "slug": "premier-cookie-caes-adultos-frango-e-batata-doce-fit",
+      "commercialName": "PremieR Cookie Cães Adultos Frango e Batata Doce FIT",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:20:38.167Z",
+      "editorialOpinionSnippet": "O PremieR Cookie Cães Adultos Frango e Batata Doce FIT enquadra-se legalmente como alimento complementar e deve ser utilizado estritamente c..."
+    },
+    {
+      "id": "cmtz26e729dbaf08da15a9a3",
+      "slug": "premier-cookie-caes-filhotes-original",
+      "commercialName": "PremieR Cookie Cães Filhotes Original",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:20:44.065Z",
+      "editorialOpinionSnippet": "O PremieR Cookie Cães Filhotes Original é um alimento complementar classificado sob regime especial, formulado exclusivamente como agrado ou..."
+    },
+    {
+      "id": "cmtz27be23293ea9e77d6df0",
+      "slug": "premier-cookie-caes-adultos-porte-pequeno-original",
+      "commercialName": "PremieR Cookie Cães Adultos Porte Pequeno Original",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:20:49.870Z",
+      "editorialOpinionSnippet": "O PremieR Cookie Cães Adultos Porte Pequeno Original é um alimento complementar classificado como petisco, formulado com ingredientes seleci..."
     },
     {
       "id": "cmtz28b3ad83144e650209ec",
@@ -224,6 +489,42 @@
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com doença renal crônica. Formulado com 14.5..."
     },
     {
+      "id": "cmtz2a044bb0dee7fb2912ec",
+      "slug": "premier-organico-caes-adultos-porte-pequeno-frango-chia-e-quinoa",
+      "commercialName": "PremieR Orgânico Cães Adultos Porte Pequeno Frango, Chia e Quinoa",
+      "brand": "PremieR Orgânico",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:20:56.088Z",
+      "editorialOpinionSnippet": "O PremieR Orgânico Cães Adultos Porte Pequeno Frango, Chia e Quinoa é um alimento complementar úmido formulado com ingredientes orgânicos se..."
+    },
+    {
+      "id": "cmtz2b14bf8dbe1057238b49",
+      "slug": "premier-selecao-natural-caes-adultos-frango-korin-com-batata-doce",
+      "commercialName": "PremieR Seleção Natural Cães Adultos Frango Korin® & Batata-doce",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:21:01.794Z",
+      "editorialOpinionSnippet": "Este alimento completo para cães adultos atinge pontuação máxima na auditoria por atender integralmente aos parâmetros do Manual Pet Food Br..."
+    },
+    {
+      "id": "cmtz2b3b2aaa0f1bea54ded6",
+      "slug": "premier-gourmet-caes-filhotes-sabor-peito-de-frango-batata-doce-e-brocolis",
+      "commercialName": "PremieR Gourmet Cães Filhotes Peito de Frango, Batata Doce e Brócolis",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:21:07.823Z",
+      "editorialOpinionSnippet": "O PremieR Gourmet Cães Filhotes Peito de Frango, Batata Doce e Brócolis é um alimento complementar úmido formulado com ingredientes nobres e..."
+    },
+    {
       "id": "cmtz2bb06bcf0761be849307",
       "slug": "racao-umida-whiskas-sache-carne-ao-molho-para-gatos-filhotes-85-g",
       "commercialName": "Ração Úmida WHISKAS Sachê Carne ao Molho para Gatos Filhotes 85 g",
@@ -234,6 +535,66 @@
       "classificationTier": "NIVEL_PRATA",
       "updatedAt": "2026-09-23T23:42:54.844Z",
       "editorialOpinionSnippet": "Classificado como Nível Prata com nota 75, este alimento úmido completo para felinos em crescimento atende com segurança aos parâmetros nutr..."
+    },
+    {
+      "id": "cmtz2e864dfee662f84ff8d2",
+      "slug": "premier-gourmet-caes-salmao-e-arroz-integral",
+      "commercialName": "PremieR Gourmet Cães Adultos Porte Pequeno Salmão e Arroz Integral",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:21:13.600Z",
+      "editorialOpinionSnippet": "O PremieR Gourmet Cães Adultos Porte Pequeno Salmão e Arroz Integral é um alimento complementar úmido formulado exclusivamente como agrado o..."
+    },
+    {
+      "id": "cmtz2f15695682b885cb473a",
+      "slug": "premier-selecao-natural-caes-adultos-racas-pequenas-frango",
+      "commercialName": "PremieR Seleção Natural Cães Adultos Porte Pequeno Frango Korin®",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:21:19.447Z",
+      "editorialOpinionSnippet": "O alimento completo PremieR Seleção Natural Cães Adultos Porte Pequeno Frango Korin obteve nota máxima na auditoria técnica, demonstrando ex..."
+    },
+    {
+      "id": "cmtz2f2486b053551d658344",
+      "slug": "golden-formula-caes-adultos-frango-arroz",
+      "commercialName": "GoldeN Formula Cães Adultos Frango & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:21:25.939Z",
+      "editorialOpinionSnippet": "O alimento seco GoldeN Formula Cães Adultos Frango e Arroz obteve nota oitenta e classificação nível prata na auditoria independente, destac..."
+    },
+    {
+      "id": "cmtz2f5ea72fa83a29b874f2",
+      "slug": "golden-formula-caes-adultos-sabor-peru-arroz-mini-bits",
+      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Peru & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:21:31.708Z",
+      "editorialOpinionSnippet": "O alimento completo seco GoldeN Formula Cães Adultos Porte Pequeno Peru e Arroz alcançou a classificação Nível Ouro na auditoria do PetRanki..."
+    },
+    {
+      "id": "cmtz301b48e8fbc6d93148ef",
+      "slug": "golden-formula-caes-seniores-frango-e-arroz",
+      "commercialName": "GoldeN Formula Cães Seniores Frango e Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:21:37.491Z",
+      "editorialOpinionSnippet": "O alimento seco GoldeN Formula Cães Seniores Frango e Arroz alcançou a classificação Nível Prata na auditoria independente, demonstrando ate..."
     },
     {
       "id": "cmtz301d0289ffcaf7d93928",
@@ -248,6 +609,138 @@
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com suporte clínico a quadros de outro. Form..."
     },
     {
+      "id": "cmtz302cd370f445cbf1f0b5",
+      "slug": "golden-cookie-caes-adultos-porte-pequeno-salmao-e-quinoa",
+      "commercialName": "GoldeN Cookie Cães Adultos Porte Pequeno Salmão e Quinoa",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:21:43.396Z",
+      "editorialOpinionSnippet": "O GoldeN Cookie Cães Adultos Porte Pequeno Salmão e Quinoa classifica-se tecnicamente como um alimento complementar formulado exclusivamente..."
+    },
+    {
+      "id": "cmtz30e369e2960f8a55f94d",
+      "slug": "premier-nattu-umidos-caes-adultos-porte-pequeno-frango-batata-doce-espinafre-e-linhaca",
+      "commercialName": "PremieR Nattu Úmidos Cães Adultos Porte Pequeno Frango, Batata-doce, Espinafre e Linhaça",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:21:49.647Z",
+      "editorialOpinionSnippet": "O PremieR Nattu Úmidos Cães Adultos Porte Pequeno Frango, Batata-doce, Espinafre e Linhaça é classificado tecnicamente como um alimento comp..."
+    },
+    {
+      "id": "cmtz322e1177ee16653c8d71",
+      "slug": "premier-formula-gatos-filhotes-frango",
+      "commercialName": "PremieR Formula Gatos Filhotes Sabor Frango",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 85,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:21:55.453Z",
+      "editorialOpinionSnippet": "O alimento PremieR Formula Gatos Filhotes Sabor Frango obteve score de 85 pontos, alcançando o Nível Prata em nossa auditoria nutricional in..."
+    },
+    {
+      "id": "cmtz33ec880b12adc7b5a9b2",
+      "slug": "racao-umida-whiskas-sache-carne-ao-molho-para-gatos-adultos-castrados-85-g",
+      "commercialName": "Ração Úmida WHISKAS Sachê Carne ao Molho para Gatos Adultos Castrados 85 g",
+      "brand": "Whiskas",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 25,
+      "classificationTier": "SOB_OBSERVACAO",
+      "updatedAt": "2026-09-24T01:22:01.406Z",
+      "editorialOpinionSnippet": "A Ração Úmida Whiskas Sachê Carne ao Molho para Gatos Adultos Castrados obteve a pontuação de vinte e cinco pontos na auditoria, sendo class..."
+    },
+    {
+      "id": "cmtz34faf6d750e95980e9b7",
+      "slug": "premier-formula-racas-grandes-caes-adultos-sabor-cordeiro",
+      "commercialName": "PremieR Formula Cães Adultos Porte Grande & Gigante Cordeiro",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:22:07.285Z",
+      "editorialOpinionSnippet": "O alimento PremieR Formula Cães Adultos Porte Grande e Gigante Cordeiro conquistou a classificação Nível Ouro com pontuação máxima na audito..."
+    },
+    {
+      "id": "cmtz363c73c10df177673979",
+      "slug": "golden-formula-caes-adultos-sabor-peru-arroz",
+      "commercialName": "GoldeN Formula Cães Adultos Peru & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 85,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:22:13.182Z",
+      "editorialOpinionSnippet": "O GoldeN Formula Cães Adultos Peru e Arroz alcançou o Nível Prata com oitenta e cinco pontos na auditoria nutricional, demonstrando pleno at..."
+    },
+    {
+      "id": "cmtz368bbf5f8946e603ee09",
+      "slug": "golden-gatos-castrados-sabor-carne",
+      "commercialName": "GoldeN Gatos Castrados Carne",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:22:19.228Z",
+      "editorialOpinionSnippet": "O alimento seco GoldeN Gatos Castrados Carne atende plenamente aos parâmetros regulatórios da ABINPET e alcança o Nível Ouro em nossa audito..."
+    },
+    {
+      "id": "cmtz376c17048d24e9711cc2",
+      "slug": "golden-selecao-natural-caes-adultos-porte-pequeno-frango-com-batata-doce",
+      "commercialName": "GoldeN Seleção Natural Cães Adultos Porte Pequeno Frango & Batata-doce",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:22:25.475Z",
+      "editorialOpinionSnippet": "O alimento seco completo GoldeN Seleção Natural para cães adultos de porte pequeno obteve a classificação Nível Prata com oitenta pontos na ..."
+    },
+    {
+      "id": "cmtz3809db611e77d4b46b15",
+      "slug": "premier-nattu-umidos-gatos-filhotes-frango-abobora-brocolis-e-quinoa",
+      "commercialName": "PremieR Nattu Úmidos Gatos Filhotes Frango, Abóbora, Brócolis e Quinoa",
+      "brand": "PremieR Nattu",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:22:31.600Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Úmidos Gatos Filhotes Frango, Abóbora, Brócolis e Quinoa é classificado legalmente como um alimento complementar, o..."
+    },
+    {
+      "id": "cmtz382608ee126fed4a26cc",
+      "slug": "premier-formula-gatos-castrados-frango",
+      "commercialName": "PremieR Formula Gatos Castrados Sabor Frango",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:22:37.289Z",
+      "editorialOpinionSnippet": "O alimento completo seco PremieR Formula Gatos Castrados Sabor Frango alcançou a classificação Nível Ouro com noventa pontos na auditoria nu..."
+    },
+    {
+      "id": "cmtz393c4647886744d4ac1b",
+      "slug": "golden-cookie-caes-adultos-banana-aveia-e-mel",
+      "commercialName": "GoldeN Cookie Cães Adultos Porte Pequeno Banana, Aveia & Mel",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:22:43.356Z",
+      "editorialOpinionSnippet": "O GoldeN Cookie Cães Adultos Porte Pequeno Banana, Aveia & Mel é formulado sob a categoria de alimento complementar e destina-se estritament..."
+    },
+    {
       "id": "cmtz3aabdfc774fe6aa53569",
       "slug": "formula-natural-vet-care-recuperacao-caes-e-gatos",
       "commercialName": "Fórmula Natural Vet Care Recuperação Cães e Gatos",
@@ -256,8 +749,8 @@
       "legalCategory": "ALIMENTO_COADJUVANTE",
       "scoreTotal": null,
       "classificationTier": "COADJUVANTE",
-      "updatedAt": "2026-09-24T00:36:48.821Z",
-      "editorialOpinionSnippet": "O alimento coadjuvante Fórmula Natural Vet Care Recuperação é indicado para o auxílio nutricional de cães e gatos em estados críticos, conva..."
+      "updatedAt": "2026-09-24T00:40:42.831Z",
+      "editorialOpinionSnippet": "O alimento coadjuvante Fórmula Natural Vet Care Recuperação é indicado para auxiliar cães e gatos em condições críticas, convalescença e pós..."
     },
     {
       "id": "cmtz3ac1e51e9bedaaf6d23a",
@@ -272,6 +765,18 @@
       "editorialOpinionSnippet": "Este alimento úmido completo de nível prata atende plenamente aos parâmetros nutricionais da ABINPET na matéria seca, destacando-se pela aus..."
     },
     {
+      "id": "cmtz3bacd4f2e1bdb8425b68",
+      "slug": "racao-umida-whiskas-sache-carne-ao-molho-para-gatos-adultos-85-g",
+      "commercialName": "Ração Úmida WHISKAS Sachê Carne ao Molho para Gatos Adultos 85 g",
+      "brand": "Whiskas",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 65,
+      "classificationTier": "NIVEL_BRONZE",
+      "updatedAt": "2026-09-24T01:22:49.314Z",
+      "editorialOpinionSnippet": "A Ração Úmida Whiskas Sachê Carne ao Molho para Gatos Adultos obteve score de 65 pontos, alcançando a classificação de Nível Bronze em nossa..."
+    },
+    {
       "id": "cmtz3e548851bd45636695f3",
       "slug": "racao-whiskas-superfoods-salmao-e-linhaca-gatos-filhotes",
       "commercialName": "Ração WHISKAS Superfoods Salmão e Linhaça Gatos Filhotes",
@@ -284,6 +789,30 @@
       "editorialOpinionSnippet": "A ração Whiskas Superfoods Salmão e Linhaça para Gatos Filhotes obteve classificação Nível Prata por atender plenamente aos parâmetros nutri..."
     },
     {
+      "id": "cmtz3f7be6c52532fdea3d7b",
+      "slug": "golden-formula-caes-seniores-porte-pequeno-carne-e-arroz",
+      "commercialName": "GoldeN Formula Cães Seniores Porte Pequeno Carne e Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:22:54.975Z",
+      "editorialOpinionSnippet": "Este alimento seco completo obteve classificação Nível Ouro ao atender plenamente aos parâmetros nutricionais e regulatórios exigidos pelo M..."
+    },
+    {
+      "id": "cmtz40021753d6fe0d823f4c",
+      "slug": "golden-gatos-castrados-sabor-peixe",
+      "commercialName": "GoldeN Gatos Castrados Sabor Peixe",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:23:00.857Z",
+      "editorialOpinionSnippet": "O alimento completo GoldeN Gatos Castrados Sabor Peixe alcançou o Nível Ouro na auditoria do PetRankings, demonstrando excelente conformidad..."
+    },
+    {
       "id": "cmtz40df070f1c6d7bb147c2",
       "slug": "formula-natural-vet-care-urinaria-gatos",
       "commercialName": "Fórmula Natural Vet Care Urinária Gatos",
@@ -292,8 +821,20 @@
       "legalCategory": "ALIMENTO_COADJUVANTE",
       "scoreTotal": null,
       "classificationTier": "COADJUVANTE",
-      "updatedAt": "2026-09-24T00:37:08.353Z",
-      "editorialOpinionSnippet": "O Fórmula Natural Vet Care Urinária Gatos é um alimento coadjuvante seco formulado especificamente para o suporte nutricional de felinos adu..."
+      "updatedAt": "2026-09-24T00:41:00.085Z",
+      "editorialOpinionSnippet": "Este alimento coadjuvante seco para gatos adultos foi formulado especificamente para o suporte nutricional de condições urinárias, exigindo ..."
+    },
+    {
+      "id": "cmtz41da04fb4f4e9df7c371",
+      "slug": "golden-gatos-adultos-salmao",
+      "commercialName": "GoldeN Gatos Adultos Salmão",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:23:06.714Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Gatos Adultos Salmão alcançou o Nível Ouro em nossa auditoria nutricional, destacando-se pelo pleno atendimento aos parâme..."
     },
     {
       "id": "cmtz4254808ebc3739f5869a",
@@ -304,8 +845,56 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 65,
       "classificationTier": "NIVEL_BRONZE",
-      "updatedAt": "2026-09-24T00:36:28.539Z",
-      "editorialOpinionSnippet": "O alimento completo seco Fórmula Natural Super Premium Life Gatos Castrados 7+ Sabor Frango e Salmão alcançou nota sessenta e cinco, situand..."
+      "updatedAt": "2026-09-24T00:40:28.797Z",
+      "editorialOpinionSnippet": "O alimento Fórmula Natural Super Premium Life Gatos Castrados 7+ Sabor Frango e Salmão obteve nota de sessenta e cinco pontos, posicionando-..."
+    },
+    {
+      "id": "cmtz42e7d5ad8c6790b10454",
+      "slug": "premier-nattu-gatos-castrados-frango-abobora-e-blueberry",
+      "commercialName": "PremieR Nattu Gatos Castrados Frango, Abóbora, Brócolis, Quinoa & Blueberry",
+      "brand": "PremieR Nattu",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:23:12.462Z",
+      "editorialOpinionSnippet": "Este alimento completo para gatos adultos castrados alcançou a classificação Nível Ouro, destacando-se pelo atendimento pleno aos parâmetros..."
+    },
+    {
+      "id": "cmtz43908a9a07855cd081bc",
+      "slug": "premier-selecao-natural-caes-filhotes-racas-pequenas-frango-korin-com-batata-doce",
+      "commercialName": "PremieR Seleção Natural Cães Filhotes Porte Pequeno Frango Korin® & Batata-doce",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:23:18.344Z",
+      "editorialOpinionSnippet": "O alimento PremieR Seleção Natural Cães Filhotes Porte Pequeno Frango Korin e Batata-doce alcançou a classificação Nível Ouro na auditoria d..."
+    },
+    {
+      "id": "cmtz4534f7408e7808741930",
+      "slug": "premier-racas-especificas-filhotes-frango-bulldog-frances",
+      "commercialName": "PremieR Raças Específicas Filhotes Frango Bulldog Francês",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:23:24.109Z",
+      "editorialOpinionSnippet": "O alimento PremieR Raças Específicas Filhotes Frango Bulldog Francês atingiu a nota máxima de cem pontos na auditoria nutricional, destacand..."
+    },
+    {
+      "id": "cmtz46bf6466dfa54089b044",
+      "slug": "premier-nattu-umidos-gatos-castrados-frango-batata-doce-espinafre-e-linhaca",
+      "commercialName": "PremieR Nattu Úmidos Gatos Castrados Frango, Batata Doce, Espinafre e Linhaça",
+      "brand": "PremieR Nattu",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:23:30.069Z",
+      "editorialOpinionSnippet": "O PremieR Nattu Úmidos Gatos Castrados Frango, Batata Doce, Espinafre e Linhaça é classificado tecnicamente como um alimento complementar e ..."
     },
     {
       "id": "cmtz47ecdf33e6c65a4f5f93",
@@ -318,6 +907,42 @@
       "classificationTier": "COADJUVANTE",
       "updatedAt": "2026-09-22T02:14:09.283Z",
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com manejo e perda de peso corpóreo. Formula..."
+    },
+    {
+      "id": "cmtz49fd91b56e1bfc3edbf6",
+      "slug": "golden-gatos-castrados-senior-frango-arroz-e-beterraba-branca",
+      "commercialName": "GoldeN Gatos Castrados Sênior Frango, Arroz e Beterraba Branca",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:23:36.035Z",
+      "editorialOpinionSnippet": "O alimento completo GoldeN Gatos Castrados Sênior alcançou a classificação Nível Ouro ao atender plenamente aos parâmetros nutricionais da n..."
+    },
+    {
+      "id": "cmtz4ae1c248e48f8e166f77",
+      "slug": "vitta-natural-gatos-castrados-sabor-frango-e-arroz",
+      "commercialName": "Vitta Natural Gatos Castrados Sabor Frango e Arroz",
+      "brand": "Vitta Natural",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 85,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:23:41.924Z",
+      "editorialOpinionSnippet": "O alimento Vitta Natural Gatos Castrados Sabor Frango e Arroz alcançou a classificação Nível Prata na auditoria nutricional, demonstrando at..."
+    },
+    {
+      "id": "cmtz4c4e955b8ad1f8265832",
+      "slug": "premier-nattu-selecao-natural-gatos-castrados-frango-korin",
+      "commercialName": "PremieR Nattu Seleção Natural Gatos Castrados Sabor Frango Korin",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:23:48.047Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Seleção Natural Gatos Castrados Sabor Frango Korin atinge a pontuação máxima na auditoria do PetRankings, destacand..."
     },
     {
       "id": "cmtz4d3d74d0c3052524fe89",
@@ -344,6 +969,66 @@
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com doença renal crônica. Formulado com 14.5..."
     },
     {
+      "id": "cmtz4dd00580b1ad50e74d1e",
+      "slug": "premier-gourmet-caes-adultos-portes-medio-e-grande-peito-de-frango-batata-doce-e-brocolis",
+      "commercialName": "PremieR Gourmet Cães Adultos Portes Médio e Grande Peito de Frango Batata Doce e Brócolis",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:23:53.991Z",
+      "editorialOpinionSnippet": "O produto PremieR Gourmet Peito de Frango Batata Doce e Brócolis é classificado legalmente como alimento complementar para cães adultos, sen..."
+    },
+    {
+      "id": "cmtz4debe2d6ba9a66b43621",
+      "slug": "premier-ambientes-internos-caes-adultos-porte-pequeno-frango-e-salmao",
+      "commercialName": "PremieR Ambientes Internos Cães Adultos Porte Pequeno Frango e Salmão",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:00.468Z",
+      "editorialOpinionSnippet": "O alimento PremieR Ambientes Internos Cães Adultos Porte Pequeno Frango e Salmão atingiu a pontuação máxima de cem pontos, conquistando o Ní..."
+    },
+    {
+      "id": "cmtz500888316eeb6a762440",
+      "slug": "premier-formula-racas-medias-caes-adultos-sabor-frango",
+      "commercialName": "PremieR Formula Cães Adultos Porte Médio Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:06.410Z",
+      "editorialOpinionSnippet": "O alimento seco PremieR Formula Cães Adultos Porte Médio Frango conquistou a classificação Nível Ouro ao atingir pontuação máxima na auditor..."
+    },
+    {
+      "id": "cmtz50e309c7004cdd14fcb6",
+      "slug": "premier-racas-especificas-caes-adultos-frango-labrador",
+      "commercialName": "PremieR Raças Específicas Cães Adultos Frango Labrador",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:12.394Z",
+      "editorialOpinionSnippet": "O alimento completo seco PremieR Raças Específicas Cães Adultos Frango Labrador alcançou a pontuação máxima de cem pontos na auditoria nutri..."
+    },
+    {
+      "id": "cmtz51cadce1428a62a18821",
+      "slug": "premier-nattu-caes-adultos-porte-pequeno-frango-abobora-brocolis-quinoa-blueberry",
+      "commercialName": "PremieR Nattu Cães Adultos Porte Pequeno Frango, Abóbora, Brócolis, Quinoa & Blueberry",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:18.277Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Cães Adultos Porte Pequeno demonstra excelente conformidade técnica na auditoria nutricional, alcançando o Nível Ou..."
+    },
+    {
       "id": "cmtz52e1613126670661568e",
       "slug": "formula-natural-receitas-caseiras-gatos-adultos-frango-com-ervas-finas-ao-molho",
       "commercialName": "Fórmula Natural Receitas Caseiras Gatos Adultos Frango com Ervas Finas ao Molho",
@@ -352,8 +1037,56 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 25,
       "classificationTier": "SOB_OBSERVACAO",
-      "updatedAt": "2026-09-24T00:35:42.442Z",
-      "editorialOpinionSnippet": "O produto Fórmula Natural Receitas Caseiras Gatos Adultos Frango com Ervas Finas ao Molho recebeu a classificação Sob Observação na auditori..."
+      "updatedAt": "2026-09-24T00:39:58.064Z",
+      "editorialOpinionSnippet": "Este alimento úmido completo para gatos adultos apresenta nota de auditoria vinte e cinco por cento, situando-se sob observação rigorosa dev..."
+    },
+    {
+      "id": "cmtz53fed7d81e13cbad0f94",
+      "slug": "premier-racas-especificas-labrador-caes-filhotes",
+      "commercialName": "PremieR Raças Específicas Labrador Filhotes Porte Grande Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 95,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:25.180Z",
+      "editorialOpinionSnippet": "O alimento completo seco PremieR Raças Específicas Labrador Filhotes Porte Grande Frango obteve score de 95 pontos, alcançando a faixa Nível..."
+    },
+    {
+      "id": "cmtz54235e81369523290d03",
+      "slug": "golden-formula-caes-seniores-porte-pequeno-frango-e-arroz-mini-bits",
+      "commercialName": "GoldeN Formula Cães Seniores Porte Pequeno Frango e Arroz Mini Bits",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:24:30.995Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Formula Cães Seniores Porte Pequeno Frango e Arroz Mini Bits alcançou a classificação Nível Prata com oitenta pontos na au..."
+    },
+    {
+      "id": "cmtz54507bedca9cb73805b0",
+      "slug": "premier-gatos-adultos-salmao",
+      "commercialName": "PremieR Gatos Adultos Salmão",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:36.743Z",
+      "editorialOpinionSnippet": "O alimento PremieR Gatos Adultos Salmão, classificado como Nível Ouro com nota máxima de 100 pontos, atende plenamente aos parâmetros da ABI..."
+    },
+    {
+      "id": "cmtz54a487390e20916244b2",
+      "slug": "premier-formula-caes-adultos-porte-pequeno",
+      "commercialName": "PremieR Formula Cães Adultos Porte Pequeno Carne e Batata Doce",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:42.565Z",
+      "editorialOpinionSnippet": "O alimento seco completo PremieR Formula Cães Adultos Porte Pequeno Carne e Batata Doce alcançou a pontuação máxima na auditoria técnica do ..."
     },
     {
       "id": "cmtz54a517ad710972f67c14",
@@ -368,6 +1101,18 @@
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com controle glicêmico em diabetes mellitus...."
     },
     {
+      "id": "cmtz562da3db3a0d3617ee0a",
+      "slug": "premier-cookie-caes-senior-sabor-original",
+      "commercialName": "PremieR Cookie Cães Sênior Original",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:24:48.494Z",
+      "editorialOpinionSnippet": "O produto PremieR Cookie Cães Sênior Original enquadra-se legalmente como alimento complementar, sendo formulado exclusivamente como agrado ..."
+    },
+    {
       "id": "cmtz5641f58ba25317e8e616",
       "slug": "formula-natural-fresh-meat-gatos-castrados-sabor-carne",
       "commercialName": "Fórmula Natural Fresh Meat Gatos Castrados Carne, Batata-doce e Cúrcuma",
@@ -376,8 +1121,20 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 65,
       "classificationTier": "NIVEL_BRONZE",
-      "updatedAt": "2026-09-24T00:35:12.683Z",
-      "editorialOpinionSnippet": "O presente alimento completo seco para gatos adultos castrados obteve score de sessenta e cinco pontos, posicionando-se no nível bronze da a..."
+      "updatedAt": "2026-09-24T00:39:36.739Z",
+      "editorialOpinionSnippet": "O alimento completo Fórmula Natural Fresh Meat para Gatos Castrados obteve a classificação Nível Bronze na auditoria nutricional, destacando..."
+    },
+    {
+      "id": "cmtz588e4ce62e0396504b46",
+      "slug": "golden-formula-caes-filhotes-carne-arroz",
+      "commercialName": "GoldeN Formula Cães Filhotes Carne & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:24:54.357Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Formula Cães Filhotes Carne e Arroz obteve pontuação máxima na auditoria, destacando-se pela excelente densidade proteica ..."
     },
     {
       "id": "cmtz58b4f11f8f2186e8b613",
@@ -390,6 +1147,18 @@
       "classificationTier": "SOB_OBSERVACAO",
       "updatedAt": "2026-09-22T02:34:20.758Z",
       "editorialOpinionSnippet": "A ração Whiskas Carne e Leite para Gatos Filhotes recebeu a classificação Sob Observação por apresentar inconformidade na matéria seca. A au..."
+    },
+    {
+      "id": "cmtz59608a3cf9cffab7eac6",
+      "slug": "golden-formula-caes-adultos-carne-arroz-mini-bits",
+      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Carne e Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:00.539Z",
+      "editorialOpinionSnippet": "O alimento seco GoldeN Formula Cães Adultos Porte Pequeno Carne e Arroz obteve pontuação máxima na auditoria do PetRankings, integrando o Ní..."
     },
     {
       "id": "cmtz5a96c4bf0b24c1156751",
@@ -412,8 +1181,8 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 75,
       "classificationTier": "NIVEL_PRATA",
-      "updatedAt": "2026-09-24T00:36:43.782Z",
-      "editorialOpinionSnippet": "O presente alimento completo para gatos filhotes atinge o Nível Prata com nota setenta e cinco, destacando-se pelo pleno atendimento aos par..."
+      "updatedAt": "2026-09-24T00:40:38.982Z",
+      "editorialOpinionSnippet": "O alimento completo Fórmula Natural Super Premium Life Gatos Filhotes Sabor Frango e Salmão alcançou a classificação Nível Prata com setenta..."
     },
     {
       "id": "cmtz5ec213ecf46fc07575c9",
@@ -424,8 +1193,8 @@
       "legalCategory": "ALIMENTO_COMPLEMENTAR",
       "scoreTotal": null,
       "classificationTier": "COMPLEMENTAR",
-      "updatedAt": "2026-09-24T00:35:59.611Z",
-      "editorialOpinionSnippet": "O Fórmula Natural Super Premium Fresh Meat Cookies Gatos Adultos Salmão é classificado tecnicamente como um alimento complementar do tipo pe..."
+      "updatedAt": "2026-09-24T00:40:08.230Z",
+      "editorialOpinionSnippet": "O Fórmula Natural Super Premium Fresh Meat Cookies Gatos Adultos Salmão é classificado tecnicamente como um alimento complementar destinado ..."
     },
     {
       "id": "cmtz5fd08fd31dab570d23a5",
@@ -440,6 +1209,18 @@
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com manejo e perda de peso corpóreo. Formula..."
     },
     {
+      "id": "cmtz602dfa775175bea1cfb8",
+      "slug": "premier-racas-especificas-maltes-caes-adultos",
+      "commercialName": "PremieR Raças Específicas Maltês Adultos Porte Pequeno Peru e Arroz",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:06.573Z",
+      "editorialOpinionSnippet": "O alimento PremieR Raças Específicas Maltês Adultos alcançou a pontuação máxima de cem pontos, conquistando a classificação Nível Ouro na au..."
+    },
+    {
       "id": "cmtz60c4a1b9bd12cf193e22",
       "slug": "racao-umida-whiskas-sache-carne-jelly-para-gatos-adultos-85-g",
       "commercialName": "Ração Úmida WHISKAS Sachê Carne Jelly para Gatos Adultos 85 g",
@@ -452,6 +1233,42 @@
       "editorialOpinionSnippet": "Classificado como Nível Prata, este alimento úmido completo para gatos adultos atende plenamente aos parâmetros nutricionais da ABINPET na m..."
     },
     {
+      "id": "cmtz61d27ad56c7547dbaf3d",
+      "slug": "premier-racas-especificas-shih-tzu-caes-filhotes",
+      "commercialName": "PremieR Raças Específicas Shih Tzu Filhotes Porte Pequeno Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:12.742Z",
+      "editorialOpinionSnippet": "O alimento completo PremieR Raças Específicas Shih Tzu Filhotes Porte Pequeno Frango atingiu a pontuação máxima de cem pontos e enquadra-se ..."
+    },
+    {
+      "id": "cmtz62e61b5cf6956d6733e5",
+      "slug": "premier-formula-caes-adultos-porte-grande-e-gigante-light-frango",
+      "commercialName": "PremieR Formula Cães Adultos Porte Grande e Gigante Light Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:18.686Z",
+      "editorialOpinionSnippet": "O alimento seco PremieR Formula Cães Adultos Porte Grande e Gigante Light Frango alcançou a classificação Nível Ouro com pontuação de 90 em ..."
+    },
+    {
+      "id": "cmtz630712e540cc8300d4e5",
+      "slug": "formula-natural-fresh-meat-gatos-adultos-sabor-frango",
+      "commercialName": "Fórmula Natural Fresh Meat Gatos Adultos Frango, Chá Verde e Alecrim",
+      "brand": "Fórmula Natural Fresh Meat",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 65,
+      "classificationTier": "NIVEL_BRONZE",
+      "updatedAt": "2026-09-24T00:39:33.291Z",
+      "editorialOpinionSnippet": "O alimento Fórmula Natural Fresh Meat Gatos Adultos Frango, Chá Verde e Alecrim obteve nota sessenta e cinco e classificação nível bronze na..."
+    },
+    {
       "id": "cmtz63d6c50784a1e51c1777",
       "slug": "petisco-whiskas-pelo-saudavel-para-gatos-adultos-40-g",
       "commercialName": "Petisco WHISKAS Pelo Saudável Para Gatos Adultos 40 g",
@@ -462,6 +1279,18 @@
       "classificationTier": "COMPLEMENTAR",
       "updatedAt": "2026-09-23T23:37:09.492Z",
       "editorialOpinionSnippet": "Classificado como alimento complementar, este petisco para gatos adultos não substitui a refeição diária completa e deve ser oferecido com m..."
+    },
+    {
+      "id": "cmtz63eb882185a01c671bf2",
+      "slug": "premier-gourmet-gatos-filhotes-peito-de-frango-e-arroz-integral",
+      "commercialName": "PremieR Gourmet Gatos Filhotes Peito de Frango e Arroz Integral",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:25:24.580Z",
+      "editorialOpinionSnippet": "Este produto é classificado como alimento complementar, sendo formulado exclusivamente para agrado, recompensa ou hidratação suplementar de ..."
     },
     {
       "id": "cmtz64ab7b01e565abe8b94e",
@@ -508,8 +1337,8 @@
       "legalCategory": "ALIMENTO_COMPLEMENTAR",
       "scoreTotal": null,
       "classificationTier": "COMPLEMENTAR",
-      "updatedAt": "2026-09-24T00:36:09.737Z",
-      "editorialOpinionSnippet": "Este produto enquadra-se legalmente como alimento complementar, sendo destinado exclusivamente a momentos de agrado e recompensa para gatos ..."
+      "updatedAt": "2026-09-24T00:40:14.870Z",
+      "editorialOpinionSnippet": "Este produto é classificado tecnicamente como alimento complementar úmido para gatos adultos, sendo destinado exclusivamente a momentos de a..."
     },
     {
       "id": "cmtz6577fb06791b4fa772cc",
@@ -520,8 +1349,32 @@
       "legalCategory": "ALIMENTO_COADJUVANTE",
       "scoreTotal": null,
       "classificationTier": "COADJUVANTE",
-      "updatedAt": "2026-09-24T00:36:53.530Z",
-      "editorialOpinionSnippet": "O Fórmula Natural Vet Care Renal Gatos é um alimento coadjuvante formulado estritamente para colaborar no manejo nutricional de felinos com ..."
+      "updatedAt": "2026-09-24T00:40:49.472Z",
+      "editorialOpinionSnippet": "Alimento úmido dietoterápico coadjuvante formulado especialmente para suporte nutricional a gatos com doença renal crônica. Apresenta 6.4% d..."
+    },
+    {
+      "id": "cmtz67a9d1cbca41597b4491",
+      "slug": "premier-nattu-caes-adultos-porte-pequeno-frango-mandioquinha-espinafre-curcuma-blackberry",
+      "commercialName": "PremieR Nattu Cães Adultos Porte Pequeno Frango Mandioquinha, Espinafre, Cúrcuma & Blackberry",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:30.634Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Cães Adultos Porte Pequeno alcançou a classificação Nível Ouro ao atender plenamente aos rigorosos parâmetros do Ma..."
+    },
+    {
+      "id": "cmtz67bd82cabd233afd2777",
+      "slug": "premier-nattu-caes-adultos-frango-abobora-e-blueberry",
+      "commercialName": "PremieR Nattu Cães Adultos Frango, Abóbora, Brócolis, Quinoa & Blueberry",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:36.343Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Cães Adultos alcançou o Nível Ouro na auditoria independente do PetRankings ao atender de forma exemplar aos parâme..."
     },
     {
       "id": "cmtz6806c948d3413b1aca5c",
@@ -536,6 +1389,18 @@
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com distúrbios e sensibilidade gastrintestin..."
     },
     {
+      "id": "cmtz68a2c264bc01699d788a",
+      "slug": "premier-selecao-natural-gatos-filhotes-sabor-frango",
+      "commercialName": "PremieR Seleção Natural Gatos Filhotes Frango Korin",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:42.193Z",
+      "editorialOpinionSnippet": "O alimento completo PremieR Seleção Natural Gatos Filhotes Frango Korin atingiu a pontuação máxima de cem pontos, conquistando a classificaç..."
+    },
+    {
       "id": "cmtz69d5d9163fe4283fcc82",
       "slug": "premier-nutricao-clinica-caes-adultos-filhotes-porte-pequeno-proteina-hidrolisada-mandioca-hipoalergenico",
       "commercialName": "PremieR Nutrição Clínica Cães Adultos & Filhotes Porte Pequeno Proteína Hidrolisada Mandioca Hipoalergênico",
@@ -546,6 +1411,30 @@
       "classificationTier": "COADJUVANTE",
       "updatedAt": "2026-09-22T02:14:08.795Z",
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com hipersensibilidade e reações adversas a ..."
+    },
+    {
+      "id": "cmtz6c8ce2f9737246017e76",
+      "slug": "premier-gourmet-gatos-adultos-carne-espinafre-e-arroz-integral",
+      "commercialName": "PremieR Gourmet Gatos Adultos Carne, Espinafre e Arroz Integral",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:25:48.243Z",
+      "editorialOpinionSnippet": "O produto PremieR Gourmet Gatos Adultos Carne, Espinafre e Arroz Integral é classificado tecnicamente como alimento complementar e não deve ..."
+    },
+    {
+      "id": "cmtz6d2af88b3a70df4a789b",
+      "slug": "golden-gourmet-caes-filhotes-frango",
+      "commercialName": "GoldeN Gourmet Cães Filhotes Frango",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:25:54.077Z",
+      "editorialOpinionSnippet": "O alimento úmido GoldeN Gourmet Cães Filhotes Frango obteve pontuação máxima na auditoria do PetRankings, destacando-se pelo atendimento ple..."
     },
     {
       "id": "cmtz6d76ae09495447efd6b2",
@@ -568,8 +1457,44 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 25,
       "classificationTier": "SOB_OBSERVACAO",
-      "updatedAt": "2026-09-24T00:35:49.415Z",
-      "editorialOpinionSnippet": "O alimento Fórmula Natural Receitas Caseiras Gatos Adultos Salmão com Maracujá ao Molho obteve nota vinte e cinco em cem pontos, classifican..."
+      "updatedAt": "2026-09-24T00:40:01.492Z",
+      "editorialOpinionSnippet": "O alimento Fórmula Natural Receitas Caseiras Gatos Adultos Salmão com Maracujá ao Molho obteve nota 25 em 100 pontos, encontrando-se sob obs..."
+    },
+    {
+      "id": "cmtz6e5ececb62bf8ac01b04",
+      "slug": "golden-formula-caes-adultos-frango-arroz-mini-bits",
+      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Frango & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:25:59.952Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Formula Cães Adultos Porte Pequeno Frango e Arroz obteve classificação Nível Prata com score de 80 pontos na auditoria nut..."
+    },
+    {
+      "id": "cmtz71cfb1bce7f5017346d5",
+      "slug": "golden-gourmet-gatos-adultos-frango-abobora-e-arroz-integral",
+      "commercialName": "GoldeN Gourmet Gatos Adultos Frango, Abóbora e Arroz Integral",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:26:05.899Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Gourmet Gatos Adultos Frango, Abóbora e Arroz Integral alcançou pontuação máxima na auditoria nutricional, destacando-se p..."
+    },
+    {
+      "id": "cmtz73d5c22af9f5fdf80866",
+      "slug": "premier-formula-caes-senior-portes-grande-e-gigante-sabor-frango",
+      "commercialName": "PremieR Formula Cães Seniores Porte Grande & Gigante Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:26:11.746Z",
+      "editorialOpinionSnippet": "O alimento seco completo PremieR Formula Cães Seniores Porte Grande e Gigante Frango alcançou a classificação Nível Ouro com nota 90, demons..."
     },
     {
       "id": "cmtz755f3811ddf6e8d9229e",
@@ -592,8 +1517,152 @@
       "legalCategory": "ALIMENTO_COMPLEMENTAR",
       "scoreTotal": null,
       "classificationTier": "COMPLEMENTAR",
-      "updatedAt": "2026-09-24T00:36:19.394Z",
-      "editorialOpinionSnippet": "O alimento complementar Fórmula Natural Super Premium Gourmet Gatos Sabor Peito de Frango é formulado exclusivamente para momentos de agrado..."
+      "updatedAt": "2026-09-24T00:40:22.002Z",
+      "editorialOpinionSnippet": "A Fórmula Natural Super Premium Gourmet Gatos Sabor Peito de Frango é classificada legalmente como alimento complementar, sendo destinada ex..."
+    },
+    {
+      "id": "cmtz77bcbbf065f0c231d8d3",
+      "slug": "golden-gatos-filhotes-frango",
+      "commercialName": "GoldeN Gatos Filhotes Frango",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:26:17.635Z",
+      "editorialOpinionSnippet": "O alimento completo GoldeN Gatos Filhotes Frango alcançou pontuação máxima na auditoria nutricional, destacando-se pelo pleno atendimento ao..."
+    },
+    {
+      "id": "cmtz785d4791c7c60e44a8d4",
+      "slug": "golden-selecao-natural-caes-senior-porte-pequeno-frango-arroz",
+      "commercialName": "GoldeN Seleção Natural Cães Seniores Porte Pequeno Frango & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:26:23.521Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Seleção Natural Cães Seniores Porte Pequeno Frango e Arroz obteve nota oitenta, classificando-se no Nível Prata da auditor..."
+    },
+    {
+      "id": "cmtz7872066007828a0d2416",
+      "slug": "golden-selecao-natural-caes-senior-frango-arroz",
+      "commercialName": "GoldeN Seleção Natural Cães Seniores Frango & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 80,
+      "classificationTier": "NIVEL_PRATA",
+      "updatedAt": "2026-09-24T01:26:29.367Z",
+      "editorialOpinionSnippet": "O alimento seco GoldeN Seleção Natural Cães Seniores Frango e Arroz, classificado no Nível Prata com pontuação de oitenta em cem, atende ple..."
+    },
+    {
+      "id": "cmtz7a16c923ef9a10d65a7a",
+      "slug": "premier-caes-racas-especificas-spitz-alemao-adulto-sabor-frango",
+      "commercialName": "PremieR Raças Específicas Spitz Alemão Adulto Porte Pequeno Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:26:35.658Z",
+      "editorialOpinionSnippet": "O alimento PremieR Raças Específicas Spitz Alemão Adulto Porte Pequeno Frango demonstrou excelência técnica em nossa auditoria independente,..."
+    },
+    {
+      "id": "cmtz7a8b7cbf66884c4bf954",
+      "slug": "premier-selecao-natural-caes-filhotes-porte-pequeno-frango",
+      "commercialName": "PremieR Seleção Natural Cães Filhotes Porte Pequeno Frango Korin®",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:26:41.416Z",
+      "editorialOpinionSnippet": "O alimento completo PremieR Seleção Natural Cães Filhotes Porte Pequeno Frango Korin atinge a classificação Nível Ouro na auditoria do PetRa..."
+    },
+    {
+      "id": "cmtz7b16fdf7c4668ff4aa0d",
+      "slug": "golden-formula-caes-adultos-salmao-arroz-mini-bits",
+      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Salmão & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:26:47.151Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Formula Cães Adultos Porte Pequeno Salmão e Arroz atingiu a classificação Nível Ouro ao atender plenamente aos parâmetros ..."
+    },
+    {
+      "id": "cmtz7b544e6f5719b314e04e",
+      "slug": "premier-cookie-caes-adultos-porte-pequeno-frutas-vermelhas-e-aveia",
+      "commercialName": "PremieR Cookie Cães Adultos Porte Pequeno Frutas Vermelhas e Aveia",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:26:52.920Z",
+      "editorialOpinionSnippet": "O produto PremieR Cookie Cães Adultos Porte Pequeno Frutas Vermelhas e Aveia é classificado como alimento complementar e formulado exclusiva..."
+    },
+    {
+      "id": "cmtz7bd9ceafed02c604dda3",
+      "slug": "nattu-selecao-natural-caes-adultos-porte-pequeno-frango-batata-doce",
+      "commercialName": "PremieR Nattu Seleção Natural Cães Adultos Porte Pequeno Frango Korin® & Batata-doce",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:26:58.933Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Seleção Natural Cães Adultos Porte Pequeno alcançou nota máxima na auditoria técnica, cumprindo com excelência todo..."
+    },
+    {
+      "id": "cmtz7bf586e330bd5a2795ba",
+      "slug": "premier-cookie-caes-adultos-porte-pequeno-coco-e-aveia",
+      "commercialName": "PremieR Cookie Cães Adultos Porte Pequeno Coco e Aveia",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:27:04.857Z",
+      "editorialOpinionSnippet": "O PremieR Cookie Cães Adultos Porte Pequeno Coco e Aveia enquadra-se legalmente como alimento complementar, o que significa que sua formulaç..."
+    },
+    {
+      "id": "cmtz7ce82831c628c10140ed",
+      "slug": "vitta-natural-caes-adultos-porte-pequeno-carne-e-arroz",
+      "commercialName": "PremieR VittA Natural Cães Adultos Porte Pequeno Carne e Arroz",
+      "brand": "Vitta Natural",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 95,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:10.890Z",
+      "editorialOpinionSnippet": "O alimento PremieR VittA Natural Cães Adultos Porte Pequeno Carne e Arroz obteve classificação Nível Ouro na auditoria do PetRankings, ating..."
+    },
+    {
+      "id": "cmtz7da9da7b23c57ca6eee8",
+      "slug": "premier-nattu-caes-adultos-porte-pequeno-frango-grain-free-frango-batata-doce-ervilha-blueberry-e-cranberry",
+      "commercialName": "PremieR® Nattu Cães Adultos Porte Pequeno Grain Free Frango, Batata Doce, Ervilha, Blueberry e Cranberry",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:16.753Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Cães Adultos Porte Pequeno Grain Free demonstra excelente excelência técnica ao atingir a pontuação máxima de cem p..."
+    },
+    {
+      "id": "cmtz7daf117bc2ec0962beaf",
+      "slug": "premier-formula-racas-grandes-caes-adultos-sabor-frango",
+      "commercialName": "PremieR Formula Cães Adultos Porte Grande e Gigante Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:22.721Z",
+      "editorialOpinionSnippet": "O alimento PremieR Formula Cães Adultos Porte Grande e Gigante Frango obteve a classificação Nível Ouro na auditoria independente, destacand..."
     },
     {
       "id": "cmtz7f061538e4defbed5987",
@@ -608,6 +1677,138 @@
       "editorialOpinionSnippet": "A ração úmida Whiskas Patê de Peixe para Gatos Adultos foi classificada sob observação devido a desvios nutricionais em relação às diretrize..."
     },
     {
+      "id": "cmtz8225f4d0b216999db082",
+      "slug": "golden-formula-caes-adultos-carne-e-arroz",
+      "commercialName": "GoldeN Formula Cães Adultos Carne e Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:28.322Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Formula Cães Adultos Carne e Arroz alcançou a classificação Nível Ouro na auditoria independente, destacando-se pela sólid..."
+    },
+    {
+      "id": "cmtz8291c471fd6a44c0ee1f",
+      "slug": "premier-nattu-gatos-filhotes-frango-abobora-e-blueberry",
+      "commercialName": "PremieR Nattu Gatos Filhotes Frango, Abóbora, Brócolis, Quinoa e Blueberry",
+      "brand": "PremieR Nattu",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:34.240Z",
+      "editorialOpinionSnippet": "O alimento completo PremieR Nattu Gatos Filhotes Frango, Abóbora, Brócolis, Quinoa e Blueberry alcançou o Nível Ouro com 90 pontos na audito..."
+    },
+    {
+      "id": "cmtz82f30aaf177eba9b4ad9",
+      "slug": "vitta-natural-caes-adultos-carne-e-arroz",
+      "commercialName": "PremieR VittA Natural Cães Adultos Carne e Arroz",
+      "brand": "Vitta Natural",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 95,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:40.259Z",
+      "editorialOpinionSnippet": "O alimento PremieR VittA Natural Cães Adultos Carne e Arroz obteve nota noventa e cinco em cem pontos, alcançando o nível ouro na auditoria ..."
+    },
+    {
+      "id": "cmtz83096b8e5c265c22a79d",
+      "slug": "premier-nattu-umidos-gatos-castrados-frango-abobora-brocolis-e-quinoa",
+      "commercialName": "PremieR Nattu Úmidos Gatos Castrados Frango, Abóbora, Brócolis e Quinoa",
+      "brand": "PremieR Nattu",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLEMENTAR",
+      "scoreTotal": null,
+      "classificationTier": "COMPLEMENTAR",
+      "updatedAt": "2026-09-24T01:27:46.142Z",
+      "editorialOpinionSnippet": "O PremieR Nattu Úmidos Gatos Castrados Frango, Abóbora, Brócolis e Quinoa é classificado tecnicamente como alimento complementar e formula-s..."
+    },
+    {
+      "id": "cmtz845c7936bcd5d1509ede",
+      "slug": "nattu-wild-caes-adultos-porte-pequeno-abobora-e-espinafre",
+      "commercialName": "PremieR Nattu Wild Cães Adultos Porte Pequeno Abóbora e Espinafre",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:51.913Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Wild Cães Adultos Porte Pequeno Abóbora e Espinafre obteve pontuação máxima na auditoria, classificando-se no Nível..."
+    },
+    {
+      "id": "cmtz84d91402dc22e465677b",
+      "slug": "premier-formula-caes-adultos-porte-pequeno-frango",
+      "commercialName": "PremieR Formula Cães Adultos Porte Pequeno Frango",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:27:57.848Z",
+      "editorialOpinionSnippet": "O alimento PremieR Formula Cães Adultos Porte Pequeno Frango alcançou a classificação Nível Ouro com pontuação máxima de 100 pontos na audit..."
+    },
+    {
+      "id": "cmtz85e1e10f5a41eecc3f08",
+      "slug": "golden-special-caes-filhotes-porte-pequeno-frango-e-carne",
+      "commercialName": "GoldeN Special Cães Filhotes Porte Pequeno Frango e Carne",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 60,
+      "classificationTier": "NIVEL_BRONZE",
+      "updatedAt": "2026-09-24T01:28:03.657Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Special Cães Filhotes Porte Pequeno Frango e Carne obteve nota sessenta, alcançando o nível bronze na auditoria independen..."
+    },
+    {
+      "id": "cmtz85e57be4c5fb6cf242bc",
+      "slug": "premier-ambientes-internos-caes-filhotes-papinha-desmame",
+      "commercialName": "PremieR Ambientes Internos Cães Filhotes Papinha Desmame",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 95,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:09.475Z",
+      "editorialOpinionSnippet": "O alimento completo seco PremieR Ambientes Internos Cães Filhotes Papinha Desmame atingiu o Nível Ouro na auditoria independente, demonstran..."
+    },
+    {
+      "id": "cmtz871c806de958b23ff0c4",
+      "slug": "golden-selecao-natural-gatos-filhotes-sabor-frango-arroz",
+      "commercialName": "GoldeN Seleção Natural Gatos Filhotes Frango & Arroz",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:15.269Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Seleção Natural Gatos Filhotes Frango e Arroz atingiu a pontuação máxima de cem pontos na auditoria nutricional, destacand..."
+    },
+    {
+      "id": "cmtz87206e108f3a12539369",
+      "slug": "nattu-wild-caes-adultos-abobora-e-espinafre",
+      "commercialName": "PremieR Nattu Wild Cães Adultos Abóbora e Espinafre",
+      "brand": "PremieR Nattu",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:21.107Z",
+      "editorialOpinionSnippet": "O alimento completo PremieR Nattu Wild Cães Adultos Abóbora e Espinafre obteve nota máxima na auditoria técnica, atingindo a classificação N..."
+    },
+    {
+      "id": "cmtz87q7c0000ohdov89arcgk",
+      "slug": "premier-nattu-wild-gatos-adultos-castrados-abobora-e-espinafre",
+      "commercialName": "PremieR Nattu Wild Gatos Adultos Castrados Abóbora e Espinafre",
+      "brand": "PremieR",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:26.978Z",
+      "editorialOpinionSnippet": "O alimento PremieR Nattu Wild Gatos Adultos Castrados Abóbora e Espinafre demonstrou excelente desempenho técnico na auditoria independente,..."
+    },
+    {
       "id": "cmtz8812f298408b59d4da1a",
       "slug": "premier-nutricao-clinica-gastrointestinal-caes-pequeno-porte",
       "commercialName": "PremieR Nutrição Clínica Cães Adultos & Filhotes Porte Pequeno Gastrointestinal",
@@ -620,6 +1821,18 @@
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com distúrbios e sensibilidade gastrintestin..."
     },
     {
+      "id": "cmtz88c909aebc86cca9bb1f",
+      "slug": "golden-gatos-castrados-sabor-salmao",
+      "commercialName": "GoldeN Gatos Castrados Salmão",
+      "brand": "GoldeN",
+      "species": "GATO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:33.072Z",
+      "editorialOpinionSnippet": "O alimento completo GoldeN Gatos Castrados Salmão atingiu a pontuação máxima na auditoria nutricional, destacando-se pelo rigoroso atendimen..."
+    },
+    {
       "id": "cmtz8ace5d2ebd0869f02d7f",
       "slug": "formula-natural-super-premium-fresh-meat-hairball-gatos-salmao-cenoura-aloe-vera",
       "commercialName": "Fórmula Natural Super Premium Fresh Meat Hairball Gatos Salmão, Cenoura e Aloe Vera",
@@ -628,8 +1841,20 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 75,
       "classificationTier": "NIVEL_PRATA",
-      "updatedAt": "2026-09-24T00:36:04.977Z",
-      "editorialOpinionSnippet": "Este alimento completo seco para gatos adultos obteve a classificação Nível Prata com 75 pontos na auditoria independente, destacando-se pel..."
+      "updatedAt": "2026-09-24T00:40:11.495Z",
+      "editorialOpinionSnippet": "Este alimento completo seco atende com segurança aos parâmetros nutricionais da ABINPET para gatos adultos, apresentando teores adequados de..."
+    },
+    {
+      "id": "cmtz8ba81429b6f6c8988434",
+      "slug": "golden-formula-mega-caes-filhotes-sabor-frango-arroz",
+      "commercialName": "GoldeN Mega Cães Filhotes Porte Grande & Gigante Frango & Arroz",
+      "brand": "GoldeN",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 90,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:38.903Z",
+      "editorialOpinionSnippet": "O alimento GoldeN Mega Cães Filhotes Porte Grande e Gigante Frango e Arroz alcançou a classificação Nível Ouro na auditoria independente do ..."
     },
     {
       "id": "cmtz8c5974f117e2ef115e73",
@@ -642,6 +1867,18 @@
       "classificationTier": "COADJUVANTE",
       "updatedAt": "2026-09-22T02:14:09.162Z",
       "editorialOpinionSnippet": "Alimento seco dietoterápico coadjuvante formulado especialmente para suporte nutricional a cães com hipersensibilidade e reações adversas a ..."
+    },
+    {
+      "id": "cmtz8de394c104921508fd6c",
+      "slug": "premier-formula-umidos-caes-adultos-porte-pequeno-carne-brocolis-e-cenoura",
+      "commercialName": "PremieR Formula Úmidos Cães Adultos Porte Pequeno Carne, Brócolis e Cenoura",
+      "brand": "PremieR",
+      "species": "CAO",
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 100,
+      "classificationTier": "NIVEL_OURO",
+      "updatedAt": "2026-09-24T01:28:44.663Z",
+      "editorialOpinionSnippet": "O PremieR Formula Úmidos Cães Adultos Porte Pequeno Carne, Brócolis e Cenoura alcançou a pontuação máxima em nossa auditoria nutricional por..."
     },
     {
       "id": "cmtz92d5caa9d5ec352b284e",
@@ -676,8 +1913,8 @@
       "legalCategory": "ALIMENTO_COMPLEMENTAR",
       "scoreTotal": null,
       "classificationTier": "COMPLEMENTAR",
-      "updatedAt": "2026-09-24T00:36:14.562Z",
-      "editorialOpinionSnippet": "Este produto enquadra-se como alimento complementar, sendo destinado estritamente a momentos de agrado, recompensa ou enriquecimento da roti..."
+      "updatedAt": "2026-09-24T00:40:18.460Z",
+      "editorialOpinionSnippet": "O produto Fórmula Natural Super Premium Gourmet Gatos Sabor Carne Desfiada é classificado legalmente como alimento complementar, sendo indic..."
     },
     {
       "id": "cmtza0446b0812e553597c85",
@@ -760,8 +1997,8 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 25,
       "classificationTier": "SOB_OBSERVACAO",
-      "updatedAt": "2026-09-24T00:35:32.867Z",
-      "editorialOpinionSnippet": "Este alimento úmido completo para gatos adultos encontra-se sob observação na auditoria devido à pontuação de vinte e cinco pontos, refletin..."
+      "updatedAt": "2026-09-24T00:39:51.221Z",
+      "editorialOpinionSnippet": "Este alimento completo úmido para gatos adultos apresenta pontuação abaixo de sessenta na auditoria do PetRankings, situando-se sob observaç..."
     },
     {
       "id": "cmtzba211c91dffa03425676",
@@ -832,8 +2069,8 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 25,
       "classificationTier": "SOB_OBSERVACAO",
-      "updatedAt": "2026-09-24T00:35:37.511Z",
-      "editorialOpinionSnippet": "Este alimento úmido completo para gatos adultos obteve pontuação inferior a sessenta pontos, classificando-se como sob observação devido a r..."
+      "updatedAt": "2026-09-24T00:39:54.519Z",
+      "editorialOpinionSnippet": "Este alimento úmido completo para gatos adultos apresenta pontuação baixa na auditoria devido à inadequação de parâmetros na matéria seca e ..."
     },
     {
       "id": "cmtzc5196ccc12321e38930d",
@@ -853,11 +2090,11 @@
       "commercialName": "Fórmula Natural Super Premium Life Gatos Castrados Sabor Salmão",
       "brand": "Fórmula Natural Life",
       "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR",
-      "updatedAt": "2026-09-24T00:36:38.713Z",
-      "editorialOpinionSnippet": "Este alimento seco coadjuvante para gatos adultos castrados apresenta densidade proteica e lipídica adequadas frente aos parâmetros normativ..."
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 65,
+      "classificationTier": "NIVEL_BRONZE",
+      "updatedAt": "2026-09-24T00:40:35.554Z",
+      "editorialOpinionSnippet": "O alimento completo Fórmula Natural Super Premium Life Gatos Castrados Sabor Salmão obteve nota 65 e classificação Nível Bronze na auditoria..."
     },
     {
       "id": "cmtzc9dc9ba7ab2fff3837a8",
@@ -964,8 +2201,8 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 65,
       "classificationTier": "NIVEL_BRONZE",
-      "updatedAt": "2026-09-24T00:36:24.003Z",
-      "editorialOpinionSnippet": "O presente alimento completo para gatos adultos atende plenamente aos parâmetros da ABINPET quanto à densidade de nutrientes na matéria seca..."
+      "updatedAt": "2026-09-24T00:40:25.473Z",
+      "editorialOpinionSnippet": "A auditoria nutricional do Fórmula Natural Super Premium Life Gatos Adultos Sabor Frango e Salmão resultou em nota sessenta e cinco e classi..."
     },
     {
       "id": "cmtze0e37076e46bdc68bd83",
@@ -976,8 +2213,8 @@
       "legalCategory": "ALIMENTO_COMPLEMENTAR",
       "scoreTotal": null,
       "classificationTier": "COMPLEMENTAR",
-      "updatedAt": "2026-09-24T00:35:54.829Z",
-      "editorialOpinionSnippet": "O Fórmula Natural Super Premium Fresh Meat Cookies Gatos Adultos Frango classifica-se como alimento complementar, destinando-se exclusivamen..."
+      "updatedAt": "2026-09-24T00:40:04.932Z",
+      "editorialOpinionSnippet": "O produto Fórmula Natural Super Premium Fresh Meat Cookies Gatos Adultos Frango enquadra-se legalmente como alimento complementar e não deve..."
     },
     {
       "id": "cmtze495ee66294f14075c3a",
@@ -988,8 +2225,8 @@
       "legalCategory": "ALIMENTO_COADJUVANTE",
       "scoreTotal": null,
       "classificationTier": "COADJUVANTE",
-      "updatedAt": "2026-09-24T00:37:03.275Z",
-      "editorialOpinionSnippet": "A Fórmula Natural Vet Care Urinária Gatos Úmida é um alimento coadjuvante desenvolvido especificamente para o suporte nutricional de felinos..."
+      "updatedAt": "2026-09-24T00:40:56.737Z",
+      "editorialOpinionSnippet": "O presente alimento coadjuvante úmido para felinos adultos apresenta formulação terapêutica voltada ao suporte urinário, sendo composta por ..."
     },
     {
       "id": "cmtzf1f86046b4e7d7e9ee2c",
@@ -1009,11 +2246,11 @@
       "commercialName": "Fórmula Natural Super Premium Life Gatos Castrados Sabor Frango",
       "brand": "Fórmula Natural Life",
       "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR",
-      "updatedAt": "2026-09-24T00:36:33.092Z",
-      "editorialOpinionSnippet": "O Fórmula Natural Super Premium Life Gatos Castrados Sabor Frango é classificado legalmente como alimento complementar e atende plenamente a..."
+      "legalCategory": "ALIMENTO_COMPLETO",
+      "scoreTotal": 65,
+      "classificationTier": "NIVEL_BRONZE",
+      "updatedAt": "2026-09-24T00:40:32.186Z",
+      "editorialOpinionSnippet": "Este alimento completo seco para gatos adultos castrados alcançou o Nível Bronze com score de 65 pontos na auditoria nutricional independent..."
     },
     {
       "id": "cmtzfae2796e9448c6a90f0b",
@@ -1024,1041 +2261,11 @@
       "legalCategory": "ALIMENTO_COMPLETO",
       "scoreTotal": 75,
       "classificationTier": "NIVEL_PRATA",
-      "updatedAt": "2026-09-24T00:35:27.995Z",
-      "editorialOpinionSnippet": "Este alimento completo seco atinge o Nível Prata com nota setenta e cinco na auditoria do PetRankings, demonstrando total conformidade com o..."
+      "updatedAt": "2026-09-24T00:39:47.702Z",
+      "editorialOpinionSnippet": "O alimento completo Fórmula Natural Fresh Meat Gatos Sênior obteve nota setenta e cinco, alcançando o nível prata na auditoria independente ..."
     }
   ],
   "pending": [
-    {
-      "id": "cmtz1318f9ec75c648243976",
-      "slug": "racao-umida-whiskas-sache-frango-ao-molho-para-gatos-filhotes-85-g",
-      "commercialName": "Ração Úmida WHISKAS Sachê Frango ao Molho para Gatos Filhotes 85 g",
-      "brand": "Whiskas",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 75,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz141f2070e781c56d7cbb",
-      "slug": "premier-racas-especificas-shih-tzu-caes-adultos-sabor-frango",
-      "commercialName": "PremieR Raças Específicas Shih Tzu Adultos Porte Pequeno Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz142101490e5ccf848705",
-      "slug": "premier-nattu-caes-adultos-sabor-mandioca",
-      "commercialName": "PremieR Nattu Cães Adultos Frango, Mandioca, Beterraba, Linhaça & Cranberry",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz187cae657eed54259dd1",
-      "slug": "premier-selecao-natural-gatos-adultos-frango",
-      "commercialName": "PremieR Seleção Natural Gatos Adultos Sabor Frango Korin",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz19c3adcec836e7aa1a8a",
-      "slug": "premier-gourmet-caes-adultos-porte-pequeno-peito-de-frango-e-arroz-integral",
-      "commercialName": "PremieR Gourmet Cães Adultos Porte Pequeno Peito de Frango e Arroz Integral",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz19df8499033c44bbcaf6",
-      "slug": "vitta-natural-caes-adultos-frango-e-arroz",
-      "commercialName": "PremieR VittA Natural Cães Adultos Frango e Arroz",
-      "brand": "Vitta Natural",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 85,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz1a1dd7d85695421be8ec",
-      "slug": "premier-caes-racas-especificas-spitz-alemao-filhotes-sabor-frango",
-      "commercialName": "PremieR Raças Específicas Spitz Alemão Filhotes Porte Pequeno Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz1a5c21d63338b4409542",
-      "slug": "premier-gourmet-gatos-castrados-peito-de-frango-e-arroz-integral",
-      "commercialName": "PremieR Gourmet Gatos Castrados Peito de Frango e Arroz Integral",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz1ad04bb957c7b2f24b80",
-      "slug": "golden-gatos-adultos-carne",
-      "commercialName": "GoldeN Gatos Adultos Carne",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz1b821396047531fbf837",
-      "slug": "premier-formula-gatos-adultos-frango",
-      "commercialName": "PremieR Formula Gatos Adultos Sabor Frango",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 85,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz1e9f3b24ed3a3633789b",
-      "slug": "golden-cookie-caes-filhotes-sabor-salmao-e-quinoa",
-      "commercialName": "GoldeN Cookie Cães Filhotes Salmão & Quinoa",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz1f4781b3c6f03feeea8b",
-      "slug": "golden-formula-mega-caes-adultos-sabor-frango-arroz",
-      "commercialName": "GoldeN Mega Cães Adultos Porte Grande & Gigantes Frango & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz1ff9d0e9da84f65d7bcc",
-      "slug": "premier-nattu-caes-filhotes-porte-pequeno-sabor-mandioca",
-      "commercialName": "PremieR Nattu Cães Filhotes Porte Pequeno Frango, Mandioca, Beterraba, Linhaça e Cranberry",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz206d474720b2eb6f66b8",
-      "slug": "golden-selecao-natural-gatos-castrados-sabor-frango-com-batata-doce",
-      "commercialName": "GoldeN Seleção Natural Gatos Castrados Frango com Batata Doce",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz21332e970e0198641ddd",
-      "slug": "golden-selecao-natural-caes-adultos-porte-pequeno-frango-abobora-e-alecrim",
-      "commercialName": "GoldeN Seleção Natural Cães Adultos Porte Pequeno Frango, Abóbora e Alecrim",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz221a5ff0898635b6e962",
-      "slug": "premier-ambientes-internos-caes-adultos-porte-pequeno-frango-e-salmao-senior",
-      "commercialName": "PremieR Ambientes Internos Cães Adultos Porte Pequeno Frango e Salmão Senior",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz22272a2338350db8c0aa",
-      "slug": "premier-racas-especificas-bulldog-frances-adultos-sabor-frango",
-      "commercialName": "PremieR Raças Específicas Bulldog Francês Adultos Porte Pequeno Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz228c88f688c051131544",
-      "slug": "golden-gourmet-gatos-castrados-frango-abobora-e-arroz-integral",
-      "commercialName": "GoldeN Gourmet Gatos Castrados Frango, Abóbora e Arroz Integral",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz2568f96ff2ea31816eaf",
-      "slug": "golden-selecao-natural-gatos-castrados-sabor-frango-com-abobora-e-alecrim",
-      "commercialName": "GoldeN Seleção Natural Gatos Castrados Frango com Abóbora & Alecrim",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz26b49fc7bb676a33444f",
-      "slug": "premier-cookie-caes-adultos-frango-e-batata-doce-fit",
-      "commercialName": "PremieR Cookie Cães Adultos Frango e Batata Doce FIT",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz26e729dbaf08da15a9a3",
-      "slug": "premier-cookie-caes-filhotes-original",
-      "commercialName": "PremieR Cookie Cães Filhotes Original",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz27be23293ea9e77d6df0",
-      "slug": "premier-cookie-caes-adultos-porte-pequeno-original",
-      "commercialName": "PremieR Cookie Cães Adultos Porte Pequeno Original",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz2a044bb0dee7fb2912ec",
-      "slug": "premier-organico-caes-adultos-porte-pequeno-frango-chia-e-quinoa",
-      "commercialName": "PremieR Orgânico Cães Adultos Porte Pequeno Frango, Chia e Quinoa",
-      "brand": "PremieR Orgânico",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz2b14bf8dbe1057238b49",
-      "slug": "premier-selecao-natural-caes-adultos-frango-korin-com-batata-doce",
-      "commercialName": "PremieR Seleção Natural Cães Adultos Frango Korin® & Batata-doce",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz2b3b2aaa0f1bea54ded6",
-      "slug": "premier-gourmet-caes-filhotes-sabor-peito-de-frango-batata-doce-e-brocolis",
-      "commercialName": "PremieR Gourmet Cães Filhotes Peito de Frango, Batata Doce e Brócolis",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz2e864dfee662f84ff8d2",
-      "slug": "premier-gourmet-caes-salmao-e-arroz-integral",
-      "commercialName": "PremieR Gourmet Cães Adultos Porte Pequeno Salmão e Arroz Integral",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz2f15695682b885cb473a",
-      "slug": "premier-selecao-natural-caes-adultos-racas-pequenas-frango",
-      "commercialName": "PremieR Seleção Natural Cães Adultos Porte Pequeno Frango Korin®",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz2f2486b053551d658344",
-      "slug": "golden-formula-caes-adultos-frango-arroz",
-      "commercialName": "GoldeN Formula Cães Adultos Frango & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz2f5ea72fa83a29b874f2",
-      "slug": "golden-formula-caes-adultos-sabor-peru-arroz-mini-bits",
-      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Peru & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz301b48e8fbc6d93148ef",
-      "slug": "golden-formula-caes-seniores-frango-e-arroz",
-      "commercialName": "GoldeN Formula Cães Seniores Frango e Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz302cd370f445cbf1f0b5",
-      "slug": "golden-cookie-caes-adultos-porte-pequeno-salmao-e-quinoa",
-      "commercialName": "GoldeN Cookie Cães Adultos Porte Pequeno Salmão e Quinoa",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz30e369e2960f8a55f94d",
-      "slug": "premier-nattu-umidos-caes-adultos-porte-pequeno-frango-batata-doce-espinafre-e-linhaca",
-      "commercialName": "PremieR Nattu Úmidos Cães Adultos Porte Pequeno Frango, Batata-doce, Espinafre e Linhaça",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz322e1177ee16653c8d71",
-      "slug": "premier-formula-gatos-filhotes-frango",
-      "commercialName": "PremieR Formula Gatos Filhotes Sabor Frango",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 85,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz33ec880b12adc7b5a9b2",
-      "slug": "racao-umida-whiskas-sache-carne-ao-molho-para-gatos-adultos-castrados-85-g",
-      "commercialName": "Ração Úmida WHISKAS Sachê Carne ao Molho para Gatos Adultos Castrados 85 g",
-      "brand": "Whiskas",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 25,
-      "classificationTier": "SOB_OBSERVACAO"
-    },
-    {
-      "id": "cmtz34faf6d750e95980e9b7",
-      "slug": "premier-formula-racas-grandes-caes-adultos-sabor-cordeiro",
-      "commercialName": "PremieR Formula Cães Adultos Porte Grande & Gigante Cordeiro",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz363c73c10df177673979",
-      "slug": "golden-formula-caes-adultos-sabor-peru-arroz",
-      "commercialName": "GoldeN Formula Cães Adultos Peru & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 85,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz368bbf5f8946e603ee09",
-      "slug": "golden-gatos-castrados-sabor-carne",
-      "commercialName": "GoldeN Gatos Castrados Carne",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz376c17048d24e9711cc2",
-      "slug": "golden-selecao-natural-caes-adultos-porte-pequeno-frango-com-batata-doce",
-      "commercialName": "GoldeN Seleção Natural Cães Adultos Porte Pequeno Frango & Batata-doce",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz3809db611e77d4b46b15",
-      "slug": "premier-nattu-umidos-gatos-filhotes-frango-abobora-brocolis-e-quinoa",
-      "commercialName": "PremieR Nattu Úmidos Gatos Filhotes Frango, Abóbora, Brócolis e Quinoa",
-      "brand": "PremieR Nattu",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz382608ee126fed4a26cc",
-      "slug": "premier-formula-gatos-castrados-frango",
-      "commercialName": "PremieR Formula Gatos Castrados Sabor Frango",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz393c4647886744d4ac1b",
-      "slug": "golden-cookie-caes-adultos-banana-aveia-e-mel",
-      "commercialName": "GoldeN Cookie Cães Adultos Porte Pequeno Banana, Aveia & Mel",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz3bacd4f2e1bdb8425b68",
-      "slug": "racao-umida-whiskas-sache-carne-ao-molho-para-gatos-adultos-85-g",
-      "commercialName": "Ração Úmida WHISKAS Sachê Carne ao Molho para Gatos Adultos 85 g",
-      "brand": "Whiskas",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 65,
-      "classificationTier": "NIVEL_BRONZE"
-    },
-    {
-      "id": "cmtz3f7be6c52532fdea3d7b",
-      "slug": "golden-formula-caes-seniores-porte-pequeno-carne-e-arroz",
-      "commercialName": "GoldeN Formula Cães Seniores Porte Pequeno Carne e Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz40021753d6fe0d823f4c",
-      "slug": "golden-gatos-castrados-sabor-peixe",
-      "commercialName": "GoldeN Gatos Castrados Sabor Peixe",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz41da04fb4f4e9df7c371",
-      "slug": "golden-gatos-adultos-salmao",
-      "commercialName": "GoldeN Gatos Adultos Salmão",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz42e7d5ad8c6790b10454",
-      "slug": "premier-nattu-gatos-castrados-frango-abobora-e-blueberry",
-      "commercialName": "PremieR Nattu Gatos Castrados Frango, Abóbora, Brócolis, Quinoa & Blueberry",
-      "brand": "PremieR Nattu",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz43908a9a07855cd081bc",
-      "slug": "premier-selecao-natural-caes-filhotes-racas-pequenas-frango-korin-com-batata-doce",
-      "commercialName": "PremieR Seleção Natural Cães Filhotes Porte Pequeno Frango Korin® & Batata-doce",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz4534f7408e7808741930",
-      "slug": "premier-racas-especificas-filhotes-frango-bulldog-frances",
-      "commercialName": "PremieR Raças Específicas Filhotes Frango Bulldog Francês",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz46bf6466dfa54089b044",
-      "slug": "premier-nattu-umidos-gatos-castrados-frango-batata-doce-espinafre-e-linhaca",
-      "commercialName": "PremieR Nattu Úmidos Gatos Castrados Frango, Batata Doce, Espinafre e Linhaça",
-      "brand": "PremieR Nattu",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz49fd91b56e1bfc3edbf6",
-      "slug": "golden-gatos-castrados-senior-frango-arroz-e-beterraba-branca",
-      "commercialName": "GoldeN Gatos Castrados Sênior Frango, Arroz e Beterraba Branca",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz4ae1c248e48f8e166f77",
-      "slug": "vitta-natural-gatos-castrados-sabor-frango-e-arroz",
-      "commercialName": "Vitta Natural Gatos Castrados Sabor Frango e Arroz",
-      "brand": "Vitta Natural",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 85,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz4c4e955b8ad1f8265832",
-      "slug": "premier-nattu-selecao-natural-gatos-castrados-frango-korin",
-      "commercialName": "PremieR Nattu Seleção Natural Gatos Castrados Sabor Frango Korin",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz4dd00580b1ad50e74d1e",
-      "slug": "premier-gourmet-caes-adultos-portes-medio-e-grande-peito-de-frango-batata-doce-e-brocolis",
-      "commercialName": "PremieR Gourmet Cães Adultos Portes Médio e Grande Peito de Frango Batata Doce e Brócolis",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz4debe2d6ba9a66b43621",
-      "slug": "premier-ambientes-internos-caes-adultos-porte-pequeno-frango-e-salmao",
-      "commercialName": "PremieR Ambientes Internos Cães Adultos Porte Pequeno Frango e Salmão",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz500888316eeb6a762440",
-      "slug": "premier-formula-racas-medias-caes-adultos-sabor-frango",
-      "commercialName": "PremieR Formula Cães Adultos Porte Médio Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz50e309c7004cdd14fcb6",
-      "slug": "premier-racas-especificas-caes-adultos-frango-labrador",
-      "commercialName": "PremieR Raças Específicas Cães Adultos Frango Labrador",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz51cadce1428a62a18821",
-      "slug": "premier-nattu-caes-adultos-porte-pequeno-frango-abobora-brocolis-quinoa-blueberry",
-      "commercialName": "PremieR Nattu Cães Adultos Porte Pequeno Frango, Abóbora, Brócolis, Quinoa & Blueberry",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz53fed7d81e13cbad0f94",
-      "slug": "premier-racas-especificas-labrador-caes-filhotes",
-      "commercialName": "PremieR Raças Específicas Labrador Filhotes Porte Grande Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 95,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz54235e81369523290d03",
-      "slug": "golden-formula-caes-seniores-porte-pequeno-frango-e-arroz-mini-bits",
-      "commercialName": "GoldeN Formula Cães Seniores Porte Pequeno Frango e Arroz Mini Bits",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz54507bedca9cb73805b0",
-      "slug": "premier-gatos-adultos-salmao",
-      "commercialName": "PremieR Gatos Adultos Salmão",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz54a487390e20916244b2",
-      "slug": "premier-formula-caes-adultos-porte-pequeno",
-      "commercialName": "PremieR Formula Cães Adultos Porte Pequeno Carne e Batata Doce",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz562da3db3a0d3617ee0a",
-      "slug": "premier-cookie-caes-senior-sabor-original",
-      "commercialName": "PremieR Cookie Cães Sênior Original",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz588e4ce62e0396504b46",
-      "slug": "golden-formula-caes-filhotes-carne-arroz",
-      "commercialName": "GoldeN Formula Cães Filhotes Carne & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz59608a3cf9cffab7eac6",
-      "slug": "golden-formula-caes-adultos-carne-arroz-mini-bits",
-      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Carne e Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz602dfa775175bea1cfb8",
-      "slug": "premier-racas-especificas-maltes-caes-adultos",
-      "commercialName": "PremieR Raças Específicas Maltês Adultos Porte Pequeno Peru e Arroz",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz61d27ad56c7547dbaf3d",
-      "slug": "premier-racas-especificas-shih-tzu-caes-filhotes",
-      "commercialName": "PremieR Raças Específicas Shih Tzu Filhotes Porte Pequeno Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz62e61b5cf6956d6733e5",
-      "slug": "premier-formula-caes-adultos-porte-grande-e-gigante-light-frango",
-      "commercialName": "PremieR Formula Cães Adultos Porte Grande e Gigante Light Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz630712e540cc8300d4e5",
-      "slug": "formula-natural-fresh-meat-gatos-adultos-sabor-frango",
-      "commercialName": "Fórmula Natural Fresh Meat Gatos Adultos Frango, Chá Verde e Alecrim",
-      "brand": "Fórmula Natural Fresh Meat",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 65,
-      "classificationTier": "NIVEL_BRONZE"
-    },
-    {
-      "id": "cmtz63eb882185a01c671bf2",
-      "slug": "premier-gourmet-gatos-filhotes-peito-de-frango-e-arroz-integral",
-      "commercialName": "PremieR Gourmet Gatos Filhotes Peito de Frango e Arroz Integral",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz67a9d1cbca41597b4491",
-      "slug": "premier-nattu-caes-adultos-porte-pequeno-frango-mandioquinha-espinafre-curcuma-blackberry",
-      "commercialName": "PremieR Nattu Cães Adultos Porte Pequeno Frango Mandioquinha, Espinafre, Cúrcuma & Blackberry",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz67bd82cabd233afd2777",
-      "slug": "premier-nattu-caes-adultos-frango-abobora-e-blueberry",
-      "commercialName": "PremieR Nattu Cães Adultos Frango, Abóbora, Brócolis, Quinoa & Blueberry",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz68a2c264bc01699d788a",
-      "slug": "premier-selecao-natural-gatos-filhotes-sabor-frango",
-      "commercialName": "PremieR Seleção Natural Gatos Filhotes Frango Korin",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz6c8ce2f9737246017e76",
-      "slug": "premier-gourmet-gatos-adultos-carne-espinafre-e-arroz-integral",
-      "commercialName": "PremieR Gourmet Gatos Adultos Carne, Espinafre e Arroz Integral",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz6d2af88b3a70df4a789b",
-      "slug": "golden-gourmet-caes-filhotes-frango",
-      "commercialName": "GoldeN Gourmet Cães Filhotes Frango",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz6e5ececb62bf8ac01b04",
-      "slug": "golden-formula-caes-adultos-frango-arroz-mini-bits",
-      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Frango & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz71cfb1bce7f5017346d5",
-      "slug": "golden-gourmet-gatos-adultos-frango-abobora-e-arroz-integral",
-      "commercialName": "GoldeN Gourmet Gatos Adultos Frango, Abóbora e Arroz Integral",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz73d5c22af9f5fdf80866",
-      "slug": "premier-formula-caes-senior-portes-grande-e-gigante-sabor-frango",
-      "commercialName": "PremieR Formula Cães Seniores Porte Grande & Gigante Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz77bcbbf065f0c231d8d3",
-      "slug": "golden-gatos-filhotes-frango",
-      "commercialName": "GoldeN Gatos Filhotes Frango",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz785d4791c7c60e44a8d4",
-      "slug": "golden-selecao-natural-caes-senior-porte-pequeno-frango-arroz",
-      "commercialName": "GoldeN Seleção Natural Cães Seniores Porte Pequeno Frango & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz7872066007828a0d2416",
-      "slug": "golden-selecao-natural-caes-senior-frango-arroz",
-      "commercialName": "GoldeN Seleção Natural Cães Seniores Frango & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 80,
-      "classificationTier": "NIVEL_PRATA"
-    },
-    {
-      "id": "cmtz7a16c923ef9a10d65a7a",
-      "slug": "premier-caes-racas-especificas-spitz-alemao-adulto-sabor-frango",
-      "commercialName": "PremieR Raças Específicas Spitz Alemão Adulto Porte Pequeno Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz7a8b7cbf66884c4bf954",
-      "slug": "premier-selecao-natural-caes-filhotes-porte-pequeno-frango",
-      "commercialName": "PremieR Seleção Natural Cães Filhotes Porte Pequeno Frango Korin®",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz7b16fdf7c4668ff4aa0d",
-      "slug": "golden-formula-caes-adultos-salmao-arroz-mini-bits",
-      "commercialName": "GoldeN Formula Cães Adultos Porte Pequeno Salmão & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz7b544e6f5719b314e04e",
-      "slug": "premier-cookie-caes-adultos-porte-pequeno-frutas-vermelhas-e-aveia",
-      "commercialName": "PremieR Cookie Cães Adultos Porte Pequeno Frutas Vermelhas e Aveia",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz7bd9ceafed02c604dda3",
-      "slug": "nattu-selecao-natural-caes-adultos-porte-pequeno-frango-batata-doce",
-      "commercialName": "PremieR Nattu Seleção Natural Cães Adultos Porte Pequeno Frango Korin® & Batata-doce",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz7bf586e330bd5a2795ba",
-      "slug": "premier-cookie-caes-adultos-porte-pequeno-coco-e-aveia",
-      "commercialName": "PremieR Cookie Cães Adultos Porte Pequeno Coco e Aveia",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz7ce82831c628c10140ed",
-      "slug": "vitta-natural-caes-adultos-porte-pequeno-carne-e-arroz",
-      "commercialName": "PremieR VittA Natural Cães Adultos Porte Pequeno Carne e Arroz",
-      "brand": "Vitta Natural",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 95,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz7da9da7b23c57ca6eee8",
-      "slug": "premier-nattu-caes-adultos-porte-pequeno-frango-grain-free-frango-batata-doce-ervilha-blueberry-e-cranberry",
-      "commercialName": "PremieR® Nattu Cães Adultos Porte Pequeno Grain Free Frango, Batata Doce, Ervilha, Blueberry e Cranberry",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz7daf117bc2ec0962beaf",
-      "slug": "premier-formula-racas-grandes-caes-adultos-sabor-frango",
-      "commercialName": "PremieR Formula Cães Adultos Porte Grande e Gigante Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz8225f4d0b216999db082",
-      "slug": "golden-formula-caes-adultos-carne-e-arroz",
-      "commercialName": "GoldeN Formula Cães Adultos Carne e Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz8291c471fd6a44c0ee1f",
-      "slug": "premier-nattu-gatos-filhotes-frango-abobora-e-blueberry",
-      "commercialName": "PremieR Nattu Gatos Filhotes Frango, Abóbora, Brócolis, Quinoa e Blueberry",
-      "brand": "PremieR Nattu",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz82f30aaf177eba9b4ad9",
-      "slug": "vitta-natural-caes-adultos-carne-e-arroz",
-      "commercialName": "PremieR VittA Natural Cães Adultos Carne e Arroz",
-      "brand": "Vitta Natural",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 95,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz83096b8e5c265c22a79d",
-      "slug": "premier-nattu-umidos-gatos-castrados-frango-abobora-brocolis-e-quinoa",
-      "commercialName": "PremieR Nattu Úmidos Gatos Castrados Frango, Abóbora, Brócolis e Quinoa",
-      "brand": "PremieR Nattu",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLEMENTAR",
-      "scoreTotal": null,
-      "classificationTier": "COMPLEMENTAR"
-    },
-    {
-      "id": "cmtz845c7936bcd5d1509ede",
-      "slug": "nattu-wild-caes-adultos-porte-pequeno-abobora-e-espinafre",
-      "commercialName": "PremieR Nattu Wild Cães Adultos Porte Pequeno Abóbora e Espinafre",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz84d91402dc22e465677b",
-      "slug": "premier-formula-caes-adultos-porte-pequeno-frango",
-      "commercialName": "PremieR Formula Cães Adultos Porte Pequeno Frango",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz85e1e10f5a41eecc3f08",
-      "slug": "golden-special-caes-filhotes-porte-pequeno-frango-e-carne",
-      "commercialName": "GoldeN Special Cães Filhotes Porte Pequeno Frango e Carne",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 60,
-      "classificationTier": "NIVEL_BRONZE"
-    },
-    {
-      "id": "cmtz85e57be4c5fb6cf242bc",
-      "slug": "premier-ambientes-internos-caes-filhotes-papinha-desmame",
-      "commercialName": "PremieR Ambientes Internos Cães Filhotes Papinha Desmame",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 95,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz871c806de958b23ff0c4",
-      "slug": "golden-selecao-natural-gatos-filhotes-sabor-frango-arroz",
-      "commercialName": "GoldeN Seleção Natural Gatos Filhotes Frango & Arroz",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz87206e108f3a12539369",
-      "slug": "nattu-wild-caes-adultos-abobora-e-espinafre",
-      "commercialName": "PremieR Nattu Wild Cães Adultos Abóbora e Espinafre",
-      "brand": "PremieR Nattu",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz87q7c0000ohdov89arcgk",
-      "slug": "premier-nattu-wild-gatos-adultos-castrados-abobora-e-espinafre",
-      "commercialName": "PremieR Nattu Wild Gatos Adultos Castrados Abóbora e Espinafre",
-      "brand": "PremieR",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz88c909aebc86cca9bb1f",
-      "slug": "golden-gatos-castrados-sabor-salmao",
-      "commercialName": "GoldeN Gatos Castrados Salmão",
-      "brand": "GoldeN",
-      "species": "GATO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz8ba81429b6f6c8988434",
-      "slug": "golden-formula-mega-caes-filhotes-sabor-frango-arroz",
-      "commercialName": "GoldeN Mega Cães Filhotes Porte Grande & Gigante Frango & Arroz",
-      "brand": "GoldeN",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 90,
-      "classificationTier": "NIVEL_OURO"
-    },
-    {
-      "id": "cmtz8de394c104921508fd6c",
-      "slug": "premier-formula-umidos-caes-adultos-porte-pequeno-carne-brocolis-e-cenoura",
-      "commercialName": "PremieR Formula Úmidos Cães Adultos Porte Pequeno Carne, Brócolis e Cenoura",
-      "brand": "PremieR",
-      "species": "CAO",
-      "legalCategory": "ALIMENTO_COMPLETO",
-      "scoreTotal": 100,
-      "classificationTier": "NIVEL_OURO"
-    },
     {
       "id": "cmtz8dfcf1a0d6143d60915c",
       "slug": "premier-gatos-adultos-light",
