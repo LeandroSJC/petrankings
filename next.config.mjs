@@ -50,6 +50,15 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false, // Remove o cabeçalho X-Powered-By para evitar fingerprinting de versão
+  // Impede que pastas pesadas sejam empacotadas no bundle zip das Serverless Functions da Vercel
+  outputFileTracingExcludes: {
+    '*': [
+      './public/uploads/**/*',
+      './biblioteca_regulatoria/**/*',
+      './produtos_cadastro/**/*',
+      './_backup_fichas_pdf/**/*',
+    ],
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 2592000,

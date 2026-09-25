@@ -1,0 +1,16 @@
+# Vercel Deployment Ignore
+# Impede o upload e processamento de arquivos que não fazem parte do runtime do site
+
+# Biblioteca regulatória oficial (arquivos de referência normativa)
+biblioteca_regulatoria/
+
+# Backups locais de fichas técnicas e comprovantes em PDF
+_backup_fichas_pdf/
+
+# Pastas de entrada e scripts de automação/raspagem CLI
+produtos_cadastro/
+scripts/
+
+# Configurações de agentes e IDE
+.agents/
+.gemini/

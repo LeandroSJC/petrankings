@@ -50,3 +50,7 @@ next-env.d.ts
 # Arquivos Temporários de Entrada / Importação
 produtos_cadastro/
 
+# Backup Local de Fichas Técnicas Brutas (mantidas localmente, fora do deploy da Vercel)
+_backup_fichas_pdf/
+
+
