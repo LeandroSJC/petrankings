@@ -603,8 +603,14 @@ async function processAll() {
       console.log(`\n================================================================`);
       console.log(`🌐 INGESTÃO DE URLs EM LOTE (${urls.length} encontradas em produtos_cadastro/urls_cadastro.txt)`);
       console.log(`================================================================\n`);
-      for (const u of urls) {
+      for (let i = 0; i < urls.length; i++) {
+        const u = urls[i];
+        console.log(`\n👉 Ingestão [${i + 1}/${urls.length}]: ${u}`);
         await processUrl(u);
+        if (i < urls.length - 1) {
+          // Pausa preventiva de 2s para respeitar limites de taxa da API Gemini
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
       }
       // Mantém o arquivo com o template explicativo para novos cadastros
       const template = `# ==============================================================================

@@ -332,8 +332,14 @@ async function main() {
 
     if (urls.length > 0) {
       console.log(`📁 Encontradas ${urls.length} URLs no arquivo "${path.relative(process.cwd(), batchFile)}".`);
-      for (const u of urls) {
+      for (let i = 0; i < urls.length; i++) {
+        const u = urls[i];
+        console.log(`\n👉 Ingestão [${i + 1}/${urls.length}]: ${u}`);
         await processUrl(u);
+        if (i < urls.length - 1) {
+          // Pausa preventiva de 2s para respeitar limites de taxa da API Gemini
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
       }
       const template = `# ==============================================================================
 # PetRankings — Cadastro em Lote por URL

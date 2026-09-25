@@ -35,6 +35,25 @@ export interface ProductHtmlMetadata {
   antioxidantType: 'NATURAL' | 'SINTETICO' | 'MISTO';
 }
 
+function capitalizeTitle(str: string): string {
+  if (!str) return '';
+  const letters = str.match(/[a-zA-ZÀ-ÿ]/g) || [];
+  const upperLetters = str.match(/[A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇ]/g) || [];
+  const isMostlyUpper = letters.length > 0 && upperLetters.length / letters.length >= 0.6;
+
+  if (!isMostlyUpper) return str;
+
+  const smallWords = new Set(['de', 'da', 'do', 'dos', 'das', 'e', 'em', 'com', 'para', 'ao', 'aos', 'por']);
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map((word, i) => {
+      if (i > 0 && smallWords.has(word)) return word;
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+}
+
 /**
  * Extrator universal de metadados, níveis de garantia e composição a partir do HTML oficial
  */
@@ -48,23 +67,46 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     fallbackUrl ||
     '';
 
-  const imageUrl =
+  let imageUrl =
     $('meta[property="og:image"]').attr('content') ||
     $('img.wp-post-image, .woocommerce-product-gallery__image img').first().attr('src') ||
     null;
 
+  if (!imageUrl || imageUrl.includes('seo-default') || /specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl)) {
+    const specialImg = $('img[src*="/assets/uploads/produtos/"]')
+      .filter((_, el) => {
+        const src = $(el).attr('src') || '';
+        return !src.includes('/beneficios/') && !src.includes('/recomendacoes/');
+      })
+      .first()
+      .attr('src');
+    if (specialImg) imageUrl = specialImg;
+  }
+
   // 2. Nome Comercial e Slug
-  let commercialName =
-    $('h1.product_title, h1.elementor-heading-title, h1').first().text().trim() ||
-    $('meta[property="og:title"]').attr('content') ||
-    '';
-  commercialName = stripWeightFromTitle(
-    commercialName.replace(/\s+/g, ' ').replace(/®/g, '').trim()
+  let rawName = '';
+  if (/specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl)) {
+    rawName =
+      $('h1.font18, h1.fontsite-bold2').last().text().trim() ||
+      $('meta[property="og:title"]').attr('content') ||
+      '';
+  } else {
+    rawName =
+      $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
+      $('meta[property="og:title"]').attr('content') ||
+      $('h1').first().text().trim() ||
+      '';
+  }
+
+  let commercialName = stripWeightFromTitle(
+    capitalizeTitle(rawName.replace(/\s+/g, ' ').replace(/®/g, '').trim())
   );
 
   let slug = '';
   if (sourceUrl) {
-    const m = sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?/i);
+    const m =
+      sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?/i) ||
+      sourceUrl.match(/\/([^/]+)\/?$/);
     if (m) slug = m[1];
   }
   if (!slug && commercialName) {
@@ -104,6 +146,28 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   } else if (/royal\s*canin/i.test(commercialName) || /royalcanin\.com/i.test(sourceUrl)) {
     brand = 'Royal Canin';
     manufacturerLegalName = 'Royal Canin do Brasil Indústria e Comércio Ltda';
+  } else if (/specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl) || /special\s*cat|special\s*dog|bionatural/i.test(commercialName)) {
+    const isDog = /special\s*dog|produtos-caes|c[ãa]o|c[ãa]es/i.test(commercialName + ' ' + sourceUrl);
+    if (/bionatural/i.test(commercialName) || /bionatural/i.test(sourceUrl)) {
+      if (/sensitive/i.test(commercialName) || /sensitive/i.test(sourceUrl)) {
+        brand = 'Bionatural Sensitive';
+      } else {
+        brand = 'Bionatural Prime';
+      }
+    } else if (/ultralife/i.test(commercialName) || /ultralife/i.test(sourceUrl)) {
+      brand = isDog ? 'Special Dog Ultralife' : 'Special Cat Ultralife';
+    } else if (/gold\s*life/i.test(commercialName) || /gold-life/i.test(sourceUrl)) {
+      brand = 'Special Dog Gold Life';
+    } else if (/\bplus\b/i.test(commercialName) || /-plus-/i.test(sourceUrl)) {
+      brand = 'Special Dog Plus';
+    } else if (/\bpro\b/i.test(commercialName) || /-pro-/i.test(sourceUrl)) {
+      brand = 'Special Dog Pro';
+    } else if (isDog) {
+      brand = 'Special Dog';
+    } else {
+      brand = 'Special Cat';
+    }
+    manufacturerLegalName = 'Manfrim Industrial e Comercial Ltda';
   } else if (/golden/i.test(commercialName)) {
     brand = 'GoldeN';
     manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
@@ -124,7 +188,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|whiskas|pedigree|royal|purina|biofresh|guabi/i.test(commercialName)
+    !/f[óo]rmula\s*natural|adimax|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural/i.test(commercialName) &&
+    !/specialcat|specialdog/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -140,12 +205,15 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   else if (isCao) species = 'CAO';
 
   let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
-  if (/filhote|crescimento/i.test(commercialName)) lifeStage = 'CRESCIMENTO_INICIAL';
-  else if (/7 a 11 anos|acima de 12 anos|senior|sênior/i.test(commercialName)) lifeStage = 'SENIOR';
+  if (/filhote|junior|j[úu]nior|crescimento/i.test(commercialName)) lifeStage = 'CRESCIMENTO_INICIAL';
+  else if (/7 a 11 anos|acima de 12 anos|senior|sênior|7\s*\+|10\s*\+/i.test(commercialName) || /10\+|senior-7/i.test(sourceUrl)) lifeStage = 'SENIOR';
 
   let breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE' = 'TODOS';
-  if (/porte pequeno|mini/i.test(commercialName)) breedSize = 'MINI_PEQUENO';
-  else if (/porte grande|m[ée]dio/i.test(commercialName)) breedSize = 'MEDIO_GRANDE';
+  if (/porte\s*pequeno|pequeno\s*porte|mini|ra[çc]as?\s*pequenas?/i.test(commercialName + ' ' + sourceUrl)) {
+    breedSize = 'MINI_PEQUENO';
+  } else if (/porte\s*grande|grande\s*porte|m[ée]dio|ra[çc]as?\s*(?:m[ée]dias|grandes|gigantes)/i.test(commercialName + ' ' + sourceUrl)) {
+    breedSize = 'MEDIO_GRANDE';
+  }
 
   let foodType: 'SECO' | 'UMIDO' =
     /úmido|umido|gourmet|sach[êe]|pat[êe]|lata/i.test(commercialName) ? 'UMIDO' : 'SECO';
@@ -166,7 +234,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     else if (/hipoalerg|pele sens[íi]vel/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
     else if (/hep[áa]t/i.test(t)) coadjuvanteCondition = 'HEPATICO';
     else coadjuvanteCondition = 'OUTRO';
-  } else if (/cookie|biscoito|snack|petisco|bites|gourmet/i.test(commercialName)) {
+  } else if (/cookie|biscoito|snack|petisco|bites|bifinho|bifinhos|gourmet/i.test(commercialName)) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
 
@@ -206,6 +274,16 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   if (!garText) {
     const nutritionTableText = $('.nutrition-table').text().trim();
     if (nutritionTableText) garText = nutritionTableText;
+  }
+
+  // 5d. Special Cat / Special Dog (Manfrim)
+  if (!compText) {
+    const specialComp = $('#descricao-composicao').text().trim();
+    if (specialComp) compText = specialComp;
+  }
+  if (!garText) {
+    const specialGar = $('#descricao-garantia').text().trim();
+    if (specialGar) garText = specialGar;
   }
 
   // 5d. Fallback de texto corrido
@@ -274,8 +352,12 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
   // Energia Metabolizável
   let energiaMetabolizavelKcalKg: number | null = null;
-  const emMatch = garText.match(/(\d{4})\s*kcal\/kg/i) || bodyText.match(/(\d{4})\s*kcal\/kg/i);
-  if (emMatch) energiaMetabolizavelKcalKg = parseInt(emMatch[1], 10);
+  const emMatch =
+    garText.match(/(\d{1,2}(?:[\.,]\d{3})|\d{4})\s*kcal\/kg/i) ||
+    bodyText.match(/(\d{1,2}(?:[\.,]\d{3})|\d{4})\s*kcal\/kg/i);
+  if (emMatch) {
+    energiaMetabolizavelKcalKg = parseInt(emMatch[1].replace(/[\.,]/g, ''), 10);
+  }
 
   // 7. Ingredientes
   let cleanComp = compText
@@ -292,8 +374,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   let parenDepth = 0;
   for (let i = 0; i < cleanComp.length; i++) {
     const c = cleanComp[i];
-    if (c === '(') parenDepth++;
-    else if (c === ')') parenDepth = Math.max(0, parenDepth - 1);
+    if (c === '(' || c === '[' || c === '{') parenDepth++;
+    else if (c === ')' || c === ']' || c === '}') parenDepth = Math.max(0, parenDepth - 1);
 
     if (c === ',' && parenDepth === 0) {
       const item = cur.trim().replace(/\.$/, '').trim();
