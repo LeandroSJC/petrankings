@@ -29,6 +29,7 @@ import prisma from '@/lib/prisma';
 import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard } from '@/lib/audit-engine';
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
+import { normalizeIngredientsList } from '@/lib/utils';
 
 function getSafeUrl(url?: string | null): string | null {
   if (!url) return null;
@@ -116,6 +117,7 @@ export default async function ProductDetailPage({
       ? product.topIngredients.split(',').map((s) => s.trim())
       : [];
   }
+  parsedIngredients = normalizeIngredientsList(parsedIngredients);
 
   // Parse do extrato da análise de rótulo
   let extratoItens: ExtratoPilarItem[] = [];

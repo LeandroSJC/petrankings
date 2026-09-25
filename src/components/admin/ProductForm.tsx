@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
-import { stripWeightFromTitle } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredientsText } from '@/lib/utils';
 
 interface ProductFormProps {
   initialProduct?: any;
@@ -299,6 +299,7 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
       const payload = {
         ...formData,
         commercialName: stripWeightFromTitle(formData.commercialName),
+        topIngredients: normalizeIngredientsText(formData.topIngredients),
         id: productId,
         forceDuplicate,
         affiliateLinks: affiliateLinks
@@ -1284,6 +1285,12 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
                   required
                   value={formData.topIngredients}
                   onChange={(e) => handleChange('topIngredients', e.target.value)}
+                  onBlur={() => {
+                    const normalized = normalizeIngredientsText(formData.topIngredients);
+                    if (normalized && normalized !== formData.topIngredients) {
+                      handleChange('topIngredients', normalized);
+                    }
+                  }}
                   placeholder="Copie e cole a lista de ingredientes do site oficial ou do rótulo físico (separados por vírgula)..."
                   style={{ width: '100%', padding: '10px 12px', borderRadius: '4px', border: '1.5px solid var(--border-cream)', fontFamily: 'inherit' }}
                 />

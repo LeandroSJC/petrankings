@@ -5,7 +5,7 @@ import prisma from '../src/lib/prisma';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
-import { stripWeightFromTitle } from '../src/lib/utils';
+import { stripWeightFromTitle, normalizeIngredient } from '../src/lib/utils';
 import { processUrl } from './cadastrar-por-url';
 const { PDFParse } = require('pdf-parse');
 
@@ -132,7 +132,7 @@ export function cleanAdimaxIngredients(text: string): string[] {
 
     if (c === ',' && parenDepth === 0) {
       const item = cur.trim().replace(/\.$/, '').trim();
-      if (item && item.length > 1) ingredients.push(item);
+      if (item && item.length > 1) ingredients.push(normalizeIngredient(item));
       cur = '';
     } else {
       cur += c;
@@ -140,7 +140,7 @@ export function cleanAdimaxIngredients(text: string): string[] {
   }
   if (cur.trim()) {
     const item = cur.trim().replace(/\.$/, '').trim();
-    if (item && item.length > 1) ingredients.push(item);
+    if (item && item.length > 1) ingredients.push(normalizeIngredient(item));
   }
 
   return ingredients;

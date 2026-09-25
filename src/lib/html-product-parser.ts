@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { stripWeightFromTitle } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredient } from '@/lib/utils';
 
 export interface ProductHtmlMetadata {
   commercialName: string;
@@ -297,7 +297,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
     if (c === ',' && parenDepth === 0) {
       const item = cur.trim().replace(/\.$/, '').trim();
-      if (item && item.length > 1) topIngredientsList.push(item);
+      if (item && item.length > 1) topIngredientsList.push(normalizeIngredient(item));
       cur = '';
     } else {
       cur += c;
@@ -305,7 +305,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   }
   if (cur.trim()) {
     const item = cur.trim().replace(/\.$/, '').trim();
-    if (item && item.length > 1) topIngredientsList.push(item);
+    if (item && item.length > 1) topIngredientsList.push(normalizeIngredient(item));
   }
 
   // 8. Transgênicos e Antioxidantes

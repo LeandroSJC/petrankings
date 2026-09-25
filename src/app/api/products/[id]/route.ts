@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { productInputSchema } from '@/lib/schemas/product';
-import { stripWeightFromTitle } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredientsList } from '@/lib/utils';
 
 export async function GET(
   req: NextRequest,
@@ -56,6 +56,14 @@ export async function PUT(
       body.commercialName = stripWeightFromTitle(body.commercialName);
     }
 
+    let normalizedIngredients: string[] | undefined = undefined;
+    if (body.topIngredients !== undefined) {
+      const parsedIngList = Array.isArray(body.topIngredients)
+        ? body.topIngredients
+        : (body.topIngredients || '').split(',').map((s: string) => s.trim());
+      normalizedIngredients = normalizeIngredientsList(parsedIngList);
+    }
+
     const isCoadjuvante = body.legalCategory === 'ALIMENTO_COADJUVANTE';
 
     const audit = calcularScoreAnaliseRotulo(
@@ -74,9 +82,7 @@ export async function PUT(
         omega3MinPct: body.omega3MinPct ? parseFloat(body.omega3MinPct) : null,
       },
       {
-        topIngredientes: Array.isArray(body.topIngredients)
-          ? body.topIngredients
-          : (body.topIngredients || '').split(',').map((s: string) => s.trim()),
+        topIngredientes: normalizedIngredients || (Array.isArray(body.topIngredients) ? body.topIngredients : []),
         antioxidanteTipo: body.antioxidantType || 'NATURAL',
         omega3OuPrebioticosGarantidos: body.omega3OuPrebioticosGarantidos ?? true,
         claimCarneTipo: body.meatClaimType || 'NENHUM',
@@ -119,7 +125,9 @@ export async function PUT(
         containsGmo: Boolean(body.containsGmo),
         gmoIngredients: body.gmoIngredients || null,
         antioxidantType: body.antioxidantType || 'NATURAL',
-        topIngredients: typeof body.topIngredients === 'string' ? body.topIngredients : JSON.stringify(body.topIngredients),
+        ...(normalizedIngredients !== undefined && {
+          topIngredients: JSON.stringify(normalizedIngredients),
+        }),
         editorialOpinion: body.editorialOpinion || audit.parecerSugerido,
 
         scoreTotal: isCoadjuvante ? null : audit.scoreTotal,

@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { productInputSchema } from '@/lib/schemas/product';
-import { stripWeightFromTitle } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredientsList } from '@/lib/utils';
 
 export async function GET(req: NextRequest) {
   try {
@@ -72,6 +72,11 @@ export async function POST(req: NextRequest) {
     const body = parsed.data;
     body.commercialName = stripWeightFromTitle(body.commercialName);
 
+    const parsedIngList = Array.isArray(body.topIngredients)
+      ? body.topIngredients
+      : (body.topIngredients || '').split(',').map((s: string) => s.trim());
+    const normalizedIngredients = normalizeIngredientsList(parsedIngList);
+
     // Se for alimento completo, calcula determinístico
     const isCoadjuvante = body.legalCategory === 'ALIMENTO_COADJUVANTE';
 
@@ -91,9 +96,7 @@ export async function POST(req: NextRequest) {
         omega3MinPct: body.omega3MinPct ?? null,
       },
       {
-        topIngredientes: Array.isArray(body.topIngredients)
-          ? body.topIngredients
-          : (body.topIngredients || '').split(',').map((s: string) => s.trim()),
+        topIngredientes: normalizedIngredients,
         antioxidanteTipo: body.antioxidantType || 'NATURAL',
         omega3OuPrebioticosGarantidos: body.omega3OuPrebioticosGarantidos ?? true,
         claimCarneTipo: (body.meatClaimType as any) || 'NENHUM',
@@ -176,7 +179,7 @@ export async function POST(req: NextRequest) {
         containsGmo: Boolean(body.containsGmo),
         gmoIngredients: body.gmoIngredients || null,
         antioxidantType: body.antioxidantType || 'NATURAL',
-        topIngredients: typeof body.topIngredients === 'string' ? body.topIngredients : JSON.stringify(body.topIngredients),
+        topIngredients: JSON.stringify(normalizedIngredients),
         editorialOpinion: body.editorialOpinion || audit.parecerSugerido,
 
         scoreTotal: isCoadjuvante ? null : audit.scoreTotal,

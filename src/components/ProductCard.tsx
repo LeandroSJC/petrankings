@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
+import { normalizeIngredientsList } from '@/lib/utils';
 
 export interface ProductCardProps {
   product: {
@@ -84,6 +85,7 @@ export default function ProductCard({
       ? product.topIngredients.split(',').map((s) => s.trim())
       : [];
   }
+  parsedIngredients = normalizeIngredientsList(parsedIngredients);
 
   const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
   const isComplementar = product.legalCategory === 'ALIMENTO_COMPLEMENTAR';
