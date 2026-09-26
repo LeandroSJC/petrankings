@@ -33,7 +33,7 @@ export function formatDate(date: Date | string | null | undefined): string {
  */
 export function stripWeightFromTitle(title: string): string {
   if (!title) return '';
-  let cleaned = title;
+  let cleaned = title.replace(/[®™©]/g, '');
 
   for (let iter = 0; iter < 3; iter++) {
     const prev = cleaned;
@@ -59,6 +59,7 @@ export function stripWeightFromTitle(title: string): string {
     );
     // 5. Remove resíduos de pontuação, preposições/conjunções no final ('de', 'com', 'e', 'ou')
     cleaned = cleaned
+      .replace(/[®™©]/g, '')
       .replace(/\s*[-–—|/]\s*$/g, '')
       .replace(/\s+(?:de|com|em|e|ou|para)\s*$/i, '')
       .replace(/\s*[-–—|/]\s*$/g, '')
@@ -70,7 +71,7 @@ export function stripWeightFromTitle(title: string): string {
     if (cleaned === prev) break;
   }
 
-  return cleaned;
+  return cleaned.replace(/[®™©]/g, '').replace(/\s{2,}/g, ' ').trim();
 }
 
 /**
@@ -127,8 +128,8 @@ export function normalizeIngredient(text: string): string {
     str = str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  // Remove espaços duplicados e pontuações estranhas
-  str = str.replace(/\s+/g, ' ').trim();
+  // Remove espaços duplicados, marcas registradas e pontuações estranhas
+  str = str.replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim();
 
   return str;
 }

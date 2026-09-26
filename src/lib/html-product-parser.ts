@@ -90,16 +90,25 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       $('h1.font18, h1.fontsite-bold2').last().text().trim() ||
       $('meta[property="og:title"]').attr('content') ||
       '';
+  } else if (/premierpet\.com\.br/i.test(sourceUrl)) {
+    // PremierPet: og:title is often duplicated/generic across variations, priority to specific h1/breadcrumb
+    rawName =
+      $('h1.title').first().text().trim() ||
+      $('.breadcrumb_last').first().text().trim() ||
+      $('h1').first().text().trim() ||
+      $('meta[property="og:title"]').attr('content') ||
+      '';
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
+      $('h1.title').first().text().trim() ||
       $('meta[property="og:title"]').attr('content') ||
       $('h1').first().text().trim() ||
       '';
   }
 
   let commercialName = stripWeightFromTitle(
-    capitalizeTitle(rawName.replace(/\s+/g, ' ').replace(/®/g, '').trim())
+    capitalizeTitle(rawName.replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim())
   );
 
   let slug = '';
@@ -193,6 +202,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
+  commercialName = commercialName.replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim();
 
   // 4. Espécie, Fase de Vida, Porte, Formato
   const isDual = /c[ãa]es\s*e\s*gatos/i.test(commercialName) || /c[ãa]es\s*e\s*gatos/i.test(sourceUrl);
@@ -234,7 +244,11 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     else if (/hipoalerg|pele sens[íi]vel/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
     else if (/hep[áa]t/i.test(t)) coadjuvanteCondition = 'HEPATICO';
     else coadjuvanteCondition = 'OUTRO';
-  } else if (/cookie|biscoito|snack|petisco|bites|bifinho|bifinhos|gourmet/i.test(commercialName)) {
+  } else if (
+    /cookie|biscoito|snack|petisco|bites|bifinho|bifinhos/i.test(commercialName) ||
+    /premier.*gourmet/i.test(commercialName) ||
+    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato/i.test(commercialName + ' ' + sourceUrl))
+  ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
 
@@ -250,7 +264,38 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     if (/garantia/i.test(title)) garText = content;
   });
 
-  // 5b. Abas WooCommerce (PremieR Pet, etc.)
+  // 5b. Accordions da PremieRpet (.mob-accordion)
+  if (!compText || !garText) {
+    $('.mob-accordion__header').each((_, el) => {
+      const title = $(el).text().trim();
+      const body = $(el).next('.mob-accordion__body');
+      if (/composi[çc][ãa]o/i.test(title)) {
+        if (!compText) {
+          const p = body.find('p').first().text().trim();
+          if (p) compText = p;
+        }
+        if (!garText) {
+          const tableText = body.find('table').text().trim();
+          if (tableText) garText = tableText;
+        }
+      }
+      if (/garantia/i.test(title) && !garText) {
+        garText = body.text().trim();
+      }
+    });
+  }
+
+  // 5c. Elementor Off-Canvas / Abas Modernas (PremieRpet)
+  if (!compText) {
+    const elComp = $('[class*="e-off-canvas"][aria-label*="Composi"], div[aria-label*="Composi"]').text().trim();
+    if (elComp) compText = elComp;
+  }
+  if (!garText) {
+    const elGar = $('[class*="e-off-canvas"][aria-label*="Garantia"], div[aria-label*="Garantia"]').text().trim();
+    if (elGar) garText = elGar;
+  }
+
+  // 5d. Abas WooCommerce (PremieR Pet, etc.)
   if (!compText) {
     compText = $(
       '#tab-composicao, #tab-composicao_basica, .woocommerce-Tabs-panel--composicao, div[id*="composic"]'
@@ -262,7 +307,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     ).text().trim();
   }
 
-  // 5c. Whiskas / Mars Petcare (Drupal)
+  // 5d. Whiskas / Mars Petcare (Drupal)
   if (!compText) {
     $('.description-heading').each((_, el) => {
       if (/ingrediente/i.test($(el).text())) {
@@ -276,7 +321,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     if (nutritionTableText) garText = nutritionTableText;
   }
 
-  // 5d. Special Cat / Special Dog (Manfrim)
+  // 5e. Special Cat / Special Dog (Manfrim)
   if (!compText) {
     const specialComp = $('#descricao-composicao').text().trim();
     if (specialComp) compText = specialComp;
@@ -286,7 +331,13 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     if (specialGar) garText = specialGar;
   }
 
-  // 5d. Fallback de texto corrido
+  // 5f. Fallback de tabelas HTML
+  if (!garText) {
+    const tableText = $('table').first().text().trim();
+    if (tableText) garText = tableText;
+  }
+
+  // 5g. Fallback de texto corrido
   const bodyText = $('body').text();
   if (!compText) {
     const m =
@@ -317,13 +368,13 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   const proteinaBrutaMinPct =
-    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)t?[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const extratoEtereoMinPct =
-    parseGuarantee(/Extrato Et[ée]reo[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/Extrato\s+Et[ée]reot?[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const materiaMineralMaxPct =
-    parseGuarantee(/Mat[ée]ria Mineral[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/Mat[ée]ria\s+Mineralt?[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 2.5 : 8.0);
 
   const materiaFibrosaMaxPct =
@@ -331,23 +382,23 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     (foodType === 'UMIDO' ? 1.5 : 3.5);
 
   const calcioMinPct =
-    parseGuarantee(/C[áa]lcio[^\(]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/C[áa]lcio[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.2 : 0.8);
 
   const calcioMaxPct =
-    parseGuarantee(/C[áa]lcio[^\(]*\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/C[áa]lcio[\s\S]*?\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.45 : 1.5);
 
   const fosforoMinPct =
-    parseGuarantee(/F[óo]sforo[^\(]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/F[óo]sforo[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.15 : 0.7);
 
   const sodioMinPct =
-    parseGuarantee(/S[óo]dio[^\(]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/S[óo]dio[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.1 : 0.25);
 
   const omega3MinPct =
-    parseGuarantee(/[ÔO]mega\s*3.*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/[ÔO]mega\s*3[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     0.2;
 
   // Energia Metabolizável
@@ -378,6 +429,12 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     else if (c === ')' || c === ']' || c === '}') parenDepth = Math.max(0, parenDepth - 1);
 
     if (c === ',' && parenDepth === 0) {
+      const prevIsDigit = i > 0 && /\d/.test(cleanComp[i - 1]);
+      const nextIsDigit = i < cleanComp.length - 1 && /\d/.test(cleanComp[i + 1]);
+      if (prevIsDigit && nextIsDigit) {
+        cur += c;
+        continue;
+      }
       const item = cur.trim().replace(/\.$/, '').trim();
       if (item && item.length > 1) topIngredientsList.push(normalizeIngredient(item));
       cur = '';

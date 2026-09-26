@@ -7,8 +7,6 @@ import { FaseVida } from '../src/lib/audit-engine/types';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
 import { stripWeightFromTitle, normalizeIngredient } from '../src/lib/utils';
 import { processUrl } from './cadastrar-por-url';
-const { PDFParse } = require('pdf-parse');
-
 
 interface ProductMetadata {
   commercialName: string;
@@ -41,541 +39,6 @@ interface ProductMetadata {
   containsGmo: boolean;
   gmoIngredients: string | null;
   antioxidantType: 'NATURAL' | 'SINTETICO' | 'MISTO';
-}
-
-/**
- * Extrator e saneador especializado para fichas técnicas da Adimax / Fórmula Natural
- * Remove cabeçalhos de accordions de layout web, notas de impressão e parágrafos de marketing
- */
-export function cleanAdimaxIngredients(text: string): string[] {
-  const compMatch = text.match(/composi[çc][ãa]o\s*b[áa]sica/i) || text.match(/composi[çc][ãa]o/i);
-  if (!compMatch || compMatch.index === undefined) return [];
-
-  const afterComp = text.slice(compMatch.index);
-  const garTableMatch = afterComp.match(/(?:^|\n)\s*(?:Umidade|Prote[íi]na\s+Bruta|Prote[íi]na\s+Cruda)[^\n\d]*\d+/i);
-  const endOffset = garTableMatch && garTableMatch.index !== undefined ? garTableMatch.index : afterComp.length;
-  const rawSection = afterComp.slice(0, endOffset);
-
-  const lines = rawSection.split('\n').map((l) => l.trim()).filter(Boolean);
-
-  const filteredLines: string[] = [];
-  for (const l of lines) {
-    if (
-      /^Composição\s+básica\b/i.test(l) ||
-      /^Descrição\b/i.test(l) ||
-      /^Níveis\s+de\s+garantia\b/i.test(l) ||
-      /^Enriquecimento\b/i.test(l) ||
-      /^Tabela\s+de\s+consumo\b/i.test(l) ||
-      /^Inscreva-se\b/i.test(l) ||
-      /^Mais\s*[\uF107]?$/i.test(l) ||
-      /^--\s*\d+\s*of\s*\d+\s*--/i.test(l) ||
-      /^https?:\/\//i.test(l) ||
-      /^\d{2}\/\d{2}\/\d{4}/.test(l) ||
-      /^[\s]+$/.test(l)
-    ) {
-      continue;
-    }
-    const cleanedLine = l.replace(/[]/g, '').trim();
-    if (cleanedLine) {
-      filteredLines.push(cleanedLine);
-    }
-  }
-
-  const firstIngRegex = /^(?:Carnes?\b|Farinha\s+de\s+(?:v[íi]sceras|carne|peixes?)|[AÁ]gua\b|Atum\b|Peito\s+de\s+frango|Quirera\b)/i;
-
-  let ingredientStartLineIdx = -1;
-  for (let i = 0; i < filteredLines.length; i++) {
-    if (firstIngRegex.test(filteredLines[i])) {
-      ingredientStartLineIdx = i;
-      break;
-    }
-  }
-
-  if (ingredientStartLineIdx === -1) {
-    for (let i = 0; i < filteredLines.length; i++) {
-      const l = filteredLines[i];
-      const isMarketing =
-        /gatos são uma espécie|após a castração|por estarem em desenvolvimento|fórmula natural|feitos cuidadosamente|alimento úmido de alta qualidade|mudanças fisiológicas|a castração é um ato|alimento coadjuvante|gatos geriátricos|gatos de pelos longos|com um conceito natural/i.test(l);
-      if (!isMarketing) {
-        ingredientStartLineIdx = i;
-        break;
-      }
-    }
-  }
-
-  const ingLines = ingredientStartLineIdx !== -1 ? filteredLines.slice(ingredientStartLineIdx) : filteredLines;
-  let fullIngText = ingLines.join(' ');
-
-  fullIngText = fullIngText
-    .replace(/-- \d+ of \d+ --/g, ' ')
-    .replace(/https?:\/\/[^\s]*/gi, ' ')
-    .replace(/\d{2}\/\d{2}\/\d{4}[^\n]*/g, ' ')
-    .replace(/\bNíveis de garantia\b/gi, ' ')
-    .replace(/\bEnriquecimento\b/gi, ' ')
-    .replace(/\bTabela de consumo\b/gi, ' ')
-    .replace(/\bInscreva-se\b/gi, ' ')
-    .replace(/\bMais\s*[\uF107]?/gi, ' ')
-    .replace(/[]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  if (fullIngText.includes('*Contém')) fullIngText = fullIngText.split('*Contém')[0];
-  if (fullIngText.includes('*Ingredientes')) fullIngText = fullIngText.split('*Ingredientes')[0];
-
-  const ingredients: string[] = [];
-  let cur = '';
-  let parenDepth = 0;
-  for (let i = 0; i < fullIngText.length; i++) {
-    const c = fullIngText[i];
-    if (c === '(') parenDepth++;
-    else if (c === ')') parenDepth = Math.max(0, parenDepth - 1);
-
-    if (c === ',' && parenDepth === 0) {
-      const item = cur.trim().replace(/\.$/, '').trim();
-      if (item && item.length > 1) ingredients.push(normalizeIngredient(item));
-      cur = '';
-    } else {
-      cur += c;
-    }
-  }
-  if (cur.trim()) {
-    const item = cur.trim().replace(/\.$/, '').trim();
-    if (item && item.length > 1) ingredients.push(normalizeIngredient(item));
-  }
-
-  return ingredients;
-}
-
-/**
- * Extrator automático e determinístico de dados de rotulagem a partir do PDF oficial do fabricante
- */
-async function parseProductFromPdf(baseName: string, pdfBuf: Buffer): Promise<ProductMetadata> {
-  const parser = new PDFParse({ data: pdfBuf });
-  const parsed = await parser.getText();
-  const text: string = parsed.text;
-
-  // 1. URL Oficial no rodapé
-  const urlMatch =
-    text.match(/https:\/\/(?:www\.)?adimax\.com\.br\/produto\/[^\s\t\n\/]+\/?/i) ||
-    text.match(/https:\/\/(?:www\.)?(?:premierpet\.com\.br\/produto\/|whiskas\.com\.br\/products\/[^\s\t\n\/]+\/)[^\s\t\n]+/i) ||
-    text.match(/https:\/\/[^\s\t\n]+/i);
-  let sourceUrl = urlMatch ? urlMatch[0].trim() : '';
-  if (!sourceUrl) {
-    if (/wild/i.test(baseName)) {
-      sourceUrl = 'https://premierpet.com.br/produto/nattu-wild-gatos-adultos-castrados-abobora-e-espinafre/';
-    }
-  }
-
-  // 2. Slug
-  let slug = '';
-  if (/recupera/i.test(baseName) && /c[ãa]es\s*e\s*gatos/i.test(baseName)) {
-    slug = 'formula-natural-vet-care-recuperacao-caes-e-gatos';
-  } else if (sourceUrl) {
-    const m = sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?/i);
-    if (m) slug = m[1];
-  }
-  if (!slug) {
-    slug = baseName
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }
-
-  // 3. Título e Nome Comercial
-  const lines = text.split('\n').map((l: string) => l.trim()).filter(Boolean);
-  const breadcrumb = lines.find((l: string) => l.startsWith('Início » Linha »')) || lines.find((l: string) => l.startsWith('Início /')) || '';
-  let commercialName = stripWeightFromTitle(
-    breadcrumb
-      .replace(/^Início\s*(?:»\s*Linha\s*»|\/)\s*/, '')
-      .replace(/®/g, '')
-      .trim()
-  );
-  if (!commercialName || commercialName.length < 5) {
-    commercialName = stripWeightFromTitle(baseName);
-  }
-  if (
-    !commercialName.startsWith('PremieR') &&
-    !commercialName.startsWith('GoldeN') &&
-    !commercialName.startsWith('Golden') &&
-    !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|whiskas|pedigree|royal|purina|biofresh|guabi/i.test(commercialName) &&
-    !/f[óo]rmula\s*natural|adimax|whiskas|pedigree|royal|purina|biofresh|guabi/i.test(baseName)
-  ) {
-    commercialName = 'PremieR ' + commercialName;
-  }
-
-  // 4. Marca e Fabricante
-  let brand = 'PremieR';
-  let manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
-
-  if (/f[óo]rmula\s*natural/i.test(commercialName) || /f[óo]rmula\s*natural/i.test(baseName)) {
-    if (/vet\s*care/i.test(commercialName) || /vet\s*care/i.test(baseName)) {
-      brand = 'Fórmula Natural Vet Care';
-    } else if (/fresh\s*meat/i.test(commercialName) || /fresh\s*meat/i.test(baseName)) {
-      brand = 'Fórmula Natural Fresh Meat';
-    } else if (/receitas\s*caseiras/i.test(commercialName) || /receitas\s*caseiras/i.test(baseName)) {
-      brand = 'Fórmula Natural Receitas Caseiras';
-    } else if (/life/i.test(commercialName) || /life/i.test(baseName)) {
-      brand = 'Fórmula Natural Life';
-    } else if (/gourmet/i.test(commercialName) || /gourmet/i.test(baseName)) {
-      brand = 'Fórmula Natural Gourmet';
-    } else {
-      brand = 'Fórmula Natural';
-    }
-    manufacturerLegalName = 'Adimax Indústria e Comércio de Alimentos Ltda';
-  } else if (/whiskas/i.test(commercialName) || /whiskas/i.test(baseName)) {
-    brand = 'Whiskas';
-    manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
-  } else if (/pedigree/i.test(commercialName) || /pedigree/i.test(baseName)) {
-    brand = 'Pedigree';
-    manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
-  } else if (/royal\s*canin/i.test(commercialName) || /royal\s*canin/i.test(baseName)) {
-    brand = 'Royal Canin';
-    manufacturerLegalName = 'Royal Canin do Brasil Indústria e Comércio Ltda';
-  } else if (/golden/i.test(commercialName) || /golden/i.test(baseName)) {
-    brand = 'GoldeN';
-    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
-  } else if (/vitta\s*natural/i.test(commercialName) || /vitta\s*natural/i.test(baseName)) {
-    brand = 'Vitta Natural';
-    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
-  } else if (/nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) || /nutri[çc][ãa]o cl[íi]nica/i.test(baseName)) {
-    brand = 'PremieR Nutrição Clínica';
-    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
-  } else if (/nattu/i.test(commercialName) || /nattu/i.test(baseName)) {
-    brand = 'PremieR Nattu';
-    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
-  } else if (/org[âa]nico/i.test(commercialName) || /org[âa]nico/i.test(baseName)) {
-    brand = 'PremieR Orgânico';
-    manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
-  }
-
-  // 5. Espécie e Fase de Vida
-  const dogBreedsRegex =
-    /golden retriever|labrador|pit bull|bulldog|buldogue|pug|shih tzu|spitz|lhasa|malt[eê]s|yorkshire|rottweiler|pastor|poodle|beagle|dachshund|schnauzer|chihuahua|boxer|border collie|cocker|pinscher|dálmata|dalmata|basset/i;
-
-  const isDual =
-    /c[ãa]es\s*e\s*gatos/i.test(commercialName) ||
-    /c[ãa]es\s*e\s*gatos/i.test(baseName);
-
-  const isGato =
-    /gato|gatos|felin/i.test(commercialName) ||
-    /gato|gatos|felin/i.test(baseName);
-
-  const isCao =
-    dogBreedsRegex.test(commercialName) ||
-    dogBreedsRegex.test(baseName) ||
-    /c[ãa]o|c[ãa]es|cachorro|canin/i.test(commercialName) ||
-    /c[ãa]o|c[ãa]es|cachorro|canin/i.test(baseName);
-
-  let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
-  if (isDual) {
-    species = 'CAO_E_GATO';
-  } else if (isGato) {
-    species = 'GATO';
-  } else if (isCao) {
-    species = 'CAO';
-  } else if (/desenvolvido para gatos|para gatos|nutri[çc][ãa]o felina/i.test(text)) {
-    species = 'GATO';
-  } else {
-    species = 'CAO';
-  }
-
-  let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
-  if (/filhote|crescimento/i.test(commercialName)) {
-    lifeStage = 'CRESCIMENTO_INICIAL';
-  } else if (/7 a 11 anos|acima de 12 anos|senior|sênior/i.test(commercialName) || /s[êe]nior/i.test(baseName)) {
-    lifeStage = 'SENIOR';
-  }
-
-  // Porte
-  let breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE' = 'TODOS';
-  if (/porte pequeno|mini/i.test(commercialName) || /porte pequeno|mini/i.test(baseName)) {
-    breedSize = 'MINI_PEQUENO';
-  } else if (/porte grande|m[ée]dio/i.test(commercialName) || /porte grande|m[ée]dio/i.test(baseName)) {
-    breedSize = 'MEDIO_GRANDE';
-  }
-
-  // Formato do alimento
-  let foodType: 'SECO' | 'UMIDO' =
-    /úmido|umido|gourmet|sach[êe]|pat[êe]|lata/i.test(baseName) || /úmido|umido|gourmet|sach[êe]|pat[êe]|lata/i.test(commercialName) ? 'UMIDO' : 'SECO';
-
-  // 5.1 Categoria Legal e Condição Coadjuvante
-  let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
-  let coadjuvanteCondition: string | null = null;
-
-  if (
-    /nutri[çc][ãa]o cl[íi]nica/i.test(commercialName) ||
-    /nutri[çc][ãa]o cl[íi]nica/i.test(baseName) ||
-    /vet\s*care/i.test(commercialName) ||
-    /vet\s*care/i.test(baseName) ||
-    /alimento coadjuvante/i.test(text)
-  ) {
-    legalCategory = 'ALIMENTO_COADJUVANTE';
-    const targetText = (commercialName + ' ' + baseName + ' ' + text.slice(0, 1200)).toLowerCase();
-    if (/renal/i.test(targetText)) {
-      coadjuvanteCondition = 'RENAL';
-    } else if (/urin[áa]ri/i.test(targetText)) {
-      coadjuvanteCondition = 'URINARIO';
-    } else if (/recupera/i.test(targetText)) {
-      coadjuvanteCondition = 'RECUPERACAO';
-    } else if (/obesidade|perda de peso|controle de peso/i.test(targetText)) {
-      coadjuvanteCondition = 'OBESIDADE';
-    } else if (/diabet/i.test(targetText)) {
-      coadjuvanteCondition = 'DIABETES';
-    } else if (/gastro|gastrointestinal/i.test(targetText)) {
-      coadjuvanteCondition = 'GASTROINTESTINAL';
-    } else if (/hipoalerg|pele sens[íi]vel/i.test(targetText)) {
-      coadjuvanteCondition = 'HIPOALERGENICO';
-    } else if (/hep[áa]t/i.test(targetText)) {
-      coadjuvanteCondition = 'HEPATICO';
-    } else {
-      coadjuvanteCondition = 'OUTRO';
-    }
-  } else if (
-    /cookie|biscoito|snack|petisco|bites/i.test(commercialName) ||
-    /cookie|biscoito|snack|petisco|bites/i.test(baseName) ||
-    /premier.*gourmet/i.test(commercialName) ||
-    /premier.*gourmet/i.test(baseName) ||
-    /gourmet/i.test(commercialName) ||
-    /gourmet/i.test(baseName) ||
-    (!/alimento\s+completo/i.test(text.slice(0, 1000)) &&
-      (/complemento\s+alimentar/i.test(text.slice(0, 1000)) ||
-        /alimento\s+complementar/i.test(text.slice(0, 1000)) ||
-        /alimento\s+espec[íi]fico/i.test(text.slice(0, 1000))))
-  ) {
-    legalCategory = 'ALIMENTO_COMPLEMENTAR';
-  }
-
-  // 6. Ingredientes (COMPOSIÇÃO / Ingredientes até o início da tabela de garantias ou seções subsequentes)
-  const compMatch = text.match(/composi[çc][ãa]o\s*(?:b[áa]sica)?/i) || text.match(/\bIngredientes\b/i);
-  const compIdx = compMatch && compMatch.index !== undefined ? compMatch.index + compMatch[0].length : -1;
-  let endIdx = -1;
-  const stopWords = [
-    'NÍVEIS DE GARANTIA',
-    'Níveis de Garantia',
-    'Análise garantida',
-    'Proteína Bruta',
-    'Proteína Cruda',
-    'Umidade',
-    'Eventuais Substitutivos',
-    '*Espécies doadoras',
-    'NUTRIÇÃO',
-    'Enriquecimento por',
-    'ONDE COMPRAR',
-    'Modo de Usar',
-    'Guia Alimentar',
-  ];
-  for (const w of stopWords) {
-    const idx = text.indexOf(w, compIdx !== -1 ? compIdx : 0);
-    if (idx !== -1 && (endIdx === -1 || idx < endIdx)) endIdx = idx;
-  }
-  let compRaw = compIdx !== -1 && endIdx !== -1 ? text.slice(compIdx, endIdx) : (compIdx !== -1 ? text.slice(compIdx, compIdx + 1200) : '');
-
-  // 7. Níveis de Garantia (Suporte a %, g/kg e mg/kg)
-  const garMatch = text.match(/N[íi]veis\s+de\s+Garantia/i) || text.match(/An[áa]lise\s+garantida/i);
-  const tableText = garMatch && garMatch.index !== undefined ? text.slice(garMatch.index) : text;
-
-  const parseGuarantee = (pattern: RegExp): number => {
-    const m = tableText.match(pattern);
-    if (!m) return 0;
-    const rawVal = m[1].replace(/\./g, '').replace(',', '.');
-    const val = parseFloat(rawVal);
-    const unit = (m[2] || '%').toLowerCase();
-    if (unit.includes('mg')) return Number((val / 10000).toFixed(4));
-    if (unit.includes('g/kg') || unit === 'g') return Number((val / 10).toFixed(2));
-    return val;
-  };
-
-  const umidadeMaxPct =
-    parseGuarantee(/(?:^|\n)\s*Umidade[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/Umidade[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 86.0 : 10.0);
-  if (umidadeMaxPct > 50) {
-    foodType = 'UMIDO';
-  }
-
-  const proteinaBrutaMinPct =
-    parseGuarantee(/(?:^|\n)\s*Prote[íi]na\s+(?:Bruta|Cruda)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
-
-  const extratoEtereoMinPct =
-    parseGuarantee(/(?:^|\n)\s*Extrato Et[ée]reo[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/Extrato Et[ée]reo[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
-
-  const materiaMineralMaxPct =
-    parseGuarantee(/(?:^|\n)\s*Mat[ée]ria Mineral[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/Mat[ée]ria Mineral[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 2.5 : 8.0);
-
-  const materiaFibrosaMaxPct =
-    parseGuarantee(/(?:^|\n)\s*(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 1.5 : 3.5);
-
-  const calcioMinPct =
-    parseGuarantee(/(?:^|\n)\s*C[áa]lcio[^\n\(]*\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/C[áa]lcio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 0.2 : 0.8);
-
-  const calcioMaxPct =
-    parseGuarantee(/(?:^|\n)\s*C[áa]lcio[^\n\(]*\(m[áa]x\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/C[áa]lcio\s*\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 0.45 : 1.5);
-
-  const fosforoMinPct =
-    parseGuarantee(/(?:^|\n)\s*F[óo]sforo[^\n\(]*\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/F[óo]sforo\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 0.15 : 0.7);
-
-  const sodioMinPct =
-    parseGuarantee(/(?:^|\n)\s*S[óo]dio[^\n\(]*\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/S[óo]dio\s*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 0.1 : 0.25);
-
-  const omega3MinPct =
-    parseGuarantee(/(?:^|\n)\s*[ÔO]mega\s*3.*?\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/[ÔO]mega\s*3[^\d]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    parseGuarantee(/(?:^|\n)\s*EPA\s*\+\s*DHA.*?\(m[íi]n\.?\)[^\n\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    0.2;
-
-  // Se for alimento úmido com níveis residuais de cálcio e fósforo (sem premix mineral completo), é Alimento Complementar (Topper)
-  if (legalCategory === 'ALIMENTO_COMPLETO' && foodType === 'UMIDO' && calcioMinPct <= 0.05 && fosforoMinPct <= 0.08) {
-    legalCategory = 'ALIMENTO_COMPLEMENTAR';
-  }
-
-  // Energia Metabolizável
-  let energiaMetabolizavelKcalKg: number | null = null;
-  const emMatch =
-    tableText.match(/Energia\s+Metaboliz[áa]vel[^\d]*(\d[\d\.,]+)\s*kcal/i) ||
-    tableText.match(/(\d{4})\s*kcal\/kg/i) ||
-    text.match(/Energia\s+Metaboliz[áa]vel[^\d]*(\d[\d\.,]+)\s*kcal/i) ||
-    text.match(/(\d{4})\s*kcal\/kg/i);
-  if (emMatch) {
-    const rawEm = emMatch[1].replace(/\./g, '').replace(',', '.');
-    const val = parseFloat(rawEm);
-    energiaMetabolizavelKcalKg = Math.round(val);
-  }
-
-  // Transgênicos (Conformidade com Decreto nº 4.680/2003 e Rotulagem Oficial MAPA)
-  const hasNaoTransgExplicit =
-    /n[ãa]o\s+transg[êe]nico/i.test(compRaw) ||
-    /n[ãa]o\s+transg[êe]nico/i.test(text) ||
-    /livre\s+de\s+(?:ingredientes\s+)?transg[êe]nico/i.test(text) ||
-    /sem\s+(?:ingredientes\s+)?transg[êe]nico/i.test(text) ||
-    /100%\s+livre\s+de\s+transg[êe]nico/i.test(text) ||
-    /n[ãa]o\s+cont[ée]m\s+transg[êe]nico/i.test(text);
-
-  const hasContemGmo =
-    /\*Cont[ée]m.*transg/i.test(compRaw) ||
-    /\*Cont[ée]m.*transg/i.test(text) ||
-    /Esp[ée]cies\s+doadoras\s+d[eo]\s+gene/i.test(text) ||
-    /doadoras\s+d[eo]\s+gene/i.test(text) ||
-    /\btransg[êe]nic[oa]s?\s*\*/i.test(text) ||
-    /\b(?:Milho|Soja)\s*\*/i.test(text) ||
-    /\(transg[êe]nico\)/i.test(compRaw);
-
-  const containsGmo = hasContemGmo && !hasNaoTransgExplicit;
-
-  let gmoIngredients: string | null = null;
-  if (containsGmo) {
-    const gmoMatch = compRaw.match(/\*Contém\s+([^.]+)/i);
-    if (gmoMatch) {
-      gmoIngredients = gmoMatch[1]
-        .replace(/1,2|1|2/g, '')
-        .replace(/e\/ou.*$/gi, '')
-        .replace(/transgênicos.*$/gi, 'transgênicos')
-        .trim();
-    } else {
-      gmoIngredients = 'Milho transgênico, Glúten de milho transgênico, Farelo de soja transgênico';
-    }
-  }
-
-  // Remove a nota de rodapé de transgênicos ou "não transgênicos" do final da lista de ingredientes
-  if (compRaw.includes('*Contém')) {
-    compRaw = compRaw.split('*Contém')[0];
-  }
-  if (compRaw.includes('*Ingredientes')) {
-    compRaw = compRaw.split('*Ingredientes')[0];
-  }
-
-  // Limpeza de ruídos de cabeçalho / rodapé de página dentro da composição
-  const cleanCompText = compRaw
-    .replace(/-- \d+ of \d+ --/g, ' ')
-    .replace(/Blogs\s*Gatos\s*Cães\s*Alimento\s*Ideal/gi, ' ')
-    .replace(/https:\/\/[^\s]*/gi, ' ')
-    .replace(/\d{2}\/\d{2}\/\d{4}[^\n]*/g, ' ')
-    .replace(/SECA|ÚMIDO|GATOS ADULTOS|GATOS FILHOTES/gi, ' ')
-    .replace(/Benefícios[^\n]*/gi, ' ')
-    .replace(/\?/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  const isAdimax =
-    /f[óo]rmula\s*natural|adimax/i.test(commercialName) ||
-    /f[óo]rmula\s*natural|adimax/i.test(baseName) ||
-    brand.includes('Fórmula Natural');
-
-  let topIngredientsList: string[] = [];
-
-  if (isAdimax) {
-    topIngredientsList = cleanAdimaxIngredients(text);
-  } else {
-    // Divisão inteligente por vírgulas preservando parênteses
-    let cur = '';
-    let parenDepth = 0;
-    for (let i = 0; i < cleanCompText.length; i++) {
-      const c = cleanCompText[i];
-      if (c === '(') parenDepth++;
-      else if (c === ')') parenDepth = Math.max(0, parenDepth - 1);
-
-      if (c === ',' && parenDepth === 0) {
-        const item = cur.trim().replace(/\.$/, '');
-        if (item && item.length > 1) topIngredientsList.push(item);
-        cur = '';
-      } else {
-        cur += c;
-      }
-    }
-    if (cur.trim()) {
-      const item = cur.trim().replace(/\.$/, '');
-      if (item && item.length > 1) topIngredientsList.push(item);
-    }
-  }
-
-  // 8. Conservantes / Antioxidantes
-  const hasBhaBht = /BHA|BHT|B\.H\.T\./i.test(text);
-  const antioxidantType: 'NATURAL' | 'SINTETICO' = hasBhaBht ? 'SINTETICO' : 'NATURAL';
-
-  return {
-    commercialName,
-    slug,
-    brand,
-    manufacturerLegalName,
-    species,
-    lifeStage,
-    breedSize,
-    foodType,
-    legalCategory,
-    coadjuvanteCondition,
-    sourceUrl,
-    umidadeMaxPct,
-    proteinaBrutaMinPct,
-    extratoEtereoMinPct,
-    materiaMineralMaxPct,
-    materiaFibrosaMaxPct,
-    calcioMinPct,
-    calcioMaxPct,
-    fosforoMinPct,
-    sodioMinPct,
-    omega3MinPct,
-    energiaMetabolizavelKcalKg,
-    topIngredientsList,
-    containsGmo,
-    gmoIngredients,
-    antioxidantType,
-  };
 }
 
 async function processAll() {
@@ -625,7 +88,7 @@ async function processAll() {
   }
 
   const allFiles = fs.readdirSync(dir);
-  const docFiles = allFiles.filter((f) => f.endsWith('.pdf') || f.endsWith('.html') || f.endsWith('.htm'));
+  const docFiles = allFiles.filter((f) => f.endsWith('.html') || f.endsWith('.htm'));
 
   if (docFiles.length === 0) {
     console.log(`\n📁 Nenhum arquivo (.html, .htm ou .pdf) pendente na pasta "produtos_cadastro/". Tudo atualizado!\n`);
@@ -647,44 +110,38 @@ async function processAll() {
     let docSha256 = '';
     let remoteImageUrl: string | null = null;
 
-    if (isHtml) {
-      const htmlContent = fs.readFileSync(docFullPath, 'utf-8');
-      docSha256 = crypto.createHash('sha256').update(htmlContent).digest('hex');
-      const htmlMeta = parseProductFromHtml(htmlContent, '');
-      remoteImageUrl = htmlMeta.imageUrl;
-      meta = {
-        commercialName: stripWeightFromTitle(htmlMeta.commercialName || baseName),
-        slug: htmlMeta.slug || baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        brand: htmlMeta.brand,
-        manufacturerLegalName: htmlMeta.manufacturerLegalName,
-        species: htmlMeta.species,
-        lifeStage: htmlMeta.lifeStage,
-        foodType: htmlMeta.foodType,
-        breedSize: htmlMeta.breedSize,
-        legalCategory: htmlMeta.legalCategory,
-        coadjuvanteCondition: htmlMeta.coadjuvanteCondition,
-        sourceUrl: htmlMeta.sourceUrl,
-        umidadeMaxPct: htmlMeta.umidadeMaxPct,
-        proteinaBrutaMinPct: htmlMeta.proteinaBrutaMinPct,
-        extratoEtereoMinPct: htmlMeta.extratoEtereoMinPct,
-        materiaMineralMaxPct: htmlMeta.materiaMineralMaxPct,
-        materiaFibrosaMaxPct: htmlMeta.materiaFibrosaMaxPct,
-        calcioMinPct: htmlMeta.calcioMinPct,
-        calcioMaxPct: htmlMeta.calcioMaxPct,
-        fosforoMinPct: htmlMeta.fosforoMinPct,
-        sodioMinPct: htmlMeta.sodioMinPct,
-        omega3MinPct: htmlMeta.omega3MinPct,
-        energiaMetabolizavelKcalKg: htmlMeta.energiaMetabolizavelKcalKg,
-        topIngredientsList: htmlMeta.topIngredientsList,
-        containsGmo: htmlMeta.containsGmo,
-        gmoIngredients: htmlMeta.gmoIngredients,
-        antioxidantType: htmlMeta.antioxidantType,
-      };
-    } else {
-      const pdfBuf = fs.readFileSync(docFullPath);
-      docSha256 = crypto.createHash('sha256').update(pdfBuf).digest('hex');
-      meta = await parseProductFromPdf(baseName, pdfBuf);
-    }
+    const htmlContent = fs.readFileSync(docFullPath, 'utf-8');
+    docSha256 = crypto.createHash('sha256').update(htmlContent).digest('hex');
+    const htmlMeta = parseProductFromHtml(htmlContent, '');
+    remoteImageUrl = htmlMeta.imageUrl;
+    meta = {
+      commercialName: stripWeightFromTitle(htmlMeta.commercialName || baseName),
+      slug: htmlMeta.slug || baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      brand: htmlMeta.brand,
+      manufacturerLegalName: htmlMeta.manufacturerLegalName,
+      species: htmlMeta.species,
+      lifeStage: htmlMeta.lifeStage,
+      foodType: htmlMeta.foodType,
+      breedSize: htmlMeta.breedSize,
+      legalCategory: htmlMeta.legalCategory,
+      coadjuvanteCondition: htmlMeta.coadjuvanteCondition,
+      sourceUrl: htmlMeta.sourceUrl,
+      umidadeMaxPct: htmlMeta.umidadeMaxPct,
+      proteinaBrutaMinPct: htmlMeta.proteinaBrutaMinPct,
+      extratoEtereoMinPct: htmlMeta.extratoEtereoMinPct,
+      materiaMineralMaxPct: htmlMeta.materiaMineralMaxPct,
+      materiaFibrosaMaxPct: htmlMeta.materiaFibrosaMaxPct,
+      calcioMinPct: htmlMeta.calcioMinPct,
+      calcioMaxPct: htmlMeta.calcioMaxPct,
+      fosforoMinPct: htmlMeta.fosforoMinPct,
+      sodioMinPct: htmlMeta.sodioMinPct,
+      omega3MinPct: htmlMeta.omega3MinPct,
+      energiaMetabolizavelKcalKg: htmlMeta.energiaMetabolizavelKcalKg,
+      topIngredientsList: htmlMeta.topIngredientsList,
+      containsGmo: htmlMeta.containsGmo,
+      gmoIngredients: htmlMeta.gmoIngredients,
+      antioxidantType: htmlMeta.antioxidantType,
+    };
 
     // 3. Verifica se o produto já existe no banco por slug
     const existing = await prisma.product.findUnique({
@@ -703,7 +160,7 @@ async function processAll() {
 
     // 5. Destinos padronizados em public/uploads/
     let destImgRel = `/uploads/produto_${productId}.webp`;
-    const destDocRel = isHtml ? `/uploads/ficha_${productId}.html` : `/uploads/ficha_${productId}.pdf`;
+    const destDocRel = `/uploads/ficha_${productId}.html`;
     const destImgPath = path.join(process.cwd(), 'public', destImgRel);
     const destDocPath = path.join(process.cwd(), 'public', destDocRel);
 
@@ -913,7 +370,7 @@ async function processAll() {
     console.log(`   Conservantes: ${saved.antioxidantType}`);
     console.log(`   Ingredientes: ${meta.topIngredientsList.length} itens cadastrados`);
     console.log(`   Packshot: ${saved.frontLabelImageUrl}`);
-    console.log(`   PDF Ficha: ${saved.sourceDocumentUrl}`);
+    console.log(`   Ficha Oficial: ${saved.sourceDocumentUrl}`);
     console.log(`   SHA-256: ${docSha256}`);
 
     // 8. Exclusão segura dos arquivos da pasta de entrada após persistência bem-sucedida
