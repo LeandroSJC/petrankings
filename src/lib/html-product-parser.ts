@@ -240,12 +240,18 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       brand = 'Farmina N&D Quinoa';
     } else if (/spirulina/i.test(commercialName + ' ' + sourceUrl)) {
       brand = 'Farmina N&D Spirulina';
+    } else if (/white/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D White';
+    } else if (/brown/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Brown';
     } else if (/vet\s*life/i.test(commercialName + ' ' + sourceUrl)) {
       brand = 'Farmina Vet Life';
     } else if (/cibau/i.test(commercialName + ' ' + sourceUrl)) {
       brand = 'Farmina Cibau';
     } else if (/matisse/i.test(commercialName + ' ' + sourceUrl)) {
       brand = 'Farmina Matisse';
+    } else if (/ecopet/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina Ecopet Natural';
     } else if (/n&d|n-d|natural\s*&\s*delicious/i.test(commercialName + ' ' + sourceUrl)) {
       brand = 'Farmina N&D';
     } else {
@@ -260,7 +266,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d/i.test(commercialName) &&
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet/i.test(commercialName) &&
     !/specialcat|specialdog|adimax\.com\.br|farmina\.com/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
@@ -278,13 +284,13 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   else if (isCao) species = 'CAO';
 
   let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
-  if (/filhote|junior|j[úu]nior|crescimento/i.test(commercialName)) lifeStage = 'CRESCIMENTO_INICIAL';
+  if (/filhote|junior|j[úu]nior|puppy|kitten|crescimento/i.test(commercialName + ' ' + sourceUrl)) lifeStage = 'CRESCIMENTO_INICIAL';
   else if (/7 a 11 anos|acima de 12 anos|senior|sênior|7\s*\+|10\s*\+/i.test(commercialName) || /10\+|senior-7/i.test(sourceUrl)) lifeStage = 'SENIOR';
 
   let breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE' = 'TODOS';
-  if (/porte\s*pequeno|pequeno\s*porte|mini|ra[çc]as?\s*pequenas?/i.test(commercialName + ' ' + sourceUrl)) {
+  if (/porte\s*pequeno|pequeno\s*porte|mini|ra[çc]as?\s*pequenas?|small\s*bites/i.test(commercialName + ' ' + sourceUrl)) {
     breedSize = 'MINI_PEQUENO';
-  } else if (/porte\s*grande|grande\s*porte|m[ée]dio|ra[çc]as?\s*(?:m[ée]dias|grandes|gigantes)/i.test(commercialName + ' ' + sourceUrl)) {
+  } else if (/porte\s*grande|grande\s*porte|m[ée]dio|medium|maxi|giant|ra[çc]as?\s*(?:m[ée]dias|grandes|gigantes)/i.test(commercialName + ' ' + sourceUrl)) {
     breedSize = 'MEDIO_GRANDE';
   }
 
@@ -298,17 +304,19 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|coadjuvante/i.test(commercialName + ' ' + sourceUrl)) {
     legalCategory = 'ALIMENTO_COADJUVANTE';
     const t = (commercialName + ' ' + sourceUrl).toLowerCase();
-    if (/renal/i.test(t)) coadjuvanteCondition = 'RENAL';
-    else if (/urin[áa]ri|struvite/i.test(t)) coadjuvanteCondition = 'URINARIO';
+    if (/renal|\bre\b/i.test(t)) coadjuvanteCondition = 'RENAL';
+    else if (/urin[áa]ri|struvite|ossalati|\bst\b/i.test(t)) coadjuvanteCondition = 'URINARIO';
     else if (/recupera|convalescence/i.test(t)) coadjuvanteCondition = 'RECUPERACAO';
-    else if (/obesidade|obesity|perda de peso|controle de peso/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
+    else if (/obesidade|obesity|perda de peso|controle de peso|\bod\b/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
     else if (/diabet/i.test(t)) coadjuvanteCondition = 'DIABETES';
-    else if (/gastro|gastrointestinal/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
-    else if (/hipoalerg|hypoallergenic|pele sens[íi]vel/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
+    else if (/gastro|gastrointestinal|\bgi\b/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
+    else if (/hipoalerg|hypoallergenic|ultrahypo|pele sens[íi]vel|fish & potato|pork & potato/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
     else if (/hep[áa]t|hepatic/i.test(t)) coadjuvanteCondition = 'HEPATICO';
+    else if (/card[ií]ac/i.test(t)) coadjuvanteCondition = 'CARDIACO';
+    else if (/articular|joint|\bjt\b/i.test(t)) coadjuvanteCondition = 'ARTICULAR';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
-    /cookie|biscoito|snack|petisco|bites|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre/i.test(commercialName + ' ' + sourceUrl) ||
+    /(?:cookie|biscoito|snack|petisco|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b)/i.test(commercialName + ' ' + sourceUrl) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
     (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato/i.test(commercialName + ' ' + sourceUrl))
