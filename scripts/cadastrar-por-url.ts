@@ -30,7 +30,8 @@ async function fetchWithBrowserHeaders(url: string): Promise<{ status: number; h
 
 async function downloadImage(imgUrl: string, destPath: string): Promise<boolean> {
   try {
-    const res = await fetch(imgUrl, {
+    const encoded = imgUrl.startsWith('http') ? encodeURI(imgUrl) : imgUrl;
+    const res = await fetch(encoded, {
       headers: {
         'User-Agent': 'Mozilla/5.0',
         Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',

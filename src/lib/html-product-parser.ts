@@ -72,15 +72,28 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     $('img.wp-post-image, .woocommerce-product-gallery__image img').first().attr('src') ||
     null;
 
-  if (!imageUrl || imageUrl.includes('seo-default') || /specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl)) {
-    const specialImg = $('img[src*="/assets/uploads/produtos/"]')
-      .filter((_, el) => {
-        const src = $(el).attr('src') || '';
-        return !src.includes('/beneficios/') && !src.includes('/recomendacoes/');
-      })
-      .first()
-      .attr('src');
-    if (specialImg) imageUrl = specialImg;
+  if (!imageUrl || imageUrl.includes('seo-default') || /specialcat\.com\.br|specialdog\.com\.br|farmina\.com/i.test(sourceUrl)) {
+    if (/farmina\.com/i.test(sourceUrl)) {
+      const farminaImg = $('img[src*="/fotoprodotti/"]')
+        .filter((_, el) => {
+          const src = $(el).attr('src') || '';
+          return !src.includes('/icone/') && !src.includes('banner') && !src.includes('89x89');
+        })
+        .first()
+        .attr('src');
+      if (farminaImg) {
+        imageUrl = farminaImg.startsWith('http') ? farminaImg : 'https://www.farmina.com' + farminaImg;
+      }
+    } else {
+      const specialImg = $('img[src*="/assets/uploads/produtos/"]')
+        .filter((_, el) => {
+          const src = $(el).attr('src') || '';
+          return !src.includes('/beneficios/') && !src.includes('/recomendacoes/');
+        })
+        .first()
+        .attr('src');
+      if (specialImg) imageUrl = specialImg;
+    }
   }
 
   // 2. Nome Comercial e Slug
@@ -98,6 +111,22 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       $('h1').first().text().trim() ||
       $('meta[property="og:title"]').attr('content') ||
       '';
+  } else if (/farmina\.com/i.test(sourceUrl)) {
+    const titleTag = $('title').text().trim();
+    const parts = titleTag.split(/\s*-\s*/);
+    if (parts.length >= 3) {
+      const linePart = parts[2].trim();
+      const prodPart = parts.slice(3).join(' ').trim();
+      if (prodPart.toLowerCase().startsWith(linePart.toLowerCase())) {
+        rawName = prodPart;
+      } else if (prodPart) {
+        rawName = `${linePart} ${prodPart}`;
+      } else {
+        rawName = linePart;
+      }
+    } else {
+      rawName = $('h1').first().text().replace(/Informa[çc][õo]es\s+Nutricionais/i, '').trim();
+    }
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -112,7 +141,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   );
 
   let slug = '';
-  if (sourceUrl) {
+  if (sourceUrl && !/farmina\.com/i.test(sourceUrl)) {
     const m =
       sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?/i) ||
       sourceUrl.match(/\/([^/]+)\/?$/);
@@ -123,6 +152,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
+      .replace(/&/g, 'e')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
   }
@@ -195,6 +225,33 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   } else if (/nattu/i.test(commercialName)) {
     brand = 'PremieR Nattu';
     manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
+  } else if (/farmina/i.test(commercialName) || /farmina\.com/i.test(sourceUrl)) {
+    if (/tropical/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Tropical Selection';
+    } else if (/ocean/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Ocean';
+    } else if (/pumpkin/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Pumpkin';
+    } else if (/prime/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Prime';
+    } else if (/ancestral/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Ancestral Grain';
+    } else if (/quinoa/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Quinoa';
+    } else if (/spirulina/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D Spirulina';
+    } else if (/vet\s*life/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina Vet Life';
+    } else if (/cibau/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina Cibau';
+    } else if (/matisse/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina Matisse';
+    } else if (/n&d|n-d|natural\s*&\s*delicious/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Farmina N&D';
+    } else {
+      brand = 'Farmina';
+    }
+    manufacturerLegalName = 'Farmina Pet Foods Brasil Ltda';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -203,8 +260,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -238,20 +295,21 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
   let coadjuvanteCondition: string | null = null;
 
-  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|coadjuvante/i.test(commercialName)) {
+  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|coadjuvante/i.test(commercialName + ' ' + sourceUrl)) {
     legalCategory = 'ALIMENTO_COADJUVANTE';
-    const t = commercialName.toLowerCase();
+    const t = (commercialName + ' ' + sourceUrl).toLowerCase();
     if (/renal/i.test(t)) coadjuvanteCondition = 'RENAL';
-    else if (/urin[áa]ri/i.test(t)) coadjuvanteCondition = 'URINARIO';
-    else if (/recupera/i.test(t)) coadjuvanteCondition = 'RECUPERACAO';
-    else if (/obesidade|perda de peso|controle de peso/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
+    else if (/urin[áa]ri|struvite/i.test(t)) coadjuvanteCondition = 'URINARIO';
+    else if (/recupera|convalescence/i.test(t)) coadjuvanteCondition = 'RECUPERACAO';
+    else if (/obesidade|obesity|perda de peso|controle de peso/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
     else if (/diabet/i.test(t)) coadjuvanteCondition = 'DIABETES';
     else if (/gastro|gastrointestinal/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
-    else if (/hipoalerg|pele sens[íi]vel/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
-    else if (/hep[áa]t/i.test(t)) coadjuvanteCondition = 'HEPATICO';
+    else if (/hipoalerg|hypoallergenic|pele sens[íi]vel/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
+    else if (/hep[áa]t|hepatic/i.test(t)) coadjuvanteCondition = 'HEPATICO';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
     /cookie|biscoito|snack|petisco|bites|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre/i.test(commercialName + ' ' + sourceUrl) ||
+    /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
     (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato/i.test(commercialName + ' ' + sourceUrl))
   ) {
@@ -337,7 +395,17 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     if (specialGar) garText = specialGar;
   }
 
-  // 5f. Fallback de tabelas HTML
+  // 5f. Farmina Pet Foods (.titoletto, p.comp)
+  if (!compText || !garText) {
+    $('span.titoletto').each((_, el) => {
+      const title = $(el).text().trim();
+      const content = $(el).nextAll('p.comp, p').first().text().trim();
+      if (/composi/i.test(title) && !compText) compText = content;
+      if (/garanti/i.test(title) && !garText) garText = content;
+    });
+  }
+
+  // 5g. Fallback de tabelas HTML
   if (!garText) {
     const tableText = $('table').first().text().trim();
     if (tableText) garText = tableText;
@@ -411,9 +479,22 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   let energiaMetabolizavelKcalKg: number | null = null;
   const emMatch =
     garText.match(/(\d{1,2}(?:[\.,]\d{3})|\d{4})\s*kcal\/kg/i) ||
-    bodyText.match(/(\d{1,2}(?:[\.,]\d{3})|\d{4})\s*kcal\/kg/i);
+    bodyText.match(/(\d{1,2}(?:[\.,]\d{3})|\d{4})\s*kcal\/kg/i) ||
+    bodyText.match(/EM\s+Kcal\/Kg\s+(\d+(?:[\.,]\d+)?)/i);
   if (emMatch) {
-    energiaMetabolizavelKcalKg = parseInt(emMatch[1].replace(/[\.,]/g, ''), 10);
+    const raw = emMatch[1].trim();
+    if (raw.includes(',')) {
+      energiaMetabolizavelKcalKg = Math.round(parseFloat(raw.replace(',', '.')));
+    } else if (raw.includes('.')) {
+      const parts = raw.split('.');
+      if (parts[1] && parts[1].length === 3) {
+        energiaMetabolizavelKcalKg = parseInt(raw.replace('.', ''), 10);
+      } else {
+        energiaMetabolizavelKcalKg = Math.round(parseFloat(raw));
+      }
+    } else {
+      energiaMetabolizavelKcalKg = parseInt(raw, 10);
+    }
   }
 
   // 7. Ingredientes
@@ -459,7 +540,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   // 8. Transgênicos e Antioxidantes
   const containsGmo =
     /\*Cont[ée]m.*transg|Esp[ée]cies\s+doadoras|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText) &&
-    !/n[ãa]o\s+transg[êe]nico|sem\s+transg[êe]nico/i.test(compText + ' ' + bodyText.slice(0, 800));
+    !/n[ãa]o\s+transg[êe]nico|sem\s+transg[êe]nico|livre\s+de\s+(?:ingredientes\s+)?geneticamente\s+modificados?/i.test(compText + ' ' + bodyText.slice(0, 1500));
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
