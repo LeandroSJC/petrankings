@@ -131,8 +131,14 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   let brand = 'PremieR';
   let manufacturerLegalName = 'Grandfood Indústria e Comércio Ltda';
 
-  if (/f[óo]rmula\s*natural|adimax/i.test(commercialName) || /adimax\.com\.br/i.test(sourceUrl)) {
-    if (/vet\s*care/i.test(commercialName)) {
+  if (/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy/i.test(commercialName) || /adimax\.com\.br/i.test(sourceUrl)) {
+    if (/origens/i.test(commercialName) || /origens/i.test(sourceUrl)) {
+      brand = 'Origens';
+    } else if (/magnus/i.test(commercialName) || /magnus/i.test(sourceUrl)) {
+      brand = 'Magnus';
+    } else if (/qualidy/i.test(commercialName) || /qualidy/i.test(sourceUrl)) {
+      brand = 'Qualidy';
+    } else if (/vet\s*care/i.test(commercialName)) {
       brand = 'Fórmula Natural Vet Care';
     } else if (/fresh\s*meat/i.test(commercialName)) {
       brand = 'Fórmula Natural Fresh Meat';
@@ -197,8 +203,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural/i.test(commercialName) &&
-    !/specialcat|specialdog/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -226,7 +232,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   }
 
   let foodType: 'SECO' | 'UMIDO' =
-    /úmido|umido|gourmet|sach[êe]|pat[êe]|lata/i.test(commercialName) ? 'UMIDO' : 'SECO';
+    /úmido|umido|gourmet|sach[êe]|pat[êe]|lata|creminho/i.test(commercialName + ' ' + sourceUrl) ? 'UMIDO' : 'SECO';
 
   // 4.1 Categoria Legal e Condição Coadjuvante
   let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
@@ -245,7 +251,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     else if (/hep[áa]t/i.test(t)) coadjuvanteCondition = 'HEPATICO';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
-    /cookie|biscoito|snack|petisco|bites|bifinho|bifinhos/i.test(commercialName) ||
+    /cookie|biscoito|snack|petisco|bites|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre/i.test(commercialName + ' ' + sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
     (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato/i.test(commercialName + ' ' + sourceUrl))
   ) {
@@ -417,8 +423,11 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     .replace(/\s+/g, ' ')
     .trim();
 
-  if (cleanComp.includes('*Contém')) cleanComp = cleanComp.split('*Contém')[0];
-  if (cleanComp.includes('*Ingredientes')) cleanComp = cleanComp.split('*Ingredientes')[0];
+  cleanComp = cleanComp.split(/Eventuais\s+substitutivos[:\s]/i)[0];
+  cleanComp = cleanComp.split(/Cont[ée]m,?\s+(?:na\s+composi[çc][ãa]o,?\s+)?alimento\s+geneticamente\s+modificado[:\s]/i)[0];
+  cleanComp = cleanComp.split(/Esp[ée]cies\s+doadoras\s+de\s+gene[:\s]/i)[0];
+  cleanComp = cleanComp.split(/\*Cont[ée]m/i)[0];
+  cleanComp = cleanComp.split(/\*Ingredientes/i)[0];
 
   const topIngredientsList: string[] = [];
   let cur = '';
@@ -449,13 +458,19 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
   // 8. Transgênicos e Antioxidantes
   const containsGmo =
-    /\*Cont[ée]m.*transg|Esp[ée]cies\s+doadoras|transg[êe]nico/i.test(compText) &&
+    /\*Cont[ée]m.*transg|Esp[ée]cies\s+doadoras|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText) &&
     !/n[ãa]o\s+transg[êe]nico|sem\s+transg[êe]nico/i.test(compText + ' ' + bodyText.slice(0, 800));
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
-    const gmoMatch = compText.match(/\*Contém\s+([^.]+)/i);
-    if (gmoMatch) gmoIngredients = gmoMatch[1].trim();
+    const gmoMatch =
+      compText.match(/(?:alimento\s+geneticamente\s+modificado|\*Cont[ée]m)\s*[:\s]*([^.]+)/i) ||
+      compText.match(/Esp[ée]cies\s+doadoras\s+de\s+gene[:\s]*([^.]+)/i);
+    if (gmoMatch) {
+      gmoIngredients = gmoMatch[1]
+        .replace(/^[,\s]*(?:na\s+composi[çc][ãa]o,?\s*)?(?:alimento\s+geneticamente\s+modificado\s*[:\s]*)?/i, '')
+        .trim();
+    }
   }
 
   const hasBhaBht = /\bBHA\b|\bBHT\b|\bB\.H\.T\.\b/i.test(compText);

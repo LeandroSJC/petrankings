@@ -69,7 +69,11 @@ async function processAll() {
       for (let i = 0; i < urls.length; i++) {
         const u = urls[i];
         console.log(`\n👉 Ingestão [${i + 1}/${urls.length}]: ${u}`);
-        await processUrl(u);
+        try {
+          await processUrl(u);
+        } catch (err: any) {
+          console.error(`❌ Erro no processamento da URL ${u}:`, err.message);
+        }
         if (i < urls.length - 1) {
           // Pausa preventiva de 2s para respeitar limites de taxa da API Gemini
           await new Promise((resolve) => setTimeout(resolve, 2000));
