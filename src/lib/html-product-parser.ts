@@ -37,21 +37,60 @@ export interface ProductHtmlMetadata {
 
 function capitalizeTitle(str: string): string {
   if (!str) return '';
-  const letters = str.match(/[a-zA-ZÀ-ÿ]/g) || [];
-  const upperLetters = str.match(/[A-ZÁÉÍÓÚÂÊÎÔÛÃÕÇ]/g) || [];
-  const isMostlyUpper = letters.length > 0 && upperLetters.length / letters.length >= 0.6;
 
-  if (!isMostlyUpper) return str;
+  // 1. Normaliza barras "/" substituindo por " e " entre palavras
+  let s = str.replace(/(\w+)\s*\/\s*(\w+)/g, '$1 e $2').replace(/\s*\/\s*/g, ' e ');
 
-  const smallWords = new Set(['de', 'da', 'do', 'dos', 'das', 'e', 'em', 'com', 'para', 'ao', 'aos', 'por']);
-  return str
-    .toLowerCase()
-    .split(' ')
+  // 2. Preposições, artigos e conectivos que devem ficar em minúsculo (salvo início de frase)
+  const smallWords = new Set(['de', 'da', 'do', 'dos', 'das', 'e', 'em', 'com', 'para', 'ao', 'aos', 'por', 'a', 'as', 'o', 'os']);
+
+  // 3. Siglas que devem permanecer em maiúsculo
+  const acronyms = new Set(['MOS', 'BHA', 'BHT', 'EPA', 'DHA', 'FOS', 'HACCP', 'GMP', 'BPF', 'FIT', 'DNA']);
+
+  // 4. Marcas registradas com grafia mista consagrada
+  const specialCasings: Record<string, string> = {
+    premier: 'PremieR',
+    golden: 'GoldeN',
+    'n&d': 'N&D',
+  };
+
+  return s
+    .split(/\s+/)
     .map((word, i) => {
-      if (i > 0 && smallWords.has(word)) return word;
-      return word.charAt(0).toUpperCase() + word.slice(1);
+      if (!word) return '';
+
+      // Preserva termos como +7 ou 7+
+      if (/^\+\d+|\d+\+$/.test(word)) return word;
+
+      // Trata palavras hifenizadas como batata-doce ou sênior-7
+      if (word.includes('-')) {
+        return word
+          .split('-')
+          .map((part, pIdx) => {
+            if (acronyms.has(part.toUpperCase())) return part.toUpperCase();
+            if (specialCasings[part.toLowerCase()]) return specialCasings[part.toLowerCase()];
+            if (/^\d+$/.test(part)) return part;
+            if (pIdx > 0) return part.toLowerCase();
+            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+          })
+          .join('-');
+      }
+
+      const upperWord = word.toUpperCase();
+      if (acronyms.has(upperWord)) return upperWord;
+
+      const lowerWord = word.toLowerCase();
+      if (specialCasings[lowerWord]) return specialCasings[lowerWord];
+      if (i > 0 && smallWords.has(lowerWord)) {
+        return lowerWord;
+      }
+
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
     })
-    .join(' ');
+    .filter(Boolean)
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**
@@ -97,11 +136,137 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   }
 
   if (!imageUrl && /biofreshpet\.com\.br/i.test(sourceUrl)) {
-    const eanMatch =
-      html.match(/\"name\":\"C[óo]digo do produto\"[^\}]*?\"content\":\"(\d+)\"/i) ||
-      html.match(/seuproduto360\.com\.br\/brf\/(\d+)\//);
-    if (eanMatch) {
-      imageUrl = `https://seuproduto360.com.br/brf/${eanMatch[1]}/miniatura.jpg`;
+    const blobMatch = html.match(/https:\/\/brfsawebsitespet\.blob\.core\.windows\.net\/bio-fresh\/[^\"]+?\.(?:jpg|png|webp|jpeg)[^\"]*?(?:sig=|sig%3D|sv=)[^\"]*/i);
+    if (blobMatch) {
+      imageUrl = blobMatch[0]
+        .replace(/\\u0026/g, '&')
+        .replace(/&amp;/g, '&')
+        .replace(/[\\]+$/, '')
+        .trim();
+    }
+    if (!imageUrl) {
+      const eanMatch =
+        html.match(/\"name\":\"C[óo]digo do produto\"[^\}]*?\"content\":\"(\d+)\"/i) ||
+        html.match(/seuproduto360\.com\.br\/brf\/(\d+)\//);
+      if (eanMatch) {
+        imageUrl = `https://seuproduto360.com.br/brf/${eanMatch[1]}/miniatura.jpg`;
+      }
+    }
+  }
+
+  // 1b. Extração Wix Warmup Data (Quatree Pet / Granvita)
+  const isQuatree = /quatreepet\.com\.br/i.test(sourceUrl);
+  let quatreeLine = 'Quatree';
+  if (/supreme/i.test(sourceUrl) && /sache/i.test(sourceUrl)) quatreeLine = 'Quatree Supreme Úmido';
+  else if (/sache/i.test(sourceUrl)) quatreeLine = 'Quatree Supreme Úmido';
+  else if (/supreme/i.test(sourceUrl)) quatreeLine = 'Quatree Supreme';
+  else if (/life/i.test(sourceUrl)) quatreeLine = 'Quatree Life';
+  else if (/select/i.test(sourceUrl)) quatreeLine = 'Quatree Select';
+  else if (/gourmet/i.test(sourceUrl)) quatreeLine = 'Quatree Gourmet';
+  else if (/nugget|snack/i.test(sourceUrl)) quatreeLine = 'Quatree Snacks';
+  else if (/miaow/i.test(sourceUrl)) quatreeLine = 'Quatree Miaow';
+
+  let quatreeCompText = '';
+  let quatreeGarText = '';
+  let quatreeTitleProduct = '';
+  let quatreeFlavor = '';
+  let quatreeWixImg = '';
+  let quatreeAnimalType = '';
+
+  const safeDecode = (str: string): string => {
+    try { return decodeURIComponent(str); } catch { return str; }
+  };
+
+  if (isQuatree) {
+    const warmup = $('#wix-warmup-data').text();
+    const targetSlug = safeDecode(sourceUrl.split('/').pop() || '').toLowerCase();
+    if (warmup) {
+      try {
+        const data = JSON.parse(warmup);
+        const collections = data.appsWarmupData?.dataBinding?.dataStore?.recordsByCollectionId;
+        for (const [colName, records] of Object.entries(collections || {})) {
+          for (const [recId, rec] of Object.entries(records as any)) {
+            const r = rec as any;
+            const matchSlug = Object.values(r).some((v: any) => {
+              if (typeof v !== 'string') return false;
+              const decodedV = safeDecode(v).toLowerCase();
+              return decodedV.includes(`/${targetSlug}`) || decodedV.endsWith(targetSlug);
+            });
+            if (matchSlug) {
+              quatreeTitleProduct = r.tituloProduto || r.ttuloProduto || r.nomeProduto || r.title || r.nome || '';
+              // Ignora quando o title do registro for apenas o código técnico ou slug
+              if (quatreeTitleProduct.toLowerCase() === targetSlug || /^q[a-z0-9\+]+$/i.test(quatreeTitleProduct)) {
+                quatreeTitleProduct = '';
+              }
+              quatreeFlavor = r.sabor || '';
+              quatreeCompText = r.composicaoBasica || r.composioBsica || r.composio || r.composicao || '';
+              quatreeGarText = r.niveisDeGarantia || r.nveisDeGarantia || r.niveisGarantia || '';
+              quatreeWixImg = r.packFrente || r.packfrente || r.packf || '';
+              if (Array.isArray(r.coOuGato)) quatreeAnimalType = r.coOuGato.join(' ');
+              else if (typeof r.pet === 'string') quatreeAnimalType = r.pet;
+              else if (Array.isArray(r.tipo)) quatreeAnimalType = r.tipo.join(' ');
+              else if (typeof r.tipo === 'string') quatreeAnimalType = r.tipo;
+              break;
+            }
+          }
+          if (quatreeCompText && quatreeGarText) break;
+        }
+      } catch (e) {}
+    }
+
+    if (!quatreeCompText) {
+      const m = html.match(/\"(?:composicaoBasica|composioBsica|composio|composicao)\":\s*\"([^\"]+)\"/i);
+      if (m) {
+        try { quatreeCompText = JSON.parse('"' + m[1] + '"'); } catch { quatreeCompText = m[1]; }
+      }
+    }
+    if (!quatreeGarText) {
+      const m = html.match(/\"(?:niveisDeGarantia|nveisDeGarantia|niveisGarantia)\":\s*\"([^\"]+)\"/i);
+      if (m) {
+        try { quatreeGarText = JSON.parse('"' + m[1] + '"'); } catch { quatreeGarText = m[1]; }
+      }
+    }
+
+    // Fallback para páginas como nova-quatree-carne (DOM estático)
+    if (!quatreeCompText || !quatreeGarText) {
+      let currentSection = '';
+      const bodyElements: string[] = [];
+      $('p, span, h2, h3, h4').each((_, el) => {
+        const t = $(el).clone().children().remove().end().text().trim();
+        if (t) bodyElements.push(t);
+      });
+      for (const line of bodyElements) {
+        if (/COMPOSI[ÇC][ÃA]O\s*B[ÁA]SICA/i.test(line)) {
+          currentSection = 'COMP';
+          continue;
+        } else if (/N[ÍI]VEIS\s*DE\s*GARANTIA/i.test(line)) {
+          currentSection = 'GAR';
+          continue;
+        } else if (/ENRIQUECIMENTO|GUIA\s*ALIMENTAR|TABELA/i.test(line)) {
+          currentSection = '';
+        }
+
+        if (currentSection === 'COMP' && !quatreeCompText && line.length > 50) {
+          quatreeCompText = line;
+        } else if (currentSection === 'GAR' && line.length > 3) {
+          quatreeGarText += (quatreeGarText ? '\n' : '') + line;
+        }
+      }
+    }
+
+    // Resolução da Imagem Oficial Quatree
+    if (quatreeWixImg) {
+      const m = quatreeWixImg.match(/wix:image:\/\/v1\/([^\/#?]+)/);
+      if (m) imageUrl = `https://static.wixstatic.com/media/${m[1]}`;
+    }
+    if (!imageUrl || imageUrl.includes('default') || imageUrl.includes('11062b')) {
+      $('img').each((_, el) => {
+        const src = $(el).attr('src') || '';
+        if (/PACK|PACKSHOTS|QGourmet|MIAOW/i.test(src) && !/verso|REC|TRANSI/i.test(src)) {
+          imageUrl = src;
+          return false;
+        }
+      });
     }
   }
 
@@ -162,6 +327,49 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     } else {
       rawName = h1;
     }
+  } else if (isQuatree) {
+    let namePart = quatreeTitleProduct;
+    if (!namePart) {
+      if (/nugget/i.test(sourceUrl)) {
+        namePart = `Nuggets Bola de Pelo`;
+      } else if (/miaow/i.test(sourceUrl)) {
+        namePart = `Petisco Cremoso para Gatos`;
+      } else {
+        const ogTitle = $('meta[property="og:title"]').attr('content') || $('title').text() || '';
+        namePart = ogTitle
+          .replace(/Nova Quatree Carne\s*\|\s*/i, 'Carne ')
+          .replace(/Quatree Pet\s*\|\s*/i, '')
+          .replace(/QUATREE GOURMET\s*\|\s*/i, '')
+          .replace(/QUATREE SUPREME\s*\|\s*/i, '')
+          .replace(/QUATREE SELECT\s*\|\s*/i, '')
+          .replace(/QUATREE LIFE\s*\|\s*/i, '')
+          .replace(/MIAOW\s*\|\s*Quatree Pet/i, 'Petisco Cremoso para Gatos')
+          .replace(/NUGGETS/i, 'Nuggets Bola de Pelo')
+          .replace(/\s*\|\s*/g, ' - ')
+          .replace(/([A-ZÀ-ÿ])MIX\b/gi, '$1 MIX')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+    }
+
+    // Se o sabor estiver colado no final do nome (ex: GATOS ADULTOSPEIXE)
+    if (quatreeFlavor) {
+      const flavRegex = new RegExp(`(${quatreeFlavor})$`, 'i');
+      if (flavRegex.test(namePart)) {
+        namePart = namePart.replace(flavRegex, ' $1');
+      }
+    }
+
+    if (!namePart.toLowerCase().includes('quatree')) {
+      rawName = `${quatreeLine} ${namePart}`;
+    } else {
+      rawName = namePart;
+    }
+    if (quatreeFlavor && !rawName.toLowerCase().includes(quatreeFlavor.toLowerCase()) && !/mix|carne|frango|peixe|salm[ãa]o/i.test(rawName)) {
+      rawName = `${rawName} ${quatreeFlavor}`;
+    }
+    rawName = rawName.replace(/Quatree Miaow Miaow/gi, 'Quatree Miaow');
+    rawName = rawName.replace(/,([a-zA-ZÀ-ÿ])/g, ', $1');
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -296,6 +504,25 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   } else if (/biofresh/i.test(commercialName) || /biofreshpet\.com\.br/i.test(sourceUrl)) {
     brand = 'Biofresh';
     manufacturerLegalName = 'BRF Pet S.A.';
+  } else if (isQuatree || /quatree/i.test(commercialName)) {
+    manufacturerLegalName = 'Granvita Alimentos Ltda';
+    if (/sache|produtos-saches/i.test(sourceUrl) || /supreme.*(?:úmido|umido|sache)/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Quatree Supreme Úmido';
+    } else if (/nugget|snack/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Quatree Snacks';
+    } else if (/miaow/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Quatree Miaow';
+    } else if (/supreme/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Quatree Supreme';
+    } else if (/life/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Quatree Life';
+    } else if (/select/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Quatree Select';
+    } else if (/gourmet/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Quatree Gourmet';
+    } else {
+      brand = 'Quatree';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -304,8 +531,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -313,8 +540,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
   // 4. Espécie, Fase de Vida, Porte, Formato
   const isDual = /c[ãa]es\s*e\s*gatos/i.test(commercialName) || /c[ãa]es\s*e\s*gatos/i.test(sourceUrl);
-  const isGato = /gato|gatos|felin/i.test(commercialName) || /gato|gatos|felin/i.test(sourceUrl);
-  const isCao = /c[ãa]o|c[ãa]es|cachorro|canin/i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|canin/i.test(sourceUrl);
+  const isGato = /gato|gatos|felin|miaow|nugget/i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
+  const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|canin/i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|canin/i.test(sourceUrl));
 
   let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
   if (isDual) species = 'CAO_E_GATO';
@@ -334,6 +561,11 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
   let foodType: 'SECO' | 'UMIDO' =
     /úmido|umido|gourmet|sach[êe]|pat[êe]|lata|creminho/i.test(commercialName + ' ' + sourceUrl) ? 'UMIDO' : 'SECO';
+  if (isQuatree && /miaow/i.test(commercialName + ' ' + sourceUrl)) {
+    foodType = 'UMIDO';
+  } else if (isQuatree && !/sache|úmido|umido/i.test(commercialName + ' ' + sourceUrl)) {
+    foodType = 'SECO';
+  }
 
   // 4.1 Categoria Legal e Condição Coadjuvante
   let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
@@ -354,17 +586,17 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     else if (/articular|joint|\bjt\b/i.test(t)) coadjuvanteCondition = 'ARTICULAR';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
-    /(?:cookie|biscoito|snack|petisco|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b)/i.test(commercialName + ' ' + sourceUrl) ||
+    /(?:cookie|biscoito|snack|petisco|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow)/i.test(commercialName + ' ' + sourceUrl) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
-    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato/i.test(commercialName + ' ' + sourceUrl))
+    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree/i.test(commercialName + ' ' + sourceUrl))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
 
   // 5. Extração de Composição e Garantias a partir do DOM
-  let compText = '';
-  let garText = '';
+  let compText = isQuatree ? quatreeCompText : '';
+  let garText = isQuatree ? quatreeGarText : '';
 
   // 5a-0. Extração de Next.js Flight Payload (Biofresh / BRF Pet)
   if (/biofreshpet\.com\.br/i.test(sourceUrl) || html.includes('categoria-composicao-basica')) {

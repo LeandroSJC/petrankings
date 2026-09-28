@@ -6,44 +6,62 @@ import prisma from '../src/lib/prisma';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
 
-async function fetchWithBrowserHeaders(url: string): Promise<{ status: number; html: string; error?: string }> {
-  try {
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-        Accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-        'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Cache-Control': 'no-cache',
-        Pragma: 'no-cache',
-      },
-    });
+async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ status: number; html: string; error?: string }> {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+          Accept:
+            'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
+      });
 
-    const status = res.status;
-    const html = await res.text();
-    return { status, html };
-  } catch (err: any) {
-    return { status: 0, html: '', error: err.message };
+      const status = res.status;
+      const html = await res.text();
+      return { status, html };
+    } catch (err: any) {
+      if (attempt < retries) {
+        await new Promise((r) => setTimeout(r, 1500 * attempt));
+      } else {
+        return { status: 0, html: '', error: err.message };
+      }
+    }
   }
+  return { status: 0, html: '', error: 'Falha após tentativas' };
 }
 
-async function downloadImage(imgUrl: string, destPath: string): Promise<boolean> {
-  try {
-    const encoded = imgUrl.startsWith('http') ? encodeURI(imgUrl) : imgUrl;
-    const res = await fetch(encoded, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0',
-        Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
-      },
-    });
-    if (!res.ok) return false;
-    const buf = Buffer.from(await res.arrayBuffer());
-    fs.writeFileSync(destPath, buf);
-    return true;
-  } catch {
-    return false;
+async function downloadImage(imgUrl: string, destPath: string, retries = 3): Promise<boolean> {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const encoded = imgUrl.startsWith('http') ? encodeURI(imgUrl) : imgUrl;
+      const res = await fetch(encoded, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0',
+          Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+        },
+      });
+      if (!res.ok) {
+        if (attempt < retries) {
+          await new Promise((r) => setTimeout(r, 1000));
+          continue;
+        }
+        return false;
+      }
+      const buf = Buffer.from(await res.arrayBuffer());
+      fs.writeFileSync(destPath, buf);
+      return true;
+    } catch {
+      if (attempt < retries) {
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+    }
   }
+  return false;
 }
 
 export async function processUrl(url: string) {
