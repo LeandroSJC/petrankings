@@ -604,6 +604,11 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   cleanComp = cleanComp.split(/\*Cont[ée]m/i)[0];
   cleanComp = cleanComp.split(/\*Ingredientes/i)[0];
 
+  // Remove qualquer payload/código residual do Next.js Flight no final do texto
+  cleanComp = cleanComp.replace(/\.?[0-9a-f]+:\{[\s\S]*$/i, '.');
+  cleanComp = cleanComp.replace(/\{"name"[\s\S]*$/i, '');
+  cleanComp = cleanComp.replace(/\"id\":[\s\S]*$/i, '');
+
   const topIngredientsList: string[] = [];
   let cur = '';
   let parenDepth = 0;
@@ -619,7 +624,11 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
         cur += c;
         continue;
       }
-      const item = cur.trim().replace(/\.$/, '').trim();
+      let item = cur.trim();
+      item = item.replace(/\.?[0-9a-f]+:\{[\s\S]*$/i, '');
+      item = item.replace(/\{"name"[\s\S]*$/i, '');
+      item = item.replace(/\"id\":[\s\S]*$/i, '');
+      item = item.replace(/\.$/, '').trim();
       if (item && item.length > 1) topIngredientsList.push(normalizeIngredient(item));
       cur = '';
     } else {
@@ -627,7 +636,11 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     }
   }
   if (cur.trim()) {
-    const item = cur.trim().replace(/\.$/, '').trim();
+    let item = cur.trim();
+    item = item.replace(/\.?[0-9a-f]+:\{[\s\S]*$/i, '');
+    item = item.replace(/\{"name"[\s\S]*$/i, '');
+    item = item.replace(/\"id\":[\s\S]*$/i, '');
+    item = item.replace(/\.$/, '').trim();
     if (item && item.length > 1) topIngredientsList.push(normalizeIngredient(item));
   }
 
