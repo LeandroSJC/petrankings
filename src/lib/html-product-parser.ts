@@ -96,6 +96,15 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     }
   }
 
+  if (!imageUrl && /biofreshpet\.com\.br/i.test(sourceUrl)) {
+    const eanMatch =
+      html.match(/\"name\":\"C[óo]digo do produto\"[^\}]*?\"content\":\"(\d+)\"/i) ||
+      html.match(/seuproduto360\.com\.br\/brf\/(\d+)\//);
+    if (eanMatch) {
+      imageUrl = `https://seuproduto360.com.br/brf/${eanMatch[1]}/miniatura.jpg`;
+    }
+  }
+
   // 2. Nome Comercial e Slug
   let rawName = '';
   if (/specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl)) {
@@ -126,6 +135,32 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       }
     } else {
       rawName = $('h1').first().text().replace(/Informa[çc][õo]es\s+Nutricionais/i, '').trim();
+    }
+  } else if (/biofreshpet\.com\.br/i.test(sourceUrl)) {
+    let h1 = $('h1').first().text().replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim();
+    if (!h1.toLowerCase().startsWith('biofresh')) {
+      h1 = `Biofresh ${h1}`;
+    }
+    const pushRegex = /self\.__next_f\.push\(\[1,\s*\"([\s\S]*?)\"\]\)/g;
+    let chunk;
+    let flightText = '';
+    while ((chunk = pushRegex.exec(html)) !== null) {
+      try {
+        flightText += JSON.parse('"' + chunk[1] + '"');
+      } catch {
+        flightText += chunk[1];
+      }
+    }
+    const subMatch = flightText.match(/\"name\":\"Subt[íi]tulo\"[^\}]*?\"content\":\"([^\"]+)\"/i);
+    let sub = subMatch ? subMatch[1].trim() : '';
+    if (!sub) {
+      const badge = $('[class*="bg-custom-pink"], [class*="bg-custom-green"]').first().text().trim();
+      if (badge && badge !== 'Lançamento') sub = badge;
+    }
+    if (sub && !h1.toLowerCase().includes(sub.toLowerCase())) {
+      rawName = `${h1} ${sub}`;
+    } else {
+      rawName = h1;
     }
   } else {
     rawName =
@@ -258,6 +293,9 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       brand = 'Farmina';
     }
     manufacturerLegalName = 'Farmina Pet Foods Brasil Ltda';
+  } else if (/biofresh/i.test(commercialName) || /biofreshpet\.com\.br/i.test(sourceUrl)) {
+    brand = 'Biofresh';
+    manufacturerLegalName = 'BRF Pet S.A.';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -327,6 +365,50 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   // 5. Extração de Composição e Garantias a partir do DOM
   let compText = '';
   let garText = '';
+
+  // 5a-0. Extração de Next.js Flight Payload (Biofresh / BRF Pet)
+  if (/biofreshpet\.com\.br/i.test(sourceUrl) || html.includes('categoria-composicao-basica')) {
+    const pushRegex = /self\.__next_f\.push\(\[1,\s*\"([\s\S]*?)\"\]\)/g;
+    let chunk;
+    let flightText = '';
+    while ((chunk = pushRegex.exec(html)) !== null) {
+      try {
+        flightText += JSON.parse('"' + chunk[1] + '"');
+      } catch {
+        flightText += chunk[1];
+      }
+    }
+
+    if (!compText) {
+      const compDefMatch = flightText.match(/\"name\":\"Composi[çc][ãa]o B[áa]sica\"[^\}]*?\"content\":\"\$([a-zA-Z0-9]+)\"/i);
+      if (compDefMatch) {
+        const compId = compDefMatch[1];
+        const compContentMatch = flightText.match(new RegExp(`(?:^|\\n)${compId}:(?:T[0-9a-f]+,)?([\\s\\S]*?)(?:\\n[0-9a-f]+:|$)`));
+        if (compContentMatch) {
+          compText = compContentMatch[1].trim();
+        }
+      }
+      if (!compText) {
+        const compRaw = flightText.match(/categoria-composicao-basica[\s\S]*?(Seleção de carnes frescas|Farinha de vísceras[^\"]+)/i);
+        if (compRaw) compText = compRaw[1].trim();
+      }
+    }
+
+    if (!garText) {
+      const garDefMatch = flightText.match(/\"name\":\"N[íi]veis de garantia\"[^\}]*?\"content\":\"\$([a-zA-Z0-9]+)\"/i);
+      if (garDefMatch) {
+        const garId = garDefMatch[1];
+        const garContentMatch = flightText.match(new RegExp(`(?:^|\\n)${garId}:(?:T[0-9a-f]+,)?([\\s\\S]*?)(?:\\n[0-9a-f]+:|$)`));
+        if (garContentMatch) {
+          garText = garContentMatch[1].trim();
+        }
+      }
+      if (!garText) {
+        const garRaw = flightText.match(/(?:<div>\s*<h2>Umidade[\s\S]*?Energia Metaboliz[áa]vel[\s\S]*?<\/div>)/i);
+        if (garRaw) garText = garRaw[0].trim();
+      }
+    }
+  }
 
   // 5a. JetTabs / Accordions (Adimax / Elementor)
   $('.jet-toggle, .elementor-accordion-item').each((i, el) => {
@@ -433,6 +515,10 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   }
 
   // 6. Níveis de Garantia
+  // Remove tags HTML de garText e compText para garantir que dígitos de tags (como </h2>) não interfiram
+  garText = garText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  compText = compText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+
   const parseGuarantee = (pattern: RegExp): number => {
     const m = garText.match(pattern);
     if (!m) return 0;
