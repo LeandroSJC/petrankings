@@ -154,6 +154,46 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     }
   }
 
+  // 1c. Extração Royal Canin
+  const isRoyalCanin = /royalcanin\.com/i.test(sourceUrl);
+  if (!imageUrl && isRoyalCanin) {
+    const rcHeroImg = $('[class*="ProductImages"] img, [class*="DAMImage"] img, [data-testid="product-image"] img')
+      .filter((_, el) => {
+        const src = $(el).attr('src') || $(el).attr('data-src') || '';
+        return (
+          (src.includes('weshare') || src.includes('aprimocdn')) &&
+          !src.includes('topnav') &&
+          !src.includes('couch') &&
+          !src.includes('emblematic') &&
+          !src.includes('fa1fdb76') &&
+          !src.includes('087a2034')
+        );
+      })
+      .first()
+      .attr('src');
+    if (rcHeroImg) {
+      imageUrl = rcHeroImg;
+    } else {
+      const anyRcImg = $('img')
+        .filter((_, el) => {
+          const alt = $(el).attr('alt') || '';
+          const src = $(el).attr('src') || $(el).attr('data-src') || '';
+          return (
+            (src.includes('weshare') || src.includes('aprimocdn')) &&
+            alt.length > 5 &&
+            !src.includes('topnav') &&
+            !src.includes('couch') &&
+            !src.includes('emblematic') &&
+            !src.includes('fa1fdb76') &&
+            !src.includes('087a2034')
+          );
+        })
+        .first()
+        .attr('src');
+      if (anyRcImg) imageUrl = anyRcImg;
+    }
+  }
+
   // 1b. Extração Wix Warmup Data (Quatree Pet / Granvita)
   const isQuatree = /quatreepet\.com\.br/i.test(sourceUrl);
   let quatreeLine = 'Quatree';
@@ -370,6 +410,15 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     }
     rawName = rawName.replace(/Quatree Miaow Miaow/gi, 'Quatree Miaow');
     rawName = rawName.replace(/,([a-zA-ZÀ-ÿ])/g, ', $1');
+  } else if (isRoyalCanin) {
+    let rcName = $('h1').first().text().trim();
+    if (!rcName) {
+      rcName = $('meta[property="og:title"]').attr('content') || $('title').text().replace(/\|\s*Royal Canin.*$/i, '').trim();
+    }
+    if (rcName && !rcName.toLowerCase().includes('royal canin')) {
+      rcName = 'Royal Canin ' + rcName;
+    }
+    rawName = rcName;
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -431,9 +480,15 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   } else if (/pedigree/i.test(commercialName) || /pedigree\.com\.br/i.test(sourceUrl)) {
     brand = 'Pedigree';
     manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
-  } else if (/royal\s*canin/i.test(commercialName) || /royalcanin\.com/i.test(sourceUrl)) {
-    brand = 'Royal Canin';
+  } else if (/royal\s*canin/i.test(commercialName) || isRoyalCanin) {
     manufacturerLegalName = 'Royal Canin do Brasil Indústria e Comércio Ltda';
+    if (/vet-products|veterin[áa]ria|vet\s*diet|coadjuvante/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Royal Canin Veterinary Diet';
+    } else if (/sach[êe]|úmido|umido|gravy|jelly|pouch|lata/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Royal Canin Úmido';
+    } else {
+      brand = 'Royal Canin';
+    }
   } else if (/specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl) || /special\s*cat|special\s*dog|bionatural/i.test(commercialName)) {
     const isDog = /special\s*dog|produtos-caes|c[ãa]o|c[ãa]es/i.test(commercialName + ' ' + sourceUrl);
     if (/bionatural/i.test(commercialName) || /bionatural/i.test(sourceUrl)) {
@@ -532,7 +587,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br/i.test(sourceUrl)
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -540,8 +595,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
   // 4. Espécie, Fase de Vida, Porte, Formato
   const isDual = /c[ãa]es\s*e\s*gatos/i.test(commercialName) || /c[ãa]es\s*e\s*gatos/i.test(sourceUrl);
-  const isGato = /gato|gatos|felin|miaow|nugget/i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
-  const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|canin/i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|canin/i.test(sourceUrl));
+  const isGato = /gato|gatos|felin|miaow|nugget|\/cats\//i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
+  const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|\/dogs\//i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|\/dogs\//i.test(sourceUrl) || (!isRoyalCanin && /canin/i.test(commercialName + ' ' + sourceUrl)));
 
   let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
   if (isDual) species = 'CAO_E_GATO';
@@ -640,6 +695,22 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
         if (garRaw) garText = garRaw[0].trim();
       }
     }
+  }
+
+  // 5a-0b. Extração Royal Canin Brasil
+  if (isRoyalCanin) {
+    $('[class*="ProductNutritionalInfo_nutritional-item-wrapper"]').each((_, el) => {
+      const subtitle = $(el).find('[class*="nutritional-item-subtitle"]').text().trim().toUpperCase();
+      const content = $(el).find('[data-testid="product-nutrition-content"]').text().trim();
+      if ((subtitle.includes('COMPOSIÇÃO') || subtitle.includes('INGREDIENTES')) && !compText) {
+        compText = content;
+      } else if ((subtitle.includes('GARANTIDA') || subtitle.includes('ANÁLISE')) && !garText) {
+        garText = content;
+      } else if (subtitle.includes('ENERGIA')) {
+        if (garText) garText += ' ' + content;
+        else garText = content;
+      }
+    });
   }
 
   // 5a. JetTabs / Accordions (Adimax / Elementor)
@@ -804,8 +875,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   // Energia Metabolizável
   let energiaMetabolizavelKcalKg: number | null = null;
   const emMatch =
-    garText.match(/(\d{1,2}(?:[\.,]\d{3})|\d{4})\s*kcal\/kg/i) ||
-    bodyText.match(/(\d{1,2}(?:[\.,]\d{3})|\d{4})\s*kcal\/kg/i) ||
+    garText.match(/(\d{3,4}(?:[\.,]\d+)?|\d{1,2}(?:[\.,]\d{3}))\s*kcal\/kg/i) ||
+    bodyText.match(/(\d{3,4}(?:[\.,]\d+)?|\d{1,2}(?:[\.,]\d{3}))\s*kcal\/kg/i) ||
     bodyText.match(/EM\s+Kcal\/Kg\s+(\d+(?:[\.,]\d+)?)/i);
   if (emMatch) {
     const raw = emMatch[1].trim();

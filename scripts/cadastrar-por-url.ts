@@ -2,9 +2,33 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { chromium, type Browser, type Page } from 'playwright';
 import prisma from '../src/lib/prisma';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
+
+let playwrightBrowser: Browser | null = null;
+let playwrightPage: Page | null = null;
+
+async function getPlaywrightPage(): Promise<Page> {
+  if (!playwrightBrowser) {
+    playwrightBrowser = await chromium.launch({ headless: true });
+    const context = await playwrightBrowser.newContext({
+      userAgent:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    });
+    playwrightPage = await context.newPage();
+  }
+  return playwrightPage!;
+}
+
+export async function closePlaywright() {
+  if (playwrightBrowser) {
+    await playwrightBrowser.close().catch(() => {});
+    playwrightBrowser = null;
+    playwrightPage = null;
+  }
+}
 
 async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ status: number; html: string; error?: string }> {
   for (let attempt = 1; attempt <= retries; attempt++) {
@@ -23,11 +47,41 @@ async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ stat
 
       const status = res.status;
       const html = await res.text();
+
+      // Se for barrado por 403 ou Cloudflare Challenge, aciona o Chromium do Playwright
+      if (status === 403 || /challenges\.cloudflare\.com|cloudflare-static/i.test(html)) {
+        console.log(`🛡️ Desafio Cloudflare detectado (Status ${status}). Acionando navegador headless Playwright...`);
+        try {
+          const page = await getPlaywrightPage();
+          await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35000 });
+          await page.waitForTimeout(600);
+          const pwHtml = await page.content();
+          if (pwHtml && pwHtml.length > 5000) {
+            return { status: 200, html: pwHtml };
+          }
+        } catch (pwErr: any) {
+          console.warn(`⚠️ Playwright falhou na URL ${url}: ${pwErr.message}`);
+        }
+      }
+
       return { status, html };
     } catch (err: any) {
       if (attempt < retries) {
         await new Promise((r) => setTimeout(r, 1500 * attempt));
       } else {
+        // Fallback final com Playwright
+        try {
+          console.log(`🛡️ Falha de conexão direta. Tentando navegador headless Playwright...`);
+          const page = await getPlaywrightPage();
+          await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35000 });
+          await page.waitForTimeout(600);
+          const pwHtml = await page.content();
+          if (pwHtml && pwHtml.length > 5000) {
+            return { status: 200, html: pwHtml };
+          }
+        } catch (pwErr: any) {
+          return { status: 0, html: '', error: err.message };
+        }
         return { status: 0, html: '', error: err.message };
       }
     }
@@ -384,5 +438,8 @@ async function main() {
 if (process.argv[1] && path.resolve(process.argv[1]).toLowerCase().includes('cadastrar-por-url')) {
   main()
     .catch(console.error)
-    .finally(() => prisma.$disconnect());
+    .finally(async () => {
+      await closePlaywright();
+      await prisma.$disconnect();
+    });
 }
