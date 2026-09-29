@@ -213,7 +213,7 @@ export const GUIDES: GuideItem[] = [
           caption: 'Comparação de Sistemas Antioxidantes em Pet Food',
           headers: ['Característica', 'Antioxidantes Naturais (Tocoferóis/Alecrim)', 'Antioxidantes Sintéticos (BHT/BHA)'],
           rows: [
-            ['Origem', 'Vegetal / Botânica (Vitamina E e Ervas)', 'Síntese química industrial de derivados fenólicos'],
+            ['Origem', 'Natural e Vegetal (Vitamina E, Alecrim e Chá Verde)', 'Síntese química industrial de derivados fenólicos'],
             ['Custo de Fabricação', 'Mais elevado (impacta o preço final)', 'Muito baixo e de ampla oferta'],
             ['Estabilidade Térmica', 'Moderada (exige adição em pós-extrusão)', 'Altíssima (resiste a grandes choques térmicos)'],
             ['Impacto no Score PetRankings', 'Pontuação Máxima (Pilar 3: Transparência)', 'Pontuação Básica (Sem bônus natural)'],
@@ -224,18 +224,18 @@ export const GUIDES: GuideItem[] = [
         id: 'quais-marcas-migraram',
         heading: '4. O Panorama Real: Quais marcas e categorias no Brasil já eliminaram o BHT e BHA?',
         paragraphs: [
-          'Respondendo diretamente à dúvida central do tutor: a transição para conservantes botânicos no mercado brasileiro ocorre de forma estratificada por segmentos e posicionamento de marca.',
-          'No patamar mais elevado da pirâmide nutricional, praticamente 100% das linhas classificadas comercialmente como "Super Premium Natural" e "Grain Free" (livres de grãos) já operam compulsoriamente com antioxidantes 100% botânicos — principalmente concentrado de tocoferóis (fonte ativa de Vitamina E), extrato de alecrim (Rosmarinus officinalis), extrato de chá verde e ácido cítrico. Marcas consagradas deste segmento incluem Fórmula Natural (Fresh Meat), Biofresh, Guabi Natural, N&D (Farmina) e PremieR Nattu.',
-          'Entre as rações "Super Premium Convencionais", a transição já é massiva e consolidada: produtos de alta tecnologia como PremieR Formula, Hill\'s Science Diet e dezenas de apresentações da Royal Canin para cães e gatos já eliminaram os antioxidantes sintéticos em suas formulações oficiais mais recentes.',
-          'Em contrapartida, nas categorias "Premium Especial" e "Econômica/Standard", a expressiva maioria das marcas ainda utiliza BHT e BHA como estabilizantes lipídicos primários. O motivo é estritamente econômico e operacional: os aditivos sintéticos custam consideravelmente menos e toleram melhor grandes oscilações térmicas durante a logística e estocagem em canais atacadistas.',
+          'Respondendo diretamente à dúvida central do tutor: a transição para antioxidantes naturais no mercado brasileiro ocorre de forma estratificada por segmentos e faixas de preço.',
+          'No patamar mais elevado da nutrição pet, praticamente 100% das linhas classificadas como "Super Premium Natural" e "Grain Free" (livres de grãos) já operam exclusivamente com conservação natural — principalmente concentrado de tocoferóis (fonte de Vitamina E), extrato de alecrim (Rosmarinus officinalis), extrato de chá verde e ácido cítrico. Marcas consagradas deste segmento incluem Fórmula Natural (Fresh Meat), Biofresh, Guabi Natural, N&D (Farmina) e PremieR Nattu.',
+          'Entre as rações "Super Premium Convencionais", a transição já é ampla e consolidada: produtos de grande circulação como PremieR Formula, Hill\'s Science Diet e diversas opções da Royal Canin para cães e gatos já substituíram os antioxidantes sintéticos por tocoferóis e extrato de alecrim em suas composições oficiais mais recentes.',
+          'Em contrapartida, nas categorias "Premium Especial" e "Econômica/Standard", a grande maioria das marcas ainda utiliza BHT e BHA como conservantes primários. O motivo é estritamente econômico e operacional: os aditivos sintéticos custam consideravelmente menos e oferecem alta resistência contra oscilações térmicas durante a logística e estocagem em centros de distribuição.',
         ],
         callout: {
           type: 'dica',
-          title: 'Consulta em Tempo Real: Filtro de Conservação Natural',
-          text: 'Como as indústrias pet reformulam ingredientes e embalagens constantemente, o Observatório PetRankings monitora as fichas técnicas e a rotulagem oficial de cada lote registrado. No nosso Catálogo Geral, você pode filtrar instantaneamente todas as rações do Brasil que utilizam exclusivamente antioxidantes 100% naturais.',
+          title: 'Consulta em Tempo Real no Catálogo',
+          text: 'Como as indústrias pet reformulam ingredientes e embalagens constantemente, o Observatório PetRankings monitora as fichas técnicas e a rotulagem oficial de cada lote registrado. No nosso Catálogo Geral, você pode filtrar instantaneamente todas as rações analisadas que utilizam exclusivamente antioxidantes naturais.',
           link: {
             url: '/catalogo?nat=1',
-            text: 'Abrir Catálogo filtrado por Rações com Conservação Natural',
+            text: 'Ver lista de rações com conservação natural no Catálogo',
           },
         },
       },
@@ -251,14 +251,14 @@ export const GUIDES: GuideItem[] = [
       },
       {
         q: 'Como encontrar todas as rações para cães e gatos sem BHT nem BHA no PetRankings?',
-        a: 'Basta acessar nosso Catálogo Geral com o filtro "🌿 Conservação Natural" ativado (pelo link direto /catalogo?nat=1). Nosso motor bromatológico confere a composição básica declarada no site oficial de cada fabricante e classifica com transparência se o alimento utiliza antioxidantes 100% botânicos ou conservantes sintéticos.',
+        a: 'Basta acessar nosso Catálogo Geral e selecionar o filtro "Conservação Natural". Nossa equipe técnica confere a composição básica declarada no site oficial de cada fabricante e classifica com transparência se o alimento utiliza antioxidantes naturais (tocoferóis e alecrim) ou conservantes sintéticos.',
       },
     ],
     conclusion:
-      'Em resumo: a resposta para a pergunta central deste estudo é que o movimento em direção aos antioxidantes naturais já é realidade consolidada nas categorias Super Premium Natural e Super Premium no Brasil, enquanto os segmentos intermediários e econômicos continuam dependentes do BHT/BHA. Para consultar a lista completa e atualizada em tempo real conforme as composições oficiais declaradas pelos fabricantes, utilize o filtro de conservação natural em nosso catálogo interativo.',
+      'Em resumo: a resposta para a pergunta central deste estudo é que o uso de antioxidantes naturais já é um padrão estabelecido nas categorias Super Premium Natural e Super Premium no Brasil, enquanto os segmentos intermediários e econômicos continuam dependentes do BHT e BHA. Para consultar a lista completa e conferir a análise técnica de cada fórmula, explore as opções com conservação natural em nosso catálogo interativo.',
     callToAction: {
       title: 'Consulte Todas as Rações com Conservação 100% Natural',
-      text: 'O Observatório PetRankings analisa a composição oficial de centenas de alimentos secos e úmidos. Acesse o catálogo interativo e filtre apenas produtos formulados com tocoferóis naturais e extrato de alecrim, sem aditivos sintéticos BHT ou BHA.',
+      text: 'O Observatório PetRankings analisa a composição oficial de centenas de alimentos secos e úmidos. Acesse o catálogo interativo e filtre apenas produtos formulados com tocoferóis e extrato de alecrim, sem aditivos sintéticos BHT ou BHA.',
       buttonText: 'Explorar Catálogo com Filtro de Antioxidantes Naturais',
       buttonUrl: '/catalogo?nat=1',
     },
