@@ -16,6 +16,7 @@ import {
   HelpCircle,
   ExternalLink,
   Award,
+  Sparkles,
 } from 'lucide-react';
 import { SITE_URL } from '@/lib/utils';
 
@@ -403,6 +404,25 @@ export default async function GuidePage({ params }: GuidePageProps) {
                     <p style={{ fontSize: '0.90rem', margin: 0, lineHeight: 1.6, color: 'var(--text-body)' }}>
                       {sec.callout.text}
                     </p>
+                    {sec.callout.link && (
+                      <div style={{ marginTop: '12px' }}>
+                        <Link
+                          href={sec.callout.link.url}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            fontSize: '0.85rem',
+                            fontWeight: 700,
+                            color: 'var(--brand-forest-800)',
+                            textDecoration: 'underline',
+                          }}
+                        >
+                          <span>{sec.callout.link.text}</span>
+                          <ArrowRight size={14} aria-hidden="true" />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -498,6 +518,62 @@ export default async function GuidePage({ params }: GuidePageProps) {
                 {guide.conclusion}
               </p>
             </div>
+
+            {/* Bloco de Ação / Call-to-Action Editorial */}
+            {guide.callToAction && (
+              <div
+                style={{
+                  backgroundColor: 'var(--brand-forest-50)',
+                  border: '1.5px solid var(--brand-forest-200)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '24px 28px',
+                  marginBottom: '44px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Sparkles size={20} color="var(--brand-forest-700)" aria-hidden="true" />
+                  <h4
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '1.15rem',
+                      fontWeight: 800,
+                      color: 'var(--brand-forest-900)',
+                      margin: 0,
+                    }}
+                  >
+                    {guide.callToAction.title}
+                  </h4>
+                </div>
+                <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: 1.6, color: 'var(--text-body)' }}>
+                  {guide.callToAction.text}
+                </p>
+                <Link
+                  href={guide.callToAction.buttonUrl}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    backgroundColor: 'var(--brand-forest-700)',
+                    color: '#ffffff',
+                    padding: '12px 22px',
+                    borderRadius: 'var(--radius-sm)',
+                    fontSize: '0.92rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    marginTop: '6px',
+                    transition: 'var(--transition-fast)',
+                  }}
+                  className="guide-primary-btn"
+                >
+                  <span>{guide.callToAction.buttonText}</span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Cards Vivos de Produtos Citados no Banco de Dados */}

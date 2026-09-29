@@ -47,6 +47,10 @@
    - É estritamente proibido o uso do termo "Auditoria" ou de qualquer de seus derivados gramaticais ("auditar", "auditado", "auditada", "auditados", "auditadas", "auditável", "extrato auditável", "sistema de auditoria") em qualquer elemento visível de interface pública, institucional, administrativa, metadados ou parecer editorial (`editorialOpinion`).
    - O PetRankings é um portal independente de jornalismo de dados e não órgão fiscalizador de Estado (MAPA). Portanto, realiza **análise de rótulo**, **avaliação nutricional**, **confronto documental** e **laudo técnico de conformidade** com base na literatura científica (ABINPET/MAPA).
    - **Termos obrigatórios de substituição:** "Avaliação Técnica", "Análise de Rótulo", "Confronto Documental", "Laudo Técnico", "Produtos Analisados", "Fichas Avaliadas", "Analisar Produto".
+9. **Fidelidade Estrita de Citações em Artigos, Estudos e Guias (Proibição de Produtos Aleatórios):**
+   - Nos artigos, estudos bromatológicos e guias técnicos (`/guias`), a seção **"Produtos Analisados Citados neste Estudo"** destina-se estritamente aos produtos que tenham sido expressamente citados, analisados ou confrontados no corpo do texto da publicação.
+   - É terminantemente proibido vincular produtos aleatórios, preencher `relatedProductSlugs` por conveniência visual/estética ou associar itens que não façam parte do escopo editorial da matéria.
+   - Caso um estudo ou guia seja de natureza puramente didática, conceitual, metodológica ou regulatória (ex: explicação matemática de conversão para Matéria Seca ou panorama geral sobre aditivos e conservantes) sem menção formal a produtos específicos do banco de dados, o campo `relatedProductSlugs` deve ser obrigatoriamente um array vazio (`[]`), e a seção de produtos citados não deve ser renderizada.
 
 ---
 

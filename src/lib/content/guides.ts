@@ -6,6 +6,12 @@
  * - Fundamentação em atos do MAPA (IN 22/2009, IN 30/2009, IN 39/2014, IN 110/2020, Decreto 12.031/2024)
  *   e diretrizes bromatológicas da 11ª Edição do Manual ABINPET e FEDIAF 2025.
  * - Inclusão de termos de isenção de responsabilidade e contexto veterinário.
+ * - REGRA MANDATÓRIA DE CITAÇÃO DE PRODUTOS: Apenas produtos EFETIVAMENTE citados,
+ *   analisados ou confrontados no texto do estudo/guia podem constar em `relatedProductSlugs`.
+ *   Se o artigo/estudo for conceitual, didático, regulatório ou metodológico e não citar
+ *   produtos específicos cadastrados no banco de dados, `relatedProductSlugs` DEVE ser
+ *   obrigatoriamente um array vazio (`[]`). É terminantemente proibido inserir produtos
+ *   aleatórios apenas para preencher o bloco "Produtos Analisados Citados neste Estudo".
  */
 
 export interface GuideSection {
@@ -16,6 +22,10 @@ export interface GuideSection {
     type: 'norma' | 'atencao' | 'dica';
     title: string;
     text: string;
+    link?: {
+      url: string;
+      text: string;
+    };
   };
   table?: {
     caption?: string;
@@ -40,10 +50,23 @@ export interface GuideItem {
   coverImageUrl: string;
   isFeatured?: boolean;
   summary: string;
+  /**
+   * Slugs de produtos do banco de dados EFETIVAMENTE citados, analisados ou confrontados
+   * no corpo do texto deste estudo/guia.
+   * REGRA MANDATÓRIA: Se nenhum produto for citado no corpo do artigo/estudo,
+   * este array DEVE ser vazio ([]). É terminantemente proibido inserir produtos aleatórios
+   * apenas para preencher visualmente o bloco "Produtos Analisados Citados neste Estudo".
+   */
   relatedProductSlugs: string[];
   sections: GuideSection[];
   faq: Array<{ q: string; a: string }>;
   conclusion: string;
+  callToAction?: {
+    title: string;
+    text: string;
+    buttonText: string;
+    buttonUrl: string;
+  };
 }
 
 export const GUIDES: GuideItem[] = [
@@ -156,10 +179,7 @@ export const GUIDES: GuideItem[] = [
     isFeatured: false,
     summary:
       'Entenda o que são o Butil-hidroxitolueno (BHT) e o Butil-hidroxianisol (BHA), por que a indústria pet os utiliza há décadas e como identificar embalagens estabilizadas com tocoferóis naturais e extrato de alecrim.',
-    relatedProductSlugs: [
-      'cao-adulto-castrado-medio-sabor-mix-de-carnes',
-      'formula-natural-fresh-meat-gatos-filhotes',
-    ],
+    relatedProductSlugs: [],
     sections: [
       {
         id: 'por-que-adicionar-antioxidantes',
@@ -200,6 +220,25 @@ export const GUIDES: GuideItem[] = [
           ],
         },
       },
+      {
+        id: 'quais-marcas-migraram',
+        heading: '4. O Panorama Real: Quais marcas e categorias no Brasil já eliminaram o BHT e BHA?',
+        paragraphs: [
+          'Respondendo diretamente à dúvida central do tutor: a transição para conservantes botânicos no mercado brasileiro ocorre de forma estratificada por segmentos e posicionamento de marca.',
+          'No patamar mais elevado da pirâmide nutricional, praticamente 100% das linhas classificadas comercialmente como "Super Premium Natural" e "Grain Free" (livres de grãos) já operam compulsoriamente com antioxidantes 100% botânicos — principalmente concentrado de tocoferóis (fonte ativa de Vitamina E), extrato de alecrim (Rosmarinus officinalis), extrato de chá verde e ácido cítrico. Marcas consagradas deste segmento incluem Fórmula Natural (Fresh Meat), Biofresh, Guabi Natural, N&D (Farmina) e PremieR Nattu.',
+          'Entre as rações "Super Premium Convencionais", a transição já é massiva e consolidada: produtos de alta tecnologia como PremieR Formula, Hill\'s Science Diet e dezenas de apresentações da Royal Canin para cães e gatos já eliminaram os antioxidantes sintéticos em suas formulações oficiais mais recentes.',
+          'Em contrapartida, nas categorias "Premium Especial" e "Econômica/Standard", a expressiva maioria das marcas ainda utiliza BHT e BHA como estabilizantes lipídicos primários. O motivo é estritamente econômico e operacional: os aditivos sintéticos custam consideravelmente menos e toleram melhor grandes oscilações térmicas durante a logística e estocagem em canais atacadistas.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Consulta em Tempo Real: Filtro de Conservação Natural',
+          text: 'Como as indústrias pet reformulam ingredientes e embalagens constantemente, o Observatório PetRankings monitora as fichas técnicas e a rotulagem oficial de cada lote registrado. No nosso Catálogo Geral, você pode filtrar instantaneamente todas as rações do Brasil que utilizam exclusivamente antioxidantes 100% naturais.',
+          link: {
+            url: '/catalogo?nat=1',
+            text: 'Abrir Catálogo filtrado por Rações com Conservação Natural',
+          },
+        },
+      },
     ],
     faq: [
       {
@@ -210,9 +249,19 @@ export const GUIDES: GuideItem[] = [
         q: 'Como checar no rótulo qual conservante a ração usa?',
         a: 'Vá até o final da lista de "Composição Básica" no verso da embalagem. Procure pela seção "Aditivos Tecnológicos" ou "Antioxidantes". Se ler "BHT, BHA", trata-se de conservação sintética. Se ler "extrato de alecrim, concentrado de tocoferóis", a conservação é natural.',
       },
+      {
+        q: 'Como encontrar todas as rações para cães e gatos sem BHT nem BHA no PetRankings?',
+        a: 'Basta acessar nosso Catálogo Geral com o filtro "🌿 Conservação Natural" ativado (pelo link direto /catalogo?nat=1). Nosso motor bromatológico confere a composição básica declarada no site oficial de cada fabricante e classifica com transparência se o alimento utiliza antioxidantes 100% botânicos ou conservantes sintéticos.',
+      },
     ],
     conclusion:
-      'A escolha entre um alimento com BHT/BHA ou com antioxidantes naturais não deve ser motivo de pânico, mas de consciência. Se o orçamento do tutor permitir optar por marcas que já eliminaram os conservantes sintéticos, trata-se de um benefício qualitativo claro para o animal a longo prazo.',
+      'Em resumo: a resposta para a pergunta central deste estudo é que o movimento em direção aos antioxidantes naturais já é realidade consolidada nas categorias Super Premium Natural e Super Premium no Brasil, enquanto os segmentos intermediários e econômicos continuam dependentes do BHT/BHA. Para consultar a lista completa e atualizada em tempo real conforme as composições oficiais declaradas pelos fabricantes, utilize o filtro de conservação natural em nosso catálogo interativo.',
+    callToAction: {
+      title: 'Consulte Todas as Rações com Conservação 100% Natural',
+      text: 'O Observatório PetRankings analisa a composição oficial de centenas de alimentos secos e úmidos. Acesse o catálogo interativo e filtre apenas produtos formulados com tocoferóis naturais e extrato de alecrim, sem aditivos sintéticos BHT ou BHA.',
+      buttonText: 'Explorar Catálogo com Filtro de Antioxidantes Naturais',
+      buttonUrl: '/catalogo?nat=1',
+    },
   },
   {
     slug: 'como-calcular-materia-seca-racao-pet',
@@ -231,10 +280,7 @@ export const GUIDES: GuideItem[] = [
     isFeatured: false,
     summary:
       'Descubra por que um sachê úmido com apenas 8% de proteína bruta na embalagem pode ser, na verdade, muito mais proteico do que uma ração seca que declara 26% no rótulo.',
-    relatedProductSlugs: [
-      'racao-umida-whiskas-lata-pate-de-atum-para-gatos-adultos-290-g',
-      'bionatural-prime-gatos-filhotes-salmao',
-    ],
+    relatedProductSlugs: [],
     sections: [
       {
         id: 'o-que-e-materia-natural-vs-seca',

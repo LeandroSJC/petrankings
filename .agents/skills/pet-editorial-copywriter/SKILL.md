@@ -69,3 +69,11 @@ Examples:
 - [ ] Safety and material information for toy and grooming categories.
 - [ ] Responsible veterinary disclaimer prominently featured.
 - [ ] No fictional reviews, simulated ratings, or invented product endorsements.
+- [ ] Fidelidade estrita em `relatedProductSlugs`: apenas produtos expressamente citados no texto do estudo estão listados (ou array vazio `[]` caso seja artigo conceitual/didático sem menção a produtos).
+
+## 6. Diretrizes para Artigos, Estudos e Guias Técnicos (/guias)
+
+- **Fidelidade Estrita de Citações (`relatedProductSlugs`)**:
+  - Apenas produtos **efetivamente citados, analisados ou confrontados** no corpo do texto do estudo/guia podem constar na lista `relatedProductSlugs` e, consequentemente, na seção *"Produtos Analisados Citados neste Estudo"*.
+  - **Proibição Absoluta de Produtos Aleatórios**: É terminantemente proibido incluir produtos no array para fins estéticos, preenchimento de layout ou vitrine decorativa.
+  - **Artigos Metodológicos e Educacionais**: Se o artigo for puramente conceitual, didático ou regulatório (ex.: explicação matemática da conversão para Matéria Seca, histórico de aditivos sem duelo específico de marcas), o campo `relatedProductSlugs` deve ser compulsoriamente um array vazio (`[]`), garantindo que o bloco não seja renderizado na página.
