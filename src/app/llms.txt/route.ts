@@ -59,7 +59,7 @@ O PetRankings cataloga e classifica alimentos para pets por meio de critérios n
 - [Rações para Gatos Adultos](${siteUrl}/indice/gatos-adultos): Avaliação técnica para felinos adultos e castrados (proteína animal e moderação mineral).
 - [Rações para Gatos Filhotes](${siteUrl}/indice/gatos-filhotes): Avaliação documental e exigências estritas para filhotes de gatos.
 - [Alimentos Coadjuvantes](${siteUrl}/coadjuvantes): Guia de rações coadjuvantes para suporte a condições clínicas específicas sob prescrição veterinária.
-- [Fabricantes e Marcas](${siteUrl}/fabricante): Catálogo de fabricantes auditados e suas respectivas linhas comerciais.
+- [Fabricantes e Marcas](${siteUrl}/fabricante): Catálogo de fabricantes cadastrados e suas respectivas linhas comerciais.
 
 ## Produtos Analisados
 

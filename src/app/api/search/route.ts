@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
       cat.keywords.some((kw) => lower.includes(kw))
     );
 
-    // Busca de produtos auditados no PostgreSQL
+    // Busca de produtos analisados no PostgreSQL
     const products = await prisma.product.findMany({
       where: {
         isPublished: true,
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
       categories: matchedCategories,
     });
   } catch (error) {
-    console.error('Erro na busca de produtos auditados:', error);
+    console.error('Erro na busca de produtos analisados:', error);
     return NextResponse.json({ products: [], categories: [] }, { status: 500 });
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { PawPrint, ArrowLeft, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { PawPrint, ArrowLeft, ShieldCheck, CheckCircle2, ChevronRight } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ProductCard from '@/components/ProductCard';
 
@@ -105,74 +105,85 @@ export default async function CategoriaPage({
   }));
 
   return (
-    <main style={{ paddingBottom: '60px' }}>
-      <div className="container" style={{ paddingTop: '32px' }}>
-        {/* Navegação Breadcrumb */}
-        <div style={{ marginBottom: '20px' }}>
-          <Link
-            href="/"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '0.85rem',
-              color: 'var(--brand-forest-700)',
-              fontWeight: 700,
-              textDecoration: 'none',
-            }}
-          >
-            <ArrowLeft size={16} />
-            <span>Voltar ao Índice Geral</span>
-          </Link>
+    <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '80px' }}>
+      {/* Barra Superior de Breadcrumbs */}
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '14px 0',
+        }}
+      >
+        <div className="container">
+          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+            <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Início
+            </Link>
+            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <Link href="/catalogo" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Catálogo
+            </Link>
+            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
+              {config.title.replace('Guia Nutricional: ', '')}
+            </span>
+          </nav>
         </div>
+      </div>
 
-        {/* Cabeçalho da Categoria */}
-        <header
-          style={{
-            backgroundColor: '#ffffff',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--border-cream)',
-            padding: '36px',
-            marginBottom: '32px',
-            boxShadow: 'var(--shadow-xs)',
-          }}
-        >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              backgroundColor: 'var(--brand-forest-50)',
-              border: '1px solid var(--brand-forest-200)',
-              padding: '4px 12px',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.78rem',
-              fontWeight: 800,
-              color: 'var(--brand-forest-800)',
-              marginBottom: '14px',
-            }}
-          >
-            <PawPrint size={14} fill="currentColor" strokeWidth={1.5} />
-            <span>Segmentação Estrita Oficial</span>
+      {/* Hero Institucional Padronizado */}
+      <section
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '36px 0 32px 0',
+        }}
+      >
+        <div className="container">
+          <div style={{ maxWidth: '840px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 12px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--brand-forest-50)',
+                border: '1px solid var(--brand-forest-200)',
+                color: 'var(--brand-forest-700)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                marginBottom: '14px',
+              }}
+            >
+              <PawPrint size={14} aria-hidden="true" />
+              <span>Segmentação Estrita Oficial</span>
+            </div>
+
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                color: 'var(--brand-forest-900)',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.18,
+                marginBottom: '12px',
+              }}
+            >
+              {config.title}
+            </h1>
+
+            <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', lineHeight: 1.65, margin: 0 }}>
+              {config.description}
+            </p>
           </div>
+        </div>
+      </section>
 
-          <h1
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
-              fontWeight: 900,
-              color: 'var(--brand-forest-900)',
-              lineHeight: 1.2,
-              marginBottom: '12px',
-            }}
-          >
-            {config.title}
-          </h1>
-
-          <p style={{ fontSize: '1rem', color: 'var(--text-body)', lineHeight: 1.6, maxWidth: '800px' }}>
-            {config.description}
-          </p>
-        </header>
+      <div className="container" style={{ paddingTop: '32px' }}>
 
         {/* Listagem dos Produtos da Categoria */}
         <section aria-labelledby="categoria-list-heading">
@@ -205,6 +216,6 @@ export default async function CategoriaPage({
         </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

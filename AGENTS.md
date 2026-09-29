@@ -42,7 +42,11 @@
    - Se algo não for possível de ser verificado na documentação oficial com certeza probatória, a impossibilidade deve ser informada ao usuário/curador e o dado **não deve ser inventado**, permanecendo nulo ou não declarado.
 7. **Biblioteca Regulatória e Marco Normativo Oficial (`biblioteca_regulatoria/`):**
    - A pasta `biblioteca_regulatoria/` é o repositório mestre de consulta obrigatória para qualquer questão relativa a limites nutricionais (Manual Pet Food Brasil - ABINPET 11ª Edição), atos regulatórios do MAPA (Decreto nº 12.031/2024, IN 30/2009, IN 22/2009), legislação de rotulagem e normas de defesa do consumidor (CDC - Lei nº 8.078/1990).
-   - Quaisquer novas regras, faixas de nutrientes ou parâmetros do motor de auditoria devem obrigatoriamente estar fundamentados nos documentos e legislações arquivados nesta biblioteca.
+   - Quaisquer novas regras, faixas de nutrientes ou parâmetros do motor de avaliação nutricional devem obrigatoriamente estar fundamentados nos documentos e legislações arquivados nesta biblioteca.
+8. **Proibição Estrita do Termo "Auditoria" / "Auditado" (Regra Mandatória 3 do DRS):**
+   - É estritamente proibido o uso do termo "Auditoria" ou de qualquer de seus derivados gramaticais ("auditar", "auditado", "auditada", "auditados", "auditadas", "auditável", "extrato auditável", "sistema de auditoria") em qualquer elemento visível de interface pública, institucional, administrativa, metadados ou parecer editorial (`editorialOpinion`).
+   - O PetRankings é um portal independente de jornalismo de dados e não órgão fiscalizador de Estado (MAPA). Portanto, realiza **análise de rótulo**, **avaliação nutricional**, **confronto documental** e **laudo técnico de conformidade** com base na literatura científica (ABINPET/MAPA).
+   - **Termos obrigatórios de substituição:** "Avaliação Técnica", "Análise de Rótulo", "Confronto Documental", "Laudo Técnico", "Produtos Analisados", "Fichas Avaliadas", "Analisar Produto".
 
 ---
 

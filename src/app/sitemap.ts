@@ -1,19 +1,32 @@
 import type { MetadataRoute } from 'next';
 import prisma from '@/lib/prisma';
 import { SITE_URL } from '@/lib/utils';
+import { getAllGuides } from '@/lib/content/guides';
 
 export const revalidate = 3600; // Revalida o sitemap a cada 1 hora
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = SITE_URL;
 
-  // 1. Páginas estáticas e categorias oficiais
+  // 1. Páginas estáticas, catálogo e categorias oficiais
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${siteUrl}/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
+    },
+    {
+      url: `${siteUrl}/guias`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
+    {
+      url: `${siteUrl}/catalogo`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.95,
     },
     {
       url: `${siteUrl}/indice/caes-adultos`,
@@ -71,7 +84,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Produtos analisados dinâmicos
+  // 2. Guias e Estudos
+  const guides = getAllGuides();
+  const guideRoutes: MetadataRoute.Sitemap = guides.map((g) => ({
+    url: `${siteUrl}/guias/${g.slug}`,
+    lastModified: new Date(g.updatedAt),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  // 3. Produtos analisados dinâmicos
   try {
     const products = await prisma.product.findMany({
       where: {
@@ -90,9 +112,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    return [...staticRoutes, ...productRoutes];
+    return [...staticRoutes, ...guideRoutes, ...productRoutes];
   } catch (error) {
     console.error('Erro ao gerar sitemap dinâmico:', error);
-    return staticRoutes;
+    return [...staticRoutes, ...guideRoutes];
   }
 }

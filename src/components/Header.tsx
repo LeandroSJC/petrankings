@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, PawPrint, Building2, ShieldCheck } from 'lucide-react';
 
-import HeaderSearch from './HeaderSearch';
 
 export default function Header() {
   const pathname = usePathname();
@@ -20,17 +19,17 @@ export default function Header() {
   }, []);
 
   const mobileNavLinks = [
-    { href: '/', label: 'Início (Comparador)' },
-    { href: '/sobre', label: 'Metodologia & Pilares' },
-    { href: '/fabricante', label: 'Área do Fabricante', icon: Building2 },
+    { href: '/', label: 'Início (Observatório)' },
+    { href: '/guias', label: 'Estudos & Guias' },
+    { href: '/catalogo', label: 'Catálogo de Rações' },
+    { href: '/coadjuvantes', label: 'Alimentos Coadjuvantes' },
+    { href: '/sobre', label: 'Metodologia' },
+    { href: '/fabricante', label: 'Portal do Fabricante', icon: Building2 },
     { href: '/contato', label: 'Fale Conosco' },
   ];
 
   const isActive = (href: string) => {
-    if (href.startsWith('/#')) {
-      return pathname === '/' && currentHash === href.replace('/', '');
-    }
-    if (href === '/') return pathname === '/' && (!currentHash || currentHash === '#catalogo-produtos');
+    if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
 
@@ -131,21 +130,8 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Busca Ampla exibida apenas em páginas internas (na Home a busca é central) */}
-        {pathname !== '/' ? (
-          <div
-            style={{
-              flex: 1,
-              maxWidth: '680px',
-              minWidth: '220px',
-              margin: '0 24px',
-            }}
-          >
-            <HeaderSearch />
-          </div>
-        ) : (
-          <div style={{ flex: 1 }} />
-        )}
+        {/* Espaçador flexível para alinhar o menu à direita com respiro */}
+        <div style={{ flex: 1 }} />
 
         {/* Lado Direito: Navegação Desktop + Gatilho Mobile */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -160,6 +146,8 @@ export default function Header() {
           >
             {[
               { href: '/', label: 'Início' },
+              { href: '/guias', label: 'Estudos & Guias' },
+              { href: '/catalogo', label: 'Catálogo' },
               { href: '/sobre', label: 'Metodologia' },
               { href: '/fabricante', label: 'Fabricantes' },
               { href: '/contato', label: 'Fale Conosco' },

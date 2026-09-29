@@ -4,7 +4,7 @@
  * Gera um documento HTML autônomo (self-contained), visualmente refinado,
  * com os Design Tokens do PetRankings, otimizado para navegação web e exportação em PDF (A4).
  * 
- * Substitui o HTML bruto e desformatado de raspagem por um laudo oficial de auditoria
+ * Substitui o HTML bruto e desformatado de raspagem por um laudo oficial de análise nutricional
  * com fidelidade documental estrita (Decreto nº 12.031/2024 e IN 30/2009 MAPA).
  */
 
@@ -513,7 +513,7 @@ export function generateCustodyHtml(data: CustodyProductData): string {
       margin-right: 4px;
     }
 
-    /* SEÇÃO DE AUDITORIA & SCORE */
+    /* SEÇÃO DE AVALIAÇÃO & SCORE */
     .audit-summary-box {
       display: flex;
       align-items: center;
@@ -872,13 +872,13 @@ export function generateCustodyHtml(data: CustodyProductData): string {
         </div>
       </section>
 
-      <!-- EXTRATO DA AUDITORIA DETERMINÍSTICA -->
+      <!-- EXTRATO DA AVALIAÇÃO DETERMINÍSTICA -->
       ${
         hasScore
           ? `<section class="section-block">
               <div class="section-title">
                 <span>Avaliação Nutricional Determinística</span>
-                <span class="section-title-tag">Motor de Auditoria V5 PetRankings</span>
+                <span class="section-title-tag">Motor de Avaliação V5 PetRankings</span>
               </div>
 
               <div class="audit-summary-box">
@@ -898,7 +898,7 @@ export function generateCustodyHtml(data: CustodyProductData): string {
                       <table class="data-table">
                         <thead>
                           <tr>
-                            <th>Pilar da Auditoria</th>
+                            <th>Pilar da Avaliação</th>
                             <th>Pontuação</th>
                             <th>Fundamentação Técnica</th>
                           </tr>
@@ -939,7 +939,7 @@ export function generateCustodyHtml(data: CustodyProductData): string {
         <strong>Certificação de Custódia Probatória Digital:</strong> Este documento foi gerado a partir da extração direta do conteúdo publicado no website oficial do fabricante em <strong>${escapeHtml(collectionDateFormatted)}</strong>, sob estrita observância da legislação de defesa do consumidor (Lei nº 8.078/1990 — CDC) e dos atos regulatórios do Ministério da Agricultura e Pecuária (MAPA).
       </p>
       <p>
-        <strong>Aviso Legal Veterinário:</strong> O PetRankings é um portal independente de auditoria de rótulos e análise de composição de produtos comerciais. Esta ficha técnica destina-se a fins informativos e comparativos, não substituindo a consulta e orientação de um médico-veterinário ou zootecnista.
+        <strong>Aviso Legal Veterinário:</strong> O PetRankings é um portal independente de análise de rótulos e composição nutricional de produtos comerciais. Esta ficha técnica destina-se a fins informativos e comparativos, não substituindo a consulta e orientação de um médico-veterinário ou zootecnista.
       </p>
     </footer>
 

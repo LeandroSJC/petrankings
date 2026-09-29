@@ -180,7 +180,7 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
       ? 'Utiliza conservantes naturais, porém inclui derivados de cereais transgênicos na fórmula.'
       : antioxidantType !== 'NATURAL' && !containsGmo
       ? 'Livre de transgênicos, porém recorre a conservantes sintéticos (BHA/BHT) para estabilização.'
-      : 'Como ressalvas na auditoria de aditivos, constatam-se a presença de conservantes químicos sintéticos (BHA/BHT) e o emprego de cereais transgênicos.';
+      : 'Como ressalvas na análise de aditivos, constatam-se a presença de conservantes químicos sintéticos (BHA/BHT) e o emprego de cereais transgênicos.';
 
   // -------------------------------------------------------------------------
   // 3.1 NÍVEL DIAMANTE / NÍVEL OURO (Score >= 80)
@@ -192,7 +192,7 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
         ? ` Relação cálcio:fósforo perfeitamente balanceada em ${relCaP}:1, dentro da faixa ideal da ABINPET.`
         : '';
 
-    return `Alimento ${tipoFormat} do segmento ${segmento} para ${faseDesc}, classificado no ${faixaLabel} com ${score} pontos pela auditoria técnica do PetRankings.${ingredienteStr} O produto cumpre integralmente os parâmetros da 11ª Edição do Manual ABINPET com confortável margem de segurança industrial na matéria seca (${pbMS}% de proteína bruta${eeMS ? ` e ${eeMS}% de extrato etéreo` : ''}).${mineralBalanço} ${aditivosFrase}`;
+    return `Alimento ${tipoFormat} do segmento ${segmento} para ${faseDesc}, classificado no ${faixaLabel} com ${score} pontos pela avaliação técnica do PetRankings.${ingredienteStr} O produto cumpre integralmente os parâmetros da 11ª Edição do Manual ABINPET com confortável margem de segurança industrial na matéria seca (${pbMS}% de proteína bruta${eeMS ? ` e ${eeMS}% de extrato etéreo` : ''}).${mineralBalanço} ${aditivosFrase}`;
   }
 
   // -------------------------------------------------------------------------
@@ -267,10 +267,10 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
   }
 
   const advertenciaFinal =
-    'Diante dos apontamentos técnicos da auditoria, recomenda-se cautela do tutor na escolha e prévia avaliação com médico-veterinário.';
+    'Diante dos apontamentos da análise técnica, recomenda-se cautela do tutor na escolha e prévia avaliação com médico-veterinário.';
   const aditivosFormatado = aditivosFrase.charAt(0).toLowerCase() + aditivosFrase.slice(1);
 
-  return `A ${commercialName} recebeu a classificação Sob Observação (${score} pts) na auditoria técnica do PetRankings.${ingredienteStr} A pontuação foi penalizada porque ${motivoFinal}. Adicionalmente, ${aditivosFormatado} ${advertenciaFinal}`;
+  return `A ${commercialName} recebeu a classificação Sob Observação (${score} pts) na avaliação técnica do PetRankings.${ingredienteStr} A pontuação foi penalizada porque ${motivoFinal}. Adicionalmente, ${aditivosFormatado} ${advertenciaFinal}`;
 }
 
 /**
@@ -330,14 +330,14 @@ export async function generateEditorialOpinionWithGemini(
           .join('\n')
       : 'Não especificado';
 
-    const systemPrompt = `Você é o Redator Técnico e Especialista em Nutrição Animal do PetRankings (portal independente brasileiro de avaliação e auditoria nutricional de alimentos para cães e gatos).
+    const systemPrompt = `Você é o Redator Técnico e Especialista em Nutrição Animal do PetRankings (portal independente brasileiro de avaliação nutricional e análise de rótulos de alimentos para cães e gatos).
 Sua missão é redigir um "Parecer Editorial do Especialista" conciso, transparente, imparcial e tecnicamente rigoroso.
 
 DIRETRIZES INEGOCIÁVEIS:
 1. FIDELIDADE ESTRITA AOS DADOS: Nunca invente, deduza ou simule dados que não constem na ficha técnica. Baseie-se estritamente nas normas do Manual Pet Food Brasil (ABINPET 11ª Edição).
 2. ZERO MARKETING: É terminantemente proibido usar frases de efeito, slogans do fabricante ou adjetivos comerciais vazios ("delicioso", "completo e saboroso", "amor pelo seu pet", "a melhor escolha").
 3. TRANSPARÊNCIA COM O TUTOR:
-   - Se o produto estiver "Sob Observação" (score < 60): Explique de forma clara e respeitosa o motivo técnico pelo qual o produto perdeu pontos na auditoria (ex: excesso de cálcio na matéria seca acima do teto seguro da ABINPET, relação cálcio:fósforo desbalanceada, presença de conservantes sintéticos BHA/BHT, uso de transgênicos, densidade proteica modesta, ou teor de gordura reduzido para castrados que opera abaixo do piso geral de manutenção da ABINPET). Recomende cautela e consulta veterinária.
+   - Se o produto estiver "Sob Observação" (score < 60): Explique de forma clara e respeitosa o motivo técnico pelo qual o produto perdeu pontos na avaliação técnica (ex: excesso de cálcio na matéria seca acima do teto seguro da ABINPET, relação cálcio:fósforo desbalanceada, presença de conservantes sintéticos BHA/BHT, uso de transgênicos, densidade proteica modesta, ou teor de gordura reduzido para castrados que opera abaixo do piso geral de manutenção da ABINPET). Recomende cautela e consulta veterinária.
    - Se o produto for Nível Prata, Ouro ou Diamante (score >= 60): Apresente uma análise equilibrada de seus pontos fortes (ex: atendimento pleno aos parâmetros regulatórios da ABINPET) sem ocultar pontos de atenção caso existam (ex: BHA/BHT ou transgênicos).
    - Se for Alimento Complementar (petisco/cookie/topper): Deixe explícito que não é alimento completo, servindo apenas para recompensa/agrado e exigindo moderação para não desbalancear a dieta diária.
    - Se for Alimento Coadjuvante: Destaque a indicação terapêutica e a exigência de prescrição e acompanhamento veterinário.
@@ -352,7 +352,7 @@ DIRETRIZES INEGOCIÁVEIS:
 - Fase de Vida: ${lifeStage}
 - Tipo de Alimento: ${foodType} (${foodType === 'UMIDO' ? 'Úmido' : 'Seco'})
 - Categoria Legal MAPA: ${legalCategory} ${coadjuvanteCondition ? `(Condição: ${coadjuvanteCondition})` : ''}
-- Nota da Auditoria: ${scoreTotal !== null ? `${scoreTotal} / 100 pontos` : 'Não aplicável (Classificação por Regime Especial)'}
+- Nota da Avaliação: ${scoreTotal !== null ? `${scoreTotal} / 100 pontos` : 'Não aplicável (Classificação por Regime Especial)'}
 - Faixa de Classificação: ${classificationTier}
 - Proteína Bruta: ${proteinaBrutaMinPct}% (calculado ${pbMS}% na matéria seca vs mínimo ABINPET ${standard.proteinaBrutaMinMS}% MS)
 ${eeMS !== null ? `- Extrato Etéreo (Gordura): ${extratoEtereoMinPct}% (calculado ${eeMS}% na matéria seca vs piso ABINPET ${standard.extratoEtereoMinMS}% MS)` : ''}
@@ -361,7 +361,7 @@ ${eeMS !== null ? `- Extrato Etéreo (Gordura): ${extratoEtereoMinPct}% (calcula
 - Conservantes: ${antioxidantType === 'NATURAL' ? 'Conservantes 100% Naturais' : 'Conservantes Sintéticos (BHA/BHT)'}
 - Transgênicos: ${containsGmo ? 'Contém ingredientes transgênicos' : 'Livre de transgênicos'}
 - Principais Ingredientes do Rótulo: ${topIngredients.slice(0, 5).join(', ') || 'Não informados'}
-- Extrato dos Pilares da Auditoria:
+- Extrato dos Pilares da Avaliação:
 ${pointsSummary}`;
 
     const modelsToTry = ['gemini-3.5-flash-lite', 'gemini-3.6-flash'];

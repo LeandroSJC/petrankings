@@ -22,6 +22,7 @@ import {
   Store,
   FlaskConical,
   Sparkles,
+  ChevronRight,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import BackButton from '@/components/BackButton';
@@ -179,14 +180,39 @@ export default async function ProductDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
 
-      <main style={{ paddingBottom: '60px' }}>
-        <div className="container" style={{ paddingTop: '32px' }}>
-          {/* Breadcrumb */}
-          <div style={{ marginBottom: '20px' }}>
-            <BackButton label="Voltar ao Índice Geral" />
+      <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '60px' }}>
+        {/* Barra Superior de Breadcrumbs */}
+        <div
+          style={{
+            backgroundColor: '#ffffff',
+            borderBottom: '1px solid var(--border-cream)',
+            padding: '14px 0',
+          }}
+        >
+          <div className="container">
+            <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+              <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+                Início
+              </Link>
+              <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+              <Link href="/catalogo" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+                Catálogo Geral
+              </Link>
+              <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+              <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '420px' }}>
+                {product.commercialName}
+              </span>
+            </nav>
+          </div>
+        </div>
+
+        <div className="container" style={{ paddingTop: '24px' }}>
+          {/* Breadcrumb / Botão de retorno */}
+          <div style={{ marginBottom: '16px' }}>
+            <BackButton label="Voltar ao Catálogo Geral" />
           </div>
 
-          {/* CABEÇALHO DO LAUDO AUDITADO */}
+          {/* CABEÇALHO DO LAUDO TÉCNICO */}
           <div
             style={{
               backgroundColor: '#ffffff',
@@ -314,7 +340,7 @@ export default async function ProductDetailPage({
                 </div>
               </div>
 
-              {/* Score Grande Auditado / Status */}
+              {/* Score Grande Analisado / Status */}
               {!isCoadjuvante && !isComplementar && product.scoreTotal !== null ? (
                 <div
                   style={{
@@ -822,7 +848,7 @@ export default async function ProductDetailPage({
             </section>
           )}
         </div>
-      </main>
+      </div>
     </>
   );
 }

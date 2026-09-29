@@ -100,7 +100,7 @@ async function processAll() {
   }
 
   console.log(`\n================================================================`);
-  console.log(`🤖 PIPELINE OFICIAL DE CADASTRO E AUDITORIA PETRANKINGS`);
+  console.log(`🤖 PIPELINE OFICIAL DE CADASTRO E AVALIAÇÃO NUTRICIONAL PETRANKINGS`);
   console.log(`📁 Diretório de Entrada: produtos_cadastro/ (${docFiles.length} produtos pendentes)`);
   console.log(`================================================================\n`);
 
@@ -199,7 +199,7 @@ async function processAll() {
     fs.copyFileSync(docFullPath, destDocPath);
     console.log(`   📄 Arquivo Original Arquivado para Custódia: public${destDocRel}`);
 
-    // 6. Executa Motor de Auditoria Oficial
+    // 6. Executa Motor de Avaliação Nutricional Oficial
     const auditFase: FaseVida = meta.lifeStage;
 
     const garantias = {
@@ -390,7 +390,7 @@ async function processAll() {
     console.log('----------------------------------------------------------------');
   }
 
-  console.log(`\n🎉 Todos os produtos de produtos_cadastro/ foram auditados e sincronizados com sucesso!\n`);
+  console.log(`\n🎉 Todos os produtos de produtos_cadastro/ foram analisados e sincronizados com sucesso!\n`);
 
   // Atualiza o arquivo de rastreamento editorial JSON
   try {

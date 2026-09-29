@@ -1351,6 +1351,40 @@ h1, h2, h3, h4, .font-serif, .font-heading {
 }
 
 /* ==========================================================================
+   ESTILOS EDITORIAIS DE ESTUDOS & GUIAS (OBSERVATÓRIO)
+   ========================================================================== */
+.featured-guide-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+}
+
+.guide-grid-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
+  border-color: var(--brand-forest-300);
+}
+
+.guide-primary-btn:hover {
+  background-color: var(--brand-forest-600) !important;
+}
+
+.hero-tag-link:hover {
+  border-color: var(--brand-forest-400) !important;
+  background-color: var(--brand-forest-50) !important;
+  color: var(--brand-forest-900) !important;
+}
+
+.search-result-row:hover {
+  background-color: var(--brand-forest-50) !important;
+}
+
+.related-guide-box:hover {
+  border-color: var(--brand-forest-400) !important;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
    FOLHA DE ESTILO OFICIAL DE IMPRESSÃO / GERAÇÃO DE PDF (A4 LAUDO TÉCNICO)
    ========================================================================== */
 @media print {

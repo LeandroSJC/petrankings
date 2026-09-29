@@ -209,7 +209,7 @@ export default async function AdminDashboardPage() {
             gap: '24px',
           }}
         >
-          {/* Tabela de Produtos Auditados Recentemente */}
+          {/* Tabela de Produtos Analisados Recentemente */}
           <section
             style={{
               backgroundColor: '#ffffff',

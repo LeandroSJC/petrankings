@@ -9,6 +9,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
+  Building2,
+  ChevronRight,
 } from 'lucide-react';
 
 export default function FabricanteClient() {
@@ -77,56 +79,81 @@ export default function FabricanteClient() {
   };
 
   return (
-    <main style={{ paddingBottom: '70px' }}>
-      <div className="container" style={{ paddingTop: '36px', maxWidth: '840px' }}>
-        {/* Breadcrumb */}
-        <div style={{ marginBottom: '20px' }}>
-          <Link
-            href="/"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '0.85rem',
-              color: 'var(--brand-forest-700)',
-              fontWeight: 700,
-              textDecoration: 'none',
-            }}
-          >
-            <ArrowLeft size={16} />
-            <span>Voltar ao Índice Geral</span>
-          </Link>
+    <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '80px' }}>
+      {/* Barra Superior de Breadcrumbs */}
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '14px 0',
+        }}
+      >
+        <div className="container">
+          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+            <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Início
+            </Link>
+            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
+              Portal do Fabricante
+            </span>
+          </nav>
         </div>
+      </div>
 
-        {/* Cabeçalho */}
-        <header
-          style={{
-            backgroundColor: '#ffffff',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--border-cream)',
-            padding: '36px',
-            marginBottom: '32px',
-            boxShadow: 'var(--shadow-xs)',
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)',
-              fontWeight: 900,
-              color: 'var(--brand-forest-900)',
-              lineHeight: 1.2,
-              marginBottom: '14px',
-            }}
-          >
-            Fabricante: Solicite Atualização de Dados Oficiais
-          </h1>
+      {/* Hero Institucional Padronizado */}
+      <section
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '36px 0 32px 0',
+        }}
+      >
+        <div className="container">
+          <div style={{ maxWidth: '840px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 12px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--brand-forest-50)',
+                border: '1px solid var(--brand-forest-200)',
+                color: 'var(--brand-forest-700)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                marginBottom: '14px',
+              }}
+            >
+              <Building2 size={14} aria-hidden="true" />
+              <span>Canal Corporativo & Relações Regulatórias</span>
+            </div>
 
-          <p style={{ fontSize: '0.98rem', color: 'var(--text-body)', lineHeight: 1.65 }}>
-            Para resguardar a boa-fé e manter a mais alta fidelidade técnica aos dados públicos, este canal direto
-            permite que indústrias e marcas comuniquem novos links de páginas oficiais de produtos, atualização de composições declaradas ou solicitem inclusão de novos itens no portal.
-          </p>
-        </header>
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                color: 'var(--brand-forest-900)',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.18,
+                marginBottom: '12px',
+              }}
+            >
+              Portal do Fabricante: Atualização de Dados Oficiais
+            </h1>
+
+            <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', lineHeight: 1.65, margin: 0 }}>
+              Para resguardar a boa-fé e manter a mais alta fidelidade técnica aos dados públicos, este canal oficial permite que indústrias, responsáveis técnicos (RT) e marcas comuniquem alterações de links oficiais de produtos, reformulações ou solicitem inclusão de novos itens no observatório.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="container" style={{ paddingTop: '36px', maxWidth: '840px' }}>
 
         {/* Painel de Exigências Regulatórias & SLA */}
         <div
@@ -455,6 +482,6 @@ export default function FabricanteClient() {
           </button>
         </form>
       </div>
-    </main>
+    </div>
   );
 }

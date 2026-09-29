@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Send, CheckCircle2, AlertCircle, ArrowLeft, Heart, MessageCircle, Building2 } from 'lucide-react';
+import { Mail, Send, CheckCircle2, AlertCircle, ArrowLeft, Heart, MessageCircle, Building2, ChevronRight } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 
 export default function ContatoClient() {
@@ -86,77 +86,82 @@ export default function ContatoClient() {
   };
 
   return (
-    <div style={{ paddingBottom: '72px' }}>
-      {/* Header Acolhedor */}
+    <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '80px' }}>
+      {/* Barra Superior de Breadcrumbs */}
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '14px 0',
+        }}
+      >
+        <div className="container">
+          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+            <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Início
+            </Link>
+            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
+              Fale Conosco
+            </span>
+          </nav>
+        </div>
+      </div>
+
+      {/* Hero Padronizado */}
       <section
         style={{
           backgroundColor: '#ffffff',
-          borderBottom: '1.5px solid var(--border-cream)',
-          padding: '56px 0 40px 0',
-          backgroundImage:
-            'radial-gradient(ellipse at 85% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 55%), radial-gradient(ellipse at 15% 85%, rgba(15, 54, 35, 0.05) 0%, transparent 55%)',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '36px 0 32px 0',
         }}
       >
-        <div className="container" style={{ maxWidth: '840px' }}>
-          <Link
-            href="/"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '0.88rem',
-              fontWeight: 700,
-              color: 'var(--brand-forest-800)',
-              marginBottom: '20px',
-              padding: '4px 8px',
-              borderRadius: '4px',
-            }}
-          >
-            <ArrowLeft size={16} aria-hidden="true" />
-            <span>Voltar para a página inicial</span>
-          </Link>
+        <div className="container">
+          <div style={{ maxWidth: '840px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 12px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--brand-forest-50)',
+                border: '1px solid var(--brand-forest-200)',
+                color: 'var(--brand-forest-700)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                marginBottom: '14px',
+              }}
+            >
+              <Mail size={14} aria-hidden="true" />
+              <span>Canal Direto com a Redação & Ouvidoria</span>
+            </div>
 
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              backgroundColor: 'var(--brand-forest-50)',
-              border: '1.5px solid var(--brand-forest-200)',
-              padding: '7px 18px',
-              borderRadius: 'var(--radius-full)',
-              color: 'var(--brand-forest-900)',
-              fontSize: '0.84rem',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.6px',
-              marginBottom: '16px',
-              boxShadow: 'var(--shadow-xs)',
-            }}
-          >
-            <Mail size={16} color="var(--brand-forest-700)" aria-hidden="true" />
-            <span>Canal Direto com a Redação</span>
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                color: 'var(--brand-forest-900)',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.18,
+                marginBottom: '12px',
+              }}
+            >
+              Fale com a Nossa Equipe
+            </h1>
+
+            <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', lineHeight: 1.65, margin: 0 }}>
+              Tem uma dúvida sobre a metodologia, deseja sugerir um produto para análise comparativa de rótulo, notou alguma divergência em dados técnicos ou deseja enviar uma proposta institucional? Preencha o formulário abaixo.
+            </p>
           </div>
-
-          <h1
-            style={{
-              fontSize: 'clamp(2.3rem, 3.8vw, 3.1rem)',
-              marginBottom: '14px',
-              lineHeight: 1.2,
-              color: 'var(--brand-forest-900)',
-            }}
-          >
-            Fale com a Nossa Equipe
-          </h1>
-
-          <p style={{ fontSize: '1.12rem', color: 'var(--text-body)', lineHeight: 1.68 }}>
-            Tem uma dúvida sobre a metodologia, deseja sugerir um produto para análise comparativa de rótulo, notou alguma divergência em dados técnicos ou deseja enviar uma proposta institucional? Preencha o formulário abaixo que nossa equipe responderá com atenção.
-          </p>
         </div>
       </section>
 
       {/* Conteúdo do Formulário */}
-      <div className="container" style={{ maxWidth: '840px', marginTop: '40px' }}>
+      <div className="container" style={{ maxWidth: '840px', marginTop: '36px' }}>
         {/* Box de Redirecionamento Institucional para Fabricantes */}
         <div
           style={{

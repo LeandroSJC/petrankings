@@ -77,6 +77,11 @@ export default function Footer() {
             </h2>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.92rem' }}>
               <li>
+                <Link href="/catalogo" className="footer-link" style={{ color: 'var(--brand-forest-300)', fontWeight: 700 }}>
+                  📋 Catálogo Geral de Rações Analisadas
+                </Link>
+              </li>
+              <li>
                 <Link href="/indice/caes-adultos" className="footer-link">
                   🐶 Cães Adultos — Alimentos Secos
                 </Link>
@@ -115,9 +120,15 @@ export default function Footer() {
                 letterSpacing: '-0.2px',
               }}
             >
-              Governança & Fabricantes
+              Governança & Estudos
             </h2>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.92rem', marginBottom: '18px' }}>
+              <li>
+                <Link href="/guias" className="footer-link">
+                  <FileText size={16} aria-hidden="true" style={{ color: 'var(--brand-forest-400)', flexShrink: 0 }} />
+                  <span>Estudos & Guias de Nutrição Pet</span>
+                </Link>
+              </li>
               <li>
                 <Link href="/sobre" className="footer-link">
                   <FileText size={16} aria-hidden="true" style={{ color: 'var(--brand-forest-400)', flexShrink: 0 }} />

@@ -14,6 +14,7 @@ import {
   Zap,
   Scale,
   HeartPulse,
+  ChevronRight,
 } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -37,57 +38,82 @@ export const metadata: Metadata = {
 
 export default function SobrePage() {
   return (
-    <main style={{ paddingBottom: '80px' }}>
-      {/* Header Institucional */}
+    <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '80px' }}>
+      {/* Barra Superior de Breadcrumbs */}
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '14px 0',
+        }}
+      >
+        <div className="container">
+          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+            <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Início
+            </Link>
+            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
+              Metodologia & Diretrizes Científicas
+            </span>
+          </nav>
+        </div>
+      </div>
+
+      {/* Hero Institucional Padronizado */}
       <section
         style={{
           backgroundColor: '#ffffff',
           borderBottom: '1px solid var(--border-cream)',
-          padding: '48px 0 36px 0',
-          backgroundImage:
-            'radial-gradient(ellipse at 85% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 55%), radial-gradient(ellipse at 15% 85%, rgba(15, 54, 35, 0.05) 0%, transparent 55%)',
+          padding: '36px 0 32px 0',
         }}
       >
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <Link
-            href="/"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '0.88rem',
-              fontWeight: 700,
-              color: 'var(--brand-forest-800)',
-              marginBottom: '20px',
-              textDecoration: 'none',
-            }}
-          >
-            <ArrowLeft size={16} aria-hidden="true" />
-            <span>Voltar para o Índice Geral</span>
-          </Link>
+        <div className="container">
+          <div style={{ maxWidth: '860px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 12px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--brand-forest-50)',
+                border: '1px solid var(--brand-forest-200)',
+                color: 'var(--brand-forest-700)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                marginBottom: '14px',
+              }}
+            >
+              <Scale size={14} aria-hidden="true" />
+              <span>Fundamentação Científica & Marco Regulatório</span>
+            </div>
 
-          <h1
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)',
-              fontWeight: 900,
-              color: 'var(--brand-forest-900)',
-              lineHeight: 1.18,
-              letterSpacing: '-0.5px',
-              marginBottom: '16px',
-            }}
-          >
-            Metodologia e Critérios da Avaliação Nutricional
-          </h1>
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                color: 'var(--brand-forest-900)',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.18,
+                marginBottom: '14px',
+              }}
+            >
+              Metodologia e Critérios da Avaliação Nutricional
+            </h1>
 
-          <p style={{ fontSize: '1.05rem', color: 'var(--text-body)', lineHeight: 1.7 }}>
-            O <strong>PetRankings</strong> atua como um portal independente de avaliação técnica e confronto documental das informações nutricionais divulgadas pelas marcas em seus websites oficiais para alimentos de cães e gatos no Brasil. O portal não emite juízos subjetivos de mérito: cada nota decorre estritamente dos níveis de garantia e da ordem decrescente de ingredientes declarados publicamente pelos próprios fabricantes (com custódia probatória da página oficial e comprovante da ficha técnica oficial arquivada, amparados pelos Arts. 30 e 31 do Código de Defesa do Consumidor), confrontados matematicamente com os parâmetros do Manual Pet Food Brasil (ABINPET, 11ª Edição) e diretrizes do MAPA.
-          </p>
+            <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', lineHeight: 1.65, margin: 0 }}>
+              O <strong>PetRankings</strong> opera como um observatório técnico independente de confronto documental das informações nutricionais divulgadas pelas marcas em suas páginas e rótulos oficiais. Todas as notas decorrem estritamente dos níveis de garantia e da ordem de ingredientes em conformidade com o <strong>Manual Pet Food Brasil (ABINPET 11ª Edição)</strong>, instruções normativas do MAPA e artigos 30 e 31 do Código de Defesa do Consumidor.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Conteúdo Principal */}
-      <div className="container" style={{ maxWidth: '900px', marginTop: '40px' }}>
+      <div className="container" style={{ maxWidth: '920px', marginTop: '36px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
           {/* Seção 1: Fundamentação Legal e Regulatória */}
           <section
@@ -492,6 +518,6 @@ export default function SobrePage() {
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Shield, Cookie, ArrowLeft } from 'lucide-react';
+import { Shield, Cookie, ArrowLeft, ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade e Cookies | PetRankings',
@@ -18,54 +18,81 @@ export const metadata: Metadata = {
 
 export default function PoliticaPrivacidadePage() {
   return (
-    <div style={{ padding: '40px 0 80px 0', backgroundColor: 'var(--bg-cream-main)' }}>
-      <div className="container" style={{ maxWidth: '860px' }}>
-        {/* Voltar */}
-        <Link
-          href="/"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontSize: '0.88rem',
-            fontWeight: 700,
-            color: 'var(--brand-forest-800)',
-            marginBottom: '24px',
-            textDecoration: 'none',
-          }}
-        >
-          <ArrowLeft size={16} />
-          <span>Voltar para a página inicial</span>
-        </Link>
-
-        {/* Cabeçalho */}
-        <div style={{ marginBottom: '36px' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: 'var(--brand-forest-50)',
-              color: 'var(--brand-forest-800)',
-              padding: '6px 14px',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.82rem',
-              fontWeight: 800,
-              marginBottom: '12px',
-              border: '1px solid var(--brand-forest-200)',
-            }}
-          >
-            <Shield size={14} color="var(--brand-forest-700)" />
-            <span>Transparência e Proteção de Dados</span>
-          </div>
-
-          <h1 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', color: 'var(--brand-forest-900)', marginBottom: '8px' }}>
-            Política de Privacidade e Uso de Cookies
-          </h1>
-          <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)' }}>
-            Última atualização: {new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric', timeZone: 'UTC' })}
-          </p>
+    <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '80px' }}>
+      {/* Barra Superior de Breadcrumbs */}
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '14px 0',
+        }}
+      >
+        <div className="container">
+          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+            <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Início
+            </Link>
+            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
+              Política de Privacidade
+            </span>
+          </nav>
         </div>
+      </div>
+
+      {/* Hero Institucional Padronizado */}
+      <section
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '36px 0 32px 0',
+        }}
+      >
+        <div className="container">
+          <div style={{ maxWidth: '840px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 12px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--brand-forest-50)',
+                border: '1px solid var(--brand-forest-200)',
+                color: 'var(--brand-forest-700)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                marginBottom: '14px',
+              }}
+            >
+              <Shield size={14} aria-hidden="true" />
+              <span>Transparência & Governança de Dados</span>
+            </div>
+
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontWeight: 800,
+                color: 'var(--brand-forest-900)',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.18,
+                marginBottom: '12px',
+              }}
+            >
+              Política de Privacidade e Uso de Cookies
+            </h1>
+
+            <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', lineHeight: 1.65, margin: 0 }}>
+              Conheça nossas práticas de proteção de dados, conformidade estrita com a LGPD (Lei nº 13.709/2018), política de cookies e diretrizes de integridade editorial.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="container" style={{ maxWidth: '860px', marginTop: '36px' }}>
 
         {/* Conteúdo Principal */}
         <div
