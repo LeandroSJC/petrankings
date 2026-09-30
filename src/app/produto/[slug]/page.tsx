@@ -790,7 +790,7 @@ export default async function ProductDetailPage({
               }}
             >
               <strong style={{ color: 'var(--brand-forest-900)', display: 'block', marginBottom: '8px' }}>
-                Composição Básica Declarada pelo Fabricante (Ordem Decrescente de Inclusão — IN MAPA nº 30/2009):
+                Composição Básica Declarada pelo Fabricante (Ordem Decrescente de Inclusão — IN MAPA nº 22/2009):
               </strong>
               {parsedIngredients.join(', ')}.
             </div>

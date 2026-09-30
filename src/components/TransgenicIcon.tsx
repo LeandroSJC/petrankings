@@ -7,8 +7,8 @@ interface TransgenicIconProps {
 }
 
 /**
- * Símbolo oficial regulatório brasileiro de alimento transgênico (Decreto nº 4.680/2003):
- * Triângulo equilátero com fundo amarelo, contorno preto e a letra 'T' maiúscula no centro.
+ * Símbolo oficial regulatório brasileiro de alimento transgênico (Decreto nº 4.680/2003 e Portaria MJ nº 2.658/2003):
+ * Triângulo equilátero amarelo com contorno preto e a letra 'T' maiúscula no centro em fonte Frutiger Bold.
  */
 export default function TransgenicIcon({
   size = 14,

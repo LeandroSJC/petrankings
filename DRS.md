@@ -4,7 +4,7 @@
 
 - **Versão:** 9.1 (Custódia Documental Oficial: Website do Fabricante & Comprovante Oficial em PDF)
 - **Status:** Aprovado para Arquitetura, Modelagem de Banco, Algoritmo de Análise, Segurança e Interface
-- **Ambiente Regulatório:** Brasil (Manual Pet Food Brasil - ABINPET 11ª Edição, Instruções Normativas do MAPA nº 30/2009, 110/2020, 87/2021, Decreto nº 12.031/2024, Decreto nº 4.680/2003, Lei nº 11.105/2005 e Código de Defesa do Consumidor - Lei nº 8.078/1990)
+- **Ambiente Regulatório:** Brasil (Manual Pet Food Brasil - ABINPET 11ª Edição, Instruções Normativas do MAPA nº 30/2009, 22/2009, 39/2014, 110/2020, Decreto nº 12.031/2024, Decreto nº 4.680/2003, Lei nº 11.105/2005 e Código de Defesa do Consumidor - Lei nº 8.078/1990)
 
 ---
 
@@ -27,6 +27,13 @@
 > ⚠️ **REGRA MANDATÓRIA 4 — FIDELIDADE RIGOROSA DE CITAÇÕES EM ESTUDOS E GUIAS (ZERO PRODUTOS ALEATÓRIOS)**  
 > Em qualquer artigo, estudo, duelo técnico ou guia bromatológico, a listagem e exibição do bloco "Produtos Analisados Citados neste Estudo" só pode conter produtos que foram formal e textualmente mencionados, confrontados ou avaliados na matéria.  
 > É estritamente vedada a inserção de produtos aleatórios ou meramente ilustrativos para "preencher espaço" visual. Artigos teóricos, conceituais, metodológicos ou didáticos sem menção a produtos cadastrados devem manter `relatedProductSlugs: []`, omitindo compulsoriamente a seção de produtos citados.
+
+> ⚠️ **REGRA MANDATÓRIA 5 — RIGOR PROBATÓRIO E TOLERÂNCIA ZERO A INFORMAÇÕES OU DADOS FICTÍCIOS EM ESTUDOS E GUIAS**  
+> Todo artigo, estudo bromatológico ou guia técnico publicado no portal deve estar estritamente ancorado em fontes reais, autênticas e verificáveis:
+> 1. **Níveis de Garantia e Composição:** Devem ser transcritos com fidelidade absoluta a partir do HTML oficial do fabricante arquivado com custódia documental (SHA-256). É proibido inventar ou estimar percentuais.
+> 2. **Padrões Nutricionais:** Devem provir exclusivamente da 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF ou NRC arquivados em `biblioteca_regulatoria/`.
+> 3. **Legislação e Atos do MAPA:** Toda citação jurídica ou sanitária deve indicar atos normativos federais reais vigentes. É terminantemente proibido inventar leis, instruções normativas ou decretos fictícios.
+> 4. **Impossibilidade Probatória:** Se uma informação não for comprovável documentalmente, é mandatório registrar a ausência de declaração pública pelo fabricante ou omiti-la, sendo vedada qualquer dedução especulativa.
 
 ### Tabela Obrigatória de Mapeamento (Parser Back-End ➔ Front-End)
 
@@ -218,8 +225,8 @@ Substâncias bioativas e aditivos zootécnicos comprovados que agregam valor fun
 ### 6.4. Nutrientes de Risco e Segurança no APPCC (Guia de Identidade e Qualidade)
 A presença de nutrientes em níveis excessivos que possam acarretar toxicidade ou desequilíbrio metabólico grave (12 Nutrientes de Risco: Cálcio, Fósforo, Cobre, Selênio, Zinco, Ferro, Vitamina A, Vitamina D, Lisina, Arginina, Metionina, Triptofano) ou contaminação por micotoxinas acima dos tetos da ABINPET (Aflatoxinas totais > 20 ppb, Zearalenona > 200 ppb adultos / 100 ppb filhotes) classifica o produto compulsoriamente na faixa **Sob Observação**.
 
-### 6.5. Matriz Oficial de Tolerâncias Analíticas do MAPA (IN nº 30/2009 e IN nº 87/2021)
-Para instrução de eventuais contestações de fabricantes embasadas em laudos analíticos laboratoriais, a curadoria adota os limites oficiais de tolerância do MAPA para variação entre garantia de rótulo e teor analítico medido:
+### 6.5. Matriz de Tolerâncias Analíticas Laboratoriais (Manual ABINPET 11ª Ed. e Decreto nº 12.031/2024)
+Para instrução de eventuais contestações de fabricantes embasadas em laudos analíticos laboratoriais, a curadoria adota os limites oficiais de tolerância recomendados pela ABINPET/MAPA para variação entre garantia de rótulo e teor analítico medido:
 
 | Nutriente / Parâmetro | Tolerância Regulamentar de Deficiência | Tolerância Regulamentar de Excesso |
 | :--- | :---: | :---: |

@@ -51,6 +51,16 @@
    - Nos artigos, estudos bromatológicos e guias técnicos (`/guias`), a seção **"Produtos Analisados Citados neste Estudo"** destina-se estritamente aos produtos que tenham sido expressamente citados, analisados ou confrontados no corpo do texto da publicação.
    - É terminantemente proibido vincular produtos aleatórios, preencher `relatedProductSlugs` por conveniência visual/estética ou associar itens que não façam parte do escopo editorial da matéria.
    - Caso um estudo ou guia seja de natureza puramente didática, conceitual, metodológica ou regulatória (ex: explicação matemática de conversão para Matéria Seca ou panorama geral sobre aditivos e conservantes) sem menção formal a produtos específicos do banco de dados, o campo `relatedProductSlugs` deve ser obrigatoriamente um array vazio (`[]`), e a seção de produtos citados não deve ser renderizada.
+10. **Assinatura e Autoria Institucional Padronizada em Estudos e Guias:**
+    - Todos os artigos, duelos, estudos bromatológicos e guias técnicos possuem autoria estritamente institucional, assinados compulsoriamente como **"Equipe de Curadoria Técnica"** (com papel *"Observatório PetRankings"*).
+    - É terminantemente proibido inventar autores individuais fictícios, pseudônimos médicos ou caricaturas acadêmicas (ex.: "Dr. Zootecnia"). O PetRankings opera como veículo coletivo e independente de jornalismo de dados e curadoria técnica.
+11. **Rigor Probatório e Tolerância Zero a Alucinações ou Informações Fictícias:**
+    - Na elaboração, revisão e manutenção de artigos, estudos bromatológicos, duelos comparativos e guias técnicos (`/guias`), é expressamente vedada qualquer alucinação, extrapolação hipotética ou invenção de dados e afirmações.
+    - **Fontes Primárias Obrigatórias:**
+      1. Níveis de garantia, ingredientes na ordem decrescente, conservantes e transgênicos devem originar-se estritamente das fichas técnicas oficiais dos fabricantes custodiadas em HTML com hash SHA-256 no banco de dados.
+      2. Padrões de exigência nutricional e tetos toxicológicos devem estar fundamentados na 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e NRC arquivados na pasta `biblioteca_regulatoria/`.
+      3. Atos regulatórios e leis citados devem ser estritamente autênticos e vigentes (MAPA, Decretos Federais, CDC), sendo proibido inventar artigos de lei ou resoluções inexistentes.
+    - **Incerteza Probatória:** Se uma informação não for comprovável com certeza probatória nos documentos oficiais, ela jamais deve ser estimada ou simulada; o texto deve declarar expressamente a ausência da informação pelo fabricante ou omiti-la.
 
 ---
 

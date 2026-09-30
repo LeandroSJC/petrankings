@@ -156,10 +156,10 @@ export default function SobrePage() {
 
               <div style={{ padding: '16px 20px', backgroundColor: 'var(--bg-cream-main)', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid var(--brand-forest-600)' }}>
                 <strong style={{ display: 'block', color: 'var(--brand-forest-900)', fontSize: '0.98rem', marginBottom: '4px' }}>
-                  Marco Regulatório do MAPA (Decreto nº 12.031/2024 e IN MAPA nº 30/2009)
+                  Marco Regulatório do MAPA (Decreto nº 12.031/2024, IN 22/2009 e IN 30/2009)
                 </strong>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.55, margin: 0 }}>
-                  Regulamenta o registro de produtos e estabelecimentos fabricantes de alimentos para animais, determinando a ordem decrescente compulsória de inclusão de matérias-primas na lista de ingredientes e a exatidão das garantias declaradas.
+                  Regulamenta o registro e fiscalização de estabelecimentos e produtos (Decreto nº 12.031/2024), a rotulagem com ordem decrescente compulsória de inclusão de matérias-primas na lista de ingredientes e garantias declaradas (IN MAPA nº 22/2009) e os padrões de identidade e classificação zootécnica (IN MAPA nº 30/2009).
                 </p>
               </div>
 
@@ -174,7 +174,7 @@ export default function SobrePage() {
 
               <div style={{ padding: '16px 20px', backgroundColor: 'var(--bg-cream-main)', borderRadius: 'var(--radius-sm)', borderLeft: '4px solid #8b5cf6' }}>
                 <strong style={{ display: 'block', color: 'var(--brand-forest-900)', fontSize: '0.98rem', marginBottom: '4px' }}>
-                  Diretrizes Internacionais FEDIAF (2024) e NRC (2006) para Alimentos Úmidos
+                  Diretrizes Internacionais FEDIAF (2025) e NRC (2006) para Alimentos Úmidos
                 </strong>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.55, margin: 0 }}>
                   Padrões científicos internacionais adotados para balizar tetos nutricionais seguros em Matéria Seca (como o cálcio de até 3,00% MS) e parâmetros analíticos de alimentos úmidos de alta hidratação (sachês e latas), onde a diluição aquosa física exige calibração específica sobre a base seca.
@@ -264,7 +264,7 @@ export default function SobrePage() {
                 Calibração do Teto Seguro de Cálcio em Alimentos Úmidos (Até 3,00% MS)
               </strong>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', lineHeight: 1.6, margin: 0 }}>
-                Quando um sachê com 86% de umidade declara <em>Cálcio (máx.) de 0,40%</em> em Matéria Natural, a conversão para a base seca resulta em <strong>2,86% de cálcio em MS</strong>. Enquanto em rações secas o teto de segurança da ABINPET é de 2,00% a 2,50% MS, os guias nutricionais internacionais de referência — <strong>FEDIAF (2024)</strong> e <strong>NRC (2006)</strong> — estabelecem que para felinos e caninos em dietas úmidas, teores de cálcio de até <strong>3,00% em Matéria Seca</strong> são plenamente seguros e fisiológicos em virtude da presença de carnes frescas e tecidos osteocartilaginosos naturais. O PetRankings adota formalmente o teto de 3,00% MS para rações úmidas completas, salvaguardando a precisão sem penalizar alimentos de excelência biológica.
+                Quando um sachê com 86% de umidade declara <em>Cálcio (máx.) de 0,40%</em> em Matéria Natural, a conversão para a base seca resulta em <strong>2,86% de cálcio em MS</strong>. Enquanto em rações secas o teto de segurança da ABINPET é de 2,00% a 2,50% MS, os guias nutricionais internacionais de referência — <strong>FEDIAF (2025)</strong> e <strong>NRC (2006)</strong> — estabelecem que para felinos e caninos em dietas úmidas, teores de cálcio de até <strong>3,00% em Matéria Seca</strong> são plenamente seguros e fisiológicos em virtude da presença de carnes frescas e tecidos osteocartilaginosos naturais. O PetRankings adota formalmente o teto de 3,00% MS para rações úmidas completas, salvaguardando a precisão sem penalizar alimentos de excelência biológica.
               </p>
             </div>
           </section>
@@ -325,7 +325,7 @@ export default function SobrePage() {
                   <span style={{ fontWeight: 800, color: 'var(--brand-forest-700)', backgroundColor: 'var(--brand-forest-50)', padding: '4px 10px', borderRadius: 'var(--radius-full)', fontSize: '0.88rem' }}>25 Pontos</span>
                 </div>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                  Em obediência à IN MAPA 30/2009 e ao Decreto nº 12.031/2024, os ingredientes aparecem em ordem decrescente de quantidade na declaração oficial do produto. Primeiro ingrediente de fonte cárnea de alta digestibilidade confere +15 pts; segundo ingrediente de origem animal ou carboidrato nobre confere +10 pts adicionais. <em>(Nota para alimentos úmidos: como a água/caldo é legalmente obrigatória como veículo físico de cocção no 1º lugar da batelada, o motor filtra a água inerte e pontua a qualidade biológica a partir dos dois primeiros ingredientes nutritivos reais).</em>
+                  Em obediência à IN MAPA 22/2009 e ao Decreto nº 12.031/2024, os ingredientes aparecem em ordem decrescente de quantidade na declaração oficial do produto. Primeiro ingrediente de fonte cárnea de alta digestibilidade confere +15 pts; segundo ingrediente de origem animal ou carboidrato nobre confere +10 pts adicionais. <em>(Nota para alimentos úmidos: como a água/caldo é legalmente obrigatória como veículo físico de cocção no 1º lugar da batelada, o motor filtra a água inerte e pontua a qualidade biológica a partir dos dois primeiros ingredientes nutritivos reais).</em>
                 </p>
               </div>
 

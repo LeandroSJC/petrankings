@@ -96,7 +96,7 @@ export function getAbinpetStandard(
   if (foodType === 'UMIDO') {
     // Em alimentos úmidos (80% a 88% de umidade), a baixa fração de sólidos (12% a 20% MS)
     // amplifica matematicamente os limites analíticos de segurança declarados na Matéria Natural.
-    // Em conformidade com as diretrizes internacionais da FEDIAF (2024) e NRC (2006),
+    // Em conformidade com as diretrizes internacionais da FEDIAF (2025) e NRC (2006),
     // o teto nutricional seguro de cálcio em Matéria Seca para dietas úmidas é de até 3,00% MS.
     return {
       ...baseStandard,

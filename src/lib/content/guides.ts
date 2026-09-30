@@ -2,10 +2,16 @@
  * Repositório Central de Estudos & Guias Técnicos do PetRankings.
  * 
  * Regras Inegociáveis (AGENTS.md & pet-editorial-copywriter):
- * - Imparcialidade, fidelidade estrita aos dados oficiais e proibição de dados fictícios.
- * - Fundamentação em atos do MAPA (IN 22/2009, IN 30/2009, IN 39/2014, IN 110/2020, Decreto 12.031/2024)
- *   e diretrizes bromatológicas da 11ª Edição do Manual ABINPET e FEDIAF 2025.
- * - Inclusão de termos de isenção de responsabilidade e contexto veterinário.
+ * - RIGOR PROBATÓRIO E TOLERÂNCIA ZERO A ALUCINAÇÕES: Todos os dados, porcentagens,
+ *   ingredientes e afirmações devem possuir fontes primárias reais, idôneas e verificáveis
+ *   (fichas técnicas oficiais em HTML sob custódia criptográfica, Manual ABINPET 11ª Edição,
+ *   FEDIAF e atos normativos vigentes do MAPA arquivados em biblioteca_regulatoria/).
+ * - É terminantemente proibido inventar dados, deduzir números não declarados ou criar
+ *   leis e resoluções fictícias. Caso uma informação não conste nas fontes oficiais, deve-se
+ *   declarar a ausência pública da informação ou omiti-la.
+ * - AUTORIA INSTITUCIONAL PADRONIZADA: Todos os estudos são assinados compulsoriamente
+ *   por DEFAULT_GUIDE_AUTHOR ("Equipe de Curadoria Técnica", "Observatório PetRankings").
+ *   Proibida a invenção de personas fictícias ("Dr. Zootecnia", etc.).
  * - REGRA MANDATÓRIA DE CITAÇÃO DE PRODUTOS: Apenas produtos EFETIVAMENTE citados,
  *   analisados ou confrontados no texto do estudo/guia podem constar em `relatedProductSlugs`.
  *   Se o artigo/estudo for conceitual, didático, regulatório ou metodológico e não citar
@@ -69,6 +75,11 @@ export interface GuideItem {
   };
 }
 
+export const DEFAULT_GUIDE_AUTHOR = {
+  name: 'Equipe de Curadoria Técnica',
+  role: 'Observatório PetRankings',
+} as const;
+
 export const GUIDES: GuideItem[] = [
   {
     slug: 'premier-formula-vs-golden-formula',
@@ -79,10 +90,7 @@ export const GUIDES: GuideItem[] = [
     readingTimeMinutes: 7,
     publishedAt: '2026-09-15',
     updatedAt: '2026-09-28',
-    author: {
-      name: 'Equipe de Curadoria Técnica',
-      role: 'Observatório PetRankings',
-    },
+    author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/premier-vs-golden-duel-cover.webp',
     isFeatured: true,
     summary:
@@ -110,7 +118,7 @@ export const GUIDES: GuideItem[] = [
         heading: '2. Níveis de Garantia Confrontados em Matéria Seca (MS)',
         paragraphs: [
           'Para uma comparação científica real, eliminamos a umidade de 10% declarada nos rótulos de ambas as embalagens, convertendo os nutrientes para Matéria Seca (MS). Essa conversão é compulsória para anular o efeito diluidor da água contida nos alimentos secos.',
-          'Na Matéria Seca, a PremieR Formula entrega teores proteicos superiores (mínimo de 28,8% MS frente a 25,5% MS na GoldeN Formula). Além disso, a PremieR apresenta um teor menor de matéria mineral máxima (7,7% MS contra 8,8% MS da GoldeN), o que indica uso de cortes cárneos e farinhas com menor concentração de ossos e cartilagens.',
+          'Na Matéria Seca, a PremieR Formula entrega teores proteicos superiores (mínimo de 28,88% MS frente a 25,55% MS na GoldeN Formula). Além disso, a PremieR apresenta um teor menor de matéria mineral máxima (8,33% MS contra 9,44% MS da GoldeN, equivalentes a 7,5% e 8,5% em Matéria Natural), o que indica uso de cortes cárneos e farinhas com menor concentração de ossos e cartilagens.',
         ],
         table: {
           caption: 'Comparativo de Níveis de Garantia Oficiais (Matéria Seca - MS)',
@@ -171,10 +179,7 @@ export const GUIDES: GuideItem[] = [
     readingTimeMinutes: 6,
     publishedAt: '2026-09-18',
     updatedAt: '2026-09-28',
-    author: {
-      name: 'Dr. Zootecnia & Análise Bromatológica',
-      role: 'Corpo Técnico PetRankings',
-    },
+    author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=1200&auto=format&fit=crop&q=80',
     isFeatured: false,
     summary:
@@ -272,10 +277,7 @@ export const GUIDES: GuideItem[] = [
     readingTimeMinutes: 5,
     publishedAt: '2026-09-22',
     updatedAt: '2026-09-28',
-    author: {
-      name: 'Observatório Técnico',
-      role: 'Equipe PetRankings',
-    },
+    author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: 'https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?w=1200&auto=format&fit=crop&q=80',
     isFeatured: false,
     summary:

@@ -69,6 +69,27 @@
 * **Aplicação no PetRankings:**
   * Rastreabilidade documental de rações e matérias-primas importadas comercializadas no mercado nacional.
 
+### 1.9. Instrução Normativa MAPA nº 17/2020 (SipeAgro — Registro e Cadastro de Produtos)
+* **Arquivo arquivado nesta pasta:** [`INSTRUCAONORMATIVAN17DE15DEABRILDE2020alteradaIN6010julho2020.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/INSTRUCAONORMATIVAN17DE15DEABRILDE2020alteradaIN6010julho2020.pdf) *(108 KB, 3 páginas)*
+* **Tema:** Procedimentos eletrônicos via SipeAgro para registro, cadastro, renovação, alteração, suspensão e cancelamento de estabelecimentos e produtos de alimentação animal (atualizada pela IN nº 60/2020).
+* **Aplicação no PetRankings:**
+  * Definição da sistemática oficial do MAPA para geração de números de registro/cadastro (formato `UF 001002-1.000012` ou `...12 C`).
+  * Base probatória para distinguir produtos sujeitos a registro obrigatório (dietas coadjuvantes) daqueles sujeitos a cadastro ou isenção.
+
+### 1.10. Instrução Normativa MAPA nº 04/2007 (Boas Práticas de Fabricação — BPF)
+* **Arquivo arquivado nesta pasta:** [`InstruoNormativa04.2007.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/InstruoNormativa04.2007.pdf) *(461 KB, 20 páginas)*
+* **Tema:** Regulamento Técnico sobre Condições Higiênico-Sanitárias e Boas Práticas de Fabricação para Estabelecimentos Fabricantes de Produtos Destinados à Alimentação Animal e Roteiro Oficial de Inspeção.
+* **Aplicação no PetRankings:**
+  * Procedimentos Operacionais Padrão (POPs) obrigatórios: prevenção de contaminação cruzada, qualificação de fornecedores e controle de pragas.
+  * Critérios regulamentares de rastreabilidade de lotes e programa de recolhimento de produtos (Recall - Item 7.13).
+
+### 1.11. Portaria Ministério da Justiça nº 2.658/2003 (Símbolo Transgênico "T")
+* **Arquivo arquivado nesta pasta:** [`portaria-no-2-658-de-22-de-dezembro-de-2003.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/portaria-no-2-658-de-22-de-dezembro-de-2003.pdf) *(120 KB, 3 páginas)*
+* **Tema:** Regulamenta o emprego e as especificações técnicas do símbolo oficial de organismos geneticamente modificados (OGM), complementando o Decreto Federal nº 4.680/2003.
+* **Aplicação no PetRankings:**
+  * Exigência de que o triângulo amarelo com a letra **T** ocupe no mínimo 0,4% da área do painel principal da embalagem frontal.
+  * Parâmetro de verificação de inconformidade visual de rotulagem em produtos que usam transgênicos.
+
 ---
 
 ## 📖 2. Manuais Técnicos de Nutrição e Bromatologia
@@ -90,6 +111,14 @@
   * Diretrizes nutricionais europeias de referência internacional, harmonizadas com o NRC 2006.
   * Base de suporte para perfis de micronutrientes, segurança biológica, ácidos graxos essenciais (EPA/DHA) e recomendações para animais idosos e castrados.
 
+### 2.3. WSAVA Nutritional Assessment Guidelines (Edição Oficial JSAP)
+* **Arquivo arquivado nesta pasta:** [`WSAVA-Nutrition-Assessment-Guidelines-2011-JSAP.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/WSAVA-Nutrition-Assessment-Guidelines-2011-JSAP.pdf) *(846 KB, 12 páginas)*
+* **Órgão emissor:** World Small Animal Veterinary Association (WSAVA Task Force).
+* **Aplicação no PetRankings:**
+  * Padronização internacional da avaliação nutricional como o "5º sinal vital" clínico de pequenos animais.
+  * Escores oficiais de Condição Corporal (BCS 1-9) e Condição Muscular (MCS).
+  * Questionário canônico para checagem da idoneidade científica dos fabricantes de alimentos (equipe de nutricionistas PhD dedicados, formulação e controle analítico de lotes).
+
 ---
 
 ## 🛠️ 3. Mapeamento Arquitetural no Código-Fonte
@@ -101,7 +130,9 @@
 | **IN 30/2009 e IN 39/2014 (Categorias)** | [`src/lib/formatters.ts`](file:///d:/Projetos/PetRankings/src/lib/formatters.ts) | Classificação: Completo, Coadjuvante e Específico. |
 | **IN 22/2009 (Rotulagem & Ordem)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Inspeção da ordem decrescente dos primeiros 5 ingredientes. |
 | **IN 110/2020 (Aditivos e BHT/BHA)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Pontuação de antioxidantes: Natural (100%), Misto ou Sintético. |
-| **Decreto 4.680/2003 (Transgênicos)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Bônus de formulação não-transgênica (`containsGmo: false`). |
+| **Decreto 4.680/2003 e Portaria MJ 2.658/2003** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Bônus de formulação não-transgênica (`containsGmo: false`) e checagem do símbolo T. |
+| **IN 17/2020 e IN 04/2007 (SipeAgro & BPF)** | [`src/lib/custody-template.ts`](file:///d:/Projetos/PetRankings/src/lib/custody-template.ts) | Rastreabilidade fabril, registro e auditoria de boas práticas. |
+| **WSAVA Guidelines (JSAP)** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Fundamentação clínica e critérios de qualidade em estudos/guias. |
 | **Decreto 12.031/2024 e CDC** | [`src/lib/custody-template.ts`](file:///d:/Projetos/PetRankings/src/lib/custody-template.ts) | Custódia documental probatória com hash SHA-256 e data de coleta. |
 | **CDC (Arts. 6º, 30 e 31)** | [`src/app/sobre/page.tsx`](file:///d:/Projetos/PetRankings/src/app/sobre/page.tsx) e [`Footer.tsx`](file:///d:/Projetos/PetRankings/src/components/Footer.tsx) | Aviso legal institucional e termo de transparência informativa. |
 
@@ -111,15 +142,19 @@
 
 ```
 biblioteca_regulatoria/
-├── README.md                                                     # Este catálogo e guia mestre normativo
-├── Manual Pet Food Brasil - Abinpet.pdf                         # Manual oficial 11ª Edição da ABINPET (14,6 MB)
-├── FEDIAF-Nutritional-Guidelines_2025-ONLINE.pdf                 # Diretrizes Nutricionais Europeias FEDIAF 2025 (2,2 MB)
-├── lei-8078-11-setembro-1990-365086-normaatualizada-pl.pdf       # Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor - CDC)
-├── decreto-12031-28-maio-2024-795694-normaatualizada-pe.pdf     # Decreto Federal nº 12.031/2024 (Alimentação Animal / MAPA)
-├── decreto-no-4-680-de-24-de-abril-de-2003.pdf                  # Decreto Federal nº 4.680/2003 (Rotulagem de Transgênicos - OGM)
-├── instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf           # IN MAPA nº 22/2009 (Regulamento de Rotulagem)
-├── instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf           # IN MAPA nº 30/2009 (RTIQ Pet: Completo, Coadjuvante, Específico)
-├── instrucao-normativa-no-39-de-21-de-novembro-de.pdf           # IN MAPA nº 39/2014 (Imagem Ilustrativa, Claims e Coadjuvantes)
-├── in_110-2020_lista_matérias-primas_autorizadas_aa.pdf         # IN MAPA nº 110/2020 (Aditivos e Matérias-Primas Autorizadas)
-└── instrucao-normativa-no-29-de-14-de-setembro-de.pdf           # IN MAPA nº 29/2010 (VIGIAGRO / Importação)
+├── README.md                                                               # Este catálogo e guia mestre normativo
+├── Manual Pet Food Brasil - Abinpet.pdf                                   # Manual oficial 11ª Edição da ABINPET (14,6 MB)
+├── FEDIAF-Nutritional-Guidelines_2025-ONLINE.pdf                           # Diretrizes Nutricionais Europeias FEDIAF 2025 (2,2 MB)
+├── WSAVA-Nutrition-Assessment-Guidelines-2011-JSAP.pdf                     # Diretrizes Clínicas Nutricionais da WSAVA (846 KB)
+├── lei-8078-11-setembro-1990-365086-normaatualizada-pl.pdf                 # Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor - CDC)
+├── decreto-12031-28-maio-2024-795694-normaatualizada-pe.pdf               # Decreto Federal nº 12.031/2024 (Alimentação Animal / MAPA)
+├── decreto-no-4-680-de-24-de-abril-de-2003.pdf                            # Decreto Federal nº 4.680/2003 (Rotulagem de Transgênicos - OGM)
+├── portaria-no-2-658-de-22-de-dezembro-de-2003.pdf                        # Portaria MJ nº 2.658/2003 (Especificação Gráfica do Triângulo Transgênico "T")
+├── instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf                     # IN MAPA nº 22/2009 (Regulamento de Rotulagem)
+├── instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf                     # IN MAPA nº 30/2009 (RTIQ Pet: Completo, Coadjuvante, Específico)
+├── instrucao-normativa-no-39-de-21-de-novembro-de.pdf                     # IN MAPA nº 39/2014 (Imagem Ilustrativa, Claims e Coadjuvantes)
+├── in_110-2020_lista_matérias-primas_autorizadas_aa.pdf                   # IN MAPA nº 110/2020 (Aditivos e Matérias-Primas Autorizadas)
+├── INSTRUCAONORMATIVAN17DE15DEABRILDE2020alteradaIN6010julho2020.pdf       # IN MAPA nº 17/2020 (SipeAgro: Registro e Cadastro de Estabelecimentos e Pet Food)
+├── InstruoNormativa04.2007.pdf                                            # IN MAPA nº 04/2007 (Boas Práticas de Fabricação - BPF e Roteiro de Inspeção)
+└── instrucao-normativa-no-29-de-14-de-setembro-de.pdf                     # IN MAPA nº 29/2010 (VIGIAGRO / Importação)
 ```

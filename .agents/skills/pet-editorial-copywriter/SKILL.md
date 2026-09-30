@@ -77,3 +77,12 @@ Examples:
   - Apenas produtos **efetivamente citados, analisados ou confrontados** no corpo do texto do estudo/guia podem constar na lista `relatedProductSlugs` e, consequentemente, na seção *"Produtos Analisados Citados neste Estudo"*.
   - **Proibição Absoluta de Produtos Aleatórios**: É terminantemente proibido incluir produtos no array para fins estéticos, preenchimento de layout ou vitrine decorativa.
   - **Artigos Metodológicos e Educacionais**: Se o artigo for puramente conceitual, didático ou regulatório (ex.: explicação matemática da conversão para Matéria Seca, histórico de aditivos sem duelo específico de marcas), o campo `relatedProductSlugs` deve ser compulsoriamente um array vazio (`[]`), garantindo que o bloco não seja renderizado na página.
+- **Assinatura Editorial Padronizada**:
+  - Todos os artigos, estudos e guias devem ser assinados institucionalmente como **"Equipe de Curadoria Técnica"** (com papel *"Observatório PetRankings"*).
+  - É expressamente proibido inventar personas individuais fictícias, títulos caricatos ou pseudônimos acadêmicos/médicos (ex.: "Dr. Zootecnia"). Toda produção técnica expressa o trabalho coletivo de dados do portal.
+- **Rigor Probatório e Proibição Absoluta de Invenção de Dados**:
+  - Toda alegação técnica, nível nutricional, porcentagem em Matéria Seca (MS) ou afirmação sobre ingredientes deve estar 100% ancorada em fontes oficiais e confiáveis:
+    1. **Rotulagem Oficial do Fabricante:** Ficha técnica ativa no banco de dados coletada diretamente do site oficial do fabricante (HTML com hash SHA-256). Nunca inventar nem deduzir teores nutricionais.
+    2. **Marco Regulatório Oficial:** Leis, Decretos federais e Instruções Normativas vigentes do MAPA (IN 22/2009, IN 30/2009, IN 110/2020, Decreto 12.031/2024, CDC) arquivados em `biblioteca_regulatoria/`. É estritamente vedado inventar ou citar números de normas fictícias.
+    3. **Literatura Bromatológica de Referência:** Padrões mínimos e tetos da 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e NRC arquivados em `biblioteca_regulatoria/`.
+  - **Incerteza Probatória:** Se uma informação não constar expressamente na documentação oficial ou na literatura científica, ela jamais deve ser estimada ou deduzida; declare abertamente que a informação não foi informada pelo fabricante ou omita a afirmação.

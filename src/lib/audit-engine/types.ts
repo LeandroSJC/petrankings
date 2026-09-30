@@ -68,7 +68,7 @@ export interface RotulagemAnaliseInput {
   antioxidanteTipo: AntioxidanteTipo;
   omega3OuPrebioticosGarantidos: boolean;
   claimCarneTipo: ClaimCarneTipo;
-  claimCarneAdequado?: boolean; // Se cumpre IN MAPA 30/2009
+  claimCarneAdequado?: boolean; // Se cumpre IN MAPA 22/2009, IN MAPA 39/2014 e Tabela 14 do Manual ABINPET
   foodType?: TipoAlimento;
 }
 
