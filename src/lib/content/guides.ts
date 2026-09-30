@@ -336,6 +336,111 @@ export const GUIDES: GuideItem[] = [
     conclusion:
       'Nunca mais julgue o valor nutritivo de um alimento para cães e gatos sem eliminar mentalmente a umidade. A matemática da Matéria Seca é a chave mestre para comparar produtos com justiça e garantir que o seu pet receba a nutrição de que realmente precisa.',
   },
+  {
+    slug: 'racao-seca-vs-umida-gatos-hidratacao-saude-renal',
+    title: 'Ração Seca vs Ração Úmida para Gatos: O que Dizem a WSAVA e a ABINPET sobre Hidratação e Rins?',
+    subtitle: 'A fisiologia do carnívoro estrito, o mito popular sobre os sachês e as diretrizes clínicas veterinárias para proteção do trato urinário.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 6,
+    publishedAt: '2026-09-29',
+    updatedAt: '2026-09-29',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=1200&auto=format&fit=crop&q=80',
+    isFeatured: false,
+    summary:
+      'Entenda por que os gatos descendem de predadores do deserto e possuem baixa sensação de sede espontânea, como os alimentos úmidos atuam na diluição urinária e prevenção de urólitos, e como diferenciar um sachê completo de um complementar segundo o MAPA.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'heranca-do-deserto-e-fisiologia-felina',
+        heading: '1. A Fisiologia Felina e a Herança do Deserto',
+        paragraphs: [
+          'Diferente dos cães, que são onívoros facultativos e possuem mecanismos de sede altamente sensíveis à desidratação, o gato doméstico (Felis catus) descende diretamente do gato-selvagem-africano (Felis silvestris lybica), um predador perfeitamente adaptado a ambientes áridos e semiáridos.',
+          'Essa herança evolutiva moldou uma fisiologia singular: os rins dos felinos desenvolveram capacidade formidável de concentrar a urina para economizar fluidos corporais vitais. Em contrapartida, o centro hipotalâmico de sede dos gatos é notoriamente pouco responsivo. Na natureza selvagem, entre 70% e 80% de toda a água necessária para a homeostase do animal provém diretamente dos tecidos biológicos e do sangue de suas presas recém-capturadas, e não da busca ativa por fontes líquidas.',
+          'Quando um gato é alimentado exclusivamente com ração seca (cujo teor de umidade situa-se habitualmente entre 8% e 10%), ele passa a depender exclusivamente da tigela de água para manter sua hidratação. Contudo, múltiplos ensaios clínicos citados nas diretrizes globais da WSAVA (World Small Animal Veterinary Association) comprovam que a ingestão voluntária de água raramente compensa a ausência de umidade na ração seca. Como consequência biológica, felinos que consomem somente alimento seco produzem volumes urinários sensivelmente menores e com densidade cronicamente mais concentrada.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Diretrizes Nutricionais da WSAVA (Global Veterinary Community)',
+          text: 'A força-tarefa da WSAVA classifica a avaliação da ingestão hídrica e da densidade urinária como elemento indispensável da anamnese nutricional clínica (o "5º Sinal Vital"). Urinas mantidas sob alta densidade (acima de 1.050) aumentam exponencialmente o índice de supersaturação relativa para a precipitação de cristais de estruvita e de oxalato de cálcio no trato urinário inferior.',
+        },
+      },
+      {
+        id: 'sache-estraga-os-dentes-o-mito-popular',
+        heading: '2. Ração Úmida "Estraga os Dentes"? Desmistificando o Mito Popular',
+        paragraphs: [
+          'Um dos maiores equívocos propagados entre tutores é a crença de que a ração úmida "amolece os dentes", "provoca tártaro" ou "danifica a cavidade oral", enquanto o alimento seco funcionaria como uma escova de dentes natural.',
+          'A odontologia veterinária moderna já desmistificou expressamente essa suposição. O croquete de uma ração seca convencional (isto é, alimentos de manutenção que não possuem croquetes terapêuticos específicos com malha de fibra alinhada) esmigalha-se e estilhaça-se na ponta das cúspides dentárias logo na primeira mordida do gato, gerando mínima abrasão mecânica na linha subgengival, que é o local anatômico onde a placa bacteriana de fato coloniza e mineraliza.',
+          'O acúmulo de cálculo dentário decorre primariamente de fatores genéticos individuais, microbiota bucal, pH da saliva e ausência de higiene física direcionada. A única forma com eficácia comprovada de proteger a dentição felina é a escovação diária com pasta enzimática apropriada e a profilaxia profissional quando indicada por médico veterinário. Privar um gato de consumir alimentos úmidos com base no receio de tártaro significa sacrificar a proteção renal e hídrica sem produzir nenhum benefício periodontal mensurável.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Saúde Oral vs Hidratação Renal Preventiva',
+          text: 'A escovação dentária regular é insubstituível para a saúde bucal. A escolha entre ração seca e úmida deve ser guiada pela necessidade de hidratação, controle de peso e equilíbrio bromatológico, e nunca por falsos mitos odontológicos.',
+        },
+      },
+      {
+        id: 'completo-vs-complementar-normas-mapa',
+        heading: '3. Nem Todo Sachê é Igual: Alimento Completo vs Alimento Complementar (IN MAPA nº 30/2009)',
+        paragraphs: [
+          'Ao introduzir alimentos úmidos na dieta do gato, é indispensável que o tutor compreenda a divisão regulatória estabelecida pelo Ministério da Agricultura e Pecuária (MAPA) por meio da Instrução Normativa nº 30/2009 e da IN nº 39/2014:',
+          '1. Alimento Completo para Gatos: Produto formulado com carnes nobres e balanceado com premix vitamínico-mineral integral. Cumpre todas as exigências mínimas da 11ª Edição do Manual Pet Food Brasil (ABINPET) e das diretrizes internacionais da FEDIAF 2025 para proteína bruta, taurina (aminoácido essencial compulsório com piso de 0,20% em Matéria Seca para dietas úmidas), cálcio, fósforo, zinco e vitaminas lipossolúveis. Pode ser fornecido como a única fonte de alimento do animal por toda a vida.',
+          '2. Alimento Específico ou Complementar: Frequentemente comercializado em latas e sachês "gourmet" compostos exclusivamente por filés de peixe, peito de frango desfiado em caldo ou sopas (muitas vezes denominados "toppers"). Embora excelentes para hidratação e palatabilidade, esses itens não recebem premix vitamínico-mineral completo nem balanceamento estequiométrico de cálcio e fósforo. Por determinação do MAPA, devem ser oferecidos estritamente como agrado ou suplemento, não podendo ultrapassar 10% do gasto energético diário sob risco de severo desbalanço osteomineral.',
+        ],
+        table: {
+          caption: 'Quadro Regulatório: Alimento Completo vs Alimento Complementar segundo o MAPA e ABINPET',
+          headers: ['Atributo Analisado', 'Ração Úmida Completa (IN 30/2009)', 'Alimento Complementar / Petisco (IN 30/2009)'],
+          rows: [
+            ['Suplementação Mineral & Vitamínica', 'Premix completo (atende 100% dos pisos ABINPET / FEDIAF)', 'Ausente ou incompleto (apenas caldo e carne pura)'],
+            ['Garantia de Taurina na Matéria Seca', 'Obrigatória (mínimo de 0,20% MS para felinos)', 'Sem garantia legal declarada ou apenas residual'],
+            ['Pode ser a única dieta do animal?', 'Sim, supre integralmente as demandas vitais diárias', 'Não, sob risco de carências minerais e ósseas'],
+            ['Classificação Legal Impressa no Rótulo', '"Alimento Completo para Gatos"', '"Alimento Específico" ou "Alimento Complementar"'],
+          ],
+        },
+      },
+      {
+        id: 'estrategia-mix-feeding',
+        heading: '4. A Estratégia de Alimentação Mista (Mix Feeding) Recomendada',
+        paragraphs: [
+          'Para unir os benefícios de ambas as apresentações, a literatura veterinária recomenda a prática do Mix Feeding (alimentação mista ou combinada), que concilia a conveniência da ração seca de alta digestibilidade com o aporte hídrico massivo do alimento úmido completo.',
+          'Nesse protocolo, a ração seca Super Premium fornece energia concentrada ao longo do dia, enquanto uma ou duas refeições de ração úmida completa introduzem água biológica de absorção imediata, elevando a diurese e reduzindo a saturação dos sais minerais na bexiga. Para felinos castrados, a inclusão diária de sachê completo aumenta o volume gástrico sem densidade calórica excessiva, auxiliando no manejo preventivo contra a obesidade.',
+          'Dica prática: para evitar sobrecarga calórica, certifique-se de descontar a equivalência energética do alimento úmido na porção diária da ração seca, seguindo as tabelas de orientação da embalagem ou a orientação personalizada do médico veterinário do pet.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Atenção Especial com Felinos Castrados',
+          text: 'Após a castração, a taxa metabólica basal do gato cai cerca de 20% a 25% e o animal tende a se movimentar menos. O alimento úmido completo atua duplamente na prevenção: confere saciedade pela água e fibras na matéria seca e dilui os solutos urinários contra a Doença do Trato Urinário Inferior dos Felinos (DTUIF).',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Posso alimentar meu gato exclusivamente com sachês úmidos?',
+        a: 'Sim, desde que a embalagem declare expressamente no verso a classificação legal do MAPA como "Alimento Completo para Gatos". Rações úmidas completas contêm todos os nutrientes e premix mineral exigidos pela 11ª Edição da ABINPET. Apenas atente-se à quantidade diária recomendada, pois o volume em gramas é maior devido ao teor de água.',
+      },
+      {
+        q: 'Como conferir na embalagem se o produto é completo ou complementar?',
+        a: 'Verifique a denominação de venda oficial impressa no painel traseiro do rótulo, conforme a IN MAPA nº 22/2009 e a IN nº 30/2009. Se constar "Alimento Completo para Gatos", o produto possui nutrição total balanceada. Se constar "Alimento Específico" ou "Alimento Complementar", trata-se de petisco/agrado e não deve substituir as refeições principais.',
+      },
+      {
+        q: 'Quanta água um gato precisa ingerir por dia?',
+        a: 'A necessidade hídrica média estipulada pela literatura veterinária situa-se entre 50 ml e 60 ml de água por quilo de peso corporal ao dia (somando a água contida no alimento e a água bebida na tigela). Um felino de 4 kg necessita de aproximadamente 200 ml a 240 ml diários de fluidos.',
+      },
+      {
+        q: 'A ração úmida sobrecarrega os rins com excesso de minerais?',
+        a: 'Pelo contrário. Quando o alimento é completo e atende às diretrizes da ABINPET e da FEDIAF 2025, os teores de cálcio, fósforo e magnésio operam dentro de margens de segurança biológica estritas. O alto teor aquoso do alimento dilui a urina e aumenta a frequência miccional, dificultando a precipitação e agregação de cristais.',
+      },
+    ],
+    conclusion:
+      'Garantir hidratação regular é o pilar mais decisivo para a longevidade dos felinos. A combinação equilibrada entre ração seca de alta nobreza e alimentos úmidos completos é a conduta preventiva padrão-ouro da medicina veterinária moderna para resguardar a saúde renal e urinária do seu gato por toda a vida.',
+    callToAction: {
+      title: 'Compare Alimentos Secos e Úmidos para Gatos no Catálogo',
+      text: 'O Observatório PetRankings analisa a rotulagem oficial de centenas de produtos felinos no Brasil, separando opções completas de alimentos complementares e calculando instantaneamente os nutrientes na Matéria Seca.',
+      buttonText: 'Explorar Alimentos para Gatos no Catálogo',
+      buttonUrl: '/catalogo?esp=GATO',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
