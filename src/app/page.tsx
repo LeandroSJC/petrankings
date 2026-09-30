@@ -20,6 +20,7 @@ import {
 import prisma from '@/lib/prisma';
 import { getAllGuides, getFeaturedGuide } from '@/lib/content/guides';
 import HomeHeroSearch from '@/components/HomeHeroSearch';
+import HomeGuidesSection from '@/components/HomeGuidesSection';
 import FaqAccordion from '@/components/FaqAccordion';
 
 export const metadata: Metadata = {
@@ -50,7 +51,6 @@ export default async function HomePage() {
 
   const allGuides = getAllGuides();
   const featuredGuide = getFeaturedGuide();
-  const secondaryGuides = allGuides.filter((g) => g.slug !== featuredGuide.slug).slice(0, 2);
 
   // FAQ Institucional e Metodológica
   const faqs = [
@@ -170,8 +170,8 @@ export default async function HomePage() {
                 Estudo em Destaque
               </h2>
             </div>
-            <Link
-              href="/guias"
+            <a
+              href="#estudos"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -184,7 +184,7 @@ export default async function HomePage() {
             >
               <span>Ver todos os estudos</span>
               <ChevronRight size={16} aria-hidden="true" />
-            </Link>
+            </a>
           </div>
 
           {featuredGuide && (
@@ -315,125 +315,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3. TRILHA DE ESTUDOS SECUNDÁRIOS EM GRID */}
-      {secondaryGuides.length > 0 && (
-        <section style={{ padding: '20px 0 60px 0' }}>
-          <div className="container">
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '24px',
-              }}
-            >
-              {secondaryGuides.map((guide) => (
-                <article
-                  key={guide.slug}
-                  style={{
-                    backgroundColor: 'var(--bg-subtle)',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-cream)',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'var(--transition)',
-                  }}
-                  className="guide-grid-card"
-                >
-                  <div style={{ position: 'relative', height: '200px', backgroundColor: 'var(--bg-muted)' }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={guide.coverImageUrl}
-                      alt={guide.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                        backdropFilter: 'blur(4px)',
-                        color: '#ffffff',
-                        padding: '3px 10px',
-                        borderRadius: 'var(--radius-full)',
-                        fontSize: '0.70rem',
-                        fontWeight: 700,
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      {guide.cluster}
-                    </div>
-                  </div>
-
-                  <div style={{ padding: '24px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        fontSize: '0.78rem',
-                        color: 'var(--text-muted)',
-                        marginBottom: '10px',
-                      }}
-                    >
-                      <Clock size={13} />
-                      <span>{guide.readingTimeMinutes} min de leitura</span>
-                      <span>•</span>
-                      <span>{guide.speciesTarget}</span>
-                    </div>
-
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: '1.20rem',
-                        fontWeight: 800,
-                        color: 'var(--brand-forest-900)',
-                        lineHeight: 1.3,
-                        marginBottom: '10px',
-                      }}
-                    >
-                      <Link href={`/guias/${guide.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                        {guide.title}
-                      </Link>
-                    </h3>
-
-                    <p
-                      style={{
-                        fontSize: '0.90rem',
-                        color: 'var(--text-body)',
-                        lineHeight: 1.55,
-                        marginBottom: '20px',
-                        flex: 1,
-                      }}
-                    >
-                      {guide.summary}
-                    </p>
-
-                    <div style={{ borderTop: '1px solid var(--border-cream)', paddingTop: '14px', marginTop: 'auto' }}>
-                      <Link
-                        href={`/guias/${guide.slug}`}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          fontSize: '0.88rem',
-                          fontWeight: 700,
-                          color: 'var(--brand-forest-700)',
-                          textDecoration: 'none',
-                        }}
-                      >
-                        <span>Acessar estudo completo</span>
-                        <ArrowRight size={14} />
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* 3. TRILHA DE ESTUDOS COM FILTROS DE ESPÉCIE & PAGINAÇÃO */}
+      <HomeGuidesSection allGuides={allGuides} featuredSlug={featuredGuide?.slug} />
 
       {/* 4. OBSERVATÓRIO EM NÚMEROS (DATA HIGHLIGHTS) */}
       <section

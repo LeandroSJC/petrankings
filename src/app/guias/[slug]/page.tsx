@@ -148,7 +148,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
             '@type': 'ListItem',
             position: 2,
             name: 'Estudos & Guias',
-            item: `${SITE_URL}/guias`,
+            item: `${SITE_URL}/#estudos`,
           },
           {
             '@type': 'ListItem',
@@ -183,7 +183,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
                 Início
               </Link>
               <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
-              <Link href="/guias" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              <Link href="/#estudos" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
                 Estudos & Guias
               </Link>
               <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />

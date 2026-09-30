@@ -20,7 +20,6 @@ export default function Header() {
 
   const mobileNavLinks = [
     { href: '/', label: 'Início (Observatório)' },
-    { href: '/guias', label: 'Estudos & Guias' },
     { href: '/catalogo', label: 'Catálogo de Rações' },
     { href: '/coadjuvantes', label: 'Alimentos Coadjuvantes' },
     { href: '/sobre', label: 'Metodologia' },
@@ -146,7 +145,6 @@ export default function Header() {
           >
             {[
               { href: '/', label: 'Início' },
-              { href: '/guias', label: 'Estudos & Guias' },
               { href: '/catalogo', label: 'Catálogo' },
               { href: '/sobre', label: 'Metodologia' },
               { href: '/fabricante', label: 'Fabricantes' },

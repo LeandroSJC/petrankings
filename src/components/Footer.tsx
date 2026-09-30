@@ -124,7 +124,7 @@ export default function Footer() {
             </h2>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.92rem', marginBottom: '18px' }}>
               <li>
-                <Link href="/guias" className="footer-link">
+                <Link href="/#estudos" className="footer-link">
                   <FileText size={16} aria-hidden="true" style={{ color: 'var(--brand-forest-400)', flexShrink: 0 }} />
                   <span>Estudos & Guias de Nutrição Pet</span>
                 </Link>
