@@ -1,11 +1,6 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
-import {
-  GATE_COOKIE_NAME,
-  GATE_EXPIRATION_DAYS,
-  createGateToken,
-  verifyGateToken,
-} from './gate';
+import { GATE_COOKIE_NAME } from './gate';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const rawJwtSecret = process.env.JWT_SECRET?.trim();
@@ -58,25 +53,7 @@ export async function getSession(): Promise<UserSessionPayload | null> {
   return verifySessionToken(token);
 }
 
-export async function requireAdmin(): Promise<UserSessionPayload> {
-  const session = await getSession();
-  if (!session || session.role !== 'admin') {
-    throw new Error('Acesso não autorizado');
-  }
-  return session;
-}
-
-export async function hasGateAccess(): Promise<boolean> {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(GATE_COOKIE_NAME)?.value;
-  if (!token) return false;
-  return verifyGateToken(token);
-}
-
 export {
   TOKEN_COOKIE_NAME,
   GATE_COOKIE_NAME,
-  GATE_EXPIRATION_DAYS,
-  createGateToken,
-  verifyGateToken,
 };

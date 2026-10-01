@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { productInputSchema } from '@/lib/schemas/product';
-import { stripWeightFromTitle, normalizeIngredientsList } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredientsList, slugify } from '@/lib/utils';
 
 export async function GET(req: NextRequest) {
   try {
@@ -105,12 +105,7 @@ export async function POST(req: NextRequest) {
     );
 
     // Gerar slug amigável único
-    let slug = body.slug?.trim() || body.commercialName
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+    let slug = body.slug?.trim() || slugify(body.commercialName);
 
     // Verificar se já existe produto cadastrado com este slug ou nome comercial
     const existingProduct = await prisma.product.findFirst({

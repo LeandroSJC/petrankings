@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { PawPrint, ArrowLeft, ShieldCheck, CheckCircle2, ChevronRight } from 'lucide-react';
+import { PawPrint, ChevronRight } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ProductCard from '@/components/ProductCard';
 

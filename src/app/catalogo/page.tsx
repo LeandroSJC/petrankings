@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import HomeAuditView, { ProductItemData } from '@/components/HomeAuditView';
-import { Database, ShieldCheck, ChevronRight, SlidersHorizontal, Info } from 'lucide-react';
+import { Database, ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Catálogo Geral de Rações Analisadas — PetRankings',

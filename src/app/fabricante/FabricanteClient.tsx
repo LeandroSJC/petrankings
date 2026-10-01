@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {
   FileCheck2,
   Send,
-  ArrowLeft,
   CheckCircle2,
   AlertCircle,
   Loader2,

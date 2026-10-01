@@ -2,18 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  ShieldCheck,
-  CheckCircle2,
-  FileCheck2,
-  HelpCircle,
   Sparkles,
   ArrowRight,
   Clock,
   Database,
-  Search,
-  BookOpen,
   Award,
-  Layers,
   ChevronRight,
   TrendingUp,
 } from 'lucide-react';

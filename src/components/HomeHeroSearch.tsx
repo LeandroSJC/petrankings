@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Search, Loader2, ArrowRight, Stethoscope, ShieldCheck, X } from 'lucide-react';
+import { Search, Loader2, ArrowRight, ShieldCheck, X } from 'lucide-react';
 
 interface SearchProductItem {
   id: string;

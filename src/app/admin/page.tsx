@@ -2,16 +2,10 @@ import React from 'react';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import {
-  Package,
   Building2,
-  MessageSquare,
   Plus,
-  ArrowRight,
-  CheckCircle2,
   Clock,
-  ShieldCheck,
   PawPrint,
-  AlertTriangle,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';

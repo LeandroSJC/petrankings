@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Send, CheckCircle2, AlertCircle, ArrowLeft, Heart, MessageCircle, Building2, ChevronRight } from 'lucide-react';
+import { Mail, Send, CheckCircle2, AlertCircle, Building2, ChevronRight } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 
 export default function ContatoClient() {

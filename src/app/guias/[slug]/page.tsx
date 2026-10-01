@@ -15,7 +15,6 @@ import {
   AlertCircle,
   HelpCircle,
   ExternalLink,
-  Award,
   Sparkles,
 } from 'lucide-react';
 import { SITE_URL } from '@/lib/utils';

@@ -3,16 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
-  Package,
   Plus,
   Edit2,
   Trash2,
   Search,
-  Filter,
   ExternalLink,
-  ShieldCheck,
   Stethoscope,
-  Clock,
   Loader2,
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';

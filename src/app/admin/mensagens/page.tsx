@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Mail, Archive, CheckCircle2, Clock, RefreshCw, Send, Trash2, X, Inbox, Download } from 'lucide-react';
+import { MessageSquare, Mail, Archive, CheckCircle2, RefreshCw, Send, X, Inbox, Download } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 import { formatDate } from '@/lib/utils';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Shield, Cookie, ArrowLeft, ChevronRight } from 'lucide-react';
+import { Shield, Cookie, ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade e Cookies | PetRankings',

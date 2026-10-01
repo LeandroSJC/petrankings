@@ -1,19 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  PawPrint,
   ShieldCheck,
   Building2,
-  FileCheck2,
-  ArrowLeft,
-  CheckCircle2,
-  AlertTriangle,
   Stethoscope,
   Award,
-  Sparkles,
   Zap,
   Scale,
-  HeartPulse,
   ChevronRight,
 } from 'lucide-react';
 import type { Metadata } from 'next';

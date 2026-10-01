@@ -5,11 +5,7 @@ import Link from 'next/link';
 import {
   Building2,
   Clock,
-  CheckCircle2,
-  AlertCircle,
-  FileText,
   ExternalLink,
-  MessageSquare,
   Loader2,
   Filter,
 } from 'lucide-react';

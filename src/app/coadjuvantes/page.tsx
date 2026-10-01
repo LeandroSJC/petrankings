@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Stethoscope, AlertTriangle, ArrowLeft, ShieldAlert, ChevronRight } from 'lucide-react';
+import { Stethoscope, ShieldAlert, ChevronRight } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ProductCard from '@/components/ProductCard';
 
