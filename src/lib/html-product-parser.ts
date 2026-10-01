@@ -96,7 +96,11 @@ function capitalizeTitle(str: string): string {
 /**
  * Extrator universal de metadados, níveis de garantia e composição a partir do HTML oficial
  */
-export function parseProductFromHtml(html: string, fallbackUrl: string = ''): ProductHtmlMetadata {
+export function parseProductFromHtml(
+  html: string,
+  fallbackUrl: string = '',
+  options?: { preferSecondImage?: boolean }
+): ProductHtmlMetadata {
   const $ = cheerio.load(html);
 
   // 1. URL e Imagem Oficial
@@ -194,14 +198,26 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     }
   }
 
-  // 1d. Extração Purina Pro Plan
-  if (!imageUrl && /purina\.com\.br/i.test(sourceUrl)) {
-    const purinaHero =
-      $('img[src*="_FRENTE"]').first().attr('src') ||
-      $('.internal-products-card-carousel img, .product-zoom img').first().attr('src') ||
-      $('main img[src*="/sites/default/files/"]').first().attr('src');
-    if (purinaHero) {
-      imageUrl = purinaHero.startsWith('http') ? purinaHero : 'https://purina.com.br' + purinaHero;
+  // 1d. Extração Purina (Pro Plan, ONE, Cat Chow, Friskies, Fancy Feast, Dog Chow)
+  if (/purina\.com\.br/i.test(sourceUrl)) {
+    if (options?.preferSecondImage) {
+      const secondThumb =
+        $('.internal-products-thumbnails img').eq(1).attr('src') ||
+        $('.internal-products-card-carousel img').eq(2).attr('src') ||
+        $('.internal-products-card-carousel img').eq(1).attr('src');
+      if (secondThumb) {
+        imageUrl = secondThumb.startsWith('http') ? secondThumb : 'https://purina.com.br' + secondThumb;
+      }
+    }
+    if (!imageUrl || imageUrl.includes('seo-default')) {
+      const purinaHero =
+        $('img[src*="_FRENTE"]').first().attr('src') ||
+        $('.internal-products-card-carousel img, .product-zoom img').first().attr('src') ||
+        $('.internal-products-thumbnails img').first().attr('src') ||
+        $('main img[src*="/sites/default/files/"]').first().attr('src');
+      if (purinaHero) {
+        imageUrl = purinaHero.startsWith('http') ? purinaHero : 'https://purina.com.br' + purinaHero;
+      }
     }
   }
 
@@ -438,12 +454,18 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       rcName = 'Royal Canin ' + rcName;
     }
     rawName = rcName;
+  } else if (/purina\.com\.br/i.test(sourceUrl)) {
+    let pName = $('h1').first().text().replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim();
+    if (!pName) {
+      pName = $('title').text().replace(/\|\s*Purina.*$/i, '').trim() || $('meta[property="og:title"]').attr('content') || '';
+    }
+    rawName = pName;
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
       $('h1.title').first().text().trim() ||
-      $('meta[property="og:title"]').attr('content') ||
       $('h1').first().text().trim() ||
+      $('meta[property="og:title"]').attr('content') ||
       '';
   }
 
@@ -455,8 +477,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   if (sourceUrl && !/farmina\.com/i.test(sourceUrl)) {
     if (/purina\.com\.br/i.test(sourceUrl)) {
       const purinaParts = sourceUrl.replace(/\/produto\/?$/i, '').split('/').filter(Boolean);
-      const relevant = purinaParts.slice(2).join('-');
-      if (relevant && relevant.length > 5) {
+      const relevant = purinaParts.slice(2).filter((p) => p !== 'produtos' && p !== 'produto').join('-');
+      if (relevant && relevant.length > 3) {
         slug = relevant.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
       }
     } else {
@@ -509,24 +531,26 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   } else if (/pedigree/i.test(commercialName) || /pedigree\.com\.br/i.test(sourceUrl)) {
     brand = 'Pedigree';
     manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
-  } else if (/purina\.com\.br/i.test(sourceUrl) || /\bpurina\b|\bpro\s*plan\b|\bdog\s*chow\b|\bcat\s*chow\b|\bfriskies\b|\bfancy\s*feast\b/i.test(commercialName)) {
+  } else if (/purina\.com\.br/i.test(sourceUrl) || /\bpurina\b|\bpro\s*plan\b|\bdog\s*chow\b|\bcat\s*chow\b|\bfriskies\b|\bfancy\s*feast\b|\bone\b/i.test(commercialName)) {
     manufacturerLegalName = 'Nestlé Brasil Ltda';
     if (/veterinary-diet|veterinary-diets|veterin[áa]ria|vet\s*diet|clinical/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Pro Plan Veterinary Diets';
     } else if (/liveclear/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Pro Plan LiveClear';
+    } else if (/purina-one|purina\s*one/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina ONE';
     } else if (/pro\s*plan|proplan/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Pro Plan';
-    } else if (/dog\s*chow/i.test(sourceUrl + ' ' + commercialName)) {
+    } else if (/dog\s*chow|dogchow/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Dog Chow';
-    } else if (/cat\s*chow/i.test(sourceUrl + ' ' + commercialName)) {
+    } else if (/cat\s*chow|catchow/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Cat Chow';
     } else if (/friskies/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Friskies';
     } else if (/fancy\s*feast/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Fancy Feast';
     } else {
-      brand = 'Purina Pro Plan';
+      brand = 'Purina';
     }
   } else if (/royal\s*canin/i.test(commercialName) || isRoyalCanin) {
     manufacturerLegalName = 'Royal Canin do Brasil Indústria e Comércio Ltda';
@@ -643,8 +667,8 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
   // 4. Espécie, Fase de Vida, Porte, Formato
   const isDual = /c[ãa]es\s*e\s*gatos/i.test(commercialName) || /c[ãa]es\s*e\s*gatos/i.test(sourceUrl);
-  const isGato = /gato|gatos|felin|miaow|nugget|\/cats\//i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
-  const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|\/dogs\//i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|\/dogs\//i.test(sourceUrl) || (!isRoyalCanin && /canin/i.test(commercialName + ' ' + sourceUrl)));
+  const isGato = /gato|gatos|felin|catchow|cat-chow|fancy-feast|friskies|miaow|nugget|\/cats\//i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
+  const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(sourceUrl) || (!isRoyalCanin && /canin/i.test(commercialName + ' ' + sourceUrl)));
 
   let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
   if (isDual) species = 'CAO_E_GATO';
@@ -663,7 +687,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   }
 
   let foodType: 'SECO' | 'UMIDO' =
-    /úmido|umido|gourmet|sach[êe]|pat[êe]|lata|creminho/i.test(commercialName + ' ' + sourceUrl) ? 'UMIDO' : 'SECO';
+    /úmido|umido|gourmet|sach[êe]|pat[êe]|lata|creminho|linha-umida/i.test(commercialName + ' ' + sourceUrl) ? 'UMIDO' : 'SECO';
   if (isQuatree && /miaow/i.test(commercialName + ' ' + sourceUrl)) {
     foodType = 'UMIDO';
   } else if (isQuatree && !/sache|úmido|umido/i.test(commercialName + ' ' + sourceUrl)) {
@@ -689,10 +713,10 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     else if (/articular|joint|\bjt\b/i.test(t)) coadjuvanteCondition = 'ARTICULAR';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
-    /(?:cookie|biscoito|snack|petisco|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow)/i.test(commercialName + ' ' + sourceUrl) ||
+    /(?:cookie|biscoito|biscoitos|snack|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow)/i.test(commercialName + ' ' + sourceUrl) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
-    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan/i.test(commercialName + ' ' + sourceUrl))
+    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast/i.test(commercialName + ' ' + sourceUrl))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }

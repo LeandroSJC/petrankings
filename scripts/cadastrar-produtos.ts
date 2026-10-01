@@ -57,24 +57,26 @@ async function processAll() {
   const batchUrlFile = path.join(dir, 'urls_cadastro.txt');
   if (fs.existsSync(batchUrlFile)) {
     const rawBatch = fs.readFileSync(batchUrlFile, 'utf-8');
-    const urls = rawBatch
+    const lines = rawBatch
       .split('\n')
       .map((l) => l.trim())
-      .filter((l) => l.startsWith('http'));
+      .filter((l) => l.startsWith('http') || (l.startsWith('*') && l.includes('http')));
 
-    if (urls.length > 0) {
+    if (lines.length > 0) {
       console.log(`\n================================================================`);
-      console.log(`🌐 INGESTÃO DE URLs EM LOTE (${urls.length} encontradas em produtos_cadastro/urls_cadastro.txt)`);
+      console.log(`🌐 INGESTÃO DE URLs EM LOTE (${lines.length} encontradas em produtos_cadastro/urls_cadastro.txt)`);
       console.log(`================================================================\n`);
-      for (let i = 0; i < urls.length; i++) {
-        const u = urls[i];
-        console.log(`\n👉 Ingestão [${i + 1}/${urls.length}]: ${u}`);
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const isStarred = line.startsWith('*');
+        const u = line.replace(/^\*\s*/, '').trim();
+        console.log(`\n👉 Ingestão [${i + 1}/${lines.length}]: ${u}${isStarred ? ' (🌟 2ª Imagem Solicitada)' : ''}`);
         try {
-          await processUrl(u);
+          await processUrl(u, { preferSecondImage: isStarred });
         } catch (err: any) {
           console.error(`❌ Erro no processamento da URL ${u}:`, err.message);
         }
-        if (i < urls.length - 1) {
+        if (i < lines.length - 1) {
           // Pausa preventiva de 2s para respeitar limites de taxa da API Gemini
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }

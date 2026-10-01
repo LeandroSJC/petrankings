@@ -118,10 +118,10 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
   return false;
 }
 
-export async function processUrl(url: string) {
+export async function processUrl(url: string, options?: { preferSecondImage?: boolean }) {
   console.log(`\n================================================================`);
   console.log(`🌐 INGESTÃO DIRETA POR URL`);
-  console.log(`🔗 Alvo: ${url}`);
+  console.log(`🔗 Alvo: ${url}${options?.preferSecondImage ? ' (🌟 2ª Imagem Solicitada)' : ''}`);
   console.log(`================================================================\n`);
 
   console.log('📡 Conectando ao website oficial do fabricante...');
@@ -154,7 +154,7 @@ export async function processUrl(url: string) {
   console.log(`✅ Página carregada com sucesso (HTML: ${(html.length / 1024).toFixed(1)} KB).`);
   console.log('🔍 Extraindo metadados, níveis de garantia e composição do DOM...');
 
-  const meta = parseProductFromHtml(html, url);
+  const meta = parseProductFromHtml(html, url, options);
 
   if (!meta.commercialName) {
     console.error(`❌ Não foi possível identificar o nome comercial do produto no HTML.`);
