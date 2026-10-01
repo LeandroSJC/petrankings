@@ -194,6 +194,25 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     }
   }
 
+  // 1d. Extração Purina Pro Plan
+  if (!imageUrl && /purina\.com\.br/i.test(sourceUrl)) {
+    const purinaHero =
+      $('img[src*="_FRENTE"]').first().attr('src') ||
+      $('.internal-products-card-carousel img, .product-zoom img').first().attr('src') ||
+      $('main img[src*="/sites/default/files/"]').first().attr('src');
+    if (purinaHero) {
+      imageUrl = purinaHero.startsWith('http') ? purinaHero : 'https://purina.com.br' + purinaHero;
+    }
+  }
+
+  // Normalização de URL relativa para absoluta se necessário
+  if (imageUrl && !imageUrl.startsWith('http') && sourceUrl.startsWith('http')) {
+    try {
+      const urlObj = new URL(sourceUrl);
+      imageUrl = `${urlObj.origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+    } catch {}
+  }
+
   // 1b. Extração Wix Warmup Data (Quatree Pet / Granvita)
   const isQuatree = /quatreepet\.com\.br/i.test(sourceUrl);
   let quatreeLine = 'Quatree';
@@ -434,10 +453,20 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
 
   let slug = '';
   if (sourceUrl && !/farmina\.com/i.test(sourceUrl)) {
-    const m =
-      sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?/i) ||
-      sourceUrl.match(/\/([^/]+)\/?$/);
-    if (m) slug = m[1];
+    if (/purina\.com\.br/i.test(sourceUrl)) {
+      const purinaParts = sourceUrl.replace(/\/produto\/?$/i, '').split('/').filter(Boolean);
+      const relevant = purinaParts.slice(2).join('-');
+      if (relevant && relevant.length > 5) {
+        slug = relevant.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      }
+    } else {
+      const m =
+        sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?$/i) ||
+        sourceUrl.match(/\/([^/]+)\/?$/);
+      if (m && m[1] && m[1] !== 'produto' && m[1] !== 'products' && m[1] !== 'index' && m[1].length > 3) {
+        slug = m[1];
+      }
+    }
   }
   if (!slug && commercialName) {
     slug = commercialName
@@ -480,6 +509,25 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   } else if (/pedigree/i.test(commercialName) || /pedigree\.com\.br/i.test(sourceUrl)) {
     brand = 'Pedigree';
     manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
+  } else if (/purina\.com\.br/i.test(sourceUrl) || /\bpurina\b|\bpro\s*plan\b|\bdog\s*chow\b|\bcat\s*chow\b|\bfriskies\b|\bfancy\s*feast\b/i.test(commercialName)) {
+    manufacturerLegalName = 'Nestlé Brasil Ltda';
+    if (/veterinary-diet|veterinary-diets|veterin[áa]ria|vet\s*diet|clinical/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina Pro Plan Veterinary Diets';
+    } else if (/liveclear/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina Pro Plan LiveClear';
+    } else if (/pro\s*plan|proplan/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina Pro Plan';
+    } else if (/dog\s*chow/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina Dog Chow';
+    } else if (/cat\s*chow/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina Cat Chow';
+    } else if (/friskies/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina Friskies';
+    } else if (/fancy\s*feast/i.test(sourceUrl + ' ' + commercialName)) {
+      brand = 'Purina Fancy Feast';
+    } else {
+      brand = 'Purina Pro Plan';
+    }
   } else if (/royal\s*canin/i.test(commercialName) || isRoyalCanin) {
     manufacturerLegalName = 'Royal Canin do Brasil Indústria e Comércio Ltda';
     if (/vet-products|veterin[áa]ria|vet\s*diet|coadjuvante/i.test(sourceUrl + ' ' + commercialName)) {
@@ -587,7 +635,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com/i.test(sourceUrl)
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -626,16 +674,16 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
   let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
   let coadjuvanteCondition: string | null = null;
 
-  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|coadjuvante/i.test(commercialName + ' ' + sourceUrl)) {
+  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|veterinary-diet|coadjuvante/i.test(commercialName + ' ' + sourceUrl)) {
     legalCategory = 'ALIMENTO_COADJUVANTE';
     const t = (commercialName + ' ' + sourceUrl).toLowerCase();
     if (/renal|\bre\b/i.test(t)) coadjuvanteCondition = 'RENAL';
     else if (/urin[áa]ri|struvite|ossalati|\bst\b/i.test(t)) coadjuvanteCondition = 'URINARIO';
     else if (/recupera|convalescence/i.test(t)) coadjuvanteCondition = 'RECUPERACAO';
-    else if (/obesidade|obesity|perda de peso|controle de peso|\bod\b/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
+    else if (/obesidade|obesity|overweight|perda de peso|controle de peso|\bod\b/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
     else if (/diabet/i.test(t)) coadjuvanteCondition = 'DIABETES';
     else if (/gastro|gastrointestinal|\bgi\b/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
-    else if (/hipoalerg|hypoallergenic|ultrahypo|pele sens[íi]vel|fish & potato|pork & potato/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
+    else if (/hipoalerg|hypoallergenic|hydroli|ultrahypo|pele sens[íi]vel|fish & potato|pork & potato/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
     else if (/hep[áa]t|hepatic/i.test(t)) coadjuvanteCondition = 'HEPATICO';
     else if (/card[ií]ac/i.test(t)) coadjuvanteCondition = 'CARDIACO';
     else if (/articular|joint|\bjt\b/i.test(t)) coadjuvanteCondition = 'ARTICULAR';
@@ -644,7 +692,7 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     /(?:cookie|biscoito|snack|petisco|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow)/i.test(commercialName + ' ' + sourceUrl) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
-    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree/i.test(commercialName + ' ' + sourceUrl))
+    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan/i.test(commercialName + ' ' + sourceUrl))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
@@ -709,6 +757,24 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
       } else if (subtitle.includes('ENERGIA')) {
         if (garText) garText += ' ' + content;
         else garText = content;
+      }
+    });
+  }
+
+  // 5a-0c. Accordions da Purina Pro Plan (.accordion-item)
+  if (/purina\.com\.br/i.test(sourceUrl)) {
+    $('.accordion-item').each((_, el) => {
+      const headerText = $(el).find('.accordion-header, button').text().trim().toLowerCase();
+      const bodyText = $(el).find('.accordion-body, .accordion-collapse').text().trim();
+      if ((headerText.includes('composição') || headerText.includes('ingredientes')) && !compText) {
+        const ingIdx = bodyText.indexOf('Lista de Ingredientes');
+        if (ingIdx !== -1) {
+          compText = bodyText.substring(ingIdx + 'Lista de Ingredientes'.length).trim();
+        } else {
+          compText = bodyText;
+        }
+      } else if ((headerText.includes('garantia') || headerText.includes('nutricional')) && !garText) {
+        garText = bodyText;
       }
     });
   }
@@ -828,6 +894,14 @@ export function parseProductFromHtml(html: string, fallbackUrl: string = ''): Pr
     const rawVal = m[1].replace(/\./g, '').replace(',', '.');
     const val = parseFloat(rawVal);
     const unit = (m[2] || '%').toLowerCase();
+
+    // Se houver percentual explícito entre parênteses logo após (ex: "11,5 g/kg (11,5%)"), prioriza a porcentagem
+    const snippet = garText.slice(m.index ?? 0, (m.index ?? 0) + 70);
+    const parenPctMatch = snippet.match(/\(\s*(\d+(?:[\.,]\d+)?)\s*%\s*\)/);
+    if (parenPctMatch) {
+      return parseFloat(parenPctMatch[1].replace(',', '.'));
+    }
+
     if (unit.includes('mg')) return Number((val / 10000).toFixed(4));
     if (unit.includes('g/kg') || unit === 'g') return Number((val / 10).toFixed(2));
     return val;
