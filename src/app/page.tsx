@@ -249,6 +249,7 @@ export default async function HomePage() {
                     fontSize: '0.82rem',
                     color: 'var(--text-muted)',
                     marginBottom: '12px',
+                    flexWrap: 'wrap',
                   }}
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
@@ -257,6 +258,14 @@ export default async function HomePage() {
                   </span>
                   <span>•</span>
                   <span>Alvo: {featuredGuide.speciesTarget}</span>
+                  <span>•</span>
+                  <span>
+                    {new Date(featuredGuide.publishedAt + 'T12:00:00Z').toLocaleDateString('pt-BR', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric',
+                    })}
+                  </span>
                   <span>•</span>
                   <span>{featuredGuide.author.name}</span>
                 </div>

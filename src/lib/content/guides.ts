@@ -92,7 +92,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-09-28',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/premier-vs-golden-duel-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), a presença de conservantes artificiais (BHT/BHA), aditivos para articulações e a ordem dos primeiros ingredientes entre PremieR Formula e GoldeN Formula.',
     relatedProductSlugs: [
@@ -441,14 +441,134 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo?esp=GATO',
     },
   },
+  {
+    slug: 'com-carne-vs-sabor-carne-rotulos-racao-mapa',
+    title: '"Com Carne", "Sabor Carne" ou "Farinha de Vísceras": O que o MAPA e a Ciência Realmente Exigem nos Rótulos de Pet Food',
+    subtitle: 'Desvendando a ordem decrescente de ingredientes, os claims cárneos da IN MAPA nº 22/2009 e a verdade bromatológica sobre as farinhas proteicas.',
+    cluster: 'Ingredientes & Rótulos',
+    speciesTarget: 'Cães e Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-09-30',
+    updatedAt: '2026-09-30',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?w=1200&auto=format&fit=crop&q=80',
+    isFeatured: true,
+    summary:
+      'Compreenda a legislação brasileira que rege as denominações e alegações das rações para cães e gatos. Entenda por que a ordem dos ingredientes no rótulo obedece à regra de peso no misturador antes da cocção, como diferenciar o claim "Com Frango" do "Sabor Frango" segundo a IN MAPA nº 22/2009 e a IN nº 39/2014, e por que a farinha de vísceras de alta qualidade não é o vilão que muitos imaginam.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'ordem-decrescente-e-o-peso-da-agua',
+        heading: '1. A Regra de Ouro: Por que os ingredientes são listados em ordem decrescente de peso?',
+        paragraphs: [
+          'Ao virar a embalagem de qualquer ração para cães ou gatos vendida no Brasil, a primeira seção examinada por tutores atentos é a "Composição Básica". Essa lista não é aleatória nem disposta em ordem de importância nutritiva percebida: ela obedece estritamente ao mandamento legal da Instrução Normativa MAPA nº 22/2009.',
+          'Conforme o regulamento oficial do Ministério da Agricultura e Pecuária (MAPA) e os princípios basilares de transparência do Código de Defesa do Consumidor (Lei nº 8.078/1990, Art. 6º, III), todas as matérias-primas devem ser discriminadas em ordem estritamente decrescente de peso ou massa no momento exato em que são pesadas e dosadas no misturador da fábrica, antes de passarem pela extrusão e pelo forno de secagem.',
+          'É exatamente aqui que reside o fenômeno bromatológico mais desconhecido pelo consumidor: a distorção física provocada pela água. Quando uma indústria adiciona "carne fresca de frango" ou "peito de frango desossado in natura", esse ingrediente entra na masseira contendo entre 70% e 75% de água biológica pura. Esse peso aquoso maciço projeta a carne fresca para o primeiro lugar da lista de ingredientes no rótulo. Contudo, durante o processamento térmico na extrusora e no secador, quase toda a água evapora para que o croquete alcance os 8% a 10% de umidade final.',
+          'Em contrapartida, ingredientes pré-desidratados — como a farinha de vísceras de aves ou a farinha de carne bovina — entram na fábrica já secos (com cerca de 8% de umidade). Portanto, 100 gramas de farinha de vísceras nobres entregam até 3 vezes mais proteína concentrada para o animal do que 100 gramas de carne fresca crua e hidratada.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Base Legal Obrigatória: IN MAPA nº 22/2009 e CDC',
+          text: 'O Art. 12 do Regulamento de Rotulagem do MAPA exige rigor absoluto na ordem decrescente de pesagem inicial. Alterar a ordem das matérias-primas para destacar artificialmente carnes nobres sem o devido suporte gravimétrico de fábrica configura infração administrativa perante o Decreto Federal nº 12.031/2024 e publicidade enganosa nos termos do Art. 37 do CDC.',
+        },
+      },
+      {
+        id: 'com-carne-vs-sabor-carne-e-imagem-ilustrativa',
+        heading: '2. "Com Frango" vs "Sabor Frango": O que determina a IN MAPA nº 22/2009 e a IN nº 39/2014',
+        paragraphs: [
+          'Você já notou que alguns pacotes exibem com destaque "Ração com Frango e Arroz", enquanto outros trazem grafado "Ração Sabor Frango e Arroz"? Essa sutileza gramatical não é mero capricho publicitário: ela é delimitada por fronteiras regulatórias intransponíveis.',
+          '1. O Claim "Com [Espécie Animal / Carne]" (ex.: "Com Frango", "Com Carne Bovina", "Com Cordeiro"): Esta designação de venda só é autorizada quando a empresa compuser a formulação com a matéria-prima cárnea real daquela espécie animal em proporção mínima pré-estabelecida (conforme os marcos de rotulagem do MAPA e as normas balizadas pela ABINPET). Se um rótulo afirma "Com Salmão", o salmão deve obrigatoriamente integrar os ingredientes em quantidade tangível e verificável no livro de formulação.',
+          '2. O Claim "Sabor [Espécie Animal]" (ex.: "Sabor Carne", "Sabor Frango"): Esta denominação é reservada para produtos nos quais a sensação organoléptica (cheiro e gosto) é conferida primariamente por aromatizantes sintéticos, extratos ou hidrolisados enzimáticos de fígado e vísceras (palatabilizantes líquidos aplicados externamente no recobrimento do croquete). Nesses alimentos, a carne mencionada no sabor não precisa compor a massa principal da receita.',
+          '3. A Exigência de "Imagem Meramente Ilustrativa": Por anos, o mercado estampava suculentas fotos de picanhas grelhadas e postas de salmão fresco em embalagens formuladas apenas com subprodutos e aromatizantes. Em resposta a essa distorção e com base no Código de Defesa do Consumidor, o MAPA editou a Instrução Normativa nº 39/2014 (alterando o Art. 10 da IN 22/2009), tornando compulsória a inscrição "Imagem Meramente Ilustrativa" em destaque visual no painel frontal de qualquer produto que utilize aromas ou subprodutos cárneos processados.',
+        ],
+        table: {
+          caption: 'Classificação Regulatória de Alegações Cárneas segundo o MAPA e ABINPET',
+          headers: ['Expressão no Painel Principal', 'Exigência Regulatória Oficial', 'Presença Física de Tecido Cárneo', 'Aplicação de "Imagem Ilustrativa"'],
+          rows: [
+            ['"Com [Frango/Carne/Salmão]"', 'Exige inclusão real e comprovada da matéria-prima cárnea declarada', 'Sim, tecido cárneo ou farinha específica presente', 'Obrigatória se utilizar farinhas ou subprodutos'],
+            ['"Sabor [Frango/Carne/Salmão]"', 'Gosto/aroma conferido por aromatizantes e hidrolisados de fígado', 'Não obrigatória na massa (sabor advém de aditivos sensoriais)', 'Compulsória perante a IN MAPA nº 39/2014'],
+            ['"Carne Mecanicamente Separada (CMS)"', 'Matéria-prima cárnea fresca desossada sob alta pressão mecânica', 'Sim, músculo e tecidos cárneos frescos com alto teor de umidade', 'Não substitui a identificação da espécie animal'],
+            ['"100% Carnes Frescas Desossadas"', 'Restrito a formulações sem farinhas de vísceras tradicionais', 'Sim, cortes desossados adicionados in natura antes da cocção', 'Deve refletir a composição real registrada no SipeAgro'],
+          ],
+        },
+      },
+      {
+        id: 'farinha-de-visceras-vilan-ou-fonte-nobre',
+        heading: '3. Farinha de Vísceras de Aves: Vilã ou Fonte Hiperconcentrada de Proteína?',
+        paragraphs: [
+          'Nenhum ingrediente de pet food é alvo de tanto preconceito infundado quanto a "Farinha de Vísceras de Aves" (FVA). Tutores desinformados costumam associar a palavra vísceras a "lixo de abatedouro", imaginando pés, bicos e penas triturados. Sob a ótica da zootecnia e da bromatologia, a verdade é diametralmente oposta.',
+          'O que a lei define como Farinha de Vísceras de Aves: Segundo a Instrução Normativa MAPA nº 110/2020 e os padrões do Sindicato Nacional da Indústria de Alimentação Animal (SINDIRAÇÕES), a FVA é obtida exclusivamente pela cocção industrial, desengorduramento mecânico por prensagem contínua e moagem de partes nobres não consumidas pelo mercado humano tradicional, incluindo coração, fígado, moela, pulmões e carcaça cárnea de frangos inspecionados pelo Serviço de Inspeção Federal (SIF). A adição deliberada de esterco, penas, bicos, sangue coagulado ou cascas de ovos é rigorosamente proibida pela legislação sanitária.',
+          'A superioridade biológica na concentração proteica: Enquanto a carne fresca in natura possui cerca de 70% a 75% de água e apenas 18% a 20% de proteína bruta, a farinha de vísceras nobre é previamente desidratada, alcançando impressionantes 60% a 70% de Proteína Bruta de altíssimo valor biológico e digestibilidade superior a 85% para cães e gatos, concentrando todos os aminoácidos essenciais (lisina, metionina e taurina).',
+          'O verdadeiro divisor de águas: A Matéria Mineral (Cinzas). O ponto que diferencia uma farinha de vísceras de primeira linha utilizada em rações Super Premium de uma farinha comum empregada em rações standard é a proporção de ossos moídos. Farinhas com excesso de carcaça e osso elevam o teto de Matéria Mineral (acima de 9,5% a 11% na Matéria Seca), o que sobrecarrega os rins e pode desequilibrar a relação Cálcio:Fósforo. As rações de ponta utilizam farinhas com especificação Low Ash (baixo teor de cinzas), compostas prioritariamente por tecidos musculares e vísceras nobres com menos ossos.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Proteção Regulatória Contra Fraudes em Matérias-Primas',
+          text: 'Ingredientes como farinha de penas hidrolisadas, farinha de sangue e farinha de subprodutos possuem registros e definições legais próprias perante o MAPA. Uma fábrica é terminantemente impedida pelo Decreto nº 12.031/2024 de rotular penas ou resíduos industriais sob a denominação de "Farinha de Vísceras de Aves".',
+        },
+      },
+      {
+        id: 'roteiro-pratico-inspecao-rotulo',
+        heading: '4. Guia Prático: Como inspecionar os primeiros ingredientes de uma ração como um especialista',
+        paragraphs: [
+          'Para não cair em armadilhas visuais de marketing, o Observatório PetRankings recomenda um protocolo objetivo de inspeção da rotulagem em quatro etapas analíticas:',
+          'Passo 1: Inspecione os 3 primeiros ingredientes da lista. Para alimentos secos de manutenção de cães e carnívoros estritos como gatos, a primeira posição (1º ingrediente) deve ser ocupada por uma fonte protéica animal nobre bem discriminada (ex.: Farinha de vísceras de aves, Carne bovina, Salmão fresco). Se o primeiro ingrediente for milho integral moído, farelo de trigo ou quirera de arroz, o alimento é estruturado primordialmente à base de carboidratos vegetais.',
+          'Passo 2: Verifique a especificidade das fontes lipídicas. Procure por gorduras e óleos com nome e sobrenome (ex.: Gordura de frango, Óleo de aves refinado, Óleo de peixe marinho - rica fonte de EPA e DHA). Evite alimentos que declarem expressões genéricas como "gordura animal" ou "óleo vegetal misto", que ocultam lotes com perfil graxo volátil e procedência incerta.',
+          'Passo 3: Fique atento ao fracionamento de ingredientes (Ingredient Splitting). Trata-se de um artifício zootécnico no qual a fábrica divide um mesmo vegetal em várias matérias-primas distintas no rótulo (ex.: milho moído, farelo de glúten de milho 60 e gérmen de milho desengordurado). Separados na balança, cada um pesa menos que a carne, permitindo que a proteína animal conste em 1º lugar na lista — ainda que, somados, os derivados do milho constituam a ampla maioria da receita.',
+          'Passo 4: Verifique os conservantes no rodapé da composição. Ao final do texto, confira os "Aditivos Tecnológicos": se encontrar BHT (INS 321) e BHA (INS 320), a estabilização lipídica é química sintética; se constar concentrado de tocoferóis, extrato de alecrim (Rosmarinus officinalis) e ácido cítrico, a ração adota conservação 100% natural balizada pela IN MAPA nº 110/2020.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'O Motor do PetRankings Executa Essa Análise Automaticamente',
+          text: 'Em cada uma das centenas de rações avaliadas em nosso portal, nosso algoritmo determinístico inspeciona e pontua a nobreza dos ingredientes declarados, penalizando fontes vagas e premiando proteínas animais nobres no topo da formulação.',
+          link: {
+            url: '/catalogo',
+            text: 'Explorar análises técnicas no Catálogo de Produtos',
+          },
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'A ração com carne fresca desossada é sempre superior à ração com farinha de vísceras?',
+        a: 'Não necessariamente. A carne fresca desossada eleva a palatabilidade natural e fornece excelente digestibilidade de aminoácidos, mas por conter mais de 70% de água no momento da pesagem, entrega proporcionalmente menos proteína concentrada por quilo do que uma farinha de vísceras desidratada de padrão "Low Ash" (baixo teor de cinzas). As formulações mais sofisticadas do mercado costumam combinar ambos os ingredientes.',
+      },
+      {
+        q: 'Como ter certeza de que uma ração "Sabor Frango" contém frango de verdade?',
+        a: 'Se a embalagem declarar apenas "Sabor Frango" e a face frontal contiver o aviso "Imagem Meramente Ilustrativa", a Instrução Normativa MAPA nº 22/2009 e a IN nº 39/2014 não exigem que o frango seja a base cárnea primária. O perfil de sabor pode ser fornecido por hidrolisados de vísceras e palatabilizantes enzimáticos. Para ter certeza da presença real da carne, consulte sempre a lista da "Composição Básica" no verso da embalagem.',
+      },
+      {
+        q: 'O que é a "Carne Mecanicamente Separada" (CMS) que aparece frequentemente em sachês e patês?',
+        a: 'A Carne Mecanicamente Separada (CMS) é uma massa cárnea fresca obtida pela remoção mecânica sob pressão de tecidos musculares aderidos às carcaças de aves ou bovinos após a desossa dos cortes principais. É uma matéria-prima largamente utilizada também na alimentação humana (como em embutidos de alta qualidade), fornecendo excelente aporte proteico, umidade biológica natural e alta digestibilidade para cães e gatos.',
+      },
+      {
+        q: 'Por que o aviso "Imagem Meramente Ilustrativa" se tornou obrigatório em tantas embalagens?',
+        a: 'A obrigação foi estabelecida pelo MAPA por meio da Instrução Normativa nº 39/2014, harmonizada com o Código de Defesa do Consumidor (CDC). O objetivo legal é impedir que tutores sejam induzidos a acreditar que a ração contém postas inteiras de carne grelhada ou legumes frescos idênticos às fotos da embalagem, quando o produto utiliza aromatizantes ou matérias-primas processadas.',
+      },
+    ],
+    conclusion:
+      'A leitura criteriosa da Composição Básica é a defesa mais eficaz do tutor contra o apelo visual do marketing pet. Compreender a mecânica do peso dos ingredientes antes do cozimento, a distinção entre claims de sabor e a nobreza biológica das matérias-primas permite selecionar alimentos com base em evidências científicas e na legislação oficial do MAPA, garantindo a nutrição ideal e a longevidade do seu cão ou gato.',
+    callToAction: {
+      title: 'Consulte a Composição Básica Analisada no Catálogo PetRankings',
+      text: 'O Observatório PetRankings analisa a lista oficial de ingredientes, os níveis de garantia na Matéria Seca (MS) e os sistemas de conservação de centenas de alimentos secos e úmidos registrados no Brasil.',
+      buttonText: 'Explorar Catálogo de Produtos Analisados',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
-  return GUIDES;
+  return [...GUIDES].sort((a, b) => {
+    const timeB = new Date(b.publishedAt + 'T12:00:00Z').getTime();
+    const timeA = new Date(a.publishedAt + 'T12:00:00Z').getTime();
+    if (timeB !== timeA) return timeB - timeA;
+    return new Date(b.updatedAt + 'T12:00:00Z').getTime() - new Date(a.updatedAt + 'T12:00:00Z').getTime();
+  });
 }
 
 export function getFeaturedGuide(): GuideItem {
-  return GUIDES.find((g) => g.isFeatured) || GUIDES[0];
+  const sorted = getAllGuides();
+  return sorted.find((g) => g.isFeatured) || sorted[0];
 }
 
 export function getGuideBySlug(slug: string): GuideItem | undefined {
@@ -456,5 +576,5 @@ export function getGuideBySlug(slug: string): GuideItem | undefined {
 }
 
 export function getRelatedGuides(currentSlug: string, limit = 2): GuideItem[] {
-  return GUIDES.filter((g) => g.slug !== currentSlug).slice(0, limit);
+  return getAllGuides().filter((g) => g.slug !== currentSlug).slice(0, limit);
 }

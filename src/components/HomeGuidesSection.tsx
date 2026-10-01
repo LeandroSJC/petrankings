@@ -21,8 +21,16 @@ export default function HomeGuidesSection({
   const [selectedFilter, setSelectedFilter] = useState<SpeciesFilter>('TODOS');
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Ordenação decrescente por data de publicação (mais recentes primeiro)
+  const sortedGuides = [...allGuides].sort((a, b) => {
+    const timeB = new Date(b.publishedAt + 'T12:00:00Z').getTime();
+    const timeA = new Date(a.publishedAt + 'T12:00:00Z').getTime();
+    if (timeB !== timeA) return timeB - timeA;
+    return new Date(b.updatedAt + 'T12:00:00Z').getTime() - new Date(a.updatedAt + 'T12:00:00Z').getTime();
+  });
+
   // Filtragem dos estudos por espécie
-  const filteredGuides = allGuides.filter((guide) => {
+  const filteredGuides = sortedGuides.filter((guide) => {
     if (selectedFilter === 'TODOS') {
       // No modo "Todos", exibe os estudos secundários (o destaque já está no hero acima)
       return guide.slug !== featuredSlug;
@@ -263,13 +271,22 @@ export default function HomeGuidesSection({
                       fontSize: '0.78rem',
                       color: 'var(--text-muted)',
                       marginBottom: '10px',
+                      flexWrap: 'wrap',
                     }}
                   >
                     <Clock size={13} aria-hidden="true" />
-                    <span>{guide.readingTimeMinutes} min de leitura</span>
+                    <span>{guide.readingTimeMinutes} min</span>
                     <span>•</span>
                     <span style={{ fontWeight: 600, color: 'var(--brand-forest-800)' }}>
                       {getSpeciesBadge(guide.speciesTarget)}
+                    </span>
+                    <span>•</span>
+                    <span>
+                      {new Date(guide.publishedAt + 'T12:00:00Z').toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
                     </span>
                   </div>
 
