@@ -83,20 +83,20 @@ export default async function CatalogoPage() {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '80px' }}>
-      {/* Barra Superior de Breadcrumbs */}
+      {/* Barra Superior de Breadcrumbs Compacta */}
       <div
         style={{
           backgroundColor: '#ffffff',
           borderBottom: '1px solid var(--border-cream)',
-          padding: '14px 0',
+          padding: '10px 0',
         }}
       >
         <div className="container">
-          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem' }}>
             <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
               Início
             </Link>
-            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
             <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
               Catálogo de Fichas Técnicas
             </span>
@@ -104,79 +104,60 @@ export default async function CatalogoPage() {
         </div>
       </div>
 
-      {/* Hero do Catálogo */}
+      {/* Hero Utilitário Compacto */}
       <section
         style={{
           backgroundColor: '#ffffff',
           borderBottom: '1px solid var(--border-cream)',
-          padding: '36px 0 32px 0',
+          padding: '20px 0 16px 0',
         }}
       >
         <div className="container">
-          <div style={{ maxWidth: '820px' }}>
+          <div style={{ maxWidth: '860px' }}>
             <div
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '8px',
-                padding: '4px 12px',
+                gap: '6px',
+                padding: '3px 10px',
                 borderRadius: 'var(--radius-full)',
                 backgroundColor: 'var(--brand-forest-50)',
                 border: '1px solid var(--brand-forest-200)',
                 color: 'var(--brand-forest-700)',
-                fontSize: '0.78rem',
+                fontSize: '0.72rem',
                 fontWeight: 700,
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
-                marginBottom: '14px',
+                marginBottom: '8px',
               }}
             >
-              <Database size={14} aria-hidden="true" />
+              <Database size={13} aria-hidden="true" />
               <span>Base Oficial de Dados Custodiados</span>
             </div>
 
             <h1
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.35rem)',
+                fontSize: 'clamp(1.45rem, 2.8vw, 1.85rem)',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
-                letterSpacing: '-0.025em',
-                lineHeight: 1.15,
-                marginBottom: '12px',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.2,
+                marginBottom: '6px',
               }}
             >
               Catálogo Geral de Alimentos para Cães e Gatos
             </h1>
 
-            <p style={{ fontSize: '1rem', color: 'var(--text-body)', lineHeight: 1.6, marginBottom: '20px' }}>
-              Consulte a análise nutricional de <strong>{products.length} produtos oficiais</strong> registrados no mercado brasileiro. Todos os níveis de garantia foram convertidos para Matéria Seca (MS) para neutralizar a diluição pela água e confrontados com os padrões da 11ª Edição do Manual ABINPET.
+            <p style={{ fontSize: '0.90rem', color: 'var(--text-body)', lineHeight: 1.5, margin: 0 }}>
+              Análise nutricional de <strong>{products.length} produtos oficiais</strong> em Matéria Seca (MS), confrontados com os padrões da 11ª Edição do Manual ABINPET. Filtre por espécie, fase de vida e conservantes abaixo.
             </p>
-
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '10px 16px',
-                backgroundColor: 'var(--bg-muted)',
-                borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--border-cream)',
-                fontSize: '0.84rem',
-                color: 'var(--text-body)',
-              }}
-            >
-              <ShieldCheck size={18} color="var(--brand-forest-600)" aria-hidden="true" />
-              <span>
-                Filtre por espécie, fase de vida, tipo de conservante e consulte a ficha técnica completa de cada produto.
-              </span>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Área da Tabela e Filtros */}
-      <section style={{ marginTop: '24px' }}>
+      <section style={{ marginTop: '16px' }}>
         <div className="container">
           <HomeAuditView initialProducts={products} />
         </div>

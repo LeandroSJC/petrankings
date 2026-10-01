@@ -78,12 +78,12 @@ export default async function HomePage() {
 
   return (
     <div style={{ backgroundColor: '#ffffff' }}>
-      {/* 1. HERO EDITORIAL COM CONCIERGE DE BUSCA */}
+      {/* 1. HERO EDITORIAL COM CONCIERGE DE BUSCA COMPACTO */}
       <section
         style={{
           background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
           borderBottom: '1px solid var(--border-cream)',
-          padding: '60px 0 54px 0',
+          padding: '36px 0 28px 0',
           position: 'relative',
         }}
       >
@@ -93,32 +93,32 @@ export default async function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '8px',
-                padding: '6px 16px',
+                gap: '6px',
+                padding: '4px 12px',
                 borderRadius: 'var(--radius-full)',
                 backgroundColor: 'var(--brand-forest-50)',
                 border: '1px solid var(--brand-forest-200)',
                 color: 'var(--brand-forest-700)',
-                fontSize: '0.80rem',
+                fontSize: '0.74rem',
                 fontWeight: 700,
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
-                marginBottom: '20px',
+                marginBottom: '10px',
               }}
             >
-              <Sparkles size={15} aria-hidden="true" color="var(--gold-600)" />
+              <Sparkles size={14} aria-hidden="true" color="var(--gold-600)" />
               <span>Observatório Independente de Nutrição Pet</span>
             </div>
 
             <h1
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(2.1rem, 4.4vw, 3.25rem)',
+                fontSize: 'clamp(1.75rem, 3.2vw, 2.45rem)',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
-                lineHeight: 1.15,
-                letterSpacing: '-0.03em',
-                marginBottom: '18px',
+                lineHeight: 1.18,
+                letterSpacing: '-0.025em',
+                marginBottom: '10px',
               }}
             >
               O que realmente está dentro do pacote de ração do seu pet?
@@ -126,14 +126,14 @@ export default async function HomePage() {
 
             <p
               style={{
-                fontSize: 'clamp(1rem, 2vw, 1.18rem)',
+                fontSize: 'clamp(0.92rem, 1.6vw, 1.05rem)',
                 color: 'var(--text-body)',
-                lineHeight: 1.6,
+                lineHeight: 1.5,
                 maxWidth: '720px',
-                margin: '0 auto 36px auto',
+                margin: '0 auto 20px auto',
               }}
             >
-              Estudos técnicos comparativos, duelos de marcas e análises em Matéria Seca (MS) fundamentadas nos dados oficiais do MAPA e nas diretrizes da <strong>11ª Edição do Manual ABINPET</strong>.
+              Estudos comparativos, duelos de marcas e análises em Matéria Seca (MS) fundamentadas nos dados do MAPA e na <strong>11ª Edição do Manual ABINPET</strong>.
             </p>
 
             {/* Barra de Busca Concierge Central */}
@@ -144,23 +144,23 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 2. ESTUDO DE CAPA (HERO FEATURE STORY) */}
-      <section style={{ padding: '60px 0 40px 0' }}>
+      {/* 2. ESTUDO DE CAPA COMPACTO (HERO FEATURE STORY) */}
+      <section style={{ padding: '32px 0 24px 0' }}>
         <div className="container">
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '20px',
+              marginBottom: '14px',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Award size={20} color="var(--gold-600)" aria-hidden="true" />
+              <Award size={18} color="var(--gold-600)" aria-hidden="true" />
               <h2
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '1.25rem',
+                  fontSize: '1.15rem',
                   fontWeight: 800,
                   color: 'var(--brand-forest-900)',
                   textTransform: 'uppercase',
@@ -176,14 +176,14 @@ export default async function HomePage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                fontSize: '0.88rem',
+                fontSize: '0.84rem',
                 fontWeight: 700,
                 color: 'var(--brand-forest-700)',
                 textDecoration: 'none',
               }}
             >
               <span>Ver todos os estudos</span>
-              <ChevronRight size={16} aria-hidden="true" />
+              <ChevronRight size={15} aria-hidden="true" />
             </a>
           </div>
 
@@ -191,12 +191,12 @@ export default async function HomePage() {
             <article
               style={{
                 backgroundColor: '#ffffff',
-                borderRadius: 'var(--radius-lg)',
+                borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--border-cream)',
-                boxShadow: 'var(--shadow-md)',
+                boxShadow: 'var(--shadow-sm)',
                 overflow: 'hidden',
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                 transition: 'var(--transition)',
               }}
               className="featured-guide-card"
@@ -204,7 +204,7 @@ export default async function HomePage() {
               <div
                 style={{
                   position: 'relative',
-                  minHeight: '320px',
+                  minHeight: '220px',
                   backgroundColor: 'var(--bg-muted)',
                 }}
               >
@@ -217,14 +217,14 @@ export default async function HomePage() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: '16px',
-                    left: '16px',
+                    top: '12px',
+                    left: '12px',
                     backgroundColor: 'rgba(15, 23, 42, 0.85)',
                     backdropFilter: 'blur(6px)',
                     color: '#ffffff',
-                    padding: '4px 12px',
+                    padding: '3px 10px',
                     borderRadius: 'var(--radius-full)',
-                    fontSize: '0.74rem',
+                    fontSize: '0.70rem',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                   }}
@@ -235,7 +235,7 @@ export default async function HomePage() {
 
               <div
                 style={{
-                  padding: '40px 36px',
+                  padding: '24px 26px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
@@ -245,15 +245,15 @@ export default async function HomePage() {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '12px',
-                    fontSize: '0.82rem',
+                    gap: '10px',
+                    fontSize: '0.78rem',
                     color: 'var(--text-muted)',
-                    marginBottom: '12px',
+                    marginBottom: '8px',
                     flexWrap: 'wrap',
                   }}
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <Clock size={14} />
+                    <Clock size={13} />
                     {featuredGuide.readingTimeMinutes} min de leitura
                   </span>
                   <span>•</span>
@@ -273,11 +273,11 @@ export default async function HomePage() {
                 <h3
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(1.45rem, 2.6vw, 1.95rem)',
+                    fontSize: 'clamp(1.20rem, 2.2vw, 1.55rem)',
                     fontWeight: 800,
                     color: 'var(--brand-forest-900)',
                     lineHeight: 1.25,
-                    marginBottom: '14px',
+                    marginBottom: '8px',
                   }}
                 >
                   <Link href={`/guias/${featuredGuide.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -287,10 +287,10 @@ export default async function HomePage() {
 
                 <p
                   style={{
-                    fontSize: '0.98rem',
+                    fontSize: '0.90rem',
                     color: 'var(--text-body)',
-                    lineHeight: 1.6,
-                    marginBottom: '28px',
+                    lineHeight: 1.5,
+                    marginBottom: '16px',
                   }}
                 >
                   {featuredGuide.summary}
@@ -305,9 +305,9 @@ export default async function HomePage() {
                       gap: '8px',
                       backgroundColor: 'var(--brand-forest-700)',
                       color: '#ffffff',
-                      padding: '12px 24px',
+                      padding: '10px 20px',
                       borderRadius: 'var(--radius-sm)',
-                      fontSize: '0.92rem',
+                      fontSize: '0.88rem',
                       fontWeight: 700,
                       textDecoration: 'none',
                       transition: 'var(--transition-fast)',
@@ -315,7 +315,7 @@ export default async function HomePage() {
                     className="guide-primary-btn"
                   >
                     <span>Ler estudo completo</span>
-                    <ArrowRight size={16} />
+                    <ArrowRight size={15} />
                   </Link>
                 </div>
               </div>

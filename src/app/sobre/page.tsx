@@ -44,15 +44,15 @@ export default function SobrePage() {
         style={{
           backgroundColor: '#ffffff',
           borderBottom: '1px solid var(--border-cream)',
-          padding: '14px 0',
+          padding: '10px 0',
         }}
       >
         <div className="container">
-          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+          <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem' }}>
             <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
               Início
             </Link>
-            <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+            <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
             <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
               Metodologia & Diretrizes Científicas
             </span>
@@ -65,7 +65,7 @@ export default function SobrePage() {
         style={{
           backgroundColor: '#ffffff',
           borderBottom: '1px solid var(--border-cream)',
-          padding: '36px 0 32px 0',
+          padding: '24px 0 20px 0',
         }}
       >
         <div className="container">
@@ -74,38 +74,38 @@ export default function SobrePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '8px',
-                padding: '4px 12px',
+                gap: '6px',
+                padding: '3px 10px',
                 borderRadius: 'var(--radius-full)',
                 backgroundColor: 'var(--brand-forest-50)',
                 border: '1px solid var(--brand-forest-200)',
                 color: 'var(--brand-forest-700)',
-                fontSize: '0.78rem',
+                fontSize: '0.72rem',
                 fontWeight: 700,
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
-                marginBottom: '14px',
+                marginBottom: '8px',
               }}
             >
-              <Scale size={14} aria-hidden="true" />
+              <Scale size={13} aria-hidden="true" />
               <span>Fundamentação Científica & Marco Regulatório</span>
             </div>
 
             <h1
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
+                fontSize: 'clamp(1.5rem, 3vw, 2.05rem)',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
                 letterSpacing: '-0.025em',
-                lineHeight: 1.18,
-                marginBottom: '14px',
+                lineHeight: 1.2,
+                marginBottom: '8px',
               }}
             >
               Metodologia e Critérios da Avaliação Nutricional
             </h1>
 
-            <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', lineHeight: 1.65, margin: 0 }}>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-body)', lineHeight: 1.55, margin: 0 }}>
               O <strong>PetRankings</strong> opera como um observatório técnico independente de confronto documental das informações nutricionais divulgadas pelas marcas em suas páginas e rótulos oficiais. Todas as notas decorrem estritamente dos níveis de garantia e da ordem de ingredientes em conformidade com o <strong>Manual Pet Food Brasil (ABINPET 11ª Edição)</strong>, instruções normativas do MAPA e artigos 30 e 31 do Código de Defesa do Consumidor.
             </p>
           </div>
@@ -113,7 +113,7 @@ export default function SobrePage() {
       </section>
 
       {/* Conteúdo Principal */}
-      <div className="container" style={{ maxWidth: '920px', marginTop: '36px' }}>
+      <div className="container" style={{ maxWidth: '920px', marginTop: '24px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
           {/* Seção 1: Fundamentação Legal e Regulatória */}
           <section

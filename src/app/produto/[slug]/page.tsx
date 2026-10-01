@@ -186,19 +186,19 @@ export default async function ProductDetailPage({
           style={{
             backgroundColor: '#ffffff',
             borderBottom: '1px solid var(--border-cream)',
-            padding: '14px 0',
+            padding: '10px 0',
           }}
         >
           <div className="container">
-            <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+            <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem' }}>
               <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
                 Início
               </Link>
-              <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+              <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
               <Link href="/catalogo" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
                 Catálogo Geral
               </Link>
-              <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+              <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
               <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '420px' }}>
                 {product.commercialName}
               </span>
@@ -206,9 +206,9 @@ export default async function ProductDetailPage({
           </div>
         </div>
 
-        <div className="container" style={{ paddingTop: '24px' }}>
+        <div className="container" style={{ paddingTop: '18px' }}>
           {/* Breadcrumb / Botão de retorno */}
-          <div style={{ marginBottom: '16px' }}>
+          <div style={{ marginBottom: '12px' }}>
             <BackButton label="Voltar ao Catálogo Geral" />
           </div>
 

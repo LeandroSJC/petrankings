@@ -174,19 +174,19 @@ export default async function GuidePage({ params }: GuidePageProps) {
           style={{
             backgroundColor: '#ffffff',
             borderBottom: '1px solid var(--border-cream)',
-            padding: '14px 0',
+            padding: '10px 0',
           }}
         >
           <div className="container">
-            <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+            <nav aria-label="Navegação estrutural" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem' }}>
               <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
                 Início
               </Link>
-              <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+              <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
               <Link href="/#estudos" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
                 Estudos & Guias
               </Link>
-              <ChevronRight size={14} color="var(--text-subtle)" aria-hidden="true" />
+              <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
               <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '380px' }}>
                 {guide.title}
               </span>
@@ -194,24 +194,24 @@ export default async function GuidePage({ params }: GuidePageProps) {
           </div>
         </div>
 
-        {/* Header Editorial do Artigo Padronizado */}
+        {/* Header Editorial do Artigo Compacto */}
         <header
           style={{
             backgroundColor: '#ffffff',
             borderBottom: '1px solid var(--border-cream)',
-            padding: '36px 0 32px 0',
+            padding: '24px 0 20px 0',
           }}
         >
           <div className="container" style={{ maxWidth: '860px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', flexWrap: 'wrap' }}>
               <span
                 style={{
                   backgroundColor: 'var(--brand-forest-50)',
                   border: '1px solid var(--brand-forest-200)',
                   color: 'var(--brand-forest-700)',
-                  padding: '4px 12px',
+                  padding: '3px 10px',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.78rem',
+                  fontSize: '0.72rem',
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.04em',
@@ -224,9 +224,9 @@ export default async function GuidePage({ params }: GuidePageProps) {
                   backgroundColor: 'var(--bg-muted)',
                   border: '1px solid var(--border-cream)',
                   color: 'var(--text-body)',
-                  padding: '4px 12px',
+                  padding: '3px 10px',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.78rem',
+                  fontSize: '0.72rem',
                   fontWeight: 700,
                 }}
               >
@@ -237,18 +237,18 @@ export default async function GuidePage({ params }: GuidePageProps) {
             <h1
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.35rem)',
+                fontSize: 'clamp(1.5rem, 3vw, 2.05rem)',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
-                lineHeight: 1.18,
-                letterSpacing: '-0.025em',
-                marginBottom: '12px',
+                lineHeight: 1.2,
+                letterSpacing: '-0.02em',
+                marginBottom: '8px',
               }}
             >
               {guide.title}
             </h1>
 
-            <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', lineHeight: 1.6, marginBottom: '20px' }}>
+            <p style={{ fontSize: '0.94rem', color: 'var(--text-body)', lineHeight: 1.5, marginBottom: '14px' }}>
               {guide.subtitle}
             </p>
 
@@ -256,31 +256,31 @@ export default async function GuidePage({ params }: GuidePageProps) {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '16px',
-                fontSize: '0.875rem',
+                gap: '14px',
+                fontSize: '0.82rem',
                 color: 'var(--text-body)',
                 borderTop: '1px solid var(--border-cream)',
-                paddingTop: '16px',
+                paddingTop: '12px',
                 flexWrap: 'wrap',
               }}
             >
               <div>
                 <strong style={{ color: 'var(--brand-forest-900)' }}>{guide.author.name}</strong>
-                <span style={{ display: 'block', fontSize: '0.80rem', color: '#475569' }}>{guide.author.role}</span>
+                <span style={{ display: 'block', fontSize: '0.76rem', color: '#475569' }}>{guide.author.role}</span>
               </div>
               <span>•</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Clock size={16} aria-hidden="true" />
+              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <Clock size={14} aria-hidden="true" />
                 {guide.readingTimeMinutes} min de leitura
               </span>
               <span>•</span>
-              <span>Revisão técnica em {new Date(guide.updatedAt).toLocaleDateString('pt-BR')}</span>
+              <span>Revisão técnica em {new Date(guide.updatedAt + 'T12:00:00Z').toLocaleDateString('pt-BR')}</span>
             </div>
           </div>
         </header>
 
         {/* Imagem de Capa do Estudo */}
-        <div className="container" style={{ maxWidth: '860px', marginTop: '32px', marginBottom: '36px' }}>
+        <div className="container" style={{ maxWidth: '860px', marginTop: '20px', marginBottom: '24px' }}>
           <div
             style={{
               position: 'relative',
