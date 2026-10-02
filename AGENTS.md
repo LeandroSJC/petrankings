@@ -77,6 +77,10 @@
       - **Sentence Case Mandatório:** É expressamente proibido o uso de `<h2>` em caixa alta total (ALL CAPS). A caixa alta é restrita exclusivamente a kickers/badges de apoio com até 3 palavras.
       - **Hierarquia Visual:** `font-weight: 800`, cor `var(--brand-forest-900)` (ou `#ffffff` em seções escuras), entrelinha compacta (`line-height: 1.25`).
       - **Dossiê Pericial nas Fichas de Produto (`/produto/[slug]`):** As seções da ficha técnica adotam ordenação lógica e numeração pericial (`1. Custódia documental e evidência oficial`, `2. Extrato da avaliação nutricional (0 a 100)`, `3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)`, `4. Composição básica e ingredientes declarados`, `5. Onde encontrar este produto`).
+14. **Paridade e Equilíbrio Editorial entre Espécies (Cães vs. Gatos):**
+    - A linha editorial do PetRankings deve manter paridade e alternância equilibrada entre conteúdos dedicados a cães e gatos na trilha de estudos, duelos e guias técnicos (`/guias`).
+    - Estudos com foco exclusivo em uma espécie devem ser alternados de modo a evitar sobrepeso de uma categoria sobre a outra (proporção equilibrada na esteira de publicações específicas, complementada por estudos transversais de metodologia bromatológica com foco "Cães e Gatos").
+    - Ao planejar novas pautas, o curador deve verificar a distribuição corrente de publicações específicas e priorizar a espécie com menor densidade de estudos exclusivos publicados.
 
 ---
 

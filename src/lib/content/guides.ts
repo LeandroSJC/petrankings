@@ -18,6 +18,9 @@
  *   produtos específicos cadastrados no banco de dados, `relatedProductSlugs` DEVE ser
  *   obrigatoriamente um array vazio (`[]`). É terminantemente proibido inserir produtos
  *   aleatórios apenas para preencher o bloco "Produtos Analisados Citados neste Estudo".
+ * - PARIDADE E EQUILÍBRIO DE ESPÉCIES (INVARIANTE 14): Manter proporção equilibrada (1:1)
+ *   entre publicações dedicadas a Cães e Gatos, alternando a esteira editorial e utilizando
+ *   "Cães e Gatos" em estudos metodológicos transversais com exemplos de ambas as espécies.
  */
 
 export interface GuideSection {

@@ -111,6 +111,10 @@ The PetRankings editorial repository organizes studies strictly into nutritional
   - Fichas técnicas oficiais arquivadas em HTML com hash SHA-256 no banco de dados.
   - Marco regulatório autêntico arquivado na `biblioteca_regulatoria/` (Decreto nº 12.031/2024, Decreto nº 4.680/2003, Portaria MJ nº 2.658/2003, IN MAPA nº 22/2009, IN nº 30/2009, IN nº 39/2014, IN nº 110/2020, CDC).
   - Literatura de referência: 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e WSAVA.
+- **Paridade e Equilíbrio Editorial entre Espécies (Cães vs. Gatos - Invariante 14)**:
+  - Manter paridade equilibrada (1:1) na esteira de publicações de foco exclusivo (`Cães` vs `Gatos`).
+  - Estudos metodológicos e transversais (cálculos de Matéria Seca, conservantes, custo diário, rotulagem de OGM) devem adotar `speciesTarget: 'Cães e Gatos'` e incluir compulsoriamente análises e exemplos práticos para ambas as espécies.
+  - Ao planejar ou sugerir novos conteúdos, verificar a distribuição do acervo publicado: se a última pauta específica foi canina, priorizar pautas felinas dedicadas (ex: controle de pH urinário, taurina, alimentos anti-bolas de pelo ou duelos de linhas para gatos castrados).
 
 ## 7. Standardization of Product Names, Page Titles & Section Headings (Invariante 13)
 
