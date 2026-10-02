@@ -206,7 +206,7 @@ export default async function HomePage() {
                 boxShadow: 'var(--shadow-sm)',
                 overflow: 'hidden',
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                 transition: 'var(--transition)',
               }}
               className="featured-guide-card"
@@ -214,15 +214,25 @@ export default async function HomePage() {
               <div
                 style={{
                   position: 'relative',
-                  minHeight: '220px',
+                  minHeight: '260px',
+                  height: '100%',
                   backgroundColor: 'var(--bg-muted)',
+                  overflow: 'hidden',
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={featuredGuide.coverImageUrl}
                   alt={featuredGuide.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
                 />
                 <div
                   style={{

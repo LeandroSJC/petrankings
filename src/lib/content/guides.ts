@@ -704,6 +704,138 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo?gmo_free=1',
     },
   },
+  {
+    slug: 'o-mito-do-quilo-barato-custo-diario-racao-pet',
+    title: 'O mito do quilo barato: Por que a ração de menor preço por kg pode custar mais caro por dia no comedouro?',
+    subtitle: 'A matemática da Energia Metabolizável (EM), a digestibilidade zootécnica e o cálculo do custo em gramas por dia (g/dia) no prato do seu cão ou gato.',
+    cluster: 'Custo por Dia & Economia',
+    speciesTarget: 'Cães e Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-02',
+    updatedAt: '2026-10-02',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/custo-diario-racao-cover.webp',
+    isFeatured: true,
+    summary:
+      'Descubra por que comparar rações apenas pelo valor da saca ou pelo preço do quilo (R$/kg) é uma ilusão financeira. Entenda como a densidade calórica e a digestibilidade zootécnica determinam a porção diária real em gramas e veja a fórmula matemática para calcular o custo exato por dia de qualquer alimento pet.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-erro-classico-do-preco-por-quilo',
+        heading: '1. O erro clássico da comparação por quilo (R$/kg)',
+        paragraphs: [
+          'No corredor do pet shop ou navegando pelo e-commerce, o instinto primário de quase todo tutor diante da inflação é olhar a etiqueta e fazer a conta rápida de padaria: dividir o preço do pacote pelo peso líquido para descobrir o "preço do quilo" (R$/kg).',
+          'À primeira vista, a lógica parece irrefutável: um saco de 15 kg vendido por R$ 135,00 (R$ 9,00/kg) parece muito mais econômico do que outro saco de 15 kg comercializado por R$ 240,00 (R$ 16,00/kg). No entanto, sob a ótica da zootecnia e da bromatologia, animais de estimação não comem "quilos", eles consomem calorias e nutrientes biodisponíveis.',
+          'A comparação isolada do preço por quilo desconsidera a variável mais determinante da nutrição animal: a densidade de nutrientes por grama. Enquanto uma ração de alta digestibilidade concentra energia nobre e teores elevados de aminoácidos em um volume reduzido de croquetes, alimentos econômicos ou com excesso de fibras vegetais requerem porções diárias substancialmente maiores para tentar suprir as mesmas necessidades metabólicas vitais.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Código de Defesa do Consumidor e IN MAPA nº 22/2009',
+          text: 'O Art. 6º, Inciso III, do CDC (Lei nº 8.078/1990) assegura o direito básico à informação adequada sobre características e composição de produtos. No verso de toda ração registrada no MAPA, a tabela de recomendação de consumo diário (expressa em gramas/dia conforme o peso corporal) é a fonte oficial mandatória para descobrir quanto o alimento realmente rende no mês.',
+        },
+      },
+      {
+        id: 'a-fisica-zootecnica-densidade-e-energia-metabolizavel',
+        heading: '2. A física zootécnica: Densidade calórica e Energia Metabolizável (EM)',
+        paragraphs: [
+          'Para entender por que um animal precisa comer mais ou menos gramas de um determinado alimento, é preciso recorrer ao conceito de Energia Metabolizável (EM), medido em quilocalorias por quilo de alimento (kcal/kg).',
+          'A Energia Metabolizável representa a parcela exata de energia bruta dos carboidratos, proteínas e lipídios que é efetivamente digerida e absorvida pelo organismo do cão ou gato, descontadas as perdas naturais nas fezes, urina e gases digestivos, conforme as equações preditivas do NRC 2006 e da 11ª Edição do Manual Pet Food Brasil (ABINPET).',
+          'Alimentos Super Premium e de alta densidade nutricional apresentam habitualmente entre 3.900 e 4.200 kcal/kg de Energia Metabolizável, impulsionados por teores elevados de gorduras nobres (extrato etéreo entre 14% e 20% na Matéria Seca) e farinhas de carnes nobres de alta digestibilidade. Em contrapartida, formulações standard ou econômicas costumam entregar entre 3.000 e 3.300 kcal/kg de EM, devido à predominância de farelos vegetais de menor valor biológico e teores lipídicos modestos (em torno de 8% a 10%).',
+          'Como cães e gatos sadios regulam sua ingestão alimentar prioritariamente para satisfazer sua demanda calórica diária (Necessidade Energética de Manutenção - NEM), quanto menor for a densidade calórica do croquete, mais gramas de ração o animal precisará ingerir para se manter saciado e nutrido.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'A Regra da Saciedade Biológica',
+          text: 'Um cão não come para encher o estômago; ele come até que o hipotálamo receba os sinais bioquímicos de que sua cota calórica e proteica foi atingida. Croquetes com baixa densidade calórica obrigam o animal a ingerir grandes volumes, dilatando o trato gástrico sem nutri-lo proporcionalmente.',
+        },
+      },
+      {
+        id: 'o-confronto-matematico-do-comedouro',
+        heading: '3. O confronto matemático do comedouro: Custo por dia na prática',
+        paragraphs: [
+          'Vamos colocar a matemática à prova em uma simulação zootécnica real. Tomemos como base um cão adulto de porte médio pesando 15 kg, castrado e moderadamente ativo.',
+          'Conforme as tabelas de referência do NRC 2006 e da 11ª Edição da ABINPET, a Necessidade Energética de Manutenção (NEM) desse cão é calculada pela fórmula NEM = 110 × (Peso Corporal)^0,75, resultando em uma exigência diária aproximada de 838 kcal/dia.',
+          'Confrontemos agora o comportamento financeiro real entre duas sacas de 15 kg comercializadas no mercado nacional:',
+          'O resultado numérico da tabela abaixo desmonta o mito da economia imediata: o que parecia ser uma diferença exorbitante de R$ 105,00 na prateleira resume-se, na realidade do comedouro, a uma diferença de meros R$ 0,41 por dia (cerca de R$ 12,30 por mês).',
+          'E o cenário se inverte por completo quando a ração de menor valor exige porções ainda maiores (350 g a 380 g/dia, algo comum em produtos com alto teor de farelos grosseiros): nesse caso, o saco de 15 kg dura apenas 39 dias, elevando o custo diário para R$ 3,46/dia — tornando o alimento teoricamente "barato" mais caro em dinheiro vivo do que a opção Super Premium!',
+        ],
+        table: {
+          caption: 'Simulação Financeira Zootécnica: Ração Econômica vs Ração Super Premium (Cão de 15 kg / 838 kcal/dia)',
+          headers: ['Parâmetro Analisado', 'Cenário A: Ração Standard / Econômica', 'Cenário B: Ração Super Premium Concentrada', 'Diferença Prática'],
+          rows: [
+            ['Preço do Saco de 15 kg', 'R$ 135,00', 'R$ 240,00', '+R$ 105,00 no valor do saco'],
+            ['Preço Aparente por Quilo (R$/kg)', 'R$ 9,00 / kg', 'R$ 16,00 / kg', 'Aparente acréscimo de +77%'],
+            ['Densidade Calórica Estimada (EM)', '3.100 kcal / kg', '4.000 kcal / kg', '+29% de energia útil concentrada'],
+            ['Digestibilidade Média da Proteína', '68% a 72% (baixo aproveitamento)', '85% a 90% (alta biodisponibilidade)', 'Muito maior retenção celular'],
+            ['Porção Diária Recomendada (g/dia)', '300 g / dia (tabela oficial)', '195 g / dia (tabela oficial)', 'Economia de 105 g por dia no prato'],
+            ['Duração Real do Saco de 15 kg', '50 dias (1,6 mês)', '77 dias (mais de 2,5 meses!)', 'O saco B dura quase 1 mês a mais'],
+            ['Custo Real por Dia no Comedouro', 'R$ 2,70 / dia (R$ 135 / 50 dias)', 'R$ 3,11 / dia (R$ 240 / 77 dias)', 'Diferença real de apenas R$ 0,41/dia!'],
+            ['Custo Mensal Aproximado (30 dias)', 'R$ 81,00 / mês', 'R$ 93,30 / mês', 'Apenas R$ 12,30 de diferença mensal'],
+          ],
+        },
+      },
+      {
+        id: 'consequencia-oculta-fezes-e-saude-intestinal',
+        heading: '4. A consequência oculta: Volume de fezes, odor e gastos veterinários',
+        paragraphs: [
+          'A matemática financeira do comedouro tem um desdobramento biológico direto que todo tutor vivencia na rotina da limpeza: tudo o que entra no animal e não é digerido sai obrigatoriamente no quintal ou na caixa de areia.',
+          'Quando um cão consome 300 gramas diários de uma ração com 70% de digestibilidade, cerca de 90 gramas de matéria seca indigestível passam reto pelo trato digestivo. Ao reter água na formação do bolo fecal, esse resíduo gera de 250 a 300 gramas de fezes volumosas, amolecidas e com odor intenso todos os dias.',
+          'Em contrapartida, quando o mesmo cão ingere 195 gramas de uma ração de alta nobreza com 88% de digestibilidade e aditivos como extrato de Yucca schidigera e prebióticos (MOS e FOS), apenas cerca de 23 gramas de resíduo seco chegam ao cólon. O resultado são fezes firmes, de volume até 60% menor, fáceis de recolher e com redução drástica no odor fecal.',
+          'Além disso, a ingestão contínua de matérias-primas com melhor perfil de aminoácidos, ácidos graxos essenciais (ômega-3 EPA e DHA de óleo de peixe marinho) e antioxidantes naturais resguarda a barreira cutânea, reduz a queda excessiva de pelos e protege as articulações e os rins, prevenindo despesas veterinárias corretivas que rapidamente anulam qualquer suposta economia de gôndola.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'A Equação da Economia Global Pet',
+          text: 'A verdadeira economia na criação de cães e gatos é calculada somando: Custo da Ração por Dia + Sacos de Higiene/Areia Sanitária Consumidos + Frequência de Consultas e Medicamentos Veterinários. Alimentos de alta digestibilidade reduzem despesas em todas essas frentes simultaneamente.',
+        },
+      },
+      {
+        id: 'passo-a-passo-calcular-custo-diario',
+        heading: '5. Guia prático: Como calcular o custo por dia de qualquer ração em 3 passos',
+        paragraphs: [
+          'Antes de fechar a compra do próximo saco de ração, adote este roteiro matemático simples de três passos para descobrir o custo diário real:',
+          'Passo 1: Consulte a Tabela de Consumo no verso da embalagem. Localize o peso ideal do seu pet e anote a quantidade recomendada em gramas por dia (g/dia). Exemplo: 200 g/dia.',
+          'Passo 2: Calcule o rendimento do pacote em dias. Divida o peso total da embalagem em gramas pelo consumo diário. Exemplo para um saco de 15 kg (15.000 g): 15.000 / 200 = 75 dias de duração.',
+          'Passo 3: Divida o preço do saco pelo número de dias. Se o pacote custou R$ 225,00, divida por 75 dias: R$ 225 / 75 = R$ 3,00 por dia. Compare esse valor diário entre as marcas candidatas para tomar uma decisão financeira e zootécnica lúcida.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Consulte a Composição e a Densidade no PetRankings',
+          text: 'No Observatório PetRankings, recalculamos automaticamente todos os níveis de garantia na Matéria Seca (MS) para que você identifique as opções com maior densidade proteica e energética do mercado brasileiro.',
+          link: {
+            url: '/catalogo',
+            text: 'Explorar análises técnicas no Catálogo de Produtos',
+          },
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'O cálculo de custo por dia também vale para gatos?',
+        a: 'Perfeitamente. Um gato adulto de 4 kg necessita em média de 180 a 220 kcal/dia. Enquanto uma ração de entrada com 3.300 kcal/kg exige cerca de 65 g diárias (fazendo um pacote de 3 kg durar 46 dias), uma Super Premium felina com 4.100 kcal/kg demanda apenas 48 g ao dia (o mesmo pacote dura 62 dias). O custo diário costuma ser equivalente, com expressivo ganho na proteção contra urólitos e saúde da pelagem.',
+      },
+      {
+        q: 'Se a ração Super Premium é mais concentrada, meu pet não vai passar fome?',
+        a: 'Não. A sensação fisiológica de saciedade em cães e gatos é mediada por receptores hormonais e neuroendócrinos ativados pela absorção de aminoácidos nobres, ácidos graxos e glicose no intestino delgado, e não apenas pela distensão mecânica das paredes do estômago. Alimentos ricos em proteínas de alto valor biológico mantêm a saciedade por muito mais tempo.',
+      },
+      {
+        q: 'Por que o fabricante não imprime logo o custo por dia na frente do pacote?',
+        a: 'Porque o consumo diário varia expressivamente conforme o peso do animal, a faixa etária (filhote, adulto, idoso), o estado reprodutivo (castrado ou inteiro) e o nível de atividade física diária. Por essa razão, a Instrução Normativa MAPA nº 22/2009 exige a apresentação em tabela estratificada por faixas de peso corporal.',
+      },
+      {
+        q: 'Onde encontrar a recomendação de gramas por dia de cada ração no PetRankings?',
+        a: 'Em cada ficha técnica oficial catalogada em nosso portal, nossa equipe arquiva a documentação completa fornecida pelo fabricante. Além disso, no Catálogo Geral, você pode verificar os teores de proteína e extrato etéreo recalculados na Matéria Seca (MS), facilitando a identificação de fórmulas com maior densidade nutricional.',
+      },
+    ],
+    conclusion:
+      'A escolha inteligente do alimento de cães e gatos exige abandonar a miopia do preço por quilo e abraçar a lógica zootécnica do custo por dia. Quando calculamos o rendimento real no comedouro com base na densidade energética (EM) e na digestibilidade da fórmula, descobrimos que alimentos Super Premium e de alta nobreza custam praticamente o mesmo por dia que opções básicas — entregando como bônus fezes menores, pelagem saudável e prevenção clínica a longo prazo.',
+    callToAction: {
+      title: 'Compare a Densidade Nutricional das Rações no Catálogo PetRankings',
+      text: 'O Observatório PetRankings analisa e recalcula os níveis de garantia na Matéria Seca (MS) de centenas de alimentos secos e úmidos registrados no Brasil. Acesse o catálogo interativo e identifique opções com alta concentração proteica e lipídica.',
+      buttonText: 'Explorar Catálogo de Produtos Analisados',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
