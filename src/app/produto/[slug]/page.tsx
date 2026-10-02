@@ -463,7 +463,7 @@ export default async function ProductDetailPage({
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Globe size={20} color="var(--brand-forest-700)" />
                 <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
-                  Custódia e Rastreabilidade Digital
+                  1. Custódia documental e evidência oficial
                 </h2>
               </div>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
@@ -517,7 +517,7 @@ export default async function ProductDetailPage({
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                 <PawPrint size={20} color="var(--brand-forest-700)" fill="currentColor" strokeWidth={1.5} />
                 <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
-                  Extrato da Avaliação Nutricional (0 a 100)
+                  2. Extrato da avaliação nutricional (0 a 100)
                 </h2>
               </div>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '14px' }}>
@@ -582,8 +582,8 @@ export default async function ProductDetailPage({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
               <FileText size={20} color="var(--brand-forest-700)" />
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
-                Níveis de Garantia: Matéria Natural (MN) vs Matéria Seca (MS)
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
+                3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)
               </h2>
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
@@ -692,9 +692,12 @@ export default async function ProductDetailPage({
               boxShadow: 'var(--shadow-xs)',
             }}
           >
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--brand-forest-900)', marginBottom: '14px' }}>
-              Composição e Ingredientes Declarados
-            </h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <FlaskConical size={20} color="var(--brand-forest-700)" />
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--brand-forest-900)', margin: 0 }}>
+                4. Composição básica e ingredientes declarados
+              </h2>
+            </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
               <span
@@ -803,9 +806,12 @@ export default async function ProductDetailPage({
                 boxShadow: 'var(--shadow-xs)',
               }}
             >
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)', marginBottom: '8px' }}>
-                Onde Encontrar este Produto
-              </h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <Store size={20} color="var(--brand-forest-700)" />
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)', margin: 0 }}>
+                  5. Onde encontrar este produto
+                </h2>
+              </div>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
                 Consulte disponibilidade e ofertas nos grandes varejistas e lojas parceiras:
               </p>

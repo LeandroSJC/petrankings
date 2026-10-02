@@ -349,7 +349,7 @@ export const GUIDES: GuideItem[] = [
   },
   {
     slug: 'racao-seca-vs-umida-gatos-hidratacao-saude-renal',
-    title: 'Ração Seca vs Ração Úmida para Gatos: O que Dizem a WSAVA e a ABINPET sobre Hidratação e Rins?',
+    title: 'Ração seca vs ração úmida para gatos: O que dizem a WSAVA e a ABINPET sobre hidratação e rins?',
     subtitle: 'A fisiologia do carnívoro estrito, o mito popular sobre os sachês e as diretrizes clínicas veterinárias para proteção do trato urinário.',
     cluster: 'Saúde & Fases de Vida',
     speciesTarget: 'Gatos',
@@ -454,7 +454,7 @@ export const GUIDES: GuideItem[] = [
   },
   {
     slug: 'com-carne-vs-sabor-carne-rotulos-racao-mapa',
-    title: '"Com Carne", "Sabor Carne" ou "Farinha de Vísceras": O que o MAPA e a Ciência Realmente Exigem nos Rótulos de Pet Food',
+    title: '"Com Carne", "Sabor Carne" ou "Farinha de Vísceras": O que o MAPA e a ciência realmente exigem nos rótulos de pet food',
     subtitle: 'Desvendando a ordem decrescente de ingredientes, os claims cárneos da IN MAPA nº 22/2009 e a verdade bromatológica sobre as farinhas proteicas.',
     cluster: 'Ingredientes & Rótulos',
     speciesTarget: 'Cães e Gatos',
@@ -568,7 +568,7 @@ export const GUIDES: GuideItem[] = [
   },
   {
     slug: 'simbolo-t-transgenicos-racao-decreto-4680-2003',
-    title: 'O Símbolo "T" Amarelo na Ração: O Que Diz o Decreto 4.680/2003 e Quais as Alternativas Sem Transgênicos no Brasil?',
+    title: 'O símbolo "T" amarelo na ração: O que diz o Decreto 4.680/2003 e quais as alternativas sem transgênicos no Brasil?',
     subtitle: 'O marco legal da rotulagem de OGM, o papel da CTNBio, a digestibilidade zootécnica de milho e soja modificados e o panorama de alimentos livres de transgênicos.',
     cluster: 'Ingredientes & Rótulos',
     speciesTarget: 'Cães e Gatos',
@@ -591,7 +591,7 @@ export const GUIDES: GuideItem[] = [
     sections: [
       {
         id: 'o-triangulo-amarelo-e-o-decreto-4680',
-        heading: '1. O Triângulo Amarelo com a Letra "T": O Que a Legislação Brasileira Determina',
+        heading: '1. O triângulo amarelo com a letra "T": O que a legislação brasileira determina',
         paragraphs: [
           'Ao examinar o painel frontal da maioria das embalagens de rações secas para cães e gatos comercializadas no Brasil, salta aos olhos a presença de um triângulo equilátero de bordas pretas com fundo amarelo e a letra "T" maiúscula estampada no centro. Longe de ser um elemento decorativo ou um selo comercial de certificação privada, esse grafismo é uma imposição jurídica rigorosa do Estado brasileiro.',
           'A exigência decorre diretamente do Decreto Federal nº 4.680, de 24 de abril de 2003, que regulamentou o direito basilar à informação sobre alimentos e ingredientes destinados ao consumo humano e à alimentação animal que contenham ou sejam produzidos a partir de organismos geneticamente modificados (OGM) com presença acima do limite de 1% da composição total.',
@@ -606,7 +606,7 @@ export const GUIDES: GuideItem[] = [
       },
       {
         id: 'por-que-a-industria-utiliza-milho-e-soja-transgenicos',
-        heading: '2. Por Que a Ampla Maioria das Rações no Brasil Utiliza Grãos Transgênicos?',
+        heading: '2. Por que a ampla maioria das rações no Brasil utiliza grãos transgênicos?',
         paragraphs: [
           'A prevalência de ingredientes transgênicos na indústria pet nacional está intrinsecamente conectada à realidade agrícola do Brasil. Como um dos maiores produtores globais de grãos, mais de 90% de toda a área plantada de milho e soja no território brasileiro adota cultivares geneticamente modificadas, desenvolvidas pela engenharia agronômica para conferir tolerância a herbicidas seletivos (como o glifosato) e resistência contra pragas e lagartas por meio da expressão de proteínas bioativas da bactéria Bacillus thuringiensis (conhecida como tecnologia Bt).',
           'Na produção de alimentos secos extrusados para animais, o milho desempenha um papel tecnológico crucial: seu elevado conteúdo de amido atua como matriz ligante essencial. Durante o processo de extrusão termomecânica — no qual a massa de ingredientes é submetida a elevadas pressões, vapor d\'água e temperaturas superiores a 110 °C —, as pontes de hidrogênio do amido se rompem, ocorrendo a gelatinização. Esse cozimento rápido confere expansão celular, estrutura aerada, crocância e dureza ideal aos croquetes, permitindo que a ração resista ao empilhamento e ao transporte sem esfarelar.',
@@ -627,7 +627,7 @@ export const GUIDES: GuideItem[] = [
       },
       {
         id: 'transgenicos-e-saude-pet-o-que-diz-a-ciencia',
-        heading: '3. Grãos Transgênicos Fazem Mal a Cães e Gatos? O Que Diz a Ciência Zootécnica',
+        heading: '3. Grãos transgênicos fazem mal a cães e gatos? O que diz a ciência zootécnica',
         paragraphs: [
           'Uma das dúvidas mais frequentes levantadas por tutores é se o consumo continuado de rações com grãos transgênicos é capaz de causar intoxicações, alergias severas ou neoplasias em cães e gatos. Para responder a essa questão com rigor científico, é indispensável analisar a regulamentação de biossegurança e os ensaios bromatológicos independentes.',
           'No Brasil, nenhuma cultivar geneticamente modificada pode ser cultivada ou comercializada sem antes receber parecer técnico favorável vinculante da Comissão Técnica Nacional de Biossegurança (CTNBio), órgão colegiado multidisciplinar instituído pela Lei Federal nº 11.105/2005. A comissão avalia rigorosamente ensaios de segurança alimentar, digestibilidade in vitro, equivalência substancial em relação aos grãos convencionais e ausência de alergenicidade de novas proteínas expressas nas cultivares.',
@@ -642,7 +642,7 @@ export const GUIDES: GuideItem[] = [
       },
       {
         id: 'como-encontrar-racoes-sem-transgenicos',
-        heading: '4. O Mercado Livre de Transgênicos: Como Identificar Alimentos Sem OGM no Brasil',
+        heading: '4. O mercado livre de transgênicos: Como identificar alimentos sem OGM no Brasil',
         paragraphs: [
           'Em resposta ao crescimento da demanda de tutores que priorizam ingredientes naturais e recusam grãos modificados na dieta de seus animais, o mercado pet brasileiro estruturou categorias consagradas no patamar Super Premium que operam com formulações 100% livres de transgênicos:',
           '1. Linhas com Cereais Ancestrais (Low Grain): Substituem integralmente o milho e a soja transgênicos por cereais ancestrais de baixo índice glicêmico, como aveia descascada e cevada em grão, cultivados sob rigoroso controle de pureza varietal. O maior expoente técnico dessa vertente analisado no Observatório PetRankings é a linha Farmina N&D Ancestral Grain (como o alimento N&D Ancestral Grain Canine Frango & Romã Adult Medium), que combina fontes cárneas nobres com carboidratos de absorção lenta e zero grãos transgênicos.',

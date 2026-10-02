@@ -44,24 +44,44 @@ This skill provides editorial standards, nutritional category taxonomy, and tone
 When authoring ranking intros, product overviews, or comparative analyses:
 > O PetRankings é um observatório editorial independente de jornalismo de dados e confrontação técnica de rotulagem. Não substitui consultas, diagnósticos ou prescrições veterinárias. Consulte sempre o médico veterinário do seu pet antes de realizar alterações na dieta ou manejo alimentar.
 
-## 4. Editorial Title Formulas (Pet Food Only)
+## 4. Editorial Title Formulas & Orthotypographic Standards (Pet Food Only)
 
-All study and guide titles must strictly follow the **Bimember Structure (`:`)** connecting search intent to technical/regulatory rigor:
+All study and guide titles must strictly follow the **Bimember Structure (`:`)** connecting search intent to technical/regulatory rigor, adhering to the official Brazilian Portuguese **Sentence Case** standard:
 
 $$\mathbf{[Gatilho\ de\ Busca\ ou\ Tema\ Central]}\ :\ \mathbf{[Dilema\ do\ Tutor\ +\ Ancoragem\ Técnica/Regulatória]}$$
 
-Good title patterns (strictly nutrition & pet food):
-- `"PremieR Formula vs GoldeN Formula: O que muda na prática além do preço?"`
-- `"O Símbolo 'T' Amarelo na Ração: O Que Diz o Decreto 4.680/2003 e Quais as Alternativas Sem Transgênicos no Brasil?"`
-- `"Ração Seca vs Ração Úmida para Gatos: O que Dizem a WSAVA e a ABINPET sobre Hidratação e Rins?"`
-- `"BHT e BHA sob a lupa: Quais rações no Brasil já migraram para antioxidantes naturais?"`
-- `"Melhores Rações Secas para Gatos Castrados"`
-- `"Melhores Rações Super Premium para Cães Adultos de Porte Médio"`
+### A. Regras Ortotipográficas Mandatórias (Visual Formatting Standards)
+1. **Sentence Case Inteligente (Norma Culta do Português)**:
+   - Apenas a primeira palavra do título inicia com maiúscula. As demais palavras da oração seguem em minúsculas (proibido o *Title Case* anglo-saxão de capitalizar substantivos e verbos soltos).
+   - **Após os dois-pontos (`:`)**: A primeira letra da oração/pergunta inicia em Maiúscula, e todas as palavras subsequentes permanecem em minúsculas.
+2. **Preservação de Marcas Comerciais e Nomes Próprios**:
+   - Preservar rigorosamente a grafia comercial registrada do fabricante: `PremieR Formula`, `GoldeN Formula`, `Purina Pro Plan`, `Farmina N&D`.
+   - Nomes de países e entidades mantêm inicial maiúscula (`Brasil`, `União Europeia`).
+3. **Siglas e Acrônimos Oficiais em Caixa Alta**:
+   - Todas as siglas técnicas, agronômicas e regulatórias devem estar 100% em maiúsculas: `MAPA`, `ABINPET`, `WSAVA`, `FEDIAF`, `CDC`, `OGM`, `CTNBio`, `BHT`, `BHA`, `MS` (Matéria Seca), `MN` (Matéria Natural), `DNA`.
+4. **Aspas em Termos e Claims Literais de Rotulagem**:
+   - Quando fizer referência a dizeres literais da embalagem, símbolos gráficos ou claims regulatórios, use compulsoriamente aspas duplas retas: `"Com Carne"`, `"Sabor Carne"`, `"Farinha de Vísceras"`, símbolo `"T"`.
+5. **Pontuação Final Rigorosa**:
+   - Se a segunda parte for uma pergunta direta ou investigativa: **encerra compulsoriamente com ponto de interrogação (`?`)**.
+   - Se a segunda parte for declarativa: **nunca colocar ponto final (`.`)** (regra universal de títulos jornalísticos e da ABNT).
+6. **Extensão e Ponto de Quebra (SEO & Mobile)**:
+   - **Comprimento ideal:** Entre 65 e 85 caracteres no total.
+   - **Gatilho primário (antes dos dois-pontos):** Máximo de 35 a 45 caracteres, assegurando que o leitor no smartphone identifique o tema antes de qualquer truncamento (`...`) no Google Discover ou SERP.
+
+### B. Exemplos Oficiais Harmonizados:
+- ✅ `"PremieR Formula vs GoldeN Formula: O que muda na prática além do preço?"`
+- ✅ `"O símbolo 'T' amarelo na ração: O que diz o Decreto 4.680/2003 e quais as alternativas sem transgênicos no Brasil?"`
+- ✅ `"Ração seca vs ração úmida para gatos: O que dizem a WSAVA e a ABINPET sobre hidratação e rins?"`
+- ✅ `"BHT e BHA sob a lupa: Quais rações no Brasil já migraram para antioxidantes naturais?"`
+- ✅ `""Com Carne", "Sabor Carne" ou "Farinha de Vísceras": O que o MAPA e a ciência realmente exigem nos rótulos de pet food"`
+- ✅ `"A ilusão da umidade: Por que comparar ração seca e sachê exige cálculo em Matéria Seca (MS)"`
 
 Forbidden patterns:
-- ❌ Non-food topics (toys, cat litter, accessories, shampoos, grooming).
-- ❌ Generic titles ("Melhores Rações", "Alimentos Bons").
-- ❌ Medical clickbaits ("Cure a alergia do seu cão com esta ração").
+- ❌ Title Case em português (*"O Símbolo 'T' Amarelo Na Ração: O Que Diz O Decreto..."*).
+- ❌ Ponto final no fim de títulos (*"PremieR vs GoldeN."*).
+- ❌ Temas fora de pet food (brinquedos, areias, higiene, coleiras).
+- ❌ Títulos genéricos sem ancoragem técnica (*"Melhores Rações"*, *"Alimentos Bons"*).
+- ❌ Clickbaits médicos ou terapêuticos (*"Cure a alergia do seu cão com esta ração"*).
 
 ## 5. Editorial Clusters for Studies and Technical Guides (/guias)
 
@@ -91,3 +111,27 @@ The PetRankings editorial repository organizes studies strictly into nutritional
   - Fichas técnicas oficiais arquivadas em HTML com hash SHA-256 no banco de dados.
   - Marco regulatório autêntico arquivado na `biblioteca_regulatoria/` (Decreto nº 12.031/2024, Decreto nº 4.680/2003, Portaria MJ nº 2.658/2003, IN MAPA nº 22/2009, IN nº 30/2009, IN nº 39/2014, IN nº 110/2020, CDC).
   - Literatura de referência: 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e WSAVA.
+
+## 7. Standardization of Product Names, Page Titles & Section Headings (Invariante 13)
+
+### 7.1 Product Commercial Names (`commercialName`)
+- **Canonical Formula**: `[Marca Comercial] [Linha] [Espécie / Porte] [Fase de Vida / Especialidade] [Sabor / Claim Principal] [Formato se Úmido]`.
+- **Mandatory Exclusions**: Never include the generic word "Ração" at the beginning, package weights (`15kg`, `85g`), symbols (`®`, `™`) or duplicated brand names.
+- **Plural & Accents**: Standardize to plural target audience (`Cães Adultos`, `Gatos Castrados`) with correct Portuguese accents (`Raças Médias`, `Sênior`).
+
+### 7.2 Page Titles (`<title>` and `<h1>`)
+- **`<title>` (Browser/SERP)**: `[Assunto / Nome do Produto] — [Complemento / Análise de Rótulo] | PetRankings`.
+- **`<h1>` (Hero Kit Pattern)**: 3-layer structure composed of:
+  1. *Kicker / Eyebrow*: Uppercase `0.72rem`, `letterSpacing: 0.04em-0.06em`, themed Lucide icon.
+  2. *H1 Heading*: `var(--font-heading)`, weight 800, `var(--brand-forest-900)`, Sentence Case (or full commercial name on product pages), line-height 1.2-1.25.
+  3. *Lead Paragraph*: 1-2 lines of technical framing, `0.90rem-1.0rem`.
+
+### 7.3 Section Headings (`<h2>` and `<h3>`)
+- **Sentence Case Only**: Never use ALL CAPS on `<h2>` or `<h3>`. Uppercase is strictly limited to kicker badges.
+- **Product Dossier Headings (`/produto/[slug]`)**: Numbered forensic sequence:
+  1. `1. Custódia documental e evidência oficial`
+  2. `2. Extrato da avaliação nutricional (0 a 100)`
+  3. `3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)`
+  4. `4. Composição básica e ingredientes declarados`
+  5. `5. Onde encontrar este produto`
+

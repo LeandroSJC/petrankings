@@ -56,11 +56,35 @@ Scale from 1 to 10:
 
 ---
 
-## 5. Pre-Flight Verification Checklist
+## 5. Heading Hierarchy & Title Standards (Invariante 13 Anti-Slop Discipline)
+
+- **NEVER use ALL CAPS on `<h2>` or `<h3>`**:
+  - Full uppercase titles in section headings look loud, dated, and unrefined.
+  - Sentence Case is mandatory for all section headings (`font-weight: 800`, `var(--brand-forest-900)`, line-height 1.25).
+  - Uppercase is restricted strictly to compact **Kicker / Eyebrow badges** (up to 3 words, `0.72rem`, `letter-spacing: 0.05em`, themed Lucide icon).
+- **Hero Kit Pattern (`<h1>`)**:
+  - Every page hero must be implemented in three cohesive layers:
+    1. *Eyebrow*: Uppercase pill badge with thematic Lucide icon.
+    2. *H1 Title*: `var(--font-heading)`, weight 800, `var(--brand-forest-900)`, Sentence Case (or full commercial name on product pages).
+    3. *Lead*: 1-2 lines of technical/contextual text in `0.92rem - 1.0rem`.
+- **Numbered Forensic Dossier Sequence (`/produto/[slug]`)**:
+  - Product technical sheet sections must follow the numbered forensic structure:
+    1. `1. Custódia documental e evidência oficial` (Globe)
+    2. `2. Extrato da avaliação nutricional (0 a 100)` (PawPrint)
+    3. `3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)` (FileText)
+    4. `4. Composição básica e ingredientes declarados` (FlaskConical)
+    5. `5. Onde encontrar este produto` (Store)
+
+---
+
+## 6. Pre-Flight Verification Checklist
 
 Before finalizing any frontend interface:
 - [ ] Interface does not look like a generic Bootstrap/Tailwind template.
 - [ ] Design tokens (CSS variables) used consistently with zero hardcoded ad-hoc hex colors.
+- [ ] Section headings use Sentence Case (no ALL CAPS on `<h2>` or `<h3>`).
+- [ ] Hero sections adopt the 3-layer Hero Kit pattern (Eyebrow + H1 + Lead).
 - [ ] First-place ranked product has clear visual hierarchy over lower-ranked items.
 - [ ] Badges, store buttons, and review scores remain legible on mobile viewports (< 640px).
 - [ ] No layout shifts (CLS) on dynamic image or rating rendering.
+

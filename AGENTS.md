@@ -61,6 +61,22 @@
       2. Padrões de exigência nutricional e tetos toxicológicos devem estar fundamentados na 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e NRC arquivados na pasta `biblioteca_regulatoria/`.
       3. Atos regulatórios e leis citados devem ser estritamente autênticos e vigentes (MAPA, Decretos Federais, CDC), sendo proibido inventar artigos de lei ou resoluções inexistentes.
     - **Incerteza Probatória:** Se uma informação não for comprovável com certeza probatória nos documentos oficiais, ela jamais deve ser estimada ou simulada; o texto deve declarar expressamente a ausência da informação pelo fabricante ou omiti-la.
+12. **Padrão Ortotipográfico e Visual para Títulos de Estudos e Guias (`/guias`):**
+    - Todos os títulos de artigos, estudos bromatológicos e guias técnicos devem adotar a **Fórmula Bimembre** (`[Gatilho de Busca / Objeto do Confronto] : [Dilema do Tutor + Ancoragem Técnica/Regulatória]`).
+    - **Capitalização Oficial (Sentence Case):** Seguir estritamente a norma culta da língua portuguesa (Sentence Case), com inicial maiúscula apenas na primeira palavra da oração e maiúscula após os dois-pontos (`:`). É expressamente proibido o *Title Case* em inglês (maiúscula em cada palavra solta).
+    - **Nomes Próprios, Marcas e Siglas:** Preservar a grafia comercial oficial das marcas (`PremieR Formula`, `GoldeN Formula`, `Purina Pro Plan`, `Farmina N&D`) e siglas em maiúsculas (`MAPA`, `ABINPET`, `WSAVA`, `FEDIAF`, `CDC`, `OGM`, `CTNBio`, `BHT`, `BHA`, `MS`).
+    - **Aspas em Termos Literais:** Expressões literais de rotulagem ou claims regulatórios devem ser grafados entre aspas duplas retas (`"Com Carne"`, `"Sabor Carne"`, símbolo `"T"`).
+    - **Pontuação:** Perguntas diretas encerram obrigatoriamente com ponto de interrogação (`?`); frases declarativas nunca levam ponto final.
+    - **Extensão:** Entre 65 e 85 caracteres no total, com o gatilho primário (antes dos `:`) contendo até 45 caracteres para evitar truncamento em dispositivos móveis no Google Discover/SERP.
+13. **Padronização Taxonômica e Visual de Títulos (Produtos, Páginas e Seções):**
+    - **Títulos de Produtos (`commercialName`):** Seguem a fórmula canônica `[Marca Comercial] [Linha] [Espécie / Porte] [Fase de Vida / Especialidade] [Sabor / Claim Principal] [Formato se Úmido]`. É terminantemente proibido o uso da palavra genérica "Ração" no início de nomes comerciais, a inclusão de gramaturas/pesos (`15kg`, `85g`), símbolos de registro (`®`, `™`) ou duplicações da marca. Preservar o plural técnico (`Cães Adultos`, `Gatos Castrados`) e a acentuação oficial (`Raças Médias`, `Sênior`).
+    - **Títulos de Páginas (`<title>` e `<h1>`):**
+      - `<title>` (Navegador/SERP): Segue a estrutura de autoridade com separador padronizado (`[Assunto / Nome do Produto] — [Complemento / Análise de Rótulo] | PetRankings`).
+      - `<h1>` (Interface Visual): Sempre implementado no padrão "Hero Kit" em três camadas: Kicker/Eyebrow superior (`text-transform: uppercase`, `letter-spacing: 0.04em` a `0.06em`, `font-size: 0.72rem` com ícone Lucide temático), `<h1>` em fonte `var(--font-heading)` com peso 800, cor `var(--brand-forest-900)` em Sentence Case (ou Nome Comercial em produtos) e Lead/Subtítulo explicativo em fonte `0.90rem` a `1.0rem`.
+    - **Títulos de Seções Internas (`<h2>` e `<h3>`):**
+      - **Sentence Case Mandatório:** É expressamente proibido o uso de `<h2>` em caixa alta total (ALL CAPS). A caixa alta é restrita exclusivamente a kickers/badges de apoio com até 3 palavras.
+      - **Hierarquia Visual:** `font-weight: 800`, cor `var(--brand-forest-900)` (ou `#ffffff` em seções escuras), entrelinha compacta (`line-height: 1.25`).
+      - **Dossiê Pericial nas Fichas de Produto (`/produto/[slug]`):** As seções da ficha técnica adotam ordenação lógica e numeração pericial (`1. Custódia documental e evidência oficial`, `2. Extrato da avaliação nutricional (0 a 100)`, `3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)`, `4. Composição básica e ingredientes declarados`, `5. Onde encontrar este produto`).
 
 ---
 

@@ -33,13 +33,13 @@ This skill provides procedures and guidelines for auditing and optimizing Next.j
   ```tsx
   export const metadata: Metadata = {
     title: {
-      template: '%s | PetRankings',
-      default: 'PetRankings - Os Melhores Produtos para Pets',
+      template: '%s — PetRankings',
+      default: 'PetRankings — Observatório Independente de Nutrição Pet no Brasil',
     },
-    description: 'Encontre e avalie os melhores produtos, rações e acessórios para o seu pet.',
+    description: 'Análise técnica e determinística de alimentos para cães e gatos em Matéria Seca (MS) com base no Manual ABINPET.',
     openGraph: {
-      title: 'PetRankings',
-      description: 'Reviews e rankings confiáveis para cães e gatos.',
+      title: 'PetRankings — Observatório Independente de Nutrição Pet no Brasil',
+      description: 'Análise nutricional de alimentos oficiais para cães e gatos sob as diretrizes do MAPA e ABINPET.',
       url: 'https://petrankings.com.br',
       siteName: 'PetRankings',
       images: [
@@ -60,7 +60,15 @@ This skill provides procedures and guidelines for auditing and optimizing Next.j
   };
   ```
 
-### B. Structured Data (JSON-LD)
+### B. Page Title Hierarchy & Invariante 13 Compliance
+- **Home**: `PetRankings — Observatório Independente de Nutrição Pet no Brasil`
+- **Catálogo Geral**: `Catálogo Geral de Alimentos para Cães e Gatos — PetRankings`
+- **Página de Produto**: `[Nome Comercial Completo] — Análise de Rótulo e Ficha Técnica | PetRankings`
+- **Artigo / Estudo Técnico**: `[Título do Estudo em Sentence Case] — PetRankings`
+- **Índice / Categoria**: `Rações para [Cães/Gatos] [Fase] — Avaliação Técnica | PetRankings`
+- **Dietas Coadjuvantes**: `Alimentos Coadjuvantes & Dietas Veterinárias — PetRankings`
+
+### C. Structured Data (JSON-LD)
 - Add Schema.org structured data (e.g., `Product`, `ItemList`, `Review`, `BreadcrumbList`, `Organization`) via `<script type="application/ld+json">`.
 
 ### C. Sitemap & Robots

@@ -37,6 +37,9 @@ export function stripWeightFromTitle(title: string): string {
 
   for (let iter = 0; iter < 3; iter++) {
     const prev = cleaned;
+    // 0. Remove prefixos redundantes "Ração Seca", "Ração Úmida", "Ração para", "Ração"
+    cleaned = cleaned.replace(/^ração\s+(?:seca\s+|úmida\s+)?(?:para\s+)?/i, '');
+
     // 1. Remove parênteses ou colchetes contendo peso: (15 kg), [85g], (Pacote 10,1kg)
     cleaned = cleaned.replace(
       /\s*[\(\[\{]\s*(?:(?:pacote|saco|embalagem|peso)\s*(?:de\s*)?)?\d+(?:[.,]\d+)?\s*(?:kg|kgs|kilos?|quilos?|g|gr|grs|gramas?|ml|l)\s*[\)\]\}]/gi,

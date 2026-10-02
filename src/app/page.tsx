@@ -148,19 +148,36 @@ export default async function HomePage() {
               marginBottom: '14px',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Award size={18} color="var(--gold-600)" aria-hidden="true" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  backgroundColor: 'var(--gold-50)',
+                  border: '1px solid var(--gold-200)',
+                  color: 'var(--gold-700)',
+                  padding: '3px 9px',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '0.72rem',
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                <Award size={13} color="var(--gold-700)" aria-hidden="true" />
+                Destaque da Semana
+              </span>
               <h2
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '1.15rem',
+                  fontSize: '1.20rem',
                   fontWeight: 800,
                   color: 'var(--brand-forest-900)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
+                  margin: 0,
                 }}
               >
-                Estudo em Destaque
+                Estudo em destaque
               </h2>
             </div>
             <a
@@ -356,7 +373,7 @@ export default async function HomePage() {
                 marginBottom: '12px',
               }}
             >
-              O Mercado Pet Brasileiro em Dados Concretos
+              O mercado pet brasileiro em dados concretos
             </h2>
             <p style={{ fontSize: '0.98rem', color: '#cbd5e1', lineHeight: 1.6 }}>
               Dados agregados de rotulagem oficial custodiados pelo PetRankings e confrontados com os atos do MAPA e da ABINPET.
@@ -595,7 +612,7 @@ export default async function HomePage() {
                 marginBottom: '12px',
               }}
             >
-              Os 4 Pilares da Avaliação Nutricional PetRankings
+              Os 4 pilares da avaliação nutricional PetRankings
             </h2>
             <p style={{ fontSize: '0.98rem', color: 'var(--text-body)', lineHeight: 1.6 }}>
               Nosso motor matemático analisa cada produto sob 4 eixos objetivos, eliminando opiniões subjetivas ou influência de patrocínios comerciais.
@@ -748,6 +765,19 @@ export default async function HomePage() {
       <section style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
         <div className="container" style={{ maxWidth: '820px' }}>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+            <span
+              style={{
+                fontSize: '0.78rem',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: 'var(--brand-forest-700)',
+                display: 'block',
+                marginBottom: '8px',
+              }}
+            >
+              Dúvidas Técnicas & Metodologia
+            </span>
             <h2
               style={{
                 fontFamily: 'var(--font-heading)',
@@ -757,7 +787,7 @@ export default async function HomePage() {
                 marginBottom: '10px',
               }}
             >
-              Perguntas Frequentes sobre a Avaliação
+              Perguntas frequentes sobre a avaliação técnica
             </h2>
             <p style={{ fontSize: '0.94rem', color: 'var(--text-muted)' }}>
               Esclarecimentos sobre nossa metodologia documental, normas do MAPA e conformidade com o Código de Defesa do Consumidor.

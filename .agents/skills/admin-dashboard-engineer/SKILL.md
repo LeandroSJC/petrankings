@@ -75,7 +75,22 @@ When creating or editing products in the admin panel:
 - **Batch Status Updates**: Support bulk publish/unpublish of draft rankings.
 - **Instant Search & Debounced Filters**: Implement responsive filtering by title, brand, species, or store key.
 
-## 5. Admin Quality Checklist
+## 5. Product Commercial Naming Standard (Invariante 13 Compliance)
+
+When creating, editing, or validating products in `/admin/produtos`:
+- **Canonical Formula**: `[Marca Comercial] [Linha] [Espécie / Porte] [Fase de Vida / Especialidade] [Sabor / Claim Principal] [Formato se Úmido]`.
+  - *Correct Example*: `Biofresh Cães Adultos Castrados Raças Médias Mix de Carnes`
+  - *Correct Example*: `Whiskas Sachê Atum ao Molho para Gatos Adultos`
+- **Mandatory Exclusions**:
+  - Never include the generic prefix `"Ração"`, `"Ração Seca"`, or `"Ração Úmida"`.
+  - Never include packaging weights or gramatures (`15kg`, `10,1 kg`, `85 g`).
+  - Never include trademark symbols (`®`, `™`).
+  - Never duplicate the brand name in the title.
+- **Plural Target & Official Portuguese Diacritics**:
+  - Use plural targets: `Cães Adultos`, `Gatos Castrados`, `Cães Filhotes`.
+  - Always enforce correct Portuguese accents: `Raças Médias` (not `Medias`), `Sênior` (not `Senior`).
+
+## 6. Admin Quality Checklist
 
 - [ ] All mutations require verified admin JWT credentials.
 - [ ] Forms provide clear feedback toasts and validation error indicators.
@@ -83,3 +98,5 @@ When creating or editing products in the admin panel:
 - [ ] Responsive layout allows management on tablets and mobile devices.
 - [ ] All CRUD routes use dedicated pages (not modals) to prevent data loss.
 - [ ] Unsaved-changes guard (`beforeunload`) is active on all form pages.
+- [ ] Product commercial names adhere to Invariante 13 (no "Ração" prefix, no weights, no symbols).
+
