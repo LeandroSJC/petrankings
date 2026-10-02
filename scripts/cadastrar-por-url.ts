@@ -90,12 +90,26 @@ async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ stat
 }
 
 async function downloadImage(imgUrl: string, destPath: string, retries = 3): Promise<boolean> {
+  const formatUrl = (u: string) => {
+    try {
+      const obj = new URL(u);
+      const cleanPath = obj.pathname
+        .split('/')
+        .map((seg) => encodeURIComponent(decodeURIComponent(seg)))
+        .join('/');
+      return `${obj.origin}${cleanPath}${obj.search}`;
+    } catch {
+      return u;
+    }
+  };
+  const encoded = imgUrl.startsWith('http') ? formatUrl(imgUrl) : imgUrl;
+
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      const encoded = imgUrl.startsWith('http') ? encodeURI(imgUrl) : imgUrl;
       const res = await fetch(encoded, {
         headers: {
-          'User-Agent': 'Mozilla/5.0',
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
           Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
         },
       });
