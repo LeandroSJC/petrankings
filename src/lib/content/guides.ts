@@ -40,11 +40,22 @@ export interface GuideSection {
   };
 }
 
+export type GuideCluster =
+  | 'Duelo de Marcas'
+  | 'Ingredientes & Rótulos'
+  | 'Nutrição & Bromatologia'
+  | 'Saúde & Fases de Vida'
+  | 'Custo por Dia & Economia'
+  | 'Direito do Consumidor & Mercado'
+  | 'Manejo & Rotina Alimentar'
+  | 'Dietas Coadjuvantes & Clínica'
+  | 'Petiscos & Enriquecimento';
+
 export interface GuideItem {
   slug: string;
   title: string;
   subtitle: string;
-  cluster: 'Duelo de Marcas' | 'Ingredientes & Rótulos' | 'Nutrição & Bromatologia' | 'Saúde & Fases de Vida';
+  cluster: GuideCluster;
   speciesTarget: 'Cães' | 'Gatos' | 'Cães e Gatos';
   readingTimeMinutes: number;
   publishedAt: string;
