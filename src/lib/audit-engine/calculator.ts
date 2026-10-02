@@ -12,7 +12,7 @@ import { getAbinpetStandard } from './abinpet-standards';
 
 /** Palavras-chave para identificação de fontes nobres e proteínas cárneas */
 const PROTEINAS_ANIMAIS_REGEX =
-  /(farinha\s+de\s+(v[ií]sceras|carne|frango|aves|peixe|salm[aã]o|cordeiro|peru|su[ií]no|torresmo))|(torresmo)|(plasma(\s+sangu[ií]neo)?(\s+desidratado)?)|(albumina(\s+de\s+ovo)?)|(prote[ií]na\s+(hidrolisada|isolada)\s+de\s+(su[ií]no|frango|aves|peixe|carne))|(carne\s+mecanicamente\s+(separada|recuperada))|(carne\s+(desidratada|fresca|bovina|de\s+(frango|bovino|salm[aã]o|su[ií]no|cordeiro|peru|atum|aves|peixe)))|(peito\s+de\s+(frango|peru|aves))|(fil[eé]\s+de\s+(frango|salm[aã]o|peixe|atum))|((v[ií]sceras|mi[uú]dos|f[ií]gado|cora[cç][aã]o|pesco[çc]o|dorso)\s+de\s+(aves|frango|bovino|su[ií]no|peru|peixe))|(ovo\s+em\s+p[oó])|(\b(salm[aã]o|atum|sardinha)\b)/i;
+  /(farinha\s+de\s+(v[ií]sceras|carne|frango|aves|peixe|salm[aã]o|cordeiro|peru|su[ií]no|torresmo|til[aá]pia|bacalhau|truta|pato|bovino))|(torresmo)|(plasma(\s+sangu[ií]neo)?(\s+desidratado)?)|(albumina(\s+de\s+ovo)?)|(prote[ií]na\s+(hidrolisada|isolada|concentrada)?\s*(de|animal)?\s*(su[ií]no|frango|aves|peixe|carne|salm[aã]o|soro|leite))|(hidrolisado\s+de\s+(f[ií]gado|v[ií]sceras|frango|aves|peixe|su[ií]no|bovino|carne))|((?<!aroma\s+(?:de\s+)?|sabor\s+(?:de\s+)?)\bcarne\b)|(\b(fil[eé]|peito|peda[cç]os?|iscas?|lombinho|carca[cç]a|pesco[çc]o|dorso|moela|pulm[aã]o|rim|cora[cç][aã]o|f[ií]gado|mi[uú]dos|v[ií]sceras)\s+de\s+[a-zÀ-ÿ]+)|(ovo\s+(em\s+p[oó]|desidratado|integral)?)|((?<![óo]leo\s+de\s+|gordura\s+de\s+|aroma\s+(?:de\s+)?|sabor\s+(?:de\s+)?)\b(til[aá]pia|peixe|peixes|peixe-branco|salm[aã]o|atum|sardinha|arenque|bacalhau|truta|merluza|pescada|linguado|anchova|cavala|camar[aã]o|caranguejo|siri|lula|polvo|marisco|mexilh[aã]o)\b)/i;
 
 const CARBOIDRATOS_NOBRES_REGEX =
   /(arroz|quirera\s+de\s+arroz|arroz\s+integral|aveia|cevada|batata|batata-doce|mandioca|farinha\s+de\s+mandioca|lentilha|ervilha)/i;
@@ -142,8 +142,16 @@ export function calcularScoreAnaliseRotulo(
   const ing1 = ingredientesParaAnalise[0] || '';
   const ing2 = ingredientesParaAnalise[1] || '';
 
-  const ing1IsAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing1);
-  const ing2IsAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing2);
+  const isAnimalProtein = (ing: string) => {
+    if (!ing) return false;
+    if (/^(?:aroma|saborizante|flavorizante|corante|antioxidante|conservante)\b/i.test(ing.trim())) {
+      return false;
+    }
+    return PROTEINAS_ANIMAIS_REGEX.test(ing);
+  };
+
+  const ing1IsAnimal = isAnimalProtein(ing1);
+  const ing2IsAnimal = isAnimalProtein(ing2);
   const ing2IsCarbNobre = CARBOIDRATOS_NOBRES_REGEX.test(ing2);
 
   let ing1Texto = '';
