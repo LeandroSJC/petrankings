@@ -92,17 +92,18 @@ async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ stat
 async function downloadImage(imgUrl: string, destPath: string, retries = 3): Promise<boolean> {
   const formatUrl = (u: string) => {
     try {
-      const obj = new URL(u);
-      const cleanPath = obj.pathname
-        .split('/')
-        .map((seg) => encodeURIComponent(decodeURIComponent(seg)))
-        .join('/');
-      return `${obj.origin}${cleanPath}${obj.search}`;
+      // Decode then re-encode without breaking path characters like '=', ',', ':', etc.
+      return encodeURI(decodeURI(u));
     } catch {
       return u;
     }
   };
   const encoded = imgUrl.startsWith('http') ? formatUrl(imgUrl) : imgUrl;
+
+  let referer: string | undefined;
+  try {
+    referer = new URL(imgUrl).origin + '/';
+  } catch {}
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
@@ -111,6 +112,7 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
           'User-Agent':
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
           Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+          ...(referer ? { Referer: referer } : {}),
         },
       });
       if (!res.ok) {
@@ -121,6 +123,11 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
         return false;
       }
       const buf = Buffer.from(await res.arrayBuffer());
+      if (buf.length === 0) return false;
+      const dir = path.dirname(destPath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
       fs.writeFileSync(destPath, buf);
       return true;
     } catch {
@@ -217,7 +224,11 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
     console.log(`🖼️ Baixando packshot oficial em alta resolução (${meta.imageUrl})...`);
     const imgOk = await downloadImage(meta.imageUrl, destImgPath);
     if (!imgOk) {
-      console.warn('⚠️ Falha ao baixar imagem remota, mantendo referência existente.');
+      console.warn('⚠️ Falha ao baixar imagem remota para armazenamento local.');
+      const localFileExists = existing?.frontLabelImageUrl && fs.existsSync(path.join(process.cwd(), 'public', existing.frontLabelImageUrl.replace(/^\//, '')));
+      if (!localFileExists) {
+        destImgRel = meta.imageUrl;
+      }
     } else {
       console.log(`✅ Imagem salva em: public${destImgRel}`);
     }

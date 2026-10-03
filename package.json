@@ -12,7 +12,8 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "db:enable-rls": "tsx scripts/enable-rls.ts",
     "cadastrar:url": "tsx --env-file=.env scripts/cadastrar-por-url.ts",
-    "cadastrar-produtos": "tsx --env-file=.env scripts/cadastrar-produtos.ts"
+    "cadastrar-produtos": "tsx --env-file=.env scripts/cadastrar-produtos.ts",
+    "auditar:imagens": "tsx scripts/auditar-e-reparar-imagens.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.4",
