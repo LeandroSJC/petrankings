@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: petrankings-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-petrankings}
+      POSTGRES_USER: ${POSTGRES_USER:-petrankings}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-petrankings} -d ${POSTGRES_DB:-petrankings}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - petrankings-net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: petrankings-app
+    restart: always
+    ports:
+      - "80:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public
+      - DIRECT_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public
+      - JWT_SECRET=${JWT_SECRET:-petrankings_jwt_secret_min_32_chars_long_2026}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-http://168.138.144.63}
+      - ALLOW_ADMIN_IN_PRODUCTION=${ALLOW_ADMIN_IN_PRODUCTION:-true}
+      - ADMIN_SECRET_GATE_PATH=${ADMIN_SECRET_GATE_PATH:-/bastidores}
+      - ADMIN_GATE_KEY=${ADMIN_GATE_KEY:-petrankings_gate_secret_key_2026}
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - EMAIL_FROM=${EMAIL_FROM:-PetRankings <onboarding@resend.dev>}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/app/public/uploads
+    networks:
+      - petrankings-net
+
+volumes:
+  postgres_data:
+  uploads_data:
+
+networks:
+  petrankings-net:
+    driver: bridge

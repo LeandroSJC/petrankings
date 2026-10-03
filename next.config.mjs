@@ -48,6 +48,7 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false, // Remove o cabeçalho X-Powered-By para evitar fingerprinting de versão
   // Limita a concorrência de compilação da Vercel para não estourar o limite de conexões do banco

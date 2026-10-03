@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.env*
+*.log
+_backup_fichas_pdf
+produtos_cadastro
+biblioteca_regulatoria
+.vercel
+.vercelignore
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
