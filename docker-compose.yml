@@ -94,7 +94,7 @@ services:
   # 5. Uptime Kuma (Monitoramento 24/7 com Alerta em Tempo Real)
   # ==============================================================================
   uptime-kuma:
-    image: louislam/uptime-kuma:1
+    image: louislam/uptime-kuma:2
     container_name: petrankings-uptime
     restart: always
     expose:
