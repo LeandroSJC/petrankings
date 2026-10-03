@@ -19,7 +19,6 @@
     "studio": "prisma studio"
   },
   "dependencies": {
-    "@next/third-parties": "^16.3.4",
     "@prisma/client": "^6.4.1",
     "bcryptjs": "^3.0.2",
     "jose": "^6.0.8",

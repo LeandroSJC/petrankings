@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Inter, Plus_Jakarta_Sans, Outfit } from 'next/font/google';
 import './globals.css';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ToastProvider } from '@/components/Toast';
@@ -31,7 +30,7 @@ const outfit = Outfit({
 const siteUrl = SITE_URL;
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-2889031150261887';
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'bmf06L8G62Qwe_rb5epMccxaUByc1ICghJ9MdrW10qU';
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-7D421FSVLC';
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || '315fae23-bc4a-4b0e-b0bc-200e8c7c9ea6';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -128,7 +127,15 @@ export default function RootLayout({
           </main>
           <Footer />
         </ToastProvider>
-        {gaMeasurementId && <GoogleAnalytics gaId={gaMeasurementId} />}
+        {umamiWebsiteId && (
+          <Script
+            id="umami-analytics"
+            defer
+            src="https://analytics.petrankings.com.br/script.js"
+            data-website-id={umamiWebsiteId}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );
