@@ -17,6 +17,7 @@ import {
   FlaskConical,
   Sparkles,
   ChevronRight,
+  Scale,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import BackButton from '@/components/BackButton';
@@ -308,8 +309,29 @@ export default async function ProductDetailPage({
                     </p>
                   )}
 
-                  {product.affiliateLinks && product.affiliateLinks.length > 0 && (
-                    <div style={{ marginTop: '10px' }}>
+                  <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <Link
+                      href={`/comparar?p1=${product.slug}`}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '5px 14px',
+                        borderRadius: '20px',
+                        backgroundColor: '#ffffff',
+                        border: '1px solid var(--border-cream-dark)',
+                        color: 'var(--brand-forest-900)',
+                        fontSize: '0.78rem',
+                        fontWeight: 700,
+                        textDecoration: 'none',
+                        boxShadow: 'var(--shadow-xs)',
+                      }}
+                    >
+                      <Scale size={13} color="var(--brand-forest-700)" />
+                      <span>Comparar com Outra Ração</span>
+                    </Link>
+
+                    {product.affiliateLinks && product.affiliateLinks.length > 0 && (
                       <a
                         href="#onde-comprar"
                         style={{
@@ -329,8 +351,8 @@ export default async function ProductDetailPage({
                         <Store size={13} color="var(--brand-forest-700)" />
                         <span>Disponível em {product.affiliateLinks.length} {product.affiliateLinks.length === 1 ? 'loja' : 'lojas'} • Ver Ofertas</span>
                       </a>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
 

@@ -77,6 +77,11 @@ export default function Footer() {
             </h2>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.92rem' }}>
               <li>
+                <Link href="/comparar" className="footer-link" style={{ color: 'var(--gold-400)', fontWeight: 700 }}>
+                  ⚖️ Comparador de Rações Lado a Lado
+                </Link>
+              </li>
+              <li>
                 <Link href="/catalogo" className="footer-link" style={{ color: 'var(--brand-forest-300)', fontWeight: 700 }}>
                   📋 Catálogo Geral de Rações Analisadas
                 </Link>

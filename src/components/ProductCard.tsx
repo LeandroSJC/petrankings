@@ -12,6 +12,7 @@ import {
   Sparkles,
   ArrowRight,
   ShoppingCart,
+  Scale,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
@@ -338,6 +339,28 @@ export default function ProductCard({
             >
               <span>Ver Laudo Completo</span>
               <ArrowRight size={14} />
+            </Link>
+
+            <Link
+              href={`/comparar?p1=${product.slug}`}
+              className="editorial-btn-secondary"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                padding: '6px 12px',
+                borderRadius: 'var(--radius-xs)',
+                backgroundColor: 'var(--bg-subtle)',
+                border: '1px solid var(--border-cream-dark)',
+                color: 'var(--brand-forest-900)',
+                fontSize: '0.76rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+              }}
+            >
+              <Scale size={13} />
+              <span>Comparar</span>
             </Link>
 
             {hasAffiliates && (

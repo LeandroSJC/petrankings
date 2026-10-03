@@ -23,6 +23,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.95,
     },
     {
+      url: `${siteUrl}/comparar`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
+    {
       url: `${siteUrl}/indice/caes-adultos`,
       lastModified: new Date(),
       changeFrequency: 'daily',

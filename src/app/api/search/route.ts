@@ -16,6 +16,9 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const rawQuery = searchParams.get('q')?.trim() || '';
     const query = rawQuery.slice(0, 100);
+    const speciesParam = searchParams.get('species')?.trim().toUpperCase();
+    const limitParam = parseInt(searchParams.get('limit') || '8', 10);
+    const limit = Math.min(Math.max(isNaN(limitParam) ? 8 : limitParam, 1), 20);
 
     if (!query || query.length < 2) {
       return NextResponse.json({ products: [], categories: [] });
@@ -40,6 +43,7 @@ export async function GET(req: NextRequest) {
     const products = await prisma.product.findMany({
       where: {
         isPublished: true,
+        ...(speciesParam && (speciesParam === 'CAO' || speciesParam === 'GATO') ? { species: speciesParam } : {}),
         OR: [
           { commercialName: { contains: query, mode: 'insensitive' } },
           { brand: { contains: query, mode: 'insensitive' } },
@@ -54,13 +58,14 @@ export async function GET(req: NextRequest) {
         brand: true,
         species: true,
         lifeStage: true,
+        foodType: true,
         scoreTotal: true,
         classificationTier: true,
         frontLabelImageUrl: true,
         legalCategory: true,
         coadjuvanteCondition: true,
       },
-      take: 8,
+      take: limit,
       orderBy: { scoreTotal: 'desc' },
     });
 
