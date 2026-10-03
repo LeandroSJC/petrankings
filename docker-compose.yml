@@ -32,7 +32,7 @@ services:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public
       - DIRECT_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public
       - JWT_SECRET=${JWT_SECRET:-petrankings_jwt_secret_min_32_chars_long_2026}
-      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-http://168.138.144.63}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://petrankings.com.br}
       - ALLOW_ADMIN_IN_PRODUCTION=${ALLOW_ADMIN_IN_PRODUCTION:-true}
       - ADMIN_SECRET_GATE_PATH=${ADMIN_SECRET_GATE_PATH:-/bastidores}
       - ADMIN_GATE_KEY=${ADMIN_GATE_KEY:-petrankings_gate_secret_key_2026}

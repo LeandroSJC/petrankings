@@ -24,7 +24,7 @@ ENV NODE_ENV=production
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build?schema=public"
 ENV DIRECT_URL="postgresql://build:build@localhost:5432/build?schema=public"
 ENV JWT_SECRET="build_dummy_jwt_secret_min_32_characters_long_value"
-ENV NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+ENV NEXT_PUBLIC_SITE_URL="https://petrankings.com.br"
 
 RUN npx prisma generate
 RUN npm run build
