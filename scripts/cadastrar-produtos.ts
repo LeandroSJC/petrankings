@@ -28,10 +28,10 @@ interface ProductMetadata {
   materiaMineralMaxPct: number;
   materiaFibrosaMaxPct: number;
   calcioMinPct: number;
-  calcioMaxPct: number;
+  calcioMaxPct: number | null;
   fosforoMinPct: number;
-  sodioMinPct: number;
-  omega3MinPct: number;
+  sodioMinPct: number | null;
+  omega3MinPct: number | null;
   energiaMetabolizavelKcalKg: number | null;
 
   // Ingredientes & Rotulagem
