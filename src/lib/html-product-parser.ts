@@ -221,6 +221,29 @@ export function parseProductFromHtml(
     }
   }
 
+  // 1e. Extração Pedigree (Mars Petcare)
+  if (!imageUrl && /pedigree\.com\.br/i.test(sourceUrl)) {
+    $('script[type="application/ld+json"]').each((_, el) => {
+      try {
+        const json = JSON.parse($(el).html() || '{}');
+        const graph = json['@graph'] || [json];
+        for (const item of graph) {
+          if (item['@type'] === 'Product' && Array.isArray(item.image) && item.image.length > 0) {
+            const frenteImg = item.image.find((img: any) => /frente/i.test(img.url || '')) || item.image[0];
+            if (frenteImg?.url) {
+              imageUrl = frenteImg.url;
+              return false;
+            }
+          }
+        }
+      } catch {}
+    });
+    if (!imageUrl) {
+      const pedImg = $('img[src*="Frente"], img[src*="frente"], .productDetail img, .product-card-inner img').first().attr('src');
+      if (pedImg) imageUrl = pedImg.startsWith('http') ? pedImg : 'https://www.pedigree.com.br' + pedImg;
+    }
+  }
+
   // Normalização de URL relativa para absoluta se necessário
   if (imageUrl && !imageUrl.startsWith('http') && sourceUrl.startsWith('http')) {
     try {
@@ -713,7 +736,7 @@ export function parseProductFromHtml(
     else if (/articular|joint|\bjt\b/i.test(t)) coadjuvanteCondition = 'ARTICULAR';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
-    /(?:cookie|biscoito|biscoitos|snack|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|dental|mastig[áa]vel|osso|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow)/i.test(commercialName + ' ' + sourceUrl) ||
+    /(?:cookie|biscoito|biscoitos|snack|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|dental|mastig[áa]vel|\bosso\b|\bossos\b|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow|dentastix|biscrok|filezitos|marrobone)/i.test(commercialName + ' ' + sourceUrl) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
     (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast/i.test(commercialName + ' ' + sourceUrl))
@@ -868,6 +891,27 @@ export function parseProductFromHtml(
     if (nutritionTableText) garText = nutritionTableText;
   }
 
+  // 5d-2. Pedigree / Mars Petcare
+  if (!compText && /pedigree\.com\.br/i.test(sourceUrl)) {
+    const pedComp = $('li.ingredients .text p, .ingredients .text, .pdp_accordion_detail_block200-ingredients .text').first().text().trim();
+    if (pedComp) compText = pedComp;
+  }
+  if (!garText && /pedigree\.com\.br/i.test(sourceUrl)) {
+    const pedGarRows: string[] = [];
+    $('li.nutritional-info table tr, .nutritional-info table tr').each((_, tr) => {
+      const row = $(tr).find('th, td').map((_, cell) => $(cell).text().trim()).get().join(' : ');
+      if (row && row.length > 2 && !row.startsWith('Porte') && !row.startsWith('Quantidade')) {
+        pedGarRows.push(row);
+      }
+    });
+    if (pedGarRows.length > 0) {
+      garText = pedGarRows.join('\n');
+    } else {
+      const pedGar = $('li.nutritional-info table, li.nutritional-info .text, .nutritional-info table').first().text().trim();
+      if (pedGar) garText = pedGar;
+    }
+  }
+
   // 5e. Special Cat / Special Dog (Manfrim)
   if (!compText) {
     const specialComp = $('#descricao-composicao').text().trim();
@@ -890,8 +934,19 @@ export function parseProductFromHtml(
 
   // 5g. Fallback de tabelas HTML
   if (!garText) {
-    const tableText = $('table').first().text().trim();
-    if (tableText) garText = tableText;
+    const tableRows: string[] = [];
+    $('table tr').each((_, tr) => {
+      const row = $(tr).find('th, td').map((_, cell) => $(cell).text().trim()).get().join(' : ');
+      if (row && row.length > 2 && !row.startsWith('Porte') && !row.startsWith('Quantidade')) {
+        tableRows.push(row);
+      }
+    });
+    if (tableRows.length > 0) {
+      garText = tableRows.join('\n');
+    } else {
+      const tableText = $('table').first().text().trim();
+      if (tableText) garText = tableText;
+    }
   }
 
   // 5g. Fallback de texto corrido
@@ -908,20 +963,21 @@ export function parseProductFromHtml(
   }
 
   // 6. Níveis de Garantia
-  // Remove tags HTML de garText e compText para garantir que dígitos de tags (como </h2>) não interfiram
-  garText = garText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  // Remove tags HTML de garText e compText preservando quebras de linha em garText
+  garText = garText.replace(/<[^>]+>/g, ' ').replace(/[ \t]+/g, ' ');
   compText = compText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
 
-  const parseGuarantee = (pattern: RegExp): number => {
-    const m = garText.match(pattern);
-    if (!m) return 0;
+  const parseValFromText = (text: string, pattern: RegExp): number | null => {
+    const m = text.match(pattern);
+    if (!m) return null;
     const rawVal = m[1].replace(/\./g, '').replace(',', '.');
     const val = parseFloat(rawVal);
     const unit = (m[2] || '%').toLowerCase();
 
-    // Se houver percentual explícito entre parênteses logo após (ex: "11,5 g/kg (11,5%)"), prioriza a porcentagem
-    const snippet = garText.slice(m.index ?? 0, (m.index ?? 0) + 70);
-    const parenPctMatch = snippet.match(/\(\s*(\d+(?:[\.,]\d+)?)\s*%\s*\)/);
+    // Se houver percentual explícito logo após o valor capturado (ex: "90 g/kg (9%)")
+    const matchEnd = (m.index ?? 0) + m[0].length;
+    const afterSnippet = text.slice(matchEnd, matchEnd + 25);
+    const parenPctMatch = afterSnippet.match(/^\s*\(\s*(\d+(?:[\.,]\d+)?)\s*%\s*\)/);
     if (parenPctMatch) {
       return parseFloat(parenPctMatch[1].replace(',', '.'));
     }
@@ -931,44 +987,124 @@ export function parseProductFromHtml(
     return val;
   };
 
+  const parseGuarantee = (pattern: RegExp): number => {
+    const m = garText.match(pattern);
+    if (!m) return 0;
+    return parseValFromText(garText.slice(m.index ?? 0), pattern) || 0;
+  };
+
   const umidadeMaxPct =
-    parseGuarantee(/Umidade[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/Umidade[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 86.0 : 10.0);
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   const proteinaBrutaMinPct =
-    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)t?[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)t?[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const extratoEtereoMinPct =
-    parseGuarantee(/Extrato\s+Et[ée]reot?[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?)[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const materiaMineralMaxPct =
-    parseGuarantee(/Mat[ée]ria\s+Mineralt?[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas)[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 2.5 : 8.0);
 
   const materiaFibrosaMaxPct =
-    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 1.5 : 3.5);
 
-  const calcioMinPct =
-    parseGuarantee(/C[áa]lcio[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 0.2 : 0.8);
+  let calcioMinPct = 0;
+  let calcioMaxPct: number | null = null;
 
-  const calcioMaxPct =
-    parseGuarantee(/C[áa]lcio[\s\S]*?\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 0.45 : 1.5);
+  const calcioLineMatch = garText.match(/(?:^|[\n\r]|;)\s*([^\n\r;]*\bc[áa]lcio\b[^\n\r;]*)/i);
+  if (calcioLineMatch) {
+    const cLine = calcioLineMatch[1];
+
+    // Caso A: Faixa percentual expressa com ou sem parênteses, ex: "(0,15 - 0,5%)", "1,0 - 2,4%" ou "1,0% a 2,4%"
+    const parenRangeMatch = cLine.match(/(?:\()?\s*(\d+(?:[\.,]\d+)?)\s*(?:%|\s)*(?:-|a|à)\s*(\d+(?:[\.,]\d+)?)\s*%\s*(?:\))?/i);
+    if (parenRangeMatch) {
+      const v1 = parseFloat(parenRangeMatch[1].replace(',', '.'));
+      const v2 = parseFloat(parenRangeMatch[2].replace(',', '.'));
+      calcioMinPct = Math.min(v1, v2);
+      calcioMaxPct = Math.max(v1, v2);
+    } else {
+      // Caso B: Múltiplas porcentagens separadas, ex: "(1,0%), (Máx.) 24 g/kg (2,4%)"
+      const pctMatches: number[] = [];
+      const pctRegex = /(\d+(?:[\.,]\d+)?)\s*%/g;
+      let pm: RegExpExecArray | null;
+      while ((pm = pctRegex.exec(cLine)) !== null) {
+        pctMatches.push(parseFloat(pm[1].replace(',', '.')));
+      }
+
+      if (pctMatches.length >= 2) {
+        calcioMinPct = Math.min(pctMatches[0], pctMatches[1]);
+        calcioMaxPct = Math.max(pctMatches[0], pctMatches[1]);
+      } else if (pctMatches.length === 1) {
+        const unitRangeMatch = cLine.match(/(\d+(?:[\.,]\d+)?)\s*(?:-|a|à)\s*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|mg|g)/i);
+        if (unitRangeMatch && /m[íi]n/i.test(cLine) && /m[áa]x/i.test(cLine)) {
+          const v1 = parseFloat(unitRangeMatch[1].replace(/\./g, '').replace(',', '.'));
+          const v2 = parseFloat(unitRangeMatch[2].replace(/\./g, '').replace(',', '.'));
+          const unit = (unitRangeMatch[3] || '%').toLowerCase();
+          const factor = unit.includes('mg') ? 0.0001 : (unit.includes('g/kg') || unit === 'g') ? 0.1 : 1;
+          calcioMinPct = Number((Math.min(v1, v2) * factor).toFixed(4));
+          calcioMaxPct = Number((Math.max(v1, v2) * factor).toFixed(4));
+        } else if (/m[áa]x/i.test(cLine) && !/m[íi]n/i.test(cLine)) {
+          calcioMaxPct = pctMatches[0];
+        } else {
+          calcioMinPct = pctMatches[0];
+        }
+      } else {
+
+        // Caso C: Sem porcentagem explícita com %, busca faixa por unidade (ex: "1500 - 5000 mg/kg")
+        const unitRangeMatch = cLine.match(/(\d+(?:[\.,]\d+)?)\s*(?:-|a|à)\s*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|mg|g)/i);
+        if (unitRangeMatch) {
+          const v1 = parseFloat(unitRangeMatch[1].replace(/\./g, '').replace(',', '.'));
+          const v2 = parseFloat(unitRangeMatch[2].replace(/\./g, '').replace(',', '.'));
+          const unit = (unitRangeMatch[3] || '%').toLowerCase();
+          const factor = unit.includes('mg') ? 0.0001 : (unit.includes('g/kg') || unit === 'g') ? 0.1 : 1;
+          calcioMinPct = Number((Math.min(v1, v2) * factor).toFixed(4));
+          calcioMaxPct = Number((Math.max(v1, v2) * factor).toFixed(4));
+        } else {
+          const minM = cLine.match(/(?:\(m[íi]n\.?\)|m[íi]nimo)\s*:?\s*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|mg|g)?/i);
+          const maxM = cLine.match(/(?:\(m[áa]x\.?\)|m[áa]ximo)\s*:?\s*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|mg|g)?/i);
+          if (minM) calcioMinPct = parseValFromText(cLine.slice(minM.index!), /(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|mg|g)?/i) || 0;
+          if (maxM) calcioMaxPct = parseValFromText(cLine.slice(maxM.index!), /(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|mg|g)?/i) || null;
+        }
+      }
+    }
+  }
+
+  // Fallbacks de segurança para Cálcio
+  if (!calcioMinPct) {
+    calcioMinPct = parseGuarantee(/C[áa]lcio[^\n\d]*\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+                   (foodType === 'UMIDO' ? 0.2 : 0.8);
+  }
+  if (!calcioMaxPct && calcioMaxPct !== null) {
+    calcioMaxPct = parseGuarantee(/C[áa]lcio[^\n\d]*\(m[áa]x\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || null;
+  }
 
   const fosforoMinPct =
-    parseGuarantee(/F[óo]sforo[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/F[óo]sforo[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.15 : 0.7);
 
-  const sodioMinPct =
-    parseGuarantee(/S[óo]dio[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 0.1 : 0.25);
+  let sodioMinPct: number | null = null;
+  const sodioLineMatch = garText.match(/(?:^|[\n\r]|;)\s*([^\n\r;]*\b(?<!de\s+)s[óo]dio\b[^\n\r;]*)/i);
+  if (sodioLineMatch && !/sel[êe]nio\s+de\s+s[óo]dio|cloreto\s+de\s+s[óo]dio|iodato/i.test(sodioLineMatch[1])) {
+    const sLine = sodioLineMatch[1];
+    sodioMinPct = parseValFromText(sLine, /(?:(?:m[íi]n\.?|m[íi]nimo)[^\d]*)?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+  }
+  if (sodioMinPct === null) {
+    const sMatch = garText.match(/(?:^|[\n\r])\s*S[óo]dio(?!\s*de)\b[^\n\d]{0,35}(?:(?:m[íi]n\.?|m[íi]nimo)[^\n\d]{0,15})?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    if (sMatch) {
+      sodioMinPct = parseValFromText(sMatch[0], /(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    }
+  }
+  if (sodioMinPct !== null && (sodioMinPct > 3.0 || sodioMinPct <= 0)) {
+    sodioMinPct = null;
+  }
 
   const omega3MinPct =
-    parseGuarantee(/[ÔO]mega\s*3[\s\S]*?\(m[íi]n\.?\)[^\d]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    0.2;
+    parseGuarantee(/[ÔO]mega\s*3[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || null;
+
 
   // Energia Metabolizável
   let energiaMetabolizavelKcalKg: number | null = null;
@@ -1046,9 +1182,11 @@ export function parseProductFromHtml(
   }
 
   // 8. Transgênicos e Antioxidantes
-  const containsGmo =
-    /\*Cont[ée]m.*transg|Esp[ée]cies\s+doadoras|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText) &&
-    !/n[ãa]o\s+transg[êe]nico|sem\s+transg[êe]nico|livre\s+de\s+(?:ingredientes\s+)?geneticamente\s+modificados?/i.test(compText + ' ' + bodyText.slice(0, 1500));
+  const hasExplicitGmo = /\*Cont[ée]m.*transg|Esp[ée]cies\s+doadoras|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText);
+  const hasAsteriskGmo = /(?:milho|soja|algod[ãa]o|canola)\s*\*+/i.test(compText);
+  const isFreeOfGmo = /n[ãa]o\s+transg[êe]nico|sem\s+transg[êe]nico|livre\s+de\s+(?:ingredientes\s+)?geneticamente\s+modificados?/i.test(compText + ' ' + bodyText.slice(0, 1500));
+
+  const containsGmo = (hasExplicitGmo || hasAsteriskGmo) && !isFreeOfGmo;
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
@@ -1059,8 +1197,18 @@ export function parseProductFromHtml(
       gmoIngredients = gmoMatch[1]
         .replace(/^[,\s]*(?:na\s+composi[çc][ãa]o,?\s*)?(?:alimento\s+geneticamente\s+modificado\s*[:\s]*)?/i, '')
         .trim();
+    } else if (hasAsteriskGmo) {
+      const gmoItems: string[] = [];
+      if (/milho\s*\*+/i.test(compText)) gmoItems.push('Milho');
+      if (/soja\s*\*+/i.test(compText)) gmoItems.push('Soja');
+      if (/algod[ãa]o\s*\*+/i.test(compText)) gmoItems.push('Algodão');
+      if (/canola\s*\*+/i.test(compText)) gmoItems.push('Canola');
+      if (gmoItems.length > 0) {
+        gmoIngredients = gmoItems.join(' e ') + ' geneticamente modificados';
+      }
     }
   }
+
 
   const hasBhaBht = /\bBHA\b|\bBHT\b|\bB\.H\.T\.\b/i.test(compText);
   const antioxidantType: 'NATURAL' | 'SINTETICO' = hasBhaBht ? 'SINTETICO' : 'NATURAL';
