@@ -12,7 +12,8 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "db:enable-rls": "tsx scripts/enable-rls.ts",
     "cadastrar:url": "tsx --env-file=.env scripts/cadastrar-por-url.ts",
-    "cadastrar-produtos": "tsx --env-file=.env scripts/cadastrar-produtos.ts",
+    "cadastrar-produtos": "tsx scripts/cadastrar-com-tunel.ts",
+    "cadastrar-produtos:direto": "tsx --env-file=.env scripts/cadastrar-produtos.ts",
     "auditar:imagens": "tsx scripts/auditar-e-reparar-imagens.ts",
     "tunel": "ssh -i D:/Projetos/ssh-key-2026-10-03.key -L 5433:127.0.0.1:5432 -N ubuntu@168.138.144.63",
     "studio": "prisma studio"
