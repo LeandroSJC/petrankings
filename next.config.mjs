@@ -50,6 +50,10 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false, // Remove o cabeçalho X-Powered-By para evitar fingerprinting de versão
+  // Limita a concorrência de compilação da Vercel para não estourar o limite de conexões do banco
+  experimental: {
+    cpus: 1,
+  },
   // Impede que pastas pesadas sejam empacotadas no bundle zip das Serverless Functions da Vercel
   outputFileTracingExcludes: {
     '*': [

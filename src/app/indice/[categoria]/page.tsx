@@ -77,31 +77,36 @@ export default async function CategoriaPage({
     notFound();
   }
 
-  const rawProducts = await prisma.product.findMany({
-    where: {
-      isPublished: true,
-      legalCategory: 'ALIMENTO_COMPLETO',
-      species: config.species,
-      lifeStage: { in: config.lifeStages },
-    },
-    include: {
-      affiliateLinks: {
-        select: {
-          store: true,
-          productUrl: true,
-          affiliateUrl: true,
+  let rawProducts: any[] = [];
+  try {
+    rawProducts = await prisma.product.findMany({
+      where: {
+        isPublished: true,
+        legalCategory: 'ALIMENTO_COMPLETO',
+        species: config.species,
+        lifeStage: { in: config.lifeStages },
+      },
+      include: {
+        affiliateLinks: {
+          select: {
+            store: true,
+            productUrl: true,
+            affiliateUrl: true,
+          },
         },
       },
-    },
-    orderBy: [
-      { scoreTotal: 'desc' },
-      { commercialName: 'asc' },
-    ],
-  });
+      orderBy: [
+        { scoreTotal: 'desc' },
+        { commercialName: 'asc' },
+      ],
+    });
+  } catch (error) {
+    console.error(`Erro ao buscar produtos para categoria ${categoria}:`, error);
+  }
 
   const products = rawProducts.map((p) => ({
     ...p,
-    labelCollectionDate: p.labelCollectionDate.toISOString(),
+    labelCollectionDate: p.labelCollectionDate ? p.labelCollectionDate.toISOString() : new Date().toISOString(),
   }));
 
   return (

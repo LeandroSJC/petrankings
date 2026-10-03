@@ -81,8 +81,10 @@ export default async function GuidePage({ params }: GuidePageProps) {
   }
 
   // Buscar produtos citados no banco para gerar os cards vivos de dados
-  const citedProducts = guide.relatedProductSlugs.length > 0
-    ? await prisma.product.findMany({
+  let citedProducts: any[] = [];
+  if (guide.relatedProductSlugs.length > 0) {
+    try {
+      citedProducts = await prisma.product.findMany({
         where: {
           slug: { in: guide.relatedProductSlugs },
           isPublished: true,
@@ -98,8 +100,11 @@ export default async function GuidePage({ params }: GuidePageProps) {
           antioxidantType: true,
           containsGmo: true,
         },
-      })
-    : [];
+      });
+    } catch (error) {
+      console.error(`Erro ao buscar produtos citados para o guia ${guide.slug}:`, error);
+    }
+  }
 
   const relatedGuides = getRelatedGuides(guide.slug, 2);
 

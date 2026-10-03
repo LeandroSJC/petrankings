@@ -35,12 +35,25 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   // Estatísticas agregadas ao vivo do banco de dados oficial
-  const [totalProducts, naturalAntioxidantsCount, nonGmoCount, coadjuvantesCount] = await Promise.all([
-    prisma.product.count({ where: { isPublished: true } }),
-    prisma.product.count({ where: { isPublished: true, antioxidantType: 'NATURAL' } }),
-    prisma.product.count({ where: { isPublished: true, containsGmo: false } }),
-    prisma.product.count({ where: { isPublished: true, legalCategory: 'ALIMENTO_COADJUVANTE' } }),
-  ]);
+  let totalProducts = 0;
+  let naturalAntioxidantsCount = 0;
+  let nonGmoCount = 0;
+  let coadjuvantesCount = 0;
+
+  try {
+    const counts = await Promise.all([
+      prisma.product.count({ where: { isPublished: true } }),
+      prisma.product.count({ where: { isPublished: true, antioxidantType: 'NATURAL' } }),
+      prisma.product.count({ where: { isPublished: true, containsGmo: false } }),
+      prisma.product.count({ where: { isPublished: true, legalCategory: 'ALIMENTO_COADJUVANTE' } }),
+    ]);
+    totalProducts = counts[0];
+    naturalAntioxidantsCount = counts[1];
+    nonGmoCount = counts[2];
+    coadjuvantesCount = counts[3];
+  } catch (error) {
+    console.error('Erro ao buscar contagens para a home:', error);
+  }
 
   const allGuides = getAllGuides();
   const featuredGuide = getFeaturedGuide();

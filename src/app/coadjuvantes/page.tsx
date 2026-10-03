@@ -15,29 +15,34 @@ export const metadata: Metadata = {
 };
 
 export default async function CoadjuvantesPage() {
-  const rawProducts = await prisma.product.findMany({
-    where: {
-      isPublished: true,
-      legalCategory: 'ALIMENTO_COADJUVANTE',
-    },
-    include: {
-      affiliateLinks: {
-        select: {
-          store: true,
-          productUrl: true,
-          affiliateUrl: true,
+  let rawProducts: any[] = [];
+  try {
+    rawProducts = await prisma.product.findMany({
+      where: {
+        isPublished: true,
+        legalCategory: 'ALIMENTO_COADJUVANTE',
+      },
+      include: {
+        affiliateLinks: {
+          select: {
+            store: true,
+            productUrl: true,
+            affiliateUrl: true,
+          },
         },
       },
-    },
-    orderBy: [
-      { coadjuvanteCondition: 'asc' },
-      { createdAt: 'desc' },
-    ],
-  });
+      orderBy: [
+        { coadjuvanteCondition: 'asc' },
+        { createdAt: 'desc' },
+      ],
+    });
+  } catch (error) {
+    console.error('Erro ao buscar alimentos coadjuvantes:', error);
+  }
 
   const products = rawProducts.map((p) => ({
     ...p,
-    labelCollectionDate: p.labelCollectionDate.toISOString(),
+    labelCollectionDate: p.labelCollectionDate ? p.labelCollectionDate.toISOString() : new Date().toISOString(),
   }));
 
   return (

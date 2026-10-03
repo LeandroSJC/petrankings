@@ -23,22 +23,27 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function CatalogoPage() {
-  const rawProducts = await prisma.product.findMany({
-    where: { isPublished: true },
-    include: {
-      affiliateLinks: {
-        select: {
-          store: true,
-          productUrl: true,
-          affiliateUrl: true,
+  let rawProducts: any[] = [];
+  try {
+    rawProducts = await prisma.product.findMany({
+      where: { isPublished: true },
+      include: {
+        affiliateLinks: {
+          select: {
+            store: true,
+            productUrl: true,
+            affiliateUrl: true,
+          },
         },
       },
-    },
-    orderBy: [
-      { scoreTotal: 'desc' },
-      { commercialName: 'asc' },
-    ],
-  });
+      orderBy: [
+        { scoreTotal: 'desc' },
+        { commercialName: 'asc' },
+      ],
+    });
+  } catch (error) {
+    console.error('Erro ao buscar produtos para o catálogo:', error);
+  }
 
   const products: ProductItemData[] = rawProducts.map((p) => ({
     id: p.id,
