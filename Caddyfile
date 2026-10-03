@@ -1,0 +1,18 @@
+:80 {
+    # 1. Painel de Analytics (Umami)
+    @analytics host analytics.petrankings.com.br
+    handle @analytics {
+        reverse_proxy umami:3000
+    }
+
+    # 2. Painel de Monitoramento 24/7 (Uptime Kuma)
+    @status host status.petrankings.com.br
+    handle @status {
+        reverse_proxy uptime-kuma:3001
+    }
+
+    # 3. Portal PetRankings (Next.js 15) - Default / Fallback
+    handle {
+        reverse_proxy app:3000
+    }
+}

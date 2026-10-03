@@ -1,4 +1,25 @@
 services:
+  # ==============================================================================
+  # 1. Reverse Proxy Caddy (Roteador de Tráfego HTTP e Subdomínios)
+  # ==============================================================================
+  caddy:
+    image: caddy:2-alpine
+    container_name: petrankings-caddy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - app
+      - umami
+      - uptime-kuma
+    networks:
+      - petrankings-net
+
+  # ==============================================================================
+  # 2. Banco de Dados PostgreSQL 16
+  # ==============================================================================
   postgres:
     image: postgres:16-alpine
     container_name: petrankings-postgres
@@ -19,14 +40,17 @@ services:
     networks:
       - petrankings-net
 
+  # ==============================================================================
+  # 3. Portal PetRankings (Next.js 15 Standalone)
+  # ==============================================================================
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: petrankings-app
     restart: always
-    ports:
-      - "80:3000"
+    expose:
+      - "3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -48,8 +72,41 @@ services:
     networks:
       - petrankings-net
 
+  # ==============================================================================
+  # 4. Umami Analytics (Privativo, Sem Cookies, Imune a AdBlock)
+  # ==============================================================================
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    container_name: petrankings-umami
+    restart: always
+    expose:
+      - "3000"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/umami
+      - APP_SECRET=${UMAMI_SECRET:-petrankings_umami_secret_salt_2026_super_safe}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - petrankings-net
+
+  # ==============================================================================
+  # 5. Uptime Kuma (Monitoramento 24/7 com Alerta em Tempo Real)
+  # ==============================================================================
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: petrankings-uptime
+    restart: always
+    expose:
+      - "3001"
+    volumes:
+      - uptime_kuma_data:/app/data
+    networks:
+      - petrankings-net
+
 volumes:
   postgres_data:
+  uptime_kuma_data:
 
 networks:
   petrankings-net:
