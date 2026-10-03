@@ -839,6 +839,135 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'premier-formula-vs-royal-canin-gatos-castrados',
+    title: 'PremieR Formula vs Royal Canin Castrados: O que muda na prática além do preço?',
+    subtitle: 'Confronto bromatológico e zootécnico entre as duas fórmulas Super Premium mais procuradas para felinos castrados no Brasil.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-03',
+    updatedAt: '2026-10-03',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/premier-vs-royal-canin-duel-cover.webp',
+    isFeatured: true,
+    summary:
+      'Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), o perfil de fibras para controle de saciedade e bolas de pelo, os sistemas de conservação (antioxidantes naturais vs BHA sintético) e o manejo do trato urinário entre PremieR Formula Gatos Castrados e Royal Canin Castrados.',
+    relatedProductSlugs: [
+      'premier-formula-gatos-castrados-frango',
+      'sterilised-37-2537',
+    ],
+    sections: [
+      {
+        id: 'posicionamento-e-desafio-da-castracao',
+        heading: '1. O Desafio Fisiológico da Castração e o Posicionamento das Linhas',
+        paragraphs: [
+          'A castração (gonadectomia) é uma intervenção profilática padrão-ouro na medicina veterinária moderna para prevenção de neoplasias reprodutivas e controle populacional. Entretanto, a redução abrupta dos hormônios sexuais circulantes provoca alterações metabólicas imediatas: a taxa metabólica basal do gato cai entre 20% e 25%, enquanto o apetite tende a se intensificar devido a alterações na modulação dos centros hipotalâmicos de saciedade.',
+          'Além da predisposição ao ganho de peso decorrente do menor gasto calórico e de uma rotina mais sedentária em ambiente domiciliar, o felino castrado reduz a frequência miccional e a ingestão espontânea de água. Esse cenário fisiológico eleva consideravelmente a concentração de solutos na urina e o índice de supersaturação relativa para a formação de cristais e urólitos (estruvita e oxalato de cálcio) no trato urinário inferior.',
+          'Para atender a essa demanda metabólica complexa, tanto a PremieR Formula Gatos Castrados Frango (desenvolvida pela fabricante brasileira Grandfood) quanto a Royal Canin Castrados / Sterilised 37 (formulada pela multinacional francesa Mars Petcare) posicionam-se no segmento Super Premium de manutenção. Ambas são legalmente registradas perante o Ministério da Agricultura e Pecuária (MAPA) como "Alimento Completo para Gatos", em conformidade com a Instrução Normativa MAPA nº 30/2009 e a IN nº 39/2014.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal e Marcos Regulatórios (IN MAPA nº 30/2009)',
+          text: 'Tanto a PremieR quanto a Royal Canin são alimentos completos que atendem e superam integralmente os pisos nutricionais da 11ª Edição do Manual Pet Food Brasil (ABINPET) e das diretrizes internacionais da FEDIAF 2025. O termo "Castrados" nos rótulos de ambas sinaliza formulações com densidade calórica moderada, enriquecimento de fibras e balanceamento mineral direcionado para a manutenção do pH urinário seguro.',
+        },
+      },
+      {
+        id: 'confronto-bromatologico-materia-seca',
+        heading: '2. Níveis de Garantia Confrontados em Matéria Seca (MS)',
+        paragraphs: [
+          'Para analisar os alimentos com rigor científico equânime, eliminamos o efeito diluidor da água contida nos croquetes através da fórmula bromatológica preconizada pelo Manual ABINPET: Nutriente na MS (%) = [ Nutriente no Rótulo (%) / (100 - Umidade Máxima %) ] × 100.',
+          'A embalagem da PremieR Formula declara umidade máxima de 10% (restando 90% de Matéria Seca), enquanto a Royal Canin Castrados apresenta teor de umidade ainda menor, de 8% (resultando em 92% de Matéria Seca útil).',
+          'Ao converter os níveis de garantia para a Matéria Seca, observamos teores proteicos bastante próximos e expressivamente elevados: a Royal Canin entrega 38,04% de Proteína Bruta na MS (frente a 35,0% em Matéria Natural), enquanto a PremieR Formula fornece 37,22% de Proteína Bruta na MS (33,5% em MN). Ambos os números superam com folga o piso de 26,0% de PB estipulado pela ABINPET para gatos adultos, garantindo preservação de massa magra mesmo em regimes de restrição calórica.',
+          'A grande distinção numérica no confronto analítico, contudo, repousa na Matéria Mineral (Cinzas): a PremieR Formula limita as cinzas a 8,89% na MS (8,0% MN), enquanto a Royal Canin atinge 10,00% na MS (9,2% MN). Em nutrição felina, percentuais menores de cinzas minerais refletem habitualmente o uso de farinhas de vísceras com padrão "Low Ash" (baixo teor de resíduos ósseos moídos), auxiliando a não sobrecarregar a excreção renal e a filtração glomerular ao longo dos anos.',
+        ],
+        table: {
+          caption: 'Quadro Comparativo de Níveis Oficiais na Matéria Seca (MS) — PetRankings',
+          headers: [
+            'Nutriente / Parâmetro',
+            'PremieR Formula Castrados (MS)',
+            'Royal Canin Castrados (MS)',
+            'Padrão Mínimo ABINPET (Gatos Adultos)',
+          ],
+          rows: [
+            ['Proteína Bruta (Mínima)', '37,22% MS (33,5% MN)', '38,04% MS (35,0% MN)', '26,00% MS'],
+            ['Extrato Etéreo / Gorduras (Mínimo)', '12,22% MS (11,0% MN)', '10,87% MS (10,0% MN)', '9,00% MS'],
+            ['Matéria Fibrosa (Máxima)', '5,00% MS (4,5% MN)', '7,61% MS (7,0% MN)', 'Não aplicável (limite zootécnico)'],
+            ['Matéria Mineral / Cinzas (Máxima)', '8,89% MS (8,0% MN)', '10,00% MS (9,2% MN)', 'Não aplicável (recomendado teto baixo)'],
+            ['Fósforo Declarado (Mínimo)', '0,93% MS (0,84% MN)', '0,87% MS (0,80% MN)', '0,50% MS'],
+            ['Cálcio Declarado (Faixa Mín-Máx)', '1,11% a 1,67% MS', '0,96% a 1,43% MS', '0,60% MS'],
+            ['Sistema de Conservação Declarado', 'Antioxidantes Naturais (Tocoferóis)', 'Antioxidante Sintético (BHA)', 'Exigência de estabilidade lipídica'],
+          ],
+        },
+        callout: {
+          type: 'atencao',
+          title: 'Atenção aos Teores Minerais em Carnívoros Estritos',
+          text: 'O teto de Matéria Mineral é um indicador indireto da pureza das fontes proteicas animais. Concentrações minerais excessivas dilatam o trabalho tubular dos rins. A PremieR Formula entrega uma matriz mineral mais enxuta (8,89% MS contra 10,00% MS da Royal Canin), demonstrando maior refino na seleção de matérias-primas cárneas desengorduradas.',
+        },
+      },
+      {
+        id: 'gestao-de-saciedade-fibras-e-bolas-de-pelo',
+        heading: '3. Manejo de Peso e Controle de Bolas de Pelo: O Papel das Fibras',
+        paragraphs: [
+          'Gatos castrados frequentemente manifestam comportamento de busca compulsiva por comida nas primeiras semanas após o procedimento cirúrgico. Para mitigar esse efeito sem sobrecarregar o animal com calorias vazias, as fórmulas utilizam estratégias distintas de fracionamento de fibras e densidade lipídica.',
+          'Neste ponto específico, a Royal Canin Castrados adota uma abordagem mais agressiva no controle do apetite: entrega 7,61% de Matéria Fibrosa na Matéria Seca (contra 5,00% da PremieR Formula). Sua fórmula combina fibra de ervilha, casca de soja e polpa desidratada de beterraba, que expandem o volume do bolo alimentar no estômago, prolongando a sensação física de saciedade.',
+          'Essa alta concentração de fibras insolúveis na Royal Canin produz um benefício zootécnico adicional muito apreciado por tutores de felinos que vivem exclusivamente em ambientes fechados (indoor): atua como agente mecânico de arraste de pelos deglutidos durante a autolimpeza (grooming), facilitando a eliminação fecal contínua e prevenindo a formação de tricobezoares (bolas de pelo) no trato digestivo superior.',
+          'Por outro lado, a PremieR Formula equilibra seu teor de fibras (fibra de cana-de-açúcar e polpa de beterraba) com um teor lipídico ligeiramente superior (12,22% de Extrato Etéreo na MS contra 10,87% da Royal Canin), proporcionando palatabilidade natural mais espontânea e incorporando L-carnitina para auxiliar na oxidação mitocondrial dos ácidos graxos.',
+        ],
+      },
+      {
+        id: 'antioxidantes-e-conservacao-natural-vs-sintetica',
+        heading: '4. O Divisor de Águas: Antioxidantes Naturais vs BHA Sintético',
+        paragraphs: [
+          'A divergência mais expressiva entre os dois produtos — e que determina a diferença de notas no sistema de avaliação técnica do PetRankings — situa-se no sistema de conservação lipídica especificado ao final da lista de ingredientes.',
+          'A PremieR Formula Gatos Castrados Frango adota um sistema 100% natural de conservação, ancorado em concentrado de tocoferóis (mistura de formas ativas de Vitamina E natural), extrato de alecrim (*Rosmarinus officinalis*), extrato de chá verde, extrato de menta e ácido cítrico. A fabricante Grandfood aboliu conservantes sintéticos das suas principais linhas de cães e gatos, respondendo à preferência dos tutores por matérias-primas livres de fenóis industriais.',
+          'Em contrapartida, a Royal Canin Castrados / Sterilised 37 ainda utiliza o aditivo antioxidante químico BHA (Butil-hidroxianisol - INS 320) como estabilizador tecnológico primário das frações lipídicas.',
+          'Embora o uso de BHA seja expressamente legalizado e autorizado no Brasil pela Instrução Normativa MAPA nº 110/2020 e pelas diretrizes da EFSA (Autoridade Europeia para a Segurança Alimentar) dentro dos limites estritos de segurança, o algoritmo determinístico do PetRankings premia produtos que realizam a transição completa para antioxidantes naturais (Pilar de Transparência e Qualidade de Ingredientes). Por essa razão, a PremieR Formula alcança Nível Ouro (Score 90), enquanto a Royal Canin Castrados é classificada em Nível Prata (Score 85).',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Como Checar o Conservante no Rótulo da Embalagem',
+          text: 'Vá até o final da "Composição Básica" no verso do saco e localize o bloco "Aditivos Tecnológicos". Se constar "BHA", o alimento adota conservante sintético. Se constar "concentrado de tocoferóis e extrato de alecrim", a conservação é 100% natural.',
+        },
+      },
+      {
+        id: 'protecao-do-trato-urinario-ph-e-minerais',
+        heading: '5. Saúde do Trato Urinário Inferior (DTUIF): Controle de Minerais e pH',
+        paragraphs: [
+          'A Doença do Trato Urinário Inferior dos Felinos (DTUIF) é uma das principais causas de atendimento clínico de emergência em gatos castrados. O manejo nutricional preventivo exige duas ações conjuntas: rigoroso controle estequiométrico dos precursores minerais (magnésio e fósforo) e incorporação de aditivos tamponantes para modular o pH urinário.',
+          'Tanto a PremieR quanto a Royal Canin executam esse manejo com alto rigor técnico: ambas mantêm o fósforo controlado abaixo de 1,0% na Matéria Seca (0,87% MS na Royal Canin e 0,93% MS na PremieR) e incluem agentes moduladores de acidez urinária em suas formulações.',
+          'A PremieR Formula incorpora cloreto de amônio, sulfato de amônio e DL-metionina, projetados para induzir uma urina discretamente ácida (faixa alvo entre 6,2 e 6,5), inibindo a precipitação e aglomeração de cristais de estruvita (fosfato de amônio e magnésio).',
+          'A Royal Canin Castrados inclui sulfato de cálcio, bissulfato de sódio e DL-metionina, aliados a frutooligossacarídeos (FOS) e zeolita (aluminossilicato que melhora a consistência fecal e reduz o odor nas caixas de areia). Vale enfatizar que nenhum alimento seco substitui a ingestão voluntária de água: para maximizar a proteção renal e vesical, o tutor deve espalhar fontes de água corrente e incorporar refeições diárias de sachês úmidos completos (Mix Feeding).',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual das duas rações é mais indicada para gatos que tendem a engordar com facilidade?',
+        a: 'A Royal Canin Castrados apresenta maior concentração de fibras na Matéria Seca (7,61% MS vs 5,00% MS da PremieR) e densidade lipídica mais contida (10,87% MS vs 12,22% MS), o que confere maior capacidade de conferir saciedade gástrica rápida para felinos com apetite voraz. A PremieR Formula compensa com menor teor de cinzas minerais e inclusão de L-carnitina.',
+      },
+      {
+        q: 'Por que a PremieR Formula é Nível Ouro (Score 90) e a Royal Canin é Nível Prata (Score 85)?',
+        a: 'A diferença de 5 pontos no algoritmo do PetRankings decorre primordialmente de dois fatores: o sistema de conservação (a PremieR utiliza antioxidantes 100% naturais com tocoferóis e alecrim, enquanto a Royal Canin ainda utiliza o conservante sintético BHA) e a Matéria Mineral (a PremieR entrega 8,89% MS de cinzas máximas contra 10,00% MS da Royal Canin).',
+      },
+      {
+        q: 'A ração para gatos castrados dispensa a necessidade de incentivar o gato a beber água?',
+        a: 'De forma alguma. Embora ambas as rações controlem os minerais e modulem o pH urinário, gatos alimentados com ração seca produzem urina mais concentrada. O estímulo constante ao consumo de água fresca através de fontes e a oferta de sachês úmidos completos são indispensáveis para diluição da urina e longevidade renal.',
+      },
+      {
+        q: 'Qual delas oferece melhor auxílio contra bolas de pelo (Hairball)?',
+        a: 'A Royal Canin Castrados leva vantagem mecânica nessa função específica por conter 7,61% de fibra bruta na Matéria Seca (com fibras de ervilha e soja), que atuam diretamente no trato gastrointestinal carreador de pelos engolidos durante o banho de gato, reduzindo episódios de regurgitação.',
+      },
+    ],
+    conclusion:
+      'Em síntese, o confronto entre PremieR Formula Gatos Castrados e Royal Canin Castrados / Sterilised 37 coloca frente a frente duas formulações Super Premium de alto gabarito zootécnico. A Royal Canin destaca-se pelo perfil mais fibroso e enxuto para saciedade e controle de pelos, mas permanece atrelada ao conservante sintético BHA. A PremieR Formula sobressai-se pela conservação 100% natural com tocoferóis e extrato de alecrim, aliada a um menor teor de cinzas minerais (8,89% MS), conquistando pontuação mais equilibrada em nosso laudo técnico de rotulagem.',
+    callToAction: {
+      title: 'Compare Alimentos para Gatos Castrados no Catálogo PetRankings',
+      text: 'O Observatório PetRankings analisa a Composição Básica oficial e os níveis recalculados na Matéria Seca de centenas de produtos felinos registrados no Brasil. Explore os filtros interativos por espécie, sistema de conservação e teores de nutrientes.',
+      buttonText: 'Explorar Alimentos para Gatos no Catálogo',
+      buttonUrl: '/catalogo?esp=GATO',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {

@@ -51,6 +51,26 @@ export default function HomeGuidesSection({
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedGuides = filteredGuides.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+  const scrollToAnchor = () => {
+    if (typeof window !== 'undefined') {
+      const anchor = document.getElementById('destaque-da-semana');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        const fallback = document.getElementById('estudos');
+        if (fallback) {
+          fallback.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage === currentPage) return;
+    setCurrentPage(newPage);
+    scrollToAnchor();
+  };
+
   const handleFilterChange = (filter: SpeciesFilter) => {
     setSelectedFilter(filter);
     setCurrentPage(1);
@@ -354,7 +374,7 @@ export default function HomeGuidesSection({
           </div>
         )}
 
-        {/* Paginação Limpa e Acessível (aparece quando houver mais que ITEMS_PER_PAGE) */}
+        {/* Paginação Limpa e Acessível (ancora sempre em Destaque da Semana) */}
         {totalPages > 1 && (
           <nav
             aria-label="Paginação dos estudos"
@@ -364,11 +384,12 @@ export default function HomeGuidesSection({
               justifyContent: 'center',
               gap: '12px',
               marginTop: '36px',
+              flexWrap: 'wrap',
             }}
           >
             <button
               type="button"
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
               style={{
                 display: 'inline-flex',
@@ -383,19 +404,45 @@ export default function HomeGuidesSection({
                 fontSize: '0.85rem',
                 fontWeight: 600,
                 opacity: currentPage === 1 ? 0.5 : 1,
+                transition: 'var(--transition-fast)',
               }}
+              aria-label="Página anterior"
             >
               <ChevronLeft size={16} />
               <span>Anterior</span>
             </button>
 
-            <span style={{ fontSize: '0.88rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-              Página {currentPage} de {totalPages}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                <button
+                  key={pageNum}
+                  type="button"
+                  onClick={() => handlePageChange(pageNum)}
+                  aria-current={currentPage === pageNum ? 'page' : undefined}
+                  style={{
+                    minWidth: '36px',
+                    height: '36px',
+                    padding: '0 8px',
+                    borderRadius: 'var(--radius-sm)',
+                    border: '1px solid',
+                    borderColor: currentPage === pageNum ? 'var(--brand-forest-700)' : 'var(--border-cream)',
+                    backgroundColor: currentPage === pageNum ? 'var(--brand-forest-700)' : '#ffffff',
+                    color: currentPage === pageNum ? '#ffffff' : 'var(--brand-forest-800)',
+                    cursor: currentPage === pageNum ? 'default' : 'pointer',
+                    fontSize: '0.85rem',
+                    fontWeight: 700,
+                    transition: 'var(--transition-fast)',
+                  }}
+                  aria-label={`Ir para a página ${pageNum}`}
+                >
+                  {pageNum}
+                </button>
+              ))}
+            </div>
 
             <button
               type="button"
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
               style={{
                 display: 'inline-flex',
@@ -410,7 +457,9 @@ export default function HomeGuidesSection({
                 fontSize: '0.85rem',
                 fontWeight: 600,
                 opacity: currentPage === totalPages ? 0.5 : 1,
+                transition: 'var(--transition-fast)',
               }}
+              aria-label="Próxima página"
             >
               <span>Próxima</span>
               <ChevronRight size={16} />

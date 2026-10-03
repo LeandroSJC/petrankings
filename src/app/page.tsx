@@ -138,7 +138,10 @@ export default async function HomePage() {
       </section>
 
       {/* 2. ESTUDO DE CAPA COMPACTO (HERO FEATURE STORY) */}
-      <section style={{ padding: '32px 0 24px 0' }}>
+      <section
+        id="destaque-da-semana"
+        style={{ padding: '32px 0 24px 0', scrollMarginTop: '90px' }}
+      >
         <div className="container">
           <div
             style={{
