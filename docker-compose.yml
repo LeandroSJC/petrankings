@@ -27,7 +27,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-petrankings}
       POSTGRES_USER: ${POSTGRES_USER:-petrankings}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -55,13 +55,13 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public
-      - DIRECT_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public
-      - JWT_SECRET=${JWT_SECRET:-petrankings_jwt_secret_min_32_chars_long_2026}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public}
+      - DIRECT_URL=${DIRECT_URL:-postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public}
+      - JWT_SECRET=${JWT_SECRET}
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://petrankings.com.br}
       - ALLOW_ADMIN_IN_PRODUCTION=${ALLOW_ADMIN_IN_PRODUCTION:-true}
       - ADMIN_SECRET_GATE_PATH=${ADMIN_SECRET_GATE_PATH:-/bastidores}
-      - ADMIN_GATE_KEY=${ADMIN_GATE_KEY:-petrankings_gate_secret_key_2026}
+      - ADMIN_GATE_KEY=${ADMIN_GATE_KEY}
       - RESEND_API_KEY=${RESEND_API_KEY:-}
       - EMAIL_FROM=${EMAIL_FROM:-PetRankings <onboarding@resend.dev>}
     depends_on:
@@ -82,8 +82,8 @@ services:
     expose:
       - "3000"
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD:-petrankings_secure_pass_2026}@postgres:5432/umami
-      - APP_SECRET=${UMAMI_SECRET:-petrankings_umami_secret_salt_2026_super_safe}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD}@postgres:5432/umami
+      - APP_SECRET=${UMAMI_SECRET}
     depends_on:
       postgres:
         condition: service_healthy
