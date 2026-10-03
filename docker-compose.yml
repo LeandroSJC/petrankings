@@ -42,13 +42,12 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - uploads_data:/app/public/uploads
+      - ./public/uploads:/app/public/uploads
     networks:
       - petrankings-net
 
 volumes:
   postgres_data:
-  uploads_data:
 
 networks:
   petrankings-net:
