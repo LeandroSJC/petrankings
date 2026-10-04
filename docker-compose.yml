@@ -1,8 +1,16 @@
+x-logging: &default-logging
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "50m"
+      max-file: "3"
+
 services:
   # ==============================================================================
   # 1. Reverse Proxy Caddy (Roteador de Tráfego HTTP e Subdomínios)
   # ==============================================================================
   caddy:
+    <<: *default-logging
     image: caddy:2-alpine
     container_name: petrankings-caddy
     restart: always
@@ -18,12 +26,41 @@ services:
       - petrankings-net
 
   # ==============================================================================
-  # 2. Banco de Dados PostgreSQL 16
+  # 2. Banco de Dados PostgreSQL 16 (Otimizado para ARM 12GB RAM)
   # ==============================================================================
   postgres:
+    <<: *default-logging
     image: postgres:16-alpine
     container_name: petrankings-postgres
     restart: always
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_buffers=2GB"
+      - "-c"
+      - "effective_cache_size=6GB"
+      - "-c"
+      - "work_mem=16MB"
+      - "-c"
+      - "maintenance_work_mem=512MB"
+      - "-c"
+      - "min_wal_size=1GB"
+      - "-c"
+      - "max_wal_size=4GB"
+      - "-c"
+      - "checkpoint_completion_target=0.9"
+      - "-c"
+      - "wal_buffers=16MB"
+      - "-c"
+      - "default_statistics_target=100"
+      - "-c"
+      - "random_page_cost=1.1"
+      - "-c"
+      - "max_worker_processes=2"
+      - "-c"
+      - "max_parallel_workers_per_gather=1"
+      - "-c"
+      - "max_parallel_workers=2"
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-petrankings}
       POSTGRES_USER: ${POSTGRES_USER:-petrankings}
@@ -44,6 +81,7 @@ services:
   # 3. Portal PetRankings (Next.js 15 Standalone)
   # ==============================================================================
   app:
+    <<: *default-logging
     build:
       context: .
       dockerfile: Dockerfile
@@ -76,6 +114,7 @@ services:
   # 4. Umami Analytics (Privativo, Sem Cookies, Imune a AdBlock)
   # ==============================================================================
   umami:
+    <<: *default-logging
     image: ghcr.io/umami-software/umami:postgresql-latest
     container_name: petrankings-umami
     restart: always
@@ -94,6 +133,7 @@ services:
   # 5. Uptime Kuma (Monitoramento 24/7 com Alerta em Tempo Real)
   # ==============================================================================
   uptime-kuma:
+    <<: *default-logging
     image: louislam/uptime-kuma:2
     container_name: petrankings-uptime
     restart: always

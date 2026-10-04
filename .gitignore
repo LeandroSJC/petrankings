@@ -53,4 +53,7 @@ produtos_cadastro/
 # Backup Local de Fichas Técnicas Brutas (mantidas localmente, fora do deploy da Vercel)
 _backup_fichas_pdf/
 
+# Backups do Banco de Dados baixados da Oracle Cloud
+_backups_nuvem/
+
 

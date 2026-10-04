@@ -16,6 +16,7 @@
     "cadastrar-produtos:direto": "tsx --env-file=.env scripts/cadastrar-produtos.ts",
     "auditar:imagens": "tsx scripts/auditar-e-reparar-imagens.ts",
     "tunel": "ssh -i D:/Projetos/ssh-key-2026-10-03.key -L 5433:127.0.0.1:5432 -N ubuntu@168.138.144.63",
+    "backup:puxar": "tsx scripts/puxar-backup.ts",
     "studio": "prisma studio"
   },
   "dependencies": {
