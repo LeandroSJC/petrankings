@@ -968,6 +968,133 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo?esp=GATO',
     },
   },
+  {
+    slug: 'excesso-de-calcio-racao-filhotes-caes-displasia',
+    title: 'Ração para filhotes de cães: Por que o excesso de cálcio é um perigo silencioso?',
+    subtitle: 'O mito de suplementar cálcio no crescimento e o que a ABINPET e a WSAVA alertam sobre displasia e osteocondrose.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-04',
+    updatedAt: '2026-10-04',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/calcio-filhotes-caes-cover.webp',
+    isFeatured: true,
+    summary:
+      'Muitos tutores ainda acreditam que filhotes precisam de suplementação de cálcio para crescer com ossos fortes. No entanto, a literatura científica e o Manual Pet Food Brasil da ABINPET revelam o oposto: até os 6 meses, cães não regulam a absorção intestinal de cálcio. O excesso mineral não é descartado e se deposita nas cartilagens de crescimento, provocando osteocondrose (OCD), deformidades nos membros e agravando a displasia coxofemoral em raças médias e grandes.',
+    relatedProductSlugs: [
+      'proplan-caes-puppy-racas-grandes',
+      'premier-racas-especificas-golden-retriever-filhotes-sabor-frango',
+      'puppy---maxi-3006',
+      'vitta-natural-caes-filhotes-frango-e-arroz',
+    ],
+    sections: [
+      {
+        id: 'o-mito-popular-vs-fisiologia-intestinal',
+        heading: '1. O Mito Popular vs. A Fisiologia Intestinal do Filhote',
+        paragraphs: [
+          'A crença de que cães filhotes precisam de "reforço de cálcio" é uma das heranças mais antigas e perigosas da criação caseira de animais. Décadas atrás, quando os cães eram alimentados com restos de comida ou carnes desprovidas de ossos moídos, a deficiência de cálcio (hiperparatireoidismo nutricional secundário) era um risco real. Hoje, com a ampla consolidação das rações industriais completas registradas no MAPA, o cenário inverteu-se drasticamente: a deficiência desapareceu e o excesso de cálcio tornou-se um perigo clínico frequente.',
+          'A razão biológica para esse perigo reside na imaturidade do trato gastrointestinal do filhote. Em um cão adulto, a absorção de cálcio é estritamente autorregulada: quando a dieta fornece cálcio além do necessário, o organismo ativa mecanismos de transporte celular saturável mediados pela vitamina D ativa, e a fração excedente é simplesmente rejeitada e excretada nas fezes.',
+          'Em filhotes com menos de 6 meses de vida — período crítico de crescimento acelerado —, esse sistema de retroalimentação protetora ainda não está fisiologicamente desenvolvido. O filhote absorve cálcio de forma quase linear por difusão passiva não regulada ao longo do epitélio intestinal. Se a dieta contiver 2% ou 3% de cálcio, o organismo absorverá quase a metade dessa carga maciça, gerando um estado contínuo de hipercalcemia subclínica que sobrecarrega os tecidos osteocartilaginosos em formação.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Aviso Fisiológico Fundamental (NRC & WSAVA)',
+          text: 'Filhotes jovens não possuem a capacidade de "fechar a porta" intestinal para o cálcio. Qualquer mineral adicionado além do limite máximo seguro será compulsoriamente absorvido para a corrente sanguínea, depositando-se nas placas de crescimento ósseo.',
+        },
+      },
+      {
+        id: 'impacto-ortopedico-cartilagem-e-displasia',
+        heading: '2. O Impacto Ortopédico: Como o Cálcio em Excesso Danifica a Cartilagem',
+        paragraphs: [
+          'Quando o cálcio entra em excesso contínuo na circulação do filhote, a glândula tireoide responde secretando níveis elevados do hormônio calcitonina, ao mesmo tempo em que a secreção de paratormônio (PTH) é severamente suprimida. Essa alteração hormonal crônica paralisa o processo normal de remodelação esquelética.',
+          'A calcitonina retarda a maturação dos condrócitos (células da cartilagem) nas placas de crescimento epifisárias e inibe a reabsorção óssea fisiológica. Como consequência, a cartilagem articular cresce de forma desproporcional e excessivamente espessa, ultrapassando a capacidade do líquido sinovial de nutri-la por difusão.',
+          'Privadas de oxigênio e nutrientes, as camadas profundas da cartilagem sofrem necrose asséptica, resultando no desenvolvimento de Osteocondrose Dissecante (OCD) — uma patologia dolorosa em que fragmentos cartilaginosos se desprendem para o interior da cavidade articular (especialmente nos ombros, cotovelos e joelhos).',
+          'Simultaneamente, o excesso de cálcio pode causar o fechamento prematuro ou assimétrico das linhas de crescimento dos ossos do antebraço (rádio e ulna), provocando a deformidade conhecida como "radius curvus" (patas arqueadas para fora). Em raças predispostas como Golden Retriever, Labrador, Pastor Alemão e Rottweiler, o crescimento desarmônico dos ossos pélvicos agrava significativamente a frouxidão articular e a progressão precoce da Displasia Coxofemoral.',
+        ],
+      },
+      {
+        id: 'parametros-abinpet-11-edicao-tetos-toxicologicos',
+        heading: '3. Parâmetros Oficiais da ABINPET (11ª Edição) e Tetos Toxicológicos',
+        paragraphs: [
+          'Para resguardar a integridade óssea dos filhotes, o Manual Pet Food Brasil (11ª Edição) da Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET), alinhado com as diretrizes da FEDIAF e do NRC, estabelece faixas estritas de mínimos nutricionais e limites máximos de segurança na Matéria Seca (MS).',
+          'Diferente dos cães adultos — que toleram uma margem mineral mais elástica —, filhotes possuem um teto máximo de cálcio mandatório. Para raças grandes e gigantes (peso adulto estimado acima de 25 kg), a margem de segurança recomendada pela literatura zootécnica internacional é ainda mais estreita (máximo recomendado de 1,60% a 1,80% na Matéria Seca).',
+          'Tão importante quanto o valor isolado do cálcio é a relação estequiométrica Cálcio:Fósforo (Ca:P). O padrão científico exige que a proporção esteja estritamente compreendida entre 1,0:1 e 1,6:1 (com tolerância máxima de 1,8:1). Uma dieta com excesso de cálcio rompe essa balança, bloqueando a absorção de fósforo, zinco e magnésio.',
+        ],
+        table: {
+          caption: 'Exigências Nutricionais Oficiais para Cães em Crescimento (ABINPET 11ª Edição - Matéria Seca)',
+          headers: ['Parâmetro Mineral', 'Crescimento Inicial (Desmame até 50% Peso Adulto)', 'Crescimento Final (> 50% Peso Adulto)', 'Teto Máximo de Segurança (Geral)', 'Teto Recomendado (Raças Grandes)'],
+          rows: [
+            ['Cálcio Mínimo (% MS)', '1,00%', '0,80%', 'Não aplicável', 'Não aplicável'],
+            ['Cálcio Máximo (% MS)', 'Não aplicável', 'Não aplicável', '1,80% a 2,00%', '1,60%'],
+            ['Fósforo Mínimo (% MS)', '0,80%', '0,70%', 'Não aplicável', 'Não aplicável'],
+            ['Relação Ca:P (Mín. / Máx.)', '1,0:1 a 1,6:1', '1,0:1 a 1,6:1', 'Máximo 1,8:1', 'Máximo 1,6:1'],
+          ],
+        },
+      },
+      {
+        id: 'confronto-bromatologico-mercado',
+        heading: '4. Confronto Bromatológico em Matéria Seca (MS): Como o Mercado Formula',
+        paragraphs: [
+          'Para entender como os fabricantes brasileiros equilibram esses minerais na prática, confrontamos os níveis de garantia oficiais declarados nas páginas dos produtos de quatro alimentos comercializados no Brasil, recalculando os teores declarados na Matéria Seca (eliminando a água):',
+          'Na Purina Pro Plan Desenvolvimento Excepcional Filhote Porte Grande (12% de umidade declarada), o cálcio varia de 1,0% mínimo (1,14% MS) a 1,5% máximo (1,70% MS), com fósforo de 0,9% mínimo (1,02% MS). A relação Ca:P calculada no piso é de 1,12:1, demonstrando rigoroso controle formulado sob medida para o crescimento contido de raças grandes.',
+          'Na PremieR Raças Específicas Golden Retriever Filhotes Porte Grande (10% de umidade declarada), o cálcio varia de 1,0% mínimo (1,11% MS) a 1,5% máximo (1,67% MS), com fósforo de 0,9% mínimo (1,00% MS). A relação Ca:P é de 1,11:1, mantendo o teto máximo de cálcio dentro do limite zootécnico seguro de 1,67% MS.',
+          'Por outro lado, na Royal Canin Puppy - Maxi (11,5% de umidade), o cálcio varia de 1,07% mínimo (1,21% MS) até 2,0% máximo em Matéria Natural (o que equivale a 2,26% na Matéria Seca). Embora o piso nutricional seja equilibrado (relação Ca:P de 1,19:1), a amplitude do teto máximo declarado demonstra a importância de não fornecer absolutamente nenhum suplemento mineral adicional a esse filhote.',
+          'Já na Vitta Natural Cães Filhotes Frango e Arroz (10% de umidade), o teto de cálcio declarado é de 1,85% em Matéria Natural (2,05% na Matéria Seca). O dado reforça que mesmo rações convencionais já fornecem todo o cálcio que o esqueleto do filhote suporta com segurança.',
+        ],
+        table: {
+          caption: 'Confronto Oficial de Cálcio e Fósforo em Matéria Seca (Dados Custodiados no PetRankings)',
+          headers: ['Produto Analisado', 'Cálcio Mínimo (MS)', 'Cálcio Máximo (MS)', 'Fósforo Mínimo (MS)', 'Relação Ca:P (Piso)'],
+          rows: [
+            ['Purina Pro Plan Filhote Porte Grande', '1,14% MS', '1,70% MS', '1,02% MS', '1,12:1'],
+            ['PremieR Raças Específicas Golden Filhotes', '1,11% MS', '1,67% MS', '1,00% MS', '1,11:1'],
+            ['Royal Canin Puppy - Maxi', '1,21% MS', '2,26% MS', '1,02% MS', '1,19:1'],
+            ['Vitta Natural Cães Filhotes', '1,11% MS', '2,05% MS', '1,00% MS', '1,11:1'],
+          ],
+        },
+      },
+      {
+        id: 'o-perigo-da-suplementacao-caseira',
+        heading: '5. Por que Você Jamais Deve Oferecer Suplementos de Cálcio sem Prescrição',
+        paragraphs: [
+          'A conclusão mais contundente da nutrologia veterinária moderna é categórica: todo alimento comercial rotulado e registrado no MAPA como "Alimento Completo para Cães Filhotes" já contém 100% das exigências de cálcio e fósforo sintetizadas em laboratório.',
+          'Quando um tutor decide adicionar farinha de ossos, casca de ovo triturada, iogurte excessivo ou comprimidos minerais de balcão de pet shop à ração de um filhote, a relação Ca:P é instantaneamente rompida, podendo saltar de 1,1:1 para mais de 2,5:1. Esse aporte extra força o filhote a absorver níveis tóxicos de cálcio que desestruturam as articulações durante a fase mais frágil de sua vida.',
+          'A recomendação das principais entidades zootécnicas internacionais (WSAVA e FEDIAF) é manter o filhote estritamente com sua ração completa correspondente ao porte, garantir água fresca à vontade e limitar petiscos, biscoitos e agrados a no máximo 10% da cota calórica diária, evitando ossos recreativos calcificados até a maturidade esquelética.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Regra de Ouro da Nutrição de Filhotes',
+          text: 'Se a embalagem da ração contém os dizeres "Alimento Completo para Cães em Crescimento" ou "Filhotes", o produto é autossuficiente. A adição de qualquer suplemento mineral por conta própria não fortalece os ossos — aumenta o risco de deformidades ortopédicas permanentes.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Meu filhote de raça grande parece ter as patas dianteiras tortas. Devo comprar cálcio no pet shop?',
+        a: 'Não! Nunca administre cálcio por conta própria. O arqueamento das patas dianteiras (radius curvus) é frequentemente causado pelo fechamento assimétrico das placas de crescimento, problema que pode ser agravado ou desencadeado justamente pelo excesso de cálcio. Leve o filhote imediatamente a um médico veterinário ortopedista para avaliação radiográfica.',
+      },
+      {
+        q: 'Qual é a proporção ideal de Cálcio para Fósforo (Ca:P) na ração do filhote?',
+        a: 'Segundo a 11ª Edição do Manual ABINPET e a FEDIAF, a relação ideal situa-se entre 1,0:1 e 1,6:1 na Matéria Seca (MS), com teto máximo aceitável de 1,8:1. Proporções acima de 1,8:1 ou abaixo de 1:1 prejudicam o desenvolvimento osteoarticular.',
+      },
+      {
+        q: 'Por que rações para filhotes de raças grandes têm controle de cálcio mais rígido que as de raças pequenas?',
+        a: 'Filhotes de raças grandes e gigantes (como Labrador, Pastor Alemão e Dogue Alemão) crescem em velocidade vertiginosa e ganham muito peso antes que o esqueleto esteja maduro. Nesses animais, qualquer excesso mineral nas placas de crescimento provoca estresse biomecânico severo e displasia, motivo pelo qual rações para portes grandes adotam tetos de cálcio mais baixos (em torno de 1,6% MS).',
+      },
+      {
+        q: 'Filhotes alimentados com dieta caseira correm risco de erro no cálcio?',
+        a: 'Sim, o risco é muito alto. A carne desossada pura é extremamente rica em fósforo e quase desprovida de cálcio (relação Ca:P invertida de até 1:20). Dietas caseiras para filhotes só são seguras quando formuladas e monitoradas periodicamente por um nutrólogo veterinário com suplementação milimétrica de premix mineral.',
+      },
+    ],
+    conclusion:
+      'Em síntese, o desenvolvimento saudável do esqueleto de um cão filhote não decorre do consumo excessivo de minerais, mas sim do equilíbrio estrito entre Cálcio e Fósforo em Matéria Seca (MS). Alimentos completos formulados sob as diretrizes da ABINPET entregam exatamente a cota diária que o filhote necessita. A melhor proteção que o tutor pode oferecer às articulações do seu cão é evitar a suplementação caseira de cálcio, controlar o ganho de peso corporal e escolher alimentos balanceados específicos para o porte do animal.',
+    callToAction: {
+      title: 'Compare Níveis de Cálcio e Fósforo no Catálogo PetRankings',
+      text: 'Consulte as fichas técnicas oficiais e os teores recalculados na Matéria Seca de dezenas de alimentos para filhotes comercializados no Brasil. Use nossos filtros por porte e fase de vida.',
+      buttonText: 'Ver Rações para Filhotes no Catálogo',
+      buttonUrl: '/catalogo?esp=CAO&fase=CRESCIMENTO_INICIAL',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
