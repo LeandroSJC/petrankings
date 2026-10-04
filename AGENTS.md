@@ -92,6 +92,7 @@ Sempre que atuar em uma área específica do projeto, ative e siga o runbook do 
 | :--- | :--- | :--- |
 | **Backoffice & CRUD Admin** | `admin-dashboard-engineer` | Formulários em rotas dedicadas, guardião `beforeunload`, tabelas de dados. |
 | **Monetização & AdSense** | `adsense-monetization-architect` | Conformidade Google 2026 (Consent Mode v2, TCF v2.3, slots anti-CLS). |
+| **Busca por IA & GEO (LLMs)** | `ai-search-geo-optimizer` | Otimização para IAs (Perplexity, ChatGPT, AI Overviews), `/llms.txt` e densidade factual. |
 | **Lojas & Afiliados** | `affiliate-store-engine` | Links de grandes varejistas e lojas parceiras com `rel="sponsored"`. |
 | **Segurança & Headers** | `appsec-data-shield` | Cabeçalhos HTTP (`next.config.mjs`), OWASP Top 10, sanitização. |
 | **Autenticação & Sessões** | `auth-security-guardian` | JWT com `jose`, middleware em duas camadas, proteção contra brute-force. |
@@ -105,7 +106,9 @@ Sempre que atuar em uma área específica do projeto, ative e siga o runbook do 
 | **Uploads de Imagens** | `image-upload-manager` | Validação de magic bytes (`file-type`), processamento com `sharp`. |
 | **Auditoria de Links** | `link-health-watchdog` | Verificação assíncrona de status HTTP, timeouts e degradação suave. |
 | **SEO & Core Web Vitals** | `nextjs-performance-seo` | Metadados dinâmicos, OpenGraph, sitemap/robots, otimização LCP/CLS/INP. |
+| **Servidor Oracle & Infra VPS** | `oracle-vps-sysadmin` | Gestão da VM Oracle Cloud ARM 12GB, Docker Compose, backups 3-2-1 e fail2ban. |
 | **Redação & Taxonomia Pet** | `pet-editorial-copywriter` | Taxonomia cães/gatos, aviso veterinário obrigatório, tom imparcial. |
+| **Motor Bromatológico & Rótulos** | `pet-nutrition-evaluator` | Fórmulas em Matéria Seca (MS), balanço Ca:P, 4 pilares e normas MAPA/ABINPET 11ª Ed. |
 | **Modelagem & Migrações** | `prisma-database-architect` | Estrutura de dados relacional, migrações PostgreSQL, integridade referencial. |
 | **Consultas & Índices Prisma** | `prisma-query-patterns` | Índices de chaves estrangeiras, transações `$transaction`, paginação. |
 | **Rich Snippets & JSON-LD** | `schema-org-structured-data-expert` | Schemas `ItemList`, `Product`, `AggregateRating`, `FAQPage`, `BreadcrumbList`. |
