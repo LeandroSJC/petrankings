@@ -292,7 +292,7 @@ Alimentos coadjuvantes possuem indicação terapêutica e **não concorrem em í
 3. **Tipos de Solicitação:**
    - `ATUALIZACAO_LOTE`: Notificação de nova batelada comercial com alteração de fórmula ou layout.
    - `RETIFICACAO_DADOS`: Correção pontual de transcrição de níveis de garantia ou ingredientes.
-   - `DIVERGENCIA_ANALITICA`: Contestação técnica de cálculo com envio de contraprova pericial.
+   - `DIVERGENCIA_ANALITICA`: Contestação técnica de cálculo com envio de contraprova analítica laboratorial.
 4. **Requisitos Probatórios Obrigatórios:**
    - Razão Social, CNPJ válido e número de Registro do Estabelecimento e do Produto no MAPA.
    - Identificação do solicitante com cargo e registro profissional (ART do Responsável Técnico com CRMV ativo).

@@ -273,7 +273,7 @@ export default function ComparatorView({ initialProducts }: ComparatorViewProps)
                 margin: 0,
               }}
             >
-              Síntese pericial do confronto bromatológico
+              Síntese do confronto bromatológico
             </h2>
           </div>
 
@@ -581,7 +581,7 @@ export default function ComparatorView({ initialProducts }: ComparatorViewProps)
                 )}
               </div>
 
-              {/* Link para o Laudo Pericial Completo */}
+              {/* Link para a Avaliação Técnica Completa */}
               <div style={{ marginTop: 'auto' }}>
                 <Link
                   href={`/produto/${product.slug}`}
@@ -603,7 +603,7 @@ export default function ComparatorView({ initialProducts }: ComparatorViewProps)
                     transition: 'all 0.15s ease',
                   }}
                 >
-                  <span>Ver Laudo Técnico Oficial</span>
+                  <span>Ver Avaliação Técnica Completa</span>
                   <ExternalLink size={13} />
                 </Link>
               </div>
@@ -612,7 +612,7 @@ export default function ComparatorView({ initialProducts }: ComparatorViewProps)
         })}
       </div>
 
-      {/* TABELA PERICIAL BROMATOLÓGICA (SE HOUVER AO MENOS 1 PRODUTO) */}
+      {/* TABELA COMPARATIVA BROMATOLÓGICA (SE HOUVER AO MENOS 1 PRODUTO) */}
       {populatedProducts.length > 0 && (
         <div
           style={{
@@ -1139,7 +1139,7 @@ export default function ComparatorView({ initialProducts }: ComparatorViewProps)
                           <ExternalLink size={12} />
                         </a>
                       ) : (
-                        <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>Coleta pericial</span>
+                        <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>Coleta documental</span>
                       )}
                     </td>
                   ))}

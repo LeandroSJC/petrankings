@@ -30,9 +30,9 @@ _Evitar_: Carboidratos totais, carboidrato simples, açúcares da ração.
 A quantidade efetiva de calorias que o organismo do animal consegue absorver e utilizar biologicamente, calculada segundo o NRC (2006) ou FEDIAF.
 _Evitar_: Calorias brutas, valor calórico nominal.
 
-**Avaliação Técnica / Laudo Técnico**:
+**Avaliação Técnica / Confronto Documental**:
 O confronto técnico e bromatológico de um produto contra as normas científicas oficiais (ABINPET 11ª Edição, MAPA, NRC, FEDIAF) e fichas oficiais do fabricante.
-_Evitar_: Auditoria, sistema de auditoria, extrato auditável, auditoria nutricional.
+_Evitar_: Auditoria, sistema de auditoria, extrato auditável, auditoria nutricional, laudo pericial, perícia técnica, laudo pericial independente.
 
 ---
 
@@ -70,16 +70,16 @@ _Evitar_: Propagandas da ração, frases de marketing avulsas.
 Identificador oficial de exibição de um produto, estruturado obrigatoriamente pela fórmula canônica: `[Marca] [Linha] [Espécie / Porte] [Fase / Especialidade] [Sabor / Claim Principal] [Formato se Úmido]`.
 _Evitar_: Uso de "Ração" no início do nome, pesos/gramaturas no título (ex: 15kg, 85g), símbolos de marca (®, ™).
 
-**Dossiê Pericial**:
-A página pública detalhada de um produto (`/produto/[slug]`), contendo numeração técnica pericial de seções (custódia documental, extrato nutricional, níveis MN vs MS, ingredientes em ordem decrescente e ofertas).
-_Evitar_: Ficha de venda, página de produto genérica, vitrine.
+**Dossiê Técnico**:
+A página pública detalhada de um produto (`/produto/[slug]`), contendo numeração lógica de seções (custódia documental, extrato nutricional, níveis MN vs MS, ingredientes em ordem decrescente e ofertas).
+_Evitar_: Dossiê pericial, laudo pericial, ficha de venda, página de produto genérica, vitrine.
 
 **Fórmula Bimembre**:
 A estrutura ortotipográfica e semântica mandatória para títulos de artigos e estudos (`/guias`), com fórmula `[Gatilho de Busca] : [Dilema do Tutor + Ancoragem Técnica]`, em Sentence Case culta.
 _Evitar_: Title Case em inglês (todas as palavras com inicial maiúscula), títulos sensacionalistas, títulos sem dois-pontos.
 
 **Equipe de Curadoria Técnica**:
-A assinatura e autoria institucional obrigatória e coletiva de todos os artigos, estudos e laudos bromatológicos do PetRankings.
+A assinatura e autoria institucional obrigatória e coletiva de todos os artigos, estudos e análises bromatológicas do PetRankings.
 _Evitar_: Autores individuais fictícios, pseudônimos médicos (ex: Dr. Zootecnia, Dra. Veterinária).
 
 ---
