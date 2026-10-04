@@ -18,6 +18,7 @@ services:
       - "80:80"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./public/uploads:/var/www/uploads:ro
     depends_on:
       - app
       - umami
