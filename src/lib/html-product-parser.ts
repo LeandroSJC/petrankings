@@ -210,8 +210,35 @@ export function extractCalciumPrecise(garText: string, foodType: 'SECO' | 'UMIDO
       pcts.push(parseNutritionNumber(pm[1]));
     }
 
-    const minM = fullCaContext.match(/(?:\b(?:m[íi]n(?:imo|\.?)?|m[íi]nimo)\b)[^\d]*(\d+(?:[\.,]\d+)?)\s*(?::|\/|\-)?\s*(%|g\/kg|mg\/kg|g)?/i);
-    const maxM = fullCaContext.match(/(?:\b(?:m[áa]x(?:imo|\.?)?|m[áa]ximo)\b)[^\d]*(\d+(?:[\.,]\d+)?)\s*(?::|\/|\-)?\s*(%|g\/kg|mg\/kg|g)?/i);
+    // 2. Check if context has a compound min/max label: e.g. "Cálcio (mín./máx.)" or "Cálcio (mín/máx)" or "Cálcio (mín. - máx.)"
+    const isCompoundMinMax = /\bm[íi]n(?:imo|\.?)?\s*[\/\-]\s*m[áa]x(?:imo|\.?)?\b/i.test(fullCaContext);
+
+    if (isCompoundMinMax || (!/\bm[íi]n(?:imo|\.?)?\b/i.test(fullCaContext) && !/\bm[áa]x(?:imo|\.?)?\b/i.test(fullCaContext))) {
+      // If there are 2 or more percentages in this line/clause, min is the smaller and max is the larger
+      if (pcts.length >= 2) {
+        calcioMinPct = Math.min(pcts[0], pcts[1]);
+        calcioMaxPct = Math.max(pcts[0], pcts[1]);
+        return { min: calcioMinPct, max: calcioMaxPct };
+      }
+
+      // Otherwise extract all numbers with possible units
+      const numMatches = [...fullCaContext.matchAll(/(\d+(?:[\.,]\d+)?)\s*(?::|\/|\-)?\s*(%|g\/kg|mg\/kg|g)?/gi)];
+      if (numMatches.length >= 2) {
+        const after0 = fullCaContext.slice(numMatches[0].index! + numMatches[0][0].length, numMatches[0].index! + numMatches[0][0].length + 25);
+        const after1 = fullCaContext.slice(numMatches[1].index! + numMatches[1][0].length, numMatches[1].index! + numMatches[1][0].length + 25);
+        const v1 = parseVal(numMatches[0][1], numMatches[0][2], after0);
+        const v2 = parseVal(numMatches[1][1], numMatches[1][2], after1);
+        if (v1 > 0 && v2 > 0) {
+          calcioMinPct = Math.min(v1, v2);
+          calcioMaxPct = Math.max(v1, v2);
+          return { min: calcioMinPct, max: calcioMaxPct };
+        }
+      }
+    }
+
+    // 3. Separate individual min and max labels (must NOT match if it's a compound mín/máx label)
+    const minM = fullCaContext.match(/(?:\b(?:m[íi]n(?:imo|\.?)?|m[íi]nimo)\b)(?!\s*[\/\-]\s*m[áa]x)[^\d]*(\d+(?:[\.,]\d+)?)\s*(?::|\/|\-)?\s*(%|g\/kg|mg\/kg|g)?/i);
+    const maxM = fullCaContext.match(/(?<!m[íi]n(?:imo|\.?)?\s*[\/\-]\s*)(?:\b(?:m[áa]x(?:imo|\.?)?|m[áa]ximo)\b)[^\d]*(\d+(?:[\.,]\d+)?)\s*(?::|\/|\-)?\s*(%|g\/kg|mg\/kg|g)?/i);
 
     if (minM) {
       const after = fullCaContext.slice(minM.index! + minM[0].length, minM.index! + minM[0].length + 25);
@@ -1159,12 +1186,14 @@ export function parseProductFromHtml(
     const val = parseNutritionNumber(rawVal);
     const unit = (m[2] || '%').toLowerCase();
 
-    // Se houver percentual explícito logo após o valor capturado (ex: "90 g/kg (9%)" ou "20 g/kg : 2,00%")
-    const matchEnd = (m.index ?? 0) + m[0].length;
-    const afterSnippet = text.slice(matchEnd, matchEnd + 25);
-    const parenPctMatch = afterSnippet.match(/^\s*(?::|\/|\(|-)?\s*(\d+(?:[\.,]\d+)?)\s*%\s*\)?/);
-    if (parenPctMatch) {
-      return parseNutritionNumber(parenPctMatch[1]);
+    // Se a unidade capturada não for % e houver percentual explícito logo após (ex: "90 g/kg (9%)" ou "20 g/kg : 2,00%")
+    if (unit !== '%') {
+      const matchEnd = (m.index ?? 0) + m[0].length;
+      const afterSnippet = text.slice(matchEnd, matchEnd + 25);
+      const parenPctMatch = afterSnippet.match(/^\s*(?::|\()?\s*(\d+(?:[\.,]\d+)?)\s*%\s*\)?/);
+      if (parenPctMatch) {
+        return parseNutritionNumber(parenPctMatch[1]);
+      }
     }
 
     if (unit.includes('mg') || (!m[2] && val >= 50)) return Number((val / 10000).toFixed(4));
