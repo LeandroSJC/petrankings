@@ -25,7 +25,7 @@ import prisma from '@/lib/prisma';
 import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard } from '@/lib/audit-engine';
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
-import { normalizeIngredientsList } from '@/lib/utils';
+import { normalizeIngredientsList, SITE_URL } from '@/lib/utils';
 
 function getSafeUrl(url?: string | null): string | null {
   if (!url) return null;
@@ -148,24 +148,90 @@ export default async function ProductDetailPage({
     product.mineralMatterMaxPct
   );
 
-  // Schema.org JSON-LD
+  // Schema.org JSON-LD estruturado e em conformidade estrita com o Google Search Console
+  const breadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Início',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Catálogo Geral',
+        item: `${SITE_URL}/catalogo`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.commercialName,
+        item: `${SITE_URL}/produto/${product.slug}`,
+      },
+    ],
+  };
+
+  const productOrPageSchema =
+    product.scoreTotal !== null
+      ? {
+          '@type': 'Product',
+          '@id': `${SITE_URL}/produto/${product.slug}#product`,
+          name: product.commercialName,
+          brand: { '@type': 'Brand', name: product.brand },
+          image: product.frontLabelImageUrl || undefined,
+          description:
+            product.editorialOpinion ||
+            `Avaliação nutricional e conformidade documental de ${product.commercialName} segundo o Manual ABINPET 11ª Edição.`,
+          review: {
+            '@type': 'Review',
+            reviewRating: {
+              '@type': 'Rating',
+              ratingValue: (product.scoreTotal / 20).toFixed(1),
+              bestRating: '5',
+              worstRating: '1',
+            },
+            author: {
+              '@type': 'Organization',
+              name: 'Equipe de Curadoria Técnica',
+              url: SITE_URL,
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'PetRankings',
+              url: SITE_URL,
+            },
+            reviewBody:
+              product.editorialOpinion ||
+              `Laudo técnico com cálculo de Matéria Seca (MS), equilíbrio Cálcio:Fósforo e análise de ingredientes de ${product.commercialName}.`,
+          },
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: (product.scoreTotal / 20).toFixed(1),
+            bestRating: '5',
+            worstRating: '1',
+            ratingCount: 1,
+          },
+        }
+      : {
+          '@type': 'ItemPage',
+          '@id': `${SITE_URL}/produto/${product.slug}#webpage`,
+          name: `Laudo Técnico: ${product.commercialName}`,
+          description:
+            product.editorialOpinion ||
+            `Ficha técnica oficial e custódia documental de alimento coadjuvante ${product.commercialName}.`,
+          mainEntity: {
+            '@type': 'Thing',
+            name: product.commercialName,
+            description: product.editorialOpinion || undefined,
+            image: product.frontLabelImageUrl || undefined,
+          },
+        };
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: product.commercialName,
-    brand: { '@type': 'Brand', name: product.brand },
-    image: product.frontLabelImageUrl || undefined,
-    description: product.editorialOpinion || undefined,
-    offers: product.affiliateLinks.length > 0 ? {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'BRL',
-      offerCount: product.affiliateLinks.length,
-      offers: product.affiliateLinks.map((a) => ({
-        '@type': 'Offer',
-        url: a.affiliateUrl || a.productUrl,
-        seller: { '@type': 'Organization', name: a.store },
-      })),
-    } : undefined,
+    '@graph': [breadcrumbSchema, productOrPageSchema],
   };
 
   return (

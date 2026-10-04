@@ -15,6 +15,7 @@ import { getAllGuides, getFeaturedGuide } from '@/lib/content/guides';
 import HomeHeroSearch from '@/components/HomeHeroSearch';
 import HomeGuidesSection from '@/components/HomeGuidesSection';
 import FaqAccordion from '@/components/FaqAccordion';
+import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'PetRankings — Observatório Independente de Nutrição Pet no Brasil',
@@ -82,8 +83,49 @@ export default async function HomePage() {
     },
   ];
 
+  // Schema.org estruturado para Home Page (WebSite + FAQPage)
+  const homeJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        name: 'PetRankings',
+        url: SITE_URL,
+        description: 'Observatório Independente de Nutrição Pet no Brasil.',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${SITE_URL}/catalogo?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${SITE_URL}/#faq`,
+        mainEntity: faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.a,
+          },
+        })),
+      },
+    ],
+  };
+
   return (
-    <div style={{ backgroundColor: '#ffffff' }}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <div style={{ backgroundColor: '#ffffff' }}>
       {/* 1. HERO EDITORIAL COM CONCIERGE DE BUSCA COMPACTO */}
       <section
         style={{
@@ -824,5 +866,6 @@ export default async function HomePage() {
         </div>
       </section>
     </div>
-  );
+  </>
+);
 }
