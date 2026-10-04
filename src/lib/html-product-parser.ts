@@ -1055,8 +1055,13 @@ export function parseProductFromHtml(
       const body = $(el).next('.mob-accordion__body');
       if (/composi[çc][ãa]o/i.test(title)) {
         if (!compText) {
-          const p = body.find('p').first().text().trim();
-          if (p) compText = p;
+          const paragraphs = body.find('p').map((_, el) => $(el).text().trim()).get().filter(Boolean);
+          if (paragraphs.length > 0) {
+            compText = paragraphs.join(' ');
+          } else {
+            const p = body.text().trim();
+            if (p) compText = p;
+          }
         }
         if (!garText) {
           const tableText = extractStructuredText(body, $);
@@ -1184,20 +1189,29 @@ export function parseProductFromHtml(
     if (!m) return null;
     const rawVal = m[1];
     const val = parseNutritionNumber(rawVal);
-    const unit = (m[2] || '%').toLowerCase();
+    let capturedUnit = m[2];
+    const matchEnd = (m.index ?? 0) + m[0].length;
+    const afterSnippet = text.slice(matchEnd, matchEnd + 25);
+
+    if (!capturedUnit) {
+      const unitMatch = afterSnippet.match(/^\s*(?::\s*)?(%|g\/kg|mg\/kg|\bg\b)/i);
+      if (unitMatch) {
+        capturedUnit = unitMatch[1];
+      }
+    }
+
+    const unit = (capturedUnit || '%').toLowerCase();
 
     // Se a unidade capturada não for % e houver percentual explícito logo após (ex: "90 g/kg (9%)" ou "20 g/kg : 2,00%")
     if (unit !== '%') {
-      const matchEnd = (m.index ?? 0) + m[0].length;
-      const afterSnippet = text.slice(matchEnd, matchEnd + 25);
       const parenPctMatch = afterSnippet.match(/^\s*(?::|\()?\s*(\d+(?:[\.,]\d+)?)\s*%\s*\)?/);
       if (parenPctMatch) {
         return parseNutritionNumber(parenPctMatch[1]);
       }
     }
 
-    if (unit.includes('mg') || (!m[2] && val >= 50)) return Number((val / 10000).toFixed(4));
-    if (unit.includes('g/kg') || unit === 'g' || (!m[2] && val > 5.0 && val < 50)) return Number((val / 10).toFixed(2));
+    if (unit.includes('mg') || (!capturedUnit && val >= 50)) return Number((val / 10000).toFixed(4));
+    if (unit.includes('g/kg') || unit === 'g' || (!capturedUnit && val > 5.0 && val < 50)) return Number((val / 10).toFixed(2));
     return val;
   };
 
