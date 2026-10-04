@@ -61,6 +61,10 @@
       2. Padrões de exigência nutricional e tetos toxicológicos devem estar fundamentados na 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e NRC arquivados na pasta `biblioteca_regulatoria/`.
       3. Atos regulatórios e leis citados devem ser estritamente autênticos e vigentes (MAPA, Decretos Federais, CDC), sendo proibido inventar artigos de lei ou resoluções inexistentes.
     - **Incerteza Probatória:** Se uma informação não for comprovável com certeza probatória nos documentos oficiais, ela jamais deve ser estimada ou simulada; o texto deve declarar expressamente a ausência da informação pelo fabricante ou omiti-la.
+    - **Seção Obrigatória de Fontes Oficiais & Bibliografia Técnica (`references`):**
+      - Toda e qualquer publicação, estudo ou guia em `/guias` deve conter compulsoriamente a lista de fontes reais, institucionais e regulatórias no campo `references`.
+      - Cada referência deve discriminar: título do documento, instituição/órgão emissor (MAPA, ABINPET, FEDIAF, WSAVA, Fabricante), tipo de fonte (`regulamento`, `literatura`, `rotulagem`, `estudo`) e detalhamento de suporte (artigo de lei, tabela nutricional ou link oficial).
+      - É terminantemente vedado publicar estudos sem discriminar expressamente as fontes consultadas ao final da página.
 12. **Padrão Ortotipográfico e Visual para Títulos de Estudos e Guias (`/guias`):**
     - Todos os títulos de artigos, estudos bromatológicos e guias técnicos devem adotar a **Fórmula Bimembre** (`[Gatilho de Busca / Objeto do Confronto] : [Dilema do Tutor + Ancoragem Técnica/Regulatória]`).
     - **Capitalização Oficial (Sentence Case):** Seguir estritamente a norma culta da língua portuguesa (Sentence Case), com inicial maiúscula apenas na primeira palavra da oração e maiúscula após os dois-pontos (`:`). É expressamente proibido o *Title Case* em inglês (maiúscula em cada palavra solta).
@@ -84,6 +88,11 @@
 15. **Linguagem Ubíqua e Registros de Decisão Arquitetural (`GLOSSARY.md` e ADRs):**
     - O projeto mantém um glossário canônico na raiz ([`GLOSSARY.md`](file:///d:/Projetos/PetRankings/GLOSSARY.md)) que estabelece a terminologia oficial (Bromatologia, MAPA, Segurança e Taxonomia) e lista termos mandatórios a serem evitados (`_Evitar_`).
     - Decisões estruturais de alto impacto, de difícil reversão ou que demandem contexto histórico são registradas na pasta `.agents/adr/` no formato enxuto de ADR (Architecture Decision Record). Todo agente deve consultar o glossário e os ADRs pertinentes antes de propor alterações conceituais ou refatorações de arquitetura.
+16. **Humanização Textual, Empatia com o Tutor e Combate ao "AI Slop":**
+    - **Tom Conversacional e Empático:** O texto deve comunicar-se com clareza, empatia e calor humano, partindo da dúvida prática do tutor na prateleira ou no pet shop. O rigor técnico deve servir para empoderar o tutor, nunca para intimidá-lo com pedantismo ou linguagem burocrática estatal.
+    - **Combate Ativo ao "AI Slop" e Clichês de Máquina:** É expressamente vedado o uso de fórmulas artificiais de IA, tais como: *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*.
+    - **Regra da Tradução Prática Imediata:** Todo conceito técnico ou bromatológico (Matéria Seca, Low Ash, Extrato Etéreo, balanço Ca:P, prebióticos MOS/FOS) deve ser imediatamente acompanhado de uma explicação simples do que aquilo representa na rotina do cão ou do gato (ex: fezes menores, proteção dos rins, saciedade, pelos brilhantes).
+    - **Cadência e Dinamismo de Leitura:** Alternar frases curtas com frases de tamanho médio. Parágrafos devem conter entre 2 e 4 linhas no máximo, garantindo leitura agradável e escaneável tanto no mobile quanto no desktop.
 
 ---
 

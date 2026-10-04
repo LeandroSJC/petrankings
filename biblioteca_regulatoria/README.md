@@ -90,6 +90,36 @@
   * Exigência de que o triângulo amarelo com a letra **T** ocupe no mínimo 0,4% da área do painel principal da embalagem frontal.
   * Parâmetro de verificação de inconformidade visual de rotulagem em produtos que usam transgênicos.
 
+### 1.12. Portaria SDA/MAPA nº 359/2021 (Atualização Dinâmica de Matérias-Primas e Aditivos)
+* **Arquivo arquivado nesta pasta:** [`PORTARIA Nº 359, DE 9 DE JULHO DE 2021.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/PORTARIA%20N%C2%BA%20359,%20DE%209%20DE%20JULHO%20DE%202021.pdf) *(3,2 KB, 1 página)*
+* **Tema:** Altera a Instrução Normativa SDA nº 110/2020, revogando seus anexos I e II e determinando que a lista oficial de matérias-primas aprovadas como ingredientes, aditivos e veículos na alimentação animal passa a ser disponibilizada e mantida no sítio eletrônico oficial do MAPA.
+* **Aplicação no PetRankings:**
+  * **Art. 1º, § 4º:** Permite que ingredientes, aditivos tecnológicos, sensoriais e nutricionais de uso na alimentação humana sigam regras próprias de identidade, garantia e rotulagem quando empregados na alimentação animal. Base jurídica para ingredientes de grau humano (*human grade*), carnes frescas e frutas em rações Super Premium e dietas naturais.
+
+### 1.13. Anexo 1 — Lista Oficial de Ingredientes e Veículos Autorizados pelo MAPA na Alimentação Animal
+* **Arquivo arquivado nesta pasta:** [`Anexo 1 - LISTA DE INGREDIENTES E VEÍCULOS AUTORIZADOS PELO MAPA PARA USO NA ALIMENTAÇÃO ANIMAL NO BRASIL.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Anexo%201%20-%20LISTA%20DE%20INGREDIENTES%20E%20VE%C3%8DCULOS%20AUTORIZADOS%20PELO%20MAPA%20PARA%20USO%20NA%20ALIMENTA%C3%87%C3%83O%20ANIMAL%20NO%20BRASIL.pdf) *(3,1 MB, 137 páginas)*
+* **Órgão emissor:** MAPA / Secretaria de Defesa Agropecuária (SDA / CGAA).
+* **Tema:** Catálogo mestre exaustivo com mais de 3.000 ingredientes, matérias-primas vegetais, derivados cárneos, gorduras, minerais e veículos autorizados para uso na formulação de produtos de alimentação animal no Brasil.
+* **Aplicação no PetRankings:**
+  * **Padronização Lexical Mandatória:** Nomes oficiais de matérias-primas (ex.: *farinha de vísceras de aves*, *farinha de carne e ossos*, *quirera de arroz*, *polpa de beterraba*, *óleo de peixe*).
+  * **Auditoria de Conformidade de Rótulos:** Verificação se insumos declarados na Composição Básica correspondem a matérias-primas regulares e homologadas pelo MAPA, combatendo o uso de termos fantasiosos não autorizados pela legislação.
+
+### 1.14. Lista Oficial de Substâncias Proibidas na Alimentação Animal e Legislação Correspondente
+* **Arquivo arquivado nesta pasta:** [`Lista de substâncias proibidas e legislação correspondente.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Lista%20de%20subst%C3%A2ncias%20proibidas%20e%20legisla%C3%A7%C3%A3o%20correspondente.pdf) *(137 KB, 1 página)*
+* **Órgão emissor:** MAPA / Secretaria de Defesa Agropecuária (SDA / CGAA).
+* **Tema:** Compilado oficial de todas as substâncias químicas, farmacológicas, hormonais e antimicrobianas expressamente proibidas na alimentação animal no Brasil, com seus respectivos atos normativos (Portarias e Instruções Normativas).
+* **Abrangência Principal:**
+  * **Organoclorados:** Portaria nº 356/1988 e Portaria nº 253/1990.
+  * **Arsenicais e Antimoniais:** Portaria nº 107/1993.
+  * **Cloranfenicol e Nitrofuranos:** IN MAPA nº 09/2003.
+  * **Substâncias com efeito tireostático, androgênico, estrogênico e beta-agonistas:** IN nº 17/2004, IN nº 55/2011 e Ato nº 17/2005.
+  * **Olaquindox e Carbadox:** IN nº 45/2002 e IN nº 35/2005.
+  * **Violeta de Genciana:** IN nº 26/2004.
+  * **Antimicrobianos promotores de crescimento proibidos:** Anfenicóis, tetraciclinas, beta-lactâmicos, quinolonas, sulfonamidas (IN 26/2009), colistina (IN 45/2016), tilosina, lincomicina, tiamulina (IN 01/2020), bacitracina e virginiamicina (Portaria SDA nº 574/2022).
+* **Aplicação no PetRankings:**
+  * **Desmistificação de Claims Comerciais:** Prova documental de que claims como *"Sem antibióticos adicionados"*, *"Livre de hormônios"* ou *"Sem promotores químicos"* são obrigações legais mandatórias a todas as rações e não diferenciais exclusivos de marcas caras.
+  * **Diretriz de Coadjuvantes:** Confirmação de que alimentos coadjuvantes terapêuticos não podem conter princípios farmacológicos proibidos ou antimicrobianos em formulação regular.
+
 ---
 
 ## 📖 2. Manuais Técnicos de Nutrição e Bromatologia
@@ -129,7 +159,9 @@
 | **Bromatologia e Base Seca (MS)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Conversão para Base Seca (MS), Ca:P e score dos 4 pilares. |
 | **IN 30/2009 e IN 39/2014 (Categorias)** | [`src/lib/formatters.ts`](file:///d:/Projetos/PetRankings/src/lib/formatters.ts) | Classificação: Completo, Coadjuvante e Específico. |
 | **IN 22/2009 (Rotulagem & Ordem)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Inspeção da ordem decrescente dos primeiros 5 ingredientes. |
-| **IN 110/2020 (Aditivos e BHT/BHA)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Pontuação de antioxidantes: Natural (100%), Misto ou Sintético. |
+| **IN 110/2020 e Portaria 359/2021** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Pontuação de antioxidantes: Natural (100%), Misto ou Sintético. |
+| **Anexo 1 — Ingredientes Autorizados MAPA** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Validação lexical e verificação de matérias-primas e fontes nobres. |
+| **Lista de Substâncias Proibidas MAPA** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Fundamentação de segurança toxicológica e combate a claims vazios. |
 | **Decreto 4.680/2003 e Portaria MJ 2.658/2003** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Bônus de formulação não-transgênica (`containsGmo: false`) e checagem do símbolo T. |
 | **IN 17/2020 e IN 04/2007 (SipeAgro & BPF)** | [`src/lib/custody-template.ts`](file:///d:/Projetos/PetRankings/src/lib/custody-template.ts) | Rastreabilidade fabril, registro e auditoria de boas práticas. |
 | **WSAVA Guidelines (JSAP)** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Fundamentação clínica e critérios de qualidade em estudos/guias. |
@@ -154,7 +186,11 @@ biblioteca_regulatoria/
 ├── instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf                     # IN MAPA nº 30/2009 (RTIQ Pet: Completo, Coadjuvante, Específico)
 ├── instrucao-normativa-no-39-de-21-de-novembro-de.pdf                     # IN MAPA nº 39/2014 (Imagem Ilustrativa, Claims e Coadjuvantes)
 ├── in_110-2020_lista_matérias-primas_autorizadas_aa.pdf                   # IN MAPA nº 110/2020 (Aditivos e Matérias-Primas Autorizadas)
+├── PORTARIA Nº 359, DE 9 DE JULHO DE 2021.pdf                             # Portaria SDA/MAPA nº 359/2021 (Atualização Dinâmica da Lista de Ingredientes)
+├── Anexo 1 - LISTA DE INGREDIENTES E VEÍCULOS AUTORIZADOS...pdf            # Catálogo Geral com mais de 3.000 ingredientes autorizados pelo MAPA (3,1 MB)
+├── Lista de substâncias proibidas e legislação correspondente.pdf          # Tabela Oficial de Substâncias Proibidas na Alimentação Animal (MAPA)
 ├── INSTRUCAONORMATIVAN17DE15DEABRILDE2020alteradaIN6010julho2020.pdf       # IN MAPA nº 17/2020 (SipeAgro: Registro e Cadastro de Estabelecimentos e Pet Food)
 ├── InstruoNormativa04.2007.pdf                                            # IN MAPA nº 04/2007 (Boas Práticas de Fabricação - BPF e Roteiro de Inspeção)
 └── instrucao-normativa-no-29-de-14-de-setembro-de.pdf                     # IN MAPA nº 29/2010 (VIGIAGRO / Importação)
 ```
+

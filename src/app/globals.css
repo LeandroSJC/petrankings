@@ -1384,6 +1384,19 @@ h1, h2, h3, h4, .font-serif, .font-heading {
   transform: translateY(-2px);
 }
 
+.guide-ref-link {
+  color: var(--brand-forest-900);
+  text-decoration: underline;
+  text-decoration-color: var(--brand-forest-300);
+  text-underline-offset: 3px;
+  transition: var(--transition-fast);
+}
+
+.guide-ref-link:hover {
+  color: var(--brand-forest-700);
+  text-decoration-color: var(--brand-forest-600);
+}
+
 /* ==========================================================================
    FOLHA DE ESTILO OFICIAL DE IMPRESSÃO / GERAÇÃO DE PDF (A4 LAUDO TÉCNICO)
    ========================================================================== */

@@ -54,6 +54,14 @@ export type GuideCluster =
   | 'Dietas Coadjuvantes & Clínica'
   | 'Petiscos & Enriquecimento';
 
+export interface GuideReference {
+  title: string;
+  institution: string;
+  type: 'regulamento' | 'literatura' | 'rotulagem' | 'estudo';
+  url?: string;
+  details?: string;
+}
+
 export interface GuideItem {
   slug: string;
   title: string;
@@ -81,6 +89,12 @@ export interface GuideItem {
   sections: GuideSection[];
   faq: Array<{ q: string; a: string }>;
   conclusion: string;
+  /**
+   * Fontes primárias reais e atos regulatórios oficiais consultados para a elaboração deste estudo.
+   * REGRA MANDATÓRIA: Todo estudo técnico deve discriminar suas fontes autênticas (MAPA, ABINPET,
+   * FEDIAF, WSAVA, NRC ou fichas técnicas oficiais sob custódia).
+   */
+  references: GuideReference[];
   callToAction?: {
     title: string;
     text: string;
@@ -183,6 +197,41 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'Em resumo: a GoldeN Formula oferece excelente custo-benefício para quem precisa de um alimento completo e confiável sem onerar o orçamento mensal. Por outro lado, para tutores que priorizam maior densidade energética, ômega-3 de peixe marinho e menor carga de cinzas minerais, a PremieR Formula entrega uma especificação técnica superior comprovada nos dados oficiais.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 3: Exigências Nutricionais Mínimas e Tetos para Cães Adultos em Matéria Seca',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamento Técnico de Fixação de Padrões de Identidade e Qualidade para Alimentos Completos e Específicos para Animais de Companhia',
+      },
+      {
+        title: 'Ficha Técnica Oficial: PremieR Formula Cães Adultos Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda.',
+        type: 'rotulagem',
+        details: 'Níveis de garantia declarados (28,88% PB na MS), antioxidantes naturais e extrato de alecrim sob custódia probatória',
+      },
+      {
+        title: 'Ficha Técnica Oficial: GoldeN Formula Cães Adultos Frango e Arroz',
+        institution: 'Grandfood Indústria e Comércio Ltda.',
+        type: 'rotulagem',
+        details: 'Níveis de garantia declarados (25,55% PB na MS), conservação sintética (BHA/BHT) e cinzas sob custódia probatória',
+      },
+      {
+        title: 'Decreto Federal nº 4.680/2003',
+        institution: 'Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/decreto/2003/d4680.htm',
+        details: 'Regulamentação do direito à informação sobre alimentos e ingredientes com presença de organismos geneticamente modificados (OGM)',
+      },
+    ],
   },
   {
     slug: 'antioxidantes-bht-bha-vs-naturais-na-racao',
@@ -275,6 +324,36 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'Em resumo: a resposta para a pergunta central deste estudo é que o uso de antioxidantes naturais já é um padrão estabelecido nas categorias Super Premium Natural e Super Premium no Brasil, enquanto os segmentos intermediários e econômicos continuam dependentes do BHT e BHA. Para consultar a lista completa e conferir a análise técnica de cada fórmula, explore as opções com conservação natural em nosso catálogo interativo.',
+    references: [
+      {
+        title: 'Instrução Normativa MAPA nº 110/2020',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/INM000001101.pdf',
+        details: 'Lista de Matérias-Primas e Aditivos Tecnológicos Autorizados na Alimentação Animal no Brasil (limites de BHT e BHA)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'FEDIAF (European Pet Food Industry Federation)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
+        details: 'Chapter on Technological Additives, Lipid Oxidation and Antioxidants Preservation Standards',
+      },
+      {
+        title: 'Scientific Opinion on the Safety and Efficacy of Butylated Hydroxytoluene (BHT) for All Animal Species',
+        institution: 'EFSA (European Food Safety Authority — FEEDAP Panel)',
+        type: 'estudo',
+        url: 'https://www.efsa.europa.eu/en/efsajournal/pub/5215',
+        details: 'EFSA Journal 2018;16(3):5215: Avaliação toxicológica, margens de exposição e limites seguros em espécies animais',
+      },
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Diretrizes sobre conservação de lipídios, estabilidade de ácidos graxos e tocoferóis naturais',
+      },
+    ],
     callToAction: {
       title: 'Consulte Todas as Rações com Conservação 100% Natural',
       text: 'O Observatório PetRankings analisa a composição oficial de centenas de alimentos secos e úmidos. Acesse o catálogo interativo e filtre apenas produtos formulados com tocoferóis e extrato de alecrim, sem aditivos sintéticos BHT ou BHA.',
@@ -349,6 +428,36 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'Nunca mais julgue o valor nutritivo de um alimento para cães e gatos sem eliminar mentalmente a umidade. A matemática da Matéria Seca é a chave mestre para comparar produtos com justiça e garantir que o seu pet receba a nutrição de que realmente precisa.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Método Oficial de Cálculo Bromatológico e Conversão de Garantias para Matéria Seca (MS)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'FEDIAF (European Pet Food Industry Federation)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
+        details: 'Section 2: Analytical Methods, Water Content Dilution and Dry Matter Energy Balancing',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 22/2009',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf',
+        details: 'Regulamento de Rotulagem de Produtos Destinados à Alimentação Animal (Obrigatoriedade de declaração em Matéria Natural)',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'NRC (National Research Council — The National Academies)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Bases bromatológicas para avaliação de nutrientes e densidade energética na matéria seca',
+      },
+    ],
   },
   {
     slug: 'racao-seca-vs-umida-gatos-hidratacao-saude-renal',
@@ -448,6 +557,36 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'Garantir hidratação regular é o pilar mais decisivo para a longevidade dos felinos. A combinação equilibrada entre ração seca de alta nobreza e alimentos úmidos completos é a conduta preventiva padrão-ouro da medicina veterinária moderna para resguardar a saúde renal e urinária do seu gato por toda a vida.',
+    references: [
+      {
+        title: 'WSAVA Nutritional Assessment Guidelines',
+        institution: 'WSAVA (World Small Animal Veterinary Association)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Protocolo clínico de avaliação hídrica, densidade urinária e prevenção de urólitos em felinos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'FEDIAF (European Pet Food Industry Federation)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
+        details: 'Requisitos nutricionais específicos para felinos, densidade hídrica e aminoácido essencial taurina',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009 e IN MAPA nº 39/2014',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Distinção legal obrigatória entre Alimento Completo para Gatos e Alimento Específico/Complementar (Sachês/Toppers)',
+      },
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Pisos nutricionais de taurina (mínimo 0,20% MS em alimentos úmidos) e balanço osteomineral',
+      },
+    ],
     callToAction: {
       title: 'Compare Alimentos Secos e Úmidos para Gatos no Catálogo',
       text: 'O Observatório PetRankings analisa a rotulagem oficial de centenas de produtos felinos no Brasil, separando opções completas de alimentos complementares e calculando instantaneamente os nutrientes na Matéria Seca.',
@@ -562,6 +701,36 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'A leitura criteriosa da Composição Básica é a defesa mais eficaz do tutor contra o apelo visual do marketing pet. Compreender a mecânica do peso dos ingredientes antes do cozimento, a distinção entre claims de sabor e a nobreza biológica das matérias-primas permite selecionar alimentos com base em evidências científicas e na legislação oficial do MAPA, garantindo a nutrição ideal e a longevidade do seu cão ou gato.',
+    references: [
+      {
+        title: 'Instrução Normativa MAPA nº 22/2009',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf',
+        details: 'Art. 12: Regra de ordenação estritamente decrescente de matérias-primas por peso no momento da mistura',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 39/2014',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-39-de-21-de-novembro-de-2014.pdf/@@download/file',
+        details: 'Alteração do Art. 10 da IN 22/2009: Obrigatoriedade da expressão "Imagem Meramente Ilustrativa" e regras para claims cárneos',
+      },
+      {
+        title: 'Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor)',
+        institution: 'Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+        details: 'Arts. 6º, III e 37: Direito à informação clara, precisa e proibição de publicidade enganosa sobre a composição de produtos',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 110/2020',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/INM000001101.pdf',
+        details: 'Padrão oficial de Farinha de Vísceras de Aves (FVA): especificações sanitárias, desengorduramento e teores minerais (Low Ash)',
+      },
+    ],
     callToAction: {
       title: 'Consulte a Composição Básica Analisada no Catálogo PetRankings',
       text: 'O Observatório PetRankings analisa a lista oficial de ingredientes, os níveis de garantia na Matéria Seca (MS) e os sistemas de conservação de centenas de alimentos secos e úmidos registrados no Brasil.',
@@ -700,6 +869,36 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'O triângulo amarelo com a letra "T" impresso nos sacos de ração representa a vitória da transparência e do direito à informação do consumidor brasileiro, assegurado pelo Decreto Federal nº 4.680/2003 e pela Portaria Interministerial MJ nº 2.658/2003. Embora a literatura zootécnica comprove que o amido de milho transgênico adequadamente extrusado possui aproveitamento digestivo equivalente ao do milho convencional, a opção por alimentos livres de transgênicos — sejam eles fundamentados em grãos ancestrais ou fórmulas livres de cereais — constitui uma escolha consciente e de alta nobreza para tutores que priorizam cadeias agrícolas diferenciadas. Consultar a composição básica oficial e comparar os níveis de garantia na Matéria Seca é a chave para garantir a nutrição ideal e o bem-estar do seu animal de companhia.',
+    references: [
+      {
+        title: 'Decreto Federal nº 4.680/2003',
+        institution: 'Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/decreto/2003/d4680.htm',
+        details: 'Regulamenta o direito à informação sobre alimentos e ingredientes para consumo humano e animal contendo OGM acima de 1%',
+      },
+      {
+        title: 'Portaria Interministerial MJ nº 2.658/2003',
+        institution: 'Ministério da Justiça',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/portaria-no-2-658-de-22-de-dezembro-de-2003.pdf',
+        details: 'Define o símbolo oficial de rotulagem de transgênicos: triângulo amarelo com a letra "T" maiúscula e proporções gráficas',
+      },
+      {
+        title: 'Pareceres Técnicos Conclusivos de Biossegurança OGM',
+        institution: 'CTNBio (Comissão Técnica Nacional de Biossegurança — MCTI)',
+        type: 'estudo',
+        url: 'https://www.gov.br/mcti/pt-br/composicao/conselhos/ctnbio/paginas/pareceres-tecnicos-conclusivos',
+        details: 'Avaliações toxicológicas, equivalência substancial e segurança alimentar de eventos transgênicos aprovados no Brasil',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Exigência de identificação das espécies doadoras de genes na lista de composição básica de alimentos para animais',
+      },
+    ],
     callToAction: {
       title: 'Consulte Todas as Rações Livres de Transgênicos no Catálogo PetRankings',
       text: 'O Observatório PetRankings monitora e analisa a rotulagem oficial de mais de 1.000 produtos para cães e gatos. Acesse o catálogo interativo e filtre com um clique apenas formulações 100% livres de ingredientes transgênicos.',
@@ -832,6 +1031,36 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'A escolha inteligente do alimento de cães e gatos exige abandonar a miopia do preço por quilo e abraçar a lógica zootécnica do custo por dia. Quando calculamos o rendimento real no comedouro com base na densidade energética (EM) e na digestibilidade da fórmula, descobrimos que alimentos Super Premium e de alta nobreza custam praticamente o mesmo por dia que opções básicas — entregando como bônus fezes menores, pelagem saudável e prevenção clínica a longo prazo.',
+    references: [
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'NRC (National Research Council — The National Academies)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Equações preditivas de Necessidade Energética de Manutenção (NEM = 110 × PC^0,75 para cães e cálculo para felinos)',
+      },
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Capítulo sobre Densidade Calórica, Fatores de Atwater Modificados e Estimativa de Energia Metabolizável (EM)',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 22/2009',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf',
+        details: 'Apresentação obrigatória do guia de fornecimento diário (tabela de consumo em g/dia estratificada por faixas de peso corporal)',
+      },
+      {
+        title: 'Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor)',
+        institution: 'Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+        details: 'Art. 6º, Inciso III: Direito basilar do tutor à informação precisa sobre quantidade, rendimento e características de produtos',
+      },
+    ],
     callToAction: {
       title: 'Compare a Densidade Nutricional das Rações no Catálogo PetRankings',
       text: 'O Observatório PetRankings analisa e recalcula os níveis de garantia na Matéria Seca (MS) de centenas de alimentos secos e úmidos registrados no Brasil. Acesse o catálogo interativo e identifique opções com alta concentração proteica e lipídica.',
@@ -961,6 +1190,41 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'Em síntese, o confronto entre PremieR Formula Gatos Castrados e Royal Canin Castrados / Sterilised 37 coloca frente a frente duas formulações Super Premium de alto gabarito zootécnico. A Royal Canin destaca-se pelo perfil mais fibroso e enxuto para saciedade e controle de pelos, mas permanece atrelada ao conservante sintético BHA. A PremieR Formula sobressai-se pela conservação 100% natural com tocoferóis e extrato de alecrim, aliada a um menor teor de cinzas minerais (8,89% MS), conquistando pontuação mais equilibrada em nosso laudo técnico de rotulagem.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Padrão nutricional específico para gatos castrados, modulação de densidade energética e limites de fósforo e magnésio',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'FEDIAF (European Pet Food Industry Federation)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
+        details: 'Feline Urinary Health Management: Supersaturation Relative (RSS) indices for struvite and calcium oxalate prevention',
+      },
+      {
+        title: 'Ficha Técnica Oficial: PremieR Formula Gatos Castrados Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda.',
+        type: 'rotulagem',
+        details: 'Composição básica oficial com antioxidantes naturais (tocoferóis/alecrim) e níveis na Matéria Seca sob custódia probatória',
+      },
+      {
+        title: 'Ficha Técnica Oficial: Royal Canin Sterilised 37',
+        institution: 'Royal Canin do Brasil / Mars Petcare',
+        type: 'rotulagem',
+        details: 'Composição básica oficial com antioxidante sintético BHA, perfil de fibras (7,61% MS) e níveis de garantia declarados',
+      },
+      {
+        title: 'Instruções Normativas MAPA nº 30/2009 e nº 110/2020',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamentação de alimentos completos para felinos e limites de conservantes tecnológicos',
+      },
+    ],
     callToAction: {
       title: 'Compare Alimentos para Gatos Castrados no Catálogo PetRankings',
       text: 'O Observatório PetRankings analisa a Composição Básica oficial e os níveis recalculados na Matéria Seca de centenas de produtos felinos registrados no Brasil. Explore os filtros interativos por espécie, sistema de conservação e teores de nutrientes.',
@@ -1088,6 +1352,42 @@ export const GUIDES: GuideItem[] = [
     ],
     conclusion:
       'Em síntese, o desenvolvimento saudável do esqueleto de um cão filhote não decorre do consumo excessivo de minerais, mas sim do equilíbrio estrito entre Cálcio e Fósforo em Matéria Seca (MS). Alimentos completos formulados sob as diretrizes da ABINPET entregam exatamente a cota diária que o filhote necessita. A melhor proteção que o tutor pode oferecer às articulações do seu cão é evitar a suplementação caseira de cálcio, controlar o ganho de peso corporal e escolher alimentos balanceados específicos para o porte do animal.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 1: Exigências Nutricionais e Tetos Toxicológicos de Cálcio e Fósforo para Cães em Crescimento (Matéria Seca)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'FEDIAF (European Pet Food Industry Federation)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
+        details: 'Chapter 4: Growth Phase Requirements and Strict Calcium:Phosphorus Ratio in Large Breed Puppies',
+      },
+      {
+        title: 'WSAVA Nutritional Assessment Guidelines',
+        institution: 'WSAVA (World Small Animal Veterinary Association)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Alerta sobre passividade intestinal de absorção de cálcio em filhotes e correlação com osteocondrose e deformidades esqueléticas',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'NRC (National Research Council — The National Academies)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Bases fisiológicas da calcitonina, remodelação óssea e riscos da hipercalcemia em cães jovens',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais dos Fabricantes (Pro Plan Puppy, PremieR Golden Filhotes, Royal Canin Puppy Maxi, Vitta Natural)',
+        institution: 'Fabricantes Diversos (Nestlé Purina, Grandfood, Mars Royal Canin, Adimax)',
+        type: 'rotulagem',
+        details: 'Níveis oficiais de cálcio e fósforo declarados na Matéria Natural e convertidos para Matéria Seca sob custódia probatória',
+      },
+    ],
     callToAction: {
       title: 'Compare Níveis de Cálcio e Fósforo no Catálogo PetRankings',
       text: 'Consulte as fichas técnicas oficiais e os teores recalculados na Matéria Seca de dezenas de alimentos para filhotes comercializados no Brasil. Use nossos filtros por porte e fase de vida.',

@@ -125,6 +125,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
           name: guide.author.name,
           url: SITE_URL,
         },
+        citation: guide.references?.map((r) => `${r.institution}: ${r.title}`),
         publisher: {
           '@type': 'Organization',
           name: 'PetRankings',
@@ -702,6 +703,140 @@ export default async function GuidePage({ params }: GuidePageProps) {
                     <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-body)', lineHeight: 1.6 }}>
                       {item.a}
                     </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Seção Obrigatória de Fontes Oficiais & Referências Técnicas */}
+          {guide.references && guide.references.length > 0 && (
+            <div
+              style={{
+                backgroundColor: 'var(--bg-subtle)',
+                border: '1px solid var(--border-cream)',
+                borderRadius: 'var(--radius-md)',
+                padding: '28px 24px',
+                marginBottom: '40px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <BookOpen size={18} color="var(--brand-forest-700)" aria-hidden="true" />
+                <span
+                  style={{
+                    fontSize: '0.74rem',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    color: 'var(--brand-forest-700)',
+                  }}
+                >
+                  Rigor Probatório e Transparência
+                </span>
+              </div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '1.25rem',
+                  fontWeight: 800,
+                  color: 'var(--brand-forest-900)',
+                  margin: '0 0 8px 0',
+                }}
+              >
+                Fontes Oficiais & Referências Técnicas Consultadas
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.55, margin: '0 0 20px 0' }}>
+                Este estudo fundamenta-se estritamente em atos normativos vigentes do Ministério da Agricultura e Pecuária (MAPA), literatura científica zootécnica de referência internacional (ABINPET, FEDIAF, WSAVA e NRC) e fichas técnicas oficiais de rotulagem com custódia probatória:
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {guide.references.map((ref, rIdx) => (
+                  <div
+                    key={rIdx}
+                    style={{
+                      backgroundColor: '#ffffff',
+                      border: '1px solid var(--border-cream-light)',
+                      borderRadius: 'var(--radius-sm)',
+                      padding: '14px 16px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '2px' }}>
+                      <span
+                        style={{
+                          fontSize: '0.68rem',
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.04em',
+                          padding: '2px 8px',
+                          borderRadius: 'var(--radius-xs)',
+                          backgroundColor:
+                            ref.type === 'regulamento'
+                              ? 'var(--brand-forest-50)'
+                              : ref.type === 'rotulagem'
+                              ? 'var(--gold-50)'
+                              : 'var(--bg-muted)',
+                          color:
+                            ref.type === 'regulamento'
+                              ? 'var(--brand-forest-800)'
+                              : ref.type === 'rotulagem'
+                              ? 'var(--gold-800)'
+                              : 'var(--text-body)',
+                          border: `1px solid ${
+                            ref.type === 'regulamento'
+                              ? 'var(--brand-forest-200)'
+                              : ref.type === 'rotulagem'
+                              ? 'var(--gold-200)'
+                              : 'var(--border-cream)'
+                          }`,
+                        }}
+                      >
+                        {ref.type === 'regulamento'
+                          ? 'Marco Regulatório'
+                          : ref.type === 'rotulagem'
+                          ? 'Ficha Oficial / Fabricante'
+                          : ref.type === 'estudo'
+                          ? 'Parecer / Estudo Científico'
+                          : 'Literatura de Referência'}
+                      </span>
+                      <strong style={{ fontSize: '0.82rem', color: 'var(--brand-forest-900)' }}>
+                        {ref.institution}
+                      </strong>
+                    </div>
+
+                    <div>
+                      {ref.url ? (
+                        <a
+                          href={ref.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="guide-ref-link"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            fontSize: '0.92rem',
+                            fontWeight: 700,
+                            lineHeight: 1.35,
+                          }}
+                        >
+                          <span>{ref.title}</span>
+                          <ExternalLink size={13} style={{ flexShrink: 0, opacity: 0.8 }} aria-hidden="true" />
+                        </a>
+                      ) : (
+                        <span style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-heading)', lineHeight: 1.35 }}>
+                          {ref.title}
+                        </span>
+                      )}
+                    </div>
+
+                    {ref.details && (
+                      <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.45 }}>
+                        {ref.details}
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>

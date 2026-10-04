@@ -12,11 +12,28 @@ description: >-
 
 This skill provides editorial standards, nutritional category taxonomy, and tone-of-voice rules for drafting impartial, data-driven, and engaging reviews, technical comparisons, and bromatological study descriptions for PetRankings (strictly focused on dog and cat food and nutrition).
 
-## 1. Editorial Tone of Voice
+## 1. Editorial Tone of Voice & Humanized Writing (Invariante 16)
 
 - **Impartial & Transparent**: Objective, data-driven, strictly factual based on official manufacturer labeling and guaranteed analysis levels.
 - **Empathetic & Responsible**: Respectful of pet well-being, always reinforcing that rankings and comparative studies are market analyses and not veterinary prescriptions.
 - **Clear & Accessible**: Jargon-free explanations of complex nutritional terms (e.g. explain *Matéria Seca (MS)*, *proteína bruta*, *extrato etéreo*, *farinha de vísceras Low Ash*, *conservantes naturais tocoferóis* clearly).
+
+### 1.1 Humanized Writing & Anti-Slop Guidelines (Combate à Linguagem Robótica)
+1. **Tom Conversacional e Empático (De Tutor para Tutor)**:
+   - Parta sempre da dúvida real de quem está no pet shop ou diante da tela procurando o melhor para seu companheiro de quatro patas.
+   - Use o rigor técnico para empoderar o tutor a tomar decisões lúcidas, nunca para intimidá-lo com pedantismo acadêmico.
+2. **Combate Ativo ao "AI Slop" (Clichês Artificiais Proibidos)**:
+   - ❌ Expressões estritamente proibidas: *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os mistérios/segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*, *"Não é exagero afirmar"*, *"Um papel fulcral"*.
+   - Substitua por construções diretas e naturais: *"Na prática, isso significa que..."*, *"A grande diferença no dia a dia é..."*, *"Olhando para a rotulagem oficial, o que chama atenção é..."*.
+3. **Regra da Tradução Prática Imediata**:
+   - Todo termo zootécnico complexo deve ser imediatamente traduzido para o seu impacto real na rotina do pet:
+     - *Matéria Seca (MS)* ➔ Explicar que elimina a água para comparar maçãs com maçãs.
+     - *Extrato Etéreo* ➔ Explicar que são as gorduras boas que fornecem energia e sabor.
+     - *Matéria Mineral / Cinzas* ➔ Explicar que teores baixos indicam carne nobre com menos osso moído, poupando os rins do animal.
+     - *Prebióticos MOS e FOS* ➔ Explicar que nutrem as bactérias boas do intestino, reduzindo o volume e o cheiro das fezes.
+4. **Cadência, Ritmo e Escaneabilidade**:
+   - Alterne frases curtas com frases médias. Evite orações subordinadas intermináveis de 4 ou 5 linhas.
+   - Limite os parágrafos a 2 ou 4 linhas no máximo, proporcionando leitura leve e agradável no smartphone.
 
 ## 2. Nutritional Category Taxonomy & Key Attributes (Pet Food Only)
 
@@ -138,4 +155,37 @@ The PetRankings editorial repository organizes studies strictly into nutritional
   3. `3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)`
   4. `4. Composição básica e ingredientes declarados`
   5. `5. Onde encontrar este produto`
+
+## 8. Mandatory Primary Sources & Bibliographic Reference Standards (`references`)
+
+Every study, technical guide, and comparative article drafted under `/guias` **must explicitly list all primary sources and consulted bibliographic references** in the `references` property of `GuideItem`.
+
+### 8.1 Schema of GuideReference
+```typescript
+export interface GuideReference {
+  title: string;        // Official title of the norm, study, or manufacturer technical sheet
+  institution: string;  // Emitting authority (e.g. 'ABINPET', 'MAPA', 'FEDIAF', 'WSAVA', 'CTNBio', 'Grandfood Indústria')
+  type: 'regulamento' | 'literatura' | 'rotulagem' | 'estudo';
+  url?: string;         // Canonical public URL or legal repository link
+  details?: string;     // Specific chapter, table, article or SHA-256 hash custody reference
+}
+```
+
+### 8.2 Authorized Primary Source Repositories
+1. **Biblioteca Regulatória Local (`biblioteca_regulatoria/`)**:
+   - Manual Pet Food Brasil — 11ª Edição (ABINPET).
+   - FEDIAF Nutritional Guidelines (2025).
+   - WSAVA Global Nutritional Assessment Guidelines.
+   - Atos do MAPA: IN nº 30/2009, IN nº 22/2009, IN nº 39/2014, IN nº 110/2020.
+   - Legislação Federal: Decreto nº 12.031/2024, Decreto nº 4.680/2003, Portaria MJ nº 2.658/2003, CDC (Lei nº 8.078/1990).
+2. **Literatura Científica Veterinária e Zootécnica Reconhecida**:
+   - NRC (National Research Council) — *Nutrient Requirements of Dogs and Cats* (2006).
+   - Pareceres Conclusivos da CTNBio (Comissão Técnica Nacional de Biossegurança).
+   - Pareceres Científicos da EFSA (European Food Safety Authority).
+3. **Fichas Técnicas Oficiais dos Fabricantes**:
+   - Rotulagem oficial e painel traseiro do fabricante custodiados com hash criptográfico SHA-256 no banco de dados.
+
+### 8.3 Enforcement Rule
+- **No Hallucinated Citations**: Never invent author names, paper titles or non-existent laws.
+- **End-of-Page Listing**: All references declared in `references` are automatically rendered in the public interface before the veterinary disclaimer, giving tutors full transparency to verify the facts independently.
 
