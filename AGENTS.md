@@ -81,6 +81,9 @@
     - A linha editorial do PetRankings deve manter paridade e alternância equilibrada entre conteúdos dedicados a cães e gatos na trilha de estudos, duelos e guias técnicos (`/guias`).
     - Estudos com foco exclusivo em uma espécie devem ser alternados de modo a evitar sobrepeso de uma categoria sobre a outra (proporção equilibrada na esteira de publicações específicas, complementada por estudos transversais de metodologia bromatológica com foco "Cães e Gatos").
     - Ao planejar novas pautas, o curador deve verificar a distribuição corrente de publicações específicas e priorizar a espécie com menor densidade de estudos exclusivos publicados.
+15. **Linguagem Ubíqua e Registros de Decisão Arquitetural (`GLOSSARY.md` e ADRs):**
+    - O projeto mantém um glossário canônico na raiz ([`GLOSSARY.md`](file:///d:/Projetos/PetRankings/GLOSSARY.md)) que estabelece a terminologia oficial (Bromatologia, MAPA, Segurança e Taxonomia) e lista termos mandatórios a serem evitados (`_Evitar_`).
+    - Decisões estruturais de alto impacto, de difícil reversão ou que demandem contexto histórico são registradas na pasta `.agents/adr/` no formato enxuto de ADR (Architecture Decision Record). Todo agente deve consultar o glossário e os ADRs pertinentes antes de propor alterações conceituais ou refatorações de arquitetura.
 
 ---
 
@@ -99,6 +102,7 @@ Sempre que atuar em uma área específica do projeto, ative e siga o runbook do 
 | **Cache & Performance ISR** | `content-caching-strategy` | `unstable_cache` no Prisma, `revalidatePath`, invalidação por tags. |
 | **Aparência & Anti-Slop** | `design-taste-frontend` | Heurísticas visuais anti-slop, ausência de templates genéricos, tokens puros. |
 | **Deploy & Infraestrutura** | `devops-deployment-expert` | Configurações Docker, Vercel, Railway, migrações no deploy e CI/CD. |
+| **Diagnóstico Científico de Bugs** | `scientific-bug-diagnostics` | Isolamento em `scratch/`, loop mínimo de reprodução (Vermelho -> Verde) e redaction de segredos. |
 | **Observabilidade & Logs** | `error-monitoring-observability` | Sentry SDK, `instrumentation.ts`, Error Boundaries para prevenir telas brancas. |
 | **Acessibilidade Web** | `frontend-a11y-auditor` | WCAG 2.1 AA, navegação completa por teclado, contraste 4.5:1, ARIA. |
 | **E2E & Testes de UI** | `frontend-testing` | `browser_subagent` para testes visuais imediatos, Vitest / Playwright. |
@@ -113,3 +117,4 @@ Sempre que atuar em uma área específica do projeto, ative e siga o runbook do 
 | **Consultas & Índices Prisma** | `prisma-query-patterns` | Índices de chaves estrangeiras, transações `$transaction`, paginação. |
 | **Rich Snippets & JSON-LD** | `schema-org-structured-data-expert` | Schemas `ItemList`, `Product`, `AggregateRating`, `FAQPage`, `BreadcrumbList`. |
 | **Indexação & Search Console** | `search-console-indexing-watchdog` | Resolução de erros no GSC, canônicas, crawl budget e requisição de indexação. |
+
