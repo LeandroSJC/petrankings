@@ -116,7 +116,7 @@ export default function NotFound() {
           </Link>
 
           <Link
-            href="/#rankings-destaque"
+            href="/catalogo"
             className="hero-secondary-btn"
             style={{
               padding: '12px 24px',
@@ -125,7 +125,7 @@ export default function NotFound() {
             }}
           >
             <Compass size={18} />
-            <span>Ver Melhores Rankings</span>
+            <span>Explorar Catálogo de Rações</span>
           </Link>
         </div>
       </div>

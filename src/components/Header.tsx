@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, PawPrint, Building2, ShieldCheck, Scale, FileText } from 'lucide-react';
+import { Menu, X, PawPrint, Building2, ShieldCheck, Scale } from 'lucide-react';
 
 
 export default function Header() {
@@ -22,7 +22,6 @@ export default function Header() {
     { href: '/', label: 'Início (Observatório)' },
     { href: '/catalogo', label: 'Catálogo de Rações' },
     { href: '/comparar', label: 'Comparador de Rações', icon: Scale },
-    { href: '/guias', label: 'Estudos & Guias', icon: FileText },
     { href: '/coadjuvantes', label: 'Alimentos Coadjuvantes' },
     { href: '/sobre', label: 'Metodologia' },
     { href: '/fabricante', label: 'Portal do Fabricante', icon: Building2 },
@@ -149,7 +148,6 @@ export default function Header() {
               { href: '/', label: 'Início' },
               { href: '/catalogo', label: 'Catálogo' },
               { href: '/comparar', label: 'Comparar' },
-              { href: '/guias', label: 'Estudos' },
               { href: '/sobre', label: 'Metodologia' },
               { href: '/fabricante', label: 'Fabricantes' },
             ].map((link) => {
