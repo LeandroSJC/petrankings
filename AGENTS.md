@@ -93,6 +93,17 @@
     - **Combate Ativo ao "AI Slop" e Clichês de Máquina:** É expressamente vedado o uso de fórmulas artificiais de IA, tais como: *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*.
     - **Regra da Tradução Prática Imediata:** Todo conceito técnico ou bromatológico (Matéria Seca, Low Ash, Extrato Etéreo, balanço Ca:P, prebióticos MOS/FOS) deve ser imediatamente acompanhado de uma explicação simples do que aquilo representa na rotina do cão ou do gato (ex: fezes menores, proteção dos rins, saciedade, pelos brilhantes).
     - **Cadência e Dinamismo de Leitura:** Alternar frases curtas com frases de tamanho médio. Parágrafos devem conter entre 2 e 4 linhas no máximo, garantindo leitura agradável e escaneável tanto no mobile quanto no desktop.
+17. **Padronização Mandatória de Capas e Ativos Visuais por Cluster:**
+    - **Cluster "Duelo de Marcas":** A capa deve ser **compulsoriamente** gerada através do script canônico do projeto (`scripts/gerar-capas-duelo.js`), que extrai as embalagens transparentes oficiais dos produtos analisados (490px de altura), posiciona-as sobre o fundo de estúdio fotográfico (`#ffffff -> #f8fafc -> #e2e8f0`) com sombras elípticas no piso e insere o badge central estilizado `VS` em 1200 × 630 px. É **expressamente proibido** utilizar ilustrações conceituais genéricas ou ferramentas de geração de imagem avulsas para cobrir duelos de marcas.
+    - **Demais Clusters (Ingredientes, Bromatologia, Fases de Vida, Direito do Consumidor, Custo):** Fotografias reais de alta resolução ou gráficos técnicos vetorizados em proporção 1.91:1 (1200 × 630 px).
+18. **Checklist Pré-Publicação Inegociável (Gatekeeper de Qualidade Editorial):**
+    - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 6 pontos:
+      1. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados?
+      2. *Anti-Slop:* O texto foi verificado e expurgado de clichês de IA (*"divisor de águas"*, *"imperativo salientar"*, *"no cenário atual"*, *"mergulhando mais a fundo"*)?
+      3. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
+      4. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
+      5. *Fidelidade de Citações (`relatedProductSlugs`):* Apenas produtos realmente analisados no texto constam na lista?
+      6. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA e fichas oficiais) estão discriminadas?
 
 ---
 
