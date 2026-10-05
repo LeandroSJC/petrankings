@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateTag, revalidatePath } from 'next/cache';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
@@ -200,6 +201,16 @@ export async function POST(req: NextRequest) {
         })),
         skipDuplicates: true,
       });
+    }
+
+    try {
+      revalidateTag('sitemap');
+      revalidateTag('products');
+      revalidatePath('/sitemap.xml');
+      revalidatePath('/catalogo');
+      revalidatePath('/');
+    } catch (cacheErr) {
+      console.warn('[Cache] Falha ao revalidar cache do sitemap:', cacheErr);
     }
 
     return NextResponse.json({ success: true, product });

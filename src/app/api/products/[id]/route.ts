@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateTag, revalidatePath } from 'next/cache';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
@@ -161,6 +162,19 @@ export async function PUT(
       }
     }
 
+    try {
+      revalidateTag('sitemap');
+      revalidateTag('products');
+      revalidatePath('/sitemap.xml');
+      if (product.slug) {
+        revalidatePath(`/produto/${product.slug}`);
+      }
+      revalidatePath('/catalogo');
+      revalidatePath('/');
+    } catch (cacheErr) {
+      console.warn('[Cache] Falha ao revalidar cache do sitemap:', cacheErr);
+    }
+
     return NextResponse.json({ success: true, product });
   } catch (error) {
     console.error('Erro ao atualizar produto:', error);
@@ -179,7 +193,20 @@ export async function DELETE(
     }
 
     const { id } = await params;
-    await prisma.product.delete({ where: { id } });
+    const deleted = await prisma.product.delete({ where: { id } });
+
+    try {
+      revalidateTag('sitemap');
+      revalidateTag('products');
+      revalidatePath('/sitemap.xml');
+      if (deleted.slug) {
+        revalidatePath(`/produto/${deleted.slug}`);
+      }
+      revalidatePath('/catalogo');
+      revalidatePath('/');
+    } catch (cacheErr) {
+      console.warn('[Cache] Falha ao revalidar cache do sitemap:', cacheErr);
+    }
 
     return NextResponse.json({ success: true, message: 'Produto removido com sucesso' });
   } catch (error) {
