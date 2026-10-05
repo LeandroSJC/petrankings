@@ -1395,6 +1395,175 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo?esp=CAO&fase=CRESCIMENTO_INICIAL',
     },
   },
+  {
+    slug: 'royal-canin-vs-purina-pro-plan-gatos',
+    title: 'Royal Canin vs Purina Pro Plan para gatos: O que muda na prática além da proteína?',
+    subtitle: 'Confronto técnico e bromatológico entre as duas gigantes globais da nutrição felina Super Premium no mercado brasileiro.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-05',
+    updatedAt: '2026-10-05',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/royal-canin-vs-pro-plan-duel-cover.webp',
+    isFeatured: true,
+    summary:
+      'Colocamos frente a frente os níveis de garantia na Matéria Seca (MS), a presença de carnes frescas contra subprodutos, o sistema de conservação (antioxidantes naturais vs BHA sintético) e os diferenciais de manejo urinário entre as linhas para gatos da Royal Canin e da Purina Pro Plan.',
+    relatedProductSlugs: [
+      'proplan-gatos-adult',
+      'proplan-gatos-sterilized',
+      'fit-32-2520',
+      'sterilised-37-2537',
+    ],
+    sections: [
+      {
+        id: 'origem-e-filosofia-nutricional',
+        heading: '1. O Legado Científico e as Filosofias Nutricionais no Brasil',
+        paragraphs: [
+          'No topo da pirâmide do mercado pet global e nos consultórios dos principais médicos veterinários, Royal Canin (pertencente ao grupo Mars Petcare) e Purina Pro Plan (desenvolvida pela multinacional Nestlé Purina) representam os dois maiores centros privados de pesquisa em nutrição clínica e zootécnica de cães e gatos do mundo.',
+          'Embora ambas disputem a preferência do tutor no segmento Super Premium e sejam registradas no Ministério da Agricultura e Pecuária (MAPA) como "Alimento Completo para Gatos" em conformidade com a Instrução Normativa MAPA nº 30/2009, as duas marcas partem de filosofias de formulação consideravelmente distintas.',
+          'Enquanto a Royal Canin historicamente prioriza o "conceito de nutrientes" — combinando farinhas de vísceras padronizadas, frações isoladas de fibras vegetais e glúten para atingir parâmetros químicos cirúrgicos —, a Purina Pro Plan reformulou suas linhas de manutenção incorporando carnes frescas e cortes nobres no topo da lista de ingredientes, além de migrar para a conservação 100% natural.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal Conforme IN MAPA nº 30/2009',
+          text: 'Tanto a Royal Canin quanto a Purina Pro Plan atendem com ampla margem a todas as exigências nutricionais mínimas da 11ª Edição do Manual Pet Food Brasil (ABINPET) e da FEDIAF 2025 para felinos carnívoros estritos, dispensando qualquer suplementação alimentar.',
+        },
+      },
+      {
+        id: 'confronto-bromatologico-materia-seca',
+        heading: '2. Níveis de Garantia Confrontados em Matéria Seca (MS)',
+        paragraphs: [
+          'Para confrontar as duas marcas em pé de igualdade científica, eliminamos o efeito diluidor da umidade contida nos croquetes através da conversão para Matéria Seca (MS), segundo o método padrão preconizado pela ABINPET.',
+          'A Royal Canin trabalha com um teor de umidade reduzido de 8% em suas linhas de manutenção felina (deixando 92% de matéria seca), enquanto a Purina Pro Plan adota a umidade máxima padrão de 12% (88% de matéria seca útil).',
+          'Ao equalizarmos as fórmulas na Matéria Seca, a superioridade proteica da Purina Pro Plan torna-se evidente em ambas as categorias. Na versão para gatos adultos de manutenção, a Pro Plan Cuidado Excepcional Adulto Frango entrega expressivos 40,91% de Proteína Bruta na MS (contra 32,61% da Royal Canin FIT 32). Na categoria para gatos castrados, o contraste repete-se: a Pro Plan Castrado Salmão alcança 43,18% de PB na MS, frente a 38,04% da Royal Canin Castrados (Sterilised 37).',
+          'Em contrapartida, a Royal Canin FIT apresenta uma matriz mineral ligeiramente mais contida na linha adulta convencional (8,59% de Cinzas na MS contra 9,66% na Pro Plan Adultos), embora ambas mantenham o fósforo estritamente controlado em torno de 0,9% a 1,0% na Matéria Seca para resguardar a função renal.',
+        ],
+        table: {
+          caption: 'Quadro Comparativo de Níveis de Garantia Oficiais (Matéria Seca - MS)',
+          headers: [
+            'Parâmetro Nutricional',
+            'Pro Plan Adulto Frango',
+            'Royal Canin FIT 32',
+            'Pro Plan Castrado Salmão',
+            'Royal Canin Castrados 37',
+            'Padrão Mínimo ABINPET',
+          ],
+          rows: [
+            ['Proteína Bruta (Mín.)', '40,91% MS (36% MN)', '32,61% MS (30% MN)', '43,18% MS (38% MN)', '38,04% MS (35% MN)', '26,00% MS'],
+            ['Extrato Etéreo / Gordura (Mín.)', '18,18% MS (16% MN)', '14,13% MS (13% MN)', '13,64% MS (12% MN)', '10,87% MS (10% MN)', '9,00% MS'],
+            ['Matéria Fibrosa (Máx.)', '2,84% MS (2,5% MN)', '5,43% MS (5,0% MN)', '6,25% MS (5,5% MN)', '7,61% MS (7,0% MN)', 'Não aplicável'],
+            ['Matéria Mineral (Máx.)', '9,66% MS (8,5% MN)', '8,59% MS (7,9% MN)', '9,66% MS (8,5% MN)', '10,00% MS (9,2% MN)', 'Recomendado teto baixo'],
+            ['Fósforo Declarado (Mín.)', '1,02% MS (0,9% MN)', '0,96% MS (0,88% MN)', '0,91% MS (0,8% MN)', '0,87% MS (0,8% MN)', '0,50% MS'],
+            ['Sistema de Conservação', '100% Natural (Tocoferóis)', 'Sintético (BHA)', '100% Natural (Tocoferóis)', 'Sintético (BHA)', 'Estabilidade lipídica'],
+          ],
+        },
+        callout: {
+          type: 'atencao',
+          title: 'Proteína Elevada em Gatos Castrados',
+          text: 'Ao contrário de cães, felinos têm o metabolismo gliconeogênico hepaticamente fixado no consumo de aminoácidos. Fórmulas com mais de 40% de Proteína Bruta na Matéria Seca (como a Pro Plan Castrados) protegem ativamente a massa muscular de felinos que gastam menos calorias no dia a dia.',
+        },
+      },
+      {
+        id: 'fontes-proteicas-e-ingredientes-nobres',
+        heading: '3. Anatomia dos Ingredientes: Carne Fresca vs Concentrados Proteicos',
+        paragraphs: [
+          'A análise da ordem decrescente de ingredientes (conforme mandamento do Art. 16 da IN MAPA nº 22/2009) expõe de forma cristalina as escolhas tecnológicas de cada fabricante.',
+          'Nas embalagens da Purina Pro Plan, o primeiro ingrediente declarado é carne mecanicamente separada de frango (mín. 19% na versão adultos) ou pedaços de salmão (mín. 14% na versão castrados), seguidos por farinha de vísceras de aves e farinha de torresmo. Essa composição posiciona proteínas animais nobres no topo absoluto da matriz digestiva, complementada com colostro bovino em pó (mín. 0,1%) para reforço da imunidade mucosal e prebiótico inulina (mín. 1%).',
+          'Na Royal Canin, o topo da formulação baseia-se na tradicional farinha de vísceras de aves, associada a grãos moídos (milho moído e quirera de arroz), farinha de trigo e glúten de trigo / farelo de glúten de milho. A Royal Canin utiliza essas frações concentradas de glúten para elevar a proteína analítica sem inflar a matéria mineral, além de recorrer a um mix robusto de fibras insolúveis (fibra de soja, fibra de ervilha e casca de psyllium).',
+        ],
+      },
+      {
+        id: 'antioxidantes-e-conservacao-natural-vs-sintetica',
+        heading: '4. Conservação Tecnológica: Antioxidantes Naturais vs BHA Sintético',
+        paragraphs: [
+          'O grande divisor de águas entre as duas marcas no sistema determinístico do PetRankings reside na conservação lipídica especificada no bloco de aditivos tecnológicos.',
+          'A Purina Pro Plan realizou a modernização completa do seu portfólio no Brasil: todos os lotes modernos analisados são estabilizados exclusivamente com concentrado de tocoferóis (formas naturais de Vitamina E) e extrato botânico de alecrim (*Rosmarinus officinalis*). Por essa razão e pela presença de carne nobre, a Purina Pro Plan Castrados conquista a pontuação máxima de Score 100 (Nível Ouro) em nossa plataforma.',
+          'Já a Royal Canin do Brasil mantém o conservante químico industrial BHA (Butil-hidroxianisol - INS 320) como antioxidante de suas principais linhas de varejo. Embora o aditivo seja legalizado e aprovado dentro dos limites toxicológicos da IN MAPA nº 110/2020 e da EFSA, o algoritmo do PetRankings premia produtos que eliminam fenóis sintéticos da rotina alimentar de carnívoros domésticos. Esse fator mantém a Royal Canin FIT 32 e Castrados na classificação Nível Prata (Score 85).',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Como Conferir o Conservante na Embalagem',
+          text: 'Vá até o bloco "Aditivos Tecnológicos" ao final da lista de ingredientes no verso do pacote. A presença do termo "BHA" indica conservante químico, enquanto "concentrado de tocoferóis" e "extrato de alecrim" atestam conservação natural.',
+        },
+      },
+      {
+        id: 'saude-urinaria-ph-e-controle-de-estruvita',
+        heading: '5. Manejo do Trato Urinário Inferior (DTUIF) e Saúde Oral',
+        paragraphs: [
+          'A saúde do trato urinário é a maior vulnerabilidade clínica de felinos domiciliados. Ambas as marcas tratam a prevenção da Doença do Trato Urinário Inferior dos Felinos (DTUIF) com profundo rigor científico.',
+          'Tanto a Pro Plan quanto a Royal Canin incorporam agentes acidificantes urinários — em especial o bissulfato de sódio e o aminoácido DL-metionina —, com o objetivo de estabilizar o pH da urina na faixa ligeiramente ácida (entre 6,2 e 6,5), impedindo a precipitação de cristais de fosfato de amônio e magnésio (estruvita).',
+          'A Purina Pro Plan apresenta um benefício profilático adicional ao incorporar pirofosfato de sódio (mín. 0,1%), aditivo quelante que se liga ao cálcio da saliva, inibindo a calcificação da placa bacteriana e retardando a formação do cálculo dentário (tártaro).',
+          'Já a Royal Canin destaca-se pelo gerenciamento mecânico do trato gastrointestinal: seu teor elevado de fibras insolúveis (7,61% MS na Castrados vs 6,25% na Pro Plan) oferece ação anti-hairball superior, promovendo o arraste contínuo de pelos deglutidos nas fezes e reduzindo episódios de vômitos por tricobezoares.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual das duas marcas é mais indicada para gatos castrados que tendem ao sobrepeso?',
+        a: 'A Royal Canin Castrados oferece maior saciedade mecânica inicial graças à sua alta carga de fibras vegetais insolúveis (7,61% na Matéria Seca) e menor teor de gordura (10,87% MS). No entanto, a Purina Pro Plan Castrados entrega concentração proteica superior (43,18% MS), sendo excelente para gatos que precisam queimar gordura preservando massa muscular magra.',
+      },
+      {
+        q: 'Por que a Purina Pro Plan tem nota superior à Royal Canin no PetRankings?',
+        a: 'A diferença nas notas decorre da metodologia objetiva do PetRankings: a Purina Pro Plan eliminou conservantes químicos industriais (adotando tocoferóis naturais e alecrim) e posiciona carne fresca/mecanicamente separada no topo da composição básica, enquanto a Royal Canin ainda utiliza o conservante sintético BHA e concentrações de glúten de milho/trigo.',
+      },
+      {
+        q: 'A Royal Canin FIT 32 é uma ração ruim para gatos?',
+        a: 'Não. A Royal Canin FIT 32 é uma das fórmulas mais estáveis e testadas do mercado global, cumprindo integralmente as diretrizes da ABINPET e FEDIAF. Possui excelente palatabilidade e ótimo controle mineral, situando-se como uma Super Premium confiável com Score 85 (Nível Prata).',
+      },
+      {
+        q: 'Posso misturar Pro Plan e Royal Canin no mesmo comedouro?',
+        a: 'Não é recomendável misturar duas marcas diariamente sem critério, pois você perde o controle exato da saturação urinária e da resposta digestiva. Caso queira alternar, realize a transição gradual ao longo de 7 a 10 dias.',
+      },
+      {
+        q: 'Gatos que comem Pro Plan ou Royal Canin ainda precisam de sachê?',
+        a: 'Sim. Por mais completa e avançada que seja a ração seca, felinos possuem baixa percepção espontânea de sede. A oferta diária de sachês úmidos completos (Mix Feeding) é a estratégia clínica padrão-ouro para aumentar o volume urinário e resguardar os rins ao longo da vida.',
+      },
+    ],
+    conclusion:
+      'Em conclusão, o duelo entre Royal Canin e Purina Pro Plan no segmento felino coloca frente a frente duas gigantes da nutrição pet com abordagens distintas. A Royal Canin se destaca pela consistência zootécnica de longa data e pelo manejo mecânico avançado de fibras contra bolas de pelo, mas peca pela manutenção do conservante sintético BHA. A Purina Pro Plan dá um passo à frente na formulação moderna ao entregar teores proteicos expressivamente superiores em Matéria Seca (ultrapassando 40% a 43% MS), carne fresca no topo dos ingredientes e conservação 100% natural com tocoferóis, consolidando uma proposta de valor técnico superior nas prateleiras brasileiras.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 4: Exigências Nutricionais Mínimas e Tetos de Minerais para Gatos Adultos e Castrados em Matéria Seca',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'FEDIAF (European Pet Food Industry Federation)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
+        details: 'Feline Specific Metabolic Needs: Obligate Carnivore Protein Catabolism and Relative Supersaturation (RSS) in Urinary Tract Health',
+      },
+      {
+        title: 'Instruções Normativas MAPA nº 30/2009 e nº 110/2020',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamento Técnico de Alimentos Completos para Animais de Companhia e limites de aditivos tecnológicos antioxidantes',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais: Purina Pro Plan Gatos Adultos Frango e Castrados Salmão',
+        institution: 'Nestlé Brasil Ltda. / Purina',
+        type: 'rotulagem',
+        details: 'Níveis de garantia declarados (40,9% e 43,18% PB na MS), carnes frescas e antioxidantes naturais tocoferóis sob custódia probatória',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais: Royal Canin FIT Feline e Royal Canin Castrados 37',
+        institution: 'Royal Canin do Brasil / Mars Petcare',
+        type: 'rotulagem',
+        details: 'Níveis de garantia declarados na MS, perfil de fibras insolúveis e conservante químico BHA sob custódia probatória',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos Super Premium para Gatos no Catálogo PetRankings',
+      text: 'O Observatório PetRankings analisa a rotulagem oficial e recalcula na Matéria Seca os níveis de mais de 1.000 produtos registrados no Brasil. Compare fórmulas para gatos castrados e adultos com transparência total.',
+      buttonText: 'Explorar Catálogo de Alimentos Felinos',
+      buttonUrl: '/catalogo?esp=GATO&classificacao=SUPER_PREMIUM',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
