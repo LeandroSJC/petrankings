@@ -656,7 +656,7 @@ export default function ComparatorView({ initialProducts }: ComparatorViewProps)
           </div>
 
           {/* Container Responsivo da Tabela com Scroll Horizontal Suave */}
-          <div style={{ overflowX: 'auto', width: '100%' }}>
+          <div style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
             <table
               style={{
                 width: '100%',

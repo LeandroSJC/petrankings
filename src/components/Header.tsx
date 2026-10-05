@@ -177,8 +177,8 @@ export default function Header() {
             style={{
               alignItems: 'center',
               justifyContent: 'center',
-              width: '40px',
-              height: '40px',
+              width: '44px',
+              height: '44px',
               borderRadius: 'var(--radius-sm)',
               color: 'var(--brand-forest-900)',
               backgroundColor: 'var(--bg-muted)',

@@ -60,7 +60,7 @@ export async function generateMetadata({
     title: `Avaliação Nutricional: ${product.commercialName} — PetRankings`,
     description:
       product.editorialOpinion ||
-      `Laudo técnico documental de ${product.commercialName}. Avaliação nutricional em Matéria Seca conforme parâmetros da ABINPET e MAPA.`,
+      `Avaliação técnica documental de ${product.commercialName}. Avaliação nutricional em Matéria Seca conforme parâmetros da ABINPET e MAPA.`,
     alternates: {
       canonical: `/produto/${slug}`,
     },
@@ -204,7 +204,7 @@ export default async function ProductDetailPage({
             },
             reviewBody:
               product.editorialOpinion ||
-              `Laudo técnico com cálculo de Matéria Seca (MS), equilíbrio Cálcio:Fósforo e análise de ingredientes de ${product.commercialName}.`,
+              `Dossiê técnico com cálculo de Matéria Seca (MS), equilíbrio Cálcio:Fósforo e análise de ingredientes de ${product.commercialName}.`,
           },
           aggregateRating: {
             '@type': 'AggregateRating',
@@ -217,7 +217,7 @@ export default async function ProductDetailPage({
       : {
           '@type': 'ItemPage',
           '@id': `${SITE_URL}/produto/${product.slug}#webpage`,
-          name: `Laudo Técnico: ${product.commercialName}`,
+          name: `Avaliação Técnica: ${product.commercialName}`,
           description:
             product.editorialOpinion ||
             `Ficha técnica oficial e custódia documental de alimento coadjuvante ${product.commercialName}.`,
@@ -273,7 +273,7 @@ export default async function ProductDetailPage({
             <BackButton label="Voltar ao Catálogo Geral" />
           </div>
 
-          {/* CABEÇALHO DO LAUDO TÉCNICO */}
+          {/* CABEÇALHO DA AVALIAÇÃO TÉCNICA */}
           <div
             style={{
               backgroundColor: '#ffffff',

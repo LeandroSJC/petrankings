@@ -361,6 +361,8 @@ h1, h2, h3, h4, .font-serif, .font-heading {
   align-items: center;
   gap: 8px;
   font-size: 0.92rem;
+  padding: 4px 0;
+  min-height: 36px;
 }
 
 .footer-link:hover {
@@ -432,7 +434,7 @@ h1, h2, h3, h4, .font-serif, .font-heading {
   border: 1.5px solid var(--border-cream);
   background-color: #ffffff;
   color: var(--text-main);
-  font-size: 0.96rem;
+  font-size: 1rem; /* 16px para prevenir auto-zoom no iOS Safari */
   font-family: inherit;
   transition: var(--transition-fast);
 }
@@ -709,6 +711,7 @@ h1, h2, h3, h4, .font-serif, .font-heading {
 .table-nutri-wrapper {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border-cream);
   border-radius: var(--radius-md);
   background-color: #ffffff;
@@ -1153,6 +1156,38 @@ h1, h2, h3, h4, .font-serif, .font-heading {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
+  }
+
+  /* Otimização de Touch Targets & Prevenção de Auto-Zoom no iOS */
+  .form-input,
+  input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  textarea,
+  select,
+  .toolbar-select {
+    font-size: 16px !important; /* Previne auto-zoom involuntário no iOS Safari */
+    min-height: 44px;
+  }
+
+  .omni-chip-btn {
+    min-height: 38px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+  }
+
+  .editorial-btn-primary,
+  .editorial-btn-secondary {
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-search-submit-btn span {
+    display: none;
+  }
+  .hero-search-submit-btn {
+    padding: 10px 14px !important;
   }
 }
 

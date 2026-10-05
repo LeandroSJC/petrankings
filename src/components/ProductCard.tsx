@@ -337,7 +337,7 @@ export default function ProductCard({
               href={`/produto/${product.slug}`}
               className="editorial-btn-primary"
             >
-              <span>Ver Laudo Completo</span>
+              <span>Ver Análise Completa</span>
               <ArrowRight size={14} />
             </Link>
 
@@ -349,17 +349,18 @@ export default function ProductCard({
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '6px',
-                padding: '6px 12px',
+                padding: '8px 12px',
+                minHeight: '38px',
                 borderRadius: 'var(--radius-xs)',
                 backgroundColor: 'var(--bg-subtle)',
                 border: '1px solid var(--border-cream-dark)',
                 color: 'var(--brand-forest-900)',
-                fontSize: '0.76rem',
+                fontSize: '0.80rem',
                 fontWeight: 600,
                 textDecoration: 'none',
               }}
             >
-              <Scale size={13} />
+              <Scale size={14} />
               <span>Comparar</span>
             </Link>
 
@@ -367,6 +368,9 @@ export default function ProductCard({
               <Link
                 href={`/produto/${product.slug}#onde-comprar`}
                 className="editorial-btn-secondary"
+                style={{
+                  minHeight: '38px',
+                }}
               >
                 <ShoppingCart size={13} />
                 <span>Onde Comprar</span>
