@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { stripWeightFromTitle, normalizeIngredient } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredient, stripFootnotesFromIngredient } from '@/lib/utils';
 
 export interface ProductHtmlMetadata {
   commercialName: string;
@@ -1207,7 +1207,7 @@ export function parseProductFromHtml(
   if (isPetFoodSolution) {
     if (!compText) {
       const body = $('body').text();
-      const m = body.match(/Composi[çc][ãa]o\s+(?:b[áa]sica|qualitativa)[^:]*:\s*([\s\S]{30,2500}?)(?:EVENTUAIS|Enriquecimento|N[íi]veis|Modo|$)/i);
+      const m = body.match(/Composi[çc][ãa]o\s+(?:b[áa]sica|qualitativa)[^:]*:\s*([\s\S]{30,3500}?)(?:Enriquecimento|N[íi]veis|Modo|$)/i);
       if (m) compText = m[1].trim();
     }
     if (!garText) {
@@ -1364,9 +1364,9 @@ export function parseProductFromHtml(
     .replace(/\s+/g, ' ')
     .trim();
 
-  cleanComp = cleanComp.split(/Eventuais\s+substitutivos[:\s]/i)[0];
+  cleanComp = cleanComp.split(/Eventuais\s+substitut(?:os|ivos)[:\s]/i)[0];
   cleanComp = cleanComp.split(/Cont[ée]m,?\s+(?:na\s+composi[çc][ãa]o,?\s+)?alimento\s+geneticamente\s+modificado[:\s]/i)[0];
-  cleanComp = cleanComp.split(/Esp[ée]cies\s+doadoras\s+de\s+gene[:\s]/i)[0];
+  cleanComp = cleanComp.split(/Esp[ée]cies\s+doadoras(?:\s+d[eo]\s+gene)?[:\s]/i)[0];
   cleanComp = cleanComp.split(/\*Cont[ée]m/i)[0];
   cleanComp = cleanComp.split(/\*Ingredientes/i)[0];
 
@@ -1411,30 +1411,67 @@ export function parseProductFromHtml(
   }
 
   // 8. Transgênicos e Antioxidantes
-  const hasExplicitGmo = /\*Cont[ée]m.*transg|Esp[ée]cies\s+doadoras|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText);
-  const hasAsteriskGmo = /(?:milho|soja|algod[ãa]o|canola)\s*\*+/i.test(compText);
-  const isFreeOfGmo = /n[ãa]o\s+transg[êe]nico|sem\s+transg[êe]nico|livre\s+de\s+(?:ingredientes\s+)?geneticamente\s+modificados?/i.test(compText + ' ' + bodyText.slice(0, 1500));
+  const fullContextText = compText + ' ' + bodyText;
 
-  const containsGmo = (hasExplicitGmo || hasAsteriskGmo) && !isFreeOfGmo;
+  const hasExplicitDoadoras = /Esp[ée]cies\s+doadoras/i.test(fullContextText);
+  const hasExplicitGmo = /\*Cont[ée]m.*transg|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText);
+  const hasAsteriskGmo = /(?:milho|soja|algod[ãa]o|canola|trigo)\s*\*+/i.test(compText);
+  const hasNumberGmo =
+    /(?:milho|soja|algod[ãa]o|canola|trigo)\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText) ||
+    /(?:milho|soja|algod[ãa]o|canola|trigo)\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText);
+
+  const isFreeOfGmo =
+    !hasExplicitDoadoras &&
+    !hasNumberGmo &&
+    /n[ãa]o\s+transg[êe]nico|sem\s+transg[êe]nico|livre\s+de\s+(?:ingredientes\s+)?geneticamente\s+modificados?|100%\s+livre\s+de\s+transg[êe]nicos?/i.test(
+      compText + ' ' + bodyText.slice(0, 1500)
+    );
+
+  const containsGmo = (hasExplicitDoadoras || hasExplicitGmo || hasAsteriskGmo || hasNumberGmo) && !isFreeOfGmo;
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
+    const doadorasMatch =
+      fullContextText.match(/Esp[ée]cies\s+doadoras\s+(?:d[eo]\s+gene\s*)?[:\s]*([^.<]+)/i) ||
+      fullContextText.match(/Esp[ée]cies\s+doadoras[:\s]*([^.<]+)/i);
+
     const gmoMatch =
-      compText.match(/(?:alimento\s+geneticamente\s+modificado|\*Cont[ée]m)\s*[:\s]*([^.]+)/i) ||
-      compText.match(/Esp[ée]cies\s+doadoras\s+de\s+gene[:\s]*([^.]+)/i);
-    if (gmoMatch) {
+      compText.match(/(?:alimento\s+geneticamente\s+modificado|\*Cont[ée]m)\s*[:\s]*([^.]+)/i);
+
+    // Identifica quais grãos são transgênicos
+    const detectedGrains: string[] = [];
+    if (/milho/i.test(compText) && (hasExplicitDoadoras || /milho\s*\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+      detectedGrains.push('Milho');
+    }
+    if (/soja/i.test(compText) && (hasExplicitDoadoras || /soja\s*\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+      detectedGrains.push('Soja');
+    }
+    if (/trigo/i.test(compText) && (hasExplicitDoadoras || /trigo\s*\*+|trigo\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+      detectedGrains.push('Trigo');
+    }
+    if (/algod[ãa]o/i.test(compText) && (hasExplicitDoadoras || /algod[ãa]o\s*\*+|algod[ãa]o\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+      detectedGrains.push('Algodão');
+    }
+    if (/canola/i.test(compText) && (hasExplicitDoadoras || /canola\s*\*+|canola\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+      detectedGrains.push('Canola');
+    }
+
+    const grainsLabel = detectedGrains.length > 0 ? detectedGrains.join(' e ') : 'Derivados de grãos';
+
+    if (doadorasMatch) {
+      const cleanDoadoras = doadorasMatch[1]
+        .replace(/^[,\s]*/, '')
+        .replace(/[*†‡¹²³⁴⁵⁶⁷⁸⁹]/g, '')
+        .replace(/[0-9]+/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      gmoIngredients = `${grainsLabel} transgênicos (espécies doadoras de gene: ${cleanDoadoras})`;
+    } else if (gmoMatch) {
       gmoIngredients = gmoMatch[1]
         .replace(/^[,\s]*(?:na\s+composi[çc][ãa]o,?\s*)?(?:alimento\s+geneticamente\s+modificado\s*[:\s]*)?/i, '')
         .trim();
-    } else if (hasAsteriskGmo) {
-      const gmoItems: string[] = [];
-      if (/milho\s*\*+/i.test(compText)) gmoItems.push('Milho');
-      if (/soja\s*\*+/i.test(compText)) gmoItems.push('Soja');
-      if (/algod[ãa]o\s*\*+/i.test(compText)) gmoItems.push('Algodão');
-      if (/canola\s*\*+/i.test(compText)) gmoItems.push('Canola');
-      if (gmoItems.length > 0) {
-        gmoIngredients = gmoItems.join(' e ') + ' geneticamente modificados';
-      }
+    } else if (detectedGrains.length > 0) {
+      gmoIngredients = `${detectedGrains.join(' e ')} geneticamente modificados`;
     }
   }
 

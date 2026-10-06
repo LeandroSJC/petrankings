@@ -78,6 +78,29 @@ export function stripWeightFromTitle(title: string): string {
 }
 
 /**
+ * Remove notas de rodapé de transgênicos (números anexados, expoentes e asteriscos)
+ * preservando vitaminas (vitamina D3, B12) e ingredientes técnicos como "glúten de milho 60".
+ * Ex: "Grão de milho1" -> "Grão de milho"
+ * Ex: "Farelo de glúten de milho 601" -> "Farelo de glúten de milho 60"
+ * Ex: "Farelo de trigo2" -> "Farelo de trigo"
+ * Ex: "Milho moído¹" -> "Milho moído"
+ * Ex: "Farelo de soja**" -> "Farelo de soja"
+ */
+export function stripFootnotesFromIngredient(text: string): string {
+  if (!text) return '';
+  let s = text.trim();
+  // Remove asteriscos, punhais e expoentes Unicode (ex: ¹, ², ³, ⁴, *, **)
+  s = s.replace(/[*†‡¹²³⁴⁵⁶⁷⁸⁹]+/g, '');
+  // Preserva "glúten de milho 60" removendo apenas o dígito de rodapé anexado (ex: "601" -> "60")
+  s = s.replace(/\b(gl[uú]ten\s+de\s+milho\s+60)[0-9]+\b/gi, '$1');
+  // Remove dígitos colados a nomes de grãos e ingredientes vegetais transgênicos (ex: milho1, trigo2, soja1)
+  s = s.replace(/\b(milho|trigo|soja|algod[ãa]o|canola|arroz|sorgo|aveia|centeio|cevada)[0-9]+\b/gi, '$1');
+  // Remove nota de rodapé numérica isolada no final do ingrediente (ex: "Farelo de trigo 2" -> "Farelo de trigo")
+  s = s.replace(/\s+[1-9]\b/g, '');
+  return s.trim();
+}
+
+/**
  * Normaliza o texto de um ingrediente individual, convertendo textos em CAIXA ALTA (ALL CAPS)
  * para a escrita padrão (primeira letra maiúscula e restante minúsculo),
  * preservando siglas técnicas (BHT, BHA, DHA, EPA, MOS, FOS), vitaminas (vitamina A, D3, B12)
@@ -85,7 +108,7 @@ export function stripWeightFromTitle(title: string): string {
  */
 export function normalizeIngredient(text: string): string {
   if (!text) return '';
-  let str = text.trim();
+  let str = stripFootnotesFromIngredient(text.trim());
 
   // Se não tem letras, retorna como está
   if (!/[a-zA-ZÀ-ÿ]/.test(str)) return str;
