@@ -126,30 +126,56 @@ async function createDuelCover(pack1Path, pack2Path, outputFileName) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
+  // 1. Torna transparente qualquer fundo branco opaco
   const p1Buf = await makeWhiteBackgroundTransparent(pack1Path);
   const p2Buf = await makeWhiteBackgroundTransparent(pack2Path);
 
-  const p1Resized = await sharp(p1Buf).resize({ height: 490 }).toBuffer();
+  // 2. Auto-Trim inteligente: recorta 100% das margens transparentes ou vazias
+  // Isso isola a caixa delimitadora (bounding box) física exata do pacote,
+  // eliminando qualquer disparidade de zoom ou enquadramento original da foto.
+  const p1Trimmed = await sharp(p1Buf).trim().toBuffer();
+  const p2Trimmed = await sharp(p2Buf).trim().toBuffer();
+
+  const m1Trimmed = await sharp(p1Trimmed).metadata();
+  const m2Trimmed = await sharp(p2Trimmed).metadata();
+
+  console.log(`[Duelo de Marcas] Pacote 1 (físico recortado): ${m1Trimmed.width}x${m1Trimmed.height}`);
+  console.log(`[Duelo de Marcas] Pacote 2 (físico recortado): ${m2Trimmed.width}x${m2Trimmed.height}`);
+
+  // 3. Altura padrão unificada para ambas as embalagens no palco de confronto
+  const TARGET_HEIGHT = 480;
+
+  // Redimensiona as embalagens recortadas para terem rigorosamente a mesma altura útil
+  const p1Resized = await sharp(p1Trimmed).resize({ height: TARGET_HEIGHT, fit: 'inside' }).toBuffer();
   const m1 = await sharp(p1Resized).metadata();
 
-  const p2Resized = await sharp(p2Buf).resize({ height: 490 }).toBuffer();
+  const p2Resized = await sharp(p2Trimmed).resize({ height: TARGET_HEIGHT, fit: 'inside' }).toBuffer();
   const m2 = await sharp(p2Resized).metadata();
 
+  console.log(`[Duelo de Marcas] Pacote 1 final equalizado: ${m1.width}x${m1.height}`);
+  console.log(`[Duelo de Marcas] Pacote 2 final equalizado: ${m2.width}x${m2.height}`);
+
+  // 4. Alinhamento de base no piso (bottom baseline) para assentamento perfeito sobre as sombras
+  // O piso onde as sombras elípticas de contato estão desenhadas fica em y = 560
+  const floorY = 560;
+  const topY1 = floorY - m1.height;
+  const topY2 = floorY - m2.height;
+
+  // Centralização horizontal nos eixos dos pedestais (x = 360 e x = 840)
   const leftX1 = Math.round(360 - m1.width / 2);
   const leftX2 = Math.round(840 - m2.width / 2);
-  const topY = 80;
 
   const outputPath = path.join(outputDir, outputFileName);
 
   await sharp(Buffer.from(getStudioSvgBg()))
     .composite([
-      { input: p1Resized, top: topY, left: leftX1 },
-      { input: p2Resized, top: topY, left: leftX2 },
+      { input: p1Resized, top: topY1, left: leftX1 },
+      { input: p2Resized, top: topY2, left: leftX2 },
     ])
     .webp({ quality: 94 })
     .toFile(outputPath);
 
-  console.log(`[Duelo de Marcas] Capa gerada com sucesso: ${outputPath}`);
+  console.log(`[Duelo de Marcas] Capa gerada com sucesso e proporções equalizadas: ${outputPath}`);
 }
 
 module.exports = { createDuelCover };
