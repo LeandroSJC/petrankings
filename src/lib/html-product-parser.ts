@@ -52,6 +52,10 @@ function capitalizeTitle(str: string): string {
     premier: 'PremieR',
     golden: 'GoldeN',
     'n&d': 'N&D',
+    prohealth: 'ProHealth',
+    allcats: 'AllCats',
+    qualiday: 'Qualiday',
+    qualyday: 'Qualiday',
   };
 
   return s
@@ -456,6 +460,21 @@ export function parseProductFromHtml(
     }
   }
 
+  // 1f. Extração Pet Food Solution (ProHealth, Qualiday, AllCats, Special Croc)
+  const isPetFoodSolution = /petfoodsolution\.com\.br/i.test(sourceUrl);
+  if (!imageUrl && isPetFoodSolution) {
+    const pfsImg = $('img')
+      .filter((_, el) => {
+        const s = $(el).attr('src') || '';
+        return /full-|testeira|banner-castrados/i.test(s) && !s.includes('mobile');
+      })
+      .first()
+      .attr('src');
+    if (pfsImg) {
+      imageUrl = pfsImg.startsWith('http') ? pfsImg : 'https://www.petfoodsolution.com.br/br/' + pfsImg.replace(/^\//, '');
+    }
+  }
+
   // Normalização de URL relativa para absoluta se necessário
   if (imageUrl && !imageUrl.startsWith('http') && sourceUrl.startsWith('http')) {
     try {
@@ -695,6 +714,26 @@ export function parseProductFromHtml(
       pName = $('title').text().replace(/\|\s*Purina.*$/i, '').trim() || $('meta[property="og:title"]').attr('content') || '';
     }
     rawName = pName;
+  } else if (isPetFoodSolution) {
+    if (/croc-gatos-castrados/i.test(sourceUrl)) {
+      rawName = 'Special Croc Gatos Castrados';
+    } else {
+      let t = $('title').text().replace(/\|\s*Pet\s*Food\s*Solution.*$/i, '').trim();
+      t = t.replace(/\s*-\s*/g, ' ');
+      t = t.replace(/\bQualyday\b/gi, 'Qualiday');
+      t = t.replace(/\bFilhote\b/gi, 'Filhotes');
+      t = t.replace(/\bCastrado\b/gi, 'Castrados');
+      t = t.replace(/\bAdulto\b/gi, 'Adultos');
+      if (/qualiday\s*prolife/i.test(t)) {
+        if (!/gatos\s*adultos/i.test(t)) {
+          t = t.replace(/qualiday\s*prolife/i, 'Qualiday Prolife Gatos Adultos Sabor');
+        }
+        if (!/pouch|úmido/i.test(t)) {
+          t = `${t} Pouch`;
+        }
+      }
+      rawName = t;
+    }
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -721,7 +760,7 @@ export function parseProductFromHtml(
         sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?$/i) ||
         sourceUrl.match(/\/([^/]+)\/?$/);
       if (m && m[1] && m[1] !== 'produto' && m[1] !== 'products' && m[1] !== 'index' && m[1].length > 3) {
-        slug = m[1];
+        slug = m[1].replace(/\.php$/i, '').replace(/\.html?$/i, '');
       }
     }
   }
@@ -885,6 +924,21 @@ export function parseProductFromHtml(
     } else {
       brand = 'Quatree';
     }
+  } else if (isPetFoodSolution || /prohealth|allcats|qualiday|qualyday|special\s*croc/i.test(commercialName)) {
+    manufacturerLegalName = 'Pet Food Solution Indústria e Comércio de Alimentos Ltda';
+    if (/prohealth/i.test(commercialName) || /prohealth/i.test(sourceUrl)) {
+      brand = 'ProHealth';
+    } else if (/qualiday\s*prolife|prolife/i.test(commercialName) || /qualidayprolife|prolife/i.test(sourceUrl)) {
+      brand = 'Qualiday Prolife';
+    } else if (/qual[iy]day/i.test(commercialName) || /qual[iy]day/i.test(sourceUrl)) {
+      brand = 'Qualiday';
+    } else if (/allcats|allgats/i.test(commercialName) || /allcats|allgats/i.test(sourceUrl)) {
+      brand = 'AllCats';
+    } else if (/croc/i.test(commercialName) || /croc/i.test(sourceUrl)) {
+      brand = 'Special Croc';
+    } else {
+      brand = 'Pet Food Solution';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -893,8 +947,8 @@ export function parseProductFromHtml(
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -1149,6 +1203,20 @@ export function parseProductFromHtml(
     });
   }
 
+  // 5f-2. Pet Food Solution (Composição básica/qualitativa e Níveis de garantia)
+  if (isPetFoodSolution) {
+    if (!compText) {
+      const body = $('body').text();
+      const m = body.match(/Composi[çc][ãa]o\s+(?:b[áa]sica|qualitativa)[^:]*:\s*([\s\S]{30,2500}?)(?:EVENTUAIS|Enriquecimento|N[íi]veis|Modo|$)/i);
+      if (m) compText = m[1].trim();
+    }
+    if (!garText) {
+      const body = $('body').text();
+      const m = body.match(/N[íi]veis\s+de\s+garantia[\s\S]{30,3000}?(?:Modo\s+de\s+Uso|Guia|Enriquecimento|$)/i);
+      if (m) garText = m[0].trim();
+    }
+  }
+
   // 5g. Fallback de tabelas HTML
   if (!garText) {
     const tableRows: string[] = [];
@@ -1222,29 +1290,29 @@ export function parseProductFromHtml(
   };
 
   const umidadeMaxPct =
-    parseGuarantee(/Umidade[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/Umidade[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 86.0 : 10.0);
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   const proteinaBrutaMinPct =
-    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)t?[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const extratoEtereoMinPct =
-    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?)[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const materiaMineralMaxPct =
-    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas)[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 2.5 : 8.0);
 
   const materiaFibrosaMaxPct =
-    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 1.5 : 3.5);
 
   // Extração determinística de Cálcio Mín. e Máx.
   const { min: calcioMinPct, max: calcioMaxPct } = extractCalciumPrecise(garText, foodType);
 
   const fosforoMinPct =
-    parseGuarantee(/F[óo]sforo[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/F[óo]sforo[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.15 : 0.7);
 
   let sodioMinPct: number | null = null;
@@ -1254,7 +1322,7 @@ export function parseProductFromHtml(
     sodioMinPct = parseValFromText(sLine, /(?:(?:m[íi]n\.?|m[íi]nimo)[^\d]*)?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
   }
   if (sodioMinPct === null) {
-    const sMatch = garText.match(/(?:^|[\n\r])\s*S[óo]dio(?!\s*de)\b[^\n\d]{0,35}(?:(?:m[íi]n\.?|m[íi]nimo)[^\n\d]{0,15})?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    const sMatch = garText.match(/(?:^|[\n\r])\s*S[óo]dio(?!\s*de)\b[^\d]{0,45}(?:(?:m[íi]n\.?|m[íi]nimo)[^\d]{0,20})?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
     if (sMatch) {
       sodioMinPct = parseValFromText(sMatch[0], /(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
     }
@@ -1264,7 +1332,7 @@ export function parseProductFromHtml(
   }
 
   const omega3MinPct =
-    parseGuarantee(/[ÔO]mega\s*3[^\d\n]*(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || null;
+    parseGuarantee(/[ÔO]mega\s*3[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || null;
 
 
   // Energia Metabolizável
