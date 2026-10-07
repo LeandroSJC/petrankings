@@ -1564,6 +1564,204 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo?esp=GATO&classificacao=SUPER_PREMIUM',
     },
   },
+  {
+    slug: 'racao-senior-caes-controle-fosforo-rins',
+    title: 'Ração sênior para cães: Por que o controle de fósforo é vital a partir dos 7 anos?',
+    subtitle: 'Como a redução preventiva de fósforo e a manutenção de proteínas de alto valor biológico protegem a função renal e combatem a perda muscular no cão idoso.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-06',
+    updatedAt: '2026-10-06',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-senior-caes-controle-fosforo-cover.webp',
+    isFeatured: true,
+    summary:
+      'Entenda por que cães a partir dos 7 anos necessitam de dietas com fósforo estritamente controlado para evitar sobrecarga renal subclínica, por que cortar proteína é um erro grave contra a sarcopenia e como avaliar os rótulos de rações sênior na Matéria Seca (MS).',
+    relatedProductSlugs: [
+      'premier-formula-caes-senior-portes-grande-e-gigante-sabor-frango',
+      'ned-ancestral-grain-canine-frango-e-roma-senior-medium-e-maxi',
+      'proplan-caes-adult-7-todos-os-tamanhos',
+      'golden-formula-caes-seniores-porte-pequeno-carne-e-arroz',
+    ],
+    sections: [
+      {
+        id: 'filtro-renal-e-fosforo',
+        heading: '1. O Inimigo Silencioso dos Rins Caninos na Terceira Idade',
+        paragraphs: [
+          'Quando os primeiros pelos brancos começam a despontar ao redor do focinho e o cão passa a hesitar alguns segundos antes de pular no sofá, uma transformação metabólica profunda já está em andamento. A partir dos 7 anos de idade em cães de porte médio e grande (ou 8 a 9 anos em raças pequenas), os rins iniciam uma perda gradual e natural da sua taxa de filtração glomerular.',
+          'Nessa etapa da vida, o fósforo deixa de ser apenas um mineral estrutural dos ossos e dentes para se tornar o principal marcador de sobrecarga metabólica. Como o excesso de fósforo ingerido na dieta é eliminado quase exclusivamente pelos rins, o declínio da capacidade de filtração faz com que o mineral comece a se acumular na corrente sanguínea de forma silenciosa e imperceptível.',
+          'Esse acúmulo subclínico estimula precocemente as glândulas paratireoides a produzirem paratormônio (PTH) em excesso. O resultado é o hiperparatireoidismo secundário renal: o organismo retira cálcio dos ossos para tentar equilibrar a proporção mineral no sangue, gerando microcalcificações nos túbulos renais e acelerando a perda irreversível de néfrons saudáveis muito antes de qualquer exame de rotina registrar aumento de creatinina.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Diretrizes da IRIS e Manual ABINPET 11ª Edição',
+          text: 'Segundo a International Renal Interest Society (IRIS) e as diretrizes do Manual Pet Food Brasil (ABINPET), a modulação precoce do fósforo na dieta do cão maduro reduz a pressão de filtração glomerular e atua como uma barreira preventiva contra o avanço assintomático da Doença Renal Crônica (DRC).',
+        },
+      },
+      {
+        id: 'mito-da-proteina-e-sarcopenia',
+        heading: '2. O Mito do Corte de Proteína: O Perigo Real da Sarcopenia',
+        paragraphs: [
+          'Durante décadas, circulou nos consultórios e pet shops a crença ultrapassada de que o cão idoso deveria receber uma ração com teores muito baixos de proteína. A literatura científica veterinária contemporânea comprovou que restringir proteína em um cão idoso sem falência renal terminal é um equívoco com consequências graves.',
+          'Cães idosos absorvem aminoácidos com menor eficiência digestiva do que cães jovens. Se o teor proteico for reduzido arbitrariamente, o animal entra em sarcopenia — a perda progressiva e debilitante de massa muscular esquelética. Na prática, o tutor nota o cão ficando com o dorso fino, as patas traseiras fracas, andar vacilante e enorme dificuldade para levantar da caminha após o descanso.',
+          'O segredo nutricional para a longevidade canina não está em cortar proteína, mas sim em selecionar fontes proteicas nobres de altíssima digestibilidade (farinhas de vísceras com baixo teor de cinzas, carnes frescas desidratadas e ovos) acompanhadas de rigoroso controle mineral. O objetivo é manter entre 27% e 32% de Proteína Bruta na Matéria Seca, garantindo suporte muscular completo enquanto o fósforo e a matéria mineral total permanecem comedidos.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Tradução Prática: O Que o Tutor Deve Observar no Dia a Dia',
+          text: 'Proteína de alta digestibilidade combinada a fósforo moderado traduz-se em massa muscular firme, postura ereta, disposição para passear e fezes de menor volume e bem formadas, sem exigir esforço extra do filtro renal do cão idoso.',
+        },
+      },
+      {
+        id: 'confronto-bromatologico-materia-seca',
+        heading: '3. Níveis de Garantia Confrontados na Matéria Seca (MS)',
+        paragraphs: [
+          'Para analisar com precisão matemática o que cada fabricante entrega no comedouro, eliminamos a umidade declarada nos rótulos oficiais (variando entre 9% e 12%) e convertemos todos os nutrientes para Matéria Seca (MS). Essa padronização anula a diluição provocada pela água contida nas formulações secas.',
+          'O confronto bromatológico abaixo reúne quatro das principais formulações sênior registradas no banco de dados oficial do PetRankings, confrontando os teores de proteína, fósforo, cinzas minerais e a relação estequiométrica Cálcio:Fósforo (Ca:P):',
+        ],
+        table: {
+          caption: 'Comparativo Bromatológico Oficial de Rações Sênior Caninas (Matéria Seca - MS)',
+          headers: [
+            'Produto Sênior Analisado',
+            'Fósforo (MS / MN)',
+            'Proteína Bruta (MS / MN)',
+            'Cálcio Mín./Máx. (MS)',
+            'Balanço Ca:P Calculado',
+            'Matéria Mineral (Cinzas MS)',
+          ],
+          rows: [
+            [
+              'N&D Ancestral Grain Senior Medium & Maxi',
+              '0,55% MS (0,5% MN)',
+              '29,67% MS (27% MN)',
+              '0,77% a 1,54% MS',
+              '1,40:1 (Ideal)',
+              '7,47% MS (6,8% MN)',
+            ],
+            [
+              'PremieR Formula Seniores Porte Grande & Gigante',
+              '0,56% MS (0,5% MN)',
+              '28,89% MS (26% MN)',
+              '0,89% a 1,67% MS',
+              '1,58:1 (Ideal)',
+              '8,67% MS (7,8% MN)',
+            ],
+            [
+              'GoldeN Formula Seniores Porte Pequeno',
+              '0,67% MS (0,6% MN)',
+              '27,78% MS (25% MN)',
+              '1,11% a 2,00% MS',
+              '1,66:1 (Tolerada)',
+              '9,44% MS (8,5% MN)',
+            ],
+            [
+              'Purina Pro Plan Longevidade Sênior 7+',
+              '0,91% MS (0,8% MN)',
+              '31,82% MS (28% MN)',
+              '1,14% a 2,05% MS',
+              '1,25:1 (Ideal)',
+              '9,66% MS (8,5% MN)',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'articulacoes-e-cognicao',
+        heading: '4. Articulações e Mente: O Papel da Glicosamina, Condroitina e EPA/DHA',
+        paragraphs: [
+          'O envelhecimento canino é um processo sistêmico que não se restringe aos rins. O desgaste progressivo da cartilagem hialina nas articulações de sustentação (quadril, joelhos e cotovelos) leva a quadros dolorosos de osteoartrite e artrose, enquanto o estresse oxidativo cerebral pode desencadear a Síndrome da Disfunção Cognitiva (o equivalente canino ao Alzheimer).',
+          'Alimentos sênior de excelência formulam sinergias nutricionais específicas para mitigar essas duas frentes. A suplementação com Sulfato de Glicosamina e Sulfato de Condroitina fornece blocos construtores que estimulam a síntese de proteoglicanos, mantendo a cartilagem hidratada e com capacidade de amortecimento mecânico.',
+          'Complementando a proteção articular, os ácidos graxos ômega-3 de cadeia longa (EPA e DHA de óleo de peixe de águas frias) atuam como potentes moduladores inflamatórios. Na rotina do animal, isso significa diminuir a rigidez matinal ao se levantar, proteger a microcirculação glomerular nos rins e preservar a atenção e a vivacidade do cão em relação à família.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Exigência de Níveis de Garantia Expressos',
+          text: 'Claims de embalagem como "com condroitina" ou "com ômega-3" só possuem valor técnico comprovado se os fabricantes declararem as quantidades exatas nos Níveis de Garantia oficiais (ex.: mínimo de 500 mg/kg de condroitina e 800 mg/kg de glicosamina). Desconfie de produtos que apenas citam o ingrediente sem garantir concentrações mínimas.',
+        },
+      },
+      {
+        id: 'guia-pratico-de-compra',
+        heading: '5. Guia do Tutor na Prateleira: O Que Checar no Rótulo Sênior',
+        paragraphs: [
+          'Ao escolher o alimento para o seu cão a partir dos 7 anos, siga este roteiro objetivo de verificação da rotulagem oficial para não ser induzido a erro pelo apelo visual das embalagens:',
+          '1. Verifique o Fósforo: Dê preferência a formulações que declarem fósforo entre 0,45% e 0,65% na matéria natural (até 0,70% na matéria seca). Produtos com teores de fósforo acima de 0,85% na matéria natural devem ser evitados em cães maduros sem orientação veterinária expressa.',
+          '2. Inspecione o 1º Ingrediente: O primeiro item da composição básica deve ser compulsoriamente uma fonte de proteína animal nobre (como farinha de vísceras de aves ou carnes frescas desidratadas), e não grãos ou subprodutos vegetais de baixa digestibilidade.',
+          '3. Cheque os Condroprotetores: Certifique-se de que a glicosamina e a condroitina constam expressamente na tabela de níveis de garantia com miligramas por quilo declarados.',
+          '4. Avalie o Sistema Conservante: Priorize alimentos conservados exclusivamente com tocoferóis naturais (vitamina E) e extrato de alecrim, evitando aditivos químicos sintéticos residuais como BHA e BHT.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'A partir de qual idade meu cão deve começar a consumir ração sênior?',
+        a: 'A transição varia conforme o porte biológico do cão. Raças grandes e gigantes (acima de 25 kg, como Golden Retriever, Labrador e Pastor Alemão) apresentam expectativa de vida menor e devem migrar para rações sênior a partir dos 5 a 6 anos de idade. Cães de porte médio (10 a 25 kg) devem iniciar a transição aos 7 anos. Já cães de porte pequeno e miniatura (até 10 kg), que possuem metabolismo mais longevo, ingressam na faixa sênior por volta dos 7 a 8 anos.',
+      },
+      {
+        q: 'Se meu cão idoso não tem problema renal diagnosticado no sangue, ele ainda precisa de fósforo controlado?',
+        a: 'Sim. A Doença Renal Crônica (DRC) é uma afecção insidiosa e silenciosa: os rins só manifestam aumento perceptível de creatinina e ureia nos exames de sangue tradicionais quando mais de 70% a 75% dos néfrons funcionais já foram perdidos. O controle moderado e preventivo do fósforo a partir dos 7 anos atua exatamente na preservação dessa reserva funcional, evitando a sobrecarga metabólica antes que a lesão renal se instale.',
+      },
+      {
+        q: 'Ração sênior engorda ou ajuda a emagrecer?',
+        a: 'Rações formuladas para cães seniores costumam apresentar densidade calórica moderadamente menor e teores ligeiramente superiores de fibra insolúvel quando comparadas às rações para adultos jovens ativos. Essa formulação compensa a redução natural de 15% a 20% no metabolismo basal e a menor atividade física do cão idoso, prevenindo a obesidade sem provocar perda de massa muscular.',
+      },
+      {
+        q: 'Posso misturar ração de filhote com ração sênior para aumentar o apetite do meu cão velhinho?',
+        a: 'Não é recomendável. As rações para filhotes possuem teores altíssimos de fósforo (frequentemente superiores a 1,0% ou 1,2% em Matéria Seca) e cálcio elevado para suportar a rápida ossificação esquelética. Fornecer ração de filhote a um cão idoso sobrecarrega diretamente a capacidade de filtração renal com excesso de minerais e cinzas.',
+      },
+    ],
+    conclusion:
+      'Cuidar de um cão na terceira idade exige trocar o foco da quantidade de nutrientes para a precisão bromatológica. O controle preventivo do fósforo, a entrega de proteínas nobres de altíssima digestibilidade contra a sarcopenia e a suplementação comprovada de condroprotetores e ômega-3 constituem a tríade científica para garantir que o seu companheiro envelheça com mobilidade, lucidez e rins preservados por muitos anos.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABINPET (Associação Brasileira da Indústria de Produtos para Animais de Estimação)',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 3: Exigências Nutricionais Mínimas e Tetos de Minerais para Cães Adultos em Matéria Seca (MS)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'FEDIAF (European Pet Food Industry Federation)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
+        details: 'Geriatric Dog Nutrition: Mineral Homeostasis, Glomerular Filtration Rate and Muscle Sparing Protein Needs',
+      },
+      {
+        title: 'IRIS Staging of CKD & Guidelines on Phosphorus Management in Canine Chronic Kidney Disease',
+        institution: 'IRIS (International Renal Interest Society)',
+        type: 'estudo',
+        url: 'http://www.iris-kidney.com/guidelines/staging.html',
+        details: 'Recomendações clínicas para controle dietético de fósforo e prevenção de hiperparatireoidismo secundário renal',
+      },
+      {
+        title: 'Global Nutrition Guidelines & Nutritional Assessment Guidelines (2011/2021)',
+        institution: 'WSAVA (World Small Animal Veterinary Association)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Avaliação nutricional como 5º sinal vital e triagem de condição corporal e muscular em animais geriátricos',
+      },
+      {
+        title: 'Instruções Normativas MAPA nº 30/2009 e nº 22/2009',
+        institution: 'MAPA (Ministério da Agricultura e Pecuária)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Padrões de rotulagem, ordem decrescente de ingredientes e declaração oficial de níveis de garantia em pet food',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais sob Custódia: N&D Ancestral Grain Senior, PremieR Formula Seniores, GoldeN Seniores e Purina Pro Plan Sênior 7+',
+        institution: 'Farmina Pet Foods, Grandfood / PremieRpet e Nestlé Purina',
+        type: 'rotulagem',
+        details: 'Níveis de garantia declarados e composições qualitativas oficiais custodiadas digitalmente no PetRankings com hash criptográfico SHA-256',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos Sênior para Cães no Catálogo PetRankings',
+      text: 'O Observatório PetRankings analisa a rotulagem oficial e recalcula na Matéria Seca os teores de fósforo, cálcio e proteína de centenas de alimentos sênior cadastrados no Brasil. Compare as melhores opções com transparência técnica total.',
+      buttonText: 'Explorar Catálogo de Alimentos Sênior para Cães',
+      buttonUrl: '/catalogo?esp=CAO&porte=TODOS',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
