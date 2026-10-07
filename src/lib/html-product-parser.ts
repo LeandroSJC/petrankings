@@ -1183,10 +1183,20 @@ export function parseProductFromHtml(
     }
   }
 
-  // 5e. Special Cat / Special Dog (Manfrim)
+  // 5e. Special Cat / Special Dog / Special Croc (Manfrim)
   if (!compText) {
     const specialComp = $('#descricao-composicao').text().trim();
-    if (specialComp) compText = specialComp;
+    if (specialComp) {
+      compText = specialComp;
+    } else {
+      $('p, div, h2, h3, h4').each((_, el) => {
+        const t = $(el).text().trim();
+        if (/^Composi[çc][ãa]o\s+(?:qualitativa|b[áa]sica)[:\s]*$/i.test(t)) {
+          const nextP = $(el).nextAll('p, div').first().text().trim();
+          if (nextP && !compText) compText = nextP;
+        }
+      });
+    }
   }
   if (!garText) {
     const specialGar = $('#descricao-garantia').text().trim();
@@ -1238,12 +1248,12 @@ export function parseProductFromHtml(
   const bodyText = extractStructuredBodyText($);
   if (!compText) {
     const m =
-      bodyText.match(/composi[çc][ãa]o\s*b[áa]sica[^\n]*\n([\s\S]{50,1500}?)(?:N[íi]veis\s+de\s+garantia|An[áa]lise\s+garantida|Enriquecimento|$)/i) ||
-      bodyText.match(/Ingredientes\s*[:\n]\s*([\s\S]{50,1500}?)(?:An[áa]lise\s+garantida|N[íi]veis\s+de\s+garantia|Guia\s+alimentar|$)/i);
+      bodyText.match(/composi[çc][ãa]o\s*(?:b[áa]sica|qualitativa)?[^\n]*\n([\s\S]{50,4000}?)(?:N[íi]veis\s+de\s+garantia|An[áa]lise\s+garantida|Enriquecimento|$)/i) ||
+      bodyText.match(/Ingredientes\s*[:\n]\s*([\s\S]{50,4000}?)(?:An[áa]lise\s+garantida|N[íi]veis\s+de\s+garantia|Guia\s+alimentar|$)/i);
     if (m) compText = m[1].trim();
   }
   if (!garText) {
-    const m = bodyText.match(/(?:N[íi]veis\s+de\s+garantia|An[áa]lise\s+garantida)[\s\S]{50,2000}?(?:Enriquecimento|Tabela\s+de\s+consumo|Guia\s+alimentar|$)/i);
+    const m = bodyText.match(/(?:N[íi]veis\s+de\s+garantia|An[áa]lise\s+garantida)[\s\S]{50,4000}?(?:Enriquecimento|Tabela\s+de\s+consumo|Guia\s+alimentar|$)/i);
     if (m) garText = m ? m[0] : bodyText;
   }
 
@@ -1359,14 +1369,14 @@ export function parseProductFromHtml(
 
   // 7. Ingredientes
   let cleanComp = compText
-    .replace(/^Composição\s*(?:básica)?[:\s]*/i, '')
+    .replace(/^Composição\s*(?:básica|qualitativa)?[:\s]*/i, '')
     .replace(/-- \d+ of \d+ --/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 
   cleanComp = cleanComp.split(/Eventuais\s+substitut(?:os|ivos)[:\s]/i)[0];
   cleanComp = cleanComp.split(/Cont[ée]m,?\s+(?:na\s+composi[çc][ãa]o,?\s+)?alimento\s+geneticamente\s+modificado[:\s]/i)[0];
-  cleanComp = cleanComp.split(/Esp[ée]cies\s+doadoras(?:\s+d[eo]\s+gene)?[:\s]/i)[0];
+  cleanComp = cleanComp.split(/Esp[ée]cies\s+(?:doadoras|modificadoras)(?:\s+d[eo]\s+genes?)?[:\s]/i)[0];
   cleanComp = cleanComp.split(/\*Cont[ée]m/i)[0];
   cleanComp = cleanComp.split(/\*Ingredientes/i)[0];
 
@@ -1395,7 +1405,10 @@ export function parseProductFromHtml(
       item = item.replace(/\{"name"[\s\S]*$/i, '');
       item = item.replace(/\"id\":[\s\S]*$/i, '');
       item = item.replace(/\.$/, '').trim();
-      if (item && item.length > 1) topIngredientsList.push(normalizeIngredient(item));
+      if (item && item.length > 1) {
+        const cleaned = stripFootnotesFromIngredient(item);
+        if (cleaned) topIngredientsList.push(normalizeIngredient(cleaned));
+      }
       cur = '';
     } else {
       cur += c;
@@ -1407,13 +1420,16 @@ export function parseProductFromHtml(
     item = item.replace(/\{"name"[\s\S]*$/i, '');
     item = item.replace(/\"id\":[\s\S]*$/i, '');
     item = item.replace(/\.$/, '').trim();
-    if (item && item.length > 1) topIngredientsList.push(normalizeIngredient(item));
+    if (item && item.length > 1) {
+      const cleaned = stripFootnotesFromIngredient(item);
+      if (cleaned) topIngredientsList.push(normalizeIngredient(cleaned));
+    }
   }
 
   // 8. Transgênicos e Antioxidantes
   const fullContextText = compText + ' ' + bodyText;
 
-  const hasExplicitDoadoras = /Esp[ée]cies\s+doadoras/i.test(fullContextText);
+  const hasExplicitDoadoras = /Esp[ée]cies\s+(?:doadoras|modificadoras)/i.test(fullContextText);
   const hasExplicitGmo = /\*Cont[ée]m.*transg|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText);
   const hasAsteriskGmo = /(?:milho|soja|algod[ãa]o|canola|trigo)\s*\*+/i.test(compText);
   const hasNumberGmo =
@@ -1431,41 +1447,50 @@ export function parseProductFromHtml(
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
+    const speciesSourceText = /Esp[ée]cies\s+(?:doadoras|modificadoras)/i.test(compText) ? compText : fullContextText;
     const doadorasMatch =
-      fullContextText.match(/Esp[ée]cies\s+doadoras\s+(?:d[eo]\s+gene\s*)?[:\s]*([^.<]+)/i) ||
-      fullContextText.match(/Esp[ée]cies\s+doadoras[:\s]*([^.<]+)/i);
+      speciesSourceText.match(/Esp[ée]cies\s+(?:doadoras|modificadoras)(?:\s+d[eo]\s+genes?)?[:\s]*([\s\S]+?)(?=(?:\n\s*\n|\n[A-Z][a-z]+:|\nN[íi]veis|Modo|Guia|Composi[çc][ãa]o|$))/i) ||
+      speciesSourceText.match(/Esp[ée]cies\s+(?:doadoras|modificadoras)[:\s]*([^.<]+)/i);
 
     const gmoMatch =
       compText.match(/(?:alimento\s+geneticamente\s+modificado|\*Cont[ée]m)\s*[:\s]*([^.]+)/i);
 
     // Identifica quais grãos são transgênicos
+    const hasAnyGrainFootnote =
+      /(?:milho|soja|algod[ãa]o|canola|trigo)\s*\*+|(?:milho|soja|algod[ãa]o|canola|trigo)\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|(?:milho|soja|algod[ãa]o|canola|trigo)\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText);
+
     const detectedGrains: string[] = [];
-    if (/milho/i.test(compText) && (hasExplicitDoadoras || /milho\s*\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/milho/i.test(compText) && (!hasAnyGrainFootnote || /milho\s*\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bmilho\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Milho');
     }
-    if (/soja/i.test(compText) && (hasExplicitDoadoras || /soja\s*\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/soja/i.test(compText) && (!hasAnyGrainFootnote || /soja\s*\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bsoja\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Soja');
     }
-    if (/trigo/i.test(compText) && (hasExplicitDoadoras || /trigo\s*\*+|trigo\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/trigo/i.test(compText) && (!hasAnyGrainFootnote || /trigo\s*\*+|trigo\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\btrigo\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Trigo');
     }
-    if (/algod[ãa]o/i.test(compText) && (hasExplicitDoadoras || /algod[ãa]o\s*\*+|algod[ãa]o\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/algod[ãa]o/i.test(compText) && (!hasAnyGrainFootnote || /algod[ãa]o\s*\*+|algod[ãa]o\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\balgod[ãa]o\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Algodão');
     }
-    if (/canola/i.test(compText) && (hasExplicitDoadoras || /canola\s*\*+|canola\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/canola/i.test(compText) && (!hasAnyGrainFootnote || /canola\s*\*+|canola\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bcanola\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Canola');
     }
 
     const grainsLabel = detectedGrains.length > 0 ? detectedGrains.join(' e ') : 'Derivados de grãos';
 
     if (doadorasMatch) {
-      const cleanDoadoras = doadorasMatch[1]
+      let cleanDoadoras = doadorasMatch[1]
+        .replace(/<[^>]+>/g, ' ')
         .replace(/^[,\s]*/, '')
-        .replace(/[*†‡¹²³⁴⁵⁶⁷⁸⁹]/g, '')
-        .replace(/[0-9]+/g, '')
+        .replace(/([¹²³⁴⁵⁶⁷⁸⁹0-9]+)\s*,\s*([¹²³⁴⁵⁶⁷⁸⁹0-9]+)/g, '')
+        .replace(/[*†‡¹²³⁴⁵⁶⁷⁸⁹0-9]+/g, '')
+        .replace(/\s*,\s*/g, ', ')
+        .replace(/(?:,\s*)+/g, ', ')
+        .replace(/^,\s*|,\s*$/g, '')
         .replace(/\s+/g, ' ')
         .trim();
-      gmoIngredients = `${grainsLabel} transgênicos (espécies doadoras de gene: ${cleanDoadoras})`;
+      const termoEspecies = /modificadoras/i.test(doadorasMatch[0]) ? 'espécies modificadoras de genes' : 'espécies doadoras de gene';
+      gmoIngredients = `${grainsLabel} transgênicos (${termoEspecies}: ${cleanDoadoras})`;
     } else if (gmoMatch) {
       gmoIngredients = gmoMatch[1]
         .replace(/^[,\s]*(?:na\s+composi[çc][ãa]o,?\s*)?(?:alimento\s+geneticamente\s+modificado\s*[:\s]*)?/i, '')
