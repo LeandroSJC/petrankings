@@ -1575,7 +1575,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-06',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-senior-caes-controle-fosforo-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Entenda por que cães a partir dos 7 anos necessitam de dietas com fósforo estritamente controlado para evitar sobrecarga renal subclínica, por que cortar proteína é um erro grave contra a sarcopenia e como avaliar os rótulos de rações sênior na Matéria Seca (MS).',
     relatedProductSlugs: [
@@ -1760,6 +1760,165 @@ export const GUIDES: GuideItem[] = [
       text: 'O Observatório PetRankings analisa a rotulagem oficial e recalcula na Matéria Seca os teores de fósforo, cálcio e proteína de centenas de alimentos sênior cadastrados no Brasil. Compare as melhores opções com transparência técnica total.',
       buttonText: 'Explorar Catálogo de Alimentos Sênior para Cães',
       buttonUrl: '/catalogo?esp=CAO&porte=TODOS',
+    },
+  },
+  {
+    slug: 'garantia-de-satisfacao-racao-cdc-como-trocar',
+    title: 'Garantia de satisfação na ração: O que diz o CDC e como trocar se o pet rejeitar?',
+    subtitle: 'Entenda os limites legais do Código de Defesa do Consumidor, como funcionam as políticas de troca dos grandes fabricantes e o passo a passo para não perder seu dinheiro.',
+    cluster: 'Direito do Consumidor & Mercado',
+    speciesTarget: 'Cães e Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-07',
+    updatedAt: '2026-10-07',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/garantia-satisfacao-racao-cdc-cover.webp',
+    isFeatured: true,
+    summary:
+      'Comprou um pacote de ração caro e o pet virou a cara? Descubra o que a legislação brasileira e o CDC realmente garantem, as exigências de peso mínimo no pacote para acionar o SAC dos fabricantes e o roteiro prático para conseguir a troca ou o reembolso sem dor de cabeça.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-dilema-da-rejeicao',
+        heading: '1. O Dilema do Prato Cheio: Por Que Cães e Gatos Recusam Alimentos Novos?',
+        paragraphs: [
+          'Você pesquisou formulações, comparou teores de proteína na Matéria Seca, investiu entre R$ 200 e R$ 450 em um pacote de 10 kg a 15 kg e serviu a primeira porção com grande expectativa. O animal se aproxima, cheira a tigela, dá meia-volta e simplesmente se recusa a comer.',
+          'Essa cena é um dos maiores pesadelos financeiros e emocionais de quem cuida de cães e gatos. Em felinos, esse comportamento tem base biológica: trata-se da neofobia alimentar, uma aversão natural a texturas e aromas desconhecidos desenvolvida evolutivamente para evitar a ingestão de presas tóxicas.',
+          'Nos cães, a recusa costuma ocorrer quando o animal está habituado a alimentos com excesso de palatabilizantes artificiais ou gorduras animais borrifadas na superfície do grão. Ao migrar para fórmulas naturais, livres de aromas artificiais e com conservação à base de tocoferóis, o impacto sensorial inicial pode gerar estranhamento nos primeiros dias.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Regra de Ouro da Transição Alimentar',
+          text: 'Antes de declarar que o pet detestou a ração nova, certifique-se de que a troca está sendo feita de forma gradual ao longo de 7 a 10 dias, misturando frações crescentes do alimento novo ao antigo. Trocas bruscas provocam recusa sensorial imediata e desconforto gástrico.',
+        },
+      },
+      {
+        id: 'o-que-diz-o-cdc',
+        heading: '2. O Que Diz a Lei: Vício do Produto vs Garantia Voluntária de Satisfação',
+        paragraphs: [
+          'Para entender seus direitos no pet shop, é fundamental separar duas situações jurídicas completamente distintas perante o Código de Defesa do Consumidor (Lei Federal nº 8.078/1990): o vício de qualidade e a rejeição por palatabilidade.',
+          'O primeiro caso é o Vício do Produto (Art. 18 do CDC). Se o pacote apresentar mofo, carunchos, odor de gordura rançosa, textura pegajosa, corpos estranhos ou defeito na selagem, a substituição é obrigatória por lei em qualquer marca, independentemente de haver selo de garantia no rótulo. O fornecedor tem a obrigação legal de sanar o vício ou devolver o dinheiro.',
+          'O segundo caso é a mera rejeição do pet (o animal é saudável, o lote está perfeito, mas ele não aceitou o sabor). Pela lei brasileira estrita, a rejeição por apetite não configura vício de fabricação. No entanto, entra em cena o Princípio da Vinculação da Oferta (Arts. 30 e 31 do CDC): quando a indústria estampa no pacote "100% Satisfação Garantida" ou "Seu Pet Come ou Trocamos", essa promessa comercial passa a ter força vinculante de contrato e passa a ser exigível juridicamente.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Força Vinculante da Oferta Comercial (Arts. 30 e 31 do CDC)',
+          text: 'Toda informação ou publicidade, suficientemente precisa, veiculada por qualquer forma ou meio de comunicação com relação a produtos obriga o fornecedor que a fizer veicular ou dela se utilizar e integra o contrato que vier a ser celebrado.',
+        },
+      },
+      {
+        id: 'regras-dos-fabricantes',
+        heading: '3. As Regras de Ouro da Indústria: Prazos, Lotes e a Quantidade Mínima no Pacote',
+        paragraphs: [
+          'Para evitar fraudes e consumo abusivo, os fabricantes de pet food estabeleceram critérios objetivos e padronizados para aceitar a troca de embalagens violadas. Quem não atende a esses pré-requisitos perde o direito ao benefício.',
+          'A primeira exigência inegociável é o volume residual: quase a totalidade das indústrias exige que reste entre 50% e 70% do peso líquido original no saco. Se você comprou um pacote de 12 kg, precisam restar pelo menos 6 kg (em programas de 50%) ou 8,4 kg (em programas de 70%). Se o animal consumiu 80% do pacote ao longo de semanas, o fabricante entenderá que houve consumo regular e negará o chamado.',
+          'A segunda exigência é a embalagem original intacta com carimbo legível de lote e data de fabricação. Conforme o Decreto Federal nº 12.031/2024, a indústria de alimentação animal é obrigada a manter rastreabilidade documental de cada lote. Sem o saco original, o fabricante não consegue coletar a amostra para contraprova laboratorial nem justificar o crédito contábil ao lojista.',
+        ],
+        table: {
+          caption: 'Panorama das Políticas de Satisfação Garantida das Principais Marcas no Brasil',
+          headers: ['Fabricante / Linhas', 'Volume Residual Mínimo', 'Prazo Médio Pós-Compra', 'Canal de Solicitação Primário'],
+          rows: [
+            ['PremieRpet (PremieR Formula, GoldeN, Nattu)', 'No mínimo 50% do conteúdo original', 'Até 30 dias com cupom fiscal', 'SAC 0800 / Formulário oficial no site'],
+            ['Mars Petcare (Royal Canin)', 'No mínimo 50% do conteúdo original', 'Até 30 dias após emissão da nota', 'Portal de Atendimento Royal Canin / 0800'],
+            ['Nestlé Purina (Pro Plan, Fancy Feast)', 'No mínimo 70% do conteúdo original', 'Até 30 dias da compra', 'Fale com a Purina (0800 e site oficial)'],
+            ['Farmina (N&D, Matisse, Cibau)', 'No mínimo 50% do conteúdo original', 'Até 30 dias com documento fiscal', 'Atendimento ao Consumidor Farmina / Pet shop'],
+            ['BRF Pet (Biofresh, Guabi Natural)', 'No mínimo 60% a 70% do pacote', 'Até 30 dias com cupom fiscal', 'Central de Relacionamento BRF Pet'],
+          ],
+        },
+      },
+      {
+        id: 'passo-a-passo-da-troca',
+        heading: '4. Passo a Passo do Tutor: Como Acionar a Garantia Sem Estresse',
+        paragraphs: [
+          'Para que a troca seja efetuada com agilidade e sem atritos no pet shop, siga este roteiro prático validado:',
+          '1. Interrompa o Uso Imediatamente: Percebeu recusa reiterada no 3º ou 4º dia de transição? Guarde o restante da ração no próprio saco original. Feche a abertura com fita adesiva ou presilha plástica para evitar oxidação da gordura e contaminação.',
+          '2. Localize o Documento Fiscal: Tenha em mãos a Nota Fiscal de Consumidor Eletrônica (NFC-e), o cupom fiscal ou a DANFE da compra online. A comprovação de compra formal é indispensável para comprovar o prazo e o estabelecimento de origem.',
+          '3. Abra o Protocolo no SAC do Fabricante: Nunca vá diretamente ao pet shop exigir a troca imediata sem falar antes com a indústria. O lojista não tem autonomia para absorver o custo por conta própria; ele precisa de um Número de Autorização de Troca gerado pelo SAC do fabricante.',
+          '4. Apresente os Dados Solicitados: O atendimento solicitará seus dados pessoais (nome, CPF), foto nítida do carimbo de lote e validade impresso no pacote, foto do documento fiscal e foto demonstrando o volume restante do produto.',
+          '5. Troca no Ponto de Venda ou Coleta Domiciliar: Com o número de autorização gerado, você se dirige ao pet shop parceiro indicado e escolhe outro produto equivalente da marca. Para compras feitas na internet, muitos fabricantes optam pelo estorno financeiro ou envio de código postal para postagem reversa nos Correios.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Atenção ao Fracionamento em Potes Herméticos',
+          text: 'Muitos tutores têm o hábito de rasgar a embalagem e despejar toda a ração em recipientes organizadores plásticos, descartando o saco no lixo. Se você fizer isso nos primeiros dias de um produto novo, perderá o carimbo do lote e o direito à garantia de satisfação. Guarde o saco original até ter certeza de que o animal aceitou a nova dieta.',
+        },
+      },
+      {
+        id: 'impasses-e-direitos',
+        heading: '5. O Papel do Lojista e a Solução de Impasses no Balcão',
+        paragraphs: [
+          'Um ponto frequente de atrito ocorre quando o tutor chega ao pet shop e o atendente afirma: "Nós não trocamos embalagem aberta". Essa resposta decorre do receio do comerciante de ficar com o prejuízo na loja.',
+          'É importante esclarecer: na garantia de satisfação, o lojista credenciado não arca com o prejuízo do produto aberto. O sistema opera como uma compensação comercial: a indústria emite uma nota de crédito (bonificação em mercadoria ou desconto na próxima fatura de compras) para o pet shop cobrir exatamente o valor do pacote substituído.',
+          'Caso o lojista seja resistente mesmo após a apresentação do protocolo formal do SAC, entre em contato imediatamente com o canal de atendimento da fabricante informando o ocorrido. O fabricante entrará em contato com o representante comercial da distribuidora regional para instruir o ponto de venda ou providenciará a entrega de um novo produto diretamente no seu endereço.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Se eu transferir a ração para um pote organizador e jogar o saco no lixo, ainda consigo a troca?',
+        a: 'Infelizmente não. Todos os fabricantes exigem compulsoriamente a apresentação da embalagem original de fábrica. É nela que estão impressos os dados mandatórios de rastreabilidade previstos no Decreto Federal nº 12.031/2024: número do lote, data de fabricação, horário de ensaque e registro do estabelecimento no MAPA.',
+      },
+      {
+        q: 'A garantia de satisfação cobre produtos comprados em liquidações perto da data de validade?',
+        a: 'Depende do regulamento da marca, mas na maioria dos casos sim, desde que o produto esteja dentro do prazo de validade no momento da compra e do acionamento do SAC. O que a garantia não cobre são itens adquiridos já vencidos (situação de vício ilegal de comercialização) ou danificados por armazenamento inadequado na residência do consumidor.',
+      },
+      {
+        q: 'Se o meu cão ou gato tiver vômito e diarreia na primeira semana, isso conta como satisfação ou vício de qualidade?',
+        a: 'Se a reação clínica for pontual e decorrente de troca alimentar rápida sem período de transição, ela é tratada no âmbito da aceitação/adaptação. No entanto, se houver suspeita de contaminação microbiana ou alteração nas características físicas do alimento (cheiro azedo, textura estranha), o caso é categorizado pelo SAC como Queixa Técnica de Qualidade. Nesse cenário, o fabricante coleta a amostra para análise microbiológica em laboratório e realiza a troca imediata.',
+      },
+      {
+        q: 'Posso exigir o dinheiro de volta em vez de trocar por outra ração da mesma marca?',
+        a: 'Nos programas voluntários de 100% satisfação, a regra padrão definida em regulamento é a substituição por outro produto do mesmo fabricante (troca de sabor ou linha) ou a emissão de voucher para nova compra. A devolução financeira em dinheiro é garantida compulsoriamente pelo CDC apenas nos casos de vício de qualidade com defeito comprovado (Art. 18) ou em compras virtuais no prazo de reflexão de até 7 dias após o recebimento (Art. 49).',
+      },
+    ],
+    conclusion:
+      'A garantia de 100% de satisfação é uma ferramenta de segurança fantástica que permite ao tutor experimentar alimentos de alto padrão nutricional sem medo de desperdiçar seu investimento. Para fazer valer seus direitos sem frustração, guarde sempre o documento fiscal, mantenha a ração no saco original e acione o SAC da fabricante aos primeiros sinais de rejeição, preservando a quantidade mínima exigida.',
+    references: [
+      {
+        title: 'Lei Federal nº 8.078/1990 — Código de Defesa do Consumidor (CDC)',
+        institution: 'Presidência da República / Congresso Nacional',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+        details: 'Art. 6º (Direito à informação), Art. 18 (Responsabilidade por vício de qualidade), Arts. 30 e 31 (Vinculação da oferta) e Art. 35',
+      },
+      {
+        title: 'Decreto Federal nº 12.031/2024',
+        institution: 'Presidência da República / MAPA',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+        details: 'Regulamenta a fiscalização, rastreabilidade de lote e rotulagem oficial da alimentação animal no Brasil',
+      },
+      {
+        title: 'Regulamento do Programa 100% Satisfação PremieRpet',
+        institution: 'Grandfood Indústria e Comércio Ltda.',
+        type: 'rotulagem',
+        details: 'Condições gerais de troca de produtos das linhas PremieR Formula, GoldeN e PremieR Nattu (mínimo de 50% de conteúdo na embalagem original)',
+      },
+      {
+        title: 'Política e Termo de Garantia 100% de Satisfação Royal Canin',
+        institution: 'Mars Petcare Brasil / Royal Canin do Brasil',
+        type: 'rotulagem',
+        details: 'Procedimentos de ressarcimento e substituição para produtos das linhas Feline e Canine Health Nutrition',
+      },
+      {
+        title: 'Regulamento Programa Satisfação Garantida Nestlé Purina',
+        institution: 'Nestlé Brasil Ltda. / Purina',
+        type: 'rotulagem',
+        details: 'Normas de acionamento do SAC para as linhas Super Premium Purina Pro Plan com volume mínimo de 70% residual',
+      },
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABINPET (Associação Brasileira da Indústria de Produtos para Animais de Estimação)',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Diretrizes de Boas Práticas Industriais, Palatabilidade e Conservação de Alimentos Completos',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte os Alimentos Analisados no Catálogo PetRankings',
+      text: 'Antes de escolher um novo alimento para o seu cão ou gato, confira a avaliação bromatológica em Matéria Seca (MS), a nobreza dos ingredientes e o perfil de conservação de centenas de produtos cadastrados no Brasil.',
+      buttonText: 'Explorar Catálogo de Alimentos',
+      buttonUrl: '/catalogo',
     },
   },
 ];
