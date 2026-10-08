@@ -96,7 +96,7 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
 
   // Cálculos de Matéria Seca (MS)
   const standard = getAbinpetStandard(species, lifeStage, foodType);
-  const umidade = Math.min(Math.max(umidadeMaxPct || 10, 0), 95);
+  const umidade = Math.min(Math.max(umidadeMaxPct ?? 10, 0), 95);
   const fatorMS = (100 - umidade) / 100;
   const divisor = fatorMS > 0 ? fatorMS : 1;
   const pbMS = Number((proteinaBrutaMinPct / divisor).toFixed(2));
@@ -313,7 +313,7 @@ export async function generateEditorialOpinionWithGemini(
     } = params;
 
     const standard = getAbinpetStandard(species, lifeStage, foodType);
-    const umidade = Math.min(Math.max(umidadeMaxPct || 10, 0), 95);
+    const umidade = Math.min(Math.max(umidadeMaxPct ?? 10, 0), 95);
     const fatorMS = (100 - umidade) / 100;
     const divisor = fatorMS > 0 ? fatorMS : 1;
     const pbMS = Number((proteinaBrutaMinPct / divisor).toFixed(2));

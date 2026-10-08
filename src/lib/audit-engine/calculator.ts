@@ -25,7 +25,7 @@ const VEICULO_LIQUIDO_REGEX = /^(água|agua|caldo)\b/i;
 
 /** Converte níveis de garantia de Matéria Natural (MN) para Matéria Seca (MS) */
 export function calcularNutrientesMS(garantias: GarantiasMN): NutrientesMS {
-  const umidade = Math.min(Math.max(garantias.umidadeMaxPct || 10, 0), 95);
+  const umidade = Math.min(Math.max(garantias.umidadeMaxPct ?? 10, 0), 95);
   const fatorMS = (100 - umidade) / 100;
   const divisor = fatorMS > 0 ? fatorMS : 1;
 
@@ -292,7 +292,7 @@ export function calcularEnergiaMetabolizavel(
   edKcalKg: number;
   emKcalKg: number;
 } {
-  const umidade = Math.min(Math.max(umidadeMaxPct || 10, 0), 95);
+  const umidade = Math.min(Math.max(umidadeMaxPct ?? 10, 0), 95);
   const fatorMS = (100 - umidade) / 100;
   const divisor = fatorMS > 0 ? fatorMS : 1;
 

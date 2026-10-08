@@ -38,8 +38,21 @@ export interface ProductHtmlMetadata {
 function capitalizeTitle(str: string): string {
   if (!str) return '';
 
+  // 0. Preserva fórmulas canônicas da Hill's Prescription Diet (k/d, c/d, i/d, etc.)
+  const hillsCodes = ['k/d', 'c/d', 'i/d', 'u/d', 'r/d', 'w/d', 'z/d', 'j/d', 'a/d', 'l/d', 'y/d', 's/d', 't/d'];
+  const placeholderMap = new Map<string, string>();
+  let s = str;
+  hillsCodes.forEach((code, idx) => {
+    const regex = new RegExp(`\\b${code.replace('/', '\\/')}\\b`, 'gi');
+    const ph = `__HILLS_CODE_${idx}__`;
+    if (regex.test(s)) {
+      placeholderMap.set(ph, code.toLowerCase());
+      s = s.replace(regex, ph);
+    }
+  });
+
   // 1. Normaliza barras "/" substituindo por " e " entre palavras
-  let s = str.replace(/(\w+)\s*\/\s*(\w+)/g, '$1 e $2').replace(/\s*\/\s*/g, ' e ');
+  s = s.replace(/(\w+)\s*\/\s*(\w+)/g, '$1 e $2').replace(/\s*\/\s*/g, ' e ');
 
   // 2. Preposições, artigos e conectivos que devem ficar em minúsculo (salvo início de frase)
   const smallWords = new Set(['de', 'da', 'do', 'dos', 'das', 'e', 'em', 'com', 'para', 'ao', 'aos', 'por', 'a', 'as', 'o', 'os']);
@@ -58,7 +71,7 @@ function capitalizeTitle(str: string): string {
     qualyday: 'Qualiday',
   };
 
-  return s
+  let result = s
     .split(/\s+/)
     .map((word, i) => {
       if (!word) return '';
@@ -95,6 +108,12 @@ function capitalizeTitle(str: string): string {
     .join(' ')
     .replace(/\s+/g, ' ')
     .trim();
+
+  for (const [ph, code] of placeholderMap.entries()) {
+    result = result.replaceAll(ph, code).replaceAll(ph.toLowerCase(), code);
+  }
+
+  return result;
 }
 
 /**
@@ -475,6 +494,24 @@ export function parseProductFromHtml(
     }
   }
 
+  // 1g. Extração Hill's Pet Nutrition (Science Diet / Prescription Diet)
+  const isHills = /hillspet\.com\.br/i.test(sourceUrl);
+  if (!imageUrl && isHills) {
+    $('img').each((_, el) => {
+      const src = $(el).attr('src') || '';
+      const alt = $(el).attr('alt') || '';
+      if ((src.includes('pxmshare') && /packshot/i.test(alt)) || (src.includes('pim/hills') && src.includes('packshot'))) {
+        if (!imageUrl || src.includes('PNG_2000')) {
+          imageUrl = src;
+        }
+      }
+    });
+    if (!imageUrl) {
+      const anyPxm = $('img[src*="pxmshare"]').first().attr('src');
+      if (anyPxm) imageUrl = anyPxm;
+    }
+  }
+
   // Normalização de URL relativa para absoluta se necessário
   if (imageUrl && !imageUrl.startsWith('http') && sourceUrl.startsWith('http')) {
     try {
@@ -734,6 +771,53 @@ export function parseProductFromHtml(
       }
       rawName = t;
     }
+  } else if (isHills) {
+    let hName = $('h1').first().text().replace(/\s+/g, ' ').trim();
+    if (!hName) {
+      const metaDesc = $('meta[name="description"]').attr('content') || '';
+      const m1 = metaDesc.match(/cães\s+(Hill[’']?s\s+[^é\.\,]+?)(?:\s+é\s+um\s+alimento|\.|\,|$)/i);
+      if (m1) {
+        hName = m1[1].trim();
+      } else {
+        const m2 = metaDesc.match(/(Hill[’']?s\s+[^é\.\,]+?)(?:\s+é\s+uma\s+ração|\s+é\s+um\s+alimento|\.|\,|$)/i);
+        if (m2) {
+          hName = m2[1].trim();
+        }
+      }
+    }
+    if (!hName) {
+      const slug = sourceUrl.split('/').pop() || '';
+      if (slug.includes('wd-glucose-management')) {
+        hName = "Hill's Prescription Diet w/d Glucose Management Cães";
+      } else {
+        hName = slug.replace(/-dry|-canned|-can|-stew/gi, '').replace(/\b(?:sd|pd)-/g, '').split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+      }
+    }
+
+    const isPrescription = /prescription-diet|\/pd-/i.test(sourceUrl);
+    const brandName = isPrescription ? "Hill's Prescription Diet" : "Hill's Science Diet";
+    const isCanned = /-canned|-can\b|-stew/i.test(sourceUrl) || (!/-dry/i.test(sourceUrl) && /Alimento em Lata|Alimento Úmido/i.test(hName));
+
+    let nameSuffix = hName
+      .replace(/^Hill[’']?s\s+(?:Prescription|Science)\s+Diet\s+/i, '')
+      .replace(/^Lata\s+/i, '')
+      .replace(/\s*-\s*/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    let finalName = `${brandName} ${nameSuffix}`;
+    if (isCanned && !/lata|úmido|guisado|stew/i.test(finalName)) {
+      finalName += ' Lata';
+    }
+    rawName = finalName
+      .replace(/para Cães e Gatos/i, 'Cães e Gatos')
+      .replace(/para Cães Adultos/i, 'Cães Adultos')
+      .replace(/para Cães Idosos/i, 'Cães Idosos')
+      .replace(/para Cães Filhotes/i, 'Cães Filhotes')
+      .replace(/para Cães/i, 'Cães')
+      .replace(/Cães\s+Cães/i, 'Cães')
+      .replace(/\s+/g, ' ')
+      .trim();
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -939,6 +1023,10 @@ export function parseProductFromHtml(
     } else {
       brand = 'Pet Food Solution';
     }
+  } else if (isHills || /hillspet\.com\.br/i.test(sourceUrl)) {
+    const isPrescription = /prescription-diet|\/pd-/i.test(sourceUrl + ' ' + commercialName);
+    brand = isPrescription ? "Hill's Prescription Diet" : "Hill's Science Diet";
+    manufacturerLegalName = "Hill's Pet Nutrition / Colgate-Palmolive";
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -947,8 +1035,9 @@ export function parseProductFromHtml(
     !commercialName.startsWith('GoldeN') &&
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br/i.test(sourceUrl)
+    !commercialName.startsWith("Hill's") &&
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -987,19 +1076,20 @@ export function parseProductFromHtml(
   let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
   let coadjuvanteCondition: string | null = null;
 
-  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|veterinary-diet|coadjuvante/i.test(commercialName + ' ' + sourceUrl)) {
+  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|veterinary-diet|prescription-diet|\/pd-|coadjuvante/i.test(commercialName + ' ' + sourceUrl)) {
     legalCategory = 'ALIMENTO_COADJUVANTE';
     const t = (commercialName + ' ' + sourceUrl).toLowerCase();
-    if (/renal|\bre\b/i.test(t)) coadjuvanteCondition = 'RENAL';
-    else if (/urin[áa]ri|struvite|ossalati|\bst\b/i.test(t)) coadjuvanteCondition = 'URINARIO';
-    else if (/recupera|convalescence/i.test(t)) coadjuvanteCondition = 'RECUPERACAO';
-    else if (/obesidade|obesity|overweight|perda de peso|controle de peso|\bod\b/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
+    if (/renal|\bre\b|\bk-?d\b|kidney/i.test(t)) coadjuvanteCondition = 'RENAL';
+    else if (/urin[áa]ri|struvite|ossalati|\bst\b|\bc-?d\b|\bu-?d\b/i.test(t)) coadjuvanteCondition = 'URINARIO';
+    else if (/recupera|convalescence|\ba-?d\b|urgent/i.test(t)) coadjuvanteCondition = 'RECUPERACAO';
+    else if (/obesidade|obesity|overweight|perda de peso|controle de peso|\bod\b|\br-?d\b|\bw-?d\b|metabolic|glucose/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
     else if (/diabet/i.test(t)) coadjuvanteCondition = 'DIABETES';
-    else if (/gastro|gastrointestinal|\bgi\b/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
-    else if (/hipoalerg|hypoallergenic|hydroli|ultrahypo|pele sens[íi]vel|fish & potato|pork & potato/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
-    else if (/hep[áa]t|hepatic/i.test(t)) coadjuvanteCondition = 'HEPATICO';
+    else if (/gastro|gastrointestinal|\bgi\b|\bi-?d\b|biome/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
+    else if (/hipoalerg|hypoallergenic|hydroli|ultrahypo|pele sens[íi]vel|fish & potato|pork & potato|\bz-?d\b|\bd-?d\b|derm/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
+    else if (/hep[áa]t|hepatic|\bl-?d\b/i.test(t)) coadjuvanteCondition = 'HEPATICO';
     else if (/card[ií]ac/i.test(t)) coadjuvanteCondition = 'CARDIACO';
-    else if (/articular|joint|\bjt\b/i.test(t)) coadjuvanteCondition = 'ARTICULAR';
+    else if (/articular|joint|\bjt\b|\bj-?d\b/i.test(t)) coadjuvanteCondition = 'ARTICULAR';
+    else if (/onc|on-care/i.test(t)) coadjuvanteCondition = 'OUTRO';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
     /(?:cookie|biscoito|biscoitos|snack|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|dental|mastig[áa]vel|\bosso\b|\bossos\b|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow|dentastix|biscrok|filezitos|marrobone)/i.test(commercialName + ' ' + sourceUrl) ||
@@ -1089,6 +1179,43 @@ export function parseProductFromHtml(
         }
       } else if ((headerText.includes('garantia') || headerText.includes('nutricional')) && !garText) {
         garText = bodyText;
+      }
+    });
+  }
+
+  // 5a-0d. Extração Hill's Pet Nutrition (Accordions AEM e Tabela de Matéria Seca)
+  if (isHills) {
+    $('.cmp-accordion__button').each((_, btn) => {
+      const title = $(btn).find('.cmp-accordion__title').text().trim() || $(btn).text().trim();
+      if (/ingrediente/i.test(title)) {
+        const panel = $(btn).closest('.cmp-accordion__item').find('.cmp-accordion__panel');
+        const txt = panel.text().replace(/\s+/g, ' ').trim();
+        if (txt && !compText) compText = txt;
+      }
+    });
+
+    if (!compText) {
+      $('.text-segments, .textTool').each((_, el) => {
+        const t = $(el).text().replace(/\s+/g, ' ').trim();
+        if (/Quirera|Farinha de|Grão de|Carne de|Frango/i.test(t) && t.length > 50 && t.length < 2500) {
+          if (!compText && t.includes(',')) compText = t;
+        }
+      });
+    }
+
+    $('table').each((_, tbl) => {
+      const text = $(tbl).text();
+      if (/Matéria Seca|Nutriente/i.test(text)) {
+        const rows: string[] = [];
+        $(tbl).find('tr').each((__, tr) => {
+          const cells = $(tr).find('td,th').map((___, td) => $(td).text().trim().replace(/\s+/g, ' ')).get();
+          if (cells.length >= 2) {
+            rows.push(cells.join(' : '));
+          }
+        });
+        if (rows.length > 0 && !garText) {
+          garText = rows.join('\n');
+        }
       }
     });
   }
@@ -1299,19 +1426,20 @@ export function parseProductFromHtml(
     return parseValFromText(garText.slice(m.index ?? 0), pattern) || 0;
   };
 
-  const umidadeMaxPct =
-    parseGuarantee(/Umidade[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 86.0 : 10.0);
+  const umidadeMaxPct = isHills
+    ? 0
+    : parseGuarantee(/Umidade[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+      (foodType === 'UMIDO' ? 86.0 : 10.0);
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   const proteinaBrutaMinPct =
-    parseGuarantee(/Prote[íi]na\s+(?:Bruta|Cruda)t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/Prote[íi]na(?:\s+(?:Bruta|Cruda))?t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const extratoEtereoMinPct =
     parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   const materiaMineralMaxPct =
-    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 2.5 : 8.0);
 
   const materiaFibrosaMaxPct =

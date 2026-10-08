@@ -85,6 +85,7 @@ export default async function ProductDetailPage({
   }
 
   // Conversão para Matéria Seca
+  const isNativamenteMS = product.moistureMaxPct === 0;
   const ms = calcularNutrientesMS({
     umidadeMaxPct: product.moistureMaxPct,
     proteinaBrutaMinPct: product.crudeProteinMinPct,
@@ -674,58 +675,84 @@ export default async function ProductDetailPage({
                 3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)
               </h2>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
-              {product.foodType === 'UMIDO'
-                ? `A conversão para Matéria Seca desconsidera a elevada umidade do produto (${product.moistureMaxPct.toFixed(1)}%). Para alimentos úmidos, a conformidade de minerais e segurança de cálcio é aferida consoante as diretrizes internacionais da FEDIAF/NRC e o Manual ABINPET 11ª Edição.`
-                : `A conversão para Matéria Seca desconsidera a umidade do produto (${product.moistureMaxPct.toFixed(1)}%), permitindo comparar a densidade real dos nutrientes contra os limites oficiais da 11ª Edição do Manual ABINPET.`}
-            </p>
+            {isNativamenteMS ? (
+              <div
+                style={{
+                  padding: '14px 18px',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'var(--brand-forest-50)',
+                  border: '1px solid var(--border-cream)',
+                  marginBottom: '20px',
+                  fontSize: '0.84rem',
+                  lineHeight: 1.6,
+                  color: 'var(--brand-forest-900)',
+                }}
+              >
+                <strong>Garantia Oficial Declarada Nativamente em Matéria Seca (MS):</strong>
+                <span style={{ display: 'block', marginTop: '4px', color: 'var(--text-muted)' }}>
+                  Este fabricante divulga seus níveis de garantia oficialmente em Matéria Seca (MS) em sua documentação pública técnica, sem declarar o teor de umidade da Matéria Natural (MN). Em conformidade com o princípio de fidelidade estrita à rotulagem oficial e para preservar a exatidão bromatológica sem estimativas artificiais, os valores são apresentados em Matéria Seca para confronto direto com os limites oficiais da 11ª Edição do Manual ABINPET e FEDIAF.
+                </span>
+              </div>
+            ) : (
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
+                {product.foodType === 'UMIDO'
+                  ? `A conversão para Matéria Seca desconsidera a elevada umidade do produto (${product.moistureMaxPct.toFixed(1)}%). Para alimentos úmidos, a conformidade de minerais e segurança de cálcio é aferida consoante as diretrizes internacionais da FEDIAF/NRC e o Manual ABINPET 11ª Edição.`
+                  : `A conversão para Matéria Seca desconsidera a umidade do produto (${product.moistureMaxPct.toFixed(1)}%), permitindo comparar a densidade real dos nutrientes contra os limites oficiais da 11ª Edição do Manual ABINPET.`}
+              </p>
+            )}
 
             <div className="table-nutri-wrapper">
               <table className="table-nutri">
                 <thead>
                   <tr>
                     <th>Nutriente / Parâmetro</th>
-                    <th>Garantia Declarada (Matéria Natural)</th>
-                    <th>Calculado em Matéria Seca (MS)</th>
+                    <th>{isNativamenteMS ? 'Garantia Declarada (Matéria Natural)' : 'Garantia Declarada (Matéria Natural)'}</th>
+                    <th>{isNativamenteMS ? 'Garantia Oficial em Matéria Seca (MS)' : 'Calculado em Matéria Seca (MS)'}</th>
                     <th>Parâmetro de Referência {product.foodType === 'UMIDO' ? 'ABINPET / FEDIAF' : 'ABINPET 11ª Ed.'}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><strong>Umidade (Máx.)</strong></td>
-                    <td>{product.moistureMaxPct.toFixed(1)}%</td>
-                    <td>0.0% (Base Seca)</td>
+                    <td>{isNativamenteMS ? 'Não declarada na página oficial' : `${product.moistureMaxPct.toFixed(1)}%`}</td>
+                    <td>{isNativamenteMS ? 'Base Seca (100% MS)' : '0.0% (Base Seca)'}</td>
                     <td>{product.foodType === 'UMIDO' ? 'Padrão sachê/lata úmido: 80-88%' : 'Padrão industrial: até 10-12%'}</td>
                   </tr>
                   <tr>
                     <td><strong>Proteína Bruta (Mín.)</strong></td>
-                    <td>{product.crudeProteinMinPct.toFixed(1)}%</td>
+                    <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.crudeProteinMinPct.toFixed(1)}%`}</td>
                     <td><strong style={{ color: '#065f46' }}>{ms.proteinaBrutaPct.toFixed(2)}%</strong></td>
                     <td>Piso ABINPET: {abinpetPadrao.proteinaBrutaMinMS.toFixed(1)}% MS ({isFilhote ? 'Crescimento / Filhotes' : 'Manutenção'})</td>
                   </tr>
                   <tr>
                     <td><strong>Extrato Etéreo / Gordura (Mín.)</strong></td>
-                    <td>{product.etherExtractMinPct.toFixed(1)}%</td>
+                    <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.etherExtractMinPct.toFixed(1)}%`}</td>
                     <td><strong style={{ color: '#065f46' }}>{ms.extratoEtereoPct.toFixed(2)}%</strong></td>
                     <td>Piso ABINPET: {abinpetPadrao.extratoEtereoMinMS.toFixed(1)}% MS</td>
                   </tr>
                   <tr>
                     <td><strong>Matéria Fibrosa (Máx.)</strong></td>
-                    <td>{product.crudeFiberMaxPct.toFixed(1)}%</td>
+                    <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.crudeFiberMaxPct.toFixed(1)}%`}</td>
                     <td>{(product.crudeFiberMaxPct / ms.fatorMS).toFixed(2)}%</td>
                     <td>Controle de digestibilidade</td>
                   </tr>
                   <tr>
                     <td><strong>Matéria Mineral (Máx.)</strong></td>
-                    <td>{product.mineralMatterMaxPct.toFixed(1)}%</td>
+                    <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.mineralMatterMaxPct.toFixed(1)}%`}</td>
                     <td>{(product.mineralMatterMaxPct / ms.fatorMS).toFixed(2)}%</td>
                     <td>Máximo recomendado: até 8-10% MS</td>
                   </tr>
                   <tr>
                     <td><strong>Cálcio (Mín. / Máx.)</strong></td>
                     <td>
-                      {product.calciumMinPct.toFixed(2)}%
-                      {product.calciumMaxPct ? ` a ${product.calciumMaxPct.toFixed(2)}%` : ''}
+                      {isNativamenteMS ? (
+                        '— (Declarado em MS)'
+                      ) : (
+                        <>
+                          {product.calciumMinPct.toFixed(2)}%
+                          {product.calciumMaxPct ? ` a ${product.calciumMaxPct.toFixed(2)}%` : ''}
+                        </>
+                      )}
                     </td>
                     <td>
                       {ms.calcioMinPct.toFixed(2)}%
@@ -739,7 +766,7 @@ export default async function ProductDetailPage({
                   </tr>
                   <tr>
                     <td><strong>Fósforo (Mín.)</strong></td>
-                    <td>{product.phosphorusMinPct.toFixed(2)}%</td>
+                    <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.phosphorusMinPct.toFixed(2)}%`}</td>
                     <td>{ms.fosforoMinPct.toFixed(2)}%</td>
                     <td>Piso seguro: {abinpetPadrao.fosforoMinMS.toFixed(2)}% MS</td>
                   </tr>
@@ -752,18 +779,20 @@ export default async function ProductDetailPage({
                     </td>
                     <td>Faixa Ideal: {abinpetPadrao.relacaoCaPIdealMin.toFixed(1)}:1 até {abinpetPadrao.relacaoCaPIdealMax.toFixed(1)}:1 ({isFilhote ? 'Filhotes' : 'Adultos'})</td>
                   </tr>
-                  <tr style={{ backgroundColor: 'var(--brand-forest-50)' }}>
-                    <td><strong>Energia Metabolizável Estimada (EM)</strong></td>
-                    <td colSpan={2}>
-                      <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)' }}>
-                        {em.emKcalKg.toLocaleString('pt-BR')} kcal/kg
-                      </strong>
-                      <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginLeft: '8px' }}>
-                        (ENN: {em.ennPct}% • CDE: {em.cdePct}%)
-                      </span>
-                    </td>
-                    <td>Equação Preditiva NRC / Manual ABINPET</td>
-                  </tr>
+                  {!isNativamenteMS && (
+                    <tr style={{ backgroundColor: 'var(--brand-forest-50)' }}>
+                      <td><strong>Energia Metabolizável Estimada (EM)</strong></td>
+                      <td colSpan={2}>
+                        <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)' }}>
+                          {em.emKcalKg.toLocaleString('pt-BR')} kcal/kg
+                        </strong>
+                        <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginLeft: '8px' }}>
+                          (ENN: {em.ennPct}% • CDE: {em.cdePct}%)
+                        </span>
+                      </td>
+                      <td>Equação Preditiva NRC / Manual ABINPET</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
