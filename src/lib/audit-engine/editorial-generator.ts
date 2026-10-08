@@ -186,7 +186,7 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
   // 3.1 NÍVEL DIAMANTE / NÍVEL OURO (Score >= 80)
   // -------------------------------------------------------------------------
   if (score >= 80) {
-    const faixaLabel = score >= 90 ? 'Nível Diamante' : 'Nível Ouro';
+    const faixaLabel = classificationTier === 'NIVEL_DIAMANTE' || score >= 95 ? 'Nível Diamante' : 'Nível Ouro';
     const mineralBalanço =
       relCaP !== null
         ? ` Relação cálcio:fósforo perfeitamente balanceada em ${relCaP}:1, dentro da faixa ideal da ABINPET.`
