@@ -101,6 +101,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${inter.variable} ${plusJakarta.variable} ${outfit.variable}`} suppressHydrationWarning>
+      <head>
+        {umamiWebsiteId && (
+          <script
+            defer
+            src="https://analytics.petrankings.com.br/script.js"
+            data-website-id={umamiWebsiteId}
+          />
+        )}
+      </head>
       <body suppressHydrationWarning>
         {adsenseClientId && (
           <Script
@@ -125,15 +134,6 @@ export default function RootLayout({
           </main>
           <Footer />
         </ToastProvider>
-        {umamiWebsiteId && (
-          <Script
-            id="umami-analytics"
-            defer
-            src="https://analytics.petrankings.com.br/script.js"
-            data-website-id={umamiWebsiteId}
-            strategy="afterInteractive"
-          />
-        )}
       </body>
     </html>
   );

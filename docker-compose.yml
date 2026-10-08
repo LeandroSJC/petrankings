@@ -98,6 +98,7 @@ services:
       - DIRECT_URL=${DIRECT_URL:-postgresql://${POSTGRES_USER:-petrankings}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-petrankings}?schema=public}
       - JWT_SECRET=${JWT_SECRET}
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://petrankings.com.br}
+      - NEXT_PUBLIC_UMAMI_WEBSITE_ID=${NEXT_PUBLIC_UMAMI_WEBSITE_ID:-315fae23-bc4a-4b0e-b0bc-200e8c7c9ea6}
       - ALLOW_ADMIN_IN_PRODUCTION=${ALLOW_ADMIN_IN_PRODUCTION:-true}
       - ADMIN_SECRET_GATE_PATH=${ADMIN_SECRET_GATE_PATH:-/bastidores}
       - ADMIN_GATE_KEY=${ADMIN_GATE_KEY}
