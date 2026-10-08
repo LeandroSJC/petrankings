@@ -22,7 +22,7 @@ import {
 import TransgenicIcon from '@/components/TransgenicIcon';
 import BackButton from '@/components/BackButton';
 import prisma from '@/lib/prisma';
-import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard } from '@/lib/audit-engine';
+import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard, calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
 import { normalizeIngredientsList, SITE_URL } from '@/lib/utils';
@@ -133,6 +133,39 @@ export default async function ProductDetailPage({
 
   const tier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
   const isFilhote = product.lifeStage === 'CRESCIMENTO_INICIAL' || product.lifeStage === 'CRESCIMENTO_FINAL' || product.lifeStage === 'FILHOTE';
+
+  // Se for alimento completo com pontuação, reavalia o extrato para exibir justificativas descritivas e transparentes
+  if (!isCoadjuvante && !isComplementar && product.scoreTotal !== null) {
+    try {
+      const freshAudit = calcularScoreAnaliseRotulo(
+        product.species as any,
+        (isFilhote ? 'CRESCIMENTO_INICIAL' : product.lifeStage) as any,
+        {
+          umidadeMaxPct: product.moistureMaxPct,
+          proteinaBrutaMinPct: product.crudeProteinMinPct,
+          extratoEtereoMinPct: product.etherExtractMinPct,
+          materiaFibrosaMaxPct: product.crudeFiberMaxPct,
+          materiaMineralMaxPct: product.mineralMatterMaxPct,
+          calcioMinPct: product.calciumMinPct,
+          calcioMaxPct: product.calciumMaxPct,
+          fosforoMinPct: product.phosphorusMinPct,
+          sodioMinPct: product.sodiumMinPct,
+          omega3MinPct: product.omega3MinPct,
+        },
+        {
+          topIngredientes: parsedIngredients,
+          antioxidanteTipo: product.antioxidantType as any,
+          omega3OuPrebioticosGarantidos: !!(product.omega3MinPct && product.omega3MinPct >= 0.2),
+          claimCarneTipo: (product.meatClaimType as any) || 'COM_CARNE_FRESCA',
+        },
+        product.foodType as any
+      );
+      if (freshAudit && freshAudit.extratoPontos) {
+        extratoItens = freshAudit.extratoPontos;
+      }
+    } catch {}
+  }
+
   const abinpetPadrao = getAbinpetStandard(
     product.species as any,
     isFilhote ? 'CRESCIMENTO_INICIAL' : 'ADULTO',

@@ -161,19 +161,22 @@ export function calcularScoreAnaliseRotulo(
 
   if (ing1IsAnimal) {
     pilar3Pontos += 15;
-    ing1Texto = `1º ingrediente nutritivo${prefixoUmido} é proteína cárnea de alta digestibilidade (+15)`;
+    ing1Texto = `1º ingrediente nutritivo${prefixoUmido} é proteína cárnea de alta digestibilidade (${ing1}) (+15)`;
   } else {
     const isVegetal = VEGETAIS_FARELOS_SECUNDARIOS_REGEX.test(ing1);
     ing1Texto = isVegetal
-      ? `1º ingrediente nutritivo${prefixoUmido} de origem vegetal ou farelos secundários (+0)`
-      : `1º ingrediente nutritivo${prefixoUmido} não cárneo (+0)`;
+      ? `1º ingrediente nutritivo${prefixoUmido} de origem vegetal ou farelos secundários (${ing1}) (+0)`
+      : `1º ingrediente nutritivo${prefixoUmido} não cárneo (${ing1}) (+0)`;
   }
 
-  if (ing2IsAnimal || ing2IsCarbNobre) {
+  if (ing2IsAnimal) {
     pilar3Pontos += 10;
-    ing2Texto = '2º ingrediente nutritivo nobre/animal declarado (+10)';
+    ing2Texto = `2º ingrediente nutritivo é fonte proteica animal (${ing2}) (+10)`;
+  } else if (ing2IsCarbNobre) {
+    pilar3Pontos += 10;
+    ing2Texto = `2º ingrediente nutritivo é carboidrato nobre de alta digestibilidade (${ing2}) (+10)`;
   } else {
-    ing2Texto = '2º ingrediente nutritivo de menor aproveitamento biológico (+0)';
+    ing2Texto = `2º ingrediente nutritivo (${ing2 || 'não declarado'}) de menor aproveitamento biológico (+0)`;
   }
 
   extrato.push({
