@@ -1559,7 +1559,9 @@ export function parseProductFromHtml(
 
   const hasExplicitDoadoras = /Esp[ée]cies\s+(?:doadoras|modificadoras)/i.test(fullContextText);
   const hasExplicitGmo = /\*Cont[ée]m.*transg|transg[êe]nico|alimento\s+geneticamente\s+modificado/i.test(compText);
-  const hasAsteriskGmo = /(?:milho|soja|algod[ãa]o|canola|trigo)\s*\*+/i.test(compText);
+  const hasAsteriskGmo =
+    /(?:milho|soja|algod[ãa]o|canola|trigo)(?:[^\n,;]*?)\*+/i.test(compText) ||
+    (/\*+/.test(compText) && /(?:milho|soja|gl[úu]ten\s+de\s+milho|farelo\s+proteico\s+de\s+milho)/i.test(compText));
   const hasNumberGmo =
     /(?:milho|soja|algod[ãa]o|canola|trigo)\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText) ||
     /(?:milho|soja|algod[ãa]o|canola|trigo)\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText);
@@ -1585,13 +1587,21 @@ export function parseProductFromHtml(
 
     // Identifica quais grãos são transgênicos
     const hasAnyGrainFootnote =
-      /(?:milho|soja|algod[ãa]o|canola|trigo)\s*\*+|(?:milho|soja|algod[ãa]o|canola|trigo)\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|(?:milho|soja|algod[ãa]o|canola|trigo)\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText);
+      /(?:milho|soja|algod[ãa]o|canola|trigo)(?:[^\n,;]*?)\*+|(?:milho|soja|algod[ãa]o|canola|trigo)\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|(?:milho|soja|algod[ãa]o|canola|trigo)\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText);
 
     const detectedGrains: string[] = [];
-    if (/milho/i.test(compText) && (!hasAnyGrainFootnote || /milho\s*\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bmilho\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (
+      /milho|farelo\s+proteico\s+de\s+milho|gl[úu]ten\s+de\s+milho/i.test(compText) &&
+      (!hasAnyGrainFootnote ||
+        /milho(?:[^\n,;]*?)\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bmilho\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
+    ) {
       detectedGrains.push('Milho');
     }
-    if (/soja/i.test(compText) && (!hasAnyGrainFootnote || /soja\s*\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bsoja\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (
+      /soja/i.test(compText) &&
+      (!hasAnyGrainFootnote ||
+        /soja(?:[^\n,;]*?)\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bsoja\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
+    ) {
       detectedGrains.push('Soja');
     }
     if (/trigo/i.test(compText) && (!hasAnyGrainFootnote || /trigo\s*\*+|trigo\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\btrigo\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
