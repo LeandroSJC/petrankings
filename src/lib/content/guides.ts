@@ -1921,6 +1921,168 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'racao-medicamentosa-in-mapa-39-2014-riscos-pets-sadios',
+    title: 'Ração medicamentosa: O que diz a IN MAPA 39/2014 e os perigos para pets sadios?',
+    subtitle:
+      'Por que alimentos coadjuvantes não contêm fármacos, como a zootecnia altera os nutrientes e os riscos reais de alimentar animais saudáveis com dietas de prescrição.',
+    cluster: 'Dietas Coadjuvantes & Clínica',
+    speciesTarget: 'Cães e Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-08',
+    updatedAt: '2026-10-08',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-medicamentosa-coadjuvante-cover.webp',
+    isFeatured: true,
+    summary:
+      'Muitos tutores acreditam que as rações veterinárias contêm antibióticos ou anti-inflamatórios em sua composição. No entanto, a Instrução Normativa MAPA nº 39/2014 proíbe qualquer princípio farmacológico ativo em alimentos para animais. Entenda o mecanismo estritamente nutricional das dietas coadjuvantes e por que oferecê-las a cães e gatos saudáveis pode provocar desnutrição, desequilíbrio do pH urinário e sobrecarga metabólica.',
+    relatedProductSlugs: [
+      'prescription-diet-kd-kidney-care-dry',
+      'premier-nutricao-clinica-gatos-urinario-estruvita',
+      'vet-life-natural-feline-renal-feline',
+      'formula-natural-vet-care-urinaria-gatos',
+    ],
+    sections: [
+      {
+        id: 'o-mito-do-remedio-na-embalagem',
+        heading: '1. O mito popular: Existe princípio farmacológico na ração coadjuvante?',
+        paragraphs: [
+          'Quantas vezes, ao sair da clínica veterinária com a prescrição de um pacote de ração Renal, Urinária ou Hipoalergênica, você já não ouviu de conhecidos ou se perguntou: "Qual remédio vem misturado nessa comida?". O termo popular "ração medicamentosa" consolidou-se na rotina dos tutores e até nos balcões de pet shops, mas induz a um erro conceitual profundo.',
+          'Perante a legislação brasileira e a literatura científica internacional, não existe nenhum tipo de antibiótico, anti-inflamatório, analgésico ou composto farmacológico dentro dessas embalagens. A zootecnia clínica não trata doenças colocando remédios no extrusor de ração; ela atua recalculando cirurgicamente as variáveis biológicas da própria nutrição.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'O Marco Legal: Artigo 43 da IN MAPA nº 39/2014',
+          text: 'A Instrução Normativa MAPA nº 39/2014 estabelece de forma categórica que o alimento coadjuvante deve ser "incondicionalmente privado de qualquer agente farmacológico ativo". O Ministério da Agricultura veda expressamente que fabricantes adicionem substâncias terapêuticas ou façam alegações de cura de patologias em alimentos para cães e gatos.',
+        },
+      },
+      {
+        id: 'como-funciona-a-modulacao-zootecnica',
+        heading: '2. Se não tem remédio, como ela age? A engenharia fina dos nutrientes',
+        paragraphs: [
+          'Se o alimento não contém fármacos, por que ele funciona e por que o cão ou gato melhora dos sintomas clínicos? O segredo reside na modulação nutricional extrema, uma engenharia de formulação que manipula limites bromatológicos muito além do que seria aceitável em um alimento convencional de manutenção.',
+          'Em uma ração comum, a receita é desenhada para suprir com folga 100% das demandas de um organismo sadio conforme o Manual Pet Food Brasil da ABINPET. Já no alimento coadjuvante, a fórmula é deliberadamente modificada para poupar o órgão que entrou em falência ou alterar o ambiente químico do corpo.',
+          'Nas dietas renais (como a Hill\'s Prescription Diet k/d e a Farmina Vet Life Renal), o rim lesionado perdeu a capacidade de filtrar fósforo e eliminar ureia. Por isso, a receita faz um corte profundo no fósforo e restringe a Proteína Bruta, exigindo apenas fontes de altíssimo valor biológico (proteínas de ovo e cortes nobres) para evitar perda de músculos com o menor acúmulo possível de escória nitrogenada.',
+          'Já nas dietas urinárias para dissolução de estruvita (como a PremieR Nutrição Clínica Urinário e a Fórmula Natural Vet Care Urinária), os cálculos dependem de magnésio, amônio, fosfato e pH alcalino para se formarem. Essas formulações cortam o magnésio ao mínimo seguro e utilizam aditivos acidificantes (como DL-metionina e cloreto de amônio) para derrubar o pH da urina para a faixa de 6,0 a 6,4, criando um meio que dissolve as pedras existentes na bexiga.',
+        ],
+        table: {
+          caption: 'Confronto Bromatológico: Alimento Sadio de Manutenção vs. Alimento Coadjuvante Específico (Matéria Seca - MS)',
+          headers: ['Parâmetro Nutricional', 'Ração Adulto Sadio (Padrão ABINPET)', 'Dieta Coadjuvante Renal (ex: Hill\'s k/d)', 'Dieta Coadjuvante Urinária (ex: PremieR Clínica)'],
+          rows: [
+            ['Fósforo Típico / Teto', '0,80% a 1,60% MS', '0,25% a 0,50% MS (Corte cirúrgico)', '0,60% a 0,80% MS (Controlado)'],
+            ['Proteína Bruta (Mín.)', '24% a 32% MS', '14% a 20% MS (Alta digestibilidade)', '30% a 36% MS (Padrão carnívoro)'],
+            ['Magnésio (Teto)', '0,08% a 0,15% MS', 'Nível controlado para equilíbrio', '0,04% a 0,08% MS (Prevenção de estruvita)'],
+            ['pH Urinário Alvo', '6,5 a 7,2 (Fisiológico / Neutro)', '6,8 a 7,2 (Prevenção de acidose)', '6,0 a 6,4 (Acidificação terapêutica)'],
+            ['Indicação de Uso', 'Uso contínuo por toda a vida adulta', 'Apenas sob acompanhamento nefrológico', 'Uso pontual (geralmente 3 a 6 meses)'],
+          ],
+        },
+      },
+      {
+        id: 'por-que-custa-o-dobro',
+        heading: '3. Por que o preço é tão elevado se não contém princípios ativos?',
+        paragraphs: [
+          'Quando o tutor se depara na gôndola com um pacote de 2 kg de ração clínica custando o dobro ou o triplo de uma ração Super Premium comum, a impressão inicial pode ser de que o preço é abusivo. No entanto, os custos dessa categoria decorrem de processos industriais altamente restritivos.',
+          'O principal fator é a segregação rigorosa de linhas de produção. Para fabricar um lote renal ou hipoalergênico, a indústria precisa interromper a fábrica, realizar higienização profunda das tubulações contra contaminação cruzada ou operar extrusoras exclusivas. O menor resquício de proteína de frango comum em uma receita hipoalergênica pode desencadear choque alérgico grave no pet sensível.',
+          'Além disso, as matérias-primas são purificadas: farinhas comuns ricas em ossos (que carregam excesso de cinzas e fósforo) são proibidas em fórmulas renais. Utilizam-se isolados proteicos purificados, aminoácidos cristalinos e doses elevadas de ômega-3 de óleo de peixe marinho purificado (EPA e DHA) para atuar na proteção vascular dos rins.',
+          'Por fim, há os ensaios clínicos prolongados. Enquanto um alimento de manutenção avalia palatabilidade básica em canis de teste, um alimento coadjuvante passa por testes de eficácia clínica com animais doentes em hospitais veterinários antes de receber autorização do MAPA.',
+        ],
+      },
+      {
+        id: 'o-perigo-do-pote-compartilhado',
+        heading: '4. O erro do comedouro compartilhado: Os riscos para animais saudáveis',
+        paragraphs: [
+          'Em lares onde vivem dois ou mais pets — situação muito comum nas famílias brasileiras —, surge um dilema recorrente: "Um dos meus gatos tem problema renal, mas o outro é jovem e saudável. Posso dar a ração renal para os dois para não ter trabalho de separar?".',
+          'A resposta zootécnica e clínica é um enfático não. Alimentar um animal saudável de forma contínua com uma dieta coadjuvante traz riscos expressivos para a saúde do pet que não precisa daquele alimento.',
+          'O perigo da ração renal em animais sadios: Como as dietas renais cortam profundamente o fósforo e a proteína, um pet saudável consumindo esse alimento diariamente desenvolverá carência de aminoácidos essenciais, perda progressiva de massa muscular e enfraquecimento da imunidade. O animal passa a perder musculatura porque seu organismo quebra as próprias fibras para obter a proteína que a ração não fornece.',
+          'O perigo da ração urinária em animais sadios: Fórmulas que acidificam a urina para dissolver estruvita (pH abaixo de 6,4) forçam uma alteração bioquímica desnecessária no animal são. A urina cronicamente hiperácida induz a precipitação de outro tipo de pedra: o cálculo de oxalato de cálcio. Diferente da estruvita, os cristais de oxalato não se dissolvem com dieta e exigem procedimento cirúrgico para desobstrução.',
+          'O perigo de rações de emagrecimento em filhotes ou ativos: Fórmulas para obesidade diluem as calorias e aumentam drasticamente as fibras insolúveis. Oferecidas a animais em fase de crescimento ou com gasto energético normal, causam atraso no desenvolvimento esquelético e espoliação de minerais.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Manejo Prático: Como Separar a Alimentação em Casas com Múltiplos Pets',
+          text: 'Nunca deixe ração coadjuvante disponível à vontade em comedouros abertos. Estabeleça rotinas de alimentação com horários fixos de 20 a 30 minutos em cômodos separados com portas fechadas, ou invista em comedouros automáticos com abertura por sensor de microchip cadastrado na coleira do animal prescrito.',
+        },
+      },
+      {
+        id: 'diretrizes-de-uso-e-papel-veterinario',
+        heading: '5. Prescrição, duração do tratamento e a falsa autonomia do tutor',
+        paragraphs: [
+          'Outro engano comum é o tutor diagnosticar o próprio pet e comprar uma ração clínica por conta própria após notar perda de peso ou dificuldade para urinar. Sem exames laboratoriais completos (urinálise, ultrassom abdominal e dosagem de creatinina sérica), uma escolha dietética equivocada pode acelerar o agravamento da doença.',
+          'É importante destacar que nem todo alimento coadjuvante é de uso definitivo. Existem formulações transitórias — como dietas gastrointestinais, de recuperação pós-cirúrgica ou urinárias de dissolução —, desenhadas para serem utilizadas apenas por algumas semanas ou meses até a normalização dos exames, devendo o pet retornar ao alimento comum logo após a alta.',
+          'Já patologias crônicas degenerativas, a exemplo da Doença Renal Crônica (DRC), exigem acompanhamento periódico a cada 3 a 6 meses. O médico veterinário ajusta a fórmula conforme a progressão dos estágios clínicos (do estágio inicial até fases avançadas), garantindo longevidade e conforto ao animal.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'A ração coadjuvante substitui os medicamentos prescritos pelo veterinário?',
+        a: 'Não. Como a ração coadjuvante é legalmente privada de agentes farmacológicos ativos (IN MAPA nº 39/2014), ela atua como suporte fisiológico para reduzir a sobrecarga no organismo. Ela nunca substitui antibióticos, anti-hipertensivos, quelantes de fósforo ou analgésicos receitados pelo médico veterinário.',
+      },
+      {
+        q: 'Por que a ração coadjuvante é vendida sem receita física retida no pet shop?',
+        a: 'Pela classificação do MAPA, trata-se de um alimento completo para fins específicos e não de um medicamento sob controle especial. Dessa forma, a legislação brasileira não obriga a retenção física da receita no caixa da loja, embora os fabricantes e veterinários reforcem que ela só deve ser comprada sob prescrição técnica.',
+      },
+      {
+        q: 'Meu gato melhorou dos sintomas urinários. Posso voltar para a ração comum?',
+        a: 'Nunca interrompa a dieta clínica sem repetir os exames laboratoriais e obter autorização veterinária. A suspensão precoce ou a troca abrupta para um alimento comum desbalanceado pode provocar o retorno imediato da formação de cristais e causar obstrução de uretra com risco de vida.',
+      },
+      {
+        q: 'Por que as rações renais têm cheiro e sabor mais intensos?',
+        a: 'Cães e gatos com perda da função renal frequentemente sofrem de náusea crônica e perda de apetite provocadas pelas toxinas acumuladas no sangue. Para combater a desnutrição, as fabricantes elevam a densidade energética por meio de gorduras nobres e utilizam hidrolisados de alta palatabilidade para estimular o pet a se alimentar espontaneamente.',
+      },
+      {
+        q: 'Existe problema se o pet saudável comer a ração coadjuvante por engano uma única vez?',
+        a: 'Não há perigo em uma ingestão acidental isolada em um dia. Os riscos de perda de massa muscular magra, carência proteica ou precipitação de novos cálculos urinários surgem apenas quando o consumo do alimento clínico se torna a rotina alimentar diária do animal sadio ao longo de semanas e meses.',
+      },
+    ],
+    conclusion:
+      'Alimentos coadjuvantes são verdadeiras obras de engenharia biológica: neles, o tratamento não vem em cápsulas ou comprimidos, mas sim na precisão milimétrica dos nutrientes, na pureza das fontes proteicas e no equilíbrio entre minerais e pH. Compreender que eles não contêm remédios ajuda o tutor a valorizar a ciência por trás da embalagem, a respeitar a prescrição veterinária e, acima de tudo, a proteger os animais saudáveis da casa de dietas que não foram feitas para eles.',
+    references: [
+      {
+        title: 'Instrução Normativa MAPA nº 39, de 21 de novembro de 2014',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        details: 'Estabelece a proibição expressa de princípios farmacológicos ativos em alimentos coadjuvantes e regula normas de rotulagem (Arts. 10, 34 e 43)',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        details: 'Regulamento Técnico sobre Padrões de Identidade, Qualidade e Classificação de Alimentos para Cães e Gatos (RTIQ Pet)',
+      },
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABINPET (Associação Brasileira da Indústria de Produtos para Animais de Estimação)',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Parâmetros de exigências nutricionais para alimentos completos e diretrizes de modulação para fins específicos',
+      },
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        details: 'Capítulos sobre modulação de fósforo, cálcio e densidade energética em animais senis e dietas especializadas',
+      },
+      {
+        title: 'Global Nutrition Guidelines — Nutritional Assessment Guidelines for Dogs and Cats',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        details: 'Protocolos de avaliação nutricional e o papel das dietas terapêuticas no manejo de patologias crônicas',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais sob Custódia Criptográfica (Hill\'s k/d, PremieR Urinário, Farmina Vet Life Renal e Fórmula Natural)',
+        institution: 'Fabricantes (Hill\'s Pet Nutrition, Grandfood, Farmina Pet Foods e Adimax)',
+        type: 'rotulagem',
+        details: 'Níveis de garantia em Matéria Seca, aditivos acidificantes/alcalinizantes e composição básica declarada',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte os Alimentos Coadjuvantes Catalogados no PetRankings',
+      text: 'Se o médico veterinário do seu cão ou gato prescreveu uma dieta especial, confira a nossa área dedicada de alimentos coadjuvantes com fichas técnicas oficiais, composição e links de lojas parceiras autorizadas.',
+      buttonText: 'Acessar Catálogo de Coadjuvantes',
+      buttonUrl: '/coadjuvantes',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
