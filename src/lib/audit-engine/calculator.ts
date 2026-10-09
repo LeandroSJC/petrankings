@@ -50,7 +50,14 @@ export function calcularScoreAnaliseRotulo(
   foodTypeParam?: 'SECO' | 'UMIDO'
 ): AnaliseScoreResult {
   const foodType = foodTypeParam || rotulagem.foodType || 'SECO';
-  const standard = getAbinpetStandard(especie, faseVida, foodType);
+  const isLight =
+    rotulagem.isLightOuControlePeso ??
+    (rotulagem.nomeComercial
+      ? /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(
+          rotulagem.nomeComercial
+        )
+      : false);
+  const standard = getAbinpetStandard(especie, faseVida, foodType, isLight);
   const ms = calcularNutrientesMS(garantias);
   const extrato: ExtratoPilarItem[] = [];
 
@@ -82,16 +89,18 @@ export function calcularScoreAnaliseRotulo(
 
     if (pbComMargem && eeComMargem) {
       pilar1Pontos = 40;
-      pilar1Justificativa =
-        foodType === 'UMIDO'
-          ? 'Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem aos parâmetros ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos com margem técnica de segurança na MS.'
-          : 'Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem com margem técnica de segurança na MS.';
+      pilar1Justificativa = isLight
+        ? 'Todos os nutrientes essenciais atendem com margem técnica de segurança aos parâmetros da ABINPET e diretrizes FEDIAF/NRC para dietas de controle calórico em MS.'
+        : foodType === 'UMIDO'
+        ? 'Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem aos parâmetros ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos com margem técnica de segurança na MS.'
+        : 'Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem com margem técnica de segurança na MS.';
     } else {
       pilar1Pontos = 20;
-      pilar1Justificativa =
-        foodType === 'UMIDO'
-          ? 'Atinge os pisos legais da ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos em MS, porém no limite estrito sem margem de segurança industrial.'
-          : 'Atinge os pisos legais mínimos da ABINPET em MS, porém no limite estrito sem margem de segurança industrial.';
+      pilar1Justificativa = isLight
+        ? 'Atinge os pisos legais da ABINPET e diretrizes FEDIAF/NRC para dietas de controle de peso em MS, porém no limite estrito sem margem de segurança industrial.'
+        : foodType === 'UMIDO'
+        ? 'Atinge os pisos legais da ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos em MS, porém no limite estrito sem margem de segurança industrial.'
+        : 'Atinge os pisos legais mínimos da ABINPET em MS, porém no limite estrito sem margem de segurança industrial.';
     }
   }
 

@@ -102,6 +102,7 @@ export async function POST(req: NextRequest) {
         omega3OuPrebioticosGarantidos: body.omega3OuPrebioticosGarantidos ?? true,
         claimCarneTipo: (body.meatClaimType as any) || 'NENHUM',
         claimCarneAdequado: body.claimCarneAdequado ?? true,
+        nomeComercial: body.commercialName,
       }
     );
 

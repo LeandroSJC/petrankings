@@ -134,6 +134,10 @@ export default async function ProductDetailPage({
   const tier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
   const isFilhote = product.lifeStage === 'CRESCIMENTO_INICIAL' || product.lifeStage === 'CRESCIMENTO_FINAL' || product.lifeStage === 'FILHOTE';
 
+  const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(
+    product.commercialName + ' ' + product.slug
+  );
+
   // Se for alimento completo com pontuação, reavalia o extrato para exibir justificativas descritivas e transparentes
   if (!isCoadjuvante && !isComplementar && product.scoreTotal !== null) {
     try {
@@ -157,6 +161,8 @@ export default async function ProductDetailPage({
           antioxidanteTipo: product.antioxidantType as any,
           omega3OuPrebioticosGarantidos: !!(product.omega3MinPct && product.omega3MinPct >= 0.2),
           claimCarneTipo: (product.meatClaimType as any) || 'COM_CARNE_FRESCA',
+          isLightOuControlePeso: isLight,
+          nomeComercial: product.commercialName,
         },
         product.foodType as any
       );
@@ -169,7 +175,8 @@ export default async function ProductDetailPage({
   const abinpetPadrao = getAbinpetStandard(
     product.species as any,
     isFilhote ? 'CRESCIMENTO_INICIAL' : 'ADULTO',
-    product.foodType as any
+    product.foodType as any,
+    isLight
   );
 
   // Estimativa de Energia Metabolizável (NRC/ABINPET - Seção 3.2 do DRS 8.0)

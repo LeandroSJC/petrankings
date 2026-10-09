@@ -264,9 +264,14 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
         omega3OuPrebioticosGarantidos: (parseFloat(formData.omega3MinPct) || 0) >= 0.2,
         claimCarneTipo: formData.meatClaimType as any,
         claimCarneAdequado: true,
+        isLightOuControlePeso: /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(
+          formData.commercialName
+        ),
+        nomeComercial: formData.commercialName,
       }
     );
   }, [
+    formData.commercialName,
     formData.species,
     formData.lifeStage,
     formData.moistureMaxPct,

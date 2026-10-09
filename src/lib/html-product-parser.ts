@@ -1146,10 +1146,11 @@ export function parseProductFromHtml(
     else if (/onc|on-care/i.test(t)) coadjuvanteCondition = 'OUTRO';
     else coadjuvanteCondition = 'OUTRO';
   } else if (
-    /(?:cookie|biscoito|biscoitos|snack|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|dental|mastig[áa]vel|\bosso\b|\bossos\b|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow|dentastix|biscrok|filezitos|marrobone)/i.test(commercialName + ' ' + sourceUrl) ||
+    !/(?:oral[-\s]*care|cuidado\s*dental)/i.test(commercialName + ' ' + sourceUrl) &&
+    (/(?:cookie|biscoito|biscoitos|snack|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|mastig[áa]vel|\bosso\b|\bossos\b|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow|dentastix|dental\s*(?:clean|bar|stick|bites|snack|petisco|mastig[áa]vel)|biscrok|filezitos|marrobone)/i.test(commercialName + ' ' + sourceUrl) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
-    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast/i.test(commercialName + ' ' + sourceUrl))
+    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast/i.test(commercialName + ' ' + sourceUrl)))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }

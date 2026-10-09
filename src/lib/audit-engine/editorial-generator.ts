@@ -59,6 +59,7 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
   // 1. Identificação do Público-Alvo e Espécie
   const speciesDesc = species === 'CAO_E_GATO' ? 'cães e gatos' : species === 'GATO' ? 'gatos' : 'cães';
   const isCastrado = /castrad/i.test(commercialName);
+  const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(commercialName);
   let faseDesc = 'adultos';
   if (lifeStage === 'CRESCIMENTO_INICIAL') {
     faseDesc = `${speciesDesc} filhotes em fase de crescimento inicial`;
@@ -95,7 +96,7 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
       : null;
 
   // Cálculos de Matéria Seca (MS)
-  const standard = getAbinpetStandard(species, lifeStage, foodType);
+  const standard = getAbinpetStandard(species, lifeStage, foodType, isLight);
   const umidade = Math.min(Math.max(umidadeMaxPct ?? 10, 0), 95);
   const fatorMS = (100 - umidade) / 100;
   const divisor = fatorMS > 0 ? fatorMS : 1;
@@ -192,7 +193,11 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
         ? ` Relação cálcio:fósforo perfeitamente balanceada em ${relCaP}:1, dentro da faixa ideal da ABINPET.`
         : '';
 
-    return `Alimento ${tipoFormat} do segmento ${segmento} para ${faseDesc}, classificado no ${faixaLabel} com ${score} pontos pela avaliação técnica do PetRankings.${ingredienteStr} O produto cumpre integralmente os parâmetros da 11ª Edição do Manual ABINPET com confortável margem de segurança industrial na matéria seca (${pbMS}% de proteína bruta${eeMS ? ` e ${eeMS}% de extrato etéreo` : ''}).${mineralBalanço} ${aditivosFrase}`;
+    const conformidadeTexto = isLight
+      ? `O produto cumpre integralmente os parâmetros da 11ª Edição do Manual ABINPET e diretrizes FEDIAF/NRC para controle calórico com confortável margem de segurança industrial na matéria seca (${pbMS}% de proteína bruta${eeMS ? ` e ${eeMS}% de extrato etéreo` : ''}).`
+      : `O produto cumpre integralmente os parâmetros da 11ª Edição do Manual ABINPET com confortável margem de segurança industrial na matéria seca (${pbMS}% de proteína bruta${eeMS ? ` e ${eeMS}% de extrato etéreo` : ''}).`;
+
+    return `Alimento ${tipoFormat} do segmento ${segmento} para ${faseDesc}, classificado no ${faixaLabel} com ${score} pontos pela avaliação técnica do PetRankings.${ingredienteStr} ${conformidadeTexto}${mineralBalanço} ${aditivosFrase}`;
   }
 
   // -------------------------------------------------------------------------
@@ -312,7 +317,8 @@ export async function generateEditorialOpinionWithGemini(
       extratoPontos,
     } = params;
 
-    const standard = getAbinpetStandard(species, lifeStage, foodType);
+    const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(commercialName);
+    const standard = getAbinpetStandard(species, lifeStage, foodType, isLight);
     const umidade = Math.min(Math.max(umidadeMaxPct ?? 10, 0), 95);
     const fatorMS = (100 - umidade) / 100;
     const divisor = fatorMS > 0 ? fatorMS : 1;

@@ -70,6 +70,8 @@ export interface RotulagemAnaliseInput {
   claimCarneTipo: ClaimCarneTipo;
   claimCarneAdequado?: boolean; // Se cumpre IN MAPA 22/2009, IN MAPA 39/2014 e Tabela 14 do Manual ABINPET
   foodType?: TipoAlimento;
+  isLightOuControlePeso?: boolean; // Se é alimento formulado para baixa caloria / controle de peso / castrado (FEDIAF 2025 / AAFCO)
+  nomeComercial?: string; // Nome comercial para detecção contextual de claims nutricionais
 }
 
 /** Detalhe de cada pilar no Extrato da Análise de Rótulo */

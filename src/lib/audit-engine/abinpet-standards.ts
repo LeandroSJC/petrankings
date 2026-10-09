@@ -86,12 +86,26 @@ export const ABINPET_STANDARDS: Record<string, AbinpetNutrientStandard> = {
 export function getAbinpetStandard(
   especie: Especie,
   faseVida: FaseVida,
-  foodType: 'SECO' | 'UMIDO' = 'SECO'
+  foodType: 'SECO' | 'UMIDO' = 'SECO',
+  isLightOuControlePeso: boolean = false
 ): AbinpetNutrientStandard {
   const isFilhote = faseVida === 'CRESCIMENTO_INICIAL' || faseVida === 'CRESCIMENTO_FINAL';
   const espKey = especie === 'CAO_E_GATO' ? 'CAO' : especie;
   const key = `${espKey}_${isFilhote ? 'FILHOTE' : 'ADULTO'}`;
-  const baseStandard = ABINPET_STANDARDS[key] || ABINPET_STANDARDS['CAO_ADULTO'];
+  let baseStandard = { ...(ABINPET_STANDARDS[key] || ABINPET_STANDARDS['CAO_ADULTO']) };
+
+  // Calibração para dietas de redução calórica / controle de peso (FEDIAF 2025 / NRC 2006 / AAFCO PF9)
+  // Em felinos adultos, dietas Light/Controle de Peso restringem deliberadamente o extrato etéreo
+  // para reduzir a densidade calórica total (EM <= 3250 kcal/kg). O piso fisiológico internacional
+  // para dietas hipocalóricas completas é de 8,0% MS (com margem de segurança de 8,5% MS),
+  // resguardando o atendimento aos ácidos graxos essenciais (ácido linoleico >= 0,5% MS e araquidônico >= 0,02% MS).
+  if (isLightOuControlePeso && !isFilhote && espKey === 'GATO') {
+    baseStandard = {
+      ...baseStandard,
+      extratoEtereoMinMS: 8.0,
+      extratoEtereoMargemSegurancaMS: 8.5,
+    };
+  }
 
   if (foodType === 'UMIDO') {
     // Em alimentos úmidos (80% a 88% de umidade), a baixa fração de sólidos (12% a 20% MS)
