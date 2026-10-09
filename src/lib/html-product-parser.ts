@@ -529,15 +529,17 @@ export function parseProductFromHtml(
 
     // 2. Imagens com "packshot" no atributo alt
     if (!hillsPackshot) {
+      const packshots: string[] = [];
       $('img').each((_, el) => {
         const src = $(el).attr('src') || '';
         const alt = $(el).attr('alt') || '';
         if (/packshot/i.test(alt) && !/hills-logo|logo|icon/i.test(alt) && !/hills-logo/i.test(src)) {
-          if (!hillsPackshot || src.includes('PNG_500') || src.includes('PNG_2000') || src.includes('JPEG_1500')) {
-            hillsPackshot = src;
-          }
+          if (!packshots.includes(src)) packshots.push(src);
         }
       });
+      if (packshots.length > 0) {
+        hillsPackshot = (options?.preferSecondImage && packshots.length > 1) ? packshots[1] : packshots[0];
+      }
     }
 
     // 3. Imagens do carrossel principal (swiper desktop)
