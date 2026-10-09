@@ -2083,6 +2083,202 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/coadjuvantes',
     },
   },
+  {
+    slug: 'racao-light-gatos-restricao-calorias-massa-magra',
+    title: 'Ração light para gatos: Como a restrição calórica funciona sem perda de massa magra?',
+    subtitle: 'A engenharia bromatológica por trás da redução de gordura, o papel das fibras de saciedade e o que dizem a FEDIAF e a ABINPET.',
+    cluster: 'Nutrição & Bromatologia',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-09',
+    updatedAt: '2026-10-09',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-light-gatos-calorias-cover.webp',
+    isFeatured: true,
+    summary:
+      'Entenda a ciência da perda de peso felina: por que gatos não podem simplesmente comer menos ração comum, como a elevação proteica protege os músculos, a física das fibras no estômago e as balizas internacionais de extrato etéreo.',
+    relatedProductSlugs: [
+      'sdsd-pro-feline-adult-light-dry',
+      'science-diet-adult-perfect-weight-dry',
+      'proplan-gatos-sterilized',
+      'light-weight-care-2524',
+    ],
+    sections: [
+      {
+        id: 'o-perigo-de-cortar-porcao',
+        heading: '1. O Dilema na Balança: Por Que Simplesmente Reduzir a Ração Comum é Perigoso',
+        paragraphs: [
+          'Quando um tutor percebe que o gato ganhou peso — algo frequente após a castração ou devido à rotina sedentária em apartamento —, o primeiro impulso costuma ser encher menos o pote, reduzindo a porção habitual em 30% ou 40%. Embora pareça lógico, esse corte é um erro grave na espécie felina.',
+          'Gatos são carnívoros estritos com demandas metabólicas rígidas para nutrientes como taurina, arginina, metionina, vitamina A e niacina. Ao diminuir abruptamente o volume de um alimento convencional, o tutor corta também a entrega diária desses micronutrientes essenciais, gerando estresse, miados constantes e desnutrição silenciosa.',
+          'Mais grave ainda é a resposta biológica do organismo felino. Quando submetido a uma restrição calórica severa, o fígado do gato é inundado por ácidos graxos mobilizados das reservas corporais, abrindo as portas para a temida lipidose hepática, uma emergência veterinária com alto índice de mortalidade.',
+          'A proposta de um alimento seco light formulado com precisão é entregar menos calorias por porção sem diminuir o volume da refeição e sem comprometer a densidade vitamínico-mineral.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Alerta Veterinário: Risco de Lipidose Hepática Felina',
+          text: 'Gatos não toleram dietas de fome. Ao contrário de cães e humanos, o felino que passa por privação energética severa acumula triglicerídeos nas células do fígado, paralisando a função hepática em poucos dias. A perda de peso saudável deve ser lenta e progressiva, limitada a 1% a 2% do peso corporal por semana.',
+        },
+      },
+      {
+        id: 'proteina-e-massa-magra',
+        heading: '2. Proteína em Alta: Como Preservar Músculos Enquanto Queima Gordura',
+        paragraphs: [
+          'Para emagrecer com saúde, o objetivo biológico não é simplesmente ver o ponteiro da balança descer, mas garantir que o gato perca gordura corporal preservando intacta a sua musculatura. Se o animal perder massa magra, o gasto calórico basal despenca, favorecendo o ganho de peso em dobro assim que a dieta termina.',
+          'Por essa razão, uma boa ração light para gatos não reduz a proteína; na verdade, ela costuma aumentar o teor proteico. Enquanto uma ração de manutenção para adultos opera frequentemente entre 30% e 32% de Proteína Bruta (PB), formulações de controle de peso chegam a patamares de 38% a 40% na Matéria Natural (ultrapassando 41% em Matéria Seca).',
+          'Na rotina prática do gato, esse aporte generoso de aminoácidos protege a sustentação da coluna e das articulações, mantém a força muscular para saltar nos arranhadores e assegura saciedade prolongada, já que a digestão de proteínas exige mais tempo e energia do trato digestivo.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Piso Nutricional ABINPET vs Alimentos Light',
+          text: 'O Manual Pet Food Brasil da ABINPET (11ª Edição) fixa o piso mínimo de Proteína Bruta para gatos adultos em 26,0% na Matéria Seca (MS). Alimentos modernos de controle de peso elevam essa exigência para a faixa de 40% a 43% MS, garantindo substrato proteico abundante mesmo sob balanço energético negativo.',
+        },
+      },
+      {
+        id: 'extrato-etereo-e-energia',
+        heading: '3. Extrato Etéreo sob Controle: O Piso Mínimo e a Densidade Calórica',
+        paragraphs: [
+          'A gordura (medida nos laudos bromatológicos como Extrato Etéreo) é o macronutriente mais denso da alimentação animal: cada grama de gordura fornece cerca de 9 quilocalorias, contra apenas 4 quilocalorias fornecidas por um grama de proteína ou carboidrato. Por isso, a redução de gordura é a ferramenta mais eficiente para enxugar as calorias totais do alimento.',
+          'Pelas diretrizes internacionais da AAFCO (Model Regulation PF9), um alimento felino só pode ostentar o termo "Light" ou "Baixas Calorias" no rótulo se apresentar uma densidade energética máxima de 3.250 kcal/kg de energia metabolizável. Para atingir essa meta, produtos de alta precisão reduzem o Extrato Etéreo para a faixa de 8,5% a 9,5% na Matéria Natural.',
+          'Embora o manual genérico da ABINPET para manutenção estabeleça piso de 9,0% MS de gordura, o guia europeu da FEDIAF (2025, Tabela VII-2) reconhece explicitamente que dietas de restrição energética e perda de peso podem operar com teores lipídicos reduzidos, desde que os ácidos graxos essenciais (ácido linoleico e ácido araquidônico) sejam rigorosamente atendidos para proteger a barreira da pele e a pelagem.',
+        ],
+        table: {
+          caption: 'Comparativo Bromatológico de Alimentos de Controle Calórico em Matéria Seca (MS)',
+          headers: [
+            'Parâmetro Bromatológico',
+            "Hill's Light Gatos Adultos",
+            "Hill's Perfect Weight Adultos",
+            'Royal Canin Light',
+            'Purina Pro Plan Castrados',
+          ],
+          rows: [
+            [
+              'Proteína Bruta (Mín.)',
+              '41,63% MS (38,3% MN)',
+              '42,82% MS (39,4% MN)',
+              '40,86% MS (38,0% MN)',
+              '43,18% MS (38,0% MN)',
+            ],
+            [
+              'Extrato Etéreo / Gordura (Mín.)',
+              '9,23% MS (8,5% MN)',
+              '12,93% MS (11,9% MN)',
+              '10,75% MS (10,0% MN)',
+              '13,63% MS (12,0% MN)',
+            ],
+            [
+              'Matéria Fibrosa (Máx.)',
+              '6,52% MS (6,0% MN)',
+              '6,52% MS (6,0% MN)',
+              '5,80% MS (5,4% MN)',
+              '6,25% MS (5,5% MN)',
+            ],
+            [
+              'Energia Metabolizável Declarada',
+              '3.179 kcal/kg',
+              '3.415 kcal/kg',
+              '3.488 kcal/kg',
+              '3.650 kcal/kg',
+            ],
+            [
+              'Foco Zootécnico Principal',
+              'Restrição calórica estrita (Light)',
+              'Manutenção com suporte muscular',
+              'Controle moderado de ingestão',
+              'Manutenção de gatos castrados ativos',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'fibras-e-saciedade',
+        heading: '4. A Engenharia da Saciedade: Fibras Solúveis, Insolúveis e L-Carnitina',
+        paragraphs: [
+          'O maior pesadelo de quem tenta controlar o peso de um felino é o comportamento de pedinte: miados estridentes de madrugada e rondas incessantes perto do armário de ração. A solução bromatológica para esse problema está na Matéria Fibrosa.',
+          'As fibras insolúveis (como a celulose em pó e o farelo de ervilha) exercem um papel puramente físico. Elas absorvem água e expandem o volume do bolo alimentar no estômago, ativando mecanorreceptores gástricos que enviam ao cérebro o sinal químico de saciedade ("o estômago está cheio"), sem acrescentar calorias à digestão. Como bônus, essas mesmas fibras auxiliam no carreamento e na eliminação fecal de pelos engolidos.',
+          'Em paralelo, as fibras solúveis e prebióticos (como a polpa de beterraba e os frutooligossacarídeos - FOS) retardam o esvaziamento do estômago e alimentam as bactérias benéficas da microbiota, estabilizando as curvas de glicemia.',
+          'Outro componente estratégico é a L-carnitina, frequentemente adicionada a essas fórmulas. Esse composto atua como um transportador molecular, conduzindo os ácidos graxos para o interior das mitocôndrias celulares para que sejam queimados como combustível, poupando as reservas de glicogênio muscular.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Manejo Prático: Como Reduzir a Ansiedade Alimentar',
+          text: 'Gatos são caçadores programados para fazer entre 10 e 15 pequenas refeições por dia. Em vez de despejar toda a porção de uma vez, divida o alimento em 4 ou 5 porções ao longo do dia ou utilize comedouros lentos e brinquedos dispensadores. Comer aos poucos acalma os instintos e prolonga o efeito de saciedade das fibras.',
+        },
+      },
+      {
+        id: 'light-vs-castrados-vs-obesidade',
+        heading: '5. Escolha Consciente: Ração Light vs Castrados vs Alimento Clínico para Obesidade',
+        paragraphs: [
+          'Diante da gôndola do pet shop, muitos tutores ficam em dúvida sobre qual categoria escolher para o seu animal. É fundamental compreender as diferenças entre essas três opções:',
+          'As rações para Gatos Castrados são alimentos completos de manutenção preventiva. Elas oferecem densidade calórica intermediária (em torno de 3.500 a 3.700 kcal/kg) e priorizam o controle de minerais e o equilíbrio do pH urinário (mantido entre 6,2 e 6,5) para evitar cálculos de estruvita e oxalato de cálcio, muito frequentes após a esterilização.',
+          'As rações Light ou de Controle de Peso são alimentos completos comerciais com restrição calórica mais profunda (geralmente abaixo de 3.300 a 3.450 kcal/kg) e maior densidade proteico-fibrosa. São recomendadas para gatos com sobrepeso leve a moderado (escore de condição corporal 6 ou 7 na escala de 9 pontos) ou animais com tendência acentuada ao sedentarismo.',
+          'Já os alimentos coadjuvantes para Obesidade (como Hill\'s Prescription Diet r/d ou Farmina Vet Life Obesity) pertencem a uma classe clínica regulada pela IN MAPA nº 39/2014. Eles são destinados a gatos com obesidade franca (escore 8 ou 9) e exigem acompanhamento profissional, pois possuem restrições calóricas extremas e níveis específicos de micronutrientes que não devem ser utilizados sem prescrição veterinária.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual a diferença entre ração para gato castrado e ração light?',
+        a: 'A ração para gato castrado foca na prevenção: possui calorias moderadas e controle rígido de pH urinário e minerais. A ração light tem restrição calórica mais agressiva (menos gordura e mais fibras), sendo voltada para animais que já estão com sobrepeso e precisam emagrecer.',
+      },
+      {
+        q: 'Gato pode comer ração light por toda a vida?',
+        a: 'Sim, desde que seja um "Alimento Completo" registrado no MAPA (e não uma dieta clínica restritiva). Alimentos completos light contêm todos os minerais, vitaminas e ácidos graxos necessários para suprir 100% das exigências biológicas de um gato adulto permanentemente.',
+      },
+      {
+        q: 'A ração light ajuda a controlar bolas de pelo?',
+        a: 'Sim. Por conterem teores elevados de matéria fibrosa insolúvel (frequentemente de 5% a 7% na Matéria Natural), essas rações facilitam o trânsito intestinal e o arraste dos pelos deglutidos até a eliminação fecal.',
+      },
+      {
+        q: 'Filhotes ou gatas prenhes podem comer ração light?',
+        a: 'Não. Filhotes em fase de crescimento rápido e fêmeas gestantes ou lactantes têm altíssima demanda calórica e lipídica. A ingestão de alimentos com restrição de gordura nessa fase pode prejudicar gravemente o desenvolvimento ósseo e neurológico.',
+      },
+      {
+        q: 'Posso oferecer sachê ou patê junto com a ração light?',
+        a: 'Sim, a alimentação mista (mix feeding) é excelente para gatos, pois alimentos úmidos fornecem cerca de 80% de água e possuem baixíssima densidade calórica por grama. No entanto, é essencial descontar as calorias do sachê da porção diária de ração seca.',
+      },
+    ],
+    conclusion:
+      'Controlar o peso de um felino não significa deixá-lo com fome ou cortar arbitrariamente a ração no pote. A ciência bromatológica moderna comprova que o segredo de um emagrecimento sustentável repousa na engenharia de três pilares: redução calculada de gordura para cortar energia, elevação proteica para blindar os músculos e fibras estratégicas para assegurar saciedade e bem-estar. Com paciência, enriquecimento ambiental e o alimento certo, seu gato recupera a vitalidade e a agilidade que a obesidade havia roubado.',
+    references: [
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        details: 'Tabela VII-2: Parâmetros para Restrição Energética e Redução de Gordura em Dietas Felinas de Perda de Peso',
+      },
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 4: Exigências Nutricionais Mínimas e Tetos Bromatológicos para Gatos Adultos em Matéria Seca',
+      },
+      {
+        title: 'AAFCO Official Publication — Model Regulation PF9 (Expression of Guarantees and Calorie Content)',
+        institution: 'Association of American Feed Control Officials (AAFCO)',
+        type: 'regulamento',
+        details: 'Diretrizes oficiais para declaração voluntária de alimentos "Light", "Lite" e "Low Calorie" em gatos (teto de 3.250 kcal/kg)',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009 e IN MAPA nº 39/2014',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        details: 'Padrões de Identidade e Qualidade para Alimentos Completos e Regulamento de Alimentos Coadjuvantes',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais sob Custódia Probatória (Hill\'s Science Diet Light, Hill\'s Perfect Weight, Royal Canin Light e Purina Pro Plan Castrados)',
+        institution: 'Fabricantes (Hill\'s Pet Nutrition, Royal Canin e Nestlé Purina)',
+        type: 'rotulagem',
+        details: 'Níveis de garantia em Matéria Seca (MS), fontes de fibra funcional e declarações de energia metabolizável arquivadas com hash criptográfico SHA-256',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos para Gatos com o Motor Técnico do PetRankings',
+      text: 'Confira as avaliações completas, níveis de garantia convertidos para Matéria Seca (MS) e pontuações transparentes das principais opções do mercado para gatos adultos e castrados.',
+      buttonText: 'Explorar Catálogo de Alimentos',
+      buttonUrl: '/rankings',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
