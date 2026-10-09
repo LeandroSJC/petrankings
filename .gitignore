@@ -56,4 +56,5 @@ _backup_fichas_pdf/
 # Backups do Banco de Dados baixados da Oracle Cloud
 _backups_nuvem/
 
-
+# Scratch & Dev experiments
+scratch/

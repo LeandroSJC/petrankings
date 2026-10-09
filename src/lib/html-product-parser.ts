@@ -368,6 +368,10 @@ export function parseProductFromHtml(
     $('img.wp-post-image, .woocommerce-product-gallery__image img').first().attr('src') ||
     null;
 
+  if (imageUrl && (/hills-logo/i.test(imageUrl) || imageUrl.includes('seo-default'))) {
+    imageUrl = null;
+  }
+
   if (!imageUrl || imageUrl.includes('seo-default') || /specialcat\.com\.br|specialdog\.com\.br|farmina\.com/i.test(sourceUrl)) {
     if (/farmina\.com/i.test(sourceUrl)) {
       const farminaImg = $('img[src*="/fotoprodotti/"]')
@@ -514,19 +518,49 @@ export function parseProductFromHtml(
 
   // 1g. Extração Hill's Pet Nutrition (Science Diet / Prescription Diet)
   const isHills = /hillspet\.com\.br/i.test(sourceUrl);
-  if (!imageUrl && isHills) {
-    $('img').each((_, el) => {
-      const src = $(el).attr('src') || '';
-      const alt = $(el).attr('alt') || '';
-      if ((src.includes('pxmshare') && /packshot/i.test(alt)) || (src.includes('pim/hills') && src.includes('packshot'))) {
-        if (!imageUrl || src.includes('PNG_2000')) {
-          imageUrl = src;
+  if (isHills) {
+    let hillsPackshot: string | null = null;
+
+    // 1. Imagem sticky oficial do produto (packshot transparente isolado)
+    const stickyImg = $('.product-sticky-image').attr('src') || $('img.product-sticky-image').attr('src');
+    if (stickyImg && !/hills-logo|logo/i.test(stickyImg)) {
+      hillsPackshot = stickyImg;
+    }
+
+    // 2. Imagens com "packshot" no atributo alt
+    if (!hillsPackshot) {
+      $('img').each((_, el) => {
+        const src = $(el).attr('src') || '';
+        const alt = $(el).attr('alt') || '';
+        if (/packshot/i.test(alt) && !/hills-logo|logo|icon/i.test(alt) && !/hills-logo/i.test(src)) {
+          if (!hillsPackshot || src.includes('PNG_500') || src.includes('PNG_2000') || src.includes('JPEG_1500')) {
+            hillsPackshot = src;
+          }
         }
+      });
+    }
+
+    // 3. Imagens do carrossel principal (swiper desktop)
+    if (!hillsPackshot) {
+      const swiperImg = $('.swiper-image-desktop').first().attr('src');
+      if (swiperImg && !/hills-logo|logo/i.test(swiperImg)) {
+        hillsPackshot = swiperImg;
       }
-    });
-    if (!imageUrl) {
-      const anyPxm = $('img[src*="pxmshare"]').first().attr('src');
-      if (anyPxm) imageUrl = anyPxm;
+    }
+
+    // 4. Qualquer imagem PXM DAM que não seja logo/ícone
+    if (!hillsPackshot) {
+      $('img').each((_, el) => {
+        const src = $(el).attr('src') || '';
+        const alt = $(el).attr('alt') || '';
+        if ((src.includes('pxmshare') || src.includes('pim/hills')) && !/hills-logo|logo|icon/i.test(alt) && !/hills-logo/i.test(src)) {
+          if (!hillsPackshot) hillsPackshot = src;
+        }
+      });
+    }
+
+    if (hillsPackshot) {
+      imageUrl = hillsPackshot;
     }
   }
 

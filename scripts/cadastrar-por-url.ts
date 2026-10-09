@@ -2,6 +2,7 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import sharp from 'sharp';
 import { chromium, type Browser, type Page } from 'playwright';
 import prisma from '../src/lib/prisma';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
@@ -128,7 +129,15 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      fs.writeFileSync(destPath, buf);
+      if (destPath.endsWith('.webp')) {
+        try {
+          await sharp(buf).webp({ quality: 90 }).toFile(destPath);
+        } catch {
+          fs.writeFileSync(destPath, buf);
+        }
+      } else {
+        fs.writeFileSync(destPath, buf);
+      }
       return true;
     } catch {
       if (attempt < retries) {
