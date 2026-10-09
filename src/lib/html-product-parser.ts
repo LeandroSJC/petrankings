@@ -35,6 +35,24 @@ export interface ProductHtmlMetadata {
   antioxidantType: 'NATURAL' | 'SINTETICO' | 'MISTO';
 }
 
+/**
+ * Fallback oficial e curado para produtos cujos fabricantes omitiram a composição no HTML
+ */
+const CURATED_INGREDIENTS_FALLBACKS: Record<string, string> = {
+  'prescription-diet-ad-urgent-care-canned':
+    'Água, miúdos de aves, fígado suíno, carne mecanicamente separada de frango, farinha de milho, farinha de torresmo, óleo de peixe refinado, carbonato de cálcio, hidrolisado de fígado de frango, tripolifosfato de sódio, cloreto de potássio, fosfato bicálcio, goma guar, vitaminas (vitaminas B12, ácido ascórbico polifosfato (fonte de vitamina C), vitamina D3, vitamina E, ácido fólico (B9), biotina (B7), cloreto de colina, mononitrato de tiamina (B1), niacina (B3), pantotenato de cálcio (B5), cloridrato de piridoxina (B6), riboflavina (B2)), betacaroteno, minerais (sulfato ferroso, óxido de zinco, sulfato de cobre, sulfato de manganês, iodato de cálcio), citrato de potássio, gema de ovo, taurina, DL-Metionina, cisteína, glicina, ácido cítrico, óxido de magnésio, dextrose.',
+  'science-diet-adult-perfect-digestion-salmon-oats-rice-dry':
+    'Salmão, Arroz Integral, Farelo Proteico de Milho - 60*, Grão de Aveia, Proteínas de Batata, Grão de Milho*, Gordura de Frango, Farinha de Carne e Ossos de Aves, Ovo Em Pó, Hidrolisado de Miúdos de Aves, Casca de Nozes, Ácido Lático, Cloreto de Potássio, Sulfato de Cálcio, Grão de Linhaça, Polpa Desidratada de Beterraba, Polpa Cítrica, L-Lisina, Óleo de Soja Refinado**, Cloreto de Sódio, Cloreto de Colina, Extrato de Arando, Abóbora, Taurina, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Carbonato de Cálcio, DL-Metionina, Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Concentrado de Tocoferóis, Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), Betacaroteno.',
+  'science-diet-adult-sensitive-stomach-skin-small-bites-dry':
+    'Carne Mecanicamente Separada de Frango, Farinha de Carnes e Osso de Aves, Ervilha in Natura Moída, Farinha de Cevada, Arroz Integral, Quirera de Arroz, Grão de Sorgo, Ovo Em Pó, Gordura de Frango, Óleo de Soja Refinado**, Polpa Desidratada de Beterraba, Hidrolisado de Miúdos de Aves, Ácido Lático, Grão de Linhaça, Hidrolisado de Fígado de Suínos, Cloreto de Potássio, Cloreto de Sódio, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Cloreto de Colina, Taurina, Concentrado de Tocoferóis, Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), Betacaroteno.',
+  'science-diet-adult-perfect-digestion-chicken-rice-oats-dry':
+    'Carne Mecanicamente Separada de Frango, Farinha de Cevada, Arroz Integral, Quirera de Arroz, Grão de Aveia, Grão de Milho*, Farelo Proteico de Milho - 60*, Farinha de Carne e Ossos de Aves, Gordura de Frango, Hidrolisado de Miúdos de Aves, Hidrolisado de Fígado de Suínos, Casca de Nozes, Óleo de Soja Refinado**, Ácido Lático, Cloreto de Potássio, Grão de Linhaça, Polpa Desidratada de Beterraba, Polpa Cítrica, Cloreto de Sódio, Cloreto de Colina, Carbonato de Cálcio, Fosfato Bicálcico, Óleo (Refinado, Branqueado e Desodorizado) de Peixes, Extrato de Arando, Abóbora, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Taurina, Concentrado de Tocoferóis, Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), Betacaroteno.',
+  'science-diet-adult-sensitive-stomach-skin-small-mini-chicken-dry':
+    'Carne Mecanicamente Separada de Frango, Quirera de Arroz, Farinha de Carne e Ossos de Aves, Ervilha in Natura Moída, Farinha de Cevada, Grão de Sorgo, Ovo Em Pó, Gordura de Frango, Óleo de Soja Refinado*, Arroz Integral, Polpa Desidratada de Beterraba, Hidrolisado de Miúdos de Aves, Ácido Lático, Hidrolisado de Fígado de Suínos, Cloreto de Potássio, Grão de Linhaça, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Cloreto de Sódio, Cloreto de Colina, Taurina, Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Concentrado de Tocoferóis, Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), Betacaroteno.',
+  'science-diet-science-plan-adult-7-senior-vitality-chicken-rice-dry':
+    'Carne Mecanicamente Separada de Frango, Quirera de Arroz, Ervilha in Natura Moída, Farinha de Cevada, Grão de Aveia, Grão de Milho*, Ovo Em Pó, Gordura de Frango, Hidrolisado de Miúdos de Aves, Farelo Proteico de Milho - 60*, Óleo de Soja Refinado**, Grão de Linhaça, Hidrolisado de Fígado de Suínos, Ácido Lático, L-Lisina, Cloreto de Potássio, Carbonato de Cálcio, Fosfato Bicálcico, Cenoura, Massa de Tomate Desidratada, Polpa Cítrica, Espinafre Desidratado, Óleo (Refinado, Branqueado e Desodorizado) de Peixes, Cloreto de Sódio, Ácido Alfa-Lipóico (ALA), Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Cloreto de Colina, Taurina, Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), L-Triptofano, Concentrado de Tocoferóis, L-Carnitina, Betacaroteno.',
+};
+
 function capitalizeTitle(str: string): string {
   if (!str) return '';
 
@@ -1379,6 +1397,17 @@ export function parseProductFromHtml(
       bodyText.match(/Ingredientes\s*[:\n]\s*([\s\S]{50,4000}?)(?:An[áa]lise\s+garantida|N[íi]veis\s+de\s+garantia|Guia\s+alimentar|$)/i);
     if (m) compText = m[1].trim();
   }
+
+  // Fallback curado para páginas onde o fabricante omitiu a composição no HTML
+  if ((!compText || compText.length < 15) && sourceUrl) {
+    for (const [key, val] of Object.entries(CURATED_INGREDIENTS_FALLBACKS)) {
+      if (sourceUrl.includes(key)) {
+        compText = val;
+        break;
+      }
+    }
+  }
+
   if (!garText) {
     const m = bodyText.match(/(?:N[íi]veis\s+de\s+garantia|An[áa]lise\s+garantida)[\s\S]{50,4000}?(?:Enriquecimento|Tabela\s+de\s+consumo|Guia\s+alimentar|$)/i);
     if (m) garText = m ? m[0] : bodyText;
@@ -1573,7 +1602,12 @@ export function parseProductFromHtml(
       compText + ' ' + bodyText.slice(0, 1500)
     );
 
-  const containsGmo = (hasExplicitDoadoras || hasExplicitGmo || hasAsteriskGmo || hasNumberGmo) && !isFreeOfGmo;
+  const isHillsGmo =
+    isHills &&
+    !isFreeOfGmo &&
+    /(?:milho|soja|farelo\s+proteico\s+de\s+milho|gl[úu]ten\s+de\s+milho|farelo\s+de\s+soja|[óo]leo\s+de\s+soja)/i.test(compText);
+
+  const containsGmo = (hasExplicitDoadoras || hasExplicitGmo || hasAsteriskGmo || hasNumberGmo || isHillsGmo) && !isFreeOfGmo;
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
@@ -1592,14 +1626,14 @@ export function parseProductFromHtml(
     const detectedGrains: string[] = [];
     if (
       /milho|farelo\s+proteico\s+de\s+milho|gl[úu]ten\s+de\s+milho/i.test(compText) &&
-      (!hasAnyGrainFootnote ||
+      (!hasAnyGrainFootnote || isHills ||
         /milho(?:[^\n,;]*?)\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bmilho\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
     ) {
       detectedGrains.push('Milho');
     }
     if (
       /soja/i.test(compText) &&
-      (!hasAnyGrainFootnote ||
+      (!hasAnyGrainFootnote || isHills ||
         /soja(?:[^\n,;]*?)\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bsoja\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
     ) {
       detectedGrains.push('Soja');
