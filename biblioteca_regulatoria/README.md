@@ -120,6 +120,36 @@
   * **Desmistificação de Claims Comerciais:** Prova documental de que claims como *"Sem antibióticos adicionados"*, *"Livre de hormônios"* ou *"Sem promotores químicos"* são obrigações legais mandatórias a todas as rações e não diferenciais exclusivos de marcas caras.
   * **Diretriz de Coadjuvantes:** Confirmação de que alimentos coadjuvantes terapêuticos não podem conter princípios farmacológicos proibidos ou antimicrobianos em formulação regular.
 
+### 1.15. Instrução Normativa MAPA nº 34/2008 (Processamento de Resíduos Animais e Farinhas)
+* **Arquivo arquivado nesta pasta:** [`instrucao-normativa-no-34-de-28-de-maio-de-2008.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/instrucao-normativa-no-34-de-28-de-maio-de-2008.pdf) *(143 KB, 12 páginas)*
+* **Órgão emissor:** MAPA / Gabinete do Ministro.
+* **Tema:** Regulamento Técnico da Inspeção Higiênico-Sanitária e Tecnológica do Processamento de Resíduos de Animais e Documento de Transporte de Resíduos Animais (DTA).
+* **Aplicação no PetRankings:**
+  * **Padrões de Qualidade de Farinhas de Origem Animal:** Define requisitos sanitários e tecnológicos para a produção de *farinha de vísceras de aves*, *farinha de carne e ossos*, *farinha de penas*, *farinha de peixe* e gorduras de origem animal utilizadas na alimentação de cães e gatos.
+  * **Segurança Sanitária e Digestibilidade:** Critérios de esterilização térmica, parâmetros de umidade, acidez, peróxidos e prevenção contra contaminação cruzada (risco biológico e EEB), servindo de base para auditoria e valorização de ingredientes nobres *Low Ash* (baixo teor de matéria mineral e ossos).
+
+### 1.16. Instrução Normativa MAPA nº 26/2009 (Controle de Antimicrobianos de Uso Veterinário)
+* **Arquivo arquivado nesta pasta:** [`instrucao-normativa-no-26-de-9-de-julho-de-2009.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/instrucao-normativa-no-26-de-9-de-julho-de-2009.pdf) *(155 KB, 9 páginas)*
+* **Órgão emissor:** MAPA / Gabinete do Ministro.
+* **Tema:** Regulamento Técnico para Fabricação, Controle de Qualidade, Comercialização e Emprego de Produtos Antimicrobianos de Uso Veterinário.
+* **Aplicação no PetRankings:**
+  * **Marco Antifraude de Claims:** Legislação-chave vinculada à *Lista de Substâncias Proibidas*, que impede a inclusão de antibióticos sistêmicos e promotores antimicrobianos em rações convencionais e dietas de manutenção.
+  * **Confronto de Rótulos:** Respaldo normativo para alertar que claims publicitários de *"livre de antibióticos"* em pet food de prateleira são meros cumprimentos da lei e não inovação nutricional exclusiva.
+
+### 1.17. Resolução Normativa CTNBio nº 32/2021 (Liberação Comercial e Biossegurança de OGM)
+* **Arquivo arquivado nesta pasta:** [`Resolução Normativa CTNBio 32_2021.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Resolu%C3%A7%C3%A3o%20Normativa%20CTNBio%2032_2021.pdf) *(123 KB, 14 páginas)*
+* **Órgão emissor:** Ministério da Ciência, Tecnologia e Inovações (MCTI) / Comissão Técnica Nacional de Biossegurança (CTNBio).
+* **Tema:** Normas para liberação comercial e monitoramento de animais e vegetais Geneticamente Modificados (OGM) e derivados para consumo humano e animal.
+* **Aplicação no PetRankings:**
+  * **Rastreabilidade e Avaliação de Ingredientes Transgênicos:** Suporte regulatório para a análise de derivados de milho transgênico (Bt), soja transgênica (RR) e farelos biotecnológicos no pilar de transparência e rotulagem OGM (articulado com a Lei nº 11.105/2005 e Decreto nº 4.680/2003).
+
+### 1.18. Instrução Normativa SDA/MAPA nº 07/2011 (Sanidade e Quarentena de Matérias-Primas)
+* **Arquivo arquivado nesta pasta:** [`Instrução Normativa MAPA nº 07-2011.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Instru%C3%A7%C3%A3o%20Normativa%20MAPA%20n%C2%BA%2007-2011.pdf) *(229 KB, 3 páginas)*
+* **Órgão emissor:** MAPA / Secretaria de Defesa Agropecuária (SDA).
+* **Tema:** Requisitos fitossanitários e Declarações Adicionais (DA 5) para importação e circulação de sementes, grãos e matérias-primas vegetais.
+* **Aplicação no PetRankings:**
+  * **Controle Sanitário de Cereais e Grãos:** Referência complementar para a higidez fitossanitária de matérias-primas vegetais importadas utilizadas em pet food (trigo, cevada, aveia, polpas vegetais).
+
 ---
 
 ## 📖 2. Manuais Técnicos de Nutrição e Bromatologia
@@ -149,22 +179,50 @@
   * Escores oficiais de Condição Corporal (BCS 1-9) e Condição Muscular (MCS).
   * Questionário canônico para checagem da idoneidade científica dos fabricantes de alimentos (equipe de nutricionistas PhD dedicados, formulação e controle analítico de lotes).
 
+### 2.4. NRC (2006) — Nutrient Requirements of Dogs and Cats
+* **Arquivo arquivado nesta pasta:** [`Nutrient Requirements of Dogs and Cats (2006).pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Nutrient%20Requirements%20of%20Dogs%20and%20Cats%20(2006).pdf) *(25,6 MB, 417 páginas)*
+* **Órgão emissor:** National Research Council / The National Academies Press (Washington, D.C.).
+* **Aplicação no PetRankings:**
+  * **Pedra Angular Científica Mundial:** É o marco científico primário em que se fundamentam os manuais da ABINPET, FEDIAF e AAFCO.
+  * **Exigências Mínimas e Limites Seguros:** Estabelece as faixas de Necessidade Mínima (MR), Recomendação Recomendada (RA) e Limite Superior Seguro (SUL) para todos os aminoácidos, minerais, vitaminas e ácidos graxos essenciais.
+  * **Modelos de Energia Metabolizável:** Equações canônicas para o cálculo de EM com base nos fatores de Atwater modificados e coeficientes de digestibilidade aparente.
+
+### 2.5. AAFCO Pet Food Committee (PFC) — Model Regulations for Pet Food (PFLM)
+* **Arquivo arquivado nesta pasta:** [`FINAL_PFC_MBRC_for_Pet_Food_and_Specialty_Pet_Food.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/FINAL_PFC_MBRC_for_Pet_Food_and_Specialty_Pet_Food.pdf) *(382 KB, 23 páginas)*
+* **Órgão emissor:** Association of American Feed Control Officials (AAFCO).
+* **Tema:** Pet Food Label Modernization (PFLM) — Regulamentos modelo oficiais para alimentos de animais de estimação sob o Model Bill.
+* **Aplicação no PetRankings:**
+  * **Pet Nutrition Facts:** Modelo internacional de quadro nutricional padronizado, instruções de alimentação e densidade calórica por porção familiar.
+  * **Critérios de Suficiência e Fases de Vida:** Parâmetros modernos para declarações "All Life Stages", diferenciação explícita entre alimentos completos ("Daily Food") e complementares ("Food Mixer", "Food Supplement").
+
+### 2.6. WSAVA Global Nutrition Toolkit (2021) — Selecting a Pet Food for Your Pet
+* **Arquivo arquivado nesta pasta:** [`Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf) *(2,2 MB, 3 páginas)*
+* **Órgão emissor:** World Small Animal Veterinary Association (WSAVA Global Nutrition Committee).
+* **Aplicação no PetRankings:**
+  * **Critérios de Ouro de Avaliação de Fabricantes:** Guia oficial de perguntas críticas que todo tutor e avaliador deve fazer ao fabricante:
+    1. A empresa emprega nutricionistas adequadamente qualificados (PhD em Nutrição Animal ou diplomados ACVIM/ECVCN)?
+    2. As dietas são formuladas para atender aos perfis ou testadas em ensaios práticos de alimentação (Feeding Trials)?
+    3. Onde os alimentos são produzidos (fábricas próprias com certificação vs. terceirização contínua)?
+    4. Qual o padrão de controle de qualidade, testes toxicológicos e retenção de amostras de lote?
+
 ---
 
 ## 🛠️ 3. Mapeamento Arquitetural no Código-Fonte
 
 | Documento Oficial Arquivado | Arquivo de Implementação no Código | Regra de Negócio / Função |
 | :--- | :--- | :--- |
-| **Manual ABINPET 11ª Ed. & FEDIAF 2025** | [`src/lib/audit-engine/abinpet-standards.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/abinpet-standards.ts) | Tabelas oficiais de mínimos e máximos por espécie e fase de vida. |
-| **Bromatologia e Base Seca (MS)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Conversão para Base Seca (MS), Ca:P e score dos 4 pilares. |
+| **Manual ABINPET 11ª Ed., NRC 2006 & FEDIAF 2025** | [`src/lib/audit-engine/abinpet-standards.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/abinpet-standards.ts) | Tabelas oficiais de mínimos e máximos por espécie e fase de vida. |
+| **Bromatologia e Base Seca (MS - NRC/ABINPET)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Conversão para Base Seca (MS), Ca:P e score dos 4 pilares. |
 | **IN 30/2009 e IN 39/2014 (Categorias)** | [`src/lib/formatters.ts`](file:///d:/Projetos/PetRankings/src/lib/formatters.ts) | Classificação: Completo, Coadjuvante e Específico. |
 | **IN 22/2009 (Rotulagem & Ordem)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Inspeção da ordem decrescente dos primeiros 5 ingredientes. |
+| **IN 34/2008 (Processamento de Resíduos Animais)** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Inspeção e valorização de farinhas nobres de aves, digestibilidade e limites de cinzas. |
 | **IN 110/2020 e Portaria 359/2021** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Pontuação de antioxidantes: Natural (100%), Misto ou Sintético. |
 | **Anexo 1 — Ingredientes Autorizados MAPA** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Validação lexical e verificação de matérias-primas e fontes nobres. |
-| **Lista de Substâncias Proibidas MAPA** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Fundamentação de segurança toxicológica e combate a claims vazios. |
-| **Decreto 4.680/2003 e Portaria MJ 2.658/2003** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Bônus de formulação não-transgênica (`containsGmo: false`) e checagem do símbolo T. |
+| **Lista de Substâncias Proibidas & IN 26/2009** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Fundamentação de segurança toxicológica e combate a claims vazios de antibióticos. |
+| **Decreto 4.680/2003, Portaria MJ 2.658 & RN CTNBio 32** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Bônus de formulação não-transgênica (`containsGmo: false`) e checagem do símbolo T. |
 | **IN 17/2020 e IN 04/2007 (SipeAgro & BPF)** | [`src/lib/custody-template.ts`](file:///d:/Projetos/PetRankings/src/lib/custody-template.ts) | Rastreabilidade fabril, registro e auditoria de boas práticas. |
-| **WSAVA Guidelines (JSAP)** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Fundamentação clínica e critérios de qualidade em estudos/guias. |
+| **WSAVA Guidelines & Toolkit 2021** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Critérios clínicos, questionário de fabricantes e qualidade em estudos/guias. |
+| **AAFCO PFC Modernization (PFLM)** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Referência internacional para rotulagem moderna e tabelas de fatos nutricionais. |
 | **Decreto 12.031/2024 e CDC** | [`src/lib/custody-template.ts`](file:///d:/Projetos/PetRankings/src/lib/custody-template.ts) | Custódia documental probatória com hash SHA-256 e data de coleta. |
 | **CDC (Arts. 6º, 30 e 31)** | [`src/app/sobre/page.tsx`](file:///d:/Projetos/PetRankings/src/app/sobre/page.tsx) e [`Footer.tsx`](file:///d:/Projetos/PetRankings/src/components/Footer.tsx) | Aviso legal institucional e termo de transparência informativa. |
 
@@ -176,21 +234,29 @@
 biblioteca_regulatoria/
 ├── README.md                                                               # Este catálogo e guia mestre normativo
 ├── Manual Pet Food Brasil - Abinpet.pdf                                   # Manual oficial 11ª Edição da ABINPET (14,6 MB)
+├── Nutrient Requirements of Dogs and Cats (2006).pdf                      # NRC (2006) - Requisitos Nutricionais Caninos e Felinos (25,6 MB)
 ├── FEDIAF-Nutritional-Guidelines_2025-ONLINE.pdf                           # Diretrizes Nutricionais Europeias FEDIAF 2025 (2,2 MB)
+├── FINAL_PFC_MBRC_for_Pet_Food_and_Specialty_Pet_Food.pdf                  # AAFCO Model Regulations - Modernização de Rótulos PFLM (382 KB)
 ├── WSAVA-Nutrition-Assessment-Guidelines-2011-JSAP.pdf                     # Diretrizes Clínicas Nutricionais da WSAVA (846 KB)
+├── Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf # WSAVA Toolkit 2021 - Critérios de Seleção (2,2 MB)
 ├── lei-8078-11-setembro-1990-365086-normaatualizada-pl.pdf                 # Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor - CDC)
 ├── decreto-12031-28-maio-2024-795694-normaatualizada-pe.pdf               # Decreto Federal nº 12.031/2024 (Alimentação Animal / MAPA)
 ├── decreto-no-4-680-de-24-de-abril-de-2003.pdf                            # Decreto Federal nº 4.680/2003 (Rotulagem de Transgênicos - OGM)
-├── portaria-no-2-658-de-22-de-dezembro-de-2003.pdf                        # Portaria MJ nº 2.658/2003 (Especificação Gráfica do Triângulo Transgênico "T")
+├── portaria-no-2-658-de-22-de-dezembro-de-2003.pdf                        # Portaria MJ nº 2.658/2003 (Símbolo Transgênico "T")
+├── Resolução Normativa CTNBio 32_2021.pdf                                  # RN CTNBio nº 32/2021 (Liberação Comercial e Biossegurança de OGM)
 ├── instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf                     # IN MAPA nº 22/2009 (Regulamento de Rotulagem)
 ├── instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf                     # IN MAPA nº 30/2009 (RTIQ Pet: Completo, Coadjuvante, Específico)
+├── instrucao-normativa-no-34-de-28-de-maio-de-2008.pdf                     # IN MAPA nº 34/2008 (Processamento de Resíduos Animais e Farinhas)
+├── instrucao-normativa-no-26-de-9-de-julho-de-2009.pdf                     # IN MAPA nº 26/2009 (Controle e Proibição de Antimicrobianos)
 ├── instrucao-normativa-no-39-de-21-de-novembro-de.pdf                     # IN MAPA nº 39/2014 (Imagem Ilustrativa, Claims e Coadjuvantes)
 ├── in_110-2020_lista_matérias-primas_autorizadas_aa.pdf                   # IN MAPA nº 110/2020 (Aditivos e Matérias-Primas Autorizadas)
-├── PORTARIA Nº 359, DE 9 DE JULHO DE 2021.pdf                             # Portaria SDA/MAPA nº 359/2021 (Atualização Dinâmica da Lista de Ingredientes)
-├── Anexo 1 - LISTA DE INGREDIENTES E VEÍCULOS AUTORIZADOS...pdf            # Catálogo Geral com mais de 3.000 ingredientes autorizados pelo MAPA (3,1 MB)
+├── PORTARIA Nº 359, DE 9 DE JULHO DE 2021.pdf                             # Portaria SDA/MAPA nº 359/2021 (Atualização Dinâmica de Ingredientes)
+├── Anexo 1 - LISTA DE INGREDIENTES E VEÍCULOS AUTORIZADOS...pdf            # Catálogo Geral de Ingredientes Homologados MAPA (3,1 MB)
 ├── Lista de substâncias proibidas e legislação correspondente.pdf          # Tabela Oficial de Substâncias Proibidas na Alimentação Animal (MAPA)
-├── INSTRUCAONORMATIVAN17DE15DEABRILDE2020alteradaIN6010julho2020.pdf       # IN MAPA nº 17/2020 (SipeAgro: Registro e Cadastro de Estabelecimentos e Pet Food)
-├── InstruoNormativa04.2007.pdf                                            # IN MAPA nº 04/2007 (Boas Práticas de Fabricação - BPF e Roteiro de Inspeção)
+├── INSTRUCAONORMATIVAN17DE15DEABRILDE2020alteradaIN6010julho2020.pdf       # IN MAPA nº 17/2020 (SipeAgro: Registro e Cadastro de Pet Food)
+├── InstruoNormativa04.2007.pdf                                            # IN MAPA nº 04/2007 (Boas Práticas de Fabricação - BPF)
+├── Instrução Normativa MAPA nº 07-2011.pdf                                 # IN SDA/MAPA nº 07/2011 (Sanidade Fitossanitária de Matérias-Primas)
 └── instrucao-normativa-no-29-de-14-de-setembro-de.pdf                     # IN MAPA nº 29/2010 (VIGIAGRO / Importação)
 ```
+
 
