@@ -146,7 +146,7 @@ async function main() {
         p.foodType as any
       );
 
-      // Gera parecer editorial técnico atualizado via Gemini (com fallback)
+      // Gera parecer editorial técnico atualizado via Gemini
       console.log(`   🤖 Gerando novo parecer editorial técnico...`);
       const newEditorial = await generateEditorialOpinionWithGemini({
         commercialName: p.commercialName,

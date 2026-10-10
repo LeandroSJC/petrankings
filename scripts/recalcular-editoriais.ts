@@ -9,7 +9,7 @@ async function main() {
   const processAll = args.includes('--all');
 
   console.log(`\n================================================================`);
-  console.log(`🤖 RECALCULO EDITORIAL COM GOOGLE GEMINI 3.6 FLASH & AUDITORIA`);
+  console.log(`🤖 RECALCULO EDITORIAL COM GOOGLE GEMINI FLASH & AUDITORIA`);
   console.log(`================================================================\n`);
 
   let whereClause: any = {};
@@ -125,7 +125,7 @@ async function main() {
         ]
       : audit.extratoPontos;
 
-    // 3. Gera parecer técnico transparente e imparcial via Gemini AI (com fallback determinístico)
+    // 3. Gera parecer técnico transparente e imparcial via Gemini AI (com interrupção estrita em caso de falha)
     console.log(`🤖 Gerando parecer editorial com Gemini AI para: "${product.commercialName}"...`);
     const newEditorialOpinion = await generateEditorialOpinionWithGemini({
       commercialName: product.commercialName,

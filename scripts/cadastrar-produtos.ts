@@ -254,7 +254,7 @@ async function processAll() {
         ]
       : audit.extratoPontos;
 
-    // 7. Parecer Técnico com Inteligência Artificial Gemini (com fallback determinístico)
+    // 7. Parecer Técnico com Inteligência Artificial Gemini (interrompe se API indisponível)
     console.log(`🤖 Gerando parecer editorial técnico via Gemini AI...`);
     const editorialOpinion = await generateEditorialOpinionWithGemini({
       commercialName: meta.commercialName,

@@ -25,12 +25,14 @@ export interface EditorialGenerationParams {
 }
 
 /**
- * Gerador determinístico de Parecer Editorial Técnico do PetRankings.
+ * @deprecated ATENÇÃO: O PetRankings eliminou fallbacks determinísticos silenciosos.
+ * Todo parecer editorial deve ser gerado estritamente via IA (Google Gemini).
+ * Esta função é mantida apenas para compatibilidade com scripts legados.
  * 
  * Regras Inegociáveis (AGENTS.md & pet-editorial-copywriter):
  * 1. Proibição absoluta de invenção de dados ou cópia acrítica de slogans comerciais do fabricante.
  * 2. Tom estritamente técnico, imparcial e alinhado com a pontuação e os critérios da 11ª Edição do Manual ABINPET.
- * 3. Coerência total com a espécie, fase de vida, ingredientes reais do PDF e classificação obtida.
+ * 3. Coerência total com a espécie, fase de vida, ingredientes reais do rótulo e classificação obtida.
  * 4. Inspeção cirúrgica de matéria seca (MS), extrato etéreo, cálcio, fósforo, conservantes e transgênicos.
  */
 export function generateTechnicalEditorialOpinion(params: EditorialGenerationParams): string {
@@ -280,18 +282,20 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
 
 /**
  * Gerador de Parecer Editorial do PetRankings alimentado pelo Google Gemini AI.
- * Utiliza o modelo gemini-3.6-flash (com contingência para gemini-2.5-flash) com fundamentação estrita nas normas do
+ * Utiliza o modelo gemini-3.8-flash (com contingência para gemini-3.6-flash e gemini-3.5-flash-lite) com fundamentação estrita nas normas do
  * Manual Pet Food Brasil (ABINPET 11ª Edição) e dados probatórios da ficha técnica.
  * 
- * Se a chave GEMINI_API_KEY não estiver disponível, ou em caso de timeout/erro de rede persistente,
- * recorre automaticamente ao motor determinístico avançado generateTechnicalEditorialOpinion.
+ * REGRA CRÍTICA: Se a chave GEMINI_API_KEY não estiver configurada, ocorrer erro de rede, cota ou indisponibilidade
+ * em todos os modelos da API, a execução é IMEDIATAMENTE interrompida lançando exceção, sem geração determinística simulada.
  */
 export async function generateEditorialOpinionWithGemini(
   params: EditorialGenerationParams
 ): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return generateTechnicalEditorialOpinion(params);
+    const errorMsg = '❌ [Gemini API] Variável de ambiente GEMINI_API_KEY não configurada. Operação interrompida obrigatoriamente.';
+    console.error(errorMsg);
+    throw new Error(errorMsg);
   }
 
   try {
@@ -337,19 +341,28 @@ export async function generateEditorialOpinionWithGemini(
       : 'Não especificado';
 
     const systemPrompt = `Você é o Redator Técnico e Especialista em Nutrição Animal do PetRankings (portal independente brasileiro de avaliação nutricional e análise de rótulos de alimentos para cães e gatos).
-Sua missão é redigir um "Parecer Editorial do Especialista" conciso, transparente, imparcial e tecnicamente rigoroso.
+Sua missão é redigir um "Parecer Editorial do Especialista" conciso, transparente, empático e tecnicamente rigoroso.
 
 DIRETRIZES INEGOCIÁVEIS:
-1. FIDELIDADE ESTRITA AOS DADOS: Nunca invente, deduza ou simule dados que não constem na ficha técnica. Baseie-se estritamente nas normas do Manual Pet Food Brasil (ABINPET 11ª Edição).
-2. ZERO MARKETING: É terminantemente proibido usar frases de efeito, slogans do fabricante ou adjetivos comerciais vazios ("delicioso", "completo e saboroso", "amor pelo seu pet", "a melhor escolha").
-3. TRANSPARÊNCIA COM O TUTOR:
+1. FIDELIDADE ESTRITA AOS DADOS (TOLERÂNCIA ZERO A DADOS INVENTADOS):
+   - Nunca invente, deduza ou simule dados que não constem expressamente na ficha técnica informada. Se algo não estiver declarado, não afirme sua existência nem estime valores.
+   - Baseie-se estritamente nas normas do Manual Pet Food Brasil (ABINPET 11ª Edição) e nos dados probatórios fornecidos.
+2. ZERO MARKETING:
+   - É terminantemente proibido usar frases de efeito, slogans do fabricante ou adjetivos comerciais vazios ("delicioso", "completo e saboroso", "amor pelo seu pet", "a melhor escolha").
+3. PROIBIÇÃO DOS TERMOS "AUDITORIA", "PERÍCIA" E "LAUDO":
+   - É expressamente proibido o uso das palavras "auditoria", "auditado", "perícia", "pericial", "laudo" ou derivados. O PetRankings é um portal independente de jornalismo de dados e curadoria técnica.
+   - Utilize exclusivamente termos como: "avaliação técnica", "análise de rótulo", "confronto documental".
+4. ANTI-SLOP E HUMANIZAÇÃO COM TRADUÇÃO PRÁTICA:
+   - É expressamente proibido o uso de fórmulas artificiais e clichês de IA ("divisor de águas", "imperativo salientar", "no cenário atual", "mergulhando mais a fundo", "em suma", "com isso em mente").
+   - Tradução prática imediata: Todo conceito bromatológico citado (MS, Extrato Etéreo, balanço Ca:P, cinzas/minerais, prebióticos) deve ser acompanhado de uma explicação simples do que aquilo representa na rotina do pet (fezes menores, proteção dos rins, saciedade, pelagem saudável).
+5. TRANSPARÊNCIA COM O TUTOR:
    - Se o produto estiver "Sob Observação" (score < 60): Explique de forma clara e respeitosa o motivo técnico pelo qual o produto perdeu pontos na avaliação técnica (ex: excesso de cálcio na matéria seca acima do teto seguro da ABINPET, relação cálcio:fósforo desbalanceada, presença de conservantes sintéticos BHA/BHT, uso de transgênicos, densidade proteica modesta, ou teor de gordura reduzido para castrados que opera abaixo do piso geral de manutenção da ABINPET). Recomende cautela e consulta veterinária.
    - Se o produto for Nível Prata, Ouro ou Diamante (score >= 60): Apresente uma análise equilibrada de seus pontos fortes (ex: atendimento pleno aos parâmetros regulatórios da ABINPET) sem ocultar pontos de atenção caso existam (ex: BHA/BHT ou transgênicos).
    - Se for Alimento Complementar (petisco/cookie/topper): Deixe explícito que não é alimento completo, servindo apenas para recompensa/agrado e exigindo moderação para não desbalancear a dieta diária.
    - Se for Alimento Coadjuvante: Destaque a indicação terapêutica e a exigência de prescrição e acompanhamento veterinário.
-4. FORMATO E EXTENSÃO:
+6. FORMATO E EXTENSÃO:
    - Escreva em texto corrido (1 parágrafo fluido, 3 a 5 frases bem estruturadas, entre 50 e 90 palavras).
-   - NÃO use marcadores (bullets), NÃO use negrito (**texto**), NÃO use títulos. Retorne APENAS o texto do parecer.`;
+   - NÃO use marcadores (bullets), NÃO use negrito (**texto**), NÃO use títulos. Retorne APENAS o texto puro do parecer.`;
 
     const userPrompt = `Redija o parecer editorial para o seguinte produto avaliado:
 - Nome Comercial: ${commercialName}
@@ -370,8 +383,9 @@ ${eeMS !== null ? `- Extrato Etéreo (Gordura): ${extratoEtereoMinPct}% (calcula
 - Extrato dos Pilares da Avaliação:
 ${pointsSummary}`;
 
-    const modelsToTry = ['gemini-3.5-flash-lite', 'gemini-3.6-flash'];
+    const modelsToTry = ['gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.5-flash-lite'];
     let res: Response | null = null;
+    let lastErrorDetails = '';
 
     for (let attempt = 0; attempt < modelsToTry.length; attempt++) {
       const currentModel = modelsToTry[attempt];
@@ -389,9 +403,12 @@ ${pointsSummary}`;
                 parts: [{ text: systemPrompt }],
               },
               contents: [{ parts: [{ text: userPrompt }] }],
-              generationConfig: {
-                temperature: 0.2,
-              },
+              safetySettings: [
+                { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+                { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+                { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+                { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+              ],
             }),
             signal: controller.signal,
           }
@@ -403,11 +420,30 @@ ${pointsSummary}`;
           break;
         }
 
+        const errorBody = await res.text().catch(() => '');
+        lastErrorDetails = `Modelo ${currentModel} (HTTP ${res.status}): ${errorBody.slice(0, 300)}`;
+
+        if (res.status === 402) {
+          const msg = `🛑 [INTERRUPÇÃO MANDATÓRIA] Créditos da API Gemini esgotados (HTTP 402): ${lastErrorDetails}`;
+          console.error(`\n${msg}`);
+          throw new Error(msg);
+        }
+
+        if (res.status === 403 || res.status === 401) {
+          const msg = `🛑 [INTERRUPÇÃO MANDATÓRIA] Falha de autenticação/chave na API Gemini (HTTP ${res.status}): ${lastErrorDetails}`;
+          console.error(`\n${msg}`);
+          throw new Error(msg);
+        }
+
         if (res.status === 503 || res.status === 429) {
-          console.warn(`[Gemini Editorial] Modelo ${currentModel} retornou status ${res.status}. Aguardando 2s...`);
+          console.warn(`[Gemini Editorial] Modelo ${currentModel} retornou status ${res.status}. Tentando próximo modelo...`);
           await new Promise((r) => setTimeout(r, 2000));
         }
       } catch (err: any) {
+        if (err.message?.includes('[INTERRUPÇÃO MANDATÓRIA]')) {
+          throw err;
+        }
+        lastErrorDetails = `Erro de rede/conexão com ${currentModel}: ${err.message}`;
         console.warn(`[Gemini Editorial] Erro na tentativa com ${currentModel}: ${err.message}.`);
         if (attempt < modelsToTry.length - 1) {
           await new Promise((r) => setTimeout(r, 1500));
@@ -416,21 +452,45 @@ ${pointsSummary}`;
     }
 
     if (!res || !res.ok) {
-      console.warn(`[Gemini Editorial] Falha em todos os modelos da API. Usando fallback determinístico aprimorado.`);
-      return generateTechnicalEditorialOpinion(params);
+      const errMsg = `🛑 [INTERRUPÇÃO MANDATÓRIA] Todas as APIs do Gemini falharam (${modelsToTry.join(', ')}). Último erro: ${lastErrorDetails}`;
+      console.error(`\n${errMsg}`);
+      throw new Error(errMsg);
     }
 
     const data = await res.json();
-    const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    const candidate = data.candidates?.[0];
 
-    if (generatedText && generatedText.length > 30) {
-      return generatedText;
+    if (candidate?.finishReason && candidate.finishReason !== 'STOP' && candidate.finishReason !== 'MAX_TOKENS') {
+      const blockMsg = `🛑 [INTERRUPÇÃO MANDATÓRIA] Gemini interrompeu a geração por finishReason="${candidate.finishReason}".`;
+      console.error(`\n${blockMsg}`);
+      throw new Error(blockMsg);
     }
 
-    return generateTechnicalEditorialOpinion(params);
-  } catch (error) {
-    console.warn('[Gemini Editorial] Erro na geração com IA (usando fallback determinístico aprimorado):', error);
-    return generateTechnicalEditorialOpinion(params);
+    const rawText = candidate?.content?.parts?.[0]?.text?.trim();
+
+    if (rawText && rawText.length > 30) {
+      // Higienização defensiva pós-geração para conformidade estrita com as regras do projeto
+      let cleaned = rawText
+        .replace(/\*\*/g, '')
+        .replace(/^["'“”«»]|["'“”«»]$/g, '')
+        .replace(/\bauditoria\b/gi, 'avaliação técnica')
+        .replace(/\bauditado\b/gi, 'avaliado')
+        .replace(/\bauditar\b/gi, 'analisar')
+        .replace(/\blaudo pericial\b/gi, 'parecer técnico')
+        .replace(/\blaudo\b/gi, 'parecer')
+        .replace(/\bperícia\b/gi, 'análise documental')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      return cleaned;
+    }
+
+    const emptyMsg = `🛑 [INTERRUPÇÃO MANDATÓRIA] Resposta vazia ou com menos de 30 caracteres recebida da API Gemini para "${commercialName}".`;
+    console.error(`\n${emptyMsg}`);
+    throw new Error(emptyMsg);
+  } catch (error: any) {
+    console.error(`❌ [Gemini Editorial] Interrompendo processamento devido a falha na IA: ${error.message}`);
+    throw error;
   }
 }
 
