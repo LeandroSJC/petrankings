@@ -2442,7 +2442,169 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/rankings',
     },
   },
-
+  {
+    slug: 'regra-dos-10-por-cento-petiscos-desbalanco-mineral',
+    title: 'A regra dos 10% nos petiscos: O que a WSAVA e o MAPA alertam sobre o desbalanço mineral em cães e gatos',
+    subtitle: 'Como o excesso diário de bifinhos e snacks dilui os nutrientes da ração completa e coloca em risco a saúde osteomineral e renal de cães e gatos.',
+    cluster: 'Petiscos & Enriquecimento',
+    speciesTarget: 'Cães e Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-11',
+    updatedAt: '2026-10-11',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/regra-10-por-cento-petiscos-cover.webp',
+    isFeatured: false,
+    summary:
+      'Petiscos e bifinhos são recursos valiosos para adestramento e afeto, mas quando ultrapassam 10% da ingestão calórica diária, provocam a diluição silenciosa do premix vitamínico e mineral da ração completa. Entenda o que dizem a WSAVA e o MAPA, como calcular o teto seguro e proteger cães e gatos.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'distincao-legal-mapa-alimento-especifico',
+        heading: '1. A Distinção Legal do MAPA: Alimento Completo vs Alimento Específico',
+        paragraphs: [
+          'No cotidiano com nossos pets, é natural enxergar qualquer petisco, biscoito ou bifinho como comida. No entanto, perante a legislação brasileira e a ciência da nutrição animal, esses produtos pertencem a universos regulatórios completamente distintos.',
+          'Pelas normas da Instrução Normativa MAPA nº 30/2009 e do Decreto Federal nº 12.031/2024, a ração comercial que colocamos no comedouro é classificada obrigatoriamente como "Alimento Completo". Isso significa que ela foi formulada para suprir 100% das necessidades diárias de proteínas, gorduras, vitaminas e minerais do pet, podendo ser a única fonte de alimento durante toda a sua vida.',
+          'Por outro lado, quase a totalidade dos petiscos vendidos em pet shops e supermercados é registrada sob a categoria de "Alimento Específico" ou "Alimento Complementar". Esses itens têm finalidade exclusiva de agrado, recompensa ou enriquecimento sensorial, e os fabricantes não possuem qualquer obrigação legal de incluir neles os micronutrientes indispensáveis à sobrevivência do cão ou do gato.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Obrigatória pela IN MAPA nº 30/2009',
+          text: 'O Ministério da Agricultura e Pecuária (MAPA) exige que todo petisco traga no painel principal os dizeres: "Alimento Específico para Cães/Gatos" ou "Uso Proibido na Alimentação de Ruminantes — Este produto não substitui o alimento completo". Essa advertência existe justamente porque o petisco não contém o premix mineral e vitamínico balanceado.',
+        },
+      },
+      {
+        id: 'efeito-diluicao-do-premix-nutricional',
+        heading: '2. O Efeito Diluição: Como o Excesso de Petisco "Descalibra" a Ração',
+        paragraphs: [
+          'O maior perigo dos petiscos em excesso não é apenas o ganho de peso, mas sim um fenômeno zootécnico silencioso chamado efeito diluição nutricional.',
+          'A ração completa é formulada como uma equação matemática exata. Cada porção contém a quantidade precisa de cálcio, fósforo, zinco, ferro, vitaminas e aminoácidos essenciais (como a taurina para gatos) necessária para aquele volume calórico diário.',
+          'Quando um tutor oferece petiscos em grande quantidade, o pet atinge a sua saciedade calórica antes de consumir a quantidade recomendada de ração. O resultado imediato é que o animal deixa ração no prato e, consequentemente, ingere menos micronutrientes essenciais do que seu organismo precisa para funcionar bem.',
+          'Na prática, se 30% das calorias do dia vierem de bifinhos ou biscoitos comuns, o cão ou gato estará recebendo 30% a menos do premix vitamínico e mineral da ração. Com o passar dos meses, essa carência pode se manifestar em pelos secos e quebradiços, fezes pastosas, imunidade fragilizada e, em filhotes, graves deformidades no desenvolvimento dos ossos.',
+        ],
+      },
+      {
+        id: 'matematica-dos-10-por-cento-wsava',
+        heading: '3. A Diretriz da WSAVA: A Matemática dos 10% das Calorias Diárias',
+        paragraphs: [
+          'Para impedir o efeito diluição e proteger a longevidade dos animais, o Comitê de Nutrição Global da Associação Mundial de Veterinários de Pequenos Animais (WSAVA) estabeleceu uma regra de ouro: alimentos específicos, petiscos e sobras nunca devem ultrapassar 10% da Necessidade Energética de Manutenção (NEM) diária do pet.',
+          'Os outros 90% das calorias devem vir, obrigatoriamente, de um alimento completo e balanceado. Essa margem de 10% foi calculada para garantir que a diluição do premix da ração fique dentro de um limite seguro, sem causar deficiências nutricionais crônicas.',
+          'O grande choque para a maioria dos tutores acontece quando convertemos essa porcentagem em números reais. Como os petiscos costumam ser muito densos em calorias e gorduras, a cota de 10% é atingida muito mais rápido do que a nossa intuição imagina.',
+        ],
+        table: {
+          caption: 'Teto diário de calorias em petiscos conforme o peso corporal (Diretrizes WSAVA / FEDIAF)',
+          headers: ['Porte e Espécie', 'Peso Médio', 'Gasto Diário (NEM)', 'Teto de 10% em Petiscos', 'Equivalente Prático'],
+          rows: [
+            ['Gato Adulto', '4,0 kg', '~200 kcal/dia', '20 kcal/dia', '4 g de snack crocante ou 1/4 de sachê complementar'],
+            ['Cão Miniatura', '3,5 kg', '~240 kcal/dia', '24 kcal/dia', 'Meio bifinho tradicional de carne'],
+            ['Cão Pequeno', '7,0 kg', '~420 kcal/dia', '42 kcal/dia', '1 bifinho tradicional pequeno'],
+            ['Cão Médio', '15,0 kg', '~740 kcal/dia', '74 kcal/dia', '1 bifinho e meio ou 2 biscoitos médios'],
+            ['Cão Grande', '30,0 kg', '~1.250 kcal/dia', '125 kcal/dia', '2 a 3 bifinhos tradicionais'],
+          ],
+        },
+      },
+      {
+        id: 'sodio-acucares-e-aditivos-industriais',
+        heading: '4. Sódio, Açúcares Ocultos e Conservantes nos Petiscos Industriais',
+        paragraphs: [
+          'Além do desbalanço de micronutrientes, os petiscos comerciais de baixo custo frequentemente trazem ingredientes problemáticos para garantir textura macia e aroma irresistível.',
+          'Muitos bifinhos macios utilizam propilenoglicol para reter umidade interna. Enquanto esse ingrediente é tolerado em pequenas doses por cães, ele é expressamente proibido para felinos por provocar a formação de corpúsculos de Heinz, um tipo grave de lesão nos glóbulos vermelhos que induz à anemia.',
+          'Outro ponto de alerta é a presença de xarope de glicose, melaço, corantes artificiais e altos teores de cloreto de sódio (sal comum). O excesso de sódio e de fósforo inorgânico em petiscos representa uma sobrecarga contínua para os rins, exigindo cautela redobrada em gatos e cães idosos.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Atenção aos Petiscos para Gatos',
+          text: 'Nunca ofereça petiscos formulados para cães a um felino. A fisiologia do gato é estritamente carnívora e sensível a conservantes e açúcares comuns na linha canina. Verifique sempre se a embalagem indica expressamente a espécie felina e se o produto possui conservação com antioxidantes naturais.',
+        },
+      },
+      {
+        id: 'alternativas-saudaveis-e-o-metodo-do-grao',
+        heading: '5. Petiscos Seguros: Opções Naturais e o Método do Grão de Ração',
+        paragraphs: [
+          'Você não precisa abrir mão dos momentos de agrado e conexão com seu melhor amigo. A chave é saber escolher alternativas com menor impacto calórico ou utilizar técnicas inteligentes de manejo.',
+          'Para cães, legumes frescos e crocantes cozidos apenas no vapor ou crus são excelentes opções com quase zero calorias: pedacinhos de abobrinha, chuchu, pepino e cenoura fornecem água, fibras e textura agradável sem desregular a dieta. Pequenos pedaços de maçã sem sementes também são bem aceitos.',
+          'Tanto para cães quanto para gatos, pequenos fragmentos de peito de frango cozido exclusivamente em água (sem sal, alho ou cebola) funcionam como recompensa de alto valor biológico para treinos de adestramento.',
+          'A técnica mais segura e recomendada por especialistas em comportamento animal é o chamado "Método do Grão de Ração": ao pesar a porção diária de ração seca pela manhã, separe cerca de 10% dos grãos em um potinho fechado. Ao longo do dia, utilize esses próprios grãos como petisco para recompensar bons comportamentos. O animal recebe o estímulo do agrado com entusiasmo e a nutrição permanece 100% balanceada.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'A Regra do Pedaço Milimétrico no Treino',
+          text: 'Cães e gatos não avaliam o tamanho do petisco que ganham, mas sim a frequência e a intenção da recompensa. Pedaços do tamanho de um grão de arroz provocam a mesma liberação de dopamina e sensação de alegria que um bifinho inteiro. Ao cortar os petiscos em fragmentos mínimos, você multiplica as oportunidades de reforço positivo sem estourar o limite diário.',
+        },
+      },
+      {
+        id: 'checklist-do-tutor-consciente',
+        heading: '6. Checklist do Observatório: 4 Passos para Oferecer Petiscos sem Culpa',
+        paragraphs: [
+          'Para garantir que os momentos de afeto contribuam para o bem-estar e a longevidade do seu companheiro, adote estas 4 práticas na rotina da casa:',
+          '1. Calcule a cota de calorias: consulte a tabela de peso do seu pet e tenha clareza de quantas calorias ele pode receber em petiscos por dia.',
+          '2. Fracione tudo em microdoses: nunca entregue um bifinho ou biscoito inteiro para um cão pequeno ou gato. Pique em pedaços milimétricos.',
+          '3. Desconte a quantidade no comedouro: se ofereceu petiscos com mais calorias no dia, reduza levemente a quantidade de ração seca da refeição para evitar sobrepeso.',
+          '4. Priorize desidratados de ingrediente único: ao comprar petiscos prontos, prefira produtos que contenham apenas um ingrediente no rótulo (como tiras de carne ou pulmão desidratado), sem farinhas, açúcares ou corantes artificiais.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Sachê de ração úmida conta como petisco no teto dos 10%?',
+        a: 'Depende da classificação do sachê no rótulo. Se a embalagem indicar "Alimento Completo para Cães/Gatos", o sachê possui premix vitamínico e mineral integral; nesse caso, ele não é petisco e pode compor parte da alimentação diária (bastando ajustar as calorias da ração seca). Já se o sachê indicar "Alimento Específico" ou "Alimento Complementar", ele deve obrigatoriamente entrar na conta dos 10%.',
+      },
+      {
+        q: 'Posso dar pedacinhos de queijo ou presunto como recompensa?',
+        a: 'Não é recomendável. Embutidos e queijos contêm teores excessivos de sódio, gorduras saturadas e temperos que podem desencadear episódios de gastrite, sobrecarga renal e pancreatite aguda, uma inflamação perigosa e dolorosa no pâncreas dos pets.',
+      },
+      {
+        q: 'Petiscos funcionais para higiene dental e articulações também entram nos 10%?',
+        a: 'Sim. Mesmo que tragam alegações funcionais na embalagem (como hexametafosfato de sódio para controle de tártaro ou condroitina para articulações), eles continuam sendo alimentos calóricos e sem premix vitamínico completo. O valor calórico deles deve ser contabilizado dentro do limite diário.',
+      },
+      {
+        q: 'O que fazer se o pet rejeitar a ração para esperar pelos petiscos?',
+        a: 'Esse comportamento é muito comum e decorre da alta palatabilidade dos petiscos. A solução é suspender totalmente os petiscos por 5 a 7 dias, manter a ração disponível por apenas 20 minutos em horários fixos e só reintroduzir petiscos em microdoses quando o animal estiver se alimentando regularmente da ração completa.',
+      },
+    ],
+    conclusion:
+      'Demonstrar carinho e brincar com nossos cães e gatos é uma das maiores alegrias da convivência diária. Os petiscos desempenham um papel fundamental nesse vínculo e no adestramento positivo, desde que ocupem o lugar que lhes cabe na rotina. Ao respeitar a regra dos 10% recomendada pela WSAVA e entender a distinção legal estabelecida pelo MAPA, você assegura que o seu companheiro desfrute de cada recompensa com prazer, mantendo a proteção osteomineral, o peso adequado e a saúde renal ao longo de toda a vida.',
+    references: [
+      {
+        title: 'WSAVA Global Nutrition Guidelines & Pet Food Evaluation (2025)',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Diretrizes do Global Nutrition Committee sobre calorias não balanceadas, petiscos e prevenção do efeito diluição nutricional em pequenos animais',
+      },
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Exigências nutricionais mínimas para Alimentos Completos, limites de minerais (Ca:P e sódio) e parâmetros técnicos para pet food no Brasil',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009 e Decreto nº 12.031/2024',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        details: 'Regulamentação técnica sobre classificação de Alimentos Completos, Alimentos Específicos e Complementares para animais de companhia',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/prepared-pet-foods/nutritional-guidelines.html',
+        details: 'Diferenciação analítica entre alimentos completos e complementares, equações de Necessidade Energética de Manutenção (NEM) e tetos calóricos de segurança',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'estudo',
+        details: 'Biodisponibilidade de oligoelementos e impactos metabólicos da diluição do balanço eletrolítico e mineral em dietas caninas e felinas',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos Completos e Fórmulas Balanceadas no PetRankings',
+      text: 'Consulte as avaliações técnicas, composições declaradas e níveis de garantia em Matéria Seca (MS) para garantir a melhor nutrição diária para o seu pet.',
+      buttonText: 'Ver Catálogo Completo',
+      buttonUrl: '/rankings',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
