@@ -121,13 +121,10 @@ Sempre que atuar em uma área específica do projeto, ative e siga o runbook do 
 | **Autenticação & Sessões** | `auth-security-guardian` | JWT com `jose`, middleware em duas camadas, proteção contra brute-force. |
 | **Cache & Performance ISR** | `content-caching-strategy` | `unstable_cache` no Prisma, `revalidatePath`, invalidação por tags. |
 | **Aparência & Anti-Slop** | `design-taste-frontend` | Heurísticas visuais anti-slop, ausência de templates genéricos, tokens puros. |
-| **Deploy & Infraestrutura** | `devops-deployment-expert` | Configurações Docker, Vercel, Railway, migrações no deploy e CI/CD. |
 | **Diagnóstico Científico de Bugs** | `scientific-bug-diagnostics` | Isolamento em `scratch/`, loop mínimo de reprodução (Vermelho -> Verde) e redaction de segredos. |
-| **Observabilidade & Logs** | `error-monitoring-observability` | Sentry SDK, `instrumentation.ts`, Error Boundaries para prevenir telas brancas. |
 | **Acessibilidade Web** | `frontend-a11y-auditor` | WCAG 2.1 AA, navegação completa por teclado, contraste 4.5:1, ARIA. |
-| **E2E & Testes de UI** | `frontend-testing` | `browser_subagent` para testes visuais imediatos, Vitest / Playwright. |
 | **Componentes & Micro-interações** | `frontend-ui-ux-design` | Estados completos (loading, hover, empty, error), CSS Grid responsivo. |
-| **Uploads de Imagens** | `image-upload-manager` | Validação de magic bytes (`file-type`), processamento com `sharp`. |
+| **Uploads de Imagens** | `image-upload-manager` | Validação de magic bytes, pipeline Sharp e persistência em volume Docker. |
 | **Auditoria de Links** | `link-health-watchdog` | Verificação assíncrona de status HTTP, timeouts e degradação suave. |
 | **SEO & Core Web Vitals** | `nextjs-performance-seo` | Metadados dinâmicos, OpenGraph, sitemap/robots, otimização LCP/CLS/INP. |
 | **Servidor Oracle & Infra VPS** | `oracle-vps-sysadmin` | Gestão da VM Oracle Cloud ARM 12GB, Docker Compose, backups 3-2-1 e fail2ban. |
