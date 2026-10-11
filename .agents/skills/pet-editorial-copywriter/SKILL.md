@@ -189,3 +189,14 @@ export interface GuideReference {
 - **No Hallucinated Citations**: Never invent author names, paper titles or non-existent laws.
 - **End-of-Page Listing**: All references declared in `references` are automatically rendered in the public interface before the veterinary disclaimer, giving tutors full transparency to verify the facts independently.
 
+## 9. Breed & Visual Diversity Standards for Study Covers (Invariante 17)
+
+When generating, selecting, or updating cover images for guides and bromatological studies:
+- **Mandatory Breed Diversity**: Strictly avoid repeating default AI breeds (Golden Retriever, Labrador, generic brown tabby cat).
+- **Proactive Rotation Across Brazilian Beloved Breeds**:
+  - *Dogs*: Border Collie, Beagle, Dachshund (Salsicha), Schnauzer, Spitz Alemão (Lulu), Corgi, Cocker Spaniel, German Shepherd, Boxer, and charismatic SRD (vira-lata caramelo/brasileiro).
+  - *Cats*: Siamese, Russian Blue, British Shorthair, Maine Coon, Tuxedo (Frajola), Ginger/Orange Tabby, and Persian.
+- **Visual Staging**: Photorealistic studio lighting, clean compositions, dogs and cats coexisting peacefully or interacting with kibble/bowls naturally.
+- **Dimensions & Format**: Strictly 1.91:1 (1200 × 630 px WebP), compressed with sharp to maintain page speed and Core Web Vitals.
+
+

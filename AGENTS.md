@@ -98,10 +98,13 @@
     - **Cadência e Dinamismo de Leitura:** Alternar frases curtas com frases de tamanho médio. Parágrafos devem conter entre 2 e 4 linhas no máximo, garantindo leitura agradável e escaneável tanto no mobile quanto no desktop.
 17. **Padronização Mandatória de Capas e Ativos Visuais por Cluster:**
     - **Cluster "Duelo de Marcas":** A capa deve ser **compulsoriamente** gerada através do script canônico do projeto (`scripts/gerar-capas-duelo.js`), que extrai as embalagens transparentes oficiais dos produtos analisados (490px de altura), posiciona-as sobre o fundo de estúdio fotográfico (`#ffffff -> #f8fafc -> #e2e8f0`) com sombras elípticas no piso e insere o badge central estilizado `VS` em 1200 × 630 px. É **expressamente proibido** utilizar ilustrações conceituais genéricas ou ferramentas de geração de imagem avulsas para cobrir duelos de marcas.
-    - **Demais Clusters (Ingredientes, Bromatologia, Fases de Vida, Direito do Consumidor, Custo):** Fotografias reais de alta resolução ou gráficos técnicos vetorizados em proporção 1.91:1 (1200 × 630 px).
+    - **Demais Clusters (Ingredientes, Bromatologia, Fases de Vida, Direito do Consumidor, Custo, Petiscos, Manejo):** Fotografias reais de alta resolução ou gráficos técnicos vetorizados em proporção 1.91:1 (1200 × 630 px).
+    - **Diversidade Mandatória de Raças e Portes nas Capas:** É estritamente proibido repetir constantemente as mesmas raças padrão de IA (como Golden Retriever ou Labrador e gatos tigrados genéricos). A linha visual do PetRankings deve alternar propositalmente raças e portes populares com forte conexão afetiva com o tutor brasileiro:
+      - *Cães:* Border Collie, Beagle, Dachshund (Salsicha), Schnauzer, Spitz Alemão (Lulu), Corgi, Cocker Spaniel, Pastor Alemão e o clássico SRD (vira-lata carismático).
+      - *Gatos:* Siamês, Azul Russo, British Shorthair, Maine Coon, Frajola (tuxedo), Gato Laranja (Ginger/Red Tabby) e Persa.
 18. **Checklist Pré-Publicação Inegociável (Gatekeeper de Qualidade Editorial):**
     - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 6 pontos:
-      1. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados?
+      1. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados? Se for foto de estúdio, foi garantida a diversidade e rotatividade de raças/portes (evitando a repetição de Golden Retriever/Labrador)?
       2. *Anti-Slop:* O texto foi verificado e expurgado de clichês de IA (*"divisor de águas"*, *"imperativo salientar"*), travessões artificiais (`—`) e termos fabris como *"sacaria"*?
       3. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
       4. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
