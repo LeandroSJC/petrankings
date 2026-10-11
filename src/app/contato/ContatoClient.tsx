@@ -182,7 +182,7 @@ export default function ContatoClient() {
               É fabricante, responsável técnico (RT) ou departamento regulatório?
             </strong>
             <p style={{ margin: 0, color: 'var(--text-body)', fontSize: '0.88rem' }}>
-              Para solicitação formal de atualização de novo lote comercial, retificação de níveis de garantia ou contestação técnica com laudo credenciado pelo MAPA, utilize nosso{' '}
+              Para solicitação formal de atualização de novo lote comercial, retificação de níveis de garantia ou contestação técnica com comprovação documental oficial e análises laboratoriais credenciadas pelo MAPA, utilize nosso{' '}
               <Link href="/fabricante" style={{ color: 'var(--brand-forest-800)', fontWeight: 800, textDecoration: 'underline' }}>
                 Canal Institucional do Fabricante
               </Link>{' '}

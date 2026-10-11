@@ -48,7 +48,7 @@ export async function GET(): Promise<Response> {
 
   const content = `# PetRankings
 
-> Comparador técnico e independente de alimentos para cães e gatos no Brasil. Análise nutricional, níveis de garantia e composição baseados estritamente em laudos e fichas técnicas oficiais dos fabricantes e diretrizes MAPA/ABINPET.
+> Comparador técnico e independente de alimentos para cães e gatos no Brasil. Análise nutricional, níveis de garantia e composição baseados estritamente em páginas e fichas técnicas oficiais dos fabricantes custodiadas em HTML e diretrizes MAPA/ABINPET.
 
 O PetRankings cataloga e classifica alimentos para pets por meio de critérios nutricionais objetivos e determinísticos. Não realizamos estimativas arbitrárias ou notas subjetivas: toda informação é extraída diretamente dos documentos técnicos e rotulagens oficiais disponibilizados pelos fabricantes.
 

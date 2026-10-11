@@ -8,7 +8,7 @@ import { Database, ChevronRight } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Catálogo Geral de Rações Analisadas — PetRankings',
   description:
-    'Consulte a análise nutricional em Matéria Seca (MS), ingredientes oficiais e índice de conformidade ABINPET de mais de 900 alimentos para cães e gatos.',
+    'Consulte a análise nutricional em Matéria Seca (MS), ingredientes oficiais e índice de conformidade ABINPET do catálogo oficial de alimentos para cães e gatos.',
   alternates: {
     canonical: '/catalogo',
   },

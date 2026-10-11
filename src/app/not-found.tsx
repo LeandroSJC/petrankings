@@ -91,7 +91,7 @@ export default function NotFound() {
           }}
         >
           O link que você seguiu pode ter sido alterado, removido ou digitado incorretamente.
-          Que tal voltar para a página inicial e encontrar as melhores recomendações para o seu pet?
+          Que tal voltar para a página inicial e consultar nossas avaliações nutricionais e estudos comparativos?
         </p>
 
         <div
