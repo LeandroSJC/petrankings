@@ -2094,7 +2094,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-09',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-light-gatos-calorias-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Entenda a ciência da perda de peso felina: por que gatos não podem simplesmente comer menos ração comum, como a elevação proteica protege os músculos, a física das fibras no estômago e as balizas internacionais de extrato etéreo.',
     relatedProductSlugs: [
@@ -2279,6 +2279,170 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/rankings',
     },
   },
+  {
+    slug: 'racao-15kg-caes-calculo-consumo-oxidacao-gordura',
+    title: 'Ração de 15kg para cães: Como calcular o consumo e evitar a oxidação da gordura?',
+    subtitle: 'A matemática do consumo diário em gramas, a curva de rancificação do Extrato Etéreo após 30 dias aberto e como economizar sem colocar em risco a saúde do cão.',
+    cluster: 'Custo por Dia & Economia',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-10',
+    updatedAt: '2026-10-10',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-15kg-caes-consumo-oxidacao-cover.webp',
+    isFeatured: true,
+    summary:
+      'Comprar pacotes de 15kg costuma baratear o quilo em até 40%, mas pode transformar o comedouro em armadilha para cães de pequeno e médio porte. Explicamos o cálculo exato de durabilidade pela Energia Metabolizável (EM), a perda de vitaminas por oxidação lipídica e o manejo com embalagem hermética.',
+    relatedProductSlugs: [
+      'premier-formula-racas-medias-caes-adultos-sabor-frango',
+      'golden-formula-caes-adultos-frango-arroz',
+    ],
+    sections: [
+      {
+        id: 'o-dilema-do-quilo-barato',
+        heading: '1. O Dilema na Gôndola: Quando a Economia no Quilo se Torna Prejuízo',
+        paragraphs: [
+          'Diante da prateleira do pet shop ou navegando em lojas online, a comparação financeira é tentadora: uma embalagem de 2,5kg ou 3kg costuma ter um preço por quilo significativamente maior do que o mesmo alimento comercializado no pacote econômico de 15kg. Para qualquer orçamento doméstico, comprar a sacaria maior parece a escolha lógica.',
+          'No entanto, a zootecnia alerta para um detalhe que não vem destacado no rótulo frontal: o relógio biológico da ração começa a correr no exato segundo em que o lacre da embalagem é rompido. Alimentos secos não estragam apenas pelo mofo visível; eles sofrem um processo lento e silencioso de degradação química chamado oxidação lipídica.',
+          'Quando um tutor de um cão miniatura (como um Spitz Alemão, Yorkshire ou Shih Tzu de 4kg a 6kg) compra um pacote de 15kg, esse alimento permanecerá aberto no armário ou na lavanderia por mais de quatro a cinco meses. Ao final desse período, o que está no comedouro já não tem o mesmo valor nutricional nem a mesma segurança do primeiro dia.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'A Janela de Ouro do Frescor Bromatológico',
+          text: 'Padrões internacionais de conservação pet estabelecem que, após aberta, uma ração seca deve ser integralmente consumida entre 30 e no máximo 45 dias para preservar o perfil de vitaminas lipossolúveis e evitar a rancificação dos ácidos graxos essenciais.',
+        },
+      },
+      {
+        id: 'a-matematica-da-durabilidade',
+        heading: '2. A Matemática do Consumo: Quantos Dias o Saco de 15kg Dura no Seu Pet',
+        paragraphs: [
+          'Para saber se a compra de 15kg faz sentido financeiro e biológico, é preciso calcular o consumo real do animal em gramas por dia (g/dia). Esse número depende diretamente do peso metabólico do cão e da densidade energética da fórmula, expressa em Energia Metabolizável (EM kcal/kg).',
+          'Rações de maior valor biológico (Super Premium), como a PremieR Formula, possuem maior densidade calórica (geralmente entre 3.800 e 4.050 kcal/kg), exigindo porções diárias menores. Já alimentos Premium Especial, como a GoldeN Formula, demandam volumes ligeiramente maiores de alimento para entregar as mesmas calorias diárias.',
+          'Abaixo, compilamos a projeção média de consumo diário para cães adultos com nível de atividade física moderado e o tempo estimado para esgotar um pacote de 15.000 gramas:',
+        ],
+        table: {
+          caption: 'Estimativa Zootécnica de Durabilidade para Embalagem de 15.000g (15kg)',
+          headers: ['Porte e Peso Médio', 'Consumo Diário (g/dia)', 'Duração Estimada (15kg)', 'Diagnóstico de Segurança Bromatológica'],
+          rows: [
+            ['Miniatura (2kg a 4kg)', '45g a 70g', '215 a 330 dias (7 a 11 meses)', 'Inviável: Oxidação severa e perda de palatabilidade'],
+            ['Pequeno (5kg a 8kg)', '85g a 125g', '120 a 175 dias (4 a 6 meses)', 'Crítico: Risco elevado de rancidez e diarreia alimentar'],
+            ['Médio (12kg a 18kg)', '170g a 230g', '65 a 88 dias (2 a 3 meses)', 'Limítrofe: Exige fracionamento hermético rigoroso'],
+            ['Grande (25kg a 35kg)', '310g a 410g', '36 a 48 dias (~1,2 a 1,5 mês)', 'Seguro: Consumo balanceado dentro da curva ideal'],
+            ['Gigante (40kg a 55kg)', '460g a 580g', '25 a 32 dias (~1 mês)', 'Excelente: Máximo frescor, sem risco de rancificação'],
+          ],
+        },
+      },
+      {
+        id: 'quimica-da-oxidacao-lipidica',
+        heading: '3. A Degradação da Gordura: O Que Acontece com o Extrato Etéreo em Contato com o Ar',
+        paragraphs: [
+          'Alimentos de qualidade para cães contêm entre 12% e 18% de Extrato Etéreo (gordura bruta). Essa fração lipídica é composta por ingredientes nobres como gordura de frango e óleo de peixe, ricos em ácidos graxos poli-insaturados essenciais, como ômega-3 (EPA e DHA) e ômega-6.',
+          'O problema é que as ligações duplas desses ácidos graxos são altamente sensíveis ao oxigênio do ar, à temperatura e à umidade relativa do ambiente. Quando o oxigênio entra em contato contínuo com os grãos, desencadeia uma reação em cadeia chamada autoxidação lipídica.',
+          'Em uma primeira fase, formam-se hidroperóxidos (inodoros, mas citotóxicos). Na sequência, esses compostos se degradam em aldeídos, cetonas e ácidos graxos livres voláteis — as substâncias responsáveis pelo cheiro rançoso característico de gordura velha.',
+          'Para o cão, cujo olfato é até 100.000 vezes mais aguçado que o humano, esse odor de ranço é percebido muito antes de qualquer alteração visível. É por essa razão que muitos cães passam a "rejeitar a ração do meio do saco para o final": não é capricho ou manha, mas uma aversão biológica a compostos lipídicos oxidados.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Teto de Rancidez e Índice de Peróxidos (Manual ABINPET 11ª Edição)',
+          text: 'O Manual Pet Food Brasil (ABINPET) estabelece que alimentos secos para cães não devem ultrapassar 10 meq/kg de índice de peróxidos na gordura extraída. Níveis elevados de peróxidos destroem as vitaminas lipossolúveis (A, D3 e E) e causam irritação na mucosa gástrica e intestinal.',
+        },
+      },
+      {
+        id: 'conservantes-bht-vs-tocoferois',
+        heading: '4. Tocoferóis Naturais vs BHT/BHA: Quem Protege Melhor o Alimento Aberto?',
+        paragraphs: [
+          'A estabilidade da ração após aberta também depende diretamente do sistema antioxidante adotado pelo fabricante na formulação básica.',
+          'Em produtos conservados exclusivamente com antioxidantes naturais, como o concentrado de tocoferóis (vitamina E) e extrato de alecrim — padrão de linhas Super Premium como a PremieR Formula —, a proteção contra radicais livres é metabolicamente mais limpa, porém possui uma vida útil pós-abertura mais suscetível à temperatura ambiente.',
+          'Já alimentos que utilizam antioxidantes sintéticos, como o BHT (Butil-hidroxitolueno) e BHA (Butil-hidroxianisol) — encontrados na GoldeN Formula —, apresentam maior persistência contra o ranço a longo prazo. No entanto, nenhum conservante, sintético ou natural, impede a degradação das vitaminas hidrossolúveis e a absorção de umidade quando o saco é aberto diariamente.',
+        ],
+      },
+      {
+        id: 'manejo-correto-armazenamento',
+        heading: '5. O Manejo Correto: Por Que Nunca Despejar a Ração em Potes Plásticos Avulsos',
+        paragraphs: [
+          'O erro mais comum entre tutores que compram sacos grandes é despejar todo o conteúdo em tambores ou recipientes plásticos transparentes. Essa prática, embora pareça organizada, acelera a oxidação do alimento por dois motivos fundamentais.',
+          'Primeiro, o plástico comum é microporoso: ele absorve as gorduras da ração que, com o passar dos meses, oxidam nas paredes do recipiente e contaminam os lotes novos de ração que são colocados por cima. Segundo, recipientes transparentes expõem os grãos à luz ultravioleta (UV), catalisando a foto-oxidação e destruindo a vitamina A e a riboflavina (vitamina B2).',
+          'A embalagem original metalizada com barreira de alumínio projetada pelo fabricante é o recipiente com maior poder de proteção contra luz, oxigênio e umidade. Portanto, o saco original nunca deve ser descartado.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'O Método dos 7 Dias: Fracionamento Seguro sem Oxidação',
+          text: 'Mantenha a sacaria de 15kg hermeticamente fechada na embalagem original (dobrando a borda e utilizando prendedores de pressão). A cada domingo, transfira apenas a porção equivalente a 7 dias de consumo para um pote de vidro ou inox opaco com vedação de borracha. Assim, o saco principal de 15kg é aberto apenas uma vez por semana, reduzindo drasticamente o contato com o ar.',
+        },
+      },
+      {
+        id: 'checklist-de-decisao',
+        heading: '6. Checklist do Observatório: Quando Vale a Pena Comprar o Pacote de 15kg?',
+        paragraphs: [
+          'Para tomar uma decisão financeiramente inteligente sem comprometer o fígado e o trato gastrointestinal do seu cão, siga este roteiro de verificação:',
+          '1. Você possui um cão grande (acima de 25kg) ou mais de um animal em casa? Se a resposta for sim, o saco de 15kg será consumido em até 40 dias, garantindo frescor e máxima economia no quilo.',
+          '2. Seu cão é de porte pequeno ou miniatura e mora sozinho? A economia aparente do pacote de 15kg não compensa o desperdício, a perda de nutrientes e o risco de gastrite alimentar. Prefira pacotes de 2,5kg a 7kg, ou utilize obrigatoriamente a técnica do fracionamento semanal.',
+          '3. O local de armazenamento é fresco e seco? Sacos de 15kg nunca devem ser deixados no chão direto da lavanderia (coloque sobre estrados ou paletes plásticos) nem expostos a sol e calor, que duplicam a velocidade de rancificação das gorduras.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Quanto tempo uma ração aberta realmente dura com qualidade nutricional?',
+        a: 'O consenso zootécnico e os manuais de boas práticas da indústria pet indicam que a janela ideal de consumo após abrir o pacote é de 30 a no máximo 45 dias. Após esse período, os níveis de antioxidantes caem significativamente e a oxidação dos lipídios se intensifica.',
+      },
+      {
+        q: 'Posso congelar a ração para evitar que ela fique velha?',
+        a: 'Não é recomendado congelar ração seca. O congelamento e o descongelamento geram condensação de água no interior do pacote, aumentando a umidade livre dos grãos e criando o ambiente propício para proliferação de fungos e produção de micotoxinas.',
+      },
+      {
+        q: 'Como saber se a ração do meu cão já oxidou ou rancificou?',
+        a: 'Os sinais mais comuns são: alteração no odor (cheiro de tinta a óleo ou gordura velha), grãos com sensação pegajosa ou excessivamente opacos, rejeição repentina do cão que antes comia normalmente e episódios recorrentes de fezes amolecidas ou vômitos matinais.',
+      },
+      {
+        q: 'Vale a pena comprar saco de 15kg se eu dividir com outro tutor?',
+        a: 'Sim! Comprar em conjunto para dois cães é uma excelente estratégia econômica. Cada tutor fica com metade do alimento, garantindo que os 15kg sejam consumidos dentro de 25 a 35 dias, desde que a divisão seja feita em recipientes limpos, opacos e herméticos.',
+      },
+    ],
+    conclusion:
+      'Economizar na alimentação do seu melhor amigo é um objetivo legítimo e saudável, mas a verdadeira economia só existe quando a saúde do animal é preservada. Comprar embalagens de 15kg é uma excelente jogada financeira para cães de grande porte ou famílias com múltiplos animais, onde o saco é esgotado em menos de 45 dias. Já para tutores de cães pequenos e médios, o menor preço por quilo quase sempre resulta em alimento oxidado, perda de vitaminas essenciais e despesas veterinárias evitáveis. Ao alinhar a matemática do consumo em gramas por dia ao manejo correto na embalagem original, você garante comedouro sempre fresco, apetite voraz e economia real no bolso.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Parâmetros de Estabilidade Oxidativa, Índice de Peróxidos em Extrato Etéreo e Diretrizes de Conservação para Alimentos Completos Secos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/prepared-pet-foods/nutritional-guidelines.html',
+        details: 'Requisitos de ácidos graxos essenciais, conservação de gorduras brutas e estabilidade de micronutrientes em pet food',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'estudo',
+        details: 'Equações de Energia Metabolizável (EM), consumo energético por peso metabólico (PV^0,75) e efeitos biológicos de lipídios oxidados na dieta canina',
+      },
+      {
+        title: 'Instruções Normativas MAPA nº 30/2009 e nº 22/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        details: 'Regulamento Técnico sobre Boas Práticas de Fabricação, rotulagem de garantias e declaração de antioxidantes sintéticos e naturais',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais sob Custódia: PremieR Formula Cães Adultos e GoldeN Formula Cães Adultos',
+        institution: 'Grandfood Indústria e Comércio Ltda (PremieRpet)',
+        type: 'rotulagem',
+        details: 'Níveis de Extrato Etéreo, antioxidantes declarados (tocoferóis vs BHA/BHT) e recomendações oficiais de consumo diário sob custódia criptográfica SHA-256',
+      },
+    ],
+    callToAction: {
+      title: 'Calcule o Custo Diário e Compare Alimentos para Cães no PetRankings',
+      text: 'Acesse as avaliações completas, níveis de garantia convertidos para Matéria Seca (MS) e descubra qual alimento oferece a melhor densidade nutricional para o seu cão.',
+      buttonText: 'Explorar Catálogo de Cães',
+      buttonUrl: '/rankings',
+    },
+  },
+
 ];
 
 export function getAllGuides(): GuideItem[] {
