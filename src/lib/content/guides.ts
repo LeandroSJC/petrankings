@@ -2302,7 +2302,7 @@ export const GUIDES: GuideItem[] = [
         id: 'o-dilema-do-quilo-barato',
         heading: '1. O Dilema na Gôndola: Quando a Economia no Quilo se Torna Prejuízo',
         paragraphs: [
-          'Diante da prateleira do pet shop ou navegando em lojas online, a comparação financeira é tentadora: uma embalagem de 2,5kg ou 3kg costuma ter um preço por quilo significativamente maior do que o mesmo alimento comercializado no pacote econômico de 15kg. Para qualquer orçamento doméstico, comprar a sacaria maior parece a escolha lógica.',
+          'Diante da prateleira do pet shop ou navegando em lojas online, a comparação financeira é tentadora: uma embalagem de 2,5kg ou 3kg costuma ter um preço por quilo significativamente maior do que o mesmo alimento comercializado no pacote econômico de 15kg. Para qualquer orçamento doméstico, comprar o saco maior parece a escolha lógica.',
           'No entanto, a zootecnia alerta para um detalhe que não vem destacado no rótulo frontal: o relógio biológico da ração começa a correr no exato segundo em que o lacre da embalagem é rompido. Alimentos secos não estragam apenas pelo mofo visível; eles sofrem um processo lento e silencioso de degradação química chamado oxidação lipídica.',
           'Quando um tutor de um cão miniatura (como um Spitz Alemão, Yorkshire ou Shih Tzu de 4kg a 6kg) compra um pacote de 15kg, esse alimento permanecerá aberto no armário ou na lavanderia por mais de quatro a cinco meses. Ao final desse período, o que está no comedouro já não tem o mesmo valor nutricional nem a mesma segurança do primeiro dia.',
         ],
@@ -2338,7 +2338,7 @@ export const GUIDES: GuideItem[] = [
         paragraphs: [
           'Alimentos de qualidade para cães contêm entre 12% e 18% de Extrato Etéreo (gordura bruta). Essa fração lipídica é composta por ingredientes nobres como gordura de frango e óleo de peixe, ricos em ácidos graxos poli-insaturados essenciais, como ômega-3 (EPA e DHA) e ômega-6.',
           'O problema é que as ligações duplas desses ácidos graxos são altamente sensíveis ao oxigênio do ar, à temperatura e à umidade relativa do ambiente. Quando o oxigênio entra em contato contínuo com os grãos, desencadeia uma reação em cadeia chamada autoxidação lipídica.',
-          'Em uma primeira fase, formam-se hidroperóxidos (inodoros, mas citotóxicos). Na sequência, esses compostos se degradam em aldeídos, cetonas e ácidos graxos livres voláteis — as substâncias responsáveis pelo cheiro rançoso característico de gordura velha.',
+          'Em uma primeira fase, formam-se hidroperóxidos (inodoros, mas citotóxicos). Na sequência, esses compostos se degradam em aldeídos, cetonas e ácidos graxos livres voláteis, substâncias responsáveis pelo cheiro rançoso característico de gordura velha.',
           'Para o cão, cujo olfato é até 100.000 vezes mais aguçado que o humano, esse odor de ranço é percebido muito antes de qualquer alteração visível. É por essa razão que muitos cães passam a "rejeitar a ração do meio do saco para o final": não é capricho ou manha, mas uma aversão biológica a compostos lipídicos oxidados.',
         ],
         callout: {
@@ -2352,8 +2352,8 @@ export const GUIDES: GuideItem[] = [
         heading: '4. Tocoferóis Naturais vs BHT/BHA: Quem Protege Melhor o Alimento Aberto?',
         paragraphs: [
           'A estabilidade da ração após aberta também depende diretamente do sistema antioxidante adotado pelo fabricante na formulação básica.',
-          'Em produtos conservados exclusivamente com antioxidantes naturais, como o concentrado de tocoferóis (vitamina E) e extrato de alecrim — padrão de linhas Super Premium como a PremieR Formula —, a proteção contra radicais livres é metabolicamente mais limpa, porém possui uma vida útil pós-abertura mais suscetível à temperatura ambiente.',
-          'Já alimentos que utilizam antioxidantes sintéticos, como o BHT (Butil-hidroxitolueno) e BHA (Butil-hidroxianisol) — encontrados na GoldeN Formula —, apresentam maior persistência contra o ranço a longo prazo. No entanto, nenhum conservante, sintético ou natural, impede a degradação das vitaminas hidrossolúveis e a absorção de umidade quando o saco é aberto diariamente.',
+          'Em produtos conservados exclusivamente com antioxidantes naturais, como o concentrado de tocoferóis (vitamina E) e extrato de alecrim (padrão de linhas Super Premium como a PremieR Formula), a proteção contra radicais livres é metabolicamente mais limpa, porém possui uma vida útil pós-abertura mais suscetível à temperatura ambiente.',
+          'Já alimentos que utilizam antioxidantes sintéticos, como o BHT (Butil-hidroxitolueno) e BHA (Butil-hidroxianisol), presentes na GoldeN Formula, apresentam maior persistência contra o ranço a longo prazo. No entanto, nenhum conservante, sintético ou natural, impede a degradação das vitaminas hidrossolúveis e a absorção de umidade quando o saco é aberto diariamente.',
         ],
       },
       {
@@ -2367,7 +2367,7 @@ export const GUIDES: GuideItem[] = [
         callout: {
           type: 'dica',
           title: 'O Método dos 7 Dias: Fracionamento Seguro sem Oxidação',
-          text: 'Mantenha a sacaria de 15kg hermeticamente fechada na embalagem original (dobrando a borda e utilizando prendedores de pressão). A cada domingo, transfira apenas a porção equivalente a 7 dias de consumo para um pote de vidro ou inox opaco com vedação de borracha. Assim, o saco principal de 15kg é aberto apenas uma vez por semana, reduzindo drasticamente o contato com o ar.',
+          text: 'Mantenha o saco de 15kg hermeticamente fechado na embalagem original (dobrando a borda e utilizando prendedores de pressão). A cada domingo, transfira apenas a porção equivalente a 7 dias de consumo para um pote de vidro ou inox opaco com vedação de borracha. Assim, o saco principal de 15kg é aberto apenas uma vez por semana, reduzindo drasticamente o contato com o ar.',
         },
       },
       {

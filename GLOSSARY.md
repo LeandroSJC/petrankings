@@ -82,6 +82,14 @@ _Evitar_: Title Case em inglês (todas as palavras com inicial maiúscula), tít
 A assinatura e autoria institucional obrigatória e coletiva de todos os artigos, estudos e análises bromatológicas do PetRankings.
 _Evitar_: Autores individuais fictícios, pseudônimos médicos (ex: Dr. Zootecnia, Dra. Veterinária).
 
+**Embalagem / Saco de Ração**:
+Terminologia humana e natural para referenciar os volumes comerciais de alimento seco ou úmido no cotidiano do tutor (ex: "saco de 15kg", "pacote de 2,5kg", "embalagem original").
+_Evitar_: "Sacaria", lote fabril solto, fardo.
+
+**Pontuação Natural Anti-Slop**:
+Uso estrito de vírgulas, parênteses e frases curtas na cadência textual, eliminando vícios e marcas registradas de redação por IA.
+_Evitar_: Travessões (`—` / em-dash) como conectivo estilístico no meio de frases em textos editoriais.
+
 ---
 
 ## 🔒 4. Arquitetura, Segurança & Infraestrutura

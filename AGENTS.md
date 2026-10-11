@@ -90,7 +90,10 @@
     - Decisões estruturais de alto impacto, de difícil reversão ou que demandem contexto histórico são registradas na pasta `.agents/adr/` no formato enxuto de ADR (Architecture Decision Record). Todo agente deve consultar o glossário e os ADRs pertinentes antes de propor alterações conceituais ou refatorações de arquitetura.
 16. **Humanização Textual, Empatia com o Tutor e Combate ao "AI Slop":**
     - **Tom Conversacional e Empático:** O texto deve comunicar-se com clareza, empatia e calor humano, partindo da dúvida prática do tutor na prateleira ou no pet shop. O rigor técnico deve servir para empoderar o tutor, nunca para intimidá-lo com pedantismo ou linguagem burocrática estatal.
-    - **Combate Ativo ao "AI Slop" e Clichês de Máquina:** É expressamente vedado o uso de fórmulas artificiais de IA, tais como: *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*.
+    - **Combate Ativo ao "AI Slop", Clichês de Máquina e Pontuação Artificial:**
+      - É expressamente vedado o uso de fórmulas artificiais de IA, tais como: *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*.
+      - **Proibição Estrita de Travessões (`—` / em-dash):** É terminantemente vedado o uso de travessões (`—`) no meio de frases em textos editoriais, estudos e artigos (marca registrada de redação artificial de IA). Utilize vírgulas, parênteses ou divida a oração em frases curtas e naturais.
+      - **Linguagem Natural do Tutor vs Jargões Industriais:** Evite termos fabris ou jargões da cadeia agroindustrial que soem estranhos ao tutor comum, como *"sacaria"* (utilize sempre *"saco"*, *"pacote"* ou *"embalagem"*).
     - **Regra da Tradução Prática Imediata:** Todo conceito técnico ou bromatológico (Matéria Seca, Low Ash, Extrato Etéreo, balanço Ca:P, prebióticos MOS/FOS) deve ser imediatamente acompanhado de uma explicação simples do que aquilo representa na rotina do cão ou do gato (ex: fezes menores, proteção dos rins, saciedade, pelos brilhantes).
     - **Cadência e Dinamismo de Leitura:** Alternar frases curtas com frases de tamanho médio. Parágrafos devem conter entre 2 e 4 linhas no máximo, garantindo leitura agradável e escaneável tanto no mobile quanto no desktop.
 17. **Padronização Mandatória de Capas e Ativos Visuais por Cluster:**
@@ -99,7 +102,7 @@
 18. **Checklist Pré-Publicação Inegociável (Gatekeeper de Qualidade Editorial):**
     - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 6 pontos:
       1. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados?
-      2. *Anti-Slop:* O texto foi verificado e expurgado de clichês de IA (*"divisor de águas"*, *"imperativo salientar"*, *"no cenário atual"*, *"mergulhando mais a fundo"*)?
+      2. *Anti-Slop:* O texto foi verificado e expurgado de clichês de IA (*"divisor de águas"*, *"imperativo salientar"*), travessões artificiais (`—`) e termos fabris como *"sacaria"*?
       3. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
       4. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
       5. *Fidelidade de Citações (`relatedProductSlugs`):* Apenas produtos realmente analisados no texto constam na lista?
