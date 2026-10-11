@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 import net from 'net';
@@ -38,31 +38,31 @@ let tunnelProcess: any = null;
 
 async function ensureTunnel() {
   if (await isPortOpen(5433)) {
-    console.log('📡 [Túnel SSH] Porta 5433 já está ativa.');
+    console.log('ðŸ“¡ [TÃºnel SSH] Porta 5433 jÃ¡ estÃ¡ ativa.');
     return;
   }
-  console.log('🔒 [Túnel SSH] Abrindo túnel SSH com a Oracle Cloud na porta 5433...');
-  const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
+  console.log('ðŸ”’ [TÃºnel SSH] Abrindo tÃºnel SSH com a Oracle Cloud na porta 5433...');
+  const keyPath = 'caminho/para/chave.key';
   tunnelProcess = spawn('ssh', [
     '-i', keyPath,
     '-L', '5433:127.0.0.1:5432',
     '-N',
-    'ubuntu@168.138.144.63'
+    'ubuntu@petrankings-vps'
   ], { stdio: 'ignore', windowsHide: true });
 
   for (let i = 0; i < 15; i++) {
     await sleep(1000);
     if (await isPortOpen(5433)) {
-      console.log('✅ [Túnel SSH] Conexão estabelecida com sucesso!');
+      console.log('âœ… [TÃºnel SSH] ConexÃ£o estabelecida com sucesso!');
       return;
     }
   }
-  throw new Error('Falha ao abrir túnel SSH na porta 5433');
+  throw new Error('Falha ao abrir tÃºnel SSH na porta 5433');
 }
 
 async function main() {
   await ensureTunnel();
-  console.log('🚀 Iniciando atualização técnica dos produtos...');
+  console.log('ðŸš€ Iniciando atualizaÃ§Ã£o tÃ©cnica dos produtos...');
 
   // -------------------------------------------------------------------------
   // PRODUTO 1: Hill's Science Diet Cuidado Dental para Gatos Adultos
@@ -72,9 +72,9 @@ async function main() {
   });
 
   if (!p1) {
-    console.error('❌ Produto 1 não encontrado!');
+    console.error('âŒ Produto 1 nÃ£o encontrado!');
   } else {
-    console.log(`\n📦 Processando Produto 1: ${p1.commercialName} (${p1.slug})`);
+    console.log(`\nðŸ“¦ Processando Produto 1: ${p1.commercialName} (${p1.slug})`);
     let ing1: string[] = [];
     try {
       ing1 = Array.isArray(p1.topIngredients) ? p1.topIngredients : JSON.parse(p1.topIngredients);
@@ -136,8 +136,8 @@ async function main() {
       extratoEtereoMinPct: p1.etherExtractMinPct,
     });
 
-    console.log(`   Score Anterior: ${p1.scoreTotal} (${p1.classificationTier}) ➔ Novo Score: ${audit1.scoreTotal} (${audit1.classificacaoFaixa})`);
-    console.log(`   Categoria Anterior: ${p1.legalCategory} ➔ Nova Categoria: ALIMENTO_COMPLETO`);
+    console.log(`   Score Anterior: ${p1.scoreTotal} (${p1.classificationTier}) âž” Novo Score: ${audit1.scoreTotal} (${audit1.classificacaoFaixa})`);
+    console.log(`   Categoria Anterior: ${p1.legalCategory} âž” Nova Categoria: ALIMENTO_COMPLETO`);
     console.log(`   Extrato dos Pilares:\n`, JSON.stringify(audit1.extratoPontos, null, 2));
 
     const updated1 = await prisma.product.update({
@@ -153,7 +153,7 @@ async function main() {
       },
     });
 
-    // Atualiza ficha técnica de custódia
+    // Atualiza ficha tÃ©cnica de custÃ³dia
     try {
       const destHtmlRel = `/uploads/ficha_${updated1.id}.html`;
       const destHtmlPath = path.join(process.cwd(), 'public', destHtmlRel);
@@ -200,9 +200,9 @@ async function main() {
       });
 
       fs.writeFileSync(destHtmlPath, sheetHtml, 'utf-8');
-      console.log(`   ✅ Ficha de custódia regenerada: ${destHtmlRel}`);
+      console.log(`   âœ… Ficha de custÃ³dia regenerada: ${destHtmlRel}`);
     } catch (e: any) {
-      console.warn(`   ⚠️ Erro ao regenerar ficha de custódia do produto 1:`, e.message);
+      console.warn(`   âš ï¸ Erro ao regenerar ficha de custÃ³dia do produto 1:`, e.message);
     }
   }
 
@@ -214,9 +214,9 @@ async function main() {
   });
 
   if (!p2) {
-    console.error('❌ Produto 2 não encontrado!');
+    console.error('âŒ Produto 2 nÃ£o encontrado!');
   } else {
-    console.log(`\n📦 Processando Produto 2: ${p2.commercialName} (${p2.slug})`);
+    console.log(`\nðŸ“¦ Processando Produto 2: ${p2.commercialName} (${p2.slug})`);
     let ing2: string[] = [];
     try {
       ing2 = Array.isArray(p2.topIngredients) ? p2.topIngredients : JSON.parse(p2.topIngredients);
@@ -278,7 +278,7 @@ async function main() {
       extratoEtereoMinPct: p2.etherExtractMinPct,
     });
 
-    console.log(`   Score Anterior: ${p2.scoreTotal} (${p2.classificationTier}) ➔ Novo Score: ${audit2.scoreTotal} (${audit2.classificacaoFaixa})`);
+    console.log(`   Score Anterior: ${p2.scoreTotal} (${p2.classificationTier}) âž” Novo Score: ${audit2.scoreTotal} (${audit2.classificacaoFaixa})`);
     console.log(`   Extrato dos Pilares:\n`, JSON.stringify(audit2.extratoPontos, null, 2));
 
     const updated2 = await prisma.product.update({
@@ -294,7 +294,7 @@ async function main() {
       },
     });
 
-    // Atualiza ficha técnica de custódia
+    // Atualiza ficha tÃ©cnica de custÃ³dia
     try {
       const destHtmlRel = `/uploads/ficha_${updated2.id}.html`;
       const destHtmlPath = path.join(process.cwd(), 'public', destHtmlRel);
@@ -341,13 +341,13 @@ async function main() {
       });
 
       fs.writeFileSync(destHtmlPath, sheetHtml, 'utf-8');
-      console.log(`   ✅ Ficha de custódia regenerada: ${destHtmlRel}`);
+      console.log(`   âœ… Ficha de custÃ³dia regenerada: ${destHtmlRel}`);
     } catch (e: any) {
-      console.warn(`   ⚠️ Erro ao regenerar ficha de custódia do produto 2:`, e.message);
+      console.warn(`   âš ï¸ Erro ao regenerar ficha de custÃ³dia do produto 2:`, e.message);
     }
   }
 
-  console.log('\n🎉 Atualização concluída com sucesso!');
+  console.log('\nðŸŽ‰ AtualizaÃ§Ã£o concluÃ­da com sucesso!');
 }
 
 main()

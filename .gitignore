@@ -9,12 +9,10 @@
 /out/
 
 # Arquivos de Ambiente e Segredos (CRÍTICO: NUNCA COMMITAR)
-.env
-.env*.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+.env*
+!.env.example
+*.key
+*.pem
 
 # Banco de Dados SQLite Local & Locks (CRÍTICO: NUNCA COMMITAR)
 *.db
@@ -33,7 +31,6 @@ yarn-error.log*
 
 # Sistema Operacional e Editores
 .DS_Store
-*.pem
 Thumbs.db
 .idea/
 .vscode/

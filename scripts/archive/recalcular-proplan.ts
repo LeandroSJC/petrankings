@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+﻿import * as fs from 'fs';
 import * as path from 'path';
 import { spawn } from 'child_process';
 import net from 'net';
@@ -35,20 +35,20 @@ async function sleep(ms: number) {
 
 async function main() {
   const isDryRun = process.argv.includes('--dry-run');
-  console.log(`\n🐾 [PetRankings] Recálculo Específico da Linha Purina Pro Plan`);
-  console.log(`   Modo: ${isDryRun ? 'DRY-RUN (Simulação)' : 'APLICAR NO BANCO POSTGRESQL'}\n`);
+  console.log(`\nðŸ¾ [PetRankings] RecÃ¡lculo EspecÃ­fico da Linha Purina Pro Plan`);
+  console.log(`   Modo: ${isDryRun ? 'DRY-RUN (SimulaÃ§Ã£o)' : 'APLICAR NO BANCO POSTGRESQL'}\n`);
 
   let tunnelProcess: any = null;
   const alreadyOpen = await isPortOpen(5433);
 
   if (alreadyOpen) {
-    console.log('📡 [Túnel SSH] Porta 5433 já está ativa.');
+    console.log('ðŸ“¡ [TÃºnel SSH] Porta 5433 jÃ¡ estÃ¡ ativa.');
   } else {
-    console.log('🔒 [Túnel SSH] Abrindo túnel temporário com a Oracle Cloud na porta 5433...');
-    const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
+    console.log('ðŸ”’ [TÃºnel SSH] Abrindo tÃºnel temporÃ¡rio com a Oracle Cloud na porta 5433...');
+    const keyPath = 'caminho/para/chave.key';
     tunnelProcess = spawn(
       'ssh',
-      ['-i', keyPath, '-L', '5433:127.0.0.1:5432', '-N', 'ubuntu@168.138.144.63'],
+      ['-i', keyPath, '-L', '5433:127.0.0.1:5432', '-N', 'ubuntu@petrankings-vps'],
       { stdio: 'ignore', windowsHide: true }
     );
 
@@ -62,11 +62,11 @@ async function main() {
     }
 
     if (!ready) {
-      console.error('❌ Falha ao estabelecer conexão via túnel SSH.');
+      console.error('âŒ Falha ao estabelecer conexÃ£o via tÃºnel SSH.');
       if (tunnelProcess) tunnelProcess.kill();
       process.exit(1);
     }
-    console.log('✓ [Túnel SSH] Conexão segura estabelecida com sucesso!');
+    console.log('âœ“ [TÃºnel SSH] ConexÃ£o segura estabelecida com sucesso!');
   }
 
   try {
@@ -85,7 +85,7 @@ async function main() {
       orderBy: { commercialName: 'asc' },
     });
 
-    console.log(`📋 Encontrados ${products.length} produtos da linha Purina Pro Plan no banco de dados.\n`);
+    console.log(`ðŸ“‹ Encontrados ${products.length} produtos da linha Purina Pro Plan no banco de dados.\n`);
 
     let updatedCount = 0;
     let unchangedCount = 0;
@@ -100,7 +100,7 @@ async function main() {
       }
 
       if (!fs.existsSync(htmlPath)) {
-        console.warn(`⚠️ [PULADO] Arquivo HTML oficial não encontrado: ${product.commercialName} (${htmlPath})`);
+        console.warn(`âš ï¸ [PULADO] Arquivo HTML oficial nÃ£o encontrado: ${product.commercialName} (${htmlPath})`);
         continue;
       }
 
@@ -117,7 +117,7 @@ async function main() {
 
       const hasChanged = oldCaMin !== newCaMin || oldCaMax !== newCaMax || oldPMin !== newPMin;
 
-      // Recalcula auditoria bromatológica determinística
+      // Recalcula auditoria bromatolÃ³gica determinÃ­stica
       const auditFase: FaseVida = parsed.lifeStage;
       const foodType: TipoAlimento = parsed.foodType;
 
@@ -162,12 +162,12 @@ async function main() {
       const finalScoreBreakdown = isComplementar
         ? [
             {
-              pilar: 'Classificação Legal MAPA',
+              pilar: 'ClassificaÃ§Ã£o Legal MAPA',
               pontos_obtidos: 0,
               pontos_max: 0,
               status: 'APROVADO' as const,
               justificativa:
-                'Alimento específico / complementar (petisco, bifinho ou biscoito). Por determinação da IN MAPA 30/2009 e ABINPET 11ª Edição, não concorre em rankings bromatológicos de nutrição diária completa.',
+                'Alimento especÃ­fico / complementar (petisco, bifinho ou biscoito). Por determinaÃ§Ã£o da IN MAPA 30/2009 e ABINPET 11Âª EdiÃ§Ã£o, nÃ£o concorre em rankings bromatolÃ³gicos de nutriÃ§Ã£o diÃ¡ria completa.',
             },
           ]
         : audit.extratoPontos;
@@ -196,10 +196,10 @@ async function main() {
         umidadeMaxPct: parsed.umidadeMaxPct,
       });
 
-      console.log(`📦 [${product.id}] ${parsed.commercialName}`);
-      console.log(`   Cálcio: ${oldCaMin}% - ${oldCaMax}% ➔ ${newCaMin}% - ${newCaMax}% ${oldCaMin !== newCaMin || oldCaMax !== newCaMax ? '⚡ ATUALIZADO' : '✓ OK'}`);
-      console.log(`   Fósforo: ${oldPMin}% ➔ ${newPMin}% ${oldPMin !== newPMin ? '⚡ ATUALIZADO' : '✓ OK'}`);
-      console.log(`   Score: ${product.scoreTotal ?? 'N/A'} ➔ ${finalScoreTotal ?? 'N/A'} (${finalClassificationTier})`);
+      console.log(`ðŸ“¦ [${product.id}] ${parsed.commercialName}`);
+      console.log(`   CÃ¡lcio: ${oldCaMin}% - ${oldCaMax}% âž” ${newCaMin}% - ${newCaMax}% ${oldCaMin !== newCaMin || oldCaMax !== newCaMax ? 'âš¡ ATUALIZADO' : 'âœ“ OK'}`);
+      console.log(`   FÃ³sforo: ${oldPMin}% âž” ${newPMin}% ${oldPMin !== newPMin ? 'âš¡ ATUALIZADO' : 'âœ“ OK'}`);
+      console.log(`   Score: ${product.scoreTotal ?? 'N/A'} âž” ${finalScoreTotal ?? 'N/A'} (${finalClassificationTier})`);
 
       if (!isDryRun) {
         await prisma.product.update({
@@ -222,19 +222,19 @@ async function main() {
     }
 
     console.log(`\n======================================================`);
-    console.log(`🎉 Resumo da Operação Purina Pro Plan:`);
+    console.log(`ðŸŽ‰ Resumo da OperaÃ§Ã£o Purina Pro Plan:`);
     console.log(`   - Produtos revisados: ${products.length}`);
-    console.log(`   - Com alterações de nutrientes: ${updatedCount}`);
-    console.log(`   - Sem alteração: ${unchangedCount}`);
-    console.log(`   - Status: ${isDryRun ? 'DRY-RUN (Simulação)' : 'GRAVADO COM SUCESSO NO BANCO DE DADOS'}`);
+    console.log(`   - Com alteraÃ§Ãµes de nutrientes: ${updatedCount}`);
+    console.log(`   - Sem alteraÃ§Ã£o: ${unchangedCount}`);
+    console.log(`   - Status: ${isDryRun ? 'DRY-RUN (SimulaÃ§Ã£o)' : 'GRAVADO COM SUCESSO NO BANCO DE DADOS'}`);
     console.log(`======================================================\n`);
 
     await prisma.$disconnect();
   } catch (err: any) {
-    console.error('❌ Erro durante o recálculo:', err);
+    console.error('âŒ Erro durante o recÃ¡lculo:', err);
   } finally {
     if (tunnelProcess) {
-      console.log('🔌 [Túnel SSH] Fechando conexão segura temporária.');
+      console.log('ðŸ”Œ [TÃºnel SSH] Fechando conexÃ£o segura temporÃ¡ria.');
       tunnelProcess.kill();
     }
   }

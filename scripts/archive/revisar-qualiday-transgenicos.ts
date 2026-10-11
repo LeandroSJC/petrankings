@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 import net from 'net';
@@ -32,21 +32,21 @@ async function sleep(ms: number) {
 }
 
 async function main() {
-  console.log('🚀 [PetRankings] Iniciando revisão bromatológica e regulatória de Transgênicos da Qualiday...\n');
+  console.log('ðŸš€ [PetRankings] Iniciando revisÃ£o bromatolÃ³gica e regulatÃ³ria de TransgÃªnicos da Qualiday...\n');
 
   let tunnelProcess: any = null;
   const alreadyOpen = await isPortOpen(5433);
 
   if (alreadyOpen) {
-    console.log('📡 [Túnel SSH] Porta 5433 já está ativa. Utilizando conexão existente.');
+    console.log('ðŸ“¡ [TÃºnel SSH] Porta 5433 jÃ¡ estÃ¡ ativa. Utilizando conexÃ£o existente.');
   } else {
-    console.log('🔒 [Túnel SSH] Abrindo túnel seguro em segundo plano com a Oracle Cloud...');
-    const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
+    console.log('ðŸ”’ [TÃºnel SSH] Abrindo tÃºnel seguro em segundo plano com a Oracle Cloud...');
+    const keyPath = 'caminho/para/chave.key';
     tunnelProcess = spawn('ssh', [
       '-i', keyPath,
       '-L', '5433:127.0.0.1:5432',
       '-N',
-      'ubuntu@168.138.144.63',
+      'ubuntu@petrankings-vps',
     ], { stdio: 'ignore', windowsHide: true });
 
     let ready = false;
@@ -59,11 +59,11 @@ async function main() {
     }
 
     if (!ready) {
-      console.error('❌ Falha ao estabelecer o túnel SSH.');
+      console.error('âŒ Falha ao estabelecer o tÃºnel SSH.');
       if (tunnelProcess) tunnelProcess.kill();
       process.exit(1);
     }
-    console.log('✓ [Túnel SSH] Conexão segura estabelecida com sucesso na porta 5433!\n');
+    console.log('âœ“ [TÃºnel SSH] ConexÃ£o segura estabelecida com sucesso na porta 5433!\n');
   }
 
   const rawUrl = process.env.DATABASE_URL || '';
@@ -85,11 +85,11 @@ async function main() {
       orderBy: { commercialName: 'asc' },
     });
 
-    console.log(`📦 Encontrados ${qualidayProducts.length} produtos para revisão.\n`);
+    console.log(`ðŸ“¦ Encontrados ${qualidayProducts.length} produtos para revisÃ£o.\n`);
 
     for (const p of qualidayProducts) {
       console.log(`================================================================`);
-      console.log(`🔍 Revisando: ${p.commercialName} (${p.slug})`);
+      console.log(`ðŸ” Revisando: ${p.commercialName} (${p.slug})`);
       console.log(`   Tipo: ${p.foodType} | Categoria: ${p.legalCategory}`);
       console.log(`   Estado Atual: containsGmo = ${p.containsGmo} | gmoIngredients = "${p.gmoIngredients}"`);
 
@@ -99,24 +99,24 @@ async function main() {
         if (fs.existsSync(localPath)) {
           htmlContent = fs.readFileSync(localPath, 'utf-8');
         } else {
-          console.warn(`   ⚠️ Arquivo de custódia não encontrado em: ${localPath}`);
+          console.warn(`   âš ï¸ Arquivo de custÃ³dia nÃ£o encontrado em: ${localPath}`);
         }
       }
 
       if (!htmlContent) {
-        console.warn(`   ⚠️ Sem HTML de custódia para re-análise. Pulando.`);
+        console.warn(`   âš ï¸ Sem HTML de custÃ³dia para re-anÃ¡lise. Pulando.`);
         continue;
       }
 
       // Re-parseia a partir do HTML com o novo parser aprimorado
       const parsed = parseProductFromHtml(htmlContent, p.sourceUrl);
 
-      console.log(`   👉 Resultado do Parser Aprimorado:`);
+      console.log(`   ðŸ‘‰ Resultado do Parser Aprimorado:`);
       console.log(`      - containsGmo: ${parsed.containsGmo}`);
       console.log(`      - gmoIngredients: ${parsed.gmoIngredients}`);
       console.log(`      - Top 5 Ingredientes: ${JSON.stringify(parsed.topIngredientsList.slice(0, 5))}`);
 
-      // Executa o motor de cálculo da avaliação nutricional
+      // Executa o motor de cÃ¡lculo da avaliaÃ§Ã£o nutricional
       const auditFase: FaseVida = p.lifeStage as FaseVida;
       const garantias = {
         umidadeMaxPct: p.moistureMaxPct,
@@ -146,8 +146,8 @@ async function main() {
         p.foodType as any
       );
 
-      // Gera parecer editorial técnico atualizado via Gemini
-      console.log(`   🤖 Gerando novo parecer editorial técnico...`);
+      // Gera parecer editorial tÃ©cnico atualizado via Gemini
+      console.log(`   ðŸ¤– Gerando novo parecer editorial tÃ©cnico...`);
       const newEditorial = await generateEditorialOpinionWithGemini({
         commercialName: p.commercialName,
         brand: p.brand,
@@ -171,7 +171,7 @@ async function main() {
         extratoEtereoMinPct: p.etherExtractMinPct,
       });
 
-      console.log(`   📝 Novo Parecer Editorial:\n      ${newEditorial}`);
+      console.log(`   ðŸ“ Novo Parecer Editorial:\n      ${newEditorial}`);
 
       // Atualiza produto no banco de dados
       await prisma.product.update({
@@ -189,22 +189,22 @@ async function main() {
         },
       });
 
-      console.log(`   ✅ Produto ID ${p.id} atualizado com sucesso no PostgreSQL!`);
+      console.log(`   âœ… Produto ID ${p.id} atualizado com sucesso no PostgreSQL!`);
       // Pausa preventiva de 1.5s para API Gemini
       await sleep(1500);
     }
 
-    console.log(`\n🎉 [Concluído] Todos os produtos Qualiday foram revisados e atualizados no banco de dados!`);
+    console.log(`\nðŸŽ‰ [ConcluÃ­do] Todos os produtos Qualiday foram revisados e atualizados no banco de dados!`);
   } finally {
     await prisma.$disconnect();
     if (tunnelProcess) {
-      console.log('\n🔌 [Túnel SSH] Fechando túnel temporário.');
+      console.log('\nðŸ”Œ [TÃºnel SSH] Fechando tÃºnel temporÃ¡rio.');
       tunnelProcess.kill();
     }
   }
 }
 
 main().catch((err) => {
-  console.error('\n❌ Erro geral:', err);
+  console.error('\nâŒ Erro geral:', err);
   process.exit(1);
 });

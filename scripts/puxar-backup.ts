@@ -6,9 +6,8 @@ import path from 'path';
 // PetRankings — Download Automático do Backup PostgreSQL da Nuvem para o Local
 // ==============================================================================
 
-const SSH_KEY = 'D:/Projetos/ssh-key-2026-10-03.key';
-const SERVER = 'ubuntu@168.138.144.63';
-const REMOTE_DIR = '/home/ubuntu/backups_postgres';
+const SSH_TARGET = process.env.SSH_TARGET || 'petrankings-vps';
+const REMOTE_DIR = process.env.REMOTE_BACKUP_DIR || '/home/ubuntu/backups_postgres';
 const LOCAL_DIR = path.join(process.cwd(), '_backups_nuvem');
 
 async function main() {
@@ -21,7 +20,7 @@ async function main() {
   // 1. Identifica o arquivo mais recente no servidor
   let latestFile = '';
   try {
-    const listCmd = `ssh -i "${SSH_KEY}" ${SERVER} "ls -1t ${REMOTE_DIR}/petrankings_backup_*.sql.gz 2>/dev/null | head -n 1"`;
+    const listCmd = `ssh ${SSH_TARGET} "ls -1t ${REMOTE_DIR}/petrankings_backup_*.sql.gz 2>/dev/null | head -n 1"`;
     latestFile = execSync(listCmd, { encoding: 'utf-8' }).trim();
   } catch (err: any) {
     console.error('❌ Erro ao listar backups remotos via SSH:', err.message);
@@ -31,8 +30,8 @@ async function main() {
   if (!latestFile) {
     console.log('⚠️ Nenhum arquivo de backup encontrado no servidor. Criando um backup agora...');
     try {
-      execSync(`ssh -i "${SSH_KEY}" ${SERVER} "~/petrankings/scripts/backup-db.sh"`, { stdio: 'inherit' });
-      const listCmd = `ssh -i "${SSH_KEY}" ${SERVER} "ls -1t ${REMOTE_DIR}/petrankings_backup_*.sql.gz 2>/dev/null | head -n 1"`;
+      execSync(`ssh ${SSH_TARGET} "~/petrankings/scripts/backup-db.sh"`, { stdio: 'inherit' });
+      const listCmd = `ssh ${SSH_TARGET} "ls -1t ${REMOTE_DIR}/petrankings_backup_*.sql.gz 2>/dev/null | head -n 1"`;
       latestFile = execSync(listCmd, { encoding: 'utf-8' }).trim();
     } catch (err: any) {
       console.error('❌ Erro ao disparar backup remoto:', err.message);
@@ -47,7 +46,7 @@ async function main() {
   console.log(`⬇️ Baixando com segurança via SCP para: ${localDest} ...\n`);
 
   try {
-    const scpCmd = `scp -i "${SSH_KEY}" ${SERVER}:"${latestFile}" "${localDest}"`;
+    const scpCmd = `scp ${SSH_TARGET}:"${latestFile}" "${localDest}"`;
     execSync(scpCmd, { stdio: 'inherit' });
 
     const stats = fs.statSync(localDest);

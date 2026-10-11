@@ -37,12 +37,11 @@ async function run() {
     console.log('📡 [Túnel SSH] Porta 5433 já está ativa. Utilizando conexão existente.');
   } else {
     console.log('🔒 [Túnel SSH] Abrindo túnel seguro em segundo plano com a Oracle Cloud...');
-    const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
+    const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
     tunnelProcess = spawn('ssh', [
-      '-i', keyPath,
       '-L', '5433:127.0.0.1:5432',
       '-N',
-      'ubuntu@168.138.144.63'
+      sshTarget
     ], { stdio: 'ignore', windowsHide: true });
 
     // Aguarda até o túnel estar pronto
@@ -64,6 +63,7 @@ async function run() {
   }
 
   try {
+    const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
     // 1. Executa o script de cadastro de produtos
     console.log('🐾 [Cadastro] Executando análise de rótulos e cadastro...');
     execSync('npx tsx --env-file=.env scripts/cadastrar-produtos.ts', {
@@ -82,7 +82,7 @@ async function run() {
       execSync('git push origin main', { stdio: 'inherit' });
 
       console.log('🔄 Atualizando arquivos no servidor da Oracle Cloud...');
-      execSync('ssh -i D:/Projetos/ssh-key-2026-10-03.key ubuntu@168.138.144.63 "cd ~/petrankings && git pull"', { stdio: 'inherit' });
+      execSync(`ssh ${sshTarget} "cd ~/petrankings && git pull"`, { stdio: 'inherit' });
       console.log('✓ [Sincronização] Servidor da Oracle 100% atualizado com as novas fichas!\n');
     } else {
       console.log('ℹ️ Nenhuma nova ficha pendente de envio.');

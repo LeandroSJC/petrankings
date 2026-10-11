@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 import net from 'net';
@@ -15,7 +15,7 @@ import { generateCustodyHtml } from '../src/lib/custody-template';
 function parseIngredients(text: string): string[] {
   let clean = text
     .replace(/^INGREDIENTES[:\s]*/i, '')
-    .replace(/\.?\s*Energia\s+Metaboliz[aá]vel[\s\S]*$/i, '')
+    .replace(/\.?\s*Energia\s+Metaboliz[aÃ¡]vel[\s\S]*$/i, '')
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -72,29 +72,29 @@ async function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-const p5Raw = `Carne Mecanicamente Separada de Frango, Farinha de Carnes e Osso de Aves, Ervilha in Natura Moída, Farinha de Cevada, Arroz Integral, Quirera de Arroz, Grão de Sorgo, Ovo Em Pó, Gordura de Frango, Óleo de Soja Refinado**, Polpa Desidratada de Beterraba, Hidrolisado de Miúdos de Aves, Ácido Lático, Grão de Linhaça, Hidrolisado de Fígado de Suínos, Cloreto de Potássio, Cloreto de Sódio, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Cloreto de Colina, Taurina, Concentrado de Tocoferóis, Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), Betacaroteno. Energia Metabolizável (EM): 3756 kcal/kg`;
+const p5Raw = `Carne Mecanicamente Separada de Frango, Farinha de Carnes e Osso de Aves, Ervilha in Natura MoÃ­da, Farinha de Cevada, Arroz Integral, Quirera de Arroz, GrÃ£o de Sorgo, Ovo Em PÃ³, Gordura de Frango, Ã“leo de Soja Refinado**, Polpa Desidratada de Beterraba, Hidrolisado de MiÃºdos de Aves, Ãcido LÃ¡tico, GrÃ£o de LinhaÃ§a, Hidrolisado de FÃ­gado de SuÃ­nos, Cloreto de PotÃ¡ssio, Cloreto de SÃ³dio, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ãcido AscÃ³rbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de CÃ¡lcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ãcido FÃ³lico (B9), Colecalciferol (D3)), Cloreto de Colina, Taurina, Concentrado de TocoferÃ³is, Minerais (Sulfato Ferroso, Ã“xido de Zinco, Sulfato de Cobre, Ã“xido de ManganÃªs, Iodato de CÃ¡lcio, Selenito de SÃ³dio), Extrato de ChÃ¡ Verde, Extrato de Alecrim, Extrato de Menta, HortelÃ£ (Mentha spp.), Betacaroteno. Energia MetabolizÃ¡vel (EM): 3756 kcal/kg`;
 
-const p6Raw = `Carne Mecanicamente Separada de Frango, Farinha de Cevada, Arroz Integral, Quirera de Arroz, Grão de Aveia, Grão de Milho*, Farelo Proteico de Milho - 60*, Farinha de Carne e Ossos de Aves, Gordura de Frango, Hidrolisado de Miúdos de Aves, Hidrolisado de Fígado de Suínos, Casca de Nozes, Óleo de Soja Refinado**, Ácido Lático, Cloreto de Potássio, Grão de Linhaça, Polpa Desidratada de Beterraba, Polpa Cítrica, Cloreto de Sódio, Cloreto de Colina, Carbonato de Cálcio, Fosfato Bicálcico, Óleo (Refinado, Branqueado e Desodorizado) de Peixes, Extrato de Arando, Abóbora, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Taurina, Concentrado de Tocoferóis, Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), Betacaroteno.`;
+const p6Raw = `Carne Mecanicamente Separada de Frango, Farinha de Cevada, Arroz Integral, Quirera de Arroz, GrÃ£o de Aveia, GrÃ£o de Milho*, Farelo Proteico de Milho - 60*, Farinha de Carne e Ossos de Aves, Gordura de Frango, Hidrolisado de MiÃºdos de Aves, Hidrolisado de FÃ­gado de SuÃ­nos, Casca de Nozes, Ã“leo de Soja Refinado**, Ãcido LÃ¡tico, Cloreto de PotÃ¡ssio, GrÃ£o de LinhaÃ§a, Polpa Desidratada de Beterraba, Polpa CÃ­trica, Cloreto de SÃ³dio, Cloreto de Colina, Carbonato de CÃ¡lcio, Fosfato BicÃ¡lcico, Ã“leo (Refinado, Branqueado e Desodorizado) de Peixes, Extrato de Arando, AbÃ³bora, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ãcido AscÃ³rbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de CÃ¡lcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ãcido FÃ³lico (B9), Colecalciferol (D3)), Minerais (Sulfato Ferroso, Ã“xido de Zinco, Sulfato de Cobre, Ã“xido de ManganÃªs, Iodato de CÃ¡lcio, Selenito de SÃ³dio), Taurina, Concentrado de TocoferÃ³is, Extrato de ChÃ¡ Verde, Extrato de Alecrim, Extrato de Menta, HortelÃ£ (Mentha spp.), Betacaroteno.`;
 
-const p7Raw = `Carne Mecanicamente Separada de Frango, Quirera de Arroz, Farinha de Carne e Ossos de Aves, Ervilha in Natura Moída, Farinha de Cevada, Grão de Sorgo, Ovo Em Pó, Gordura de Frango, Óleo de Soja Refinado*, Arroz Integral, Polpa Desidratada de Beterraba, Hidrolisado de Miúdos de Aves, Ácido Lático, Hidrolisado de Fígado de Suínos, Cloreto de Potássio, Grão de Linhaça, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Cloreto de Sódio, Cloreto de Colina, Taurina, Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Concentrado de Tocoferóis, Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), Betacaroteno.`;
+const p7Raw = `Carne Mecanicamente Separada de Frango, Quirera de Arroz, Farinha de Carne e Ossos de Aves, Ervilha in Natura MoÃ­da, Farinha de Cevada, GrÃ£o de Sorgo, Ovo Em PÃ³, Gordura de Frango, Ã“leo de Soja Refinado*, Arroz Integral, Polpa Desidratada de Beterraba, Hidrolisado de MiÃºdos de Aves, Ãcido LÃ¡tico, Hidrolisado de FÃ­gado de SuÃ­nos, Cloreto de PotÃ¡ssio, GrÃ£o de LinhaÃ§a, Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ãcido AscÃ³rbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de CÃ¡lcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ãcido FÃ³lico (B9), Colecalciferol (D3)), Cloreto de SÃ³dio, Cloreto de Colina, Taurina, Minerais (Sulfato Ferroso, Ã“xido de Zinco, Sulfato de Cobre, Ã“xido de ManganÃªs, Iodato de CÃ¡lcio, Selenito de SÃ³dio), Concentrado de TocoferÃ³is, Extrato de ChÃ¡ Verde, Extrato de Alecrim, Extrato de Menta, HortelÃ£ (Mentha spp.), Betacaroteno.`;
 
-const p8Raw = `Carne Mecanicamente Separada de Frango, Quirera de Arroz, Ervilha in Natura Moída, Farinha de Cevada, Grão de Aveia, Grão de Milho*, Ovo Em Pó, Gordura de Frango, Hidrolisado de Miúdos de Aves, Farelo Proteico de Milho - 60*, Óleo de Soja Refinado**, Grão de Linhaça, Hidrolisado de Fígado de Suínos, Ácido Lático, L-Lisina, Cloreto de Potássio, Carbonato de Cálcio, Fosfato Bicálcico, Cenoura, Massa de Tomate Desidratada, Polpa Cítrica, Espinafre Desidratado, Óleo (Refinado, Branqueado e Desodorizado) de Peixes, Cloreto de Sódio, Ácido Alfa-Lipóico (ALA), Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ácido Ascórbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de Cálcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ácido Fólico (B9), Colecalciferol (D3)), Cloreto de Colina, Taurina, Minerais (Sulfato Ferroso, Óxido de Zinco, Sulfato de Cobre, Óxido de Manganês, Iodato de Cálcio, Selenito de Sódio), Extrato de Chá Verde, Extrato de Alecrim, Extrato de Menta, Hortelã (Mentha spp.), L-Triptofano, Concentrado de Tocoferóis, L-Carnitina, Betacaroteno.`;
+const p8Raw = `Carne Mecanicamente Separada de Frango, Quirera de Arroz, Ervilha in Natura MoÃ­da, Farinha de Cevada, GrÃ£o de Aveia, GrÃ£o de Milho*, Ovo Em PÃ³, Gordura de Frango, Hidrolisado de MiÃºdos de Aves, Farelo Proteico de Milho - 60*, Ã“leo de Soja Refinado**, GrÃ£o de LinhaÃ§a, Hidrolisado de FÃ­gado de SuÃ­nos, Ãcido LÃ¡tico, L-Lisina, Cloreto de PotÃ¡ssio, Carbonato de CÃ¡lcio, Fosfato BicÃ¡lcico, Cenoura, Massa de Tomate Desidratada, Polpa CÃ­trica, Espinafre Desidratado, Ã“leo (Refinado, Branqueado e Desodorizado) de Peixes, Cloreto de SÃ³dio, Ãcido Alfa-LipÃ³ico (ALA), Vitaminas (Acetato de DL-Alfa-Tocoferol (E), Ãcido AscÃ³rbico Polifosfato (C), Niacina (B3), Mononitrato de Tiamina (B1), Retinol (A), D-Pantotenato de CÃ¡lcio (B5), Riboflavina (B2), Biotina (B7), Cianocobalamina (B12), Cloridrato de Piridoxina (B6), Ãcido FÃ³lico (B9), Colecalciferol (D3)), Cloreto de Colina, Taurina, Minerais (Sulfato Ferroso, Ã“xido de Zinco, Sulfato de Cobre, Ã“xido de ManganÃªs, Iodato de CÃ¡lcio, Selenito de SÃ³dio), Extrato de ChÃ¡ Verde, Extrato de Alecrim, Extrato de Menta, HortelÃ£ (Mentha spp.), L-Triptofano, Concentrado de TocoferÃ³is, L-Carnitina, Betacaroteno.`;
 
 async function main() {
-  console.log('🚀 [PetRankings] Iniciando revisão e atualização técnica dos produtos Science Diet...\n');
+  console.log('ðŸš€ [PetRankings] Iniciando revisÃ£o e atualizaÃ§Ã£o tÃ©cnica dos produtos Science Diet...\n');
 
   let tunnelProcess: any = null;
   const alreadyOpen = await isPortOpen(5433);
 
   if (alreadyOpen) {
-    console.log('📡 [Túnel SSH] Porta 5433 já ativa.');
+    console.log('ðŸ“¡ [TÃºnel SSH] Porta 5433 jÃ¡ ativa.');
   } else {
-    console.log('🔒 [Túnel SSH] Estabelecendo túnel com o PostgreSQL na Oracle Cloud...');
+    console.log('ðŸ”’ [TÃºnel SSH] Estabelecendo tÃºnel com o PostgreSQL na Oracle Cloud...');
     tunnelProcess = spawn('ssh', [
-      '-i', 'D:/Projetos/ssh-key-2026-10-03.key',
+      '-i', 'caminho/para/chave.key',
       '-L', '5433:127.0.0.1:5432',
       '-N',
-      'ubuntu@168.138.144.63',
+      'ubuntu@petrankings-vps',
     ], { stdio: 'ignore', windowsHide: true });
 
     let ready = false;
@@ -106,11 +106,11 @@ async function main() {
       }
     }
     if (!ready) {
-      console.error('❌ Falha ao abrir túnel SSH.');
+      console.error('âŒ Falha ao abrir tÃºnel SSH.');
       if (tunnelProcess) tunnelProcess.kill();
       process.exit(1);
     }
-    console.log('✓ [Túnel SSH] Conectado com sucesso na porta 5433!\n');
+    console.log('âœ“ [TÃºnel SSH] Conectado com sucesso na porta 5433!\n');
   }
 
   const rawUrl = process.env.DATABASE_URL || '';
@@ -121,7 +121,7 @@ async function main() {
 
   try {
     // -------------------------------------------------------------------------
-    // 1. REMOÇÃO DEFINITIVA DO PRODUTO DUPLICADO
+    // 1. REMOÃ‡ÃƒO DEFINITIVA DO PRODUTO DUPLICADO
     // -------------------------------------------------------------------------
     const duplicateSlug = 'sdsd-pro-puppy-small-bites-dry';
     const duplicate = await prisma.product.findUnique({
@@ -129,7 +129,7 @@ async function main() {
     });
 
     if (duplicate) {
-      console.log(`🗑️ Removendo produto duplicado: ${duplicate.commercialName} (ID: ${duplicate.id}, Slug: ${duplicate.slug})...`);
+      console.log(`ðŸ—‘ï¸ Removendo produto duplicado: ${duplicate.commercialName} (ID: ${duplicate.id}, Slug: ${duplicate.slug})...`);
       // Exclui links de afiliados se existirem
       await prisma.affiliateLink.deleteMany({
         where: { productId: duplicate.id },
@@ -138,9 +138,9 @@ async function main() {
       await prisma.product.delete({
         where: { id: duplicate.id },
       });
-      console.log(`✓ Produto excluído do banco com sucesso.`);
+      console.log(`âœ“ Produto excluÃ­do do banco com sucesso.`);
 
-      // Remove arquivos de custódia do duplicado
+      // Remove arquivos de custÃ³dia do duplicado
       const fichasToRemove = [
         path.join(process.cwd(), 'public', 'uploads', `ficha_${duplicate.id}.html`),
         path.join(process.cwd(), 'public', 'uploads', `raw_ficha_${duplicate.id}.html`),
@@ -148,28 +148,28 @@ async function main() {
       for (const f of fichasToRemove) {
         if (fs.existsSync(f)) {
           fs.unlinkSync(f);
-          console.log(`   🗑️ Ficha de custódia removida: ${f}`);
+          console.log(`   ðŸ—‘ï¸ Ficha de custÃ³dia removida: ${f}`);
         }
       }
     } else {
-      console.log(`ℹ️ Produto duplicado ${duplicateSlug} já não existe no banco.`);
+      console.log(`â„¹ï¸ Produto duplicado ${duplicateSlug} jÃ¡ nÃ£o existe no banco.`);
     }
 
     console.log('\n================================================================');
-    console.log('🔄 ATUALIZANDO INFORMAÇÕES DE TRANSGÊNICOS E INGREDIENTES');
+    console.log('ðŸ”„ ATUALIZANDO INFORMAÃ‡Ã•ES DE TRANSGÃŠNICOS E INGREDIENTES');
     console.log('================================================================\n');
 
-    // Configuração dos 6 produtos a serem atualizados
+    // ConfiguraÃ§Ã£o dos 6 produtos a serem atualizados
     const updatesConfig = [
       {
         slug: 'sd-canine-adult-perfect-weight-small-toy-dry-sd-pro-canine-stb-health-guard-neutered',
         gmoIngredients: 'Milho geneticamente modificados',
-        ingredientsText: null, // Já possui os 31 ingredientes corretos no banco
+        ingredientsText: null, // JÃ¡ possui os 31 ingredientes corretos no banco
       },
       {
         slug: 'science-diet-science-diet-pro-puppy-small-bites-dry',
         gmoIngredients: 'Milho e Soja geneticamente modificados',
-        ingredientsText: null, // Já possui os 35 ingredientes corretos no banco
+        ingredientsText: null, // JÃ¡ possui os 35 ingredientes corretos no banco
       },
       {
         slug: 'science-diet-adult-sensitive-stomach-skin-small-bites-dry',
@@ -199,12 +199,12 @@ async function main() {
       });
 
       if (!p) {
-        console.warn(`⚠️ Produto não encontrado no banco: ${item.slug}`);
+        console.warn(`âš ï¸ Produto nÃ£o encontrado no banco: ${item.slug}`);
         continue;
       }
 
       console.log(`------------------------------------------------------------`);
-      console.log(`📦 Processando: ${p.commercialName}`);
+      console.log(`ðŸ“¦ Processando: ${p.commercialName}`);
       console.log(`   ID: ${p.id} | Slug: ${p.slug}`);
 
       let finalIngredients: string[] = [];
@@ -249,10 +249,10 @@ async function main() {
         p.foodType as any
       );
 
-      console.log(`   Score Anterior: ${p.scoreTotal} (${p.classificationTier}) ➔ Novo Score: ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
-      console.log(`   Transgênicos: SIM (containsGmo = true, gmoIngredients = "${item.gmoIngredients}")`);
+      console.log(`   Score Anterior: ${p.scoreTotal} (${p.classificationTier}) âž” Novo Score: ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
+      console.log(`   TransgÃªnicos: SIM (containsGmo = true, gmoIngredients = "${item.gmoIngredients}")`);
 
-      console.log(`   🤖 Gerando Parecer Editorial Técnico...`);
+      console.log(`   ðŸ¤– Gerando Parecer Editorial TÃ©cnico...`);
       let editorial = await generateEditorialOpinionWithGemini({
         commercialName: p.commercialName,
         brand: p.brand,
@@ -301,7 +301,7 @@ async function main() {
         });
       }
 
-      console.log(`   📝 Parecer:\n      "${editorial}"`);
+      console.log(`   ðŸ“ Parecer:\n      "${editorial}"`);
 
       // Atualiza produto no banco de dados
       const updated = await prisma.product.update({
@@ -319,7 +319,7 @@ async function main() {
         },
       });
 
-      // Regenera ficha técnica padronizada de custódia
+      // Regenera ficha tÃ©cnica padronizada de custÃ³dia
       const destHtmlRel = `/uploads/ficha_${updated.id}.html`;
       const destHtmlPath = path.join(process.cwd(), 'public', destHtmlRel);
       const rawHtmlRel = `/uploads/raw_ficha_${updated.id}.html`;
@@ -368,23 +368,23 @@ async function main() {
       });
 
       fs.writeFileSync(destHtmlPath, sheetHtml, 'utf-8');
-      console.log(`   ✓ Ficha de custódia atualizada: public${destHtmlRel}`);
+      console.log(`   âœ“ Ficha de custÃ³dia atualizada: public${destHtmlRel}`);
 
       // Pausa preventiva de 1.5s
       await sleep(1500);
     }
 
-    console.log(`\n🎉 [Concluído] Todos os produtos Science Diet foram revisados e atualizados com sucesso!`);
+    console.log(`\nðŸŽ‰ [ConcluÃ­do] Todos os produtos Science Diet foram revisados e atualizados com sucesso!`);
   } finally {
     await prisma.$disconnect();
     if (tunnelProcess) {
-      console.log('🔌 [Túnel SSH] Fechando conexão.');
+      console.log('ðŸ”Œ [TÃºnel SSH] Fechando conexÃ£o.');
       tunnelProcess.kill();
     }
   }
 }
 
 main().catch((err) => {
-  console.error('\n❌ Erro:', err);
+  console.error('\nâŒ Erro:', err);
   process.exit(1);
 });

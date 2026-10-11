@@ -57,12 +57,11 @@ async function main() {
     console.log('\n📡 [Túnel SSH] Porta 5433 já está ativa. Utilizando conexão existente.');
   } else {
     console.log('\n🔒 [Túnel SSH] Abrindo túnel seguro em segundo plano com a Oracle Cloud...');
-    const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
+    const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
     tunnelProcess = spawn('ssh', [
-      '-i', keyPath,
       '-L', '5433:127.0.0.1:5432',
       '-N',
-      'ubuntu@168.138.144.63',
+      sshTarget,
     ], { stdio: 'ignore', windowsHide: true });
 
     let ready = false;
@@ -167,12 +166,12 @@ async function main() {
   // Sincronização com o servidor Oracle Cloud
   if (updatedFilesForScp.length > 0) {
     console.log('\n🚀 [Sincronização] Enviando imagens atualizadas para a Oracle Cloud...');
-    const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
-    const remoteDest = 'ubuntu@168.138.144.63:/home/ubuntu/petrankings/public/uploads/';
+    const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
+    const remoteDest = `${sshTarget}:/home/ubuntu/petrankings/public/uploads/`;
 
     // Cria comando scp com todos os arquivos
     const quotedFiles = updatedFilesForScp.map((p) => `"${p.replace(/\\/g, '/')}"`).join(' ');
-    const scpCmd = `scp -i "${keyPath}" ${quotedFiles} ${remoteDest}`;
+    const scpCmd = `scp ${quotedFiles} ${remoteDest}`;
 
     const { execSync } = require('child_process');
     try {

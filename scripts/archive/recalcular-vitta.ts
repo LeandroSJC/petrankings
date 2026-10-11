@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+﻿import * as fs from 'fs';
 import * as path from 'path';
 import { spawn } from 'child_process';
 import net from 'net';
@@ -35,20 +35,20 @@ async function sleep(ms: number) {
 
 async function main() {
   const isDryRun = process.argv.includes('--dry-run');
-  console.log(`\n🐾 [PetRankings] Correção de Transgênicos e Recálculo da Linha VittA Natural`);
-  console.log(`   Modo: ${isDryRun ? 'DRY-RUN (Simulação)' : 'APLICAR NO BANCO POSTGRESQL'}\n`);
+  console.log(`\nðŸ¾ [PetRankings] CorreÃ§Ã£o de TransgÃªnicos e RecÃ¡lculo da Linha VittA Natural`);
+  console.log(`   Modo: ${isDryRun ? 'DRY-RUN (SimulaÃ§Ã£o)' : 'APLICAR NO BANCO POSTGRESQL'}\n`);
 
   let tunnelProcess: any = null;
   const alreadyOpen = await isPortOpen(5433);
 
   if (alreadyOpen) {
-    console.log('📡 [Túnel SSH] Porta 5433 já está ativa.');
+    console.log('ðŸ“¡ [TÃºnel SSH] Porta 5433 jÃ¡ estÃ¡ ativa.');
   } else {
-    console.log('🔒 [Túnel SSH] Abrindo túnel temporário com a Oracle Cloud na porta 5433...');
-    const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
+    console.log('ðŸ”’ [TÃºnel SSH] Abrindo tÃºnel temporÃ¡rio com a Oracle Cloud na porta 5433...');
+    const keyPath = 'caminho/para/chave.key';
     tunnelProcess = spawn(
       'ssh',
-      ['-i', keyPath, '-L', '5433:127.0.0.1:5432', '-N', 'ubuntu@168.138.144.63'],
+      ['-i', keyPath, '-L', '5433:127.0.0.1:5432', '-N', 'ubuntu@petrankings-vps'],
       { stdio: 'ignore', windowsHide: true }
     );
 
@@ -62,11 +62,11 @@ async function main() {
     }
 
     if (!ready) {
-      console.error('❌ Falha ao estabelecer conexão via túnel SSH.');
+      console.error('âŒ Falha ao estabelecer conexÃ£o via tÃºnel SSH.');
       if (tunnelProcess) tunnelProcess.kill();
       process.exit(1);
     }
-    console.log('✓ [Túnel SSH] Conexão segura estabelecida com sucesso!');
+    console.log('âœ“ [TÃºnel SSH] ConexÃ£o segura estabelecida com sucesso!');
   }
 
   try {
@@ -84,7 +84,7 @@ async function main() {
       orderBy: { commercialName: 'asc' },
     });
 
-    console.log(`📋 Encontrados ${products.length} produtos da linha VittA Natural no banco de dados.\n`);
+    console.log(`ðŸ“‹ Encontrados ${products.length} produtos da linha VittA Natural no banco de dados.\n`);
 
     let updatedCount = 0;
 
@@ -98,7 +98,7 @@ async function main() {
       }
 
       if (!fs.existsSync(htmlPath)) {
-        console.warn(`⚠️ [PULADO] Arquivo HTML oficial não encontrado: ${product.commercialName} (${htmlPath})`);
+        console.warn(`âš ï¸ [PULADO] Arquivo HTML oficial nÃ£o encontrado: ${product.commercialName} (${htmlPath})`);
         continue;
       }
 
@@ -166,10 +166,10 @@ async function main() {
         umidadeMaxPct: parsed.umidadeMaxPct,
       });
 
-      console.log(`📦 [${product.id}] ${product.commercialName}`);
-      console.log(`   Transgênicos: ${oldGmo ? 'SIM' : 'NÃO'} ➔ ${newGmo ? 'SIM' : 'NÃO'}`);
+      console.log(`ðŸ“¦ [${product.id}] ${product.commercialName}`);
+      console.log(`   TransgÃªnicos: ${oldGmo ? 'SIM' : 'NÃƒO'} âž” ${newGmo ? 'SIM' : 'NÃƒO'}`);
       console.log(`   Ingredientes OGM: ${newGmoIng || 'Nenhum'}`);
-      console.log(`   Score: ${product.scoreTotal} ➔ ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
+      console.log(`   Score: ${product.scoreTotal} âž” ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
 
       if (!isDryRun) {
         await prisma.product.update({
@@ -193,17 +193,17 @@ async function main() {
     }
 
     console.log(`\n======================================================`);
-    console.log(`🎉 Resumo da Operação VittA Natural:`);
+    console.log(`ðŸŽ‰ Resumo da OperaÃ§Ã£o VittA Natural:`);
     console.log(`   - Produtos processados: ${updatedCount}`);
-    console.log(`   - Modo: ${isDryRun ? 'DRY-RUN (Simulação)' : 'GRAVADO COM SUCESSO NO BANCO DE DADOS'}`);
+    console.log(`   - Modo: ${isDryRun ? 'DRY-RUN (SimulaÃ§Ã£o)' : 'GRAVADO COM SUCESSO NO BANCO DE DADOS'}`);
     console.log(`======================================================\n`);
 
     await prisma.$disconnect();
   } catch (err: any) {
-    console.error('❌ Erro durante a atualização:', err);
+    console.error('âŒ Erro durante a atualizaÃ§Ã£o:', err);
   } finally {
     if (tunnelProcess) {
-      console.log('🔌 [Túnel SSH] Fechando conexão segura temporária.');
+      console.log('ðŸ”Œ [TÃºnel SSH] Fechando conexÃ£o segura temporÃ¡ria.');
       tunnelProcess.kill();
     }
   }

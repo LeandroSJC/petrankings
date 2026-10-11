@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 import net from 'net';
@@ -40,7 +40,7 @@ const PRODUCTS_MAP = [
   {
     slug: 'prohealth-gatos-castradosalmao',
     id: 'cmtzfcb5301879a41676a2eb',
-    name: 'ProHealth Gatos Castrados Salmão',
+    name: 'ProHealth Gatos Castrados SalmÃ£o',
     tempFile: 'public/uploads/temp_prohealth-gatos-castradosalmao.jpg',
     targetRel: '/uploads/produto_cmtzfcb5301879a41676a2eb.webp',
   },
@@ -54,16 +54,16 @@ const PRODUCTS_MAP = [
 ];
 
 async function main() {
-  console.log('🚀 [PetRankings] Iniciando atualização das imagens dos produtos ProHealth...\n');
+  console.log('ðŸš€ [PetRankings] Iniciando atualizaÃ§Ã£o das imagens dos produtos ProHealth...\n');
 
-  // 1. Processamento e otimização das imagens com sharp
-  console.log('🎨 [Sharp] Processando e convertendo imagens para WebP otimizado...');
+  // 1. Processamento e otimizaÃ§Ã£o das imagens com sharp
+  console.log('ðŸŽ¨ [Sharp] Processando e convertendo imagens para WebP otimizado...');
   for (const item of PRODUCTS_MAP) {
     const tempFullPath = path.join(process.cwd(), item.tempFile);
     const targetFullPath = path.join(process.cwd(), 'public', item.targetRel.replace(/^\//, ''));
 
     if (!fs.existsSync(tempFullPath)) {
-      throw new Error(`Arquivo temporário não encontrado: ${tempFullPath}`);
+      throw new Error(`Arquivo temporÃ¡rio nÃ£o encontrado: ${tempFullPath}`);
     }
 
     const inputBuffer = fs.readFileSync(tempFullPath);
@@ -75,24 +75,24 @@ async function main() {
 
     fs.writeFileSync(targetFullPath, optimizedBuffer);
     const meta = await sharp(optimizedBuffer).metadata();
-    console.log(`   ✓ ${item.name} (${item.slug}):`);
-    console.log(`     Salvo em: ${item.targetRel} | Resolução: ${meta.width}x${meta.height} | Tamanho: ${optimizedBuffer.length} bytes`);
+    console.log(`   âœ“ ${item.name} (${item.slug}):`);
+    console.log(`     Salvo em: ${item.targetRel} | ResoluÃ§Ã£o: ${meta.width}x${meta.height} | Tamanho: ${optimizedBuffer.length} bytes`);
   }
 
-  // 2. Conexão ao banco de dados via túnel SSH
+  // 2. ConexÃ£o ao banco de dados via tÃºnel SSH
   let tunnelProcess: any = null;
   const alreadyOpen = await isPortOpen(5433);
 
   if (alreadyOpen) {
-    console.log('\n📡 [Túnel SSH] Porta 5433 já está ativa. Utilizando conexão existente.');
+    console.log('\nðŸ“¡ [TÃºnel SSH] Porta 5433 jÃ¡ estÃ¡ ativa. Utilizando conexÃ£o existente.');
   } else {
-    console.log('\n🔒 [Túnel SSH] Abrindo túnel seguro em segundo plano com a Oracle Cloud...');
-    const keyPath = 'D:/Projetos/ssh-key-2026-10-03.key';
+    console.log('\nðŸ”’ [TÃºnel SSH] Abrindo tÃºnel seguro em segundo plano com a Oracle Cloud...');
+    const keyPath = 'caminho/para/chave.key';
     tunnelProcess = spawn('ssh', [
       '-i', keyPath,
       '-L', '5433:127.0.0.1:5432',
       '-N',
-      'ubuntu@168.138.144.63',
+      'ubuntu@petrankings-vps',
     ], { stdio: 'ignore', windowsHide: true });
 
     let ready = false;
@@ -105,11 +105,11 @@ async function main() {
     }
 
     if (!ready) {
-      console.error('❌ Falha ao estabelecer o túnel SSH.');
+      console.error('âŒ Falha ao estabelecer o tÃºnel SSH.');
       if (tunnelProcess) tunnelProcess.kill();
       process.exit(1);
     }
-    console.log('✓ [Túnel SSH] Conexão segura estabelecida com sucesso na porta 5433!');
+    console.log('âœ“ [TÃºnel SSH] ConexÃ£o segura estabelecida com sucesso na porta 5433!');
   }
 
   const rawUrl = process.env.DATABASE_URL || '';
@@ -123,7 +123,7 @@ async function main() {
   });
 
   try {
-    console.log('\n📦 [Banco de Dados] Atualizando registros no PostgreSQL...');
+    console.log('\nðŸ“¦ [Banco de Dados] Atualizando registros no PostgreSQL...');
     for (const item of PRODUCTS_MAP) {
       const updated = await prisma.product.update({
         where: { id: item.id },
@@ -139,31 +139,31 @@ async function main() {
           updatedAt: true,
         },
       });
-      console.log(`   ✓ Atualizado: "${updated.commercialName}" -> ${updated.frontLabelImageUrl}`);
+      console.log(`   âœ“ Atualizado: "${updated.commercialName}" -> ${updated.frontLabelImageUrl}`);
     }
-    console.log('✓ [Banco de Dados] Todos os registros atualizados com sucesso!');
+    console.log('âœ“ [Banco de Dados] Todos os registros atualizados com sucesso!');
   } finally {
     await prisma.$disconnect();
     if (tunnelProcess) {
-      console.log('🔌 [Túnel SSH] Encerrando túnel temporário.');
+      console.log('ðŸ”Œ [TÃºnel SSH] Encerrando tÃºnel temporÃ¡rio.');
       tunnelProcess.kill();
     }
   }
 
-  // 3. Limpeza de arquivos temporários
-  console.log('\n🧹 [Limpeza] Removendo arquivos temporários de download...');
+  // 3. Limpeza de arquivos temporÃ¡rios
+  console.log('\nðŸ§¹ [Limpeza] Removendo arquivos temporÃ¡rios de download...');
   for (const item of PRODUCTS_MAP) {
     const tempFullPath = path.join(process.cwd(), item.tempFile);
     if (fs.existsSync(tempFullPath)) {
       fs.unlinkSync(tempFullPath);
-      console.log(`   ✓ Removido: ${item.tempFile}`);
+      console.log(`   âœ“ Removido: ${item.tempFile}`);
     }
   }
 
-  console.log('\n🎉 [Sucesso] Todas as imagens foram processadas, salvas e atualizadas com sucesso!');
+  console.log('\nðŸŽ‰ [Sucesso] Todas as imagens foram processadas, salvas e atualizadas com sucesso!');
 }
 
 main().catch((err) => {
-  console.error('\n❌ Erro durante o processo:', err);
+  console.error('\nâŒ Erro durante o processo:', err);
   process.exit(1);
 });

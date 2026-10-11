@@ -19,9 +19,9 @@ This skill provides comprehensive operational runbooks, infrastructure topology,
 * **Compute Architecture:** ARM64 (Ampere A1 — 2 OCPUs, 12 GB RAM)
 * **Storage:** 200 GB NVMe Boot Volume SSD (mounted on `/`)
 * **Operating System:** Ubuntu 24.04 LTS (Kernel 6.8+ aarch64)
-* **Public Server IP:** `168.138.144.63`
+* **Public Server IP:** Configurado no host local via alias `petrankings-vps` em `~/.ssh/config`
 * **Default System User:** `ubuntu`
-* **Private SSH Key:** `D:/Projetos/ssh-key-2026-10-03.key` (RSA/OpenSSH, restricted permissions)
+* **Private SSH Key:** Gerenciada no host local via `~/.ssh/config` (`petrankings-vps`)
 * **Application Directory:** `/home/ubuntu/petrankings/`
 
 ---
