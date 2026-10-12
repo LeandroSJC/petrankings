@@ -152,9 +152,10 @@ The PetRankings editorial repository organizes studies strictly into nutritional
 - **Proibição Absoluta do Termo "Auditoria" / "Auditado" (Regra Mandatória 3 do DRS)**:
   - É estritamente proibido o uso do termo "auditoria", "auditar", "auditado", "auditável" ou similares em qualquer texto, título ou metadado.
   - Termos obrigatórios de substituição: "Avaliação Técnica", "Análise de Rótulo", "Confronto Documental", "Laudo Técnico", "Produtos Analisados", "Fichas Avaliadas".
-- **Fidelidade Estrita de Citações (`relatedProductSlugs`)**:
+- **Fidelidade Estrita de Citações (`relatedProductSlugs`) & Fontes de Rotulagem**:
   - Apenas produtos **efetivamente citados, analisados ou confrontados** no corpo do texto do estudo/guia podem constar em `relatedProductSlugs`.
   - Proibido incluir produtos aleatórios para fins estéticos ou preenchimento de vitrine. Se o artigo for didático/metodológico sem produtos específicos, `relatedProductSlugs` deve ser um array vazio (`[]`).
+  - **Proibição de Ficha Oficial/Fabricante sem Produto Citado**: Se `relatedProductSlugs` for vazio (`[]`), é estritamente proibido incluir qualquer referência do tipo `rotulagem` ("Ficha Oficial / Fabricante") em `references`. A lista de fontes de artigos conceituais deve conter exclusivamente marcos regulatórios e literatura científica (`regulamento`, `literatura`, `estudo`).
 - **Assinatura Editorial Padronizada**:
   - Todos os artigos e guias devem ser assinados compulsoriamente por `DEFAULT_GUIDE_AUTHOR` ("Equipe de Curadoria Técnica", com papel "Observatório PetRankings"). É vedada a criação de personas ou pseudônimos fictícios.
 - **Fontes Primárias Obrigatórias**:

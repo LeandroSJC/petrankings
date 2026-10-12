@@ -1891,19 +1891,19 @@ export const GUIDES: GuideItem[] = [
       {
         title: 'Regulamento do Programa 100% Satisfação PremieRpet',
         institution: 'Grandfood Indústria e Comércio Ltda.',
-        type: 'rotulagem',
+        type: 'regulamento',
         details: 'Condições gerais de troca de produtos das linhas PremieR Formula, GoldeN e PremieR Nattu (mínimo de 50% de conteúdo na embalagem original)',
       },
       {
         title: 'Política e Termo de Garantia 100% de Satisfação Royal Canin',
         institution: 'Mars Petcare Brasil / Royal Canin do Brasil',
-        type: 'rotulagem',
+        type: 'regulamento',
         details: 'Procedimentos de ressarcimento e substituição para produtos das linhas Feline e Canine Health Nutrition',
       },
       {
         title: 'Regulamento Programa Satisfação Garantida Nestlé Purina',
         institution: 'Nestlé Brasil Ltda. / Purina',
-        type: 'rotulagem',
+        type: 'regulamento',
         details: 'Normas de acionamento do SAC para as linhas Super Premium Purina Pro Plan com volume mínimo de 70% residual',
       },
       {
@@ -2042,12 +2042,14 @@ export const GUIDES: GuideItem[] = [
         title: 'Instrução Normativa MAPA nº 39, de 21 de novembro de 2014',
         institution: 'Ministério da Agricultura e Pecuária (MAPA)',
         type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-39-de-21-de-novembro-de-2014.pdf',
         details: 'Estabelece a proibição expressa de princípios farmacológicos ativos em alimentos coadjuvantes e regula normas de rotulagem (Arts. 10, 34 e 43)',
       },
       {
         title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
         institution: 'Ministério da Agricultura e Pecuária (MAPA)',
         type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
         details: 'Regulamento Técnico sobre Padrões de Identidade, Qualidade e Classificação de Alimentos para Cães e Gatos (RTIQ Pet)',
       },
       {
@@ -2061,12 +2063,14 @@ export const GUIDES: GuideItem[] = [
         title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
         institution: 'European Pet Food Industry Federation (FEDIAF)',
         type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
         details: 'Capítulos sobre modulação de fósforo, cálcio e densidade energética em animais senis e dietas especializadas',
       },
       {
         title: 'Global Nutrition Guidelines — Nutritional Assessment Guidelines for Dogs and Cats',
         institution: 'World Small Animal Veterinary Association (WSAVA)',
         type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
         details: 'Protocolos de avaliação nutricional e o papel das dietas terapêuticas no manejo de patologias crônicas',
       },
       {
@@ -2244,6 +2248,7 @@ export const GUIDES: GuideItem[] = [
         title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
         institution: 'European Pet Food Industry Federation (FEDIAF)',
         type: 'literatura',
+        url: 'https://europeanpetfood.org/pets-and-society/nutritional-guidelines/',
         details: 'Tabela VII-2: Parâmetros para Restrição Energética e Redução de Gordura em Dietas Felinas de Perda de Peso',
       },
       {
@@ -2257,12 +2262,14 @@ export const GUIDES: GuideItem[] = [
         title: 'AAFCO Official Publication — Model Regulation PF9 (Expression of Guarantees and Calorie Content)',
         institution: 'Association of American Feed Control Officials (AAFCO)',
         type: 'regulamento',
+        url: 'https://www.aafco.org/consumers/understanding-pet-food/calorie-content-statements/',
         details: 'Diretrizes oficiais para declaração voluntária de alimentos "Light", "Lite" e "Low Calorie" em gatos (teto de 3.250 kcal/kg)',
       },
       {
         title: 'Instrução Normativa MAPA nº 30/2009 e IN MAPA nº 39/2014',
         institution: 'Ministério da Agricultura e Pecuária (MAPA)',
         type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
         details: 'Padrões de Identidade e Qualidade para Alimentos Completos e Regulamento de Alimentos Coadjuvantes',
       },
       {
@@ -2420,12 +2427,14 @@ export const GUIDES: GuideItem[] = [
         title: 'Nutrient Requirements of Dogs and Cats (2006)',
         institution: 'National Research Council (NRC)',
         type: 'estudo',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
         details: 'Equações de Energia Metabolizável (EM), consumo energético por peso metabólico (PV^0,75) e efeitos biológicos de lipídios oxidados na dieta canina',
       },
       {
         title: 'Instruções Normativas MAPA nº 30/2009 e nº 22/2009',
         institution: 'Ministério da Agricultura e Pecuária (MAPA)',
         type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
         details: 'Regulamento Técnico sobre Boas Práticas de Fabricação, rotulagem de garantias e declaração de antioxidantes sintéticos e naturais',
       },
       {
@@ -2582,6 +2591,7 @@ export const GUIDES: GuideItem[] = [
         title: 'Instrução Normativa MAPA nº 30/2009 e Decreto nº 12.031/2024',
         institution: 'Ministério da Agricultura e Pecuária (MAPA)',
         type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
         details: 'Regulamentação técnica sobre classificação de Alimentos Completos, Alimentos Específicos e Complementares para animais de companhia',
       },
       {
@@ -2595,6 +2605,7 @@ export const GUIDES: GuideItem[] = [
         title: 'Nutrient Requirements of Dogs and Cats (2006)',
         institution: 'National Research Council (NRC)',
         type: 'estudo',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
         details: 'Biodisponibilidade de oligoelementos e impactos metabólicos da diluição do balanço eletrolítico e mineral em dietas caninas e felinas',
       },
     ],
@@ -2716,6 +2727,7 @@ export const GUIDES: GuideItem[] = [
         title: 'Manual Pet Food Brasil (11ª Edição Oficial)',
         institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
         type: 'regulamento',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
         details: 'Capítulo sobre exigências nutricionais de felinos domésticos, parâmetros em Matéria Seca (MS) e equações de Necessidade Energética de Manutenção (NEM)',
       },
       {
@@ -2736,19 +2748,15 @@ export const GUIDES: GuideItem[] = [
         title: 'Instrução Normativa MAPA nº 30/2009 e Decreto Federal nº 12.031/2024',
         institution: 'Ministério da Agricultura e Pecuária (MAPA)',
         type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
         details: 'Regulamento Técnico de Alimentos Completos, Coadjuvantes e Complementares para animais de companhia no Brasil',
       },
       {
         title: 'Nutrient Requirements of Dogs and Cats (2006)',
         institution: 'National Research Council (NRC)',
         type: 'estudo',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
         details: 'Padrões de energia metabolizável, balanço hídrico na excreção de ureia e fisiologia comparada de felinos',
-      },
-      {
-        title: 'Fichas Técnicas Oficiais GranPlus Menu Castrados e Gourmet Sachê Urinário',
-        institution: 'BRF Pet / GranPlus (Custódia SHA-256 no PetRankings)',
-        type: 'rotulagem',
-        details: 'Garantias nutricionais em Matéria Natural e Matéria Seca de alimentos secos e úmidos completos para gatos',
       },
     ],
     callToAction: {
