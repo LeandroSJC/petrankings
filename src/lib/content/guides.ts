@@ -2605,6 +2605,162 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/rankings',
     },
   },
+  {
+    slug: 'mix-feeding-gatos-como-combinar-racao-seca-e-sache',
+    title: 'Mix feeding para gatos: Como combinar ração seca e sachê sem errar nas calorias?',
+    subtitle: 'O passo a passo matemático e zootécnico para calcular a proporção diária de alimento seco e úmido, garantindo hidratação renal sem ganho de peso.',
+    cluster: 'Manejo & Rotina Alimentar',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-12',
+    updatedAt: '2026-10-12',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/mix-feeding-gatos-racao-sache-cover.webp',
+    isFeatured: true,
+    summary: 'Aprenda como calcular a alimentação mista (mix feeding) para gatos passo a passo. Entenda a regra de substituição calórica entre ração seca e sachê, os benefícios comprovados pela WSAVA para a saúde renal e como evitar a obesidade em gatos castrados.',
+    relatedProductSlugs: [
+      'menu-gato-adulto-castrado-salmao-arroz',
+      'sache-gourmet-gato-adulto-trato-urinario-frango',
+    ],
+    sections: [
+      {
+        id: 'por-que-o-gato-precisa-de-comida-umida',
+        heading: 'Por que o gato precisa de comida úmida na rotina diária?',
+        paragraphs: [
+          'Quem convive com gatos sabe que eles raramente procuram a tigela de água com a mesma frequência que os cães. Essa característica não é teimosia ou capricho. Ela é fruto da evolução da espécie Felis lybica, originária de regiões desérticas da África e do Oriente Médio, onde quase toda a hidratação necessária vinha diretamente dos tecidos das presas capturadas.',
+          'Enquanto um camundongo ou uma ave silvestre possui cerca de 70% a 75% de água, a ração seca tradicional oferece no máximo 10% a 12% de umidade. Isso significa que, ao comer apenas alimento seco, o gato precisa produzir uma urina extremamente densa e concentrada para economizar água no organismo.',
+          'Essa urina concentrada eleva a saturação de minerais na bexiga, criando o ambiente perfeito para a formação de cristais de estruvita e oxalato de cálcio. A introdução de sachês e patês na rotina diária, prática conhecida na zootecnia como mix feeding, é a forma mais eficaz e natural de aumentar a ingestão hídrica e proteger os rins a longo prazo.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Diretriz da WSAVA sobre Hidratação Felina',
+          text: 'O Comitê de Nutrição Global da WSAVA enfatiza que felinos alimentados com dietas ricas em umidade produzem urina com menor gravidade específica e maior volume diário, reduzindo consideravelmente a reincidência de doenças do trato urinário inferior (DTUIF).',
+        },
+      },
+      {
+        id: 'o-erro-classico-do-sache-como-petisco-extra',
+        heading: 'O erro clássico de oferecer o sachê por cima da ração',
+        paragraphs: [
+          'Apesar dos imensos benefícios do alimento úmido, o erro mais frequente cometido pelos tutores é tratar o sachê como um simples agrado extra, servido por cima da porção inteira de ração seca recomendada na embalagem.',
+          'Um sachê convencional de 85 gramas fornece, em média, entre 60 e 75 calorias (kcal). Para um gato adulto castrado de 4 kg que consome cerca de 180 a 200 kcal por dia, adicionar um sachê sem descontar a ração seca representa um excesso calórico imediato de 30% a 35% todos os dias.',
+          'Em poucos meses, esse excedente se transforma em gordura corporal acumulada. Em felinos, o ganho de peso reduz a sensibilidade à insulina, sobrecarrega as articulações e aumenta o risco de lipidose hepática, uma grave infiltração de gordura no fígado quando o animal passa por períodos de estresse ou jejum.',
+        ],
+      },
+      {
+        id: 'a-matematica-da-substituicao-calorica',
+        heading: 'A regra prática de substituição calórica',
+        paragraphs: [
+          'Para praticar o mix feeding com segurança, a regra fundamental é substituir calorias por calorias, e nunca grama por grama. Como a ração seca é altamente concentrada e tem pouca água, ela entrega muito mais energia em poucas gramas do que o sachê.',
+          'Uma ração seca de boa qualidade para gatos castrados possui cerca de 3.600 kcal por quilo, o que equivale a 3,6 kcal por grama. Já um sachê completo de 85 gramas possui em torno de 70 kcal no total. Dividindo 70 kcal por 3,6 kcal por grama, chegamos a aproximadamente 19 a 20 gramas.',
+          'Essa é a regra de ouro que você pode guardar com facilidade: para cada sachê inteiro de 85 gramas oferecido ao longo do dia, você deve retirar 20 gramas da cota diária de ração seca do comedouro.',
+        ],
+        table: {
+          caption: 'Exemplo prático de planejamento diário para gatos castrados (ração seca de ~3.600 kcal/kg e sachê de 85g com ~70 kcal)',
+          headers: ['Peso do Gato', 'Necessidade Diária Estimada', 'Apenas Ração Seca', 'Mix Feeding (1 Sachê + Seca)', 'Redução de Seca'],
+          rows: [
+            ['3,0 kg', '~155 kcal / dia', '43 g de seca', '1 sachê (85g) + 24 g de seca', '- 19 gramas'],
+            ['4,0 kg', '~190 kcal / dia', '53 g de seca', '1 sachê (85g) + 33 g de seca', '- 20 gramas'],
+            ['5,0 kg', '~225 kcal / dia', '62 g de seca', '1 sachê (85g) + 43 g de seca', '- 19 gramas'],
+            ['6,0 kg', '~255 kcal / dia', '71 g de seca', '1 sachê (85g) + 51 g de seca', '- 20 gramas'],
+          ],
+        },
+      },
+      {
+        id: 'como-organizar-a-rotina-no-comedouro',
+        heading: 'Como organizar a rotina diária no comedouro',
+        paragraphs: [
+          'A dinâmica de servir o alimento também influencia a aceitação e a segurança sanitária. Ao contrário da ração seca, que pode permanecer no comedouro durante o dia sem estragar, o alimento úmido possui alta atividade de água e sofre oxidação rápida.',
+          'O sachê não deve ficar exposto no ambiente por mais de 30 a 40 minutos, especialmente em dias quentes. Após esse período, o alimento resseca, perde aroma e se torna propício à multiplicação de bactérias e moscas. O que não for consumido nesse intervalo deve ser descartado.',
+          'Outra recomendação zootécnica importante é não misturar a ração seca e a úmida na mesma tigela com antecedência. Misturar faz os grãos secos amolecerem e perderem a textura crocante que muitos gatos adoram. Sirva o sachê em um prato raso separado pela manhã ou à noite, mantendo a ração seca distribuída em outros horários.',
+          'Se o sachê estava guardado na geladeira, retire a porção cerca de 15 minutos antes de servir ou quebre o gelo em banho-maria. Alimentos em temperatura ambiente ou levemente mornos liberam compostos aromáticos que despertam o apetite natural do felino.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Dica Prática de Higiene e Aceitação',
+          text: 'Prefira pratos largos e rasos, de cerâmica ou inox, para servir o sachê. Pratos fundos e estreitos encostam nos bigodes (vibrissas) do gato, causando estresse sensorial e fazendo com que ele rejeite a refeição.',
+        },
+      },
+      {
+        id: 'sache-completo-vs-complementar-atencao-ao-rotulo',
+        heading: 'Alimento completo ou complementar: A conferência obrigatória no rótulo',
+        paragraphs: [
+          'Antes de incluir qualquer sachê na rotina diária do seu gato, há uma verificação técnica indispensável exigida pela Instrução Normativa MAPA nº 30/2009: conferir se a embalagem declara "Alimento Completo" ou "Alimento Complementar".',
+          'Os alimentos completos contêm vitaminas, minerais quelatados, taurina e todos os aminoácidos necessários para atender 100% das exigências nutricionais da espécie. Eles podem substituir a ração seca em qualquer proporção sem nenhum risco de carência nutricional.',
+          'Já os alimentos complementares são compostos apenas por filés desfiados ou caldos sem premix vitamínico e mineral. Eles funcionam puramente como petiscos de agrado e hidratação. Se você utilizar um produto complementar, ele jamais deve ultrapassar 10% das calorias diárias do gato, pois o excesso pode diluir os níveis de cálcio, fósforo e vitaminas essenciais da dieta.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Alerta Regulatório da ABINPET',
+          text: 'Alimentos complementares e sopinhas para gatos não possuem premix mineral completo. Utilizá-los como substitutos regulares de refeições sem orientação veterinária pode provocar carências graves de taurina e cálcio.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Posso misturar o sachê diretamente com a ração seca no mesmo prato?',
+        a: 'Você pode oferecer os dois juntos, mas o ideal é colocá-los lado a lado e não misturados com antecedência. Quando misturada, a ração seca absorve a umidade do sachê, perde a crocância e fermenta mais rápido se o gato não comer imediatamente.',
+      },
+      {
+        q: 'Gatos castrados podem comer sachê todos os dias sem engordar?',
+        a: 'Sim, e é altamente recomendado. O segredo é fazer a compensação calórica: para cada sachê de 85g oferecido, retire cerca de 20g de ração seca do total diário. Assim, a energia total consumida permanece estável e o gato ganha hidratação sem acumular gordura.',
+      },
+      {
+        q: 'Sachê diário amolece os dentes ou causa tártaro no gato?',
+        a: 'Não. O mito de que sachê amolece dentes não possui fundamentação científica. A ração seca comum também se fragmenta facilmente na mastigação e não substitui a escovação dental periódica. O benefício do sachê para a saúde renal supera de longe qualquer preocupação dental.',
+      },
+      {
+        q: 'Quanto tempo o sachê aberto pode ficar na geladeira?',
+        a: 'Após aberto, guarde o conteúdo restante na própria embalagem bem vedada ou em pote de vidro com tampa na geladeira por até 48 horas. Ao servir a próxima porção, aguarde alguns minutos para atingir a temperatura ambiente.',
+      },
+    ],
+    conclusion: 'O mix feeding é uma das estratégias de manejo nutricional mais respaldadas pela literatura veterinária contemporânea. Ao combinar a conveniência da ração seca com a hidratação profunda do alimento úmido, você reduz o risco de cálculos urinários e protege a função renal do seu gato. Lembre-se apenas da regra de ouro: retire 20 gramas de ração seca para cada sachê servido, utilize produtos classificados como alimentos completos e desfrute de um felino muito mais saudável e ativo.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição Oficial)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'regulamento',
+        details: 'Capítulo sobre exigências nutricionais de felinos domésticos, parâmetros em Matéria Seca (MS) e equações de Necessidade Energética de Manutenção (NEM)',
+      },
+      {
+        title: 'WSAVA Global Nutrition Toolkit & Guidelines (2021 Update)',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Recomendações clínicas para ingestão de água, prevenção de cálculos urinários em felinos e manejo dietético individualizado',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/prepared-pet-foods/nutritional-guidelines.html',
+        details: 'Tabelas de equivalência calórica, coeficientes de densidade energética e diferenciação regulatória entre alimentos completos e complementares',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009 e Decreto Federal nº 12.031/2024',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        details: 'Regulamento Técnico de Alimentos Completos, Coadjuvantes e Complementares para animais de companhia no Brasil',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'estudo',
+        details: 'Padrões de energia metabolizável, balanço hídrico na excreção de ureia e fisiologia comparada de felinos',
+      },
+      {
+        title: 'Fichas Técnicas Oficiais GranPlus Menu Castrados e Gourmet Sachê Urinário',
+        institution: 'BRF Pet / GranPlus (Custódia SHA-256 no PetRankings)',
+        type: 'rotulagem',
+        details: 'Garantias nutricionais em Matéria Natural e Matéria Seca de alimentos secos e úmidos completos para gatos',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Rações Secas e Sachês Completos no PetRankings',
+      text: 'Confira as avaliações técnicas em Matéria Seca (MS), teores de proteína, sódio e o balanço mineral de alimentos para gatos em nosso catálogo oficial.',
+      buttonText: 'Ver Ranking de Gatos',
+      buttonUrl: '/ranking/melhores-racoes-para-gatos',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
