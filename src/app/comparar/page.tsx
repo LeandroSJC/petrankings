@@ -5,6 +5,7 @@ import { Scale, ChevronRight } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ComparatorView from '@/components/comparator/ComparatorView';
 import { formatProductForComparison, ComparedProduct } from '@/lib/comparator';
+import { SITE_URL } from '@/lib/utils';
 
 export async function generateMetadata({
   searchParams,
@@ -29,7 +30,7 @@ export async function generateMetadata({
         title: `${name1} vs ${name2} — Comparativo Nutricional e Ingredientes | PetRankings`,
         description: `Confronto bromatológico em Matéria Seca (MS), teores de proteína, gordura, cinzas minerais, antioxidantes e ingredientes entre ${name1} e ${name2}.`,
         alternates: {
-          canonical: `https://petrankings.com.br/comparar?p1=${slugs[0]}&p2=${slugs[1]}`,
+          canonical: `${SITE_URL}/comparar?p1=${slugs[0]}&p2=${slugs[1]}`,
         },
       };
     }
@@ -38,15 +39,21 @@ export async function generateMetadata({
       where: { slug: slugs[0], isPublished: true },
       select: { commercialName: true },
     });
-    if (product) {
-      return {
-        title: `Comparar ${product.commercialName} com Outras Rações | PetRankings`,
-        description: `Selecione outro alimento para confrontar níveis de garantia em Matéria Seca, aditivos e composição de ${product.commercialName}.`,
-        alternates: {
-          canonical: `https://petrankings.com.br/comparar?p1=${slugs[0]}`,
-        },
-      };
-    }
+    return {
+      title: product
+        ? `Comparar ${product.commercialName} com Outras Rações | PetRankings`
+        : 'Comparador de Rações: Confronto Nutricional em Matéria Seca | PetRankings',
+      description: product
+        ? `Selecione outro alimento para confrontar níveis de garantia em Matéria Seca, aditivos e composição de ${product.commercialName}.`
+        : 'Compare até três rações para cães e gatos lado a lado.',
+      robots: {
+        index: false,
+        follow: true,
+      },
+      alternates: {
+        canonical: `${SITE_URL}/comparar`,
+      },
+    };
   }
 
   return {
@@ -54,7 +61,7 @@ export async function generateMetadata({
     description:
       'Compare até três rações para cães e gatos lado a lado. Análise bromatológica independente em Matéria Seca (MS), antioxidantes naturais, transgênicos e ordem dos ingredientes.',
     alternates: {
-      canonical: 'https://petrankings.com.br/comparar',
+      canonical: `${SITE_URL}/comparar`,
     },
   };
 }
