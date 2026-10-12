@@ -35,6 +35,39 @@ This skill provides editorial standards, nutritional category taxonomy, and tone
    - Alterne frases curtas com frases médias. Evite orações subordinadas intermináveis de 4 ou 5 linhas.
    - Limite os parágrafos a 2 ou 4 linhas no máximo, proporcionando leitura leve e agradável no smartphone.
 
+### 1.2 Catálogo Canônico de Cacoetes de IA & Filtros de Humanização (Humanizer / Wikipedia)
+Ao redigir ou revisar artigos, guias, pareceres editoriais e análises comparativas, aplique compulsoriamente os 10 filtros para expurgar marcas sintéticas de IA:
+
+1. **Contraste Falso ou Encenado (*Not X but Y*):**
+   - ❌ *"Não é apenas uma ração, é uma revolução na saúde do seu pet."* / *"Não se trata de marketing, mas de respeito à biologia."*
+   - ✅ Declare o fato diretamente: *"A fórmula entrega 36% de proteína na matéria seca a partir de farinhas de origem animal."*
+2. **Fechamento de Uma Linha e Frases de Efeito (*One-line closers*):**
+   - ❌ *"E essa é a verdadeira lição para o tutor."* / *"Deixe isso assentar."* / *"Pense bem nisso na próxima ida ao pet shop."*
+   - ✅ Deixe o número ou a conclusão técnica encerrar o pensamento. Corte a frase de efeito moralizante.
+3. **Provérbios Fabricados e Filosofias Vazias (*Sayings that sound deep*):**
+   - ❌ *"No fim das contas, o que realmente importa é o amor no comedouro."* / *"No coração de um pet saudável repousa o equilíbrio."*
+   - ✅ *"Para gatos castrados, uma densidade calórica moderada previne o ganho de peso precoce."*
+4. **Aberturas Encenadas e Falsa Confidência (*Staged run-up*):**
+   - ❌ *"Vamos mergulhar a fundo nisso."* / *"A verdade seja dita:"* / *"Honestamente?"* / *"Aqui está tudo o que você precisa saber:"*
+   - ✅ Vá direto ao ponto factual: *"Ao inspecionar os três primeiros ingredientes declarados..."*
+5. **Debate com Ninguém (*Arguing with no one*):**
+   - ❌ *"Não estamos dizendo que marcas econômicas sejam veneno, nem que todo tutor precise falir comprando Super Premium..."*
+   - ✅ Se o leitor não fez a objeção, não gaste linhas se justificando contra interlocutores invisíveis.
+6. **Tríades Forçadas (*Forced triads*):**
+   - ❌ Listar tudo compulsoriamente em três adjetivos para soar poético: *"garante saúde, vitalidade e energia"* / *"proporciona brilho, maciez e força"*.
+   - ✅ Use termos com função zootécnica concreta: *"nutre a barreira cutânea e favorece a massa muscular magra"*.
+7. **Adjetivação Inflada e Hiperbólica:**
+   - ❌ *"Um verdadeiro divisor de águas"*, *"revolucionário"*, *"indispensável"*, *"uma joia da indústria pet"*.
+   - ✅ Use linguagem sóbria e transparente: *"fórmula nutricionalmente completa"*, *"perfil de minerais seguro"*.
+8. **Proliferação Artificial de Travessões (`—` / em-dashes):**
+   - ❌ *"O fósforo — mineral essencial para a estrutura óssea — precisa estar rigorosamente dosado."*
+   - ✅ Use vírgulas, parênteses ou orações curtas: *"O fósforo, mineral essencial para a estrutura óssea, precisa estar controlado."*
+9. **Jargões Agroindustriais Incompatíveis com o Tutor:**
+   - ❌ *"sacaria"*, *"desensacamento"*, *"palatabilizante peletizado"*.
+   - ✅ *"embalagem/pacote/saco"*, *"hidrolisado de fígado para aroma natural"*.
+10. **Preservação Estrita dos Fatos (Tolerância Zero a Invenção):**
+    - A humanização atua estritamente na forma, ritmo e clareza da linguagem. **Nunca** adicione dados, percentuais, números, nomes de conservantes ou ingredientes que não constem na ficha técnica oficial do fabricante ou nas normas da ABINPET/MAPA.
+
 ## 2. Nutritional Category Taxonomy & Key Attributes (Pet Food Only)
 
 ### A. Classificação Legal do MAPA (IN nº 30/2009 e IN nº 39/2014)

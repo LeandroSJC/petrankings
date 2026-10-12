@@ -88,12 +88,18 @@
 15. **Linguagem Ubíqua e Registros de Decisão Arquitetural (`GLOSSARY.md` e ADRs):**
     - O projeto mantém um glossário canônico na raiz ([`GLOSSARY.md`](file:///d:/Projetos/PetRankings/GLOSSARY.md)) que estabelece a terminologia oficial (Bromatologia, MAPA, Segurança e Taxonomia) e lista termos mandatórios a serem evitados (`_Evitar_`).
     - Decisões estruturais de alto impacto, de difícil reversão ou que demandem contexto histórico são registradas na pasta `.agents/adr/` no formato enxuto de ADR (Architecture Decision Record). Todo agente deve consultar o glossário e os ADRs pertinentes antes de propor alterações conceituais ou refatorações de arquitetura.
-16. **Humanização Textual, Empatia com o Tutor e Combate ao "AI Slop":**
+16. **Humanização Textual, Empatia com o Tutor e Combate ao "AI Slop" (Filtros Humanizer / Wikipédia):**
     - **Tom Conversacional e Empático:** O texto deve comunicar-se com clareza, empatia e calor humano, partindo da dúvida prática do tutor na prateleira ou no pet shop. O rigor técnico deve servir para empoderar o tutor, nunca para intimidá-lo com pedantismo ou linguagem burocrática estatal.
-    - **Combate Ativo ao "AI Slop", Clichês de Máquina e Pontuação Artificial:**
-      - É expressamente vedado o uso de fórmulas artificiais de IA, tais como: *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*.
+    - **Combate Ativo ao "AI Slop" e Filtros Canônicos Anti-IA (Padrão Wikipédia / Humanizer):**
+      - **Sem contrastes falsos (*Not X but Y*):** É expressamente proibido o uso de fórmulas artificiais como *"Não é apenas uma ração, mas uma revolução"*, *"Não se trata de marketing, mas de respeito à biologia"*. Declare o fato de forma direta e objetiva.
+      - **Sem fechamentos dramáticos (*One-line closers*):** Proibido arrematar parágrafos com frases teatrais de efeito (*"E essa é a grande lição"*, *"Deixe isso assentar"*, *"Pense bem nisso na próxima compra"*). Deixe os dados e conclusões técnicas encerrarem o raciocínio.
+      - **Sem aberturas teatrais (*Staged run-up*):** Proibido iniciar seções com encenações de conversa (*"Vamos mergulhar a fundo nisso"*, *"A verdade seja dita:"*, *"Honestamente?"*, *"Aqui está o que você precisa saber:"*). Entre diretamente no ponto factual da análise.
+      - **Sem tríades forçadas (*Forced triads*):** Evite agrupar compulsoriamente qualidades em trios para soar poético (*"vitalidade, energia e bem-estar"*). Use benefícios zootécnicos comprovados pela fórmula.
+      - **Sem debate com ninguém (*Arguing with no one*):** Não gaste linhas se defendendo de objeções ou acusando concorrentes hipotéticos que o leitor não mencionou (*"Isso não significa que marcas comuns sejam veneno..."*).
+      - **Proibição Estrita de Clichês de IA:** Proibido o uso de expressões como *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*.
       - **Proibição Estrita de Travessões (`—` / em-dash):** É terminantemente vedado o uso de travessões (`—`) no meio de frases em textos editoriais, estudos e artigos (marca registrada de redação artificial de IA). Utilize vírgulas, parênteses ou divida a oração em frases curtas e naturais.
       - **Linguagem Natural do Tutor vs Jargões Industriais:** Evite termos fabris ou jargões da cadeia agroindustrial que soem estranhos ao tutor comum, como *"sacaria"* (utilize sempre *"saco"*, *"pacote"* ou *"embalagem"*).
+      - **Preservação Estrita dos Fatos:** A humanização aperfeiçoa o ritmo, a escaneabilidade e a naturalidade da prosa, sendo terminantemente proibido inventar, deduzir ou alterar qualquer número ou dado zootécnico.
     - **Regra da Tradução Prática Imediata:** Todo conceito técnico ou bromatológico (Matéria Seca, Low Ash, Extrato Etéreo, balanço Ca:P, prebióticos MOS/FOS) deve ser imediatamente acompanhado de uma explicação simples do que aquilo representa na rotina do cão ou do gato (ex: fezes menores, proteção dos rins, saciedade, pelos brilhantes).
     - **Cadência e Dinamismo de Leitura:** Alternar frases curtas com frases de tamanho médio. Parágrafos devem conter entre 2 e 4 linhas no máximo, garantindo leitura agradável e escaneável tanto no mobile quanto no desktop.
 17. **Padronização Mandatória de Capas e Ativos Visuais por Cluster:**
@@ -105,11 +111,17 @@
 18. **Checklist Pré-Publicação Inegociável (Gatekeeper de Qualidade Editorial):**
     - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 6 pontos:
       1. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados? Se for foto de estúdio, foi garantida a diversidade e rotatividade de raças/portes (evitando a repetição de Golden Retriever/Labrador)?
-      2. *Anti-Slop:* O texto foi verificado e expurgado de clichês de IA (*"divisor de águas"*, *"imperativo salientar"*), travessões artificiais (`—`) e termos fabris como *"sacaria"*?
+      2. *Anti-Slop & Humanizer:* O texto foi submetido aos filtros do Humanizer (sem contrastes falsos "not X but Y", sem frases de efeito de encerramento, sem travessões "—", sem aberturas teatrais e sem termos fabris como "sacaria")?
       3. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
       4. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
       5. *Fidelidade de Citações (`relatedProductSlugs`):* Apenas produtos realmente analisados no texto constam na lista?
       6. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA e fichas oficiais) estão discriminadas?
+19. **Pragmatismo de Código e Princípio do Menor Diff Viável (Anti-Bloat & YAGNI):**
+    - **Menor Diff Viável:** Privilegie a menor alteração no código que resolva 100% da causa raiz do problema. Nunca refatore arquivos alheios, altere estilos não solicitados ou reescreva módulos funcionais sem demanda expressa.
+    - **Proibição de Abstrações Prematuras e Wrappers Inúteis:** Não crie arquivos de utilitários para funções de uso único, classes intermediárias supérfluas, camadas de abstração desnecessárias ou código "para o futuro" (YAGNI). Use as APIs nativas do TypeScript, Next.js e Node.js.
+    - **Aproveitamento Estrito das Dependências Existentes:** É expressamente proibido instalar pacotes npm adicionais para tarefas que possam ser resolvidas com poucas linhas nativas ou com as bibliotecas já instaladas no repositório.
+    - **Auditoria Obrigatória de Todos os Chamadores:** Ao modificar qualquer função de cálculo, utilitário central, rota de API ou campo de modelo Prisma, faça uma busca em todos os arquivos chamadores para garantir que a mudança não gere quebras, divergências de regras de negócio ou dessincronizações entre catálogo, APIs e páginas de detalhe.
+    - **Inviolabilidade de Segurança e Tratamento de Erros:** O foco em código enxuto nunca autoriza cortar validações de entrada, sanitizações, proteção de segredos, tratamento de erros ou acessibilidade.
 
 ---
 
