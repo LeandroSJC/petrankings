@@ -65,7 +65,8 @@ export async function auditarERepararImagens() {
       continue;
     }
     if (p.frontLabelImageUrl.startsWith('http')) {
-      // URL externa
+      // URLs externas devem ser baixadas e migradas para custódia local permanente
+      broken.push(p);
       continue;
     }
     const local = path.join(process.cwd(), 'public', p.frontLabelImageUrl.replace(/^\//, ''));
@@ -99,18 +100,31 @@ export async function auditarERepararImagens() {
       }
     }
 
+    if (!imgUrl && p.frontLabelImageUrl?.startsWith('http')) {
+      imgUrl = p.frontLabelImageUrl;
+    }
+
     if (!imgUrl) {
       console.warn(`❌ Não foi possível extrair URL de imagem do HTML para ${p.slug}`);
       failCount++;
       continue;
     }
 
-    const destRel = p.frontLabelImageUrl || `/uploads/produto_${p.id}.webp`;
+    const destRel = (!p.frontLabelImageUrl || p.frontLabelImageUrl.startsWith('http'))
+      ? `/uploads/produto_${p.id}.webp`
+      : p.frontLabelImageUrl;
     const destPath = path.join(process.cwd(), 'public', destRel.replace(/^\//, ''));
 
     const result = await downloadImage(imgUrl, destPath);
     if (result.ok) {
       console.log(`✅ Sucesso! Imagem salva: ${destRel} (${result.size} bytes)`);
+      if (p.frontLabelImageUrl !== destRel) {
+        await prisma.product.update({
+          where: { id: p.id },
+          data: { frontLabelImageUrl: destRel },
+        });
+        console.log(`💾 Banco atualizado: frontLabelImageUrl = ${destRel}`);
+      }
       successCount++;
     } else {
       console.error(`❌ Falha ao baixar ${imgUrl}: ${result.error}`);

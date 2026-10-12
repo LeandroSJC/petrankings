@@ -520,13 +520,49 @@ export function parseProductFromHtml(
 
   // 1b-2. Extração GranPlus (Affinity PetCare / BRF Pet Azure Blob)
   if (!imageUrl && isGranPlus) {
-    const granBlobMatch = html.match(/(?:url=)?(https%3A%2F%2Fbrfsawebsitespet\.blob\.core\.windows\.net%2Fgran-plus%2F[^&\"\'\s\)]+|https:\/\/brfsawebsitespet\.blob\.core\.windows\.net\/gran-plus\/[^&\"\'\s\)]+)/i);
-    if (granBlobMatch) {
-      let rawImg = granBlobMatch[1];
-      if (rawImg.includes('%3A')) {
-        rawImg = decodeURIComponent(rawImg);
+    // 1. Tenta extrair primeiro de tags <img> do Next.js
+    $('img').each((_, el) => {
+      if (imageUrl) return;
+      const src = $(el).attr('src') || $(el).attr('data-src') || '';
+      if (src.includes('brfsawebsitespet.blob.core.windows.net')) {
+        const nextUrlMatch = src.match(/url=([^&]+)/i);
+        if (nextUrlMatch) {
+          let decoded = decodeURIComponent(nextUrlMatch[1]);
+          if (decoded.includes('%')) {
+            try { decoded = decodeURIComponent(decoded); } catch {}
+          }
+          imageUrl = decoded;
+        } else {
+          imageUrl = src;
+        }
       }
-      imageUrl = rawImg.replace(/&amp;/g, '&').replace(/\\u0026/g, '&');
+    });
+
+    // 2. Fallback por regex no HTML / __NEXT_DATA__
+    if (!imageUrl) {
+      const granBlobMatches = html.match(/(?:url=)?(https%3A%2F%2Fbrfsawebsitespet\.blob\.core\.windows\.net%2Fgran-plus%2F[^&\"\'\s\)]+|https:\\?\/\\?\/brfsawebsitespet\.blob\.core\.windows\.net\/gran-plus\/[^\s"'<>]+)/gi);
+      if (granBlobMatches && granBlobMatches.length > 0) {
+        // Prefere imagem que contenha .png ou o último match relevante
+        let rawImg = granBlobMatches[0];
+        if (granBlobMatches.length > 1 && options?.preferSecondImage) {
+          rawImg = granBlobMatches[1];
+        }
+        if (rawImg.includes('%3A')) {
+          try { rawImg = decodeURIComponent(rawImg); } catch {}
+          if (rawImg.includes('%3A')) {
+            try { rawImg = decodeURIComponent(rawImg); } catch {}
+          }
+        }
+        imageUrl = rawImg;
+      }
+    }
+
+    if (imageUrl) {
+      imageUrl = imageUrl
+        .replace(/\\u0026/g, '&')
+        .replace(/&amp;/g, '&')
+        .replace(/\\\//g, '/')
+        .replace(/[\\"'`\s]+$/, '');
     }
   }
 
