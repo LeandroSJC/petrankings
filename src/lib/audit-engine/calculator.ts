@@ -218,7 +218,7 @@ export function calcularScoreAnaliseRotulo(
     garantias.omega3MinPct !== undefined &&
     garantias.omega3MinPct !== null &&
     (foodType === 'UMIDO'
-      ? garantias.omega3MinPct >= 0.015 || (nutrientesMS.omega3MinPct !== null && nutrientesMS.omega3MinPct >= 0.1)
+      ? garantias.omega3MinPct >= 0.015 || (ms.omega3MinPct !== null && ms.omega3MinPct >= 0.1)
       : garantias.omega3MinPct >= 0.2);
 
   const temOmegaOuPrebiotico =

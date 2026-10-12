@@ -2618,10 +2618,7 @@ export const GUIDES: GuideItem[] = [
     coverImageUrl: '/uploads/guias/mix-feeding-gatos-racao-sache-cover.webp',
     isFeatured: true,
     summary: 'Aprenda como calcular a alimentação mista (mix feeding) para gatos passo a passo. Entenda a regra de substituição calórica entre ração seca e sachê, os benefícios comprovados pela WSAVA para a saúde renal e como evitar a obesidade em gatos castrados.',
-    relatedProductSlugs: [
-      'menu-gato-adulto-castrado-salmao-arroz',
-      'sache-gourmet-gato-adulto-trato-urinario-frango',
-    ],
+    relatedProductSlugs: [],
     sections: [
       {
         id: 'por-que-o-gato-precisa-de-comida-umida',
