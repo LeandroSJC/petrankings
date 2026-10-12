@@ -133,7 +133,7 @@ export const GUIDES: GuideItem[] = [
         heading: '1. O Posicionamento de Mercado: Super Premium vs Premium Especial',
         paragraphs: [
           'Tanto a linha PremieR Formula quanto a GoldeN Formula são fabricadas pela mesma companhia, a Grandfood Indústria e Comércio Ltda. Entretanto, elas atendem a segmentos regulatórios e comerciais distintos dentro da taxonomia pet brasileira.',
-          'Enquanto a GoldeN Formula é classificada comercialmente como Premium Especial — focada em entregar boa digestibilidade com custo intermediário —, a PremieR Formula ocupa o patamar Super Premium, que historicamente exige maior densidade de nutrientes nobres, controle rígido de cinzas minerais e aditivos funcionais de alta tecnologia.',
+          'Enquanto a GoldeN Formula é classificada comercialmente como Premium Especial, focada em entregar boa digestibilidade com custo intermediário, a PremieR Formula ocupa o patamar Super Premium, que historicamente exige maior densidade de nutrientes nobres, controle rígido de cinzas minerais e aditivos funcionais de alta tecnologia.',
         ],
         callout: {
           type: 'norma',
@@ -196,7 +196,7 @@ export const GUIDES: GuideItem[] = [
       },
     ],
     conclusion:
-      'Em resumo: a GoldeN Formula oferece excelente custo-benefício para quem precisa de um alimento completo e confiável sem onerar o orçamento mensal. Por outro lado, para tutores que priorizam maior densidade energética, ômega-3 de peixe marinho e menor carga de cinzas minerais, a PremieR Formula entrega uma especificação técnica superior comprovada nos dados oficiais.',
+      'A GoldeN Formula oferece bom custo-benefício para quem busca um alimento completo e confiável dentro de um orçamento controlado. Já para tutores que priorizam maior densidade energética, ômega-3 de peixe marinho e menor carga de cinzas minerais, a PremieR Formula entrega uma especificação técnica superior confirmada na análise bromatológica.',
     references: [
       {
         title: 'Manual Pet Food Brasil — 11ª Edição',
@@ -254,7 +254,7 @@ export const GUIDES: GuideItem[] = [
         heading: '1. Por que toda ração seca precisa de antioxidantes?',
         paragraphs: [
           'Alimentos extrusados secos para cães e gatos contêm entre 10% e mais de 22% de gordura (extrato etéreo), proveniente de gordura de aves, óleo de peixe ou óleo de vísceras. Gorduras em contato prolongado com o oxigênio do ar sofrem um processo natural chamado peroxidação lipídica.',
-          'Sem agentes antioxidantes, a gordura se degrada rapidamente, gerando radicais livres, alterando o odor da ração (ranço) e destruindo vitaminas lipossolúveis (A, D, E e K). Portanto, a inclusão de um sistema antioxidante é um imperativo biológico e tecnológico para a segurança alimentar do pet.',
+          'Sem agentes antioxidantes, a gordura se degrada rapidamente, gerando radicais livres, alterando o odor da ração (ranço) e destruindo vitaminas lipossolúveis (A, D, E e K). Portanto, a inclusão de um sistema antioxidante é necessária para preservar os nutrientes e a segurança do alimento.',
         ],
       },
       {
@@ -293,7 +293,7 @@ export const GUIDES: GuideItem[] = [
         heading: '4. O Panorama Real: Quais marcas e categorias no Brasil já eliminaram o BHT e BHA?',
         paragraphs: [
           'Respondendo diretamente à dúvida central do tutor: a transição para antioxidantes naturais no mercado brasileiro ocorre de forma estratificada por segmentos e faixas de preço.',
-          'No patamar mais elevado da nutrição pet, praticamente 100% das linhas classificadas como "Super Premium Natural" e "Grain Free" (livres de grãos) já operam exclusivamente com conservação natural — principalmente concentrado de tocoferóis (fonte de Vitamina E), extrato de alecrim (Rosmarinus officinalis), extrato de chá verde e ácido cítrico. Marcas consagradas deste segmento incluem Fórmula Natural (Fresh Meat), Biofresh, Guabi Natural, N&D (Farmina) e PremieR Nattu.',
+          'No patamar mais elevado da nutrição pet, praticamente 100% das linhas classificadas como "Super Premium Natural" e "Grain Free" (livres de grãos) já operam exclusivamente com conservação natural, principalmente concentrado de tocoferóis (fonte de Vitamina E), extrato de alecrim (Rosmarinus officinalis), extrato de chá verde e ácido cítrico. Marcas consagradas deste segmento incluem Fórmula Natural (Fresh Meat), Biofresh, Guabi Natural, N&D (Farmina) e PremieR Nattu.',
           'Entre as rações "Super Premium Convencionais", a transição já é ampla e consolidada: produtos de grande circulação como PremieR Formula, Hill\'s Science Diet e diversas opções da Royal Canin para cães e gatos já substituíram os antioxidantes sintéticos por tocoferóis e extrato de alecrim em suas composições oficiais mais recentes.',
           'Em contrapartida, nas categorias "Premium Especial" e "Econômica/Standard", a grande maioria das marcas ainda utiliza BHT e BHA como conservantes primários. O motivo é estritamente econômico e operacional: os aditivos sintéticos custam consideravelmente menos e oferecem alta resistência contra oscilações térmicas durante a logística e estocagem em centros de distribuição.',
         ],
@@ -323,7 +323,7 @@ export const GUIDES: GuideItem[] = [
       },
     ],
     conclusion:
-      'Em resumo: a resposta para a pergunta central deste estudo é que o uso de antioxidantes naturais já é um padrão estabelecido nas categorias Super Premium Natural e Super Premium no Brasil, enquanto os segmentos intermediários e econômicos continuam dependentes do BHT e BHA. Para consultar a lista completa e conferir a análise técnica de cada fórmula, explore as opções com conservação natural em nosso catálogo interativo.',
+      'O uso de antioxidantes naturais já é um padrão estabelecido nas categorias Super Premium Natural e Super Premium no Brasil, enquanto os segmentos intermediários e econômicos continuam dependentes do BHT e BHA. Para consultar a lista completa e conferir a análise técnica de cada fórmula, explore as opções com conservação natural em nosso catálogo interativo.',
     references: [
       {
         title: 'Instrução Normativa MAPA nº 110/2020',
@@ -381,7 +381,7 @@ export const GUIDES: GuideItem[] = [
         id: 'o-que-e-materia-natural-vs-seca',
         heading: '1. Matéria Natural (MN) vs Matéria Seca (MS): A Diluição da Água',
         paragraphs: [
-          'Todos os níveis de garantia impressos nos sacos e latinhas no Brasil são expressos em Matéria Natural (MN), ou seja, considerando o alimento exatamente como ele se encontra na embalagem — inclusive a água.',
+          'Todos os níveis de garantia impressos nos sacos e latinhas no Brasil são expressos em Matéria Natural (MN), ou seja, considerando o alimento exatamente como ele se encontra na embalagem, inclusive a água.',
           'Enquanto uma ração seca comum contém entre 8% e 12% de umidade, um alimento úmido (sachê ou lata de patê) é composto por 80% a 85% de água pura. Como a água não fornece proteína nem calorias, ela "dilui" visualmente as porcentagens declaradas nos níveis de garantia.',
         ],
       },
@@ -427,7 +427,7 @@ export const GUIDES: GuideItem[] = [
       },
     ],
     conclusion:
-      'Nunca mais julgue o valor nutritivo de um alimento para cães e gatos sem eliminar mentalmente a umidade. A matemática da Matéria Seca é a chave mestre para comparar produtos com justiça e garantir que o seu pet receba a nutrição de que realmente precisa.',
+      'Avaliar o valor nutritivo de um alimento para cães e gatos exige desconsiderar a umidade contida na fórmula. A conversão para Matéria Seca é a ferramenta mais confiável para comparar rações secas e úmidas de forma equivalente, garantindo escolhas nutricionais lúcidas para o pet.',
     references: [
       {
         title: 'Manual Pet Food Brasil — 11ª Edição',
@@ -617,7 +617,7 @@ export const GUIDES: GuideItem[] = [
           'Ao virar a embalagem de qualquer ração para cães ou gatos vendida no Brasil, a primeira seção examinada por tutores atentos é a "Composição Básica". Essa lista não é aleatória nem disposta em ordem de importância nutritiva percebida: ela obedece estritamente ao mandamento legal da Instrução Normativa MAPA nº 22/2009.',
           'Conforme o regulamento oficial do Ministério da Agricultura e Pecuária (MAPA) e os princípios basilares de transparência do Código de Defesa do Consumidor (Lei nº 8.078/1990, Art. 6º, III), todas as matérias-primas devem ser discriminadas em ordem estritamente decrescente de peso ou massa no momento exato em que são pesadas e dosadas no misturador da fábrica, antes de passarem pela extrusão e pelo forno de secagem.',
           'É exatamente aqui que reside o fenômeno bromatológico mais desconhecido pelo consumidor: a distorção física provocada pela água. Quando uma indústria adiciona "carne fresca de frango" ou "peito de frango desossado in natura", esse ingrediente entra na masseira contendo entre 70% e 75% de água biológica pura. Esse peso aquoso maciço projeta a carne fresca para o primeiro lugar da lista de ingredientes no rótulo. Contudo, durante o processamento térmico na extrusora e no secador, quase toda a água evapora para que o croquete alcance os 8% a 10% de umidade final.',
-          'Em contrapartida, ingredientes pré-desidratados — como a farinha de vísceras de aves ou a farinha de carne bovina — entram na fábrica já secos (com cerca de 8% de umidade). Portanto, 100 gramas de farinha de vísceras nobres entregam até 3 vezes mais proteína concentrada para o animal do que 100 gramas de carne fresca crua e hidratada.',
+          'Em contrapartida, ingredientes pré-desidratados (como a farinha de vísceras de aves ou a farinha de carne bovina) entram na fábrica já secos (com cerca de 8% de umidade). Portanto, 100 gramas de farinha de vísceras nobres entregam até 3 vezes mais proteína concentrada para o animal do que 100 gramas de carne fresca crua e hidratada.',
         ],
         callout: {
           type: 'norma',
@@ -652,7 +652,7 @@ export const GUIDES: GuideItem[] = [
           'Nenhum ingrediente de pet food é alvo de tanto preconceito infundado quanto a "Farinha de Vísceras de Aves" (FVA). Tutores desinformados costumam associar a palavra vísceras a "lixo de abatedouro", imaginando pés, bicos e penas triturados. Sob a ótica da zootecnia e da bromatologia, a verdade é diametralmente oposta.',
           'O que a lei define como Farinha de Vísceras de Aves: Segundo a Instrução Normativa MAPA nº 110/2020 e os padrões do Sindicato Nacional da Indústria de Alimentação Animal (SINDIRAÇÕES), a FVA é obtida exclusivamente pela cocção industrial, desengorduramento mecânico por prensagem contínua e moagem de partes nobres não consumidas pelo mercado humano tradicional, incluindo coração, fígado, moela, pulmões e carcaça cárnea de frangos inspecionados pelo Serviço de Inspeção Federal (SIF). A adição deliberada de esterco, penas, bicos, sangue coagulado ou cascas de ovos é rigorosamente proibida pela legislação sanitária.',
           'A superioridade biológica na concentração proteica: Enquanto a carne fresca in natura possui cerca de 70% a 75% de água e apenas 18% a 20% de proteína bruta, a farinha de vísceras nobre é previamente desidratada, alcançando impressionantes 60% a 70% de Proteína Bruta de altíssimo valor biológico e digestibilidade superior a 85% para cães e gatos, concentrando todos os aminoácidos essenciais (lisina, metionina e taurina).',
-          'O verdadeiro divisor de águas: A Matéria Mineral (Cinzas). O ponto que diferencia uma farinha de vísceras de primeira linha utilizada em rações Super Premium de uma farinha comum empregada em rações standard é a proporção de ossos moídos. Farinhas com excesso de carcaça e osso elevam o teto de Matéria Mineral (acima de 9,5% a 11% na Matéria Seca), o que sobrecarrega os rins e pode desequilibrar a relação Cálcio:Fósforo. As rações de ponta utilizam farinhas com especificação Low Ash (baixo teor de cinzas), compostas prioritariamente por tecidos musculares e vísceras nobres com menos ossos.',
+          'O fator determinante de qualidade: a Matéria Mineral (Cinzas). O ponto que diferencia uma farinha de vísceras de primeira linha utilizada em rações Super Premium de uma farinha comum empregada em rações standard é a proporção de ossos moídos. Farinhas com excesso de carcaça e osso elevam o teto de Matéria Mineral (acima de 9,5% a 11% na Matéria Seca), o que sobrecarrega os rins e pode desequilibrar a relação Cálcio:Fósforo. As rações de ponta utilizam farinhas com especificação Low Ash (baixo teor de cinzas), compostas prioritariamente por tecidos musculares e vísceras nobres com menos ossos.',
         ],
         callout: {
           type: 'atencao',
@@ -667,7 +667,7 @@ export const GUIDES: GuideItem[] = [
           'Para não cair em armadilhas visuais de marketing, o Observatório PetRankings recomenda um protocolo objetivo de inspeção da rotulagem em quatro etapas analíticas:',
           'Passo 1: Inspecione os 3 primeiros ingredientes da lista. Para alimentos secos de manutenção de cães e carnívoros estritos como gatos, a primeira posição (1º ingrediente) deve ser ocupada por uma fonte protéica animal nobre bem discriminada (ex.: Farinha de vísceras de aves, Carne bovina, Salmão fresco). Se o primeiro ingrediente for milho integral moído, farelo de trigo ou quirera de arroz, o alimento é estruturado primordialmente à base de carboidratos vegetais.',
           'Passo 2: Verifique a especificidade das fontes lipídicas. Procure por gorduras e óleos com nome e sobrenome (ex.: Gordura de frango, Óleo de aves refinado, Óleo de peixe marinho - rica fonte de EPA e DHA). Evite alimentos que declarem expressões genéricas como "gordura animal" ou "óleo vegetal misto", que ocultam lotes com perfil graxo volátil e procedência incerta.',
-          'Passo 3: Fique atento ao fracionamento de ingredientes (Ingredient Splitting). Trata-se de um artifício zootécnico no qual a fábrica divide um mesmo vegetal em várias matérias-primas distintas no rótulo (ex.: milho moído, farelo de glúten de milho 60 e gérmen de milho desengordurado). Separados na balança, cada um pesa menos que a carne, permitindo que a proteína animal conste em 1º lugar na lista — ainda que, somados, os derivados do milho constituam a ampla maioria da receita.',
+          'Passo 3: Fique atento ao fracionamento de ingredientes (Ingredient Splitting). Trata-se de um artifício zootécnico no qual a fábrica divide um mesmo vegetal em várias matérias-primas distintas no rótulo (ex.: milho moído, farelo de glúten de milho 60 e gérmen de milho desengordurado). Separados na balança, cada um pesa menos que a carne, permitindo que a proteína animal conste em 1º lugar na lista, mesmo quando a soma dos derivados de milho compõe a ampla maioria da receita.',
           'Passo 4: Verifique os conservantes no rodapé da composição. Ao final do texto, confira os "Aditivos Tecnológicos": se encontrar BHT (INS 321) e BHA (INS 320), a estabilização lipídica é química sintética; se constar concentrado de tocoferóis, extrato de alecrim (Rosmarinus officinalis) e ácido cítrico, a ração adota conservação 100% natural balizada pela IN MAPA nº 110/2020.',
         ],
         callout: {
@@ -781,8 +781,8 @@ export const GUIDES: GuideItem[] = [
         heading: '2. Por que a ampla maioria das rações no Brasil utiliza grãos transgênicos?',
         paragraphs: [
           'A prevalência de ingredientes transgênicos na indústria pet nacional está intrinsecamente conectada à realidade agrícola do Brasil. Como um dos maiores produtores globais de grãos, mais de 90% de toda a área plantada de milho e soja no território brasileiro adota cultivares geneticamente modificadas, desenvolvidas pela engenharia agronômica para conferir tolerância a herbicidas seletivos (como o glifosato) e resistência contra pragas e lagartas por meio da expressão de proteínas bioativas da bactéria Bacillus thuringiensis (conhecida como tecnologia Bt).',
-          'Na produção de alimentos secos extrusados para animais, o milho desempenha um papel tecnológico crucial: seu elevado conteúdo de amido atua como matriz ligante essencial. Durante o processo de extrusão termomecânica — no qual a massa de ingredientes é submetida a elevadas pressões, vapor d\'água e temperaturas superiores a 110 °C —, as pontes de hidrogênio do amido se rompem, ocorrendo a gelatinização. Esse cozimento rápido confere expansão celular, estrutura aerada, crocância e dureza ideal aos croquetes, permitindo que a ração resista ao empilhamento e ao transporte sem esfarelar.',
-          'Além do aspecto estrutural do amido, subprodutos como o farelo de glúten de milho 60 e a proteína concentrada de soja fornecem concentrações expressivas de proteína vegetal com custo substancialmente mais acessível do que carnes frescas desossadas ou farinhas de vísceras de padrão Low Ash (baixo teor de cinzas minerais). Por essa razão zootécnica e econômica, formulações de grande circulação comercial no mercado brasileiro — a exemplo de GoldeN Special Gatos Adultos Sabor Frango e Carne, GoldeN Formula Cães Adultos Frango & Arroz e Origens Premium Especial Select Cães Adultos — apoiam parte de sua matriz energética e proteica no milho integral e em derivados de soja geneticamente modificados.',
+          'Na produção de alimentos secos extrusados para animais, o milho desempenha um papel tecnológico crucial: seu elevado conteúdo de amido atua como matriz ligante essencial. Durante o processo de extrusão termomecânica (no qual a massa de ingredientes é submetida a elevadas pressões, vapor d\'água e temperaturas superiores a 110 °C), as pontes de hidrogênio do amido se rompem, ocorrendo a gelatinização. Esse cozimento rápido confere expansão celular, estrutura aerada, crocância e dureza ideal aos croquetes, permitindo que a ração resista ao empilhamento e ao transporte sem esfarelar.',
+          'Além do aspecto estrutural do amido, subprodutos como o farelo de glúten de milho 60 e a proteína concentrada de soja fornecem concentrações expressivas de proteína vegetal com custo substancialmente mais acessível do que carnes frescas desossadas ou farinhas de vísceras de padrão Low Ash (baixo teor de cinzas minerais). Por essa razão zootécnica e econômica, formulações de grande circulação comercial no mercado brasileiro (a exemplo de GoldeN Special Gatos Adultos Sabor Frango e Carne, GoldeN Formula Cães Adultos Frango & Arroz e Origens Premium Especial Select Cães Adultos) apoiam parte de sua matriz energética e proteica no milho integral e em derivados de soja geneticamente modificados.',
           'Ao virar embalagens como essas, o consumidor frequentemente se depara com notas explicativas detalhadas contendo espécies doadoras como Bacillus thuringiensis, Agrobacterium tumefaciens, Streptomyces viridochromogenes e Zea mays. É fundamental esclarecer que esses microrganismos não se encontram vivos no alimento; tratam-se exclusivamente da identificação botânica e microbiológica dos organismos doadores dos fragmentos de DNA inseridos na semente agrícola original para fins de rastreabilidade de biossegurança.',
         ],
         table: {
@@ -868,7 +868,7 @@ export const GUIDES: GuideItem[] = [
       },
     ],
     conclusion:
-      'O triângulo amarelo com a letra "T" impresso nos sacos de ração representa a vitória da transparência e do direito à informação do consumidor brasileiro, assegurado pelo Decreto Federal nº 4.680/2003 e pela Portaria Interministerial MJ nº 2.658/2003. Embora a literatura zootécnica comprove que o amido de milho transgênico adequadamente extrusado possui aproveitamento digestivo equivalente ao do milho convencional, a opção por alimentos livres de transgênicos — sejam eles fundamentados em grãos ancestrais ou fórmulas livres de cereais — constitui uma escolha consciente e de alta nobreza para tutores que priorizam cadeias agrícolas diferenciadas. Consultar a composição básica oficial e comparar os níveis de garantia na Matéria Seca é a chave para garantir a nutrição ideal e o bem-estar do seu animal de companhia.',
+      'O triângulo amarelo com a letra "T" impresso nos sacos de ração representa a vitória da transparência e do direito à informação do consumidor brasileiro, assegurado pelo Decreto Federal nº 4.680/2003 e pela Portaria Interministerial MJ nº 2.658/2003. Embora a literatura zootécnica comprove que o amido de milho transgênico adequadamente extrusado possui aproveitamento digestivo equivalente ao do milho convencional, a opção por alimentos livres de transgênicos (sejam fundamentados em grãos ancestrais ou fórmulas livres de cereais) constitui uma escolha consciente e de alta nobreza para tutores que priorizam cadeias agrícolas diferenciadas. Consultar a composição básica oficial e comparar os níveis de garantia na Matéria Seca é a chave para garantir a nutrição ideal e o bem-estar do seu animal de companhia.',
     references: [
       {
         title: 'Decreto Federal nº 4.680/2003',
@@ -959,7 +959,7 @@ export const GUIDES: GuideItem[] = [
           'Conforme as tabelas de referência do NRC 2006 e da 11ª Edição da ABINPET, a Necessidade Energética de Manutenção (NEM) desse cão é calculada pela fórmula NEM = 110 × (Peso Corporal)^0,75, resultando em uma exigência diária aproximada de 838 kcal/dia.',
           'Confrontemos agora o comportamento financeiro real entre duas sacas de 15 kg comercializadas no mercado nacional:',
           'O resultado numérico da tabela abaixo desmonta o mito da economia imediata: o que parecia ser uma diferença exorbitante de R$ 105,00 na prateleira resume-se, na realidade do comedouro, a uma diferença de meros R$ 0,41 por dia (cerca de R$ 12,30 por mês).',
-          'E o cenário se inverte por completo quando a ração de menor valor exige porções ainda maiores (350 g a 380 g/dia, algo comum em produtos com alto teor de farelos grosseiros): nesse caso, o saco de 15 kg dura apenas 39 dias, elevando o custo diário para R$ 3,46/dia — tornando o alimento teoricamente "barato" mais caro em dinheiro vivo do que a opção Super Premium!',
+          'E o cenário se inverte por completo quando a ração de menor valor exige porções ainda maiores (350 g a 380 g/dia, algo comum em produtos com alto teor de farelos grosseiros): nesse caso, o saco de 15 kg dura apenas 39 dias, elevando o custo diário para R$ 3,46/dia, o que torna o alimento teoricamente "barato" mais caro em dinheiro vivo do que a opção Super Premium!',
         ],
         table: {
           caption: 'Simulação Financeira Zootécnica: Ração Econômica vs Ração Super Premium (Cão de 15 kg / 838 kcal/dia)',
@@ -1030,7 +1030,7 @@ export const GUIDES: GuideItem[] = [
       },
     ],
     conclusion:
-      'A escolha inteligente do alimento de cães e gatos exige abandonar a miopia do preço por quilo e abraçar a lógica zootécnica do custo por dia. Quando calculamos o rendimento real no comedouro com base na densidade energética (EM) e na digestibilidade da fórmula, descobrimos que alimentos Super Premium e de alta nobreza custam praticamente o mesmo por dia que opções básicas — entregando como bônus fezes menores, pelagem saudável e prevenção clínica a longo prazo.',
+      'A escolha inteligente do alimento de cães e gatos exige abandonar a miopia do preço por quilo e abraçar a lógica zootécnica do custo por dia. Quando calculamos o rendimento real no comedouro com base na densidade energética (EM) e na digestibilidade da fórmula, descobrimos que alimentos Super Premium e de alta nobreza custam praticamente o mesmo por dia que opções básicas, entregando como benefícios fezes menores, pelagem saudável e prevenção clínica a longo prazo.',
     references: [
       {
         title: 'Nutrient Requirements of Dogs and Cats (2006)',
@@ -1111,7 +1111,7 @@ export const GUIDES: GuideItem[] = [
           'A grande distinção numérica no confronto analítico, contudo, repousa na Matéria Mineral (Cinzas): a PremieR Formula limita as cinzas a 8,89% na MS (8,0% MN), enquanto a Royal Canin atinge 10,00% na MS (9,2% MN). Em nutrição felina, percentuais menores de cinzas minerais refletem habitualmente o uso de farinhas de vísceras com padrão "Low Ash" (baixo teor de resíduos ósseos moídos), auxiliando a não sobrecarregar a excreção renal e a filtração glomerular ao longo dos anos.',
         ],
         table: {
-          caption: 'Quadro Comparativo de Níveis Oficiais na Matéria Seca (MS) — PetRankings',
+          caption: 'Quadro Comparativo de Níveis Oficiais na Matéria Seca (MS) | PetRankings',
           headers: [
             'Nutriente / Parâmetro',
             'PremieR Formula Castrados (MS)',
@@ -1146,9 +1146,9 @@ export const GUIDES: GuideItem[] = [
       },
       {
         id: 'antioxidantes-e-conservacao-natural-vs-sintetica',
-        heading: '4. O Divisor de Águas: Antioxidantes Naturais vs BHA Sintético',
+        heading: '4. Diferença Crucial: Antioxidantes Naturais vs BHA Sintético',
         paragraphs: [
-          'A divergência mais expressiva entre os dois produtos — e que determina a diferença de notas no sistema de avaliação técnica do PetRankings — situa-se no sistema de conservação lipídica especificado ao final da lista de ingredientes.',
+          'A divergência mais expressiva entre os dois produtos, responsável pela diferença de notas na avaliação técnica do PetRankings, situa-se no sistema de conservação lipídica especificado ao final da lista de ingredientes.',
           'A PremieR Formula Gatos Castrados Frango adota um sistema 100% natural de conservação, ancorado em concentrado de tocoferóis (mistura de formas ativas de Vitamina E natural), extrato de alecrim (*Rosmarinus officinalis*), extrato de chá verde, extrato de menta e ácido cítrico. A fabricante Grandfood aboliu conservantes sintéticos das suas principais linhas de cães e gatos, respondendo à preferência dos tutores por matérias-primas livres de fenóis industriais.',
           'Em contrapartida, a Royal Canin Castrados / Sterilised 37 ainda utiliza o aditivo antioxidante químico BHA (Butil-hidroxianisol - INS 320) como estabilizador tecnológico primário das frações lipídicas.',
           'Embora o uso de BHA seja expressamente legalizado e autorizado no Brasil pela Instrução Normativa MAPA nº 110/2020 e pelas diretrizes da EFSA (Autoridade Europeia para a Segurança Alimentar) dentro dos limites estritos de segurança, o algoritmo determinístico do PetRankings premia produtos que realizam a transição completa para antioxidantes naturais (Pilar de Transparência e Qualidade de Ingredientes). Por essa razão, a PremieR Formula alcança Nível Ouro (Score 90), enquanto a Royal Canin Castrados é classificada em Nível Prata (Score 85).',
@@ -1259,7 +1259,7 @@ export const GUIDES: GuideItem[] = [
         paragraphs: [
           'A crença de que cães filhotes precisam de "reforço de cálcio" é uma das heranças mais antigas e perigosas da criação caseira de animais. Décadas atrás, quando os cães eram alimentados com restos de comida ou carnes desprovidas de ossos moídos, a deficiência de cálcio (hiperparatireoidismo nutricional secundário) era um risco real. Hoje, com a ampla consolidação das rações industriais completas registradas no MAPA, o cenário inverteu-se drasticamente: a deficiência desapareceu e o excesso de cálcio tornou-se um perigo clínico frequente.',
           'A razão biológica para esse perigo reside na imaturidade do trato gastrointestinal do filhote. Em um cão adulto, a absorção de cálcio é estritamente autorregulada: quando a dieta fornece cálcio além do necessário, o organismo ativa mecanismos de transporte celular saturável mediados pela vitamina D ativa, e a fração excedente é simplesmente rejeitada e excretada nas fezes.',
-          'Em filhotes com menos de 6 meses de vida — período crítico de crescimento acelerado —, esse sistema de retroalimentação protetora ainda não está fisiologicamente desenvolvido. O filhote absorve cálcio de forma quase linear por difusão passiva não regulada ao longo do epitélio intestinal. Se a dieta contiver 2% ou 3% de cálcio, o organismo absorverá quase a metade dessa carga maciça, gerando um estado contínuo de hipercalcemia subclínica que sobrecarrega os tecidos osteocartilaginosos em formação.',
+          'Em filhotes com menos de 6 meses de vida, período crítico de crescimento acelerado, esse sistema de retroalimentação protetora ainda não está fisiologicamente desenvolvido. O filhote absorve cálcio de forma quase linear por difusão passiva não regulada ao longo do epitélio intestinal. Se a dieta contiver 2% ou 3% de cálcio, o organismo absorverá quase a metade dessa carga maciça, gerando um estado contínuo de hipercalcemia subclínica que sobrecarrega os tecidos osteocartilaginosos em formação.',
         ],
         callout: {
           type: 'atencao',
@@ -1273,7 +1273,7 @@ export const GUIDES: GuideItem[] = [
         paragraphs: [
           'Quando o cálcio entra em excesso contínuo na circulação do filhote, a glândula tireoide responde secretando níveis elevados do hormônio calcitonina, ao mesmo tempo em que a secreção de paratormônio (PTH) é severamente suprimida. Essa alteração hormonal crônica paralisa o processo normal de remodelação esquelética.',
           'A calcitonina retarda a maturação dos condrócitos (células da cartilagem) nas placas de crescimento epifisárias e inibe a reabsorção óssea fisiológica. Como consequência, a cartilagem articular cresce de forma desproporcional e excessivamente espessa, ultrapassando a capacidade do líquido sinovial de nutri-la por difusão.',
-          'Privadas de oxigênio e nutrientes, as camadas profundas da cartilagem sofrem necrose asséptica, resultando no desenvolvimento de Osteocondrose Dissecante (OCD) — uma patologia dolorosa em que fragmentos cartilaginosos se desprendem para o interior da cavidade articular (especialmente nos ombros, cotovelos e joelhos).',
+          'Privadas de oxigênio e nutrientes, as camadas profundas da cartilagem sofrem necrose asséptica, resultando no desenvolvimento de Osteocondrose Dissecante (OCD), patologia dolorosa em que fragmentos cartilaginosos se desprendem para o interior da cavidade articular (especialmente nos ombros, cotovelos e joelhos).',
           'Simultaneamente, o excesso de cálcio pode causar o fechamento prematuro ou assimétrico das linhas de crescimento dos ossos do antebraço (rádio e ulna), provocando a deformidade conhecida como "radius curvus" (patas arqueadas para fora). Em raças predispostas como Golden Retriever, Labrador, Pastor Alemão e Rottweiler, o crescimento desarmônico dos ossos pélvicos agrava significativamente a frouxidão articular e a progressão precoce da Displasia Coxofemoral.',
         ],
       },
@@ -1282,7 +1282,7 @@ export const GUIDES: GuideItem[] = [
         heading: '3. Parâmetros Oficiais da ABINPET (11ª Edição) e Tetos Toxicológicos',
         paragraphs: [
           'Para resguardar a integridade óssea dos filhotes, o Manual Pet Food Brasil (11ª Edição) da Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET), alinhado com as diretrizes da FEDIAF e do NRC, estabelece faixas estritas de mínimos nutricionais e limites máximos de segurança na Matéria Seca (MS).',
-          'Diferente dos cães adultos — que toleram uma margem mineral mais elástica —, filhotes possuem um teto máximo de cálcio mandatório. Para raças grandes e gigantes (peso adulto estimado acima de 25 kg), a margem de segurança recomendada pela literatura zootécnica internacional é ainda mais estreita (máximo recomendado de 1,60% a 1,80% na Matéria Seca).',
+          'Diferente dos cães adultos, que toleram uma margem mineral mais elástica, filhotes possuem um teto máximo de cálcio mandatório. Para raças grandes e gigantes (peso adulto estimado acima de 25 kg), a margem de segurança recomendada pela literatura zootécnica internacional é ainda mais estreita (máximo recomendado de 1,60% a 1,80% na Matéria Seca).',
           'Tão importante quanto o valor isolado do cálcio é a relação estequiométrica Cálcio:Fósforo (Ca:P). O padrão científico exige que a proporção esteja estritamente compreendida entre 1,0:1 e 1,6:1 (com tolerância máxima de 1,8:1). Uma dieta com excesso de cálcio rompe essa balança, bloqueando a absorção de fósforo, zinco e magnésio.',
         ],
         table: {
@@ -1328,7 +1328,7 @@ export const GUIDES: GuideItem[] = [
         callout: {
           type: 'norma',
           title: 'Regra de Ouro da Nutrição de Filhotes',
-          text: 'Se a embalagem da ração contém os dizeres "Alimento Completo para Cães em Crescimento" ou "Filhotes", o produto é autossuficiente. A adição de qualquer suplemento mineral por conta própria não fortalece os ossos — aumenta o risco de deformidades ortopédicas permanentes.',
+          text: 'Se a embalagem da ração contém os dizeres "Alimento Completo para Cães em Crescimento" ou "Filhotes", o produto é autossuficiente. A adição de suplemento mineral por conta própria não fortalece os ossos; ao contrário, eleva o risco de deformidades ortopédicas permanentes.',
         },
       },
     ],
@@ -1434,9 +1434,9 @@ export const GUIDES: GuideItem[] = [
         id: 'confronto-bromatologico-materia-seca',
         heading: '2. Matéria Seca (MS): Tirando a água para descobrir a proteína real',
         paragraphs: [
-          'O primeiro passo para não cair em ilusões de embalagem é eliminar a água dos croquetes. Toda ração seca tem entre 8% e 12% de umidade natural. Para comparar as duas marcas de forma justa, recalculamos todos os níveis na Matéria Seca (MS) — a porção sólida que de fato alimenta o organismo do seu gato.',
+          'O primeiro passo para não cair em ilusões de embalagem é eliminar a água dos croquetes. Toda ração seca tem entre 8% e 12% de umidade natural. Para comparar as duas marcas de forma justa, recalculamos todos os níveis na Matéria Seca (MS), a porção sólida que de fato alimenta o organismo do seu gato.',
           'E aqui os números mostram uma diferença expressiva. Na linha para gatos adultos de manutenção diária, a Purina Pro Plan Frango entrega 40,91% de proteína bruta real na MS, enquanto a Royal Canin FIT 32 entrega 32,61%.',
-          'Quando comparamos as rações para gatos castrados — período em que o metabolismo desacelera e o felino precisa manter a massa muscular sem engordar —, o contraste se repete: a Pro Plan Castrados Salmão sobe para impressionantes 43,18% de proteína na MS, contra 38,04% da Royal Canin Castrados.',
+          'Quando comparamos as rações para gatos castrados, fase em que o metabolismo desacelera e o felino precisa manter a massa muscular sem engordar, o contraste se repete: a Pro Plan Castrados Salmão sobe para impressionantes 43,18% de proteína na MS, contra 38,04% da Royal Canin Castrados.',
           'Na rotina com o seu gato, isso faz diferença direta. Felinos são carnívoros estritos e queimam aminoácidos para gerar energia. Um prato com mais de 40% de proteína nobre ajuda a manter o corpo esguio e musculoso, em vez daquela flacidez abdominal tão comum após a castração.',
         ],
         table: {
@@ -1468,7 +1468,7 @@ export const GUIDES: GuideItem[] = [
         id: 'fontes-proteicas-e-ingredientes-nobres',
         heading: '3. De onde vem essa proteína? Carne de verdade vs concentrados vegetais',
         paragraphs: [
-          'Tão importante quanto a quantidade de proteína é saber a origem dela. A legislação brasileira (IN MAPA nº 22/2009) obriga os fabricantes a listarem os ingredientes em ordem decrescente de peso — do que mais tem para o que menos tem.',
+          'Tão importante quanto a quantidade de proteína é saber a origem dela. A legislação brasileira (IN MAPA nº 22/2009) obriga os fabricantes a listarem os ingredientes em ordem decrescente de peso, do item em maior quantidade para o de menor quantidade.',
           'No verso do pacote da Purina Pro Plan, o primeiríssimo item declarado é carne de verdade: carne mecanicamente separada de frango (mínimo de 19% na adultos) ou pedaços de salmão (mínimo de 14% na castrados), acompanhados por farinha de vísceras e farinha de torresmo. Além disso, a marca adiciona colostro bovino em pó e prebiótico inulina, que blindam o intestino e ajudam a manter fezes menores e com menos cheiro na caixa de areia.',
           'Já na Royal Canin, a base da receita apoia-se na tradicional farinha de vísceras de aves, combinada com quirera de arroz, milho e frações concentradas de glúten de trigo e milho. O glúten é uma proteína vegetal legítima e muito digestível, mas não entrega a mesma riqueza biológica e variedade de aminoácidos de cortes cárneos nobres.',
         ],
@@ -1604,7 +1604,7 @@ export const GUIDES: GuideItem[] = [
         heading: '2. O Mito do Corte de Proteína: O Perigo Real da Sarcopenia',
         paragraphs: [
           'Durante décadas, circulou nos consultórios e pet shops a crença ultrapassada de que o cão idoso deveria receber uma ração com teores muito baixos de proteína. A literatura científica veterinária contemporânea comprovou que restringir proteína em um cão idoso sem falência renal terminal é um equívoco com consequências graves.',
-          'Cães idosos absorvem aminoácidos com menor eficiência digestiva do que cães jovens. Se o teor proteico for reduzido arbitrariamente, o animal entra em sarcopenia — a perda progressiva e debilitante de massa muscular esquelética. Na prática, o tutor nota o cão ficando com o dorso fino, as patas traseiras fracas, andar vacilante e enorme dificuldade para levantar da caminha após o descanso.',
+          'Cães idosos absorvem aminoácidos com menor eficiência digestiva do que cães jovens. Se o teor proteico for reduzido arbitrariamente, o animal entra em sarcopenia, caracterizada pela perda progressiva e debilitante de massa muscular esquelética. Na prática, o tutor nota o cão ficando com o dorso fino, as patas traseiras fracas, andar vacilante e enorme dificuldade para levantar da caminha após o descanso.',
           'O segredo nutricional para a longevidade canina não está em cortar proteína, mas sim em selecionar fontes proteicas nobres de altíssima digestibilidade (farinhas de vísceras com baixo teor de cinzas, carnes frescas desidratadas e ovos) acompanhadas de rigoroso controle mineral. O objetivo é manter entre 27% e 32% de Proteína Bruta na Matéria Seca, garantindo suporte muscular completo enquanto o fósforo e a matéria mineral total permanecem comedidos.',
         ],
         callout: {
@@ -1991,7 +1991,7 @@ export const GUIDES: GuideItem[] = [
         id: 'o-perigo-do-pote-compartilhado',
         heading: '4. O erro do comedouro compartilhado: Os riscos para animais saudáveis',
         paragraphs: [
-          'Em lares onde vivem dois ou mais pets — situação muito comum nas famílias brasileiras —, surge um dilema recorrente: "Um dos meus gatos tem problema renal, mas o outro é jovem e saudável. Posso dar a ração renal para os dois para não ter trabalho de separar?".',
+          'Em lares onde vivem dois ou mais pets, situação muito comum nas famílias brasileiras, surge um dilema recorrente: "Um dos meus gatos tem problema renal, mas o outro é jovem e saudável. Posso dar a ração renal para os dois para não ter trabalho de separar?".',
           'A resposta zootécnica e clínica é um enfático não. Alimentar um animal saudável de forma contínua com uma dieta coadjuvante traz riscos expressivos para a saúde do pet que não precisa daquele alimento.',
           'O perigo da ração renal em animais sadios: Como as dietas renais cortam profundamente o fósforo e a proteína, um pet saudável consumindo esse alimento diariamente desenvolverá carência de aminoácidos essenciais, perda progressiva de massa muscular e enfraquecimento da imunidade. O animal passa a perder musculatura porque seu organismo quebra as próprias fibras para obter a proteína que a ração não fornece.',
           'O perigo da ração urinária em animais sadios: Fórmulas que acidificam a urina para dissolver estruvita (pH abaixo de 6,4) forçam uma alteração bioquímica desnecessária no animal são. A urina cronicamente hiperácida induz a precipitação de outro tipo de pedra: o cálculo de oxalato de cálcio. Diferente da estruvita, os cristais de oxalato não se dissolvem com dieta e exigem procedimento cirúrgico para desobstrução.',
@@ -2008,7 +2008,7 @@ export const GUIDES: GuideItem[] = [
         heading: '5. Prescrição, duração do tratamento e a falsa autonomia do tutor',
         paragraphs: [
           'Outro engano comum é o tutor diagnosticar o próprio pet e comprar uma ração clínica por conta própria após notar perda de peso ou dificuldade para urinar. Sem exames laboratoriais completos (urinálise, ultrassom abdominal e dosagem de creatinina sérica), uma escolha dietética equivocada pode acelerar o agravamento da doença.',
-          'É importante destacar que nem todo alimento coadjuvante é de uso definitivo. Existem formulações transitórias — como dietas gastrointestinais, de recuperação pós-cirúrgica ou urinárias de dissolução —, desenhadas para serem utilizadas apenas por algumas semanas ou meses até a normalização dos exames, devendo o pet retornar ao alimento comum logo após a alta.',
+          'É importante destacar que nem todo alimento coadjuvante é de uso definitivo. Existem formulações transitórias (como dietas gastrointestinais, de recuperação pós-cirúrgica ou urinárias de dissolução), desenhadas para serem utilizadas apenas por algumas semanas ou meses até a normalização dos exames, devendo o pet retornar ao alimento comum logo após a alta.',
           'Já patologias crônicas degenerativas, a exemplo da Doença Renal Crônica (DRC), exigem acompanhamento periódico a cada 3 a 6 meses. O médico veterinário ajusta a fórmula conforme a progressão dos estágios clínicos (do estágio inicial até fases avançadas), garantindo longevidade e conforto ao animal.',
         ],
       },
@@ -2108,7 +2108,7 @@ export const GUIDES: GuideItem[] = [
         id: 'o-perigo-de-cortar-porcao',
         heading: '1. O Dilema na Balança: Por Que Simplesmente Reduzir a Ração Comum é Perigoso',
         paragraphs: [
-          'Quando um tutor percebe que o gato ganhou peso — algo frequente após a castração ou devido à rotina sedentária em apartamento —, o primeiro impulso costuma ser encher menos o pote, reduzindo a porção habitual em 30% ou 40%. Embora pareça lógico, esse corte é um erro grave na espécie felina.',
+          'Quando um tutor percebe que o gato ganhou peso, algo frequente após a castração ou devido à rotina sedentária em apartamento, o primeiro impulso costuma ser encher menos o pote, reduzindo a porção habitual em 30% ou 40%. Embora pareça lógico, esse corte é um erro grave na espécie felina.',
           'Gatos são carnívoros estritos com demandas metabólicas rígidas para nutrientes como taurina, arginina, metionina, vitamina A e niacina. Ao diminuir abruptamente o volume de um alimento convencional, o tutor corta também a entrega diária desses micronutrientes essenciais, gerando estresse, miados constantes e desnutrição silenciosa.',
           'Mais grave ainda é a resposta biológica do organismo felino. Quando submetido a uma restrição calórica severa, o fígado do gato é inundado por ácidos graxos mobilizados das reservas corporais, abrindo as portas para a temida lipidose hepática, uma emergência veterinária com alto índice de mortalidade.',
           'A proposta de um alimento seco light formulado com precisão é entregar menos calorias por porção sem diminuir o volume da refeição e sem comprometer a densidade vitamínico-mineral.',
@@ -2476,7 +2476,7 @@ export const GUIDES: GuideItem[] = [
         id: 'efeito-diluicao-do-premix-nutricional',
         heading: '2. O Efeito Diluição: Como o Excesso de Petisco "Descalibra" a Ração',
         paragraphs: [
-          'O maior perigo dos petiscos em excesso não é apenas o ganho de peso, mas sim um fenômeno zootécnico silencioso chamado efeito diluição nutricional.',
+          'Além do ganho de peso calórico, os petiscos em excesso geram um fenômeno zootécnico silencioso chamado efeito de diluição nutricional.',
           'A ração completa é formulada como uma equação matemática exata. Cada porção contém a quantidade precisa de cálcio, fósforo, zinco, ferro, vitaminas e aminoácidos essenciais (como a taurina para gatos) necessária para aquele volume calórico diário.',
           'Quando um tutor oferece petiscos em grande quantidade, o pet atinge a sua saciedade calórica antes de consumir a quantidade recomendada de ração. O resultado imediato é que o animal deixa ração no prato e, consequentemente, ingere menos micronutrientes essenciais do que seu organismo precisa para funcionar bem.',
           'Na prática, se 30% das calorias do dia vierem de bifinhos ou biscoitos comuns, o cão ou gato estará recebendo 30% a menos do premix vitamínico e mineral da ração. Com o passar dos meses, essa carência pode se manifestar em pelos secos e quebradiços, fezes pastosas, imunidade fragilizada e, em filhotes, graves deformidades no desenvolvimento dos ossos.',
