@@ -159,7 +159,9 @@ export default async function ProductDetailPage({
         {
           topIngredientes: parsedIngredients,
           antioxidanteTipo: product.antioxidantType as any,
-          omega3OuPrebioticosGarantidos: !!(product.omega3MinPct && product.omega3MinPct >= 0.2),
+          omega3OuPrebioticosGarantidos: isWet
+            ? !!(product.omega3MinPct && product.omega3MinPct >= 0.015)
+            : !!(product.omega3MinPct && product.omega3MinPct >= 0.2),
           claimCarneTipo: (product.meatClaimType as any) || 'COM_CARNE_FRESCA',
           isLightOuControlePeso: isLight,
           nomeComercial: product.commercialName,

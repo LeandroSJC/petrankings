@@ -103,7 +103,8 @@ export async function POST(req: NextRequest) {
         claimCarneTipo: (body.meatClaimType as any) || 'NENHUM',
         claimCarneAdequado: body.claimCarneAdequado ?? true,
         nomeComercial: body.commercialName,
-      }
+      },
+      body.foodType as any
     );
 
     // Gerar slug amigável único

@@ -89,7 +89,8 @@ export async function PUT(
         claimCarneTipo: body.meatClaimType || 'NENHUM',
         claimCarneAdequado: body.claimCarneAdequado ?? true,
         nomeComercial: body.commercialName,
-      }
+      },
+      body.foodType as any
     );
 
     const product = await prisma.product.update({

@@ -210,9 +210,21 @@ export function calcularScoreAnaliseRotulo(
   }
 
   // Ômega-3 ou Prebióticos (+5)
+  const PREBIOTICOS_REGEX =
+    /(parede\s+celular\s+de\s+levedura|mananoligossacar[ií]deo|frutooligossacar[ií]deo|\bmos\b|\bfos\b|inulina|beta-?glucan)/i;
+  const temPrebioticoNosIngredientes = rotulagem.topIngredientes.some((ing) => PREBIOTICOS_REGEX.test(ing));
+
+  const temOmegaGarantido =
+    garantias.omega3MinPct !== undefined &&
+    garantias.omega3MinPct !== null &&
+    (foodType === 'UMIDO'
+      ? garantias.omega3MinPct >= 0.015 || (nutrientesMS.omega3MinPct !== null && nutrientesMS.omega3MinPct >= 0.1)
+      : garantias.omega3MinPct >= 0.2);
+
   const temOmegaOuPrebiotico =
     rotulagem.omega3OuPrebioticosGarantidos ||
-    (garantias.omega3MinPct !== undefined && garantias.omega3MinPct !== null && garantias.omega3MinPct >= 0.2);
+    temOmegaGarantido ||
+    temPrebioticoNosIngredientes;
 
   if (temOmegaOuPrebiotico) {
     pilar4Pontos += 5;

@@ -261,14 +261,18 @@ export default function ProductForm({ initialProduct, isEdit }: ProductFormProps
       {
         topIngredientes: parsedIng,
         antioxidanteTipo: formData.antioxidantType as any,
-        omega3OuPrebioticosGarantidos: (parseFloat(formData.omega3MinPct) || 0) >= 0.2,
+        omega3OuPrebioticosGarantidos: formData.foodType === 'UMIDO'
+          ? (parseFloat(formData.omega3MinPct) || 0) >= 0.015
+          : (parseFloat(formData.omega3MinPct) || 0) >= 0.2,
         claimCarneTipo: formData.meatClaimType as any,
         claimCarneAdequado: true,
+        foodType: formData.foodType as any,
         isLightOuControlePeso: /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(
           formData.commercialName
         ),
         nomeComercial: formData.commercialName,
-      }
+      },
+      formData.foodType as any
     );
   }, [
     formData.commercialName,
