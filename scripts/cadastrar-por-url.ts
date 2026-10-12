@@ -2,11 +2,68 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import net from 'net';
+import { spawn, type ChildProcess } from 'child_process';
 import sharp from 'sharp';
 import { chromium, type Browser, type Page } from 'playwright';
 import prisma from '../src/lib/prisma';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
+
+let autoTunnel: ChildProcess | null = null;
+
+async function isPortOpen(port: number, host = '127.0.0.1'): Promise<boolean> {
+  return new Promise((resolve) => {
+    const socket = new net.Socket();
+    socket.setTimeout(1500);
+    socket.once('connect', () => {
+      socket.destroy();
+      resolve(true);
+    });
+    socket.once('timeout', () => {
+      socket.destroy();
+      resolve(false);
+    });
+    socket.once('error', () => {
+      socket.destroy();
+      resolve(false);
+    });
+    socket.connect(port, host);
+  });
+}
+
+export async function ensureTunnelOpen() {
+  const isOpen = await isPortOpen(5433);
+  if (isOpen) {
+    console.log('📡 [Túnel SSH] Porta 5433 ativa.');
+    return;
+  }
+
+  console.log('🔒 [Túnel SSH] Abrindo túnel temporário seguro com a Oracle Cloud (porta 5433)...');
+  const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
+  autoTunnel = spawn('ssh', ['-L', '5433:127.0.0.1:5432', '-N', sshTarget], {
+    stdio: 'ignore',
+    windowsHide: true,
+  });
+
+  for (let i = 0; i < 15; i++) {
+    await new Promise((r) => setTimeout(r, 1000));
+    if (await isPortOpen(5433)) {
+      console.log('✓ [Túnel SSH] Conexão estabelecida com sucesso na porta 5433!\n');
+      return;
+    }
+  }
+
+  throw new Error('Não foi possível estabelecer o túnel SSH com a Oracle Cloud na porta 5433.');
+}
+
+export function closeTunnel() {
+  if (autoTunnel) {
+    console.log('🔌 [Túnel SSH] Encerrando túnel temporário.');
+    autoTunnel.kill();
+    autoTunnel = null;
+  }
+}
 
 let playwrightBrowser: Browser | null = null;
 let playwrightPage: Page | null = null;
@@ -415,6 +472,8 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
 }
 
 async function main() {
+  await ensureTunnelOpen();
+
   const args = process.argv.slice(2);
   const targetUrl = args[0];
 
@@ -475,5 +534,6 @@ if (process.argv[1] && path.resolve(process.argv[1]).toLowerCase().includes('cad
     .finally(async () => {
       await closePlaywright();
       await prisma.$disconnect();
+      closeTunnel();
     });
 }

@@ -87,6 +87,7 @@ function capitalizeTitle(str: string): string {
     allcats: 'AllCats',
     qualiday: 'Qualiday',
     qualyday: 'Qualiday',
+    granplus: 'GranPlus',
   };
 
   let result = s
@@ -347,6 +348,106 @@ export function extractCalciumPrecise(garText: string, foodType: 'SECO' | 'UMIDO
 }
 
 /**
+ * Constrói o nome comercial canônico para produtos GranPlus (Affinity PetCare / BRF Pet)
+ * Respeita a fórmula: [Marca] [Linha] [Espécie / Porte] [Fase de Vida / Especialidade] [Sabor] [Formato se Úmido/Petisco]
+ */
+export function parseGranPlusCommercialName(html: string, sourceUrl: string, $: cheerio.CheerioAPI): string {
+  const cleanSlug = (sourceUrl.split('/').pop() || '').toLowerCase().replace(/^-+|-+$/g, '');
+  const isGato = /\/gatos\/|gato|gatos|felin/i.test(sourceUrl + ' ' + cleanSlug);
+  const isPetisco = /biscoito|bifinho|snack/i.test(cleanSlug);
+  const isUmido = !isPetisco && /sache|sach[êe]|pate|pat[êe]/i.test(cleanSlug);
+
+  // Linha
+  let line = 'Menu';
+  if (/gourmet/i.test(cleanSlug)) line = 'Gourmet';
+  else if (/performance/i.test(cleanSlug)) line = 'Performance';
+  else if (/choice/i.test(cleanSlug)) line = 'Choice';
+  else if (isPetisco) line = 'Snacks';
+
+  // Espécie e Fase de Vida
+  const speciePart = isGato ? 'Gatos' : 'Cães';
+  let stagePart = 'Adultos';
+  if (/filhote|puppy|kitten/i.test(cleanSlug)) stagePart = 'Filhotes';
+  else if (/senior|s[êe]nior/i.test(cleanSlug)) stagePart = 'Sênior';
+
+  // Porte (apenas cães)
+  let sizePart = '';
+  if (!isGato) {
+    if (/mini|pequeno/i.test(cleanSlug) && !/medio|grande/i.test(cleanSlug)) {
+      sizePart = 'Porte Mini e Pequeno';
+    } else if (/medio|grande/i.test(cleanSlug) && !/mini|pequeno/i.test(cleanSlug)) {
+      sizePart = 'Porte Médio e Grande';
+    }
+  }
+
+  // Especialidades / Claims
+  let extraClaims = '';
+  if (/castrado/i.test(cleanSlug)) extraClaims += ' Castrados';
+  if (/light/i.test(cleanSlug)) extraClaims += ' Light';
+  if (/trato-urinario/i.test(cleanSlug)) extraClaims += ' Trato Urinário';
+  if (/bola-de-pelo/i.test(cleanSlug)) extraClaims += ' Bola de Pelo';
+
+  // Formato
+  let formatPart = '';
+  if (/pate|pat[êe]/i.test(cleanSlug)) formatPart = 'Patê';
+  else if (/sache|sach[êe]/i.test(cleanSlug)) formatPart = 'Sachê';
+  else if (/biscoito/i.test(cleanSlug)) formatPart = 'Biscoito';
+  else if (/bifinho/i.test(cleanSlug)) formatPart = 'Bifinhos';
+
+  // Sabor a partir do DOM ou Slug
+  let flavor = '';
+  $('h5').each((_, el) => {
+    if ($(el).text().trim().toLowerCase() === 'sabor') {
+      const nextTxt = $(el).parent().find('p').first().text().trim() || $(el).next().text().trim();
+      if (nextTxt && !nextTxt.toLowerCase().includes('sabor')) {
+        flavor = nextTxt;
+      }
+    }
+  });
+
+  if (!flavor) {
+    if (/frango-e-arroz|frango-arroz/i.test(cleanSlug)) flavor = 'Frango e Arroz';
+    else if (/carne-e-arroz|carne-arroz/i.test(cleanSlug)) flavor = 'Carne e Arroz';
+    else if (/ovelha-e-arroz|ovelha-arroz/i.test(cleanSlug)) flavor = 'Ovelha e Arroz';
+    else if (/salmao-e-frango|salmao-frango/i.test(cleanSlug)) flavor = 'Salmão e Frango';
+    else if (/salmao-e-arroz|salmao-arroz/i.test(cleanSlug)) flavor = 'Salmão e Arroz';
+    else if (/frango-e-cenoura|frango-cenoura/i.test(cleanSlug)) flavor = 'Frango e Cenoura';
+    else if (/frango-e-carne|frango-carne/i.test(cleanSlug)) flavor = 'Frango e Carne';
+    else if (/frango-e-peru|frango-peru/i.test(cleanSlug)) flavor = 'Frango e Peru';
+    else if (/carne-e-cenoura/i.test(cleanSlug)) flavor = 'Carne e Cenoura';
+    else if (/peru-e-arroz/i.test(cleanSlug)) flavor = 'Peru e Arroz';
+    else if (/ovelha/i.test(cleanSlug)) flavor = 'Ovelha';
+    else if (/salmao/i.test(cleanSlug)) flavor = 'Salmão';
+    else if (/atum/i.test(cleanSlug)) flavor = 'Atum';
+    else if (/carne-grelhada/i.test(cleanSlug)) flavor = 'Carne Grelhada';
+    else if (/lombo-suino-grelhado/i.test(cleanSlug)) flavor = 'Lombo Suíno Grelhado';
+    else if (/frango-assado/i.test(cleanSlug)) flavor = 'Frango Assado';
+    else if (/leite/i.test(cleanSlug)) flavor = 'Leite';
+    else if (/frango/i.test(cleanSlug)) flavor = 'Frango';
+    else if (/carne/i.test(cleanSlug)) flavor = 'Carne';
+  }
+
+  let nameParts: string[] = ['GranPlus', line];
+  if (formatPart && isPetisco) {
+    nameParts = ['GranPlus', formatPart, speciePart, stagePart];
+  } else if (formatPart && isUmido) {
+    nameParts.push(formatPart, speciePart, stagePart);
+  } else {
+    nameParts.push(speciePart, stagePart);
+  }
+
+  if (sizePart) nameParts.push(sizePart);
+  if (extraClaims.trim()) nameParts.push(extraClaims.trim());
+  if (flavor) {
+    if (!formatPart || !flavor.toLowerCase().includes(formatPart.toLowerCase())) {
+      nameParts.push(`Sabor ${flavor}`);
+    }
+  }
+
+  return nameParts.join(' ').replace(/\s+/g, ' ').replace('Sabor Sabor', 'Sabor').trim();
+}
+
+/**
  * Extrator universal de metadados, níveis de garantia e composição a partir do HTML oficial
  */
 export function parseProductFromHtml(
@@ -362,6 +463,8 @@ export function parseProductFromHtml(
     $('link[rel="canonical"]').attr('href') ||
     fallbackUrl ||
     '';
+
+  const isGranPlus = /granplus\.com\.br/i.test(sourceUrl) || /granplus/i.test(fallbackUrl);
 
   let imageUrl =
     $('meta[property="og:image"]').attr('content') ||
@@ -412,6 +515,18 @@ export function parseProductFromHtml(
       if (eanMatch) {
         imageUrl = `https://seuproduto360.com.br/brf/${eanMatch[1]}/miniatura.jpg`;
       }
+    }
+  }
+
+  // 1b-2. Extração GranPlus (Affinity PetCare / BRF Pet Azure Blob)
+  if (!imageUrl && isGranPlus) {
+    const granBlobMatch = html.match(/(?:url=)?(https%3A%2F%2Fbrfsawebsitespet\.blob\.core\.windows\.net%2Fgran-plus%2F[^&\"\'\s\)]+|https:\/\/brfsawebsitespet\.blob\.core\.windows\.net\/gran-plus\/[^&\"\'\s\)]+)/i);
+    if (granBlobMatch) {
+      let rawImg = granBlobMatch[1];
+      if (rawImg.includes('%3A')) {
+        rawImg = decodeURIComponent(rawImg);
+      }
+      imageUrl = rawImg.replace(/&amp;/g, '&').replace(/\\u0026/g, '&');
     }
   }
 
@@ -692,7 +807,9 @@ export function parseProductFromHtml(
 
   // 2. Nome Comercial e Slug
   let rawName = '';
-  if (/specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl)) {
+  if (isGranPlus) {
+    rawName = parseGranPlusCommercialName(html, sourceUrl, $);
+  } else if (/specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl)) {
     rawName =
       $('h1.font18, h1.fontsite-bold2').last().text().trim() ||
       $('meta[property="og:title"]').attr('content') ||
@@ -898,7 +1015,7 @@ export function parseProductFromHtml(
         sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?$/i) ||
         sourceUrl.match(/\/([^/]+)\/?$/);
       if (m && m[1] && m[1] !== 'produto' && m[1] !== 'products' && m[1] !== 'index' && m[1].length > 3) {
-        slug = m[1].replace(/\.php$/i, '').replace(/\.html?$/i, '');
+        slug = m[1].replace(/\.php$/i, '').replace(/\.html?$/i, '').replace(/^-+|-+$/g, '');
       }
     }
   }
@@ -1077,6 +1194,20 @@ export function parseProductFromHtml(
     } else {
       brand = 'Pet Food Solution';
     }
+  } else if (isGranPlus || /granplus/i.test(commercialName)) {
+    manufacturerLegalName = 'BRF Pet S.A.';
+    const cleanSlug = sourceUrl.split('/').pop()?.toLowerCase() || '';
+    if (/biscoito|bifinho|snack/i.test(cleanSlug + ' ' + commercialName)) {
+      brand = 'GranPlus Snacks';
+    } else if (/gourmet/i.test(cleanSlug + ' ' + commercialName)) {
+      brand = 'GranPlus Gourmet';
+    } else if (/performance/i.test(cleanSlug + ' ' + commercialName)) {
+      brand = 'GranPlus Performance';
+    } else if (/choice/i.test(cleanSlug + ' ' + commercialName)) {
+      brand = 'GranPlus Choice';
+    } else {
+      brand = 'GranPlus Menu';
+    }
   } else if (isHills || /hillspet\.com\.br/i.test(sourceUrl)) {
     const isPrescription = /prescription-diet|\/pd-/i.test(sourceUrl + ' ' + commercialName);
     brand = isPrescription ? "Hill's Prescription Diet" : "Hill's Science Diet";
@@ -1090,6 +1221,10 @@ export function parseProductFromHtml(
     !commercialName.startsWith('Golden') &&
     !commercialName.startsWith('Vitta') &&
     !commercialName.startsWith("Hill's") &&
+    !commercialName.startsWith('GranPlus') &&
+    !isGranPlus &&
+    !/granplus/i.test(commercialName) &&
+    !/granplus\.com\.br/i.test(sourceUrl) &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill/i.test(commercialName) &&
     !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br/i.test(sourceUrl)
   ) {
@@ -1150,7 +1285,7 @@ export function parseProductFromHtml(
     (/(?:cookie|biscoito|biscoitos|snack|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|mastig[áa]vel|\bosso\b|\bossos\b|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow|dentastix|dental\s*(?:clean|bar|stick|bites|snack|petisco|mastig[áa]vel)|biscrok|filezitos|marrobone)/i.test(commercialName + ' ' + sourceUrl) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
-    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast/i.test(commercialName + ' ' + sourceUrl)))
+    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast|granplus/i.test(commercialName + ' ' + sourceUrl)))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
@@ -1159,8 +1294,8 @@ export function parseProductFromHtml(
   let compText = isQuatree ? quatreeCompText : '';
   let garText = isQuatree ? quatreeGarText : '';
 
-  // 5a-0. Extração de Next.js Flight Payload (Biofresh / BRF Pet)
-  if (/biofreshpet\.com\.br/i.test(sourceUrl) || html.includes('categoria-composicao-basica')) {
+  // 5a-0. Extração de Next.js Flight Payload (Biofresh / GranPlus / BRF Pet)
+  if (/biofreshpet\.com\.br|granplus\.com\.br/i.test(sourceUrl) || isGranPlus || html.includes('categoria-composicao-basica')) {
     const pushRegex = /self\.__next_f\.push\(\[1,\s*\"([\s\S]*?)\"\]\)/g;
     let chunk;
     let flightText = '';
@@ -1172,28 +1307,53 @@ export function parseProductFromHtml(
       }
     }
 
+    // Se for GranPlus, extrai níveis de garantia diretamente do DOM estruturado
+    if (isGranPlus && !garText) {
+      const granRows: string[] = [];
+      $('h2').each((_, el) => {
+        const t = $(el).text().trim();
+        if (/Prote[íi]na|Extrato|Umidade|Mat[ée]ria|C[áa]lcio|F[óo]sforo|S[óo]dio|[Ôo]mega|EPA|DHA|Taurina/i.test(t)) {
+          const valText = $(el).parent().text().replace(/\s+/g, ' ').trim();
+          if (valText) granRows.push(valText);
+        }
+      });
+      if (granRows.length > 0) {
+        garText = granRows.join('\n');
+      }
+    }
+
     if (!compText) {
-      const compDefMatch = flightText.match(/\"name\":\"Composi[çc][ãa]o B[áa]sica\"[^\}]*?\"content\":\"\$([a-zA-Z0-9]+)\"/i);
+      const compDefMatch = flightText.match(/\"name\":\"Composi[çc][ãa]o B[áa]sica\"[^\}]*?\"content\":(?:\"\$([a-zA-Z0-9]+)\"|(\"[^\"]+\"))/i);
       if (compDefMatch) {
-        const compId = compDefMatch[1];
-        const compContentMatch = flightText.match(new RegExp(`(?:^|\\n)${compId}:(?:T[0-9a-f]+,)?([\\s\\S]*?)(?:\\n[0-9a-f]+:|$)`));
-        if (compContentMatch) {
-          compText = compContentMatch[1].trim();
+        if (compDefMatch[1]) {
+          const compId = compDefMatch[1];
+          const compContentMatch = flightText.match(new RegExp(`(?:^|\\n)${compId}:(?:T[0-9a-f]+,)?\"?([\\s\\S]*?)(?:\"?\\n[0-9a-f]+:|$)`));
+          if (compContentMatch) {
+            compText = compContentMatch[1].trim();
+          }
+        } else if (compDefMatch[2]) {
+          compText = compDefMatch[2].replace(/^\"|\"$/g, '').trim();
         }
       }
       if (!compText) {
-        const compRaw = flightText.match(/categoria-composicao-basica[\s\S]*?(Seleção de carnes frescas|Farinha de vísceras[^\"]+)/i);
-        if (compRaw) compText = compRaw[1].trim();
+        const compRaw =
+          flightText.match(/categoria-composicao-basica[\s\S]*?(Seleção de carnes frescas|Farinha de vísceras[^\"]+)/i) ||
+          flightText.match(/(?:Farinha de [vV][íi]sceras|Carne mecanicamente separada|Carne de [bB]ovino|Mi[úu]dos de [oO]vinos|Quirera de [aA]rroz)[^\"\\]+/i);
+        if (compRaw) compText = compRaw[1] ? compRaw[1].trim() : compRaw[0].trim();
       }
     }
 
     if (!garText) {
-      const garDefMatch = flightText.match(/\"name\":\"N[íi]veis de garantia\"[^\}]*?\"content\":\"\$([a-zA-Z0-9]+)\"/i);
+      const garDefMatch = flightText.match(/\"name\":\"N[íi]veis de garantia\"[^\}]*?\"content\":(?:\"\$([a-zA-Z0-9]+)\"|(\"[^\"]+\"))/i);
       if (garDefMatch) {
-        const garId = garDefMatch[1];
-        const garContentMatch = flightText.match(new RegExp(`(?:^|\\n)${garId}:(?:T[0-9a-f]+,)?([\\s\\S]*?)(?:\\n[0-9a-f]+:|$)`));
-        if (garContentMatch) {
-          garText = garContentMatch[1].trim();
+        if (garDefMatch[1]) {
+          const garId = garDefMatch[1];
+          const garContentMatch = flightText.match(new RegExp(`(?:^|\\n)${garId}:(?:T[0-9a-f]+,)?\"?([\\s\\S]*?)(?:\"?\\n[0-9a-f]+:|$)`));
+          if (garContentMatch) {
+            garText = garContentMatch[1].trim();
+          }
+        } else if (garDefMatch[2]) {
+          garText = garDefMatch[2].replace(/^\"|\"$/g, '').trim();
         }
       }
       if (!garText) {
