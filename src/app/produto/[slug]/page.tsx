@@ -131,7 +131,9 @@ export default async function ProductDetailPage({
   const isSnack = /cookie|biscoito|snack|petisco|bites/i.test(product.commercialName) || /cookie|biscoito|snack|petisco|bites/i.test(product.slug);
   const isWet = product.foodType === 'UMIDO';
 
-  const tier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
+  const initialTier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
+  let displayScore = product.scoreTotal;
+  let displayTier = initialTier;
   const isFilhote = product.lifeStage === 'CRESCIMENTO_INICIAL' || product.lifeStage === 'CRESCIMENTO_FINAL' || product.lifeStage === 'FILHOTE';
 
   const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(
@@ -170,6 +172,8 @@ export default async function ProductDetailPage({
       );
       if (freshAudit && freshAudit.extratoPontos) {
         extratoItens = freshAudit.extratoPontos;
+        displayScore = freshAudit.scoreTotal;
+        displayTier = getFaixaVisual(freshAudit.classificacaoFaixa, isCoadjuvante, isComplementar);
       }
     } catch {}
   }
@@ -217,7 +221,7 @@ export default async function ProductDetailPage({
   };
 
   const productOrPageSchema =
-    product.scoreTotal !== null
+    displayScore !== null
       ? {
           '@type': 'Product',
           '@id': `${SITE_URL}/produto/${product.slug}#product`,
@@ -231,7 +235,7 @@ export default async function ProductDetailPage({
             '@type': 'Review',
             reviewRating: {
               '@type': 'Rating',
-              ratingValue: (product.scoreTotal / 20).toFixed(1),
+              ratingValue: (displayScore / 20).toFixed(1),
               bestRating: '5',
               worstRating: '1',
             },
@@ -251,7 +255,7 @@ export default async function ProductDetailPage({
           },
           aggregateRating: {
             '@type': 'AggregateRating',
-            ratingValue: (product.scoreTotal / 20).toFixed(1),
+            ratingValue: (displayScore / 20).toFixed(1),
             bestRating: '5',
             worstRating: '1',
             ratingCount: 1,
@@ -362,9 +366,9 @@ export default async function ProductDetailPage({
                 )}
                 <div style={{ flex: 1, minWidth: '240px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                    <span className={tier.badgeClass}>
+                    <span className={displayTier.badgeClass}>
                       {isComplementar ? <Sparkles size={13} /> : isCoadjuvante ? <Stethoscope size={13} /> : <ShieldCheck size={13} />}
-                      {tier.label}
+                      {displayTier.label}
                     </span>
                     <span
                       style={{
@@ -466,7 +470,7 @@ export default async function ProductDetailPage({
               </div>
 
               {/* Score Grande Analisado / Status */}
-              {!isCoadjuvante && !isComplementar && product.scoreTotal !== null ? (
+              {!isCoadjuvante && !isComplementar && displayScore !== null ? (
                 <div
                   style={{
                     display: 'flex',
@@ -475,19 +479,19 @@ export default async function ProductDetailPage({
                     justifyContent: 'center',
                     padding: '16px 22px',
                     borderRadius: 'var(--radius-md)',
-                    backgroundColor: tier.bgColor,
-                    border: `2px solid ${tier.borderColor}`,
+                    backgroundColor: displayTier.bgColor,
+                    border: `2px solid ${displayTier.borderColor}`,
                     textAlign: 'center',
                     minWidth: '150px',
                   }}
                 >
-                  <span style={{ fontSize: '0.70rem', fontWeight: 800, textTransform: 'uppercase', color: tier.color, letterSpacing: '0.5px' }}>
+                  <span style={{ fontSize: '0.70rem', fontWeight: 800, textTransform: 'uppercase', color: displayTier.color, letterSpacing: '0.5px' }}>
                     Índice de Conformidade
                   </span>
-                  <span style={{ fontFamily: 'var(--font-heading)', fontSize: '2.4rem', fontWeight: 900, color: tier.color, lineHeight: 1, margin: '2px 0' }}>
-                    {product.scoreTotal}
+                  <span style={{ fontFamily: 'var(--font-heading)', fontSize: '2.4rem', fontWeight: 900, color: displayTier.color, lineHeight: 1, margin: '2px 0' }}>
+                    {displayScore}
                   </span>
-                  <span style={{ fontSize: '0.76rem', fontWeight: 700, color: tier.color }}>
+                  <span style={{ fontSize: '0.76rem', fontWeight: 700, color: displayTier.color }}>
                     de 100 pontos
                   </span>
                 </div>

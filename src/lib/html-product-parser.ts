@@ -145,6 +145,10 @@ export function parseNutritionNumber(str: string): number {
     return parseFloat(s.replace(/\./g, '').replace(',', '.'));
   }
   if (s.includes(',')) {
+    const parts = s.split(',');
+    if (parts.length === 2 && parts[1].length === 3 && parseInt(parts[0], 10) >= 1) {
+      return parseFloat(parts[0] + parts[1]);
+    }
     return parseFloat(s.replace(',', '.'));
   }
   if (s.includes('.')) {
@@ -226,7 +230,15 @@ export function extractCalciumPrecise(garText: string, foodType: 'SECO' | 'UMIDO
 
     const unit = (unitStr || '').toLowerCase();
     if (unit === '%') return val;
-    if (unit.includes('mg') || (!unit && val >= 50)) return Number((val / 10000).toFixed(4));
+    if (unit.includes('mg')) {
+      // Proteção contra erro evidente de digitação de fabricante (ex: "8 mg/kg" para Cálcio em vez de "8 g/kg" ou "8.000 mg/kg")
+      // Em alimento completo para cães e gatos, cálcio e fósforo nunca são inferiores a 0.1% (1.000 mg/kg)
+      if (val > 0 && val < 50) {
+        return Number((val / 10).toFixed(2));
+      }
+      return Number((val / 10000).toFixed(4));
+    }
+    if (!unit && val >= 50) return Number((val / 10000).toFixed(4));
     if (unit.includes('g/kg') || unit === 'g' || (!unit && val > 5.0 && val < 50)) return Number((val / 10).toFixed(2));
     return val;
   };
@@ -1770,10 +1782,17 @@ export function parseProductFromHtml(
   cleanComp = cleanComp.split(/\*Cont[ée]m/i)[0];
   cleanComp = cleanComp.split(/\*Ingredientes/i)[0];
 
-  // Remove qualquer payload/código residual do Next.js Flight no final do texto
+  // Remove prefixos residuais do Next.js Flight no início do texto (ex: "30:T4aa,")
+  cleanComp = cleanComp.replace(/^[0-9a-f]+:[A-Za-z0-9_$,\\]+,\s*/i, '');
+
+  // Remove qualquer payload/código residual do Next.js Flight, tags e cards adicionais
+  cleanComp = cleanComp.replace(/\.?[0-9a-f]+:[A-Za-z0-9_$,\\]+[\s\S]*$/i, '.');
   cleanComp = cleanComp.replace(/\.?[0-9a-f]+:\{[\s\S]*$/i, '.');
   cleanComp = cleanComp.replace(/\{"name"[\s\S]*$/i, '');
   cleanComp = cleanComp.replace(/\"id\":[\s\S]*$/i, '');
+  cleanComp = cleanComp.replace(/\\u003c[\s\S]*$/i, '');
+  cleanComp = cleanComp.replace(/<div[\s\S]*$/i, '');
+  cleanComp = cleanComp.replace(/\b(?:FORTALECE|STRENGTHENS|Selecci[oó]n|Selection|Composici[oó]n|Guia alimentar|N[íi]veis de garantia)\b[\s\S]*$/i, '');
 
   const topIngredientsList: string[] = [];
   let cur = '';
@@ -1791,9 +1810,11 @@ export function parseProductFromHtml(
         continue;
       }
       let item = cur.trim();
+      item = item.replace(/\.?[0-9a-f]+:[A-Za-z0-9_$,\\]+[\s\S]*$/i, '');
       item = item.replace(/\.?[0-9a-f]+:\{[\s\S]*$/i, '');
       item = item.replace(/\{"name"[\s\S]*$/i, '');
       item = item.replace(/\"id\":[\s\S]*$/i, '');
+      item = item.replace(/\b(?:FORTALECE|STRENGTHENS|Selecci[oó]n|Selection|Composici[oó]n)\b[\s\S]*$/i, '');
       item = item.replace(/\.$/, '').trim();
       if (item && item.length > 1) {
         const cleaned = stripFootnotesFromIngredient(item);
@@ -1806,9 +1827,11 @@ export function parseProductFromHtml(
   }
   if (cur.trim()) {
     let item = cur.trim();
+    item = item.replace(/\.?[0-9a-f]+:[A-Za-z0-9_$,\\]+[\s\S]*$/i, '');
     item = item.replace(/\.?[0-9a-f]+:\{[\s\S]*$/i, '');
     item = item.replace(/\{"name"[\s\S]*$/i, '');
     item = item.replace(/\"id\":[\s\S]*$/i, '');
+    item = item.replace(/\b(?:FORTALECE|STRENGTHENS|Selecci[oó]n|Selection|Composici[oó]n)\b[\s\S]*$/i, '');
     item = item.replace(/\.$/, '').trim();
     if (item && item.length > 1) {
       const cleaned = stripFootnotesFromIngredient(item);

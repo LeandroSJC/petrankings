@@ -96,7 +96,8 @@ export function stripFootnotesFromIngredient(text: string): string {
   // Remove dígitos colados a nomes de grãos e ingredientes vegetais transgênicos (ex: milho1, trigo2, soja1)
   s = s.replace(/\b(milho|trigo|soja|algod[ãa]o|canola|arroz|sorgo|aveia|centeio|cevada)[0-9]+\b/gi, '$1');
   // Remove nota de rodapé numérica isolada no final do ingrediente (ex: "Farelo de trigo 2" -> "Farelo de trigo")
-  s = s.replace(/\s+[1-9]\b/g, '');
+  // Preserva percentuais como "(mín. 5%)", "(0,04%)" e medidas
+  s = s.replace(/\s+[1-9]\b(?!\s*[%a-zA-Z])/g, '');
   return s.trim();
 }
 
