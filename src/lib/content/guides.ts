@@ -2766,6 +2766,156 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/ranking/melhores-racoes-para-gatos',
     },
   },
+  {
+    slug: 'transicao-de-racao-para-caes-troca-gradual-7-dias',
+    title: 'Transição de ração para cães: Como fazer a troca gradual em 7 dias sem diarreia ou vômito?',
+    subtitle: 'O cronograma prático passo a passo para mudar a alimentação do seu cão com segurança, respeitando a microbiota intestinal e as enzimas digestivas.',
+    cluster: 'Manejo & Rotina Alimentar',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-13',
+    updatedAt: '2026-10-13',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/transicao-racao-caes-troca-gradual-cover.webp',
+    isFeatured: true,
+    summary: 'Aprenda como fazer a transição gradual de ração para cães em 7 dias. Entenda a adaptação das enzimas digestivas e da microbiota intestinal, por que trocas bruscas geram diarreia osmótica e confira a tabela prática de proporções dia a dia.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'por-que-a-troca-brusca-provoca-diarreia',
+        heading: 'Por que a troca repentina desregula o intestino canino?',
+        paragraphs: [
+          'Você decide oferecer um alimento de qualidade superior para o seu cão, coloca a tigela cheia com a nova fórmula e, poucas horas depois, nota fezes amolecidas, gases ou até episódios de vômito. A reação imediata de quase todo tutor é pensar que a ração nova estava estragada ou que o animal tem alergia à marca.',
+          'Na grande maioria dos casos, o alimento não tem nenhum defeito. O verdadeiro culpado é a velocidade com que a mudança aconteceu no comedouro.',
+          'O sistema digestivo dos cães é altamente adaptável, mas precisa de tempo para calibrar sua produção de enzimas. Quando o cão consome a mesma receita por meses, as enzimas do pâncreas (como amilase e lipase) e as bactérias benéficas do intestino se especializam exatamente naquele perfil de ingredientes.',
+          'Ao introduzir uma fórmula diferente sem aviso prévio, os novos nutrientes não são digeridos a tempo e chegam intactos ao intestino grosso. Lá dentro, eles atraem água por osmose e sofrem fermentação acelerada. É essa sobrecarga biológica que gera a clássica diarreia osmótica, acompanhada de cólicas e desconforto.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'O Falso Diagnóstico de Intolerância Alimentar',
+          text: 'Muitos tutores abandonam excelentes rações Super Premium logo no segundo dia por acreditarem que o cão "não se deu bem com a fórmula". Respeitar a janela de adaptação de 7 a 10 dias é indispensável para permitir que a microbiota se reorganize de forma segura.',
+        },
+      },
+      {
+        id: 'o-cronograma-de-7-dias-proporcoes-no-comedouro',
+        heading: 'O cronograma de 7 dias com as proporções no comedouro',
+        paragraphs: [
+          'Para garantir que a transição ocorra de forma imperceptível para o estômago do pet, a literatura zootécnica estabelece uma substituição escalonada de 25% a cada dois dias.',
+          'Essa cadência permite que o pâncreas ajuste o volume e a concentração das enzimas digestivas no mesmo ritmo em que a nova população bacteriana se multiplica na mucosa intestinal.',
+          'Para evitar erros de quantidade, pese a ração em uma balança de cozinha ou use copos medidores individuais para cada pacote, já que rações diferentes possuem densidades e formatos de croquetes distintos.',
+        ],
+        table: {
+          caption: 'Planejamento de transição gradual de 7 dias por porte corporal',
+          headers: ['Etapa', 'Proporção Recomendada', 'Porte Pequeno (~100g/dia)', 'Porte Médio (~250g/dia)', 'Porte Grande (~400g/dia)'],
+          rows: [
+            ['Dias 1 e 2', '75% antiga + 25% nova', '75g antiga + 25g nova', '185g antiga + 65g nova', '300g antiga + 100g nova'],
+            ['Dias 3 e 4', '50% antiga + 50% nova', '50g antiga + 50g nova', '125g antiga + 125g nova', '200g antiga + 200g nova'],
+            ['Dias 5 e 6', '25% antiga + 75% nova', '25g antiga + 75g nova', '65g antiga + 185g nova', '100g antiga + 300g nova'],
+            ['Dia 7 em diante', '100% ração nova', '100g ração nova', '250g ração nova', '400g ração nova'],
+          ],
+        },
+      },
+      {
+        id: 'sinais-de-alerta-o-que-e-esperado-e-quando-recuar',
+        heading: 'O que é normal observar nas fezes e quando recuar um passo',
+        paragraphs: [
+          'Acompanhar a consistência das fezes na hora do passeio ou no quintal é o melhor termômetro para saber se o plano está funcionando bem.',
+          'Nos primeiros dois a três dias, é natural que as fezes fiquem ligeiramente mais macias ou sofram pequenas alterações de tonalidade. Essas variações refletem a nova fonte proteica e os carboidratos recém-chegados. Se o cão estiver alegre, com apetite e as fezes continuarem moldadas, tudo segue o fluxo planejado.',
+          'Se as fezes ficarem completamente líquidas, ou se o animal apresentar mais de duas evacuações pastosas no mesmo dia, não retire a ração nova às pressas. O procedimento correto é recuar um estágio na tabela por mais dois dias.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'A Regra do Recuo Protetor',
+          text: 'Se o pet apresentar fezes moles na fase de 50/50 (Dias 3 e 4), volte imediatamente para a proporção de 75% antiga e 25% nova por mais 48 horas. Esse compasso de espera dá fôlego extra para a flora intestinal se consolidar sem desidratar o cão.',
+        },
+      },
+      {
+        id: 'transicao-entre-categorias-standard-para-super-premium',
+        heading: 'Transição entre categorias: O salto de Standard para Super Premium',
+        paragraphs: [
+          'A facilidade da troca depende da proximidade nutricional entre as duas rações. Mudar entre duas marcas da mesma categoria (como de uma Premium Especial de frango para outra de carne) costuma ser muito tranquilo.',
+          'O maior desafio fisiológico ocorre quando o tutor promove um salto de categoria, saindo de um alimento Standard ou Econômico para um Super Premium ou Super Premium Natural. Fórmulas de entrada contêm teores elevados de milho e farelos vegetais, enquanto alimentos Super Premium concentram altos níveis de extrato etéreo (gordura nobre) e farinhas de carnes nobres.',
+          'A gordura exige uma atuação muito mais intensa da bile hepática e da enzima lipase para ser quebrada. Nesses casos de grande elevação de nutrientes, o ideal é prolongar a transição para 10 ou 12 dias, aumentando a porção nova em passos menores de cerca de 10% a cada 24 horas.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Diretriz do Manual ABINPET 11ª Edição',
+          text: 'Alimentos Super Premium apresentam digestibilidade aparente da matéria orgânica superior a 85%, contra 70% a 75% em fórmulas econômicas. A maior concentração de nutrientes absorvíveis reduz o volume final das fezes, mas exige aclimatação enzimática da mucosa do intestino delgado.',
+        },
+      },
+      {
+        id: 'filhotes-e-seniores-cuidados-em-fases-vulneraveis',
+        heading: 'Cuidados redobrados na transição de filhotes e cães idosos',
+        paragraphs: [
+          'Cães em fases extremas de vida requerem supervisão próxima em qualquer mudança alimentar. Filhotes com menos de 6 meses possuem reservas energéticas muito reduzidas, e episódios de diarreia podem causar desidratação em poucas horas.',
+          'A passagem de filhote para adulto deve respeitar a idade de maturação esquelética: entre 10 e 12 meses para raças pequenas e médias, e entre 15 e 18 meses para raças grandes e gigantes. Interromper o alimento de crescimento antes do tempo priva o filhote de níveis seguros de cálcio e fósforo necessários para a formação óssea.',
+          'Em cães sêniores com mais de 7 anos, o trânsito gastrintestinal costuma ser mais vagaroso e a sensibilidade a mudanças aumenta. Adicionar uma colher de sopa de água morna sobre os croquetes ajuda a desprender os aromas naturais, estimula o olfato e torna a mastigação mais agradável para cães idosos.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'O que fazer se o cão escolher e comer apenas a ração antiga (ou apenas a nova)?',
+        a: 'Mexa bem a mistura no comedouro com uma colher e, se necessário, umedeça levemente com duas colheres de água morna. A água morna faz os aromas e os óleos das duas rações se fundirem, impedindo que o pet selecione os grãos.',
+      },
+      {
+        q: 'Posso usar probióticos ou sachês para acelerar a transição da ração?',
+        a: 'Probióticos veterinários específicos podem ajudar a reforçar a barreira intestinal, mas não anulam a necessidade dos 7 dias de transição. Evite introduzir sachês desconhecidos durante a mesma semana para não sobrecarregar o animal com duas novidades ao mesmo tempo.',
+      },
+      {
+        q: 'Cães de raças com estômago sensível devem fazer a troca em mais dias?',
+        a: 'Sim. Para raças frequentemente predispostas a fezes amolecidas ou gastrite (como Bulldog Francês, Shih Tzu, Pug e Pastor Alemão), a recomendação zootécnica é estender a transição para 10 a 14 dias com aumentos de 10% diários.',
+      },
+      {
+        q: 'Se a ração antiga acabou de repente, como agir na emergência?',
+        a: 'Se não houver alternativa, nunca sirva a porção inteira de uma vez só. Fracione a cota diária em 4 ou 5 pequenas refeições ao longo do dia para não sobrecarregar o estômago, ofereça água fresca em abundância e monitore as fezes de perto.',
+      },
+    ],
+    conclusion: 'A transição gradual de ração em 7 dias é um dos cuidados mais simples e preventivos do manejo alimentar canino. Respeitar o tempo biológico que as enzimas digestivas e as bactérias intestinais necessitam para se calibrar evita diarreias, vômitos e idas desnecessárias à clínica. Com a divisão progressiva em quatro etapas, o seu companheiro aproveita todos os benefícios do novo alimento com conforto, fezes firmes e excelente disposição.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição Oficial)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'regulamento',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Capítulo sobre exigências nutricionais de cães, parâmetros de digestibilidade aparente em Matéria Seca (MS) e manejo de transição alimentar',
+      },
+      {
+        title: 'WSAVA Global Nutrition Toolkit & Guidelines (2021 Update)',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Diretrizes clínicas para avaliação nutricional canina, resposta da microbiota intestinal a trocas dietéticas e prevenção de distúrbios entéricos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025 Edition)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/prepared-pet-foods/nutritional-guidelines.html',
+        details: 'Recomendações técnicas para adaptação da mucosa entérica e coeficientes de absorção de extrato etéreo e proteína bruta',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009 e Decreto Federal nº 12.031/2024',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+        details: 'Regulamento Técnico de Alimentos Completos para cães e requisitos oficiais de rotulagem e orientações de consumo ao tutor',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'estudo',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Fisiologia da digestão canina, cinética de enzimas pancreáticas e dinâmica osmolar no intestino delgado e grosso',
+      },
+    ],
+    callToAction: {
+      title: 'Descubra as Melhores Rações para Cães no PetRankings',
+      text: 'Confira as avaliações técnicas em Matéria Seca (MS), teores de proteína nobre, extrato etéreo e balanço mineral no catálogo oficial de cães.',
+      buttonText: 'Ver Ranking de Cães',
+      buttonUrl: '/ranking/melhores-racoes-para-caes',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
