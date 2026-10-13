@@ -128,7 +128,7 @@ export default async function ProductDetailPage({
 
   const isCoadjuvante = product.legalCategory === 'ALIMENTO_COADJUVANTE';
   const isComplementar = product.legalCategory === 'ALIMENTO_COMPLEMENTAR';
-  const isSnack = /cookie|biscoito|snack|petisco|bites/i.test(product.commercialName) || /cookie|biscoito|snack|petisco|bites/i.test(product.slug);
+  const isSnack = /cookie|biscuit|biscoito|snack|petisco|bites/i.test(product.commercialName) || /cookie|biscuit|biscoito|snack|petisco|bites/i.test(product.slug);
   const isWet = product.foodType === 'UMIDO';
 
   const initialTier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
@@ -441,7 +441,7 @@ export default async function ProductDetailPage({
                       }}
                     >
                       <Scale size={13} color="var(--brand-forest-700)" />
-                      <span>Comparar com Outra Ração</span>
+                      <span>{isSnack || isComplementar ? 'Comparar com Outro Alimento' : 'Comparar com Outra Ração'}</span>
                     </Link>
 
                     {product.affiliateLinks && product.affiliateLinks.length > 0 && (
