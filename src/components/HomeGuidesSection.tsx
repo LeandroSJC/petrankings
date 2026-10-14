@@ -12,7 +12,7 @@ interface HomeGuidesSectionProps {
 
 type SpeciesFilter = 'TODOS' | 'CAES' | 'GATOS' | 'AMBOS';
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 9;
 
 export default function HomeGuidesSection({
   allGuides,
