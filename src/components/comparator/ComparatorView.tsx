@@ -35,9 +35,13 @@ import {
 
 interface ComparatorViewProps {
   initialProducts: ComparedProduct[];
+  popularPresets?: ComparisonPreset[];
 }
 
-export default function ComparatorView({ initialProducts }: ComparatorViewProps) {
+export default function ComparatorView({
+  initialProducts,
+  popularPresets = POPULAR_COMPARISON_PRESETS,
+}: ComparatorViewProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -137,7 +141,7 @@ export default function ComparatorView({ initialProducts }: ComparatorViewProps)
           <span style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
             Duelos Frequentes:
           </span>
-          {POPULAR_COMPARISON_PRESETS.map((preset) => (
+          {popularPresets.map((preset) => (
             <button
               key={preset.id}
               onClick={() => handleSelectPreset(preset)}

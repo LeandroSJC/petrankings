@@ -5,6 +5,7 @@ import { Scale, ChevronRight } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ComparatorView from '@/components/comparator/ComparatorView';
 import { formatProductForComparison, ComparedProduct } from '@/lib/comparator';
+import { getPopularComparisonPresets } from '@/lib/services/popular-comparisons';
 import { SITE_URL } from '@/lib/utils';
 
 export async function generateMetadata({
@@ -114,6 +115,9 @@ export default async function CompararPage({
     ],
   };
 
+  // Busca os duelos mais acessados com base nos dados do Umami Analytics (com fallback)
+  const popularPresets = await getPopularComparisonPresets();
+
   return (
     <main style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh', paddingTop: '20px' }}>
       <script
@@ -200,8 +204,8 @@ export default async function CompararPage({
           </p>
         </header>
 
-        {/* COMPONENTE INTERATIVO DO COMPARADOR */}
-        <ComparatorView initialProducts={formattedProducts} />
+        {/* COMPONENTE INTERATIVO DO COMPARADOR COM DUELOS FREQUENTES DINÂMICOS */}
+        <ComparatorView initialProducts={formattedProducts} popularPresets={popularPresets} />
       </div>
     </main>
   );
