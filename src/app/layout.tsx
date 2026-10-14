@@ -103,11 +103,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${plusJakarta.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
-        {umamiWebsiteId && (
+        {process.env.NODE_ENV === 'production' && umamiWebsiteId && (
           <script
             defer
             src="https://analytics.petrankings.com.br/script.js"
             data-website-id={umamiWebsiteId}
+            data-domains="petrankings.com.br,www.petrankings.com.br"
           />
         )}
       </head>
