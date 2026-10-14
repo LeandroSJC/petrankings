@@ -66,13 +66,17 @@ async function processAll() {
       console.log(`\n================================================================`);
       console.log(`🌐 INGESTÃO DE URLs EM LOTE (${lines.length} encontradas em produtos_cadastro/urls_cadastro.txt)`);
       console.log(`================================================================\n`);
+      const skipImages =
+        process.env.SKIP_IMAGE_DOWNLOAD === 'true' ||
+        process.argv.includes('--skip-images');
+
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const isStarred = line.startsWith('*');
         const u = line.replace(/^\*\s*/, '').trim();
-        console.log(`\n👉 Ingestão [${i + 1}/${lines.length}]: ${u}${isStarred ? ' (🌟 2ª Imagem Solicitada)' : ''}`);
+        console.log(`\n👉 Ingestão [${i + 1}/${lines.length}]: ${u}${isStarred ? ' (🌟 2ª Imagem Solicitada)' : ''}${skipImages ? ' (🖼️ Modo Sem Download de Imagem - Placeholder)' : ''}`);
         try {
-          await processUrl(u, { preferSecondImage: isStarred });
+          await processUrl(u, { preferSecondImage: isStarred, skipImageDownload: skipImages });
         } catch (err: any) {
           console.error(`❌ Erro no processamento da URL ${u}:`, err.message);
         }
@@ -193,6 +197,9 @@ async function processAll() {
       } catch {
         console.warn(`   ⚠️ Falha ao baixar imagem remota.`);
       }
+    } else if (skipImages || process.env.SKIP_IMAGE_DOWNLOAD === 'true' || process.argv.includes('--skip-images')) {
+      destImgRel = meta.species === 'GATO' ? '/uploads/placeholder-gato.webp' : '/uploads/placeholder-cao.webp';
+      console.log(`   🐾 Atribuído placeholder minimalista padrão para ${meta.species === 'GATO' ? 'GATOS' : 'CÃES'}: ${destImgRel}`);
     } else {
       console.warn(`⚠️ [AVISO] Imagem correspondente não encontrada para: "${baseName}" e produto não possui imagem anterior. Ignorado.`);
       continue;

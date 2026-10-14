@@ -973,6 +973,8 @@ export function parseProductFromHtml(
   } else if (isPetFoodSolution) {
     if (/croc-gatos-castrados/i.test(sourceUrl)) {
       rawName = 'Special Croc Gatos Castrados';
+    } else if (/prohealth-caes-filhotesrp/i.test(sourceUrl)) {
+      rawName = 'ProHealth Cães Filhotes Raças Pequenas';
     } else {
       let t = $('title').text().replace(/\|\s*Pet\s*Food\s*Solution.*$/i, '').trim();
       t = t.replace(/\s*-\s*/g, ' ');

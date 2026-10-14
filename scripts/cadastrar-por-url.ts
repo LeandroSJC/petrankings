@@ -205,7 +205,7 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
   return false;
 }
 
-export async function processUrl(url: string, options?: { preferSecondImage?: boolean }) {
+export async function processUrl(url: string, options?: { preferSecondImage?: boolean; skipImageDownload?: boolean }) {
   console.log(`\n================================================================`);
   console.log(`🌐 INGESTÃO DIRETA POR URL`);
   console.log(`🔗 Alvo: ${url}${options?.preferSecondImage ? ' (🌟 2ª Imagem Solicitada)' : ''}`);
@@ -284,18 +284,42 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
 
   const destHtmlRel = `/uploads/ficha_${productId}.html`;
 
-  let destImgRel = existing?.frontLabelImageUrl || `/uploads/produto_${productId}.webp`;
-  if (meta.imageUrl) {
-    const destImgPath = path.join(process.cwd(), 'public', destImgRel);
+  const skipImageDownload =
+    options?.skipImageDownload ||
+    process.env.SKIP_IMAGE_DOWNLOAD === 'true' ||
+    process.argv.includes('--skip-images');
+
+  const defaultPlaceholder =
+    meta.species === 'GATO' ? '/uploads/placeholder-gato.webp' : '/uploads/placeholder-cao.webp';
+
+  let destImgRel = existing?.frontLabelImageUrl || defaultPlaceholder;
+
+  if (skipImageDownload) {
+    if (!existing?.frontLabelImageUrl || existing.frontLabelImageUrl.includes('placeholder')) {
+      destImgRel = defaultPlaceholder;
+      console.log(`🖼️ [Placeholder Padrão] Download remoto ignorado a pedido do curador.`);
+      console.log(`   🐾 Atribuído placeholder minimalista oficial: ${destImgRel}`);
+    } else {
+      console.log(`🖼️ [Imagem Mantida] Download ignorado; mantendo packshot existente: ${destImgRel}`);
+    }
+  } else if (meta.imageUrl) {
+    const targetImgRel =
+      destImgRel.includes('placeholder') || !destImgRel
+        ? `/uploads/produto_${productId}.webp`
+        : destImgRel;
+    const destImgPath = path.join(process.cwd(), 'public', targetImgRel);
     console.log(`🖼️ Baixando packshot oficial em alta resolução (${meta.imageUrl})...`);
     const imgOk = await downloadImage(meta.imageUrl, destImgPath);
     if (!imgOk) {
       console.warn('⚠️ Falha ao baixar imagem remota para armazenamento local.');
-      const localFileExists = existing?.frontLabelImageUrl && fs.existsSync(path.join(process.cwd(), 'public', existing.frontLabelImageUrl.replace(/^\//, '')));
+      const localFileExists =
+        existing?.frontLabelImageUrl &&
+        fs.existsSync(path.join(process.cwd(), 'public', existing.frontLabelImageUrl.replace(/^\//, '')));
       if (!localFileExists) {
         destImgRel = meta.imageUrl;
       }
     } else {
+      destImgRel = targetImgRel;
       console.log(`✅ Imagem salva em: public${destImgRel}`);
     }
   }

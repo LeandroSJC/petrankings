@@ -66,7 +66,8 @@ async function run() {
     const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
     // 1. Executa o script de cadastro de produtos
     console.log('🐾 [Cadastro] Executando análise de rótulos e cadastro...');
-    execSync('npx tsx --env-file=.env scripts/cadastrar-produtos.ts', {
+    const extraArgs = process.argv.slice(2).join(' ');
+    execSync(`npx tsx --env-file=.env scripts/cadastrar-produtos.ts ${extraArgs}`.trim(), {
       stdio: 'inherit',
       cwd: process.cwd(),
     });
