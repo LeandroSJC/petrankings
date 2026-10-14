@@ -2,17 +2,18 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Shield, Cookie, ChevronRight } from 'lucide-react';
+import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade e Cookies | PetRankings',
   description: 'Conheça nossa política de privacidade, uso de cookies e conformidade com a LGPD e GDPR no portal PetRankings.',
   alternates: {
-    canonical: '/politica-de-privacidade',
+    canonical: `${SITE_URL}/politica-de-privacidade`,
   },
   openGraph: {
     title: 'Política de Privacidade e Cookies | PetRankings',
     description: 'Conheça nossa política de privacidade, uso de cookies e conformidade com a LGPD e GDPR no portal PetRankings.',
-    url: '/politica-de-privacidade',
+    url: `${SITE_URL}/politica-de-privacidade`,
   },
 };
 

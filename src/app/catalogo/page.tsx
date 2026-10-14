@@ -4,16 +4,17 @@ import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import HomeAuditView, { ProductItemData } from '@/components/HomeAuditView';
 import { Database, ChevronRight } from 'lucide-react';
+import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Catálogo Geral de Rações Analisadas — PetRankings',
   description:
     'Consulte a análise nutricional em Matéria Seca (MS), ingredientes oficiais e índice de conformidade ABINPET do catálogo oficial de alimentos para cães e gatos.',
   alternates: {
-    canonical: '/catalogo',
+    canonical: `${SITE_URL}/catalogo`,
   },
   openGraph: {
-    url: '/catalogo',
+    url: `${SITE_URL}/catalogo`,
     title: 'Catálogo Geral de Rações Analisadas — PetRankings',
     description:
       'Filtre e compare alimentos para cães e gatos com base nos sites oficiais dos fabricantes e normas da ABINPET e MAPA.',

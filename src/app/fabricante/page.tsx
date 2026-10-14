@@ -1,19 +1,20 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import FabricanteClient from './FabricanteClient';
+import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Portal do Fabricante — Solicitação de Atualização Oficial | PetRankings',
   description:
     'Canal direto e transparente para fabricantes e responsáveis técnicos solicitarem atualização de páginas oficiais, novos lotes ou retificação de dados nutricionais.',
   alternates: {
-    canonical: '/fabricante',
+    canonical: `${SITE_URL}/fabricante`,
   },
   openGraph: {
     title: 'Portal do Fabricante — PetRankings',
     description:
       'Canal oficial para fabricantes e responsáveis técnicos solicitarem atualização de páginas oficiais e dados nutricionais.',
-    url: '/fabricante',
+    url: `${SITE_URL}/fabricante`,
     siteName: 'PetRankings',
     locale: 'pt_BR',
     type: 'website',

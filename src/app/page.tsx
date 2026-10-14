@@ -22,10 +22,10 @@ export const metadata: Metadata = {
   description:
     'Estudos técnicos comparativos, duelos de marcas, análises bromatológicas em Matéria Seca (MS) e catálogo de fichas técnicas oficiais de alimentos para cães e gatos.',
   alternates: {
-    canonical: '/',
+    canonical: `${SITE_URL}/`,
   },
   openGraph: {
-    url: '/',
+    url: `${SITE_URL}/`,
     title: 'PetRankings — Observatório Independente de Nutrição Pet no Brasil',
     description:
       'Compare a qualidade real da ração do seu pet com análises em Matéria Seca (MS) baseadas nos sites oficiais dos fabricantes e normas da ABINPET.',

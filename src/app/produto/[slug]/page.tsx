@@ -56,13 +56,35 @@ export async function generateMetadata({
     return { title: 'Produto Não Encontrado — PetRankings' };
   }
 
+  const canonicalUrl = `${SITE_URL}/produto/${slug}`;
+  const title = `Avaliação Nutricional: ${product.commercialName} — PetRankings`;
+  const description =
+    product.editorialOpinion ||
+    `Avaliação técnica documental de ${product.commercialName}. Avaliação nutricional em Matéria Seca conforme parâmetros da ABINPET e MAPA.`;
+
+  const ogImages = product.frontLabelImageUrl
+    ? [
+        {
+          url: product.frontLabelImageUrl.startsWith('http')
+            ? product.frontLabelImageUrl
+            : `${SITE_URL}${product.frontLabelImageUrl.startsWith('/') ? '' : '/'}${product.frontLabelImageUrl}`,
+          alt: product.commercialName,
+        },
+      ]
+    : undefined;
+
   return {
-    title: `Avaliação Nutricional: ${product.commercialName} — PetRankings`,
-    description:
-      product.editorialOpinion ||
-      `Avaliação técnica documental de ${product.commercialName}. Avaliação nutricional em Matéria Seca conforme parâmetros da ABINPET e MAPA.`,
+    title,
+    description,
     alternates: {
-      canonical: `/produto/${slug}`,
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      url: canonicalUrl,
+      type: 'website',
+      title,
+      description,
+      images: ogImages,
     },
   };
 }

@@ -2777,7 +2777,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-13',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/transicao-racao-caes-troca-gradual-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary: 'Aprenda como fazer a transição gradual de ração para cães em 7 dias. Entenda a adaptação das enzimas digestivas e da microbiota intestinal, por que trocas bruscas geram diarreia osmótica e confira a tabela prática de proporções dia a dia.',
     relatedProductSlugs: [],
     sections: [
@@ -2914,6 +2914,156 @@ export const GUIDES: GuideItem[] = [
       text: 'Confira as avaliações técnicas em Matéria Seca (MS), teores de proteína nobre, extrato etéreo e balanço mineral no catálogo oficial de cães.',
       buttonText: 'Ver Ranking de Cães',
       buttonUrl: '/ranking/melhores-racoes-para-caes',
+    },
+  },
+  {
+    slug: 'racao-grain-free-brasil-mitos-carboidratos-abinpet',
+    title: 'Rações Grain Free no Brasil: O que a ciência da ABINPET diz sobre fórmulas sem grãos?',
+    subtitle: 'Análise técnica sobre digestibilidade do amido, substituição por leguminosas e o que realmente muda na saúde de cães e gatos.',
+    cluster: 'Ingredientes & Rótulos',
+    speciesTarget: 'Cães e Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-14',
+    updatedAt: '2026-10-14',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/grain-free-racao-pet-cover.webp',
+    isFeatured: true,
+    summary:
+      'Investigamos a ciência por trás do apelo sem grãos. Entenda a digestibilidade do amido cozido em cães e gatos, o impacto da substituição por ervilhas e batatas, e as orientações da ABINPET e da FDA sobre o assunto.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'origem-do-apelo-grain-free',
+        heading: '1. Como surgiu o apelo sem grãos e o que ele promete ao tutor?',
+        paragraphs: [
+          'Ao caminhar pelas prateleiras do pet shop ou pesquisar lojas online, o tutor frequentemente encontra pacotes com destaque para as expressões "Grain Free", "Livre de Grãos" ou "Zero Cereais". Em média, essas fórmulas custam entre 30% e 60% a mais do que rações convencionais da mesma categoria.',
+          'Esse apelo comercial ganhou força nos Estados Unidos e na Europa há mais de uma década, impulsionado por tendências da nutrição humana, como dietas sem glúten e dietas paleolíticas. A narrativa sugere que cães e gatos, por descenderem de predadores selvagens, não deveriam consumir grãos como arroz, milho ou trigo.',
+          'No entanto, a zootecnia moderna e os manuais de nutrição animal apontam que avaliar a qualidade de um alimento apenas pela presença ou ausência de grãos simplifica em excesso a digestibilidade real dos nutrientes.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal perante a IN MAPA nº 30/2009',
+          text: 'O termo "Grain Free" é um claim comercial de rotulagem e não constitui uma classe regulatória oficial do Ministério da Agricultura (MAPA). No registro oficial, todo produto dessa linha é categorizado compulsoriamente como "Alimento Completo para Animais de Companhia".',
+        },
+      },
+      {
+        id: 'digestibilidade-amido-cozido',
+        heading: '2. Cães e gatos conseguem digerir carboidratos e grãos?',
+        paragraphs: [
+          'Um dos maiores mitos da nutrição pet é a afirmação de que cães e gatos são incapazes de digerir grãos. Na natureza, um carnívoro realmente não aproveita grãos crus, pois a estrutura cristalina do amido cru resiste às enzimas do trato digestivo.',
+          'Na fabricação das rações secas, os grãos passam pelo processo industrial de extrusão, que combina calor, pressão e umidade controlada. Esse cozimento térmico quebra a estrutura rígida do amido, processo zootécnico chamado de gelatinização.',
+          'Conforme dados do Manual Pet Food Brasil da ABINPET (11ª Edição), o amido adequadamente gelatinizado atinge taxas de digestibilidade superiores a 90% em cães e a 85% em gatos. O cão doméstico possui múltiplas cópias do gene AMY2B (produtor de amilase pancreática), adaptação evolutiva desenvolvida ao longo de milênios convivendo e compartilhando alimentos com humanos.',
+          'Gatos são carnívoros estritos e aproveitam melhor proteínas e gorduras como fonte prioritária de energia. Ainda assim, felinos saudáveis digerem o amido cozido em proporções moderadas com alta eficiência, utilizando a glicose como combustível para o cérebro e órgãos vitais.',
+        ],
+      },
+      {
+        id: 'troca-por-tuberculos-e-leguminosas',
+        heading: '3. A substituição nos ingredientes: Se não há grãos, de onde vem o amido?',
+        paragraphs: [
+          'Para que uma ração seca mantenha o formato do croquete sem virar pó dentro do saco, a massa precisa de amido para criar a liga física durante a extrusão. Sem amido, a produção industrial de croquetes secos convencionais é tecnicamente inviável.',
+          'Nas fórmulas Grain Free, os fabricantes retiram cereais como arroz, milho ou aveia e os substituem por tubérculos (como fécula de mandioca e batata-doce) ou leguminosas (como ervilha, lentilha e grão-de-bico).',
+          'Isso significa que ração sem grão não é sinônimo de ração sem carboidrato. Muitas vezes, a quantidade total de carboidratos em uma ração Grain Free é bastante semelhante à de uma ração Super Premium baseada em arroz integral.',
+        ],
+        table: {
+          caption: 'Comparativo de Fontes de Carboidratos em Pet Food (Manual ABINPET 11ª Edição)',
+          headers: ['Fonte Utilizada', 'Tipo de Ingrediente', 'Digestibilidade Típica do Amido', 'Papel Fisiológico Principal'],
+          rows: [
+            ['Quirera de Arroz / Arroz Integral', 'Grão Cereal', 'Alta (> 95% após extrusão)', 'Energia limpa, baixíssimo potencial alergênico e digestão suave.'],
+            ['Milho Moído Gelatinizado', 'Grão Cereal', 'Alta (> 90% cozido)', 'Energia calórica, fornecimento de carotenoides e ácidos graxos essenciais.'],
+            ['Fécula de Mandioca / Batata', 'Tubérculo', 'Alta (> 92% cozido)', 'Formação de croquetes, alternativa para animais intolerantes a cereais.'],
+            ['Ervilha / Lentilha moída', 'Leguminosa', 'Moderada a Alta (85% a 90%)', 'Aporte de fibras solúveis e fração proteica vegetal secundária.'],
+          ],
+        },
+      },
+      {
+        id: 'alerta-fda-coracao-caes',
+        heading: '4. O alerta sanitário da FDA e a questão da saúde cardíaca',
+        paragraphs: [
+          'Entre 2018 e 2022, a agência regulatória norte-americana FDA (Food and Drug Administration) emitiu comunicados públicos investigando centenas de casos de cardiomiopatia dilatada (DCM) em cães alimentados com dietas rotuladas como Grain Free.',
+          'A suspeita inicial recaía sobre a ausência de grãos, mas estudos veterinários posteriores demonstraram que o problema estava ligado ao excesso concentrado de leguminosas (ervilhas, lentilhas e sementes de leguminosas) nas fórmulas.',
+          'Em grandes quantidades, essas leguminosas podem interferir na absorção e na biodisponibilidade de aminoácidos essenciais, especialmente a taurina e a metionina, nutrientes indispensáveis para o músculo cardíaco canino.',
+          'Nas atualizações mais recentes da FDA e da comunidade cardiológica veterinária, constatou-se que o problema é multifatorial, dependendo da predisposição genética da raça, do equilíbrio dos aminoácidos e do processamento fabril. Não houve proibição de ingredientes, mas o episódio reforçou a necessidade de equilíbrio e cautela com dietas experimentais.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Atenção aos Ingredientes Particionados',
+          text: 'Fique atento ao rótulo se notar o mesmo vegetal listado sob vários nomes nos primeiros lugares (exemplo: "ervilha inteira", "farinha de ervilha" e "fibra de ervilha"). Essa divisão técnica pode mascarar que a ervilha é o ingrediente em maior quantidade na fórmula, superando até a quantidade de carne.',
+        },
+      },
+      {
+        id: 'quando-vale-a-pena',
+        heading: '5. Quando a ração livre de grãos é realmente necessária?',
+        paragraphs: [
+          'Ao contrário do que muitos tutores acreditam, a alergia alimentar verdadeira a grãos é rara em cães e gatos. Levantamentos dermatológicos veterinários revelam que mais de 85% das alergias e intolerâncias alimentares comprovadas são provocadas por fontes proteicas animais comuns, como carne de frango ou carne bovina, e não pelo arroz ou milho.',
+          'A alimentação Grain Free torna-se genuinamente indicada quando o animal passa por um protocolo de eliminação com diagnóstico veterinário formal de hipersensibilidade específica a cereais, apresentando coceiras persistentes ou fezes pastosas com dietas tradicionais.',
+          'Outra vantagem real de determinadas linhas sem grãos do mercado é que vários fabricantes aproveitam a ausência de cereais para elevar substancialmente a porcentagem de carne fresca e farinhas de alta qualidade (Low Ash), o que beneficia especialmente os gatos por sua exigência carnívora natural.',
+        ],
+      },
+      {
+        id: 'como-avaliar-o-rotulo',
+        heading: '6. Como o tutor deve avaliar a embalagem no pet shop?',
+        paragraphs: [
+          'Mais importante do que a presença do selo sem grãos na frente do pacote é verificar o teor de proteína bruta e o nível de matéria mineral em Matéria Seca (MS), além da lista oficial de ingredientes na ordem decrescente.',
+          'Se os dois ou três primeiros itens forem carnes ou farinhas de vísceras de alta qualidade com conservação por antioxidantes naturais (tocoferóis e alecrim), o alimento entregará alto valor biológico para o pet, contenha ele arroz integral ou fécula de mandioca.',
+          'Caso o tutor opte por uma ração Grain Free, a recomendação prática é verificar se a fórmula é enriquecida com taurina e se o produto é fabricado por uma empresa com histórico sólido de controle de qualidade e equipe zootécnica comprovada.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Ração com grãos faz mal para a saúde do cachorro ou do gato?',
+        a: 'Não. Quando cozidos adequadamente no processo industrial de extrusão, grãos como arroz e milho tornam-se altamente digeríveis (acima de 90%), fornecendo energia limpa, ácidos graxos essenciais e fibras que auxiliam na consistência das fezes.',
+      },
+      {
+        q: 'Ração Grain Free engorda menos do que a ração tradicional?',
+        a: 'Não necessariamente. Para dar liga ao croquete, os grãos são substituídos por mandioca, batata ou ervilha, que também são fontes de carboidratos. O ganho de peso depende do consumo calórico total diário e da gordura da fórmula, não da presença de grãos.',
+      },
+      {
+        q: 'Meu pet tem alergia e coceira constante. Trocar para Grain Free vai resolver?',
+        a: 'Nem sempre. A maioria das coceiras persistentes em cães e gatos decorre de alergia à própria picada de pulgas (chamada pelos veterinários de DASP ou DAPE, a dermatite alérgica à saliva da pulga) ou de sensibilidade a proteínas animais comuns (como frango ou bovino). A alergia a grãos é rara na rotina clínica. Antes de trocar de ração por conta própria, consulte o médico-veterinário para um diagnóstico dermatológico correto.',
+      },
+      {
+        q: 'O que devo conferir no rótulo antes de comprar uma ração sem grãos?',
+        a: 'Verifique se os primeiros ingredientes são fontes de proteína animal de qualidade, se a conservação é feita com antioxidantes naturais (tocoferóis) e se a fórmula contém suplementação de taurina, essencial para a saúde do coração e da visão.',
+      },
+    ],
+    conclusion:
+      'A escolha entre uma ração tradicional e uma fórmula Grain Free deve ser guiada pelas necessidades individuais do pet e pela qualidade global dos ingredientes, nunca apenas pelo apelo da embalagem. Cães e gatos saudáveis aproveitam os carboidratos cozidos com excelente eficiência digestiva. Ao avaliar um alimento, priorize a densidade proteica animal na Matéria Seca, a moderação mineral e a segurança dos conservantes declarados na rotulagem oficial.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Capítulo sobre Digestibilidade de Fontes Energéticas e Carboidratos Extrusados para Cães e Gatos.',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/quality-safety/nutritional-guidelines/',
+        details: 'Diretrizes oficiais sobre gelatinização do amido, requisitos de carboidratos e suplementação de aminoácidos sulfurados.',
+      },
+      {
+        title: 'FDA Investigation into Potential Connection between Certain Diets and Canine Dilated Cardiomyopathy',
+        institution: 'U.S. Food and Drug Administration (FDA - Center for Veterinary Medicine)',
+        type: 'estudo',
+        url: 'https://www.fda.gov/animal-veterinary/outbreaks-and-advisories/fda-investigation-potential-connection-between-certain-diets-and-canine-dilated-cardiomyopathy',
+        details: 'Relatórios epidemiológicos e atualizações científicas sobre leguminosas, biodisponibilidade de taurina e saúde cardíaca.',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009 e Decreto Federal nº 12.031/2024',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+        details: 'Critérios oficiais de rotulagem, classificação legal de alimentos completos e veracidade de claims nutricionais.',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte a Avaliação Técnica de Alimentos no PetRankings',
+      text: 'Explore a análise nutricional em Matéria Seca (MS), ingredientes declarados e conformidade ABINPET de centenas de produtos em nosso catálogo.',
+      buttonText: 'Acessar Catálogo Completo',
+      buttonUrl: '/catalogo',
     },
   },
 ];

@@ -137,7 +137,13 @@ export async function POST(req: NextRequest) {
     }
 
     if (existingProduct && body.forceDuplicate) {
-      slug = `${slug}-${Date.now().toString().slice(-4)}`;
+      let candidateSlug = slug;
+      let counter = 2;
+      while (await prisma.product.findUnique({ where: { slug: candidateSlug }, select: { id: true } })) {
+        candidateSlug = `${slug}-${counter}`;
+        counter++;
+      }
+      slug = candidateSlug;
     }
 
     const product = await prisma.product.create({

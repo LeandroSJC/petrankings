@@ -10,19 +10,20 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Metodologia e Diretrizes Científicas — PetRankings',
   description:
     'Conheça a fundamentação científica, o cálculo em Matéria Seca (MS), a estimativa de Energia Metabolizável (NRC/ABINPET), a matriz de 4 pilares e as 4 faixas de conformidade.',
   alternates: {
-    canonical: '/sobre',
+    canonical: `${SITE_URL}/sobre`,
   },
   openGraph: {
     title: 'Metodologia e Diretrizes Científicas — PetRankings',
     description:
       'Conheça a fundamentação científica, o cálculo em Matéria Seca, a estimativa de Energia Metabolizável (NRC/ABINPET) e as faixas de conformidade.',
-    url: '/sobre',
+    url: `${SITE_URL}/sobre`,
     siteName: 'PetRankings',
     locale: 'pt_BR',
     type: 'article',

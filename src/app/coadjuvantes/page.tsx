@@ -4,13 +4,20 @@ import Link from 'next/link';
 import { Stethoscope, ShieldAlert, ChevronRight } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ProductCard from '@/components/ProductCard';
+import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Catálogo de Alimentos Coadjuvantes — PetRankings',
   description:
     'Catálogo exclusivo de rações e alimentos com indicação veterinária específica (Renal, Urinário, Obesidade, Hepático). Sem nota comparativa de ranking geral.',
   alternates: {
-    canonical: '/coadjuvantes',
+    canonical: `${SITE_URL}/coadjuvantes`,
+  },
+  openGraph: {
+    url: `${SITE_URL}/coadjuvantes`,
+    title: 'Catálogo de Alimentos Coadjuvantes — PetRankings',
+    description:
+      'Catálogo exclusivo de rações e alimentos com indicação veterinária específica (Renal, Urinário, Obesidade, Hepático).',
   },
 };
 

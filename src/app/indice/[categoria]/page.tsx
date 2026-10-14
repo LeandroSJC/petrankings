@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { PawPrint, ChevronRight } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import ProductCard from '@/components/ProductCard';
+import { SITE_URL } from '@/lib/utils';
 
 interface CategoriaConfig {
   title: string;
@@ -56,11 +57,18 @@ export async function generateMetadata({
     return { title: 'Categoria Não Encontrada — PetRankings' };
   }
 
+  const canonicalUrl = `${SITE_URL}/indice/${categoria}`;
+
   return {
     title: `${config.title} — PetRankings`,
     description: config.description,
     alternates: {
-      canonical: `/indice/${categoria}`,
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      url: canonicalUrl,
+      title: `${config.title} — PetRankings`,
+      description: config.description,
     },
   };
 }
