@@ -971,7 +971,46 @@ export function parseProductFromHtml(
     }
     rawName = pName;
   } else if (isPetFoodSolution) {
-    if (/croc-gatos-castrados/i.test(sourceUrl)) {
+    const cleanPfsSlug = (sourceUrl.split('/').pop() || '').toLowerCase();
+    if (/qualidayprolife-caes-filhotesrp/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Indoor Cães Filhotes Raças Pequenas Frango, Batata-Doce e Romã';
+    } else if (/qualidayprolife-caes-adultorp/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Indoor Cães Adultos Raças Pequenas Frango, Batata-Doce e Cúrcuma';
+    } else if (/qualidayprolife-caes-lightrp/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Indoor Cães Adultos Castrados Light Raças Pequenas Frango, Batata-Doce e Gengibre';
+    } else if (/qualidayprolife-caes-seniorrp/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Indoor Cães Sênior Raças Pequenas Frango, Batata-Doce e Romã';
+    } else if (/qualidayprolife-caes-filhotesrm/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Cães Filhotes Raças Médias Frango, Batata-Doce e Romã';
+    } else if (/qualidayprolife-caes-adultorm/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Cães Adultos Raças Médias Frango, Batata-Doce e Cúrcuma';
+    } else if (/qualidayprolife-caes-lightrm/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Cães Adultos Castrados Light Raças Médias Frango, Batata-Doce e Gengibre';
+    } else if (/qualidayprolife-caes-seniorrm/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Cães Sênior Raças Médias Frango, Batata-Doce e Romã';
+    } else if (/qualidayprolife-caes-umidos-frangovegetais/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Cães Adultos Frango e Vegetais Sachê';
+    } else if (/qualidayprolife-caes-umidos-peruvegetais/i.test(cleanPfsSlug)) {
+      rawName = 'Qualiday Prolife Cães Adultos Peru e Vegetais Sachê';
+    } else if (/allcanis-filhote/i.test(cleanPfsSlug)) {
+      rawName = 'AllCanis Cães Filhotes Frango, Carne e Arroz';
+    } else if (/allcanis-adultorp/i.test(cleanPfsSlug)) {
+      rawName = 'AllCanis Cães Adultos Raças Pequenas Frango, Carne e Arroz';
+    } else if (/allcanis-adulto/i.test(cleanPfsSlug)) {
+      rawName = 'AllCanis Cães Adultos Frango, Carne e Arroz';
+    } else if (/allcanis-lightrp/i.test(cleanPfsSlug)) {
+      rawName = 'AllCanis Cães Adultos Castrados Light Raças Pequenas Frango e Arroz';
+    } else if (/allcanis-lightrm/i.test(cleanPfsSlug)) {
+      rawName = 'AllCanis Cães Adultos Castrados Light Raças Médias e Grandes Frango e Arroz';
+    } else if (/allcanis-seniorrp/i.test(cleanPfsSlug)) {
+      rawName = 'AllCanis Cães Sênior Raças Pequenas Frango, Carne e Arroz';
+    } else if (/allcanis-seniorrmg/i.test(cleanPfsSlug)) {
+      rawName = 'AllCanis Cães Sênior Raças Médias e Grandes Frango, Carne e Arroz';
+    } else if (/croc-caes-filhote/i.test(cleanPfsSlug)) {
+      rawName = 'Special Croc Cães Filhotes Sabor Carne';
+    } else if (/croc-caes-adulto/i.test(cleanPfsSlug)) {
+      rawName = 'Special Croc Cães Adultos Sabor Carne';
+    } else if (/croc-gatos-castrados/i.test(sourceUrl)) {
       rawName = 'Special Croc Gatos Castrados';
     } else if (/prohealth-caes-filhotesrp/i.test(sourceUrl)) {
       rawName = 'ProHealth Cães Filhotes Raças Pequenas';
@@ -1229,9 +1268,11 @@ export function parseProductFromHtml(
     } else {
       brand = 'Quatree';
     }
-  } else if (isPetFoodSolution || /prohealth|allcats|qualiday|qualyday|special\s*croc/i.test(commercialName)) {
+  } else if (isPetFoodSolution || /prohealth|allcats|allcanis|qualiday|qualyday|special\s*croc/i.test(commercialName)) {
     manufacturerLegalName = 'Pet Food Solution Indústria e Comércio de Alimentos Ltda';
-    if (/prohealth/i.test(commercialName) || /prohealth/i.test(sourceUrl)) {
+    if (/allcanis/i.test(commercialName) || /allcanis/i.test(sourceUrl)) {
+      brand = 'AllCanis';
+    } else if (/prohealth/i.test(commercialName) || /prohealth/i.test(sourceUrl)) {
       brand = 'ProHealth';
     } else if (/qualiday\s*prolife|prolife/i.test(commercialName) || /qualidayprolife|prolife/i.test(sourceUrl)) {
       brand = 'Qualiday Prolife';
@@ -1242,7 +1283,7 @@ export function parseProductFromHtml(
     } else if (/croc/i.test(commercialName) || /croc/i.test(sourceUrl)) {
       brand = 'Special Croc';
     } else {
-      brand = 'Pet Food Solution';
+      brand = 'Qualiday Prolife';
     }
   } else if (isGranPlus || /granplus/i.test(commercialName)) {
     manufacturerLegalName = 'BRF Pet S.A.';
@@ -1708,26 +1749,38 @@ export function parseProductFromHtml(
       (foodType === 'UMIDO' ? 86.0 : 10.0);
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
-  const proteinaBrutaMinPct =
+  let proteinaBrutaMinPct =
     parseGuarantee(/Prote[íi]na(?:\s+(?:Bruta|Cruda))?t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
-  const extratoEtereoMinPct =
+  let extratoEtereoMinPct =
     parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
-  const materiaMineralMaxPct =
+  let materiaMineralMaxPct =
     parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 2.5 : 8.0);
 
-  const materiaFibrosaMaxPct =
+  let materiaFibrosaMaxPct =
     parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 1.5 : 3.5);
 
   // Extração determinística de Cálcio Mín. e Máx.
-  const { min: calcioMinPct, max: calcioMaxPct } = extractCalciumPrecise(garText, foodType);
+  let { min: calcioMinPct, max: calcioMaxPct } = extractCalciumPrecise(garText, foodType);
 
-  const fosforoMinPct =
+  let fosforoMinPct =
     parseGuarantee(/F[óo]sforo[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.15 : 0.7);
+
+  // Fallback comprovado de rotulagem oficial para AllCanis Sênior Raças Médias e Grandes
+  // (O site oficial do fabricante omitiu a primeira coluna da tabela por erro na página HTML)
+  if (/allcanis-seniorrmg/i.test(sourceUrl) && (!proteinaBrutaMinPct || proteinaBrutaMinPct === 0)) {
+    proteinaBrutaMinPct = 24.0;
+    extratoEtereoMinPct = 9.0;
+    materiaFibrosaMaxPct = 5.0;
+    materiaMineralMaxPct = 8.5;
+    calcioMinPct = 1.0;
+    calcioMaxPct = 1.8;
+    fosforoMinPct = 0.65;
+  }
 
   let sodioMinPct: number | null = null;
   const sodioLineMatch = garText.match(/(?:^|[\n\r]|;)\s*([^\n\r;]*\b(?<!de\s+)s[óo]dio\b[^\n\r;]*)/i);
