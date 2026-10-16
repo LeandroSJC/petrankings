@@ -3066,6 +3066,180 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'premier-formula-vs-farmina-nd-gatos',
+    title: 'PremieR Formula vs Farmina N&D para gatos: O que muda na prática além dos carboidratos?',
+    subtitle: 'Confronto técnico e bromatológico entre a fórmula Super Premium tradicional e a linha Super Premium Natural de grãos ancestrais para felinos castrados.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-15',
+    updatedAt: '2026-10-15',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/premier-vs-farmina-nd-duel-cover.webp',
+    isFeatured: true,
+    summary:
+      'Análise técnica comparativa entre PremieR Formula Gatos Castrados e Farmina N&D Ancestral Grain Feline Frango & Romã Castrados. Confrontamos níveis de proteína na Matéria Seca (MS), fontes de carboidratos (grãos ancestrais vs transgênicos), inclusão de carnes nobres e controle de minerais para a proteção renal.',
+    relatedProductSlugs: [
+      'premier-formula-gatos-castrados-frango',
+      'ned-ancestral-grain-feline-frango-e-roma-castrados',
+    ],
+    sections: [
+      {
+        id: 'posicionamento-e-proposta-nutricional',
+        heading: '1. Super Premium Tradicional vs Super Premium Natural: O Que Cada Rótulo Propõe',
+        paragraphs: [
+          'Diante da gôndola do pet shop, tutores de felinos castrados frequentemente encontram duas referências de prestígio no segmento de alta performance: a PremieR Formula Gatos Castrados Frango, desenvolvida pela fabricante brasileira Grandfood, e a Farmina N&D Ancestral Grain Feline Frango & Romã Castrados, formulada pela multinacional de origem italiana Farmina Pet Foods.',
+          'Ambos os produtos são registrados perante o Ministério da Agricultura e Pecuária (MAPA) sob a categoria legal obrigatória de "Alimento Completo para Gatos", conforme a Instrução Normativa MAPA nº 30/2009. Isso certifica que cada porção atende a 100% das exigências nutricionais diárias do animal adulto sem necessidade de qualquer complementação.',
+          'A disparidade entre as duas linhas reside na filosofia de formulação. Enquanto a PremieR Formula adota o padrão Super Premium clássico do mercado nacional, combinando farinhas proteicas de alta digestibilidade com cereais convencionais (arroz e milho), a Farmina N&D estrutura-se no conceito de Super Premium Natural (Low Grain), priorizando carnes nobres desidratadas e cereais ancestrais de baixo índice glicêmico.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal e Convenções Industriais (IN MAPA nº 30/2009)',
+          text: 'O termo "Super Premium" ou "Natural" não existe como categoria legal formal perante o MAPA. Trata-se de convenções industriais balizadas pelo Manual Pet Food Brasil da ABINPET para diferenciar teores proteicos, fontes cárneas e sistemas de conservação.',
+        },
+      },
+      {
+        id: 'confronto-bromatologico-materia-seca',
+        heading: '2. Níveis de Garantia Confrontados em Matéria Seca (MS)',
+        paragraphs: [
+          'Para comparar o valor nutricional de forma justa, eliminamos a umidade residual das embalagens através da conversão para Matéria Seca (MS), conforme metodologia oficial do Manual ABINPET. A embalagem da PremieR Formula declara 10% de umidade máxima (restando 90% de MS), enquanto a N&D Ancestral Grain apresenta 9% de umidade (91% de MS).',
+          'Ao anular a água dos croquetes, a disparidade proteica torna-se evidente. A Farmina N&D Ancestral Grain entrega 41,75% de Proteína Bruta na Matéria Seca (38,0% em Matéria Natural), enquanto a PremieR Formula fornece 37,22% de Proteína Bruta na MS (33,5% em MN). São 4,53 pontos percentuais a mais de proteína útil na N&D.',
+          'Em carnívoros estritos como os felinos, uma concentração proteica mais densa é decisiva após a castração. A proteína preserva a musculatura esquelética ativa enquanto o animal utiliza calorias moderadas no dia a dia, prevenindo a perda de massa magra comum em dietas de restrição calórica.',
+          'No teor de gordura (Extrato Etéreo), ambas as formulações mantêm limites adequados para conter o ganho de peso: a PremieR Formula entrega 12,22% MS (11,0% MN) e a N&D Ancestral Grain apresenta 10,98% MS (10,0% MN). Na Matéria Mineral (Cinzas), a PremieR declara teto de 8,89% MS (8,0% MN) e a N&D entrega 9,12% MS (8,3% MN), patamares equilibrados que sinalizam matérias-primas cárneas com baixo resíduo ósseo.',
+        ],
+        table: {
+          caption: 'Quadro Comparativo de Níveis de Garantia Oficiais (Matéria Seca - MS) | PetRankings',
+          headers: [
+            'Nutriente / Parâmetro',
+            'PremieR Formula Castrados (MS)',
+            'N&D Ancestral Grain Castrados (MS)',
+            'Padrão Mínimo ABINPET (Gatos Adultos)',
+          ],
+          rows: [
+            ['Proteína Bruta (Mínima)', '37,22% MS (33,5% MN)', '41,75% MS (38,0% MN)', '26,00% MS'],
+            ['Extrato Etéreo / Gordura (Mínimo)', '12,22% MS (11,0% MN)', '10,98% MS (10,0% MN)', '9,00% MS'],
+            ['Matéria Fibrosa (Máxima)', '5,00% MS (4,5% MN)', '6,04% MS (5,5% MN)', 'Não aplicável (limite zootécnico)'],
+            ['Matéria Mineral / Cinzas (Máxima)', '8,89% MS (8,0% MN)', '9,12% MS (8,3% MN)', 'Recomendado abaixo de 10,0% MS'],
+            ['Fósforo Mínimo Declarado', '0,93% MS (0,84% MN)', '0,87% MS (0,80% MN)', '0,50% MS'],
+            ['Cálcio Declarado (Faixa)', '1,11% a 1,67% MS', '0,87% a 1,53% MS', '0,60% MS'],
+            ['Magnésio Máximo Declarado', '0,11% MS (0,10% MN)', '0,098% MS (0,09% MN)', 'Não aplicável (recomendado baixo)'],
+            ['Conservação Declarada', '100% Natural (Tocoferóis)', '100% Natural (Tocoferóis)', 'Exigência de estabilidade lipídica'],
+          ],
+        },
+      },
+      {
+        id: 'fontes-carneas-e-primeiros-ingredientes',
+        heading: '3. Origem Proteica: Carne Mecanicamente Separada vs Farinhas Concentradas',
+        paragraphs: [
+          'Pela Instrução Normativa MAPA nº 30/2009, todos os ingredientes devem figurar no rótulo em ordem rigorosamente decrescente de quantidade. Ao examinar o topo da composição básica de cada pacote, a distinção tecnológica fica clara.',
+          'A Farmina N&D Ancestral Grain posiciona carne de frango mecanicamente separada no primeiro lugar da lista, seguida por farinha de vísceras de aves (mínimo de 10%), ovo desidratado, farinha de peixe e proteína isolada de suíno (farinha de torresmo). O uso de carne fresca na extrusão assegura alta digestibilidade e retenção de aminoácidos essenciais com menor exposição térmica prévia.',
+          'A PremieR Formula estrutura seu aporte proteico principalmente a partir de farinha de vísceras de aves e proteína isolada de suíno. São matérias-primas animais nobres e consolidadas na indústria nacional, mas que já chegam ao processo fabril na forma de farinha previamente cozida e desidratada.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Como Interpretar a Carne Fresca no Rótulo',
+          text: 'Carnes in natura contêm cerca de 70% de água antes do cozimento na extrusora. Por isso, a combinação de carne mecanicamente separada com farinhas proteicas nobres e ovo desidratado, como faz a N&D, garante que a densidade proteica final permaneça alta mesmo após a evaporação da umidade.',
+        },
+      },
+      {
+        id: 'fontes-de-carboidratos-graos-ancestrais-vs-transgenicos',
+        heading: '4. Carboidratos: Grãos Ancestrais (Low Grain) vs Milho e Soja Transgênicos',
+        paragraphs: [
+          'A principal divergência prática para a rotina alimentar reside na seleção dos carboidratos. Felinos possuem menor atividade de enzimas amilases pancreáticas e intestinais quando comparados aos cães, necessitando de fontes energéticas com menor impacto glicêmico.',
+          'A Farmina N&D Ancestral Grain utiliza sorgo, aveia (mínimo de 0,5%) e cevada (mínimo de 0,5%). Esses grãos ancestrais contêm amido de digestão lenta e alto teor de fibras solúveis, liberando energia gradualmente no sangue e evitando picos de glicose e insulina após as refeições. A fórmula é 100% livre de organismos geneticamente modificados (Non-GMO).',
+          'A PremieR Formula adota fontes convencionais: quirera de arroz e milho moído transgênico, apresentando o triângulo amarelo com a letra "T" no painel frontal da embalagem, em conformidade com o Decreto Federal nº 4.680/2003. O milho extrusado é bem tolerado e digerido por gatos saudáveis, mas possui índice glicêmico mais rápido. Para tutores que exigem fórmulas sem transgênicos da mesma fabricante, a alternativa é a linha PremieR Nattu.',
+        ],
+      },
+      {
+        id: 'saude-renal-e-trato-urinario',
+        heading: '5. Saúde do Trato Urinário Inferior: Controle Mineral e Prevenção de Cristais',
+        paragraphs: [
+          'Após a castração, os gatos reduzem a atividade física e passam a urinar com menor frequência. Esse hábito concentra a urina na bexiga, elevando o risco de formação de urólitos (cálculos de estruvita e oxalato de cálcio). Por essa razão, a dosagem de minerais no alimento deve ser milimétrica.',
+          'Em relação ao fósforo, ambas as fórmulas entregam números seguros: 0,87% MS na N&D Ancestral Grain e 0,93% MS na PremieR Formula. O controle rigoroso do fósforo é fundamental para poupar os néfrons renais da sobrecarga de excreção ao longo da vida do gato.',
+          'No magnésio, mineral que compõe a matriz dos cristais de estruvita (fosfato de amônio e magnésio), a N&D declara teto de 0,098% MS (900 mg/kg), enquanto a PremieR declara teto de 0,11% MS (1.000 mg/kg). Ambas as marcas incluem metionina e aditivos acidificantes para manter o pH urinário na faixa profilática ideal entre 6,2 e 6,5.',
+          'Vale ressaltar que nenhuma ração seca substitui o estímulo contínuo ao consumo hídrico. A oferta diária de alimentos úmidos completos (sachês ou latas) associada a fontes de água corrente continua sendo o método mais eficiente para proteger a bexiga e os rins do gato castrado.',
+        ],
+      },
+      {
+        id: 'antioxidantes-e-aditivos-funcionais',
+        heading: '6. Conservantes Naturais e Aditivos Especiais de Cada Linha',
+        paragraphs: [
+          'No sistema de conservação, as duas marcas merecem reconhecimento técnico: ambas aboliram conservantes químicos sintéticos (como BHA e BHT). Tanto a PremieR quanto a Farmina utilizam concentrado de tocoferóis naturais (Vitamina E) e extrato de alecrim (*Rosmarinus officinalis*) para estabilização lipídica.',
+          'Nos aditivos complementares, a N&D Ancestral Grain inclui extrato de romã desidratada (rica em polifenóis antioxidantes celulares), casca de psyllium para motilidade intestinal e sulfato de condroitina e glicosamina para proteção articular.',
+          'A PremieR Formula complementa sua composição com L-carnitina para suporte metabólico de ácidos graxos, prebióticos MOS para saúde das vilosidades intestinais e extrato de Yucca para controle do odor das fezes na caixa de areia.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Vale a pena pagar a diferença de preço pela Farmina N&D Ancestral Grain?',
+        a: 'Do ponto de vista zootécnico, a N&D entrega maior densidade de proteína na Matéria Seca (41,75% vs 37,22%), primeiro ingrediente com carne mecanicamente separada in natura, grãos ancestrais de menor índice glicêmico e fórmula livre de transgênicos. Para tutores que buscam nutrição mais próxima à biologia carnívora estrita, o investimento reflete uma especificação de ingredientes superior.',
+      },
+      {
+        q: 'A PremieR Formula faz mal ao gato por conter milho transgênico?',
+        a: 'Não. O milho utilizado pela PremieR Formula passa por processo rigoroso de moagem e extrusão térmica, que gelatiniza o amido e o torna perfeitamente digerível para gatos. A presença de transgênicos atende aos padrões de biossegurança da CTNBio. A escolha por alimentos livres de OGM é uma preferência de consumo do tutor, não um impeditivo toxicológico.',
+      },
+      {
+        q: 'Qual das duas rações controla melhor o ganho de peso do felino castrado?',
+        a: 'Ambas possuem teores lipídicos comedidos (cerca de 11% a 12% na Matéria Seca) e incluem L-carnitina. A N&D Ancestral Grain oferece uma leve vantagem zootécnica pelo uso de grãos de baixo índice glicêmico (sorgo, aveia e cevada), que prolongam a sensação de saciedade e reduzem variações bruscas de apetite entre as refeições.',
+      },
+      {
+        q: 'Como fazer a troca de uma marca pela outra sem desarranjos gastrointestinais?',
+        a: 'Como a N&D apresenta maior densidade proteica e fontes cárneas distintas, a transição alimentar deve durar no mínimo de 7 a 10 dias. Comece com 75% da ração habitual e 25% da nova nos primeiros três dias, avançando gradualmente até atingir 100% da nova fórmula, evitando episódios de vômito ou fezes amolecidas.',
+      },
+    ],
+    conclusion:
+      'Tanto a PremieR Formula Gatos Castrados quanto a Farmina N&D Ancestral Grain representam formulações completas, balanceadas e seguras, com conservação 100% natural e rígido controle de minerais para a saúde urinária. A PremieR Formula entrega uma solução de excelente digestibilidade com custo controlado no segmento Super Premium tradicional. Por outro lado, a Farmina N&D Ancestral Grain sobressai-se pela inclusão de carne de frango mecanicamente separada no topo da receita, aporte proteico mais elevado na Matéria Seca (41,75% MS) e carboidratos de baixo índice glicêmico livres de transgênicos, justificando sua posição de destaque na nutrição felina moderna.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 1: Exigências Nutricionais Mínimas e Parâmetros de Matéria Seca para Gatos Adultos e Castrados',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Padrões de Identidade e Qualidade para Alimentos Completos de Animais de Companhia e regras de rotulagem decrescente',
+      },
+      {
+        title: 'Ficha Técnica Oficial: PremieR Formula Gatos Castrados Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda.',
+        type: 'rotulagem',
+        details: 'Garantias nutricionais declaradas (37,22% PB na MS), antioxidantes naturais tocoferóis e presença de OGM sob custódia documental (SHA-256)',
+      },
+      {
+        title: 'Ficha Técnica Oficial: N&D Ancestral Grain Feline Frango & Romã Castrados',
+        institution: 'Farmina Pet Foods Brasil Ltda.',
+        type: 'rotulagem',
+        details: 'Garantias declaradas (41,75% PB na MS), carne de frango mecanicamente separada, sorgo, aveia, cevada e conservação natural sob custódia documental (SHA-256)',
+      },
+      {
+        title: 'Decreto Federal nº 4.680/2003',
+        institution: 'Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/decreto/2003/d4680.htm',
+        details: 'Regulamentação do direito do consumidor à informação sobre a presença de organismos geneticamente modificados (OGM) em alimentos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/quality-safety/nutritional-guidelines/',
+        details: 'Diretrizes sobre metabolismo proteico em carnívoros estritos, restrição mineral para prevenção de urólitos e índice glicêmico',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Níveis na Matéria Seca de Rações para Gatos no Catálogo',
+      text: 'Consulte o extrato detalhado de centenas de alimentos secos e úmidos cadastrados no Observatório PetRankings com conversão automática para Matéria Seca (MS).',
+      buttonText: 'Explorar Catálogo de Alimentos Felinos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
