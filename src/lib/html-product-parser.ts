@@ -1349,6 +1349,8 @@ export function parseProductFromHtml(
       brand = 'Dominium';
     } else if (/dudogs/i.test(t)) {
       brand = 'Dudogs';
+    } else if (/ducats/i.test(t)) {
+      brand = 'Ducats';
     } else if (/folks/i.test(t)) {
       brand = 'Folks';
     } else if (/puruca/i.test(t)) {
@@ -1379,7 +1381,7 @@ export function parseProductFromHtml(
     !isGranPlus &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum/i.test(commercialName) &&
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum/i.test(commercialName) &&
     !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
@@ -1388,7 +1390,7 @@ export function parseProductFromHtml(
 
   // 4. Espécie, Fase de Vida, Porte, Formato
   const isDual = /c[ãa]es\s*e\s*gatos/i.test(commercialName) || /c[ãa]es\s*e\s*gatos/i.test(sourceUrl);
-  const isGato = /gato|gatos|felin|catchow|cat-chow|fancy-feast|friskies|miaow|nugget|\/cats\/|\bcat\b|\bcats\b/i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
+  const isGato = /gato|gatos|felin|catchow|cat-chow|fancy-feast|friskies|miaow|nugget|ducats?|\/cats\/|\bcat\b|\bcats\b/i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
   const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(sourceUrl) || (!isRoyalCanin && /canin/i.test(commercialName + ' ' + sourceUrl)));
 
   let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
