@@ -89,6 +89,83 @@ export async function closePlaywright() {
 }
 
 async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ status: number; html: string; error?: string }> {
+  const fortbrainMatch = url.match(/fortbrain\.com\.br\/produtos\/(\d+)/i);
+  if (fortbrainMatch) {
+    const prodId = fortbrainMatch[1];
+    if (prodId === '39') {
+      return {
+        status: 200,
+        html: '',
+        error: 'PULADO: Produto ID 39 é Granulado Higiênico (argila sanitária natural, não é alimento pet).',
+      };
+    }
+    try {
+      console.log(`⚡ [API Fortbrain] Ingerindo produto ID ${prodId} via API REST oficial do fabricante...`);
+      const apiRes = await fetch(`https://fortbrain.com.br/connect/api/produtos-novo/${prodId}?lang=pt`, {
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        },
+      });
+      if (!apiRes.ok) {
+        return { status: apiRes.status, html: '', error: `Erro na API Fortbrain: ${apiRes.statusText}` };
+      }
+      const data = await apiRes.json();
+      const ptData = (data.traducoes || []).find((t: any) => t.idioma === 'pt') || data.traducoes?.[0];
+      const nome = ptData?.nome_produto || data.nome || '';
+      const niveisHtml = ptData?.niveis_garantia || '';
+      const compHtml = ptData?.composicao_basica || '';
+      const fotoObj = (data.fotos || []).find((f: any) => f.principal === 1) || (data.fotos || [])[0];
+      const fotoUrl = fotoObj ? `https://fortbrain.com.br/connect${fotoObj.url_foto}` : '';
+
+      let garantiasTable = '';
+      if (Array.isArray(data.garantias) && data.garantias.length > 0) {
+        garantiasTable = `
+          <table>
+            <thead><tr><th>Nutriente</th><th>Valor</th></tr></thead>
+            <tbody>
+              ${data.garantias.map((g: any) => `<tr><td>${g.garantia_nome_pt || g.nome} (${g.operador_texto_pt || ''})</td><td>${g.valor} ${g.unidade_simbolo || ''}</td></tr>`).join('\n')}
+            </tbody>
+          </table>
+        `;
+      }
+
+      const generatedHtml = `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>${nome} — Fortbrain</title>
+  <meta property="og:title" content="${nome}" />
+  <meta property="og:image" content="${fotoUrl}" />
+  <meta property="og:url" content="${url}" />
+</head>
+<body>
+  <div class="product-header">
+    <h1 class="product_title">${nome}</h1>
+    <div class="brand">Fortbrain</div>
+  </div>
+  <div class="product-image">
+    <img src="${fotoUrl}" alt="${nome}" />
+  </div>
+  <div class="niveis-garantia">
+    <h2>Níveis de Garantia</h2>
+    ${garantiasTable}
+    ${niveisHtml}
+  </div>
+  <div class="composicao-basica">
+    <h2>Composição Básica</h2>
+    ${compHtml}
+  </div>
+</body>
+</html>
+      `;
+      return { status: 200, html: generatedHtml };
+    } catch (err: any) {
+      return { status: 0, html: '', error: `Falha ao consultar API Fortbrain: ${err.message}` };
+    }
+  }
+
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const res = await fetch(url, {

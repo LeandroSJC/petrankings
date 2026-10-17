@@ -477,6 +477,7 @@ export function parseProductFromHtml(
     '';
 
   const isGranPlus = /granplus\.com\.br/i.test(sourceUrl) || /granplus/i.test(fallbackUrl);
+  const isFortbrain = /fortbrain\.com\.br/i.test(sourceUrl) || /fortbrain/i.test(fallbackUrl);
 
   let imageUrl =
     $('meta[property="og:image"]').attr('content') ||
@@ -1108,6 +1109,9 @@ export function parseProductFromHtml(
       }
     }
   }
+  if (isFortbrain) {
+    slug = '';
+  }
   if (!slug && commercialName) {
     slug = commercialName
       .toLowerCase()
@@ -1303,6 +1307,25 @@ export function parseProductFromHtml(
     const isPrescription = /prescription-diet|\/pd-/i.test(sourceUrl + ' ' + commercialName);
     brand = isPrescription ? "Hill's Prescription Diet" : "Hill's Science Diet";
     manufacturerLegalName = "Hill's Pet Nutrition / Colgate-Palmolive";
+  } else if (isFortbrain || /fortbrain\.com\.br/i.test(sourceUrl) || /brain\s*plus|lux\s*brain|f[ãa]mil|kiara|dodi|mimo'?s/i.test(commercialName)) {
+    manufacturerLegalName = 'Answer Alimentos Ltda';
+    if (/brain\s*plus\s*super\s*premium/i.test(commercialName)) {
+      brand = 'Brain Plus Super Premium';
+    } else if (/brain\s*plus/i.test(commercialName)) {
+      brand = 'Brain Plus Premium Especial';
+    } else if (/lux\s*brain/i.test(commercialName)) {
+      brand = 'Lux Brain';
+    } else if (/f[ãa]mil/i.test(commercialName)) {
+      brand = 'Fãmil';
+    } else if (/kiara/i.test(commercialName)) {
+      brand = 'Kiara';
+    } else if (/dodi/i.test(commercialName)) {
+      brand = 'Dodi';
+    } else if (/mimo'?s/i.test(commercialName)) {
+      brand = "Mimo's";
+    } else {
+      brand = 'Brain Plus';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -1316,8 +1339,8 @@ export function parseProductFromHtml(
     !isGranPlus &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -1325,7 +1348,7 @@ export function parseProductFromHtml(
 
   // 4. Espécie, Fase de Vida, Porte, Formato
   const isDual = /c[ãa]es\s*e\s*gatos/i.test(commercialName) || /c[ãa]es\s*e\s*gatos/i.test(sourceUrl);
-  const isGato = /gato|gatos|felin|catchow|cat-chow|fancy-feast|friskies|miaow|nugget|\/cats\//i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
+  const isGato = /gato|gatos|felin|catchow|cat-chow|fancy-feast|friskies|miaow|nugget|\/cats\/|\bcat\b|\bcats\b/i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
   const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(sourceUrl) || (!isRoyalCanin && /canin/i.test(commercialName + ' ' + sourceUrl)));
 
   let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
@@ -1743,14 +1766,19 @@ export function parseProductFromHtml(
     return parseValFromText(garText.slice(m.index ?? 0), pattern) || 0;
   };
 
-  const umidadeMaxPct = isHills
+  let umidadeMaxPct = isHills
     ? 0
     : parseGuarantee(/Umidade[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
       (foodType === 'UMIDO' ? 86.0 : 10.0);
-  if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   let proteinaBrutaMinPct =
     parseGuarantee(/Prote[íi]na(?:\s+(?:Bruta|Cruda))?t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+
+  // Correção de erro de digitação de rótulo oficial (ex: "1000 g/kg" em ração seca com 34% de PB)
+  if (umidadeMaxPct >= 90 && proteinaBrutaMinPct > 15) {
+    umidadeMaxPct = 10.0;
+  }
+  if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   let extratoEtereoMinPct =
     parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
