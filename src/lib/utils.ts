@@ -2,15 +2,29 @@ const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://petrankings.com.
 export const SITE_URL = rawSiteUrl.replace(/\/+$/, '');
 
 export function slugify(text: string): string {
-  return text
-    .toString()
+  if (!text) return '';
+  let s = text.toString();
+  try {
+    s = decodeURIComponent(s);
+  } catch {}
+
+  s = s.replace(/[®™©]/g, '');
+  // Preserva marcadores de idade como 7+, +7, 11+
+  s = s.replace(/\+(\d+)/g, '$1-plus');
+  s = s.replace(/(\d+)\+/g, '$1-plus');
+  s = s.replace(/\s*\+\s*/g, '-plus-');
+  // Converte & para 'e'
+  s = s.replace(/&/g, ' e ');
+
+  return s
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9 -]/g, '')
+    .replace(/[^a-z0-9 -]/g, ' ')
     .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 export function formatDate(date: Date | string | null | undefined): string {
@@ -75,6 +89,15 @@ export function stripWeightFromTitle(title: string): string {
   }
 
   return cleaned.replace(/[®™©]/g, '').replace(/\s{2,}/g, ' ').trim();
+}
+
+/**
+ * Gera o slug canônico do produto baseado em seu nome comercial e marca.
+ * Aplica stripWeightFromTitle para eliminar gramaturas e redundâncias de título.
+ */
+export function generateCanonicalProductSlug(commercialName: string): string {
+  const cleanedName = stripWeightFromTitle(commercialName);
+  return slugify(cleanedName);
 }
 
 /**

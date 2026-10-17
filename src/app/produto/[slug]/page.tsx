@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -26,6 +26,7 @@ import { calcularNutrientesMS, calcularEnergiaMetabolizavel, getAbinpetStandard,
 import { ExtratoPilarItem } from '@/lib/audit-engine/types';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
 import { normalizeIngredientsList, SITE_URL } from '@/lib/utils';
+import { findProductRedirect } from '@/lib/redirects';
 
 function getSafeUrl(url?: string | null): string | null {
   if (!url) return null;
@@ -53,6 +54,10 @@ export async function generateMetadata({
   });
 
   if (!product) {
+    const redirectSlug = await findProductRedirect(slug);
+    if (redirectSlug) {
+      permanentRedirect(`/produto/${redirectSlug}`);
+    }
     return { title: 'Produto Não Encontrado — PetRankings' };
   }
 
@@ -103,6 +108,10 @@ export default async function ProductDetailPage({
   });
 
   if (!product || !product.isPublished) {
+    const redirectSlug = await findProductRedirect(slug);
+    if (redirectSlug) {
+      permanentRedirect(`/produto/${redirectSlug}`);
+    }
     notFound();
   }
 

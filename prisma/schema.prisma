@@ -160,3 +160,13 @@ model AdminOtp {
 
   @@index([email, createdAt])
 }
+
+model ProductRedirect {
+  id         String   @id @default(cuid())
+  sourceSlug String   @unique // Slug antigo que será redirecionado (ex: "qsga", "medium-adult-7-plus-3005")
+  targetSlug String   // Novo slug canônico de destino (ex: "quatree-supreme-gatos-adultos-salmao")
+  createdAt  DateTime @default(now())
+
+  @@index([sourceSlug])
+}
+

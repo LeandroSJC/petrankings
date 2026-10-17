@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { productInputSchema } from '@/lib/schemas/product';
-import { stripWeightFromTitle, normalizeIngredientsList, slugify } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredientsList, slugify, generateCanonicalProductSlug } from '@/lib/utils';
 
 export async function GET(req: NextRequest) {
   try {
@@ -107,8 +107,8 @@ export async function POST(req: NextRequest) {
       body.foodType as any
     );
 
-    // Gerar slug amigável único
-    let slug = body.slug?.trim() || slugify(body.commercialName);
+    // Gerar slug amigável único no padrão canônico PetRankings
+    let slug = body.slug?.trim() ? slugify(body.slug.trim()) : generateCanonicalProductSlug(body.commercialName);
 
     // Verificar se já existe produto cadastrado com este slug ou nome comercial
     const existingProduct = await prisma.product.findFirst({

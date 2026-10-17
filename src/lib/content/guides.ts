@@ -1084,7 +1084,7 @@ export const GUIDES: GuideItem[] = [
       'Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), o perfil de fibras para controle de saciedade e bolas de pelo, os sistemas de conservação (antioxidantes naturais vs BHA sintético) e o manejo do trato urinário entre PremieR Formula Gatos Castrados e Royal Canin Castrados.',
     relatedProductSlugs: [
       'premier-formula-gatos-castrados-frango',
-      'sterilised-37-2537',
+      'royal-canin-castrados',
     ],
     sections: [
       {
@@ -1249,7 +1249,7 @@ export const GUIDES: GuideItem[] = [
     relatedProductSlugs: [
       'proplan-caes-puppy-racas-grandes',
       'premier-racas-especificas-golden-retriever-filhotes-sabor-frango',
-      'puppy---maxi-3006',
+      'royal-canin-puppy-maxi',
       'vitta-natural-caes-filhotes-frango-e-arroz',
     ],
     sections: [
@@ -1412,8 +1412,8 @@ export const GUIDES: GuideItem[] = [
     relatedProductSlugs: [
       'proplan-gatos-adult',
       'proplan-gatos-sterilized',
-      'fit-32-2520',
-      'sterilised-37-2537',
+      'royal-canin-fit-feline',
+      'royal-canin-castrados',
     ],
     sections: [
       {
@@ -2105,7 +2105,7 @@ export const GUIDES: GuideItem[] = [
       'sdsd-pro-feline-adult-light-dry',
       'science-diet-adult-perfect-weight-dry',
       'proplan-gatos-sterilized',
-      'light-weight-care-2524',
+      'royal-canin-light',
     ],
     sections: [
       {
@@ -3237,6 +3237,169 @@ export const GUIDES: GuideItem[] = [
       title: 'Compare Níveis na Matéria Seca de Rações para Gatos no Catálogo',
       text: 'Consulte o extrato detalhado de centenas de alimentos secos e úmidos cadastrados no Observatório PetRankings com conversão automática para Matéria Seca (MS).',
       buttonText: 'Explorar Catálogo de Alimentos Felinos',
+      buttonUrl: '/catalogo',
+    },
+  },
+  {
+    slug: 'premier-formula-vs-royal-canin-caes',
+    title: 'PremieR Formula vs Royal Canin para cães: O que muda na prática além do preço?',
+    subtitle: 'Confronto técnico e bromatológico entre as duas marcas Super Premium líderes do mercado pet brasileiro para cães adultos.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-16',
+    updatedAt: '2026-10-16',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/premier-vs-royal-canin-caes-duel-cover.webp',
+    isFeatured: true,
+    summary:
+      'Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), o primeiro ingrediente da lista, a conservação natural vs BHA sintético e os aditivos articulares entre PremieR Formula e Royal Canin para cães adultos.',
+    relatedProductSlugs: [
+      'premier-formula-racas-medias-caes-adultos-sabor-frango',
+      'royal-canin-medium-adult',
+    ],
+    sections: [
+      {
+        id: 'posicionamento-e-proposta',
+        heading: '1. Super Premium de Alta Rotatividade: A Dúvida Clássica no Pet Shop',
+        paragraphs: [
+          'Ao procurar um alimento Super Premium de alta reputação para cães adultos de porte médio ou grande, qualquer tutor brasileiro se depara quase que imediatamente com duas marcas dominantes: PremieR Formula, fabricada nacionalmente pela Grandfood, e a linha Size Health Nutrition da Royal Canin, subsidiária da multinacional Mars.',
+          'Ambas as marcas desfrutam de forte prestígio técnico entre médicos veterinários e criadores, prometendo excelente digestibilidade, pelagem vistosa e fezes firmes com odor reduzido. No entanto, por trás da embalagem prateada da PremieR e do design clínico clássico da Royal Canin, existem filosofias nutricionais e escolhas de ingredientes profundamente distintas.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal Conforme IN MAPA nº 30/2009',
+          text: 'Perante a legislação oficial do Ministério da Agricultura (MAPA), tanto a PremieR Formula quanto a Royal Canin são registradas como "Alimento Completo para Cães". Os termos comerciais "Super Premium" não constituem uma categoria jurídica do governo, mas sim uma convenção de mercado padronizada pela 11ª Edição do Manual Pet Food Brasil da ABINPET.',
+        },
+      },
+      {
+        id: 'confronto-materia-seca',
+        heading: '2. Confronto Bromatológico em Matéria Seca (MS)',
+        paragraphs: [
+          'A comparação direta entre números de rótulo pode induzir o tutor ao erro caso não seja feita a conversão para Matéria Seca (MS). A embalagem da PremieR Formula declara umidade máxima de 10% (90% de matéria seca), enquanto a Royal Canin Medium Adult declara até 11,5% de umidade (88,5% de matéria seca).',
+          'Ao eliminar a umidade para confrontar os nutrientes em base idêntica, a PremieR Formula entrega uma concentração proteica sensivelmente maior: 28,88% MS (26% em Matéria Natural) frente a 26,00% MS (23% em Matéria Natural) da Royal Canin. Essa diferença de quase três pontos percentuais reflete maior presença de farinhas proteicas no total da fórmula.',
+          'No extrato etéreo (gordura), a PremieR Formula também apresenta densidade superior com 16,66% MS (15% MN) contra 13,56% MS (12% MN) da Royal Canin Medium Adult. Isso significa que a ração da PremieR fornece mais energia por quilo consumido, permitindo porções diárias ligeiramente menores no comedouro.',
+          'Em relação à matéria mineral (cinzas), ambas mantêm teores controlados e seguros para a saúde renal canina: 8,33% MS na PremieR e 9,04% MS na Royal Canin Medium Adult (caindo para 7,64% MS na versão Maxi Adult), cumprindo com folga a recomendação de teto máximo de 10% estabelecida pela ABINPET.',
+        ],
+        table: {
+          caption: 'Confronto Nutricional Oficial em Matéria Seca (MS) — Cães Adultos',
+          headers: [
+            'Parâmetro Nutricional',
+            'PremieR Formula Adultos',
+            'Royal Canin Medium Adult',
+            'Padrão Mínimo ABINPET (Cães Adultos)',
+          ],
+          rows: [
+            ['Proteína Bruta (Mín.)', '28,88% MS (26,0% MN)', '26,00% MS (23,0% MN)', '18,00% MS'],
+            ['Extrato Etéreo / Gordura (Mín.)', '16,66% MS (15,0% MN)', '13,56% MS (12,0% MN)', '5,50% MS'],
+            ['Matéria Fibrosa (Máx.)', '3,33% MS (3,0% MN)', '4,52% MS (4,0% MN)', 'Não aplicável'],
+            ['Matéria Mineral (Máx.)', '8,33% MS (7,5% MN)', '9,04% MS (8,0% MN)', 'Teto recomendado 10,0%'],
+            ['Cálcio (Mín. - Máx.)', '0,77% a 1,66% MS', '0,95% a 1,76% MS', '0,50% a 2,50% MS'],
+            ['Fósforo Mínimo', '0,66% MS (0,60% MN)', '0,62% MS (0,55% MN)', '0,40% MS'],
+          ],
+        },
+      },
+      {
+        id: 'origem-proteica-e-primeiro-ingrediente',
+        heading: '3. O Primeiro Ingrediente: Origem Animal vs Origem Vegetal',
+        paragraphs: [
+          'De acordo com as normas de rotulagem do MAPA (Instrução Normativa nº 30/2009), a composição básica deve listar todos os ingredientes em ordem estritamente decrescente de proporção de peso na receita.',
+          'Na PremieR Formula, o primeiro ingrediente é farinha de vísceras de frango, acompanhado logo em seguida por farinha de torresmo no topo da lista. Essa formulação garante que a maior parte da proteína do produto seja de origem animal de alto valor biológico, rica em aminoácidos essenciais biodisponíveis.',
+          'Na Royal Canin Medium Adult, o topo da composição básica é ocupado por quirera de arroz (ou milho integral moído nas versões Maxi), com a farinha de vísceras de aves ocupando a segunda posição. A Royal Canin historicamente adota o conceito de nutrição por nutrientes em vez de nutrição por ingredientes, trabalhando com fontes vegetais altamente processadas e complementadas por aminoácidos sintéticos puros (como DL-metionina).',
+          'Embora a estratégia da Royal Canin proporcione alta digestibilidade comprovada em laboratório, tutores que preferem fórmulas com predomínio nítido de farinhas de carne no topo do rótulo encontram na PremieR Formula uma estrutura mais alinhada a essa expectativa.',
+        ],
+      },
+      {
+        id: 'sistema-antioxidante-e-conservantes',
+        heading: '4. Conservantes: A Batalha entre Antioxidantes Naturais e Sintéticos',
+        paragraphs: [
+          'A divergência mais evidente entre as duas marcas reside na tecnologia de conservação lipídica. Rações Super Premium contêm teores elevados de gordura que, em contato com o oxigênio do ar, sofrem oxidação e podem ficar rançosas caso não sejam protegidas.',
+          'A PremieR Pet migrou integralmente a linha PremieR Formula para um sistema antioxidante 100% natural, composto por concentrado de tocoferóis (vitamina E), extrato de alecrim (*Rosmarinus officinalis*), extrato de chá verde e extrato de menta e hortelã. A marca aboliu por completo o uso de conservantes químicos artificiais.',
+          'Já a Royal Canin permanece utilizando o antioxidante sintético BHA (Butil-hidroxianisol) como agente estabilizante principal em suas linhas convencionais de cães adultos.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Transparência sobre Conservantes: BHA vs Tocoferóis Naturais',
+          text: 'O BHA é um antioxidante amplamente liberado pelo MAPA, pelo FDA norte-americano e pela União Europeia dentro dos tetos legais de dosagem. Contudo, a literatura toxicológica contemporânea e a demanda dos próprios tutores vêm impulsionando a substituição gradual de antioxidantes sintéticos por tocoferóis naturais em todo o segmento Super Premium mundial.',
+        },
+      },
+      {
+        id: 'aditivos-funcionais-e-palatabilidade',
+        heading: '5. Aditivos Funcionais: Articulações, Pelagem e Fezes',
+        paragraphs: [
+          'No quesito saúde digestiva e aspecto das fezes, ambas as marcas possuem um histórico notável de consistência. A PremieR Formula emprega polpa desidratada de beterraba, parede celular de levedura (fonte de prebióticos MOS), argila bentonita e extrato de Yucca (0,04%), conjunto projetado para firmar o bolo fecal e atenuar odores desagradáveis no ambiente doméstico.',
+          'A Royal Canin se destaca pela consistência de fezes através da combinação de levedura com mananoligossacarídeos (MOS), zeolita (mineral de alta capacidade absortiva) e fibras solúveis e insolúveis balanceadas. Além disso, a marca francesa é amplamente reconhecida pelo formato e textura ergonômica de seus croquetes, que estimulam a mastigação ativa em cães de mandíbula média.',
+          'Nas versões voltadas a portes médios e grandes, ambas incorporam fontes de ácidos graxos ômega-3 marinho (óleo de peixe refinado com EPA e DHA) para proteção da barreira cutânea e saúde articular, além de sulfato de condroitina e hidrocloreto de glicosamina nas variantes para raças grandes.',
+          'Vale registrar que tanto a PremieR quanto a Royal Canin utilizam grãos transgênicos (milho e farelos de soja identificados com o triângulo amarelo "T" na rotulagem, em observância ao Decreto Federal nº 4.680/2003). Caso o tutor busque rações totalmente livres de transgênicos, precisará recorrer a linhas naturais específicas (como PremieR Nattu ou linhas Grain-Free).',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'A Royal Canin é uma ração ruim por utilizar conservante sintético BHA?',
+        a: 'Não. A Royal Canin é um alimento completo de qualidade Super Premium, com formulação rigorosamente balanceada e respaldo em décadas de pesquisa científica. O uso de BHA cumpre rigorosamente os limites de segurança fixados pelo MAPA e pela FEDIAF, embora muitas marcas modernas venham optando pela substituição por tocoferóis naturais.',
+      },
+      {
+        q: 'Por que a PremieR Formula entrega mais proteína na Matéria Seca custando muitas vezes menos?',
+        a: 'A Grandfood opera uma das maiores fábricas de pet food da América Latina em Dourado (SP), com cadeia logística verticalizada e fornecimento interno de matérias-primas cárneas no Brasil. Essa eficiência de custo industrial local permite entregar maior densidade de farinha de vísceras de frango com menor margem de importação em relação a marcas multinacionais.',
+      },
+      {
+        q: 'Qual das duas rações é mais indicada para cães com paladar exigente?',
+        a: 'Ambas possuem aceitação muito alta no mercado nacional. A Royal Canin se sobressai pela tecnologia patenteada de palatabilizantes aplicados na cobertura dos croquetes e pela textura adaptada, sendo frequentemente a favorita de cães relutantes. A PremieR Formula, por sua vez, atrai cães pela maior densidade energética de gordura (16,66% MS) e aroma natural de aves.',
+      },
+      {
+        q: 'Como fazer a troca de uma marca pela outra sem causar diarreia?',
+        a: 'Mesmo se tratando de dois alimentos de alta digestibilidade, a transição entre PremieR Formula e Royal Canin deve durar entre 7 e 10 dias. Misture 25% da nova ração aos 75% da anterior nos três primeiros dias, passe para 50% nos três dias seguintes e para 75% antes de oferecer 100% da nova fórmula, permitindo que a microbiota intestinal do cão se adapte sem desconfortos.',
+      },
+    ],
+    conclusion:
+      'Tanto a PremieR Formula quanto a Royal Canin entregam nutrição de alta performance para cães adultos, atendendo com ampla folga a todas as exigências mínimas da ABINPET e da FEDIAF. Para quem busca maior concentração proteica na Matéria Seca (28,88% MS), predomínio evidente de farinha de origem animal no topo da lista e conservação 100% natural com tocoferóis, a PremieR Formula oferece especificação zootécnica superior com excelente custo-benefício. Por outro lado, a Royal Canin continua sendo uma escolha sólida e tradicional para tutores que priorizam ergonomia de croquete, alta aceitação palatável e tolerância digestiva comprovada na rotina diária do cão.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 1: Padrões Nutricionais Mínimos e Níveis em Matéria Seca para Cães Adultos em Manutenção',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamentação técnica sobre rotulagem em ordem decrescente de ingredientes e registro de alimentos completos para animais de companhia',
+      },
+      {
+        title: 'Ficha Técnica Oficial: PremieR Formula Cães Adultos Porte Médio Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda.',
+        type: 'rotulagem',
+        details: 'Garantias oficiais declaradas (28,88% PB na MS), farinha de vísceras de frango, conservação 100% natural com tocoferóis e presença de OGM sob custódia documental (SHA-256)',
+      },
+      {
+        title: 'Ficha Técnica Oficial: Royal Canin Medium Adult Cães Adultos',
+        institution: 'Royal Canin do Brasil Indústria e Comércio Ltda.',
+        type: 'rotulagem',
+        details: 'Garantias oficiais declaradas (26,00% PB na MS), quirera de arroz, farinha de vísceras, conservante sintético BHA e presença de OGM sob custódia documental (SHA-256)',
+      },
+      {
+        title: 'Decreto Federal nº 4.680/2003',
+        institution: 'Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/decreto/2003/d4680.htm',
+        details: 'Regulamentação sobre direito do consumidor à informação sobre a presença de organismos geneticamente modificados (OGM) em alimentos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/quality-safety/nutritional-guidelines/',
+        details: 'Diretrizes internacionais de segurança para antioxidantes alimentares e densidade energética para cães adultos',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos Super Premium para Cães no Catálogo',
+      text: 'Acesse o extrato bromatológico de centenas de rações caninas cadastradas no PetRankings com conversão instantânea para Matéria Seca (MS).',
+      buttonText: 'Explorar Catálogo de Alimentos Caninos',
       buttonUrl: '/catalogo',
     },
   },

@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { productInputSchema } from '@/lib/schemas/product';
-import { stripWeightFromTitle, normalizeIngredientsList } from '@/lib/utils';
+import { stripWeightFromTitle, normalizeIngredientsList, slugify } from '@/lib/utils';
 
 export async function GET(
   req: NextRequest,
@@ -93,9 +93,25 @@ export async function PUT(
       body.foodType as any
     );
 
+    const currentProduct = await prisma.product.findUnique({
+      where: { id },
+      select: { slug: true },
+    });
+
+    let newSlug = body.slug ? slugify(body.slug.trim()) : undefined;
+    if (newSlug && currentProduct && currentProduct.slug !== newSlug) {
+      await prisma.$executeRawUnsafe(
+        'INSERT INTO "ProductRedirect" ("id", "sourceSlug", "targetSlug", "createdAt") VALUES ($1, $2, $3, NOW()) ON CONFLICT ("sourceSlug") DO UPDATE SET "targetSlug" = $3',
+        `r_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+        currentProduct.slug,
+        newSlug
+      );
+    }
+
     const product = await prisma.product.update({
       where: { id },
       data: {
+        ...(newSlug && { slug: newSlug }),
         commercialName: body.commercialName,
         brand: body.brand,
         manufacturerLegalName: body.manufacturerLegalName !== undefined ? body.manufacturerLegalName : undefined,
