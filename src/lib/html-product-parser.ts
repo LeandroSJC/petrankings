@@ -1549,6 +1549,27 @@ export function parseProductFromHtml(
     });
   }
 
+  // 5-fortbrain. Fortbrain / Answer Alimentos (.composicao-basica e .niveis-garantia)
+  if (!compText && $('.composicao-basica, #composicao-basica').length > 0) {
+    const el = $('.composicao-basica, #composicao-basica');
+    const clone = el.clone();
+    clone.find('h1, h2, h3, h4, .brand, .product-header').remove();
+    const rawHtml = clone.html() || '';
+    const spaced = rawHtml
+      .replace(/&nbsp;/g, ' ')
+      .replace(/<\/(?:p|div|li|tr|h[1-6])>/gi, ' ')
+      .replace(/<(?:p|div|li|tr|br|h[1-6])(?:\s+[^>]*)?>/gi, ' ');
+    const txt = cheerio.load(spaced).root().text().replace(/\s+/g, ' ').trim();
+    if (txt) compText = txt;
+  }
+  if (!garText && $('.niveis-garantia, #niveis-garantia').length > 0) {
+    const el = $('.niveis-garantia, #niveis-garantia');
+    const clone = el.clone();
+    clone.find('h1, h2, h3, h4').remove();
+    const txt = extractStructuredText(clone, $);
+    if (txt) garText = txt;
+  }
+
   // 5a. JetTabs / Accordions (Adimax / Elementor)
   $('.jet-toggle, .elementor-accordion-item').each((i, el) => {
     const title = $(el).find('.jet-toggle__label-text, .elementor-tab-title').text().trim();

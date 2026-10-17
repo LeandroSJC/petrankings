@@ -114,7 +114,12 @@ async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ stat
       const ptData = (data.traducoes || []).find((t: any) => t.idioma === 'pt') || data.traducoes?.[0];
       const nome = ptData?.nome_produto || data.nome || '';
       const niveisHtml = ptData?.niveis_garantia || '';
-      const compHtml = ptData?.composicao_basica || '';
+      let compHtml = ptData?.composicao_basica || '';
+      // Garante espaços nas quebras de bloco para não aglutinar palavras adjacentes
+      compHtml = compHtml
+        .replace(/&nbsp;/g, ' ')
+        .replace(/<\/(?:p|div|li|tr|h[1-6])>/gi, ' </p> ')
+        .replace(/<br\s*\/?>/gi, ' <br/> ');
       const fotoObj = (data.fotos || []).find((f: any) => f.principal === 1) || (data.fotos || [])[0];
       const fotoUrl = fotoObj ? `https://fortbrain.com.br/connect${fotoObj.url_foto}` : '';
 
