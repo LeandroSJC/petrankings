@@ -163,16 +163,16 @@ export default async function ProductDetailPage({
   const isWet = product.foodType === 'UMIDO';
 
   const initialTier = getFaixaVisual(product.classificationTier, isCoadjuvante, isComplementar);
-  let displayScore = product.scoreTotal;
-  let displayTier = initialTier;
+  const displayScore = product.scoreTotal;
+  const displayTier = initialTier;
   const isFilhote = product.lifeStage === 'CRESCIMENTO_INICIAL' || product.lifeStage === 'CRESCIMENTO_FINAL' || product.lifeStage === 'FILHOTE';
 
   const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(
     product.commercialName + ' ' + product.slug
   );
 
-  // Se for alimento completo com pontuação, reavalia o extrato para exibir justificativas descritivas e transparentes
-  if (!isCoadjuvante && !isComplementar && product.scoreTotal !== null) {
+  // Fallback de segurança: se o produto não possuir extrato cadastrado no banco, calcula em tempo de execução
+  if (!isCoadjuvante && !isComplementar && product.scoreTotal !== null && (!extratoItens || extratoItens.length === 0)) {
     try {
       const freshAudit = calcularScoreAnaliseRotulo(
         product.species as any,
@@ -195,7 +195,7 @@ export default async function ProductDetailPage({
           omega3OuPrebioticosGarantidos: isWet
             ? !!(product.omega3MinPct && product.omega3MinPct >= 0.015)
             : !!(product.omega3MinPct && product.omega3MinPct >= 0.2),
-          claimCarneTipo: (product.meatClaimType as any) || 'COM_CARNE_FRESCA',
+          claimCarneTipo: (product.meatClaimType as any) || 'COM_CARNE',
           isLightOuControlePeso: isLight,
           nomeComercial: product.commercialName,
         },
@@ -203,8 +203,6 @@ export default async function ProductDetailPage({
       );
       if (freshAudit && freshAudit.extratoPontos) {
         extratoItens = freshAudit.extratoPontos;
-        displayScore = freshAudit.scoreTotal;
-        displayTier = getFaixaVisual(freshAudit.classificacaoFaixa, isCoadjuvante, isComplementar);
       }
     } catch {}
   }

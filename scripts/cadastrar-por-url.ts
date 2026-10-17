@@ -416,9 +416,13 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
   }
 
   // 6. Cálculo da Avaliação Nutricional (Score Determinístico)
+  const isWet = meta.foodType === 'UMIDO';
+  const isFilhote = meta.lifeStage === 'CRESCIMENTO_INICIAL' || meta.lifeStage === 'CRESCIMENTO_FINAL' || meta.lifeStage === 'FILHOTE';
+  const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(meta.commercialName);
+
   const audit = calcularScoreAnaliseRotulo(
     meta.species as any,
-    meta.lifeStage as any,
+    (isFilhote ? 'CRESCIMENTO_INICIAL' : meta.lifeStage) as any,
     {
       umidadeMaxPct: meta.umidadeMaxPct,
       proteinaBrutaMinPct: meta.proteinaBrutaMinPct,
@@ -434,8 +438,12 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
     {
       topIngredientes: meta.topIngredientsList,
       antioxidanteTipo: meta.antioxidantType as any,
-      omega3OuPrebioticosGarantidos: true,
-      claimCarneTipo: 'COM_CARNE_FRESCA',
+      omega3OuPrebioticosGarantidos: isWet
+        ? !!(meta.omega3MinPct && meta.omega3MinPct >= 0.015)
+        : !!(meta.omega3MinPct && meta.omega3MinPct >= 0.2),
+      claimCarneTipo: 'COM_CARNE',
+      isLightOuControlePeso: isLight,
+      nomeComercial: meta.commercialName,
     },
     meta.foodType as any
   );
