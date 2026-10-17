@@ -1326,6 +1326,46 @@ export function parseProductFromHtml(
     } else {
       brand = 'Brain Plus';
     }
+  } else if (/fvoalimentos\.com\.br/i.test(sourceUrl) || /bomguy|coldog|dominium|dudogs|zuppy|plus\s*pet|folks|puruca|katita|wolfen|chanin|colcat|ghatum/i.test(commercialName)) {
+    manufacturerLegalName = 'FVO Alimentos Ltda';
+    const t = (commercialName + ' ' + sourceUrl).toLowerCase();
+    if (/zuppy\s*advance/i.test(t)) {
+      brand = 'Zuppy Advance';
+    } else if (/zuppy\s*cat/i.test(t)) {
+      brand = 'Zuppy Cat';
+    } else if (/zuppy/i.test(t)) {
+      brand = 'Zuppy';
+    } else if (/plus\s*pet/i.test(t)) {
+      brand = 'Plus Pet';
+    } else if (/fanny\s*cat/i.test(t)) {
+      brand = 'Fanny Cat';
+    } else if (/fanny/i.test(t)) {
+      brand = 'Fanny';
+    } else if (/bomguy/i.test(t)) {
+      brand = 'Bomguy';
+    } else if (/coldog/i.test(t)) {
+      brand = 'Coldog';
+    } else if (/dominium/i.test(t)) {
+      brand = 'Dominium';
+    } else if (/dudogs/i.test(t)) {
+      brand = 'Dudogs';
+    } else if (/folks/i.test(t)) {
+      brand = 'Folks';
+    } else if (/puruca/i.test(t)) {
+      brand = 'Puruca';
+    } else if (/katita/i.test(t)) {
+      brand = 'Katita';
+    } else if (/wolfen/i.test(t)) {
+      brand = 'Wolfen';
+    } else if (/chanin/i.test(t)) {
+      brand = 'Chanin';
+    } else if (/colcat/i.test(t)) {
+      brand = 'Colcat';
+    } else if (/ghatum/i.test(t)) {
+      brand = 'Ghatum';
+    } else {
+      brand = 'FVO Alimentos';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -1339,8 +1379,8 @@ export function parseProductFromHtml(
     !isGranPlus &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -1570,13 +1610,30 @@ export function parseProductFromHtml(
     if (txt) garText = txt;
   }
 
-  // 5a. JetTabs / Accordions (Adimax / Elementor)
+  // 5a. JetTabs / Accordions / Elementor Nested Tabs (.e-n-tab-title)
+  $('.e-n-tab-title').each((_, el) => {
+    const title = $(el).text().trim();
+    const controls = $(el).attr('aria-controls');
+    if (controls) {
+      const contentEl = $(`#${controls}`);
+      if (contentEl.length > 0) {
+        const content = extractStructuredText(contentEl, $);
+        if (/composi[çc][ãa]o/i.test(title) && content && (!compText || compText.length < content.length)) {
+          compText = content;
+        }
+        if (/garantia/i.test(title) && content && (!garText || garText.length < content.length)) {
+          garText = content;
+        }
+      }
+    }
+  });
+
   $('.jet-toggle, .elementor-accordion-item').each((i, el) => {
     const title = $(el).find('.jet-toggle__label-text, .elementor-tab-title').text().trim();
     const contentEl = $(el).find('.jet-toggle__content, .elementor-tab-content');
     const content = extractStructuredText(contentEl, $);
-    if (/composi[çc][ãa]o/i.test(title)) compText = content;
-    if (/garantia/i.test(title)) garText = content;
+    if (/composi[çc][ãa]o/i.test(title) && (!compText || compText.length < content.length)) compText = content;
+    if (/garantia/i.test(title) && (!garText || garText.length < content.length)) garText = content;
   });
 
   // 5b. Accordions da PremieRpet (.mob-accordion)

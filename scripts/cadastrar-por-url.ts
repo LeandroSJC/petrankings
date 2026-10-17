@@ -171,18 +171,25 @@ async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ stat
     }
   }
 
+  const isFvo = /fvoalimentos\.com\.br/i.test(url);
+  const customHeaders: Record<string, string> = isFvo
+    ? {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+      }
+    : {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+      };
+
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const res = await fetch(url, {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-          Accept:
-            'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-          'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-          'Cache-Control': 'no-cache',
-          Pragma: 'no-cache',
-        },
+        headers: customHeaders,
       });
 
       const status = res.status;
@@ -245,12 +252,14 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
     referer = new URL(imgUrl).origin + '/';
   } catch {}
 
+  const isFvoImg = /fvoalimentos\.com\.br/i.test(imgUrl);
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const res = await fetch(encoded, {
         headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+          'User-Agent': isFvoImg
+            ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+            : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
           Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
           ...(referer ? { Referer: referer } : {}),
         },
