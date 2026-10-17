@@ -3403,6 +3403,158 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'ph-urinario-magnesio-gatos-calculos-estruvita-oxalato',
+    title: 'pH urinário em gatos: Como a ração previne cálculos de estruvita e oxalato?',
+    subtitle: 'O equilíbrio entre magnésio, DL-metionina e a janela biológica de pH para evitar a formação de cristais e proteger a bexiga do felino.',
+    cluster: 'Nutrição & Bromatologia',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-17',
+    updatedAt: '2026-10-17',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/ph-urinario-magnesio-gatos-calculos-cover.webp',
+    isFeatured: true,
+    summary:
+      'Entenda como a composição bromatológica da ração regula a acidez da urina e por que o controle estrito de magnésio e fósforo é essencial para evitar obstruções uretrais em felinos domésticos.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'fisiologia-felina-urina-concentrada',
+        heading: '1. A Fisiologia Felina e a Tendência à Urina Hiperconcentrada',
+        paragraphs: [
+          'Os felinos domésticos carregam a herança biológica do gato-selvagem-africano (Felis lybica), um predador que evoluiu para sobreviver em climas áridos obtendo quase toda a água corporal diretamente dos tecidos das presas que caçava.',
+          'Em consequência dessa adaptação evolutiva, o centro cerebral da sede nos gatos apresenta baixa sensibilidade. Eles bebem pouca água voluntariamente e seus rins filtram o sangue com máxima economia hídrica, produzindo uma urina naturalmente densa e concentrada em escórias e minerais.',
+          'Essa alta densidade urinária reduz a distância física entre os íons excretados na bexiga. Quando a concentração de solutos ultrapassa a capacidade de dispersão do líquido, ocorre a sobressaturação química, criando o ambiente perfeito para que cristais microscópicos se unam e formem urólitos (pedras na bexiga).',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Sinais Clínicos de Urgência em Doenças do Trato Urinário (FLUTD / DTUIF)',
+          text: 'Gatos que frequentam a caixa higiênica repetidas vezes soltando apenas gotas, choram ou vocalizam de dor ao tentar urinar, lambem excessivamente a região genital ou apresentam sangue na urina necessitam de atendimento veterinário imediato. Nos machos, o estreitamento da uretra peniana pode causar obstrução completa, uma emergência médica fatal em menos de 48 horas devido à retenção de potássio e toxinas no sangue.',
+        },
+      },
+      {
+        id: 'estruvita-vs-oxalato-dilema-ph',
+        heading: '2. Estruvita vs Oxalato de Cálcio: O Dilema dos Dois Extremos',
+        paragraphs: [
+          'A formação de cálculos urinários em felinos obedece a um delicado pêndulo químico governado pelo potencial hidrogeniônico (pH) da urina. No universo das doenças do trato urinário inferior dos felinos (DTUIF), dois tipos de cálculos disputam a liderança clínica: a estruvita e o oxalato de cálcio.',
+          'A estruvita é um mineral composto por fosfato de amônio e magnésio hexahidratado. Ela se precipita com facilidade quando a urina se torna alcalina (pH superior a 6,8). Por outro lado, quando a formulação torna a urina excessivamente ácida (pH abaixo de 6,0), cria-se o terreno fértil para a precipitação de cristais de oxalato de cálcio.',
+          'Existe uma diferença clínica vital entre os dois minerais: enquanto os urólitos de estruvita podem ser dissolvidos completamente por meio de dieta médica sob orientação veterinária, os cálculos de oxalato de cálcio são insolúveis após formados, exigindo procedimentos cirúrgicos ou desobstruções invasivas para sua remoção.',
+        ],
+        table: {
+          caption: 'Quadro Comparativo Bromatológico: Dinâmica dos Cálculos Urinários em Felinos',
+          headers: ['Parâmetro Bromatológico', 'Cálculo de Estruvita', 'Cálculo de Oxalato de Cálcio'],
+          rows: [
+            ['Composição Química', 'Fosfato de Amônio e Magnésio', 'Oxalato de Cálcio'],
+            ['Faixa Crítica de pH', 'Alcalino (acima de 6,8)', 'Ácido (abaixo de 6,0)'],
+            ['Minerais Determinantes', 'Excesso de Magnésio e Fósforo', 'Excesso de Cálcio e Oxalato'],
+            ['Dissolução por Dieta', 'Sim (viável via manejo acidificante)', 'Não (demanda intervenção física/cirúrgica)'],
+            ['Perfil Mais Suscetível', 'Gatos jovens e fêmeas', 'Gatos castrados, machos e idosos'],
+          ],
+        },
+      },
+      {
+        id: 'papel-do-magnesio-limites-abinpet',
+        heading: '3. O Papel do Magnésio na Ração e os Tetos da ABINPET',
+        paragraphs: [
+          'O magnésio é um mineral indispensável para o metabolismo energético, contração muscular e integridade óssea dos gatos. O organismo, contudo, excreta o excedente desse nutriente quase inteiramente pelos túbulos renais.',
+          'Nas décadas de 1970 e 1980, rações com alta inclusão de subprodutos ricos em ossos apresentavam níveis exorbitantes de magnésio, provocando uma epidemia de obstruções uretrais por estruvita. A ciência zootécnica estabeleceu desde então parâmetros rígidos para as fábricas de alimentos.',
+          'Conforme o Manual Pet Food Brasil (11ª Edição da ABINPET) e os guias da FEDIAF 2025, o teor mínimo de magnésio para manutenção de felinos adultos é de 0,04% em Matéria Seca (MS). Para alimentos destinados a gatos castrados ou com declaração de suporte urinário, as boas práticas formulam o magnésio em uma faixa estreita, geralmente entre 0,07% e 0,09% na MS (teto em torno de 1.000 mg/kg), impedindo a saturação mineral no lúmen da bexiga.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Diretriz da ABINPET e FEDIAF para Minerais Felinos',
+          text: 'O Manual Pet Food Brasil (11ª Edição, Tabela 2) destaca que o controle de magnésio precisa ser acompanhado por um balanço rigoroso de cálcio e fósforo, mantendo a relação Ca:P entre 1:1 e 1,5:1. O fósforo livre em excesso atua como o principal substrato ligante que se associa ao magnésio e à amônia para formar o núcleo cristalino da estruvita.',
+        },
+      },
+      {
+        id: 'acidificantes-alimentares-janela-otima',
+        heading: '4. Como a Ração Modula o pH: DL-Metionina e a Janela Ótima',
+        paragraphs: [
+          'Logo após comer, qualquer carnívoro passa por um fenômeno fisiológico conhecido como maré alcalina pós-prandial. Para produzir o ácido clorídrico necessário à digestão gástrica de proteínas, o estômago retira íons hidrogênio do sangue, o que eleva transitoriamente o pH plasmático e torna a urina mais básica durante algumas horas.',
+          'Para neutralizar esse pico alcalino que deflagraria a agregação de estruvita, os nutricionistas adicionam precursores aniônicos à receita da ração. O aditivo nutricional mais consagrado e seguro é a DL-metionina, um aminoácido essencial contendo enxofre que, ao ser metabolizado pelo fígado, libera íons sulfato que acidificam o filtrado urinário.',
+          'O objetivo das fórmulas Super Premium para gatos é manter o pH urinário em uma janela fisiológica ótima entre 6,2 e 6,5. Essa faixa estreita é alta o suficiente para afastar o perigo de precipitação do oxalato de cálcio e baixa o bastante para manter o fosfato de amônio e magnésio dissolvido de forma líquida e inofensiva.',
+        ],
+      },
+      {
+        id: 'hidratacao-e-manejo-pratico',
+        heading: '5. A Regra de Ouro: Diluição Urinária Através da Hidratação',
+        paragraphs: [
+          'Mesmo a ração mais sofisticada e com controle milimétrico de magnésio e DL-metionina perde eficácia protetora se o gato continuar expelindo uma urina superdensa e viscosa.',
+          'A água atua como solvente protetor. Quando o tutor consegue diminuir a densidade específica da urina para valores abaixo de 1,035, a concentração relativa de minerais despenca e a frequência de micção aumenta, promovendo a lavagem mecânica constante do urotélio antes que os cristais tenham tempo de sedimentar.',
+          'Na rotina prática do lar, o manejo preventivo ideal combina a oferta diária de sachês ou alimentos úmidos completos (que aportam mais de 80% de água em sua matriz), fontes elétricas de água corrente com filtro e a distribuição de múltiplos potes largos de vidro ou cerâmica espalhados pela casa.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Regra de Ouro do Comportamento Hídrico Felino',
+          text: 'Gatos recusam água colocada ao lado do prato de comida ou próxima à caixa higiênica por aversão instintiva ancestral contra contaminação bacteriana. Afastar os bebedouros da ração e posicionar fontes em locais silenciosos e arejados eleva a ingestão hídrica espontânea da casa em mais de 30%.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Toda ração para gatos castrados ajuda a prevenir cálculos urinários?',
+        a: 'As linhas Super Premium e Premium Especial formuladas especificamente para gatos castrados já incorporam o controle de minerais (magnésio e fósforo restritos) e aditivos acidificantes como a DL-metionina para sustentar o pH urinário entre 6,2 e 6,5, além de reduzirem as calorias para conter o ganho de peso pós-castração.',
+      },
+      {
+        q: 'Ração com teor controlado de magnésio pode gerar deficiência nutricional?',
+        a: 'Não. Os alimentos respeitam o piso biológico mínimo estabelecido pelo MAPA e pela ABINPET (0,04% de magnésio na Matéria Seca). O controle consiste em evitar a sobrecarga mineral que costuma ocorrer quando são utilizadas matérias-primas cárneas de baixa qualidade e com excesso de ossos triturados (farinhas com alta matéria mineral).',
+      },
+      {
+        q: 'O uso diário de alimento úmido em sachê ajuda a proteger os rins e a bexiga?',
+        a: 'Sim, de forma decisiva. Os alimentos úmidos completos contêm mais de 80% de água em sua composição natural. Essa umidade vai direto para o trato digestivo, promovendo a hidratação celular e garantindo que a bexiga produza um volume maior de urina diluída, impedindo a agregação de cristais.',
+      },
+      {
+        q: 'Posso dar ração acidificante de tratamento para um gato saudável para prevenir pedras?',
+        a: 'Não sem recomendação médica. Alimentos coadjuvantes terapêuticos formulados para dissolução de estruvita promovem acidificação forçada (pH abaixo de 6,0) e restrições severas. Administrar essas dietas a longo prazo em animais saudáveis pode inverter o problema e provocar a formação de cálculos insolúveis de oxalato de cálcio ou acidose metabólica.',
+      },
+    ],
+    conclusion:
+      'A proteção do trato urinário dos gatos baseia-se na harmonia entre a formulação nutricional e o estímulo hídrico diário. Alimentos balanceados que mantêm o magnésio abaixo de 0,10% na Matéria Seca e sustentam o pH urinário na faixa segura entre 6,2 e 6,5 minimizam a formação de urólitos, enquanto a hidratação constante por alimentos úmidos e água fresca corrente forma a blindagem definitiva contra as obstruções uretrais.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil — 11ª Edição',
+        institution: 'ABEMPET / ABINPET',
+        type: 'literatura',
+        url: 'https://abempet.org.br/manual-pet-food-brasil-11-edicao/',
+        details: 'Tabela 2: Padrões Nutricionais e Limites Minerais de Magnésio, Fósforo e Cálcio para Gatos Adultos em Manutenção',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/quality-safety/nutritional-guidelines/',
+        details: 'Chapter on Feline Lower Urinary Tract Health, Dietary Cation-Anion Balance (DCAD) and Urine Specific Gravity Management',
+      },
+      {
+        title: 'WSAVA Nutritional Assessment Guidelines',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Directives on Voluntary Feline Hydration, Water Metabolism and Lower Urinary Tract Disease Prevention',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'estudo',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Chapter 7: Macrominerals Metabolism, Renal Excretion of Magnesium and Urolithiasis Pathophysiology in Felids',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamento técnico de registro e rotulagem para indicação obrigatória de níveis de garantia minerais em alimentos para animais de companhia',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte os Níveis de Minerais das Rações para Gatos no Catálogo',
+      text: 'O PetRankings cataloga e converte em Matéria Seca (MS) os níveis de magnésio, fósforo e cálcio informados nos rótulos oficiais de centenas de alimentos felinos. Acesse o catálogo e confira a transparência de cada fórmula.',
+      buttonText: 'Explorar Catálogo de Alimentos para Gatos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
