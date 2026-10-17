@@ -7,10 +7,19 @@ import prisma from '@/lib/prisma';
 export async function findProductRedirect(sourceSlug: string): Promise<string | null> {
   if (!sourceSlug) return null;
   try {
-    const normalized = sourceSlug.trim().toLowerCase();
+    let decoded = sourceSlug.trim();
+    try {
+      decoded = decodeURIComponent(decoded);
+    } catch {}
+
+    const normalized = decoded.toLowerCase();
+    const plusVariant = normalized.replace(/\+/g, '-plus-').replace(/-+/g, '-');
+
     const rows = await prisma.$queryRawUnsafe<{ targetSlug: string }[]>(
-      'SELECT "targetSlug" FROM "ProductRedirect" WHERE LOWER("sourceSlug") = LOWER($1) LIMIT 1',
-      normalized
+      'SELECT "targetSlug" FROM "ProductRedirect" WHERE LOWER("sourceSlug") = LOWER($1) OR LOWER("sourceSlug") = LOWER($2) OR LOWER("sourceSlug") = LOWER($3) LIMIT 1',
+      sourceSlug.trim().toLowerCase(),
+      normalized,
+      plusVariant
     );
     return rows[0]?.targetSlug || null;
   } catch (err) {
