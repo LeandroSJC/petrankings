@@ -73,7 +73,7 @@ function capitalizeTitle(str: string): string {
   s = s.replace(/(\w+)\s*\/\s*(\w+)/g, '$1 e $2').replace(/\s*\/\s*/g, ' e ');
 
   // 2. Preposições, artigos e conectivos que devem ficar em minúsculo (salvo início de frase)
-  const smallWords = new Set(['de', 'da', 'do', 'dos', 'das', 'e', 'em', 'com', 'para', 'ao', 'aos', 'por', 'a', 'as', 'o', 'os']);
+  const smallWords = new Set(['de', 'da', 'do', 'dos', 'das', 'e', 'em', 'com', 'para', 'ao', 'aos', 'por', 'a', 'as', 'o', 'os', 'by']);
 
   // 3. Siglas que devem permanecer em maiúsculo
   const acronyms = new Set(['MOS', 'BHA', 'BHT', 'EPA', 'DHA', 'FOS', 'HACCP', 'GMP', 'BPF', 'FIT', 'DNA']);
@@ -88,6 +88,12 @@ function capitalizeTitle(str: string): string {
     qualiday: 'Qualiday',
     qualyday: 'Qualiday',
     granplus: 'GranPlus',
+    'select by monello': 'Select by Monello',
+    monello: 'Monello',
+    birbo: 'Birbo',
+    bolt: 'Bolt',
+    bandit: 'Bandit',
+    bancat: 'Bancat',
   };
 
   let result = s
@@ -470,14 +476,20 @@ export function parseProductFromHtml(
   const $ = cheerio.load(html);
 
   // 1. URL e Imagem Oficial
-  const sourceUrl =
+  let sourceUrl =
     $('meta[property="og:url"]').attr('content') ||
     $('link[rel="canonical"]').attr('href') ||
     fallbackUrl ||
     '';
 
+  // Se o canonical for a raiz do site mas o fallbackUrl tiver o caminho específico do produto
+  if (fallbackUrl && (sourceUrl.endsWith('nutrire.ind.br/') || sourceUrl.endsWith('nutrire.ind.br') || (fallbackUrl.includes('/produto/') && !sourceUrl.includes('/produto/')))) {
+    sourceUrl = fallbackUrl;
+  }
+
   const isGranPlus = /granplus\.com\.br/i.test(sourceUrl) || /granplus/i.test(fallbackUrl);
   const isFortbrain = /fortbrain\.com\.br/i.test(sourceUrl) || /fortbrain/i.test(fallbackUrl);
+  const isNutrire = /nutrire\.ind\.br/i.test(sourceUrl) || /nutrire\.ind\.br/i.test(fallbackUrl);
 
   let imageUrl =
     $('meta[property="og:image"]').attr('content') ||
@@ -727,6 +739,18 @@ export function parseProductFromHtml(
 
     if (hillsPackshot) {
       imageUrl = hillsPackshot;
+    }
+  }
+
+  // 1h. Extração Nutrire (Select by Monello, Monello, Birbo, Bolt, Bandit, Bancat, Monello Bites)
+  if (!imageUrl && isNutrire) {
+    const nutImg =
+      $('.product-detail .illustration img').first().attr('src') ||
+      $('img[src*="/images/"]').first().attr('src');
+    if (nutImg) {
+      imageUrl = nutImg.startsWith('http')
+        ? nutImg
+        : `https://www.nutrire.ind.br${nutImg.startsWith('/') ? '' : '/'}${nutImg}`;
     }
   }
 
@@ -1079,6 +1103,87 @@ export function parseProductFromHtml(
       .replace(/Cães\s+Cães/i, 'Cães')
       .replace(/\s+/g, ' ')
       .trim();
+  } else if (isNutrire) {
+    let nutTitle =
+      $('.product-detail .text h3').first().text().replace(/\s+/g, ' ').trim() ||
+      $('h1').first().text().replace(/\s+/g, ' ').trim() ||
+      $('meta[property="og:title"]').attr('content') ||
+      '';
+
+    // Normaliza hífens longos e travessões
+    nutTitle = nutTitle.replace(/[–—]/g, ' ').replace(/\s+/g, ' ').trim();
+
+    // 1. Select by Monello
+    nutTitle = nutTitle.replace(/Select\s+By\s+Monello/gi, 'Select by Monello');
+
+    // 2. Monello Especial
+    nutTitle = nutTitle.replace(/Monello\s+Especial/gi, 'Monello Especial');
+
+    // 3. Birbo
+    if (/^Birbo\s+/i.test(nutTitle)) {
+      const isCatBirbo = /gatos?/i.test(nutTitle) || /gatos?/i.test(sourceUrl);
+      if (!isCatBirbo && !/c[ãa]es/i.test(nutTitle)) {
+        if (/filhote/i.test(nutTitle)) {
+          nutTitle = nutTitle.replace(/^Birbo\s+Filhotes/i, 'Birbo Cães Filhotes');
+        } else if (/ra[çc]as\s*pequenas/i.test(nutTitle)) {
+          nutTitle = nutTitle.replace(/^Birbo\s+Ra[çc]as\s+Pequenas/i, 'Birbo Cães Adultos Raças Pequenas');
+        } else if (/carne/i.test(nutTitle)) {
+          nutTitle = nutTitle.replace(/^Birbo\s+Carne/i, 'Birbo Cães Adultos Sabor Carne');
+        } else if (/cordeiro/i.test(nutTitle)) {
+          nutTitle = nutTitle.replace(/^Birbo\s+Cordeiro\s*(?:&|e)\s*Vegetais/i, 'Birbo Cães Adultos Cordeiro e Vegetais');
+        } else if (/tradicional/i.test(nutTitle)) {
+          nutTitle = nutTitle.replace(/^Birbo\s+Tradicional/i, 'Birbo Cães Adultos Tradicional');
+        } else {
+          nutTitle = nutTitle.replace(/^Birbo\s+/i, 'Birbo Cães Adultos ');
+        }
+      } else if (isCatBirbo) {
+        if (/blend/i.test(nutTitle)) {
+          nutTitle = nutTitle.replace(/^Birbo\s+Gatos\s+Blend/i, 'Birbo Gatos Adultos Blend');
+        } else if (/peru/i.test(nutTitle)) {
+          nutTitle = nutTitle.replace(/^Birbo\s+Gatos\s+Peru/i, 'Birbo Gatos Adultos Sabor Peru');
+        }
+      }
+    }
+
+    // 4. Bolt
+    if (/^Bolt$/i.test(nutTitle) || /^Bolt\s+Mais$/i.test(nutTitle) || /bolt-caes/i.test(sourceUrl)) {
+      nutTitle = 'Bolt Cães Adultos';
+    }
+
+    // 5. Bandit
+    if (/^Bandit$/i.test(nutTitle) || /bandit-caes/i.test(sourceUrl)) {
+      nutTitle = 'Bandit Cães Adultos';
+    }
+
+    // 6. Bancat
+    if (/^Bancat$/i.test(nutTitle) || /bancat-gatos/i.test(sourceUrl)) {
+      nutTitle = 'Bancat Gatos Adultos';
+    }
+
+    // 7. Monello Bites
+    if (
+      /Monello\s*Bites/i.test(nutTitle) ||
+      /MonelloBites/i.test(sourceUrl) ||
+      /Controle.*Peso-Caes|Imunidade-Caes/i.test(sourceUrl)
+    ) {
+      if (!nutTitle.toLowerCase().startsWith('monello bites')) {
+        nutTitle = `Monello Bites ${nutTitle}`;
+      }
+      const isCatBite = /gatos?|castrados?|bolas?\s*de\s*pelo|oral/i.test(nutTitle + ' ' + sourceUrl);
+      const isDogBite = /c[ãa]es|mini|pequena|m[ée]dia|grande/i.test(nutTitle + ' ' + sourceUrl) || !isCatBite;
+      if (isCatBite && !/gatos/i.test(nutTitle)) {
+        nutTitle = nutTitle.replace(/^Monello\s+Bites\s+/i, 'Monello Bites Gatos Adultos ');
+      } else if (isDogBite && !/c[ãa]es/i.test(nutTitle)) {
+        nutTitle = nutTitle.replace(/^Monello\s+Bites\s+/i, 'Monello Bites Cães Adultos ');
+      }
+      nutTitle = nutTitle
+        .replace(/M[ée]dias\/Grandes/gi, 'Raças Médias e Grandes')
+        .replace(/Mini\/Pequenas/gi, 'Raças Mini e Pequenas')
+        .replace(/Minis-Pequenas/gi, 'Raças Mini e Pequenas')
+        .replace(/Medias-Grandes/gi, 'Raças Médias e Grandes');
+    }
+
+    rawName = nutTitle;
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -1094,7 +1199,15 @@ export function parseProductFromHtml(
 
   let slug = '';
   if (sourceUrl && !/farmina\.com/i.test(sourceUrl)) {
-    if (/purina\.com\.br/i.test(sourceUrl)) {
+    if (isNutrire) {
+      const lastPart = sourceUrl.split('/').pop() || '';
+      const decoded = decodeURIComponent(lastPart).toLowerCase();
+      slug = decoded
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    } else if (/purina\.com\.br/i.test(sourceUrl)) {
       const purinaParts = sourceUrl.replace(/\/produto\/?$/i, '').split('/').filter(Boolean);
       const relevant = purinaParts.slice(2).filter((p) => p !== 'produtos' && p !== 'produto').join('-');
       if (relevant && relevant.length > 3) {
@@ -1368,6 +1481,30 @@ export function parseProductFromHtml(
     } else {
       brand = 'FVO Alimentos';
     }
+  } else if (
+    isNutrire ||
+    /nutrire\.ind\.br/i.test(sourceUrl) ||
+    /select\s*by\s*monello|monello|birbo|bolt|bandit|bancat/i.test(commercialName)
+  ) {
+    manufacturerLegalName = 'Nutrire Indústria de Alimentos Ltda';
+    const t = (commercialName + ' ' + sourceUrl).toLowerCase();
+    if (/select\s*by\s*monello/i.test(t)) {
+      brand = 'Select by Monello';
+    } else if (/monello\s*bites/i.test(t) || /monellobites/i.test(sourceUrl)) {
+      brand = 'Monello Bites';
+    } else if (/monello/i.test(t)) {
+      brand = 'Monello';
+    } else if (/birbo/i.test(t)) {
+      brand = 'Birbo';
+    } else if (/bolt/i.test(t)) {
+      brand = 'Bolt';
+    } else if (/bandit/i.test(t)) {
+      brand = 'Bandit';
+    } else if (/bancat/i.test(t)) {
+      brand = 'Bancat';
+    } else {
+      brand = 'Nutrire';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -1379,10 +1516,11 @@ export function parseProductFromHtml(
     !commercialName.startsWith("Hill's") &&
     !commercialName.startsWith('GranPlus') &&
     !isGranPlus &&
+    !isNutrire &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -1390,8 +1528,8 @@ export function parseProductFromHtml(
 
   // 4. Espécie, Fase de Vida, Porte, Formato
   const isDual = /c[ãa]es\s*e\s*gatos/i.test(commercialName) || /c[ãa]es\s*e\s*gatos/i.test(sourceUrl);
-  const isGato = /gato|gatos|felin|catchow|cat-chow|fancy-feast|friskies|miaow|nugget|ducats?|\/cats\/|\bcat\b|\bcats\b/i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
-  const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|\/dogs\//i.test(sourceUrl) || (!isRoyalCanin && /canin/i.test(commercialName + ' ' + sourceUrl)));
+  const isGato = /gato|gatos|felin|catchow|cat-chow|fancy-feast|friskies|miaow|nugget|ducats?|bancat|\/cats\/|\bcat\b|\bcats\b/i.test(commercialName + ' ' + sourceUrl + ' ' + quatreeAnimalType);
+  const isCao = !isGato && (/c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|bolt|bandit|\/dogs\//i.test(commercialName) || /c[ãa]o|c[ãa]es|cachorro|dogchow|dog-chow|bolt|bandit|\/dogs\//i.test(sourceUrl) || (!isRoyalCanin && /canin/i.test(commercialName + ' ' + sourceUrl)));
 
   let species: 'GATO' | 'CAO' | 'CAO_E_GATO' = 'CAO';
   if (isDual) species = 'CAO_E_GATO';
@@ -1612,6 +1750,38 @@ export function parseProductFromHtml(
     clone.find('h1, h2, h3, h4').remove();
     const txt = extractStructuredText(clone, $);
     if (txt) garText = txt;
+  }
+
+  // 5-nutrire. Nutrire Alimentos (Select by Monello, Monello, Birbo, Bolt, Bandit, Bancat, Monello Bites)
+  if (isNutrire) {
+    $('h5').each((_, el) => {
+      const heading = $(el).text().trim();
+      const parent = $(el).parent();
+      if (/composição/i.test(heading) && !compText) {
+        let txt = parent.text().replace(/\s+/g, ' ').trim();
+        txt = txt
+          .replace(/^Especifica[çc][õo]es\s*/i, '')
+          .replace(/^COMPOSI[ÇC][ÃA]O\s*(?:B[ÁA]SICA)?\s*(?:DO\s*PRODUTO)?[:\s]*/i, '')
+          .trim();
+        compText = txt;
+      } else if (/garantia/i.test(heading) && !garText) {
+        const garItems: string[] = [];
+        parent.find('li, tr, p').each((_, item) => {
+          const t = $(item).text().replace(/\s+/g, ' ').trim();
+          if (t && !/N[ÍI]VEIS\s*DE\s*GARANTIA/i.test(t)) garItems.push(t);
+        });
+        if (garItems.length > 0) {
+          garText = garItems.join('\n');
+        } else {
+          let txt = parent.text().replace(/\s+/g, ' ').trim();
+          txt = txt
+            .replace(/^Especifica[çc][õo]es\s*/i, '')
+            .replace(/^N[ÍI]VEIS\s*DE\s*GARANTIA[:\s]*/i, '')
+            .trim();
+          garText = txt;
+        }
+      }
+    });
   }
 
   // 5a. JetTabs / Accordions / Elementor Nested Tabs (.e-n-tab-title)
@@ -1863,7 +2033,7 @@ export function parseProductFromHtml(
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   let extratoEtereoMinPct =
-    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?|L[íi]pidos)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   let materiaMineralMaxPct =
     parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
@@ -1946,6 +2116,13 @@ export function parseProductFromHtml(
   cleanComp = cleanComp.split(/Esp[ée]cies\s+(?:doadoras|modificadoras)(?:\s+d[eo]\s+genes?)?[:\s]/i)[0];
   cleanComp = cleanComp.split(/\*Cont[ée]m/i)[0];
   cleanComp = cleanComp.split(/\*Ingredientes/i)[0];
+
+  if (isNutrire && /Ingredientes\s+selecionados/i.test(cleanComp)) {
+    cleanComp = cleanComp
+      .replace(/Ingredientes\s+selecionados[^\(]*\(/gi, '')
+      .replace(/\)\.?\s*Frutas,\s*vegetais[^\(]*\(/gi, ', ')
+      .replace(/\)\.?\s*$/, '');
+  }
 
   // Remove prefixos residuais do Next.js Flight no início do texto (ex: "30:T4aa,")
   cleanComp = cleanComp.replace(/^[0-9a-f]+:[A-Za-z0-9_$,\\]+,\s*/i, '');
