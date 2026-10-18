@@ -18,6 +18,7 @@ import {
   Sparkles,
   ChevronRight,
   Scale,
+  Info,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import BackButton from '@/components/BackButton';
@@ -35,6 +36,80 @@ function getSafeUrl(url?: string | null): string | null {
     return trimmed;
   }
   return null;
+}
+
+interface StatusBadgeInfo {
+  status: 'ADEQUADO' | 'LIMITROFE' | 'ALERTA';
+  label: string;
+  color: string;
+  bgColor: string;
+  borderColor: string;
+}
+
+function getStatusBadge(
+  status: 'ADEQUADO' | 'LIMITROFE' | 'ALERTA',
+  label: string
+): StatusBadgeInfo {
+  if (status === 'ADEQUADO') {
+    return {
+      status,
+      label,
+      color: '#065f46',
+      bgColor: '#ecfdf5',
+      borderColor: '#a7f3d0',
+    };
+  }
+  if (status === 'LIMITROFE') {
+    return {
+      status,
+      label,
+      color: '#92400e',
+      bgColor: '#fffbeb',
+      borderColor: '#fde68a',
+    };
+  }
+  return {
+    status,
+    label,
+    color: '#991b1b',
+    bgColor: '#fef2f2',
+    borderColor: '#fecaca',
+  };
+}
+
+function NutrientStatusChip({ badge }: { badge: StatusBadgeInfo }) {
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '4px',
+        padding: '2px 7px',
+        borderRadius: '4px',
+        fontSize: '0.68rem',
+        fontWeight: 700,
+        color: badge.color,
+        backgroundColor: badge.bgColor,
+        border: `1px solid ${badge.borderColor}`,
+        marginLeft: '6px',
+        verticalAlign: 'middle',
+        letterSpacing: '0.2px',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      <span
+        style={{
+          width: '5px',
+          height: '5px',
+          borderRadius: '50%',
+          backgroundColor: badge.color,
+          display: 'inline-block',
+          flexShrink: 0,
+        }}
+      />
+      {badge.label}
+    </span>
+  );
 }
 
 export async function generateMetadata({
@@ -223,6 +298,93 @@ export default async function ProductDetailPage({
     product.crudeFiberMaxPct,
     product.mineralMatterMaxPct
   );
+
+  const fibraMS = Number((product.crudeFiberMaxPct / ms.fatorMS).toFixed(2));
+  const mineralMS = Number((product.mineralMatterMaxPct / ms.fatorMS).toFixed(2));
+
+  // Cálculos semafóricos de conformidade bromatológica (ABINPET 11ª Edição / FEDIAF / NRC)
+  const badgeUmidade: StatusBadgeInfo = isNativamenteMS
+    ? getStatusBadge('ADEQUADO', 'Base Seca')
+    : product.foodType === 'UMIDO'
+    ? product.moistureMaxPct <= 88.0
+      ? getStatusBadge('ADEQUADO', 'Padrão Úmido')
+      : getStatusBadge('LIMITROFE', 'Alta Diluição')
+    : product.moistureMaxPct <= 10.5
+    ? getStatusBadge('ADEQUADO', 'Adequada')
+    : product.moistureMaxPct <= 12.0
+    ? getStatusBadge('LIMITROFE', 'Limítrofe')
+    : getStatusBadge('ALERTA', 'Acima do Padrão');
+
+  const pbMin = abinpetPadrao.proteinaBrutaMinMS;
+  const pbMargem = abinpetPadrao.proteinaBrutaMargemSegurancaMS;
+  const badgeProteina: StatusBadgeInfo =
+    ms.proteinaBrutaPct < pbMin
+      ? getStatusBadge('ALERTA', 'Abaixo do Piso')
+      : ms.proteinaBrutaPct < pbMargem
+      ? getStatusBadge('LIMITROFE', 'Próximo ao Piso')
+      : getStatusBadge('ADEQUADO', 'Adequada');
+
+  const eeMin = abinpetPadrao.extratoEtereoMinMS;
+  const eeMargem = abinpetPadrao.extratoEtereoMargemSegurancaMS;
+  const badgeGordura: StatusBadgeInfo =
+    ms.extratoEtereoPct < eeMin
+      ? getStatusBadge('ALERTA', 'Abaixo do Piso')
+      : ms.extratoEtereoPct < eeMargem
+      ? getStatusBadge('LIMITROFE', 'Próximo ao Piso')
+      : getStatusBadge('ADEQUADO', 'Adequada');
+
+  const badgeFibra: StatusBadgeInfo = isLight
+    ? fibraMS <= 8.5
+      ? getStatusBadge('ADEQUADO', 'Fibras p/ Saciedade')
+      : getStatusBadge('LIMITROFE', 'Fibras Elevadas')
+    : fibraMS <= 4.5
+    ? getStatusBadge('ADEQUADO', 'Digestibilidade Ótima')
+    : fibraMS <= 6.5
+    ? getStatusBadge('LIMITROFE', 'Moderada')
+    : getStatusBadge('ALERTA', 'Fibras Elevadas');
+
+  const badgeMineral: StatusBadgeInfo =
+    mineralMS <= 8.5
+      ? getStatusBadge('ADEQUADO', 'Low Ash')
+      : mineralMS <= 10.0
+      ? getStatusBadge('LIMITROFE', 'Moderado')
+      : getStatusBadge('ALERTA', 'Cinzas Elevadas');
+
+  const caMinMS = ms.calcioMinPct;
+  const caMaxMS = ms.calcioMaxPct || caMinMS;
+  const caPiso = abinpetPadrao.calcioMinMS;
+  const caTeto = abinpetPadrao.calcioMaxSeguroMS;
+  const badgeCalcio: StatusBadgeInfo =
+    caMinMS < caPiso
+      ? getStatusBadge('ALERTA', 'Abaixo do Piso')
+      : caMaxMS > caTeto
+      ? getStatusBadge('ALERTA', 'Acima do Teto')
+      : caMinMS <= caPiso * 1.15 || caMaxMS >= caTeto * 0.9
+      ? getStatusBadge('LIMITROFE', 'Faixa Limítrofe')
+      : getStatusBadge('ADEQUADO', 'Faixa Segura');
+
+  const pMinMS = ms.fosforoMinPct;
+  const pPiso = abinpetPadrao.fosforoMinMS;
+  const pTeto = abinpetPadrao.fosforoMaxSeguroMS;
+  const badgeFosforo: StatusBadgeInfo =
+    pMinMS < pPiso
+      ? getStatusBadge('ALERTA', 'Abaixo do Piso')
+      : pMinMS > pTeto
+      ? getStatusBadge('ALERTA', 'Acima do Teto')
+      : pMinMS <= pPiso * 1.15 || pMinMS >= pTeto * 0.9
+      ? getStatusBadge('LIMITROFE', 'Próximo ao Limite')
+      : getStatusBadge('ADEQUADO', 'Piso Seguro');
+
+  const capIdealMin = abinpetPadrao.relacaoCaPIdealMin;
+  const capIdealMax = abinpetPadrao.relacaoCaPIdealMax;
+  const capTolMin = abinpetPadrao.relacaoCaPToleranciaMin;
+  const capTolMax = abinpetPadrao.relacaoCaPToleranciaMax;
+  const badgeCaP: StatusBadgeInfo =
+    relacaoCaP < capTolMin || relacaoCaP > capTolMax
+      ? getStatusBadge('ALERTA', 'Desbalanceado')
+      : relacaoCaP >= capIdealMin && relacaoCaP <= capIdealMax
+      ? getStatusBadge('ADEQUADO', 'Proporção Ideal')
+      : getStatusBadge('LIMITROFE', 'Aceitável');
 
   // Schema.org JSON-LD estruturado e em conformidade estrita com o Google Search Console
   const breadcrumbSchema = {
@@ -789,33 +951,62 @@ export default async function ProductDetailPage({
                 <tbody>
                   <tr>
                     <td><strong>Umidade (Máx.)</strong></td>
-                    <td>{isNativamenteMS ? 'Não declarada na página oficial' : `${product.moistureMaxPct.toFixed(1)}%`}</td>
+                    <td>
+                      {isNativamenteMS ? (
+                        'Não declarada na página oficial'
+                      ) : (
+                        <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                          <span>{product.moistureMaxPct.toFixed(1)}%</span>
+                          <NutrientStatusChip badge={badgeUmidade} />
+                        </div>
+                      )}
+                    </td>
                     <td>{isNativamenteMS ? 'Base Seca (100% MS)' : '0.0% (Base Seca)'}</td>
                     <td>{product.foodType === 'UMIDO' ? 'Padrão sachê/lata úmido: 80-88%' : 'Padrão industrial: até 10-12%'}</td>
                   </tr>
                   <tr>
                     <td><strong>Proteína Bruta (Mín.)</strong></td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.crudeProteinMinPct.toFixed(1)}%`}</td>
-                    <td><strong style={{ color: '#065f46' }}>{ms.proteinaBrutaPct.toFixed(2)}%</strong></td>
+                    <td>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                        <strong style={{ color: badgeProteina.color }}>{ms.proteinaBrutaPct.toFixed(2)}%</strong>
+                        <NutrientStatusChip badge={badgeProteina} />
+                      </div>
+                    </td>
                     <td>Piso ABINPET: {abinpetPadrao.proteinaBrutaMinMS.toFixed(1)}% MS ({isFilhote ? 'Crescimento / Filhotes' : 'Manutenção'})</td>
                   </tr>
                   <tr>
                     <td><strong>Extrato Etéreo / Gordura (Mín.)</strong></td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.etherExtractMinPct.toFixed(1)}%`}</td>
-                    <td><strong style={{ color: '#065f46' }}>{ms.extratoEtereoPct.toFixed(2)}%</strong></td>
+                    <td>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                        <strong style={{ color: badgeGordura.color }}>{ms.extratoEtereoPct.toFixed(2)}%</strong>
+                        <NutrientStatusChip badge={badgeGordura} />
+                      </div>
+                    </td>
                     <td>Piso ABINPET: {abinpetPadrao.extratoEtereoMinMS.toFixed(1)}% MS</td>
                   </tr>
                   <tr>
                     <td><strong>Matéria Fibrosa (Máx.)</strong></td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.crudeFiberMaxPct.toFixed(1)}%`}</td>
-                    <td>{(product.crudeFiberMaxPct / ms.fatorMS).toFixed(2)}%</td>
-                    <td>Controle de digestibilidade</td>
+                    <td>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                        <strong style={{ color: badgeFibra.color }}>{fibraMS.toFixed(2)}%</strong>
+                        <NutrientStatusChip badge={badgeFibra} />
+                      </div>
+                    </td>
+                    <td>Controle de digestibilidade (Recomendado: até 4.5% MS)</td>
                   </tr>
                   <tr>
                     <td><strong>Matéria Mineral (Máx.)</strong></td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.mineralMatterMaxPct.toFixed(1)}%`}</td>
-                    <td>{(product.mineralMatterMaxPct / ms.fatorMS).toFixed(2)}%</td>
-                    <td>Máximo recomendado: até 8-10% MS</td>
+                    <td>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                        <strong style={{ color: badgeMineral.color }}>{mineralMS.toFixed(2)}%</strong>
+                        <NutrientStatusChip badge={badgeMineral} />
+                      </div>
+                    </td>
+                    <td>Máximo recomendado: até 8.0-8.5% MS (Low Ash)</td>
                   </tr>
                   <tr>
                     <td><strong>Cálcio (Mín. / Máx.)</strong></td>
@@ -830,27 +1021,40 @@ export default async function ProductDetailPage({
                       )}
                     </td>
                     <td>
-                      {ms.calcioMinPct.toFixed(2)}%
-                      {ms.calcioMaxPct ? ` a ${ms.calcioMaxPct.toFixed(2)}%` : ''}
+                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                        <strong style={{ color: badgeCalcio.color }}>
+                          {ms.calcioMinPct.toFixed(2)}%
+                          {ms.calcioMaxPct ? ` a ${ms.calcioMaxPct.toFixed(2)}%` : ''}
+                        </strong>
+                        <NutrientStatusChip badge={badgeCalcio} />
+                      </div>
                     </td>
                     <td>
                       {product.foodType === 'UMIDO'
-                        ? `Faixa segura: ${abinpetPadrao.calcioMinMS.toFixed(2)}% a ${abinpetPadrao.calcioMaxSeguroMS.toFixed(2)}% MS (Diretriz Internacional FEDIAF / NRC para Alimentos Úmidos)`
+                        ? `Faixa segura: ${abinpetPadrao.calcioMinMS.toFixed(2)}% a ${abinpetPadrao.calcioMaxSeguroMS.toFixed(2)}% MS (Diretriz FEDIAF / NRC)`
                         : `Faixa segura: ${abinpetPadrao.calcioMinMS.toFixed(2)}% a ${abinpetPadrao.calcioMaxSeguroMS.toFixed(2)}% MS`}
                     </td>
                   </tr>
                   <tr>
                     <td><strong>Fósforo (Mín.)</strong></td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.phosphorusMinPct.toFixed(2)}%`}</td>
-                    <td>{ms.fosforoMinPct.toFixed(2)}%</td>
+                    <td>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                        <strong style={{ color: badgeFosforo.color }}>{ms.fosforoMinPct.toFixed(2)}%</strong>
+                        <NutrientStatusChip badge={badgeFosforo} />
+                      </div>
+                    </td>
                     <td>Piso seguro: {abinpetPadrao.fosforoMinMS.toFixed(2)}% MS</td>
                   </tr>
                   <tr style={{ backgroundColor: 'var(--bg-cream-main)' }}>
                     <td><strong>Relação Cálcio : Fósforo (Ca:P)</strong></td>
                     <td colSpan={2}>
-                      <strong style={{ fontSize: '0.98rem', color: relacaoCaP >= abinpetPadrao.relacaoCaPIdealMin && relacaoCaP <= abinpetPadrao.relacaoCaPIdealMax ? '#065f46' : '#92400e' }}>
-                        {relacaoCaP}:1
-                      </strong>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+                        <strong style={{ fontSize: '0.98rem', color: badgeCaP.color }}>
+                          {relacaoCaP}:1
+                        </strong>
+                        <NutrientStatusChip badge={badgeCaP} />
+                      </div>
                     </td>
                     <td>Faixa Ideal: {abinpetPadrao.relacaoCaPIdealMin.toFixed(1)}:1 até {abinpetPadrao.relacaoCaPIdealMax.toFixed(1)}:1 ({isFilhote ? 'Filhotes' : 'Adultos'})</td>
                   </tr>
@@ -870,6 +1074,39 @@ export default async function ProductDetailPage({
                   )}
                 </tbody>
               </table>
+            </div>
+
+            {/* GUIA SEMAFÓRICO DE CONFORMIDADE BROMATOLÓGICA */}
+            <div
+              style={{
+                marginTop: '16px',
+                padding: '14px 18px',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: 'var(--bg-cream-main)',
+                border: '1px solid var(--border-cream-light)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.80rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
+                <Info size={15} color="var(--brand-forest-700)" />
+                <span>Guia Semafórico de Conformidade Bromatológica (Manual Pet Food Brasil — ABINPET 11ª Edição):</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#059669', flexShrink: 0 }} />
+                  <strong style={{ color: '#065f46' }}>Adequado:</strong> Atendimento pleno aos pisos com folga zootécnica ou dentro da faixa ideal.
+                </span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#d97706', flexShrink: 0 }} />
+                  <strong style={{ color: '#92400e' }}>Limítrofe:</strong> Próximo ao piso mínimo regulatório ou tangenciando o teto aceitável de minerais/fibras.
+                </span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#dc2626', flexShrink: 0 }} />
+                  <strong style={{ color: '#991b1b' }}>Alerta:</strong> Abaixo do piso obrigatório ou acima do teto de segurança toxicológico.
+                </span>
+              </div>
             </div>
           </section>
 
