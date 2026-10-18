@@ -1994,6 +1994,10 @@ export function parseProductFromHtml(
   // 6. Níveis de Garantia
   // Remove tags HTML de garText e compText preservando quebras de linha em garText
   garText = garText.replace(/<[^>]+>/g, ' ').replace(/[ \t]+/g, ' ');
+  // Limpeza de notas de rodapé numéricas ou sobrescritas coladas a (mín.) ou (máx.) antes de dígitos de garantia
+  garText = garText.replace(/\((?:m[íi]n|m[áa]x|m[íi]n\/m[áa]x)[^\)]*\)\s*([0-9¹²³⁴⁵⁶⁷⁸⁹\*]+)(?=\s+\d)/gi, (match, fn) => {
+    return match.slice(0, match.length - fn.length);
+  });
   compText = compText.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
 
   const parseValFromText = (text: string, pattern: RegExp): number | null => {
@@ -2035,7 +2039,7 @@ export function parseProductFromHtml(
 
   let umidadeMaxPct = isHills
     ? 0
-    : parseGuarantee(/Umidade[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    : parseGuarantee(/(?:Umidade|Humedad)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
       (foodType === 'UMIDO' ? 86.0 : 10.0);
 
   let proteinaBrutaMinPct =
@@ -2048,14 +2052,14 @@ export function parseProductFromHtml(
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   let extratoEtereoMinPct =
-    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?|L[íi]pidos)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?|L[íi]p[ií]d[ie]?os?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   let materiaMineralMaxPct =
-    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?|Cenizas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 2.5 : 8.0);
 
   let materiaFibrosaMaxPct =
-    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
+    parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta|Cruda)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 1.5 : 3.5);
 
   // Extração determinística de Cálcio Mín. e Máx.
