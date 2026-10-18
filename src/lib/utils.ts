@@ -116,11 +116,21 @@ export function stripFootnotesFromIngredient(text: string): string {
   s = s.replace(/[*†‡¹²³⁴⁵⁶⁷⁸⁹]+/g, '');
   // Preserva "glúten de milho 60" removendo apenas o dígito de rodapé anexado (ex: "601" -> "60")
   s = s.replace(/\b(gl[uú]ten\s+de\s+milho\s+60)[0-9]+\b/gi, '$1');
-  // Remove dígitos colados a nomes de grãos e ingredientes vegetais transgênicos (ex: milho1, trigo2, soja1)
-  s = s.replace(/\b(milho|trigo|soja|algod[ãa]o|canola|arroz|sorgo|aveia|centeio|cevada)[0-9]+\b/gi, '$1');
+  // Preserva ômega 3 e ômega 6
+  s = s.replace(/(?:^|[\s,\(])([oô]megas?)\s*([36])\b/gi, (match, word, num) => {
+    return match.replace(new RegExp(`${num}\\b`), `__OMEGA_${num}__`);
+  });
+  // Remove nota de rodapé numérica (1 a 9) colada a qualquer palavra de ingrediente (ex: moído2, desengordurado2, soja1, arroz2, bovino1)
+  // Preserva vitaminas conhecidas (vitamina B1, B2, B6, B12, D3, K3)
+  s = s.replace(/\b([a-zA-ZÀ-ÿ]{2,})([1-9])\b/gi, (match, word, num) => {
+    if (/^(?:b12|b1|b2|b6|d3|k3)$/i.test(match)) return match;
+    return word;
+  });
   // Remove nota de rodapé numérica isolada no final do ingrediente (ex: "Farelo de trigo 2" -> "Farelo de trigo")
   // Preserva percentuais como "(mín. 5%)", "(0,04%)" e medidas
   s = s.replace(/\s+[1-9]\b(?!\s*[%a-zA-Z])/g, '');
+  // Restaura ômega 3 e 6
+  s = s.replace(/__OMEGA_([36])__/g, '$1');
   return s.trim();
 }
 

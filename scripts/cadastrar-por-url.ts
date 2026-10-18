@@ -296,7 +296,7 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
   return false;
 }
 
-export async function processUrl(url: string, options?: { preferSecondImage?: boolean; skipImageDownload?: boolean }) {
+export async function processUrl(url: string, options?: { preferSecondImage?: boolean; skipImageDownload?: boolean }): Promise<boolean> {
   console.log(`\n================================================================`);
   console.log(`🌐 INGESTÃO DIRETA POR URL`);
   console.log(`🔗 Alvo: ${url}${options?.preferSecondImage ? ' (🌟 2ª Imagem Solicitada)' : ''}`);
@@ -307,7 +307,7 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
 
   if (error) {
     console.error(`❌ Erro de conexão com a URL: ${error}`);
-    return;
+    return false;
   }
 
   // Detecta bloqueios de WAF / Cloudflare
@@ -321,12 +321,12 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
     console.log(`   📁 produtos_cadastro/`);
     console.log(`4. Em seguida, execute no terminal:`);
     console.log(`   👉 npm run cadastrar-produtos\n`);
-    return;
+    return false;
   }
 
   if (status !== 200 || !html) {
     console.error(`❌ O servidor retornou status HTTP ${status} sem conteúdo legível.`);
-    return;
+    return false;
   }
 
   console.log(`✅ Página carregada com sucesso (HTML: ${(html.length / 1024).toFixed(1)} KB).`);
@@ -336,7 +336,7 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
 
   if (!meta.commercialName) {
     console.error(`❌ Não foi possível identificar o nome comercial do produto no HTML.`);
-    return;
+    return false;
   }
 
   console.log(`\n📦 Produto: "${meta.commercialName}"`);
@@ -344,6 +344,12 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
   console.log(`⚖️ Categoria Legal: ${meta.legalCategory} ${meta.coadjuvanteCondition ? `(Condição: ${meta.coadjuvanteCondition})` : ''}`);
   console.log(`🥗 Ingredientes identificados: ${meta.topIngredientsList.length}`);
   console.log(`   #1: ${meta.topIngredientsList[0] || 'N/D'}`);
+
+  if (meta.topIngredientsList.length === 0) {
+    console.warn(`⚠️ PULANDO CADASTRO: A página oficial não disponibilizou a lista de ingredientes/composição.`);
+    console.warn(`   Conforme as diretrizes (Regras 6 e 11), dados ausentes não são inventados nem cadastrados.`);
+    return false;
+  }
 
   // Verifica se o produto já existe (busca por URL oficial ou por slug)
   const normalizedUrl = url.trim().replace(/\/$/, '');
@@ -592,6 +598,7 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
 
   console.log(`\n🎉 PRODUTO CADASTRADO / ATUALIZADO COM SUCESSO!`);
   console.log(`👉 Visualizar no Portal: http://localhost:3000/produto/${targetSlug}\n`);
+  return true;
 }
 
 async function main() {
@@ -621,27 +628,47 @@ async function main() {
 
     if (urls.length > 0) {
       console.log(`📁 Encontradas ${urls.length} URLs no arquivo "${path.relative(process.cwd(), batchFile)}".`);
+      const successfulUrls: string[] = [];
+      const skippedUrls: { url: string; reason: string }[] = [];
+
       for (let i = 0; i < urls.length; i++) {
         const u = urls[i];
         console.log(`\n👉 Ingestão [${i + 1}/${urls.length}]: ${u}`);
         try {
-          await processUrl(u);
+          const ok = await processUrl(u);
+          if (ok) {
+            successfulUrls.push(u);
+          } else {
+            skippedUrls.push({ url: u, reason: 'Página oficial sem lista de ingredientes/garantias ou erro de extração' });
+          }
         } catch (err: any) {
           console.error(`❌ Erro no processamento da URL ${u}:`, err.message);
+          skippedUrls.push({ url: u, reason: err.message });
         }
         if (i < urls.length - 1) {
           // Pausa preventiva de 2s para respeitar limites de taxa da API Gemini
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
       }
-      const template = `# ==============================================================================
+
+      let template = `# ==============================================================================
 # PetRankings — Cadastro em Lote por URL
 # ==============================================================================
 # Cole aqui as URLs oficiais das páginas de produtos que deseja cadastrar.
 # Uma URL por linha (linhas iniciadas com # são ignoradas).
 `;
+      if (skippedUrls.length > 0) {
+        template += `\n# --- PENDENTES / PULADOS POR FALTA DE DADOS OFICIAIS NO SITE DO FABRICANTE ---\n`;
+        skippedUrls.forEach((s) => {
+          template += `# Motivo: ${s.reason}\n${s.url}\n\n`;
+        });
+      }
       fs.writeFileSync(batchFile, template, 'utf-8');
-      console.log(`\n✅ URLs processadas com sucesso! Arquivo "${path.relative(process.cwd(), batchFile)}" limpo para novos cadastros.\n`);
+      console.log(`\n================================================================`);
+      console.log(`🏁 RESUMO DO PROCESSAMENTO EM LOTE:`);
+      console.log(`✅ Sucesso: ${successfulUrls.length} produtos cadastrados no banco`);
+      console.log(`⚠️ Pulados: ${skippedUrls.length} produtos mantidos no arquivo para acompanhamento`);
+      console.log(`================================================================\n`);
       return;
     }
   }

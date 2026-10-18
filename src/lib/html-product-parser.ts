@@ -490,14 +490,26 @@ export function parseProductFromHtml(
   const isGranPlus = /granplus\.com\.br/i.test(sourceUrl) || /granplus/i.test(fallbackUrl);
   const isFortbrain = /fortbrain\.com\.br/i.test(sourceUrl) || /fortbrain/i.test(fallbackUrl);
   const isNutrire = /nutrire\.ind\.br/i.test(sourceUrl) || /nutrire\.ind\.br/i.test(fallbackUrl);
+  const isSpecialNutri = /specialnutri\.com\.br/i.test(sourceUrl) || /specialnutri/i.test(fallbackUrl);
 
   let imageUrl =
     $('meta[property="og:image"]').attr('content') ||
     $('img.wp-post-image, .woocommerce-product-gallery__image img').first().attr('src') ||
     null;
 
-  if (imageUrl && (/hills-logo/i.test(imageUrl) || imageUrl.includes('seo-default'))) {
+  if (imageUrl && (/hills-logo/i.test(imageUrl) || imageUrl.includes('seo-default') || (isSpecialNutri && imageUrl.includes('og-image')))) {
     imageUrl = null;
+  }
+
+  if (!imageUrl && isSpecialNutri) {
+    const specialNutriImg =
+      $('img[src*="/arquivos/images/produtos/"]').first().attr('src') ||
+      $('img[data-src*="/arquivos/images/produtos/"]').first().attr('data-src');
+    if (specialNutriImg) {
+      imageUrl = specialNutriImg.startsWith('http')
+        ? specialNutriImg
+        : `https://specialnutri.com.br${specialNutriImg.startsWith('/') ? '' : '/'}${specialNutriImg}`;
+    }
   }
 
   if (!imageUrl || imageUrl.includes('seo-default') || /specialcat\.com\.br|specialdog\.com\.br|farmina\.com/i.test(sourceUrl)) {
@@ -766,6 +778,18 @@ export function parseProductFromHtml(
       imageUrl = nutImg.startsWith('http')
         ? nutImg
         : `https://www.nutrire.ind.br${nutImg.startsWith('/') ? '' : '/'}${nutImg}`;
+    }
+  }
+
+  // 1i. Extração Special Nutri
+  if (!imageUrl && isSpecialNutri) {
+    const specialNutriImg =
+      $('img[src*="/arquivos/images/produtos/"]').first().attr('src') ||
+      $('img[data-src*="/arquivos/images/produtos/"]').first().attr('data-src');
+    if (specialNutriImg) {
+      imageUrl = specialNutriImg.startsWith('http')
+        ? specialNutriImg
+        : `https://specialnutri.com.br${specialNutriImg.startsWith('/') ? '' : '/'}${specialNutriImg}`;
     }
   }
 
@@ -1199,6 +1223,79 @@ export function parseProductFromHtml(
     }
 
     rawName = nutTitle;
+  } else if (isSpecialNutri) {
+    const cleanSlug = (sourceUrl.split('/').pop() || '').toLowerCase();
+    const lineSlug = sourceUrl.includes('/produto/')
+      ? sourceUrl.split('/produto/')[1].split('/')[0].toLowerCase()
+      : '';
+
+    let spBrand = 'Special Nutri';
+    if (lineSlug === 'super-dog') {
+      spBrand = /cat/i.test(cleanSlug) ? 'Super Cat' : 'Super Dog';
+    } else if (lineSlug === 'special-care') {
+      spBrand = 'Special Care';
+    } else if (lineSlug === 'quidog') {
+      spBrand = 'Quidog';
+    } else if (lineSlug === 'quicats') {
+      spBrand = 'Quicats';
+    } else if (lineSlug === 'energy') {
+      spBrand = /energy-premium/i.test(cleanSlug) ? 'Energy Premium' : 'Energy';
+    }
+
+    if (cleanSlug === 'adulto-carnes-e-cereais') {
+      rawName = 'Super Dog Cães Adultos Carnes e Cereais';
+    } else if (cleanSlug === 'filhotes' && lineSlug === 'super-dog') {
+      rawName = 'Super Dog Cães Filhotes';
+    } else if (cleanSlug === 'adulto-power') {
+      rawName = 'Super Dog Cães Adultos Power';
+    } else if (cleanSlug === 'super-cat-adulto-mix') {
+      rawName = 'Super Cat Gatos Adultos Mix';
+    } else if (cleanSlug === 'special-care-cat') {
+      rawName = 'Special Care Gatos Adultos';
+    } else if (cleanSlug === 'special-care-filhotes') {
+      rawName = 'Special Care Cães Filhotes Frango e Arroz';
+    } else if (cleanSlug === 'special-care-gourmet') {
+      rawName = 'Special Care Cães Adultos Gourmet';
+    } else if (cleanSlug === 'special-care-racas-pequenas') {
+      rawName = 'Special Care Cães Adultos Raças Pequenas';
+    } else if (cleanSlug === 'special-care-cat-castrado') {
+      rawName = 'Special Care Gatos Castrados';
+    } else if (cleanSlug === 'baby') {
+      rawName = 'Quidog Cães Filhotes Baby';
+    } else if (cleanSlug === 'plus-vegetais') {
+      rawName = 'Quidog Cães Adultos Plus Vegetais';
+    } else if (cleanSlug === 'performance') {
+      rawName = 'Quidog Cães Adultos Performance';
+    } else if (cleanSlug === 'racas-pequenas' && lineSlug === 'quidog') {
+      rawName = 'Quidog Cães Adultos Raças Pequenas';
+    } else if (cleanSlug === 'peixe') {
+      rawName = 'Quicats Gatos Adultos Sabor Peixe';
+    } else if (cleanSlug === 'mix' && lineSlug === 'quicats') {
+      rawName = 'Quicats Gatos Adultos Mix';
+    } else if (cleanSlug === 'dog-filhotes-mix') {
+      rawName = 'Energy Cães Filhotes Mix';
+    } else if (cleanSlug === 'dog-adultos-original') {
+      rawName = 'Energy Cães Adultos Original';
+    } else if (cleanSlug === 'dog-adultos-mix') {
+      rawName = 'Energy Cães Adultos Mix';
+    } else if (cleanSlug === 'cat-adultos-salmao-e-frango') {
+      rawName = 'Energy Gatos Adultos Salmão e Frango';
+    } else if (cleanSlug === 'dog-adultos-racas-pequenas-mix') {
+      rawName = 'Energy Cães Adultos Raças Pequenas Mix';
+    } else if (cleanSlug === 'caes-adultos-energy-premium') {
+      rawName = 'Energy Premium Cães Adultos';
+    } else if (cleanSlug === 'filhotes-de-caes-energy-premium') {
+      rawName = 'Energy Premium Cães Filhotes';
+    } else if (cleanSlug === 'caes-de-racas-pequenas-energy-premium') {
+      rawName = 'Energy Premium Cães Adultos Raças Pequenas';
+    } else if (cleanSlug === 'gatos-proteinas-energy-premium') {
+      rawName = 'Energy Premium Gatos Adultos Proteínas';
+    } else if (cleanSlug === 'gatos-energy-premium') {
+      rawName = 'Energy Premium Gatos Adultos';
+    } else {
+      const pageTitle = $('title').text().replace(/Special Nutri\s*\|\s*/i, '').trim();
+      rawName = `${spBrand} ${pageTitle}`;
+    }
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -1237,7 +1334,7 @@ export function parseProductFromHtml(
       }
     }
   }
-  if (isFortbrain) {
+  if (isFortbrain || isSpecialNutri) {
     slug = '';
   }
   if (!slug && commercialName) {
@@ -1520,6 +1617,29 @@ export function parseProductFromHtml(
     } else {
       brand = 'Nutrire';
     }
+  } else if (
+    isSpecialNutri ||
+    /specialnutri\.com\.br/i.test(sourceUrl) ||
+    /special\s*nutri|quidog|quicats/i.test(commercialName)
+  ) {
+    manufacturerLegalName = 'Special Nutri Alimentos Ltda';
+    if (/quidog/i.test(commercialName)) {
+      brand = 'Quidog';
+    } else if (/quicats/i.test(commercialName)) {
+      brand = 'Quicats';
+    } else if (/special\s*care/i.test(commercialName)) {
+      brand = 'Special Care';
+    } else if (/super\s*cat/i.test(commercialName)) {
+      brand = 'Super Cat';
+    } else if (/super\s*dog/i.test(commercialName)) {
+      brand = 'Super Dog';
+    } else if (/energy\s*premium/i.test(commercialName)) {
+      brand = 'Energy Premium';
+    } else if (/energy/i.test(commercialName)) {
+      brand = 'Energy';
+    } else {
+      brand = 'Special Nutri';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -1532,10 +1652,11 @@ export function parseProductFromHtml(
     !commercialName.startsWith('GranPlus') &&
     !isGranPlus &&
     !isNutrire &&
+    !isSpecialNutri &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -1568,6 +1689,8 @@ export function parseProductFromHtml(
     foodType = 'UMIDO';
   } else if (isQuatree && !/sache|úmido|umido/i.test(commercialName + ' ' + sourceUrl)) {
     foodType = 'SECO';
+  } else if (isSpecialNutri) {
+    foodType = 'SECO';
   }
 
   // 4.1 Categoria Legal e Condição Coadjuvante
@@ -1596,9 +1719,12 @@ export function parseProductFromHtml(
     (/alimento\s+espec[íi]fico/i.test(html) && !/alimento\s+completo/i.test(html)) ||
     /n&d-natural/i.test(sourceUrl) ||
     /premier.*gourmet/i.test(commercialName) ||
-    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast|granplus/i.test(commercialName + ' ' + sourceUrl)))
+    (/gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast|granplus|special\s*care|specialnutri/i.test(commercialName + ' ' + sourceUrl)))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
+  }
+  if (isSpecialNutri) {
+    legalCategory = 'ALIMENTO_COMPLETO';
   }
 
   // 5. Extração de Composição e Garantias a partir do DOM
@@ -1795,6 +1921,19 @@ export function parseProductFromHtml(
             .trim();
           garText = txt;
         }
+      }
+    });
+  }
+
+  // 5-specialnutri. Special Nutri Alimentos (.card-rotulo com .card-header e .card-body)
+  if (isSpecialNutri) {
+    $('.card-rotulo').each((_, el) => {
+      const header = $(el).find('.card-header').text().trim();
+      if (/n[íi]veis\s*de\s*garantia/i.test(header) && !garText) {
+        garText = extractStructuredText($(el).find('.card-body'), $);
+      } else if (/composi[çc][ãa]o/i.test(header) && !compText) {
+        const p = $(el).find('.card-body').find('p').first();
+        compText = (p.length > 0 ? p.text() : $(el).find('.card-body').text()).replace(/\s+/g, ' ').trim();
       }
     });
   }
@@ -2234,8 +2373,9 @@ export function parseProductFromHtml(
   let gmoIngredients: string | null = null;
   if (containsGmo) {
     const speciesSourceText = /Esp[ée]cies\s+(?:doadoras|modificadoras)/i.test(compText) ? compText : fullContextText;
+    const doadorasPattern = /Esp[ée]cies\s+(?:doadoras|modificadoras)(?:\s+d(?:e|o|os|as)\s+genes?)?[:\s]*([\s\S]+?)(?=(?:\.\s*(?:[A-ZÀ-ÿ]{3,}|$)|[\r\n]|Enriquecimento|Indica[çc][ãa]o|N[íi]veis|Modo|Guia|Condi[çc][õo]es|Eventuais|Recomenda[çc]|$))/i;
     const doadorasMatch =
-      speciesSourceText.match(/Esp[ée]cies\s+(?:doadoras|modificadoras)(?:\s+d[eo]\s+genes?)?[:\s]*([\s\S]+?)(?=(?:\n\s*\n|\n[A-Z][a-z]+:|\nN[íi]veis|Modo|Guia|Composi[çc][ãa]o|$))/i) ||
+      speciesSourceText.match(doadorasPattern) ||
       speciesSourceText.match(/Esp[ée]cies\s+(?:doadoras|modificadoras)[:\s]*([^.<]+)/i);
 
     const gmoMatch =
@@ -2248,15 +2388,15 @@ export function parseProductFromHtml(
     const detectedGrains: string[] = [];
     if (
       /milho|farelo\s+proteico\s+de\s+milho|gl[úu]ten\s+de\s+milho/i.test(compText) &&
-      (!hasAnyGrainFootnote || isHills || isNutrire ||
-        /milho(?:[^\n,;]*?)\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bmilho\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
+      (!hasAnyGrainFootnote || isHills || isNutrire || isSpecialNutri ||
+        /milho(?:[^\n,;]*?)\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bmilho\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|milho[^\n,;]*?[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
     ) {
       detectedGrains.push('Milho');
     }
     if (
       /soja/i.test(compText) &&
-      (!hasAnyGrainFootnote || isHills || isNutrire ||
-        /soja(?:[^\n,;]*?)\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bsoja\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
+      (!hasAnyGrainFootnote || isHills || isNutrire || isSpecialNutri ||
+        /soja(?:[^\n,;]*?)\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bsoja\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|soja[^\n,;]*?[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
     ) {
       detectedGrains.push('Soja');
     }
@@ -2275,16 +2415,20 @@ export function parseProductFromHtml(
     if (doadorasMatch) {
       let cleanDoadoras = doadorasMatch[1]
         .replace(/<[^>]+>/g, ' ')
-        .replace(/^[,\s]*/, '')
-        .replace(/([¹²³⁴⁵⁶⁷⁸⁹0-9]+)\s*,\s*([¹²³⁴⁵⁶⁷⁸⁹0-9]+)/g, '')
+        .replace(/^(?:d(?:e|o|os|as)\s+genes?[:\s]*)+/i, '')
+        .replace(/^[0-9¹²³⁴⁵⁶⁷⁸⁹\s;,-]+/, '')
+        .replace(/;\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]+\s*/g, '; ')
         .replace(/[*†‡¹²³⁴⁵⁶⁷⁸⁹0-9]+/g, '')
+        .split(/(?:Enriquecimento|Vitaminas|Indica[çc][ãa]o|N[íi]veis|Modo|Condi[çc][õo]es|Eventuais)/i)[0]
+        .replace(/\..*$/, '')
+        .replace(/;/g, ', ')
         .replace(/\s*,\s*/g, ', ')
         .replace(/(?:,\s*)+/g, ', ')
         .replace(/^,\s*|,\s*$/g, '')
         .replace(/\s+/g, ' ')
         .trim();
       const termoEspecies = /modificadoras/i.test(doadorasMatch[0]) ? 'espécies modificadoras de genes' : 'espécies doadoras de gene';
-      gmoIngredients = `${grainsLabel} transgênicos (${termoEspecies}: ${cleanDoadoras})`;
+      gmoIngredients = `${grainsLabel} geneticamente modificados (${termoEspecies}: ${cleanDoadoras})`;
     } else if (gmoMatch) {
       gmoIngredients = gmoMatch[1]
         .replace(/^[,\s]*(?:na\s+composi[çc][ãa]o,?\s*)?(?:alimento\s+geneticamente\s+modificado\s*[:\s]*)?/i, '')
