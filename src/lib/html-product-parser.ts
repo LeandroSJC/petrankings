@@ -744,9 +744,24 @@ export function parseProductFromHtml(
 
   // 1h. Extração Nutrire (Select by Monello, Monello, Birbo, Bolt, Bandit, Bancat, Monello Bites)
   if (!imageUrl && isNutrire) {
-    const nutImg =
-      $('.product-detail .illustration img').first().attr('src') ||
-      $('img[src*="/images/"]').first().attr('src');
+    let nutImg = $('.product-detail .illustration img[src*=".webp"]').first().attr('src');
+    if (!nutImg) {
+      const illImgs = $('.product-detail .illustration img')
+        .map((_, el) => $(el).attr('src'))
+        .get()
+        .filter(s => s && !s.includes('stamps.png') && !s.includes('assets/'));
+      if (illImgs.length >= 3) {
+        nutImg = illImgs[2];
+      } else if (illImgs.length > 0) {
+        nutImg = illImgs[illImgs.length - 1];
+      }
+    }
+    if (!nutImg) {
+      nutImg =
+        $('.product-detail img[src*=".webp"]').first().attr('src') ||
+        $('img[src*="/images/"][src*=".webp"]').first().attr('src') ||
+        $('img[src*="/images/"]').last().attr('src');
+    }
     if (nutImg) {
       imageUrl = nutImg.startsWith('http')
         ? nutImg
