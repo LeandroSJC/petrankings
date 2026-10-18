@@ -2220,7 +2220,12 @@ export function parseProductFromHtml(
     !isFreeOfGmo &&
     /(?:milho|soja|farelo\s+proteico\s+de\s+milho|gl[úu]ten\s+de\s+milho|farelo\s+de\s+soja|[óo]leo\s+de\s+soja)/i.test(compText);
 
-  const containsGmo = (hasExplicitDoadoras || hasExplicitGmo || hasAsteriskGmo || hasNumberGmo || isHillsGmo) && !isFreeOfGmo;
+  const isNutrireGmo =
+    isNutrire &&
+    !isFreeOfGmo &&
+    /(?:milho|soja|farelo\s+proteico\s+de\s+milho|gl[úu]ten\s+de\s+milho|farelo\s+de\s+soja|[óo]leo\s+de\s+soja)/i.test(compText);
+
+  const containsGmo = (hasExplicitDoadoras || hasExplicitGmo || hasAsteriskGmo || hasNumberGmo || isHillsGmo || isNutrireGmo) && !isFreeOfGmo;
 
   let gmoIngredients: string | null = null;
   if (containsGmo) {
@@ -2239,25 +2244,25 @@ export function parseProductFromHtml(
     const detectedGrains: string[] = [];
     if (
       /milho|farelo\s+proteico\s+de\s+milho|gl[úu]ten\s+de\s+milho/i.test(compText) &&
-      (!hasAnyGrainFootnote || isHills ||
+      (!hasAnyGrainFootnote || isHills || isNutrire ||
         /milho(?:[^\n,;]*?)\*+|milho\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bmilho\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
     ) {
       detectedGrains.push('Milho');
     }
     if (
       /soja/i.test(compText) &&
-      (!hasAnyGrainFootnote || isHills ||
+      (!hasAnyGrainFootnote || isHills || isNutrire ||
         /soja(?:[^\n,;]*?)\*+|soja\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bsoja\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\*+/i.test(compText))
     ) {
       detectedGrains.push('Soja');
     }
-    if (/trigo/i.test(compText) && (!hasAnyGrainFootnote || /trigo\s*\*+|trigo\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\btrigo\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/trigo/i.test(compText) && (/trigo\s*\*+|trigo\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\btrigo\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Trigo');
     }
-    if (/algod[ãa]o/i.test(compText) && (!hasAnyGrainFootnote || /algod[ãa]o\s*\*+|algod[ãa]o\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\balgod[ãa]o\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/algod[ãa]o/i.test(compText) && (/algod[ãa]o\s*\*+|algod[ãa]o\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\balgod[ãa]o\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Algodão');
     }
-    if (/canola/i.test(compText) && (!hasAnyGrainFootnote || /canola\s*\*+|canola\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bcanola\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
+    if (/canola/i.test(compText) && (/canola\s*\*+|canola\w*[0-9¹²³⁴⁵⁶⁷⁸⁹]|\bcanola\s*[0-9¹²³⁴⁵⁶⁷⁸⁹]/i.test(compText))) {
       detectedGrains.push('Canola');
     }
 
