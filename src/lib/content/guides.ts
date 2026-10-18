@@ -3555,6 +3555,158 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'condroitina-glicosamina-racao-caes-articulacoes-marketing',
+    title: 'Condroitina e glicosamina na ração de cães: Concentração terapêutica real ou apelo de marketing na embalagem?',
+    subtitle: 'O que a literatura zootécnica e os ensaios clínicos revelam sobre a dose profilática no comedouro versus o tratamento da osteoartrite canina.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-18',
+    updatedAt: '2026-10-18',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/condroitina-glicosamina-caes-articulacoes-cover.webp',
+    isFeatured: true,
+    summary: 'Entenda como o sulfato de condroitina e a glicosamina atuam na cartilagem articular dos cães, a diferença matemática entre a quantidade presente na ração e a dose terapêutica clínica, e quais cuidados nutricionais realmente preservam a mobilidade.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-apelo-articular-na-gondola',
+        heading: 'O apelo da proteção articular nos pacotes de ração',
+        paragraphs: [
+          'Quem convive com um cão de porte grande, como um Pastor Alemão, Labrador ou Golden Retriever, conhece bem o receio precoce de problemas de locomoção. A displasia coxofemoral e o desgaste nas articulações estão entre as principais preocupações de saúde ao longo da vida desses animais.',
+          'Nas prateleiras dos pet shops, os fabricantes utilizam essa preocupação como um forte argumento comercial. Selos gráficos com termos como proteção articular, suporte ortopédico e adição de condroitina e glicosamina estampam embalagens de linhas Super Premium com preços expressivamente mais elevados.',
+          'Muitos tutores adquirem esses alimentos acreditando que a presença desses compostos no pacote funciona como um tratamento curativo preventivo, dispensando qualquer outro cuidado ou suplementação. A análise da literatura zootécnica e da medicina veterinária, contudo, revela uma realidade bem mais nuançada.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Expectativa do Tutor versus Realidade da Ração',
+          text: 'A inclusão de sulfato de condroitina e glicosamina em alimentos comerciais atua como suporte nutricional preventivo diário. Essa quantidade não substitui protocolos clínicos veterinários nem reverte lesões articulares graves já instaladas.',
+        },
+      },
+      {
+        id: 'mecanismo-biologico-cartilagem',
+        heading: 'Como a condroitina e a glicosamina agem nas articulações',
+        paragraphs: [
+          'A cartilagem articular é uma estrutura elástica que reveste as extremidades dos ossos, permitindo que a articulação se movimente com o mínimo de atrito. Diferente de outros tecidos do corpo, a cartilagem não possui vasos sanguíneos diretos, o que torna sua regeneração natural muito lenta.',
+          'Essa matriz é formada por colágeno, água e moléculas complexas chamadas glicosaminoglicanos (GAGs). A glicosamina é um aminoaçúcar sintetizado pelo próprio organismo animal, servindo como matéria-prima básica para a formação desses compostos estruturais.',
+          'Já o sulfato de condroitina é um glicosaminoglicano de cadeia longa que possui a capacidade de reter água dentro da cartilagem. Na prática, essa retenção hídrica funciona como um amortecedor hidráulico microscópico, absorvendo os impactos mecânicos da corrida e dos saltos.',
+          'Com o envelhecimento, o sobrepeso ou o esforço repetitivo, a velocidade de degradação da cartilagem pode superar a velocidade de síntese natural do organismo, abrindo caminho para o atrito ósseo e a dor da osteoartrite.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Tradução Prática no Cotidiano',
+          text: 'Pense na cartilagem como uma esponja densa e úmida. O sulfato de condroitina mantém essa esponja hidratada e resistente a impactos, enquanto a glicosamina fornece o material para reconstruir eventuais fibras desgastadas.',
+        },
+      },
+      {
+        id: 'matematica-da-dosagem-clinica-vs-racao',
+        heading: 'A matemática da dose: Miligramas na ração versus dose terapêutica',
+        paragraphs: [
+          'A principal questão técnica sobre o tema não é se a condroitina e a glicosamina funcionam, mas sim se a concentração adicionada na ração atinge níveis biologicamente relevantes para um cão adulto.',
+          'Nos ensaios clínicos controlados de ortopedia veterinária (como os estudos publicados por McCarthy e colaboradores no Veterinary Journal), a dose oral prescrita para cães com sintomas clínicos de osteoartrite situa-se tipicamente entre 15 e 30 mg por quilo de peso corporal ao dia para condroitina, e entre 20 e 40 mg/kg/dia para glicosamina.',
+          'Ao inspecionar a rotulagem de alimentos Super Premium no mercado brasileiro, as garantias mínimas declaradas variam comumente entre 100 mg/kg e 500 mg/kg de sulfato de condroitina, e de 300 mg/kg a 800 mg/kg de sulfato de glicosamina no alimento seco pronto.',
+          'Quando calculamos a ingestão real de um cão de porte grande de 35 kg que consome cerca de 380 gramas de ração por dia, a quantidade total ingerida fica muito aquém da dose terapêutica administrada em clínicas ortopédicas.',
+        ],
+        table: {
+          caption: 'Comparativo de aporte diário: Ração Super Premium versus Protocolo Terapêutico Veterinário (Exemplo cão de 35 kg)',
+          headers: ['Parâmetro Analisado', 'Ingestão Diária pela Ração (380g/dia)', 'Dose Terapêutica Oral Prescrita', 'Proporção Entregue'],
+          rows: [
+            ['Sulfato de Glicosamina', '~190 mg/dia (em ração com 500 mg/kg)', '700 a 1.050 mg/dia (20 a 30 mg/kg)', '~18% a 27% da dose terapêutica'],
+            ['Sulfato de Condroitina', '~114 mg/dia (em ração com 300 mg/kg)', '525 a 700 mg/dia (15 a 20 mg/kg)', '~16% a 21% da dose terapêutica'],
+            ['Objetivo Nutricional / Clínico', 'Suporte profilático contínuo para cães sadios', 'Tratamento de claudicação e osteoartrite ativa', 'Complementar, não substitutivo'],
+          ],
+        },
+      },
+      {
+        id: 'quando-a-racao-ajuda-e-quando-nao-basta',
+        heading: 'Quando a ração ajuda e quando ela não é suficiente',
+        paragraphs: [
+          'A diferença de escala entre as doses não significa que a adição desses nutrientes na ração seja inútil. Ela apenas define claramente o seu papel: trata-se de um fornecimento nutricional contínuo e preventivo, e não de um medicamento concentrado.',
+          'Para cães jovens, adultos saudáveis ou animais de trabalho que ainda não apresentam dor ou claudicação, o consumo diário dessas moléculas ao longo de anos ajuda a manter um aporte constante de precursores para a manutenção da cartilagem.',
+          'Por outro lado, quando um cão idoso já apresenta dificuldade visível para levantar, evita subir escadas ou manca após os passeios, confiar unicamente na ração é um equívoco que atrasa o alívio do sofrimento do animal.',
+          'Nesses casos clínicos, o veterinário precisa entrar com um protocolo multimodal que combina controle analgésico, fisioterapia, suplementação oral concentrada e controle rigoroso do peso corporal.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal Conforme IN MAPA nº 30/2009',
+          text: 'No Brasil, a condroitina e a glicosamina entram nos rótulos de pet food na tabela de níveis de garantia como aditivos nutricionais ou funcionais, declarados em miligramas por quilo (mg/kg). O fabricante é proibido por lei de atribuir propriedades curativas ou medicamentosas ao produto no painel principal.',
+        },
+      },
+      {
+        id: 'outros-nutrientes-comprovados-para-articulacoes',
+        heading: 'Outros nutrientes que superam a condroitina na proteção articular',
+        paragraphs: [
+          'Enquanto o marketing foca na dupla condroitina e glicosamina, a ciência nutricional veterinária aponta que outros fatores presentes na fórmula exercem um impacto até mais expressivo sobre a saúde das juntas.',
+          'O primeiro deles é o teor de ácidos graxos ômega-3 de cadeia longa, especificamente o EPA (ácido eicosapentaenoico) e o DHA (ácido docosahexaenoico), derivados de óleo de peixe marinho. O EPA compete diretamente nas vias inflamatórias celulares, reduzindo a produção de citocinas que degradam a cartilagem.',
+          'Ensaios clínicos comprovam que cães com osteoartrite alimentados com dietas ricas em EPA demonstram melhora na força de apoio das patas em menor tempo do que animais suplementados apenas com glicosaminoglicanos isolados.',
+          'O segundo fator essencial é a densidade energética e o manejo calórico da fórmula. O excesso de peso corporal gera uma sobrecarga mecânica destrutiva sobre articulações já fragilizadas. Manter o cão em escore de condição corporal ideal poupa a cartilagem mais do que qualquer aditivo oral existente.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'A condroitina e a glicosamina na ração substituem o suplemento prescrito pelo veterinário?',
+        a: 'Não. Conforme demonstrado nos cálculos deste estudo, a quantidade presente na porção diária de ração fornece cerca de 15% a 25% da dose terapêutica recomendada para cães com sintomas clínicos de osteoartrite. O alimento oferece suporte profilático contínuo, mas quadros com dor ou claudicação exigem suplementação concentrada orientada por médico veterinário.',
+      },
+      {
+        q: 'Filhotes de raças grandes devem consumir ração com esses condroprotetores?',
+        a: 'Sim, a inclusão em rações para filhotes de crescimento rápido (como Pastor Alemão, Rottweiler e Dogue Alemão) é bem-vinda como suporte basal para a formação óssea e cartilaginosa. No entanto, o fator mais determinante para prevenir problemas articulares em filhotes é o controle rigoroso da densidade calórica e da relação cálcio-fósforo, evitando o ganho acelerado de peso antes da maturação esquelética.',
+      },
+      {
+        q: 'Existe risco de excesso ou intoxicação por condroitina e glicosamina na ração?',
+        a: 'Não há relatos de toxicidade nessas concentrações. O sulfato de condroitina e a glicosamina possuem uma ampla margem de segurança biológica em cães, sendo substâncias hidrossolúveis cujo excedente não aproveitado pelo organismo é naturalmente excretado.',
+      },
+      {
+        q: 'O que devo olhar no rótulo da ração para garantir proteção às articulações do meu cão?',
+        a: 'Verifique na garantia oficial a presença de óleo de peixe marinho ou níveis declarados de EPA e DHA (ômega-3), que possuem ação anti-inflamatória comprovada. Em seguida, confira os teores de sulfato de condroitina e glicosamina em mg/kg e certifique-se de que o teor de gordura e calorias esteja adequado ao nível de atividade e porte do seu cão.',
+      },
+    ],
+    conclusion: 'A adição de sulfato de condroitina e glicosamina nos alimentos para cães é um avanço nutricional positivo, mas deve ser compreendida em sua justa medida: ela oferece um suporte preventivo de manutenção ao longo dos anos, e não uma cura milagrosa para dores articulares já existentes. Para proteger a mobilidade do seu cão no longo prazo, priorize o controle rigoroso do peso corporal, fontes consistentes de ômega-3 (EPA/DHA) e acompanhamento ortopédico veterinário precoce.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil - 11ª Edição',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manuais-pet-food-brasil/',
+        details: 'Diretrizes Nutricionais para Cães e Gatos: Aditivos Zootécnicos, Níveis de Garantia e Condroprotetores',
+      },
+      {
+        title: 'Randomised double-blind, positive-controlled trial to assess the efficacy of glucosamine/chondroitin in canine osteoarthritis',
+        institution: 'The Veterinary Journal (McCarthy, G. et al., 2007)',
+        type: 'estudo',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/17395507/',
+        details: 'Volume 174, Edição 1, Páginas 54-61. Avaliação clínica e dosagem terapêutica em osteoartrite canina',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'estudo',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Capítulo 6: Gorduras e Ácidos Graxos Essenciais (EPA e DHA) no Manejo Articular',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/nutrition/nutritional-guidelines/',
+        details: 'Seção de Recomendações para Animais em Fases Especiais e Manejo Articular',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Critérios de registro, garantia e rotulagem de aditivos nutricionais e funcionais em alimentos para animais de companhia',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos para Cães de Porte Grande no Catálogo',
+      text: 'O PetRankings cataloga e confronta os níveis de garantia oficiais de centenas de alimentos secos para cães adultos e sêniores no Brasil. Acesse o catálogo e filtre por porte, aditivos e perfil nutricional.',
+      buttonText: 'Explorar Alimentos para Cães no Catálogo',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
