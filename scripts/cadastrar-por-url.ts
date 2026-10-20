@@ -195,9 +195,9 @@ async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ stat
       const status = res.status;
       const html = await res.text();
 
-      // Se for barrado por 403 ou Cloudflare Challenge, aciona o Chromium do Playwright
-      if (status === 403 || /challenges\.cloudflare\.com|cloudflare-static/i.test(html)) {
-        console.log(`🛡️ Desafio Cloudflare detectado (Status ${status}). Acionando navegador headless Playwright...`);
+      // Se for barrado por 403, 406 (Mod_Security) ou Cloudflare Challenge, aciona o Chromium do Playwright
+      if (status === 403 || status === 406 || /challenges\.cloudflare\.com|cloudflare-static|not acceptable/i.test(html)) {
+        console.log(`🛡️ Desafio de segurança detectado (Status ${status}). Acionando navegador headless Playwright...`);
         try {
           const page = await getPlaywrightPage();
           await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35000 });
@@ -423,7 +423,7 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
 
   // 6. Cálculo da Avaliação Nutricional (Score Determinístico)
   const isWet = meta.foodType === 'UMIDO';
-  const isFilhote = meta.lifeStage === 'CRESCIMENTO_INICIAL' || meta.lifeStage === 'CRESCIMENTO_FINAL' || meta.lifeStage === 'FILHOTE';
+  const isFilhote = meta.lifeStage === 'CRESCIMENTO_INICIAL' || meta.lifeStage === 'CRESCIMENTO_FINAL';
   const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(meta.commercialName);
 
   const audit = calcularScoreAnaliseRotulo(

@@ -3707,6 +3707,160 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'taurina-na-racao-de-gatos-importancia-e-rotulo',
+    title: 'Taurina na ração de gatos: Por que este aminoácido é vital e como checar o nível no rótulo?',
+    subtitle: 'Entenda a limitação biológica dos felinos, os riscos graves para a visão e o coração na falta do nutriente e o passo a passo para verificar a garantia mínima nas embalagens.',
+    cluster: 'Nutrição & Bromatologia',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-19',
+    updatedAt: '2026-10-19',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/taurina-racao-gatos-cover.webp',
+    isFeatured: true,
+    summary: 'A taurina é um aminoácido estritamente essencial para gatos, pois os felinos não conseguem produzi-la no fígado em quantidades suficientes e a perdem continuamente na bile. Sua carência crônica provoca degeneração irreversível da retina e cardiomiopatia dilatada. Veja os limites mínimos exigidos pelo Manual ABINPET (1.000 mg/kg em rações secas e 2.000 mg/kg em alimentos úmidos) e aprenda a conferir a garantia nos rótulos.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-que-e-taurina-e-biologia-felina',
+        heading: 'A particularidade biológica que torna os gatos dependentes da taurina',
+        paragraphs: [
+          'A taurina é um ácido beta-amino-sulfônico livre que desempenha funções vitais em tecidos excitáveis, como a retina dos olhos, as fibras do músculo cardíaco e o sistema nervoso central. Na natureza, ela é encontrada em abundância nas carnes frescas, miúdos e peixes.',
+          'Em cães e seres humanos, a taurina não é considerada um aminoácido estritamente essencial na dieta diária. O fígado dessas espécies consegue sintetizar taurina suficiente a partir de outros dois aminoácidos comuns: a metionina e a cisteína.',
+          'Com os gatos, a biologia funciona de maneira completamente diferente. Os felinos possuem uma atividade extremamente reduzida de duas enzimas hepáticas chaves, a cisteína dioxigenase e o ácido cisteinassulfínico descarboxilase. Como essas enzimas operam em ritmo residual, a capacidade do gato de produzir taurina por conta própria é insignificante perto do que o seu corpo gasta todos os dias.',
+        ],
+      },
+      {
+        id: 'perda-biliar-e-carnivoria-estrita',
+        heading: 'O dreno contínuo de taurina durante a digestão das gorduras',
+        paragraphs: [
+          'Além de fabricar quantidades mínimas de taurina, o organismo felino enfrenta uma via contínua de eliminação do nutriente. Para digerir as gorduras dos alimentos, o fígado produz ácidos biliares que atuam como detergentes naturais no intestino delgado.',
+          'Enquanto a maioria dos mamíferos consegue conjugar os sais biliares com glicina quando os estoques de taurina diminuem, o gato não tem essa alternativa metabólica. O fígado felino conjuga os sais biliares quase que com exclusividade com a taurina, formando o ácido taurocólico.',
+          'Uma fração expressiva desses sais biliares é degradada pelas bactérias do cólon e perdida de forma definitiva nas fezes. Sem uma ingestão regular e balanceada de taurina na ração, o gato entra rapidamente em balanço negativo, drenando as reservas acumuladas nos seus próprios órgãos vitais.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Regra de ouro da nutrição felina',
+          text: 'Como carnívoros estritos, os gatos evoluíram consumindo presas inteiras ricas em carne e órgãos. Por isso, a evolução dispensou o maquinário enzimático de síntese interna de taurina, tornando o felino 100% dependente da ingestão diária na dieta.',
+        },
+      },
+      {
+        id: 'consequencias-clinicas-da-carencia',
+        heading: 'Os riscos clínicos da carência crônica: Cegueira e problemas cardíacos',
+        paragraphs: [
+          'A deficiência de taurina é silenciosa e pode levar meses para manifestar os primeiros sinais externos, período no qual as lesões internas já estão se desenvolvendo de forma progressiva.',
+          'O primeiro órgão severamente atingido é a retina. A taurina atua na integridade estrutural e na função dos fotorreceptores nos olhos do gato. Quando os níveis despencam, ocorre a chamada Degeneração Central da Retina Felina (FCRD). Trata-se de uma lesão progressiva que culmina em cegueira total e que, infelizmente, é irreversível mesmo após o início da suplementação.',
+          'O segundo impacto grave ocorre no miocárdio. A taurina modula as trocas de íons de cálcio dentro das células do músculo cardíaco, permitindo contrações firmes e compassadas. Na ausência prolongada do aminoácido, as paredes do coração afinam e o ventrículo esquerdo se dilata, caracterizando a Cardiomiopatia Dilatada Felina (DCM). O gato passa a apresentar cansaço fácil, dificuldade respiratória e risco iminente de colapso circulatório.',
+        ],
+        table: {
+          caption: 'Principais consequências clínicas da carência crônica de taurina em gatos (NRC e FEDIAF)',
+          headers: ['Sistema Afetado', 'Manifestação Clínica', 'Impacto na Rotina do Gato', 'Reversibilidade com Dieta'],
+          rows: [
+            ['Olhos e Retina', 'Degeneração Central da Retina (FCRD)', 'Perda visual gradual até cegueira permanente', 'Não reversível (danos celulares permanentes)'],
+            ['Coração e Miocárdio', 'Cardiomiopatia Dilatada Felina (DCM)', 'Intolerância a esforço, tosse e falência cardíaca', 'Reversível se tratada nas fases iniciais'],
+            ['Reprodução e Criação', 'Reabsorção fetal e ninhadas débeis', 'Abortos espontâneos e filhotes com baixo peso', 'Parcialmente reversível em gestações futuras'],
+            ['Imunidade e Defesas', 'Depressão imunitária e leucopenia', 'Maior sensibilidade a infecções secundárias', 'Totalmente reversível com alimentação balanceada'],
+          ],
+        },
+      },
+      {
+        id: 'exigencias-abinpet-e-diferenca-seco-umido',
+        heading: 'Os teores mínimos oficiais: Por que a ração úmida exige o dobro em base seca?',
+        paragraphs: [
+          'Para proteger a integridade dos felinos, o Manual Pet Food Brasil (11ª Edição da ABINPET) e as diretrizes internacionais da FEDIAF estipulam limites mínimos obrigatórios de taurina em todos os alimentos completos para gatos.',
+          'Em rações secas convencionais (com umidade máxima em torno de 10% a 12%), o teor mínimo exigido é de 1.000 mg/kg em Matéria Natural. Isso equivale a 0,10% da composição do alimento, ou 100 mg a cada 100 gramas de ração consumida.',
+          'Já nos alimentos úmidos (como sachês, latas e patês, que possuem entre 78% e 82% de água), a exigência salta para 2.000 mg/kg calculados em base de Matéria Seca (MS), o que representa o dobro da concentração relativa exigida na ração seca.',
+          'Essa diferença expressiva decorre do processo de fabricação. Alimentos úmidos passam por tratamento térmico prolongado de autoclavagem para esterilização comercial da embalagem fechada. Esse aquecimento severo decompõe parte da taurina livre e altera a microbiota intestinal, aumentando a perda bacteriana do aminoácido. Por essa razão, os fabricantes precisam dosar um volume muito maior de taurina para garantir que a dose útil chegue ao organismo do felino.',
+        ],
+      },
+      {
+        id: 'como-conferir-no-rotulo-passo-a-passo',
+        heading: 'Passo a passo para conferir a taurina no rótulo da embalagem',
+        paragraphs: [
+          'Conferir a segurança da ração que seu gato consome leva menos de um minuto e pode ser feito diretamente na embalagem, com base nas normas da Instrução Normativa MAPA nº 22/2009.',
+          'Primeiro, localize o quadro de Níveis de Garantia no verso ou na lateral do pacote. Procure pela linha identificada como "Taurina (mínimo)". Ela pode estar expressa em mg/kg (como 1.000 mg/kg, 1.200 mg/kg ou 1.500 mg/kg) ou em formato percentual (como 0,10% ou 0,12%). Rações Super Premium e fórmulas específicas para gatos castrados costumam trabalhar acima do piso legal, alcançando entre 1.200 mg/kg e 1.600 mg/kg.',
+          'Em seguida, dê uma olhada na Composição Básica (lista de ingredientes). No grupo de suplementos minerais e vitamínicos, confirme a presença expressa dos termos "taurina" ou "L-taurina". Isso atesta que o fabricante adicionou o ingrediente puro de forma controlada, sem depender apenas dos níveis oscilantes das farinhas de origem animal.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Alerta grave: Por que gatos nunca devem comer ração de cão',
+          text: 'Rações para cães não são obrigadas por lei a conter suplementação de taurina, porque os cães a produzem no próprio organismo. Além disso, as rações caninas possuem teores proteicos e de gordura muito inferiores às necessidades metabólicas felinas. Oferecer ração de cachorro para gatos de forma contínua é uma causa direta de deficiência de taurina, cegueira precoce e dilatação do músculo cardíaco.',
+        },
+      },
+      {
+        id: 'alimentos-caseiros-e-dietas-sem-carne',
+        heading: 'Alimentação caseira e a ausência absoluta de taurina no reino vegetal',
+        paragraphs: [
+          'Nenhum ingrediente de origem vegetal contém taurina em quantidades mensuráveis. Grãos, leguminosas, legumes, sementes, frutas e óleos vegetais são totalmente desprovidos desse composto. A taurina existe exclusivamente em tecidos animais.',
+          'Mesmo tutores que preparam dietas caseiras cozidas à base de carne precisam de cautela técnica. A taurina é uma substância altamente solúvel em água. Quando a carne é cozida, grande parte do aminoácido migra para a água do cozimento. Se esse caldo for descartado, o teor de taurina no alimento diminui drasticamente.',
+          'Por essa razão, quem opta por alimentação natural para gatos precisa seguir rigorosamente a prescrição de um nutrólogo ou zootecnista veterinário, incorporando suplementos vitamínico-minerais completos com taurina de grau farmacêutico dosada com precisão.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'O que acontece se o gato ficar sem consumir taurina por alguns dias?',
+        a: 'Uma interrupção pontual de poucos dias não costuma provocar sintomas clínicos imediatos, pois o organismo do gato armazena pequenas reservas nos tecidos musculares e nos órgãos. No entanto, se o consumo inadequado ultrapassar várias semanas ou meses, essas reservas se esgotam e os processos degenerativos na retina e no miocárdio têm início de forma silenciosa.',
+      },
+      {
+        q: 'Qual a diferença entre o teor de taurina em mg/kg e em porcentagem?',
+        a: 'Trata-se apenas de formas diferentes de expressar a mesma concentração. Um teor de 1.000 mg/kg equivale a 1 grama por quilo de ração, o que corresponde exatamente a 0,10%. Da mesma forma, 1.200 mg/kg corresponde a 0,12% e 1.500 mg/kg equivale a 0,15%.',
+      },
+      {
+        q: 'Existe risco de excesso ou intoxicação por taurina na ração de gatos?',
+        a: 'A taurina possui uma margem de segurança biológica extremamente ampla. Por ser uma substância hidrossolúvel, qualquer quantidade consumida além das necessidades metabólicas é filtrada pelos rins e eliminada naturalmente na urina, sem relatos de toxicidade em níveis usuais de alimentação comercial.',
+      },
+      {
+        q: 'Gatos castrados precisam de mais taurina do que gatos não castrados?',
+        a: 'O requerimento metabólico basal é semelhante, mas como os gatos castrados tendem a apresentar menor gasto energético e consomem porções diárias mais controladas em gramas para evitar o sobrepeso, as fórmulas específicas para castrados frequentemente elevam a densidade de taurina (entre 1.200 e 1.500 mg/kg) para garantir que a dose absoluta diária recomendada seja atingida mesmo com menor ingestão de ração.',
+      },
+    ],
+    conclusion: 'A taurina é o exemplo mais marcante da condição biológica do gato como carnívoro estrito. Como o felino não a fabrica em quantidades suficientes e a perde diariamente na digestão, a garantia desse aminoácido na ração é uma questão de sobrevivência e longevidade. Ao escolher a ração do seu gato, verifique sempre a garantia mínima de 1.000 mg/kg no rótulo, garanta o consumo regular de alimento úmido completo e nunca utilize rações formuladas para cães na rotina dos felinos.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil - 11ª Edição',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manuais-pet-food-brasil/',
+        details: 'Tabelas de Exigências Nutricionais para Gatos: Aminoácidos Essenciais e Garantia Mínima de Taurina',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'estudo',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Capítulo 5: Proteínas e Aminoácidos. Metabolismo Hepático e Exigências Específicas de Taurina em Felinos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/nutrition/nutritional-guidelines/',
+        details: 'Perfis Nutricionais para Alimentos Secos e Úmidos de Gatos e Compensação Térmica de Taurina',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamento Técnico sobre Padrões de Identidade, Qualidade e Classificação de Alimentos para Cães e Gatos',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 22/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf',
+        details: 'Regulamento Geral de Rotulagem de Produtos Destinados à Alimentação Animal e Obrigatoriedade de Níveis de Garantia',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos Completos para Gatos no Catálogo',
+      text: 'O PetRankings avalia e cataloga centenas de rações secas e alimentos úmidos para gatos adultos, castrados e filhotes no Brasil, confrontando os teores declarados de proteína, taurina e minerais.',
+      buttonText: 'Explorar Alimentos para Gatos no Catálogo',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
