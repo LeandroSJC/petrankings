@@ -3861,6 +3861,143 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'racoes-hipoalergenicas-caes-proteina-hidrolisada-in-mapa-39-2014',
+    title: 'Rações hipoalergênicas para cães: O que diz a IN MAPA 39/2014 sobre proteínas hidrolisadas e alergias alimentares?',
+    subtitle: 'Entenda a diferença técnica entre rações convencionais de cordeiro e dietas coadjuvantes de quebra molecular para cães com alergia.',
+    cluster: 'Dietas Coadjuvantes & Clínica',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-20',
+    updatedAt: '2026-10-20',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-hipoalergenica-caes-cover.webp',
+    isFeatured: true,
+    summary:
+      'Comparamos os mecanismos biológicos das proteínas intactas frente às fórmulas hidrolisadas, o papel da barreira cutânea e as exigências da Instrução Normativa MAPA nº 39/2014 para alimentos coadjuvantes de eliminação.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'confusao-gondola-cordeiro-vs-coadjuvante',
+        heading: '1. A Confusão na Gôndola: Alimento Convencional com Cordeiro vs Dieta Coadjuvante',
+        paragraphs: [
+          'Quando um cão começa a apresentar coceira intensa nas patas, vermelhidão na virilha e episódios frequentes de otite, a primeira reação de muitos tutores é buscar uma ração no pet shop com os dizeres "cordeiro e arroz", "salmão" ou "pele sensível".',
+          'Embora essas fórmulas utilizem fontes proteicas menos usuais, elas continuam sendo classificadas pelo Ministério da Agricultura (MAPA) como alimentos completos convencionais. As proteínas de cordeiro ou salmão presentes nesses sacos estão em sua estrutura molecular intacta.',
+          'Além disso, a leitura atenta da composição básica de rações comerciais comuns frequentemente revela farinha de vísceras de frango, gordura de aves ou ovos desidratados entre os ingredientes secundários. Para um cão verdadeiramente hipersensível a frango ou carne bovina, alguns miligramas dessas proteínas íntegras são suficientes para desencadear crises de prurido.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal Conforme IN MAPA nº 39/2014',
+          text: 'Alimentos com apelo hipoalergênico real precisam ser registrados como "Alimentos Coadjuvantes", categoria regulada pela Instrução Normativa MAPA nº 39/2014. Por mandamento legal, essas formulações são desprovidas de medicamentos ou substâncias farmacológicas ativas, atuando estritamente por suporte nutricional com quebra molecular comprovada.',
+        },
+      },
+      {
+        id: 'escala-daltons-e-quebra-molecular',
+        heading: '2. A Escala em Daltons: Por que o Sistema Imune Ignora a Proteína Hidrolisada?',
+        paragraphs: [
+          'A alergia alimentar clássica ocorre quando o sistema imunológico do cão reconhece uma proteína alimentar estranha na mucosa intestinal. Os anticorpos (especialmente a Imunoglobulina E ou IgE) se ligam a regiões específicas dessa proteína chamadas epítopos.',
+          'Na rotulagem e na bromatologia, a massa das moléculas proteicas é medida em Daltons (Da). A maioria das proteínas alergênicas da carne bovina, do frango, do trigo e dos laticínios possui peso molecular entre 15.000 e 70.000 Daltons. Para disparar a degranulação de mastócitos e liberar histamina (a substância que faz o cão se coçar sem parar), o anticorpo precisa de uma molécula grande o bastante para criar uma ponte imunológica.',
+          'No processo industrial de hidrólise enzimática, a proteína de partida (seja de soja de alta pureza ou fígado de aves) é submetida a enzimas e calor que cortam as cadeias de aminoácidos em fragmentos minúsculos, geralmente abaixo de 3.000 a 5.000 Daltons. Por serem microscópicos, esses peptídeos atravessam o epitélio intestinal e alimentam o animal sem conseguir ativar os receptores de IgE.',
+        ],
+        table: {
+          caption: 'Comparação do Tamanho Molecular e Resposta Imunológica em Cães',
+          headers: ['Tipo de Proteína / Alimento', 'Peso Molecular Médio (Daltons)', 'Reconhecimento por Anticorpos IgE', 'Classificação Regulatória'],
+          rows: [
+            ['Carne Bovina / Frango Íntegro', '15.000 a 70.000 Da', 'Alto (provoca prurido em pets alérgicos)', 'Alimento Completo Convencional'],
+            ['Farinhas de Peixe e Cordeiro', '12.000 a 60.000 Da', 'Moderado a Alto (potencial de reação cruzada)', 'Alimento Completo Convencional'],
+            ['Proteína Hidrolisada Coadjuvante', 'Menor que 3.000 a 5.000 Da', 'Nulo ou Insignificante (invisível ao sistema imune)', 'Alimento Coadjuvante (IN 39/2014)'],
+            ['Aminoácidos Livres (Analisada Elementar)', 'Menor que 1.000 Da', 'Zero risco de disparo alergênico', 'Alimento Coadjuvante Específico'],
+          ],
+        },
+      },
+      {
+        id: 'dieta-eliminacao-e-armadilha-petiscos',
+        heading: '3. A Dieta de Eliminação de 8 Semanas e o Perigo dos Petiscos Caseiros',
+        paragraphs: [
+          'O diagnóstico de hipersensibilidade alimentar em cães não é feito por testes rápidos de sangue ou raspados de pele, mas sim pelo teste padrão-ouro da dieta de eliminação supervisionada pelo médico veterinário.',
+          'Esse protocolo exige que o cão se alimente com exclusividade absoluta de uma dieta hidrolisada coadjuvante durante um período contínuo de 8 a 12 semanas. Esse é o tempo necessário para que a pele se renove, a inflamação cesse e os anticorpos circulantes diminuam.',
+          'O erro mais comum que invalida o teste é o oferecimento de petiscos. Uma casca de pão, um pedaço minúsculo de queijo, um agrado com sabor carne ou mesmo um medicamento em comprimido palatável com extrato de fígado contêm proteínas íntegras. Um único deslize de 2 gramas pode reativar a coceira e exigir o reinício das semanas de avaliação do zero.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Regra de Ouro Durante a Dieta de Teste',
+          text: 'Durante as semanas da dieta de eliminação, apenas a ração coadjuvante e água potável filtrada devem entrar na rotina do animal. Caso o cão necessite de agrados para treino, utilize os próprios croquetes da ração hidrolisada separados da porção diária pesada.',
+        },
+      },
+      {
+        id: 'alergia-alimentar-vs-dermatite-atopica',
+        heading: '4. Alergia Alimentar vs Dermatite Atópica Ambiental: O que Dizem as Estatísticas',
+        paragraphs: [
+          'Estudos veterinários de revisão sistemática (como os conduzidos por Olivry e Mueller) indicam que a hipersensibilidade alimentar verdadeira responde por apenas 1% a 2% de todas as afecções dermatológicas caninas e entre 10% e 20% dos casos de prurido alérgico crônico.',
+          'A imensa maioria dos cães que sofrem com coceiras sazonais, lambedura compulsiva de patas e otites apresenta dermatite atópica por gatilhos ambientais, como ácaros de poeira doméstica, fungos e polens. Nesses animais, trocar de ração pode ajudar a reforçar a barreira de lipídios da pele (graças a ácidos graxos ômega 3 e ômega 6), mas não eliminará a causa da inflamação.',
+          'Por esse motivo, o tutor nunca deve iniciar o uso de alimentos coadjuvantes sem um plano traçado com o veterinário responsável, evitando gastos elevados com dietas clínicas quando a origem da enfermidade reside no ambiente doméstico.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'A ração hipoalergênica contém antialérgico ou corticoide na fórmula?',
+        a: 'Não. Por determinação rigorosa da Instrução Normativa MAPA nº 39/2014, alimentos coadjuvantes não podem conter princípios farmacológicos ativos, antibióticos ou anti-inflamatórios. O benefício decorre exclusivamente da hidrólise das proteínas e da adição de ácidos graxos essenciais que auxiliam na hidratação da derme.',
+      },
+      {
+        q: 'Por que muitas rações hipoalergênicas utilizam proteína de soja em vez de carne?',
+        a: 'A proteína isolada de soja é amplamente utilizada porque permite um controle laboratorial rigoroso da pureza dos aminoácidos e passa por processos padronizados de quebra em pesos moleculares inferiores a 3.000 Daltons. Após a hidrólise enzimática, a origem vegetal ou animal torna-se irrelevante para o sistema digestivo do cão.',
+      },
+      {
+        q: 'O cão precisa comer ração hipoalergênica para o resto da vida?',
+        a: 'Depende do diagnóstico conclusivo. Ao término das 8 a 12 semanas da dieta de eliminação com melhora clínica, o veterinário pode realizar o teste de provocação (reintrodução gradual de proteínas simples) para identificar o alérgeno exato. Se identificado, o cão pode migrar para um alimento completo convencional que não contenha aquele ingrediente.',
+      },
+      {
+        q: 'Posso misturar sachês comuns de carne ou frango na ração hipoalergênica para aumentar a aceitação?',
+        a: 'Não. Misturar alimentos úmidos comuns, sachês convencionais ou caldos de carne caseiros anula imediatamente o propósito da ração hidrolisada, reintroduzindo proteínas íntegras de alto peso molecular que disparam a crise alérgica.',
+      },
+    ],
+    conclusion:
+      'As rações hipoalergênicas coadjuvantes sob a IN MAPA nº 39/2014 são ferramentas zootécnicas de alta precisão baseadas na redução do peso molecular das proteínas para valores inferiores a 5.000 Daltons. Para que o manejo tenha sucesso e o animal recupere o conforto na pele, a cooperação do tutor na exclusão rigorosa de qualquer petisco convencional é tão importante quanto a qualidade tecnológica do alimento escolhido.',
+    references: [
+      {
+        title: 'Instrução Normativa MAPA nº 39/2014',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-39-de-18-de-novembro-de-2014.pdf',
+        details: 'Regulamento Técnico de Alimentos Coadjuvantes para Animais de Companhia e Inexistência de Princípio Farmacológico Ativo',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes Nutricionais para Cães e Alimentos com Fins Específicos para Suporte Dermatológico',
+      },
+      {
+        title: 'Global Nutritional Assessment Guidelines',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Critérios Clínicos de Condução de Dietas de Eliminação e Manejo de Reações Adversas a Alimentos',
+      },
+      {
+        title: 'Critically Appraised Topic on Adverse Food Reactions in Dogs (BMC Veterinary Research)',
+        institution: 'BMC Veterinary Research / Olivry & Mueller',
+        type: 'estudo',
+        url: 'https://bmcvetres.biomedcentral.com/articles/10.1186/s12917-017-0973-z',
+        details: 'Prevalência de Alergias Cutâneas Alimentares em Cães e Eficácia das Proteínas Hidrolisadas em Baixos Daltons',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Padrões de Identidade, Qualidade e Classificação de Alimentos para Animais de Companhia',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte o Catálogo Completo de Alimentos no PetRankings',
+      text: 'O PetRankings cataloga e confronta centenas de alimentos secos e úmidos disponíveis no mercado brasileiro com base em fichas técnicas oficiais custodiadas e critérios da ABINPET.',
+      buttonText: 'Explorar Catálogo de Alimentos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {

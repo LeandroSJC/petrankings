@@ -52,3 +52,6 @@ _backups_nuvem/
 
 # Scratch & Dev experiments
 scratch/
+
+# Protótipos e Mockups do Stitch (Google Stitch / UI Labs)
+stitch/
