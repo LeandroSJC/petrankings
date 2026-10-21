@@ -161,7 +161,7 @@ The PetRankings editorial repository organizes studies strictly into nutritional
 - **Fontes Primárias Obrigatórias**:
   - Fichas técnicas oficiais arquivadas em HTML com hash SHA-256 no banco de dados.
   - Marco regulatório autêntico arquivado na `biblioteca_regulatoria/` (Decreto nº 12.031/2024, Decreto nº 4.680/2003, Portaria MJ nº 2.658/2003, IN MAPA nº 22/2009, IN nº 30/2009, IN nº 39/2014, IN nº 110/2020, CDC).
-  - Literatura de referência: 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e WSAVA.
+  - Literatura de referência: 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF, WSAVA e Waltham Petcare Science Institute (WALTHAM).
 - **Paridade e Equilíbrio Editorial entre Espécies (Cães vs. Gatos - Invariante 14)**:
   - Manter paridade equilibrada (1:1) na esteira de publicações de foco exclusivo (`Cães` vs `Gatos`).
   - Estudos metodológicos e transversais (cálculos de Matéria Seca, conservantes, custo diário, rotulagem de OGM) devem adotar `speciesTarget: 'Cães e Gatos'` e incluir compulsoriamente análises e exemplos práticos para ambas as espécies.
@@ -198,7 +198,7 @@ Every study, technical guide, and comparative article drafted under `/guias` **m
 ```typescript
 export interface GuideReference {
   title: string;        // Official title of the norm, study, or manufacturer technical sheet
-  institution: string;  // Emitting authority (e.g. 'ABINPET', 'MAPA', 'FEDIAF', 'WSAVA', 'CTNBio', 'Grandfood Indústria')
+  institution: string;  // Emitting authority (e.g. 'ABINPET', 'MAPA', 'FEDIAF', 'WSAVA', 'WALTHAM', 'CTNBio', 'Grandfood Indústria')
   type: 'regulamento' | 'literatura' | 'rotulagem' | 'estudo';
   url?: string;         // Canonical public URL or legal repository link
   details?: string;     // Specific chapter, table, article or SHA-256 hash custody reference
@@ -213,6 +213,7 @@ export interface GuideReference {
    - Atos do MAPA: IN nº 30/2009, IN nº 22/2009, IN nº 39/2014, IN nº 110/2020.
    - Legislação Federal: Decreto nº 12.031/2024, Decreto nº 4.680/2003, Portaria MJ nº 2.658/2003, CDC (Lei nº 8.078/1990).
 2. **Literatura Científica Veterinária e Zootécnica Reconhecida**:
+   - Waltham Petcare Science Institute (https://www.waltham.com/) — Estudos e diretrizes globais sobre nutrição, saciedade, balanço mineral e saúde preventiva.
    - NRC (National Research Council) — *Nutrient Requirements of Dogs and Cats* (2006).
    - Pareceres Conclusivos da CTNBio (Comissão Técnica Nacional de Biossegurança).
    - Pareceres Científicos da EFSA (European Food Safety Authority).

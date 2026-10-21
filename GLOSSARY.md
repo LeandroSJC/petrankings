@@ -62,6 +62,10 @@ _Evitar_: Conservante natural caseiro.
 Expressões legais de apelo comercial regulamentadas pela IN 22/2009 do MAPA com base na inclusão percentual de ingredientes específicos (ex: `"Sabor..."`, `"Com..."`, `"Rico em..."`).
 _Evitar_: Propagandas da ração, frases de marketing avulsas.
 
+**Waltham Petcare Science Institute (WALTHAM)**:
+Centro de excelência e autoridade global em pesquisa científica sobre nutrição, saúde e bem-estar de cães e gatos (Mars Petcare), cujos estudos revisados por pares fundamentam diretrizes internacionais de exigências nutricionais (NRC, FEDIAF, WSAVA).
+_Evitar_: Marca de ração, blog pet genérico.
+
 ---
 
 ## 🏷️ 3. Taxonomia de Produtos & Engenharia Editorial

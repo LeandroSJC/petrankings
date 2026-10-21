@@ -205,6 +205,15 @@
     3. Onde os alimentos são produzidos (fábricas próprias com certificação vs. terceirização contínua)?
     4. Qual o padrão de controle de qualidade, testes toxicológicos e retenção de amostras de lote?
 
+### 2.7. Waltham Petcare Science Institute (https://www.waltham.com/)
+* **Autoridade científica:** Mars Petcare Science / Leicestershire, Reino Unido.
+* **Histórico e Relevância:** Pioneiro há mais de 50 anos em pesquisas científicas de nutrição, saúde e comportamento animal, cujos estudos revisados por pares embasam as recomendações do NRC e FEDIAF.
+* **Aplicação no PetRankings:**
+  * **Saúde Urinária Felina & Metodologia RSS (Relative Supersaturation):** Pesquisas seminais para prevenção de urólitos de estruvita e oxalato de cálcio através de modulação dietética.
+  * **Necessidades de Aminoácidos Essenciais:** Determinação experimental de exigências de taurina, arginina e metionina em felinos estritos.
+  * **Curvas de Crescimento e Balanço Calórico (Waltham Puppy Growth Charts):** Referência internacional para predição de peso adulto, ritmo saudável de ganho de massa em filhotes de diferentes portes e prevenção da obesidade precoce.
+  * **Microbioma Gastrointestinal e Saúde Oral:** Evidências sobre o efeito de fibras prebióticas (FOS/MOS) na consistência fecal e aditivos quelantes na redução do cálculo dentário (tártaro).
+
 ---
 
 ## 🛠️ 3. Mapeamento Arquitetural no Código-Fonte

@@ -64,12 +64,12 @@
     - **Incerteza Probatória:** Se uma informação não for comprovável com certeza probatória nos documentos oficiais, ela jamais deve ser estimada ou simulada; o texto deve declarar expressamente a ausência da informação pelo fabricante ou omiti-la.
     - **Seção Obrigatória de Fontes Oficiais & Bibliografia Técnica (`references`):**
       - Toda e qualquer publicação, estudo ou guia em `/guias` deve conter compulsoriamente a lista de fontes reais, institucionais e regulatórias no campo `references`.
-      - Cada referência deve discriminar: título do documento, instituição/órgão emissor (MAPA, ABINPET, FEDIAF, WSAVA, Fabricante), tipo de fonte (`regulamento`, `literatura`, `rotulagem`, `estudo`) e detalhamento de suporte (artigo de lei, tabela nutricional ou link oficial).
+      - Cada referência deve discriminar: título do documento, instituição/órgão emissor (MAPA, ABINPET, FEDIAF, WSAVA, WALTHAM, Fabricante), tipo de fonte (`regulamento`, `literatura`, `rotulagem`, `estudo`) e detalhamento de suporte (artigo de lei, tabela nutricional ou link oficial).
       - É terminantemente vedado publicar estudos sem discriminar expressamente as fontes consultadas ao final da página.
 12. **Padrão Ortotipográfico e Visual para Títulos de Estudos e Guias (`/guias`):**
     - Todos os títulos de artigos, estudos bromatológicos e guias técnicos devem adotar a **Fórmula Bimembre** (`[Gatilho de Busca / Objeto do Confronto] : [Dilema do Tutor + Ancoragem Técnica/Regulatória]`).
     - **Capitalização Oficial (Sentence Case):** Seguir estritamente a norma culta da língua portuguesa (Sentence Case), com inicial maiúscula apenas na primeira palavra da oração e maiúscula após os dois-pontos (`:`). É expressamente proibido o *Title Case* em inglês (maiúscula em cada palavra solta).
-    - **Nomes Próprios, Marcas e Siglas:** Preservar a grafia comercial oficial das marcas (`PremieR Formula`, `GoldeN Formula`, `Purina Pro Plan`, `Farmina N&D`) e siglas em maiúsculas (`MAPA`, `ABINPET`, `WSAVA`, `FEDIAF`, `CDC`, `OGM`, `CTNBio`, `BHT`, `BHA`, `MS`).
+    - **Nomes Próprios, Marcas e Siglas:** Preservar a grafia comercial oficial das marcas (`PremieR Formula`, `GoldeN Formula`, `Purina Pro Plan`, `Farmina N&D`) e siglas em maiúsculas (`MAPA`, `ABINPET`, `WSAVA`, `FEDIAF`, `WALTHAM`, `CDC`, `OGM`, `CTNBio`, `BHT`, `BHA`, `MS`).
     - **Aspas em Termos Literais:** Expressões literais de rotulagem ou claims regulatórios devem ser grafados entre aspas duplas retas (`"Com Carne"`, `"Sabor Carne"`, símbolo `"T"`).
     - **Pontuação:** Perguntas diretas encerram obrigatoriamente com ponto de interrogação (`?`); frases declarativas nunca levam ponto final.
     - **Extensão:** Entre 65 e 85 caracteres no total, com o gatilho primário (antes dos `:`) contendo até 45 caracteres para evitar truncamento em dispositivos móveis no Google Discover/SERP.
@@ -116,7 +116,7 @@
       3. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
       4. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
       5. *Fidelidade de Citações (`relatedProductSlugs`) & Fontes:* Apenas produtos realmente analisados no texto constam na lista? Se a lista for vazia (`[]`), foi verificado que NÃO há referências do tipo 'rotulagem' (Ficha Oficial/Fabricante) nas fontes?
-      6. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA e fichas oficiais) estão discriminadas?
+      6. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA, WALTHAM e fichas oficiais) estão discriminadas?
 19. **Pragmatismo de Código e Princípio do Menor Diff Viável (Anti-Bloat & YAGNI):**
     - **Menor Diff Viável:** Privilegie a menor alteração no código que resolva 100% da causa raiz do problema. Nunca refatore arquivos alheios, altere estilos não solicitados ou reescreva módulos funcionais sem demanda expressa.
     - **Proibição de Abstrações Prematuras e Wrappers Inúteis:** Não crie arquivos de utilitários para funções de uso único, classes intermediárias supérfluas, camadas de abstração desnecessárias ou código "para o futuro" (YAGNI). Use as APIs nativas do TypeScript, Next.js e Node.js.

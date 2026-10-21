@@ -18,6 +18,8 @@ This skill governs the mathematical, regulatory, and bromatological evaluation e
 Toda e qualquer pontuação, parâmetro ou análise deve estar ancorada nos atos oficiais arquivados no repositório mestre:
 
 * **Manual Pet Food Brasil — ABINPET (11ª Edição):** Padrões de exigência nutricional mínima e tetos toxicológicos máximos para cães e gatos em todas as fases de vida.
+* **Waltham Petcare Science Institute (WALTHAM):** Literatura e diretrizes científicas internacionais de referência para densidade energética, saciedade, saúde urinária (RSS) e exigências de micronutrientes.
+* **FEDIAF (2025) & NRC (2006):** Diretrizes zootécnicas e perfis nutricionais consolidados para nutrição canina e felina.
 * **Decreto Presidencial nº 12.031/2024:** Novo Regulamento de Fiscalização de Produtos Destinados à Alimentação Animal.
 * **IN MAPA nº 30/2009 & IN MAPA nº 39/2014:** Classificação oficial de alimentos (Completos, Coadjuvantes e Específicos/Complementares).
 * **IN MAPA nº 22/2009:** Obrigatoriedade da ordem decrescente de quantidade dos ingredientes na rotulagem.

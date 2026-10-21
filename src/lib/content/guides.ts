@@ -3998,6 +3998,148 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'crescimento-de-filhotes-caes-ganho-rapido-de-peso-articulacoes',
+    title: 'Crescimento de filhotes : Por que o ganho rápido de peso ameaça as articulações de cães de grande porte?',
+    subtitle: 'Como o excesso calórico e o descompasso esquelético geram displasia coxofemoral e por que as curvas de crescimento do Waltham são a bússola do tutor.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-21',
+    updatedAt: '2026-10-21',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/crescimento-filhotes-caes-curvas-peso.webp',
+    isFeatured: true,
+    summary:
+      'Entenda por que filhote pesado não significa filhote saudável. Analisamos como a alta densidade calórica acelera o ganho de massa antes da mineralização dos ossos, os tetos de cálcio da ABINPET e como usar as curvas de crescimento do Waltham para prevenir lesões articulares precoces.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-mito-do-filhote-pesado',
+        heading: '1. O Dilema na Balança: Quando o Peso Rápido Vira Inimigo da Estrutura',
+        paragraphs: [
+          'Quando um tutor leva um filhote de porte médio ou grande para casa, a primeira ansiedade costuma surgir na pesagem semanal. Existe uma crença popular bastante enraizada de que filhote saudável precisa ser pesado, rechonchudo e apresentar patas grossas com ganho acelerado na balança.',
+          'Na zootecnia canina, o excesso de comida nos primeiros meses é um dos maiores gatilhos para problemas ortopédicos graves. O crescimento do esqueleto e o ganho de massa muscular operam em ritmos biológicos diferentes.',
+          'Se a ração entrega calorias demais, os músculos e a gordura corporal crescem muito mais rápido do que os ossos conseguem amadurecer. Esse sobrepeso prematuro sobrecarrega articulações ainda moles e imaturas, abrindo caminho para a displasia coxofemoral e a frouxidão ligamentar.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'A Janela Crítica de Vulnerabilidade Óssea',
+          text: 'Entre os 3 e os 8 meses de idade, as placas de crescimento ósseo dos filhotes ainda não se fecharam. Qualquer sobrecarga mecânica contínua nessa fase molda a articulação do quadril e dos cotovelos com deformidades permanentes.',
+        },
+      },
+      {
+        id: 'curvas-de-crescimento-waltham',
+        heading: '2. As Curvas de Crescimento do Waltham: Crescer no Ritmo Certo',
+        paragraphs: [
+          'Para substituir o achismo do peso bruto, o Waltham Petcare Science Institute conduziu estudos ao longo de anos analisando dezenas de milhares de pesagens em cães saudáveis, criando as famosas Curvas de Crescimento Canino (Waltham Puppy Growth Charts).',
+          'Essas curvas funcionam de forma semelhante às tabelas pediátricas da Organização Mundial da Saúde (OMS) para bebês humanos. Em vez de perseguir um número fixo de quilos, o veterinário e o tutor acompanham o percentil de crescimento do animal.',
+          'Um filhote de Border Collie, Pastor Alemão ou Golden Retriever deve manter sua própria trajetória percentilar constante. Cruzar linhas de percentil para cima rapidamente indica acúmulo precoce de gordura e sobrecarga mecânica na cartilagem, exigindo ajuste imediato na porção diária de alimento.',
+        ],
+        table: {
+          caption: 'Parâmetros Zootécnicos de Crescimento: Filhotes Médios e Grandes (ABINPET / Waltham / FEDIAF)',
+          headers: ['Fase de Desenvolvimento', 'Ritmo Recomendado de Ganho', 'Risco da Superalimentação Calórica', 'Meta Nutricional da Ração'],
+          rows: [
+            ['2 a 4 meses (Desmame inicial)', 'Ganho proporcional rápido e linear', 'Deformidade de placas de crescimento', 'Proteína nobre mínima de 22% a 25% MS'],
+            ['5 a 8 meses (Janela crítica)', 'Desaceleração gradual da curva', 'Displasia coxofemoral e osteocondrite', 'Cálcio controlado (teto máximo 1,60% MS)'],
+            ['9 a 14 meses (Maturação óssea)', 'Ganho lento de massa magra', 'Fechamento precoce e sobrepeso juvenil', 'Densidade calórica moderada (< 4.000 kcal/kg)'],
+            ['15 a 24 meses (Portes gigantes)', 'Consolidação articular final', 'Artrose e desgaste da cartilagem', 'Balanço estrito de cálcio e fósforo (Ca:P)'],
+          ],
+        },
+      },
+      {
+        id: 'calcio-e-fosforo-limites',
+        heading: '3. A Armadilha do Cálcio: O Perigo da Suplementação Caseira',
+        paragraphs: [
+          'Muitos tutores ainda compram pós de cálcio ou fosfato em pet shops para misturar à ração, acreditando que isso fortalece os ossos de filhotes de grande porte. A literatura científica do NRC e da ABINPET alerta que essa prática é extremamente perigosa.',
+          'Filhotes com menos de seis meses de vida não possuem o mecanismo hormonal de autorregulação intestinal maduro. Enquanto um cão adulto simplesmente excreta o excesso de cálcio não aproveitado nas fezes, o filhote absorve passivamente quase tudo o que ingere.',
+          'Esse excesso de cálcio no sangue impede a reabsorção natural da cartilagem, provocando uma condição dolorosa chamada osteocondrose dissecante, na qual pedaços de cartilagem se soltam dentro da articulação do ombro e do cotovelo do filhote.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Tetos da 11ª Edição do Manual ABINPET para Filhotes',
+          text: 'O Manual Pet Food Brasil estabelece que rações para filhotes de porte grande devem conter no máximo 1,60% de cálcio na Matéria Seca (contra até 2,00% tolerados para raças miniaturas). Alimentos completos já entregam todo o cálcio necessário, tornando suplementos minerais contraindicados.',
+        },
+      },
+      {
+        id: 'densidade-calorica-na-embalagem',
+        heading: '4. Como Escolher a Ração Certa no Rótulo: Calorias e Guia de Alimentação',
+        paragraphs: [
+          'Ao avaliar embalagens destinadas a filhotes, o tutor deve verificar se a ração foi formulada especificamente para o porte esperado do cão em idade adulta. Rações para raças grandes possuem menor densidade de extrato etéreo (gordura entre 12% e 15% na matéria natural) em comparação a fórmulas para raças pequenas, que chegam a 18% ou 20%.',
+          'Outro cuidado fundamental é seguir a tabela de gramatura diária da embalagem utilizando uma balança digital de cozinha ou copo medidor aferido. O hábito de preencher a tigela "a olho" geralmente resulta em 20% a 30% a mais de ração servida por dia.',
+          'Se o filhote demonstrar muita ansiedade para comer, o uso de comedouros lentos ou brinquedos recheáveis com porções da própria ração diária ajuda a reduzir a velocidade de ingestão sem adicionar calorias extras fora da dieta balanceada.',
+        ],
+      },
+      {
+        id: 'avaliacao-fisica-em-casa',
+        heading: '5. Como Checar a Condição Corporal do Filhote sem Balança',
+        paragraphs: [
+          'A fita métrica e a balança são valiosas, mas a avaliação tátil diária é o método mais prático para monitorar o filhote. Ao passar as palmas das mãos pelas laterais do tórax com uma leve pressão, as costelas devem ser facilmente sentidas, como os ossos do dorso da mão.',
+          'Se for necessário apertar com força para encontrar as costelas sob uma camada de gordura esponjosa, o animal está recebendo mais calorias do que gasta. Por outro lado, se as costelas estiverem saltadas e visíveis à distância sem toque, a quantidade de alimento pode estar insuficiente para a taxa metabólica do filhote.',
+          'Observar o cão de cima também deve revelar uma cintura suave logo após a última costela. Manter o filhote com silhueta esguia e ativa durante todo o primeiro ano de vida é a garantia mais eficaz de articulações saudáveis na vida adulta.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Meu filhote de raça grande parece magro comparado aos da mesma ninhada. Devo aumentar a comida?',
+        a: 'Não sem orientação profissional. Filhotes de grande porte devem crescer esguios e leves. Comparar com outros filhotes que podem estar com sobrepeso gera a ilusão de magreza. Se as costelas forem palpáveis sem pressão exagerada e o animal tiver disposição para brincar, o ritmo mais lento de ganho é o mais protetor para as articulações.',
+      },
+      {
+        q: 'Posso dar suplemento de cálcio em pó junto com a ração Super Premium do filhote?',
+        a: 'Não. Rações completas para filhotes já contêm a quantidade máxima segura de cálcio e fósforo exigida pelo MAPA e pela ABINPET. A adição de suplementos caseiros de cálcio provoca retenção mineral excessiva e causa graves lesões esqueléticas como a osteocondrite.',
+      },
+      {
+        q: 'Até que idade um cão de porte grande deve comer ração de filhote?',
+        a: 'Enquanto raças pequenas completam o crescimento ósseo por volta dos 10 a 12 meses, cães de raças médias e grandes (25kg a 45kg) continuam o desenvolvimento até os 15 a 18 meses, e raças gigantes até os 24 meses. A transição para a fórmula de adulto deve respeitar essa maturidade esquelética.',
+      },
+    ],
+    conclusion:
+      'Proteger as articulações de um cão de grande porte começa na escolha da ração e no rigor da quantidade servida no comedouro. Ao manter o filhote dentro do percentil saudável das curvas de crescimento do Waltham e respeitar os tetos de cálcio da ABINPET, o tutor garante que o esqueleto se fortaleça no ritmo correto, prevenindo dores crônicas e cirurgias ortopédicas no futuro.',
+    references: [
+      {
+        title: 'Waltham Puppy Growth Charts: A Tool to Monitor Weight in Growing Dogs',
+        institution: 'Waltham Petcare Science Institute',
+        type: 'estudo',
+        url: 'https://www.waltham.com/',
+        details: 'Curvas Percentilares de Crescimento Canino Baseadas em Pesquisas Multicêntricas de Ritmo de Ganho de Massa',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes Nutricionais para Cães em Fase de Crescimento e Tetos Máximos de Cálcio para Raças Grandes',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs',
+        institution: 'European Pet Food Industry Federation (FEDIAF 2025)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/safety-and-quality/nutritional-guidelines/',
+        details: 'Capítulo de Manejo Energético e Desenvolvimento Esquelético em Cães de Crescimento Rápido',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Exigências de Energia Metabolizável, Cálcio e Fósforo para Prevenção de Doenças Ortopédicas do Desenvolvimento',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Padrões de Identidade, Qualidade e Classificação de Alimentos Completos para Animais de Companhia',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte o Catálogo Completo de Alimentos no PetRankings',
+      text: 'O PetRankings cataloga e confronta centenas de alimentos secos e úmidos disponíveis no mercado brasileiro com base em fichas técnicas oficiais custodiadas e critérios da ABINPET.',
+      buttonText: 'Explorar Catálogo de Alimentos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
