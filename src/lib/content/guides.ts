@@ -4140,6 +4140,166 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'bolas-de-pelo-em-gatos-fibras-insoluveis-tricobezoar',
+    title: 'Bolas de pelo em gatos: Como as fibras insolúveis na ração previnem o tricobezoar?',
+    subtitle: 'O que a literatura zootécnica e a fisiologia felina revelam sobre a ação mecânica da celulose e das fibras prebióticas no trânsito intestinal.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-22',
+    updatedAt: '2026-10-22',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/bolas-de-pelo-gatos-fibras-cover.webp',
+    isFeatured: true,
+    summary:
+      'Entenda por que os gatos engolem pelos durante a autolimpeza, como as papilas filiformes da língua direcionam os fios ao estômago e de que forma o equilíbrio entre fibras insolúveis e solúveis na ração conduz os pelos com segurança até as fezes, prevenindo vômitos e obstruções.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-habito-de-autolimpeza-e-o-risco-do-tricobezoar',
+        heading: 'O hábito da autolimpeza e o risco das bolas de pelo',
+        paragraphs: [
+          'Gatos adultos dedicam entre 30% e 50% das suas horas acordados à higiene corporal. Essa autolimpeza contínua mantém a pelagem desembaraçada, remove ectoparasitas, regula a temperatura corpórea e elimina odores que poderiam denunciar o animal a presas ou predadores.',
+          'A língua do felino possui uma estrutura anatômica singular: centenas de papilas filiformes voltadas para trás, compostas por queratina endurecida. Essas papilas funcionam como uma escova em miniatura altamente eficiente para colher pelos mortos. Pela curvatura voltada para a garganta, o gato não consegue cuspir os pelos retidos na boca, sendo obrigado a engoli-los involuntariamente.',
+          'Em condições normais, esses fios percorrem o esôfago, entram no estômago e seguem pelo trato digestório até serem expelidos nas fezes sem qualquer incômodo. No entanto, quando a quantidade de fios ingeridos é muito alta (como nos períodos de troca de pelagem ou em raças de pelos longos), eles podem se entrelaçar no estômago, formando uma massa densa e compacta conhecida tecnicamente como tricobezoar.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Vômito Frequente Não é Normal',
+          text: 'Muitos tutores encaram o vômito de bolas de pelo como um comportamento rotineiro e inofensivo. Episódios que ocorrem mais de uma vez ao mês sinalizam lentidão na motilidade gástrica ou ingestão excessiva de pelos. Quando o tricobezoar atinge volume que não ultrapassa o piloro, ele causa gastrite crônica e pode demandar desobstrução cirúrgica.',
+        },
+      },
+      {
+        id: 'o-papel-mecanico-das-fibras-insoluveis',
+        heading: 'Como as fibras insolúveis atuam no trânsito gástrico',
+        paragraphs: [
+          'Por serem carnívoros estritos, os gatos possuem trato gastrointestinal curto e não utilizam fibras vegetais como fonte energética direta. No entanto, a fração de fibras insolúveis desempenha uma função mecânica e estrutural insubstituível na dieta felina.',
+          'Fontes insolúveis purificadas, como a celulose e a fibra de cana-de-açúcar, passam inalteradas pelo estômago e pelo intestino delgado. Elas não retêm grandes volumes de água nem fermentam com facilidade, preservando sua integridade física microscópica ao longo de todo o percurso digestivo.',
+          'Dentro do estômago, essa malha de fibras se espalha entre os pelos recém-ingeridos, impedindo que os fios se aglomerem e formem blocos compactos. Ao mesmo tempo, a presença física da fibra estimula as contrações naturais do estômago, acelerando o envio dos pelos pelo piloro em direção ao intestino delgado.',
+          'Uma vez no intestino, a fibra insolúvel agrega volume e textura ao bolo fecal, garantindo que os pelos sejam carreados de forma contínua e silenciosa até serem eliminados na caixa de areia.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Tradução Prática no Comedouro',
+          text: 'A celulose presente na ração funciona como uma vassoura microscópica contínua. Ela varre os pelos soltos em pequenos grupos fragmentados antes que eles tenham tempo de se aglomerar em uma bola densa no estômago.',
+        },
+      },
+      {
+        id: 'a-sinergia-entre-fibras-insoluveis-e-soluveis',
+        heading: 'O equilíbrio entre celulose, polpa de beterraba e psyllium',
+        paragraphs: [
+          'Um alimento anti-bolas de pelo eficiente não pode depender exclusivamente de fibras insolúveis duras. O sucesso zootécnico da fórmula reside no balanço exato entre a ação mecânica da celulose e a ação lubrificante de fibras solúveis e viscosas.',
+          'A polpa desidratada de beterraba atua como uma fonte de fermentação moderada. No cólon, ela é decomposta pela microbiota benéfica em ácidos graxos de cadeia curta (como butirato e acetato), substâncias que nutrem as células intestinais e estimulam o peristaltismo natural, mantendo o trânsito ativo.',
+          'O psyllium, por sua vez, extraído das sementes da planta Plantago ovata, é uma fibra solúvel com excepcional capacidade de retenção hídrica. Em contato com os líquidos do trato digestório, o psyllium intumesce e forma uma mucilagem viscosa e escorregadia.',
+          'Esse gel natural envolve a massa fecal e os pelos já dispersos pela celulose, lubrificando as paredes intestinais. Esse efeito previne que o bolo fecal resseque em demasia, permitindo que a eliminação dos pelos ocorra com suavidade e sem dor para o felino.',
+        ],
+        table: {
+          caption: 'Principais fontes de fibras utilizadas em rações felinas para controle de bolas de pelo',
+          headers: ['Fonte de Fibra', 'Classificação Fisiológica', 'Mecanismo de Ação Digestiva', 'Efeito no Organismo do Gato'],
+          rows: [
+            ['Celulose Purificada', 'Insolúvel e não fermentável', 'Dispersão mecânica dos pelos e estímulo da motilidade gástrica', 'Impede a formação do tricobezoar e empurra os pelos ao duodeno'],
+            ['Psyllium (Plantago ovata)', 'Solúvel formadora de gel viscoso', 'Retenção de água e produção de mucilagem lubrificante', 'Facilita o deslizamento das fezes com pelos sem atrito no cólon'],
+            ['Polpa de Beterraba', 'Moderadamente solúvel e fermentável', 'Produção de ácidos graxos de cadeia curta para o cólon', 'Nutre os colonócitos e mantém as contrações intestinais ativas'],
+            ['Prebióticos (MOS e FOS)', 'Solúveis fermentáveis de cadeia curta', 'Nutrição seletiva de bifidobactérias e lactobacilos benéficos', 'Equilíbrio da microbiota intestinal e redução do odor das fezes'],
+          ],
+        },
+      },
+      {
+        id: 'o-que-olhar-no-rotulo-garantias-e-ingredientes',
+        heading: 'O que verificar nos níveis de garantia e na lista de ingredientes',
+        paragraphs: [
+          'Para saber se um alimento entrega suporte real contra bolas de pelo, o tutor deve analisar conjuntamente dois elementos da embalagem: os níveis de garantia oficiais e a ordem dos ingredientes na composição básica.',
+          'Na tabela de garantias, o número principal a observar é a Matéria Fibrosa (fibra bruta). Enquanto alimentos convencionais de manutenção para gatos trazem teores de fibra bruta entre 2,5% e 4,0% em Matéria Natural, formulações dedicadas ao controle de bolas de pelo elevam esse percentual para a faixa de 5,0% a 7,5% (o que representa cerca de 6,0% a 8,5% em Matéria Seca).',
+          'Na lista de ingredientes, procure matérias-primas declaradas com clareza, tais como celulose em pó, fibra de cana-de-açúcar, polpa de beterraba e casca de psyllium. Quanto mais perto do início da composição essas fibras estiverem listadas, maior será a sua proporção no croquete.',
+          'Outro indicador importante é o teor de extrato etéreo (gordura). Alimentos que mantêm gorduras de qualidade em níveis moderados (12% a 15%) proporcionam uma camada lipídica fisiológica que auxilia na lubrificação das mucosas sem sobrecarregar o animal com calorias excessivas.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Regulamentação Oficial Conforme IN MAPA nº 30/2009',
+          text: 'A legislação brasileira de alimentação animal exige que o fabricante declare o teor máximo de Matéria Fibrosa nos níveis de garantia. Alegações funcionais de controle de bolas de pelo exigem formulação zootécnica com teores de fibras compatíveis e comprovados pela literatura científica.',
+        },
+      },
+      {
+        id: 'cuidados-complementares-alem-da-racao',
+        heading: 'Manejo diário: Escovação, hidratação e umidade',
+        paragraphs: [
+          'Embora a ração enriquecida com fibras funcione como uma barreira protetora constante, ela opera com eficiência máxima quando combinada com a rotina preventiva do tutor. O hábito mais simples e transformador para a saúde digestiva do gato é a escovação regular.',
+          'Ao escovar o felino de duas a quatro vezes por semana (ou diariamente em raças de pelagem longa como Persa, Maine Coon e Angorá), o tutor retira a pelagem morta na escova antes que ela seja engolida pela língua áspera do animal, reduzindo em mais de 70% o volume de pelos que chega ao estômago.',
+          'O segundo fator inegociável é a ingestão de água. As fibras alimentares dependem de líquidos para expandir e lubrificar o trânsito digestório. Em gatos que bebem pouca água e consomem apenas alimento seco rico em fibras, as fezes podem ficar excessivamente secas e duras, aumentando o risco de constipação.',
+          'A introdução de alimentos úmidos completos (sachês e latas) na rotina diária fornece hidratação biológica abundante, potencializando o efeito lubrificante das fibras e assegurando fezes macias e trânsito intestinal sem dor.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'A Escovação como Medida Preventiva',
+          text: 'Cada tufo de pelo que fica retido nas cerdas da escova é um tufo a menos no estômago do felino. A escovação rotineira alivia diretamente a carga digestiva do animal e fortalece o vínculo afetivo.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Gato vomitar bola de pelo com frequência é considerado normal?',
+        a: 'Não. O vômito frequente de bolas de pelo (mais de uma vez ao mês) não é um comportamento normal, mas sim um sinal de que os pelos não estão conseguindo transpor o piloro para seguir o fluxo intestinal. Vômitos recorrentes causam irritação na mucosa gástrica e demandam avaliação veterinária para descartar gastrite, motilidade lenta ou doenças inflamatórias intestinais.',
+      },
+      {
+        q: 'Posso oferecer ração para controle de bolas de pelo para gatos de pelagem curta?',
+        a: 'Sim. Gatos de pelos curtos se limpam com a mesma intensidade que gatos de pelos longos e também ingerem grandes volumes de fios mortos, sobretudo nas épocas de muda na primavera e no outono. O aporte equilibrado de fibras insolúveis e solúveis beneficia o trânsito gástrico e a saúde intestinal de felinos com qualquer tipo de pelagem.',
+      },
+      {
+        q: 'Pastas de malte ou óleos minerais substituem o papel das fibras da ração?',
+        a: 'Não substituem. As pastas de malte e produtos lubrificantes funcionam como paliativos pontuais para momentos de crise, mas não atuam na motilidade gástrica estrutural diária. Já o uso frequente de óleo mineral não é recomendado, pois impede a absorção adequada de vitaminas lipossolúveis (A, D, E e K) pelo organismo felino.',
+      },
+      {
+        q: 'O aumento de fibras na ração pode ressecar as fezes do gato?',
+        a: 'Apenas se o gato não consumir água suficiente. As fibras demandam líquidos para manter o bolo fecal úmido e lubrificado. Para evitar qualquer ressecamento, assegure água fresca em fontes circulantes e combine a ração seca com porções diárias de alimentos úmidos completos.',
+      },
+    ],
+    conclusion:
+      'A formação de bolas de pelo é um desafio decorrente da própria biologia felina e do hábito essencial de autolimpeza. A nutrição de precisão atua nesse cenário através da combinação de fibras insolúveis de celulose, que dispersam os fios e aceleram o esvaziamento gástrico, com fibras mucilaginosas como o psyllium, que garantem trânsito suave até as fezes. Aliando um alimento bem formulado à escovação periódica e à hidratação contínua, o tutor preserva o estômago do gato livre de desconfortos e garante o bem-estar da rotina doméstica.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes Nutricionais para Gatos: Níveis de Garantia, Matéria Fibrosa e Manejo Fisiológico de Fibras',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/safety-and-quality/nutritional-guidelines/',
+        details: 'Seção de Fisiologia Digestiva Felina, Trânsito Gastrointestinal e Efeitos Físicos das Fibras Dietéticas',
+      },
+      {
+        title: 'Gastrointestinal Motility and Fiber Digestion in Domestic Cats',
+        institution: 'Waltham Petcare Science Institute',
+        type: 'estudo',
+        url: 'https://www.waltham.com/',
+        details: 'Pesquisas sobre o Efeito da Celulose Purificada e da Polpa de Beterraba na Redução da Formação de Tricobezoares em Gatos Domésticos',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Capítulo 5: Carboidratos e Fibras Dietéticas em Felinos: Funções Fisiológicas, Trânsito Intestinal e Digestibilidade',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Padrões de Identidade, Qualidade e Rotulagem de Alimentos Completos e Coadjuvantes para Animais de Companhia',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte os Alimentos para Gatos Catalogados no PetRankings',
+      text: 'O PetRankings cataloga e confronta fichas técnicas oficiais de centenas de alimentos secos e úmidos para gatos com base nas normas da ABINPET e do MAPA. Acesse o catálogo e filtre por necessidades especiais.',
+      buttonText: 'Explorar Catálogo de Alimentos para Gatos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
