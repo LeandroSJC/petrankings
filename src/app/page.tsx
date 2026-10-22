@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { getAllGuides, getFeaturedGuide } from '@/lib/content/guides';
-import HomeHeroSearch from '@/components/HomeHeroSearch';
 import HomeGuidesSection from '@/components/HomeGuidesSection';
 import FaqAccordion from '@/components/FaqAccordion';
 import { SITE_URL } from '@/lib/utils';
@@ -176,18 +175,13 @@ export default async function HomePage() {
               style={{
                 fontSize: 'clamp(0.92rem, 1.6vw, 1.05rem)',
                 color: 'var(--text-body)',
-                lineHeight: 1.5,
-                maxWidth: '720px',
-                margin: '0 auto 20px auto',
+                lineHeight: 1.55,
+                maxWidth: '740px',
+                margin: '0 auto',
               }}
             >
-              Estudos comparativos, duelos de marcas e análises em Matéria Seca (MS) fundamentadas nos dados do MAPA e na <strong>11ª Edição do Manual ABINPET</strong>.
+              Estudos bromatológicos, análises de rótulos e ferramentas comparativas para você descobrir a qualidade real do alimento do seu cão ou gato sem o viés do marketing.
             </p>
-
-            {/* Barra de Busca Concierge Central */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <HomeHeroSearch />
-            </div>
           </div>
         </div>
       </section>

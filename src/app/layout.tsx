@@ -103,6 +103,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${plusJakarta.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="PetRankings — Estudos Bromatológicos e Guias Técnicos"
+          href="/feed.xml"
+        />
         {process.env.NODE_ENV === 'production' && umamiWebsiteId && (
           <script
             defer

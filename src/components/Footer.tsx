@@ -82,33 +82,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/catalogo" className="footer-link" style={{ color: 'var(--brand-forest-300)', fontWeight: 700 }}>
+                <Link href="/calculadora" className="footer-link" style={{ color: 'var(--brand-forest-300)', fontWeight: 700 }}>
+                  🧮 Calculadora de Porção e Custo Diário
+                </Link>
+              </li>
+              <li>
+                <Link href="/catalogo" className="footer-link">
                   📋 Catálogo Geral de Rações Analisadas
-                </Link>
-              </li>
-              <li>
-                <Link href="/indice/caes-adultos" className="footer-link">
-                  🐶 Cães Adultos — Alimentos Secos
-                </Link>
-              </li>
-              <li>
-                <Link href="/indice/caes-filhotes" className="footer-link">
-                  🐶 Cães Filhotes — Alimentos Secos
-                </Link>
-              </li>
-              <li>
-                <Link href="/indice/gatos-adultos" className="footer-link">
-                  🐱 Gatos Adultos — Alimentos Secos
-                </Link>
-              </li>
-              <li>
-                <Link href="/indice/gatos-filhotes" className="footer-link">
-                  🐱 Gatos Filhotes — Alimentos Secos
-                </Link>
-              </li>
-              <li>
-                <Link href="/coadjuvantes" className="footer-link" style={{ color: '#a5b4fc', fontWeight: 600 }}>
-                  🏥 Catálogo de Alimentos Coadjuvantes
                 </Link>
               </li>
             </ul>

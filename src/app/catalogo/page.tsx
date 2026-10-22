@@ -110,12 +110,12 @@ export default async function CatalogoPage() {
         </div>
       </div>
 
-      {/* Hero Utilitário Compacto */}
+      {/* Hero Utilitário Padronizado */}
       <section
         style={{
           backgroundColor: '#ffffff',
           borderBottom: '1px solid var(--border-cream)',
-          padding: '20px 0 16px 0',
+          padding: '24px 0 20px 0',
         }}
       >
         <div className="container">
@@ -144,18 +144,18 @@ export default async function CatalogoPage() {
             <h1
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(1.45rem, 2.8vw, 1.85rem)',
+                fontSize: 'clamp(1.5rem, 2.8vw, 1.95rem)',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
-                letterSpacing: '-0.02em',
+                letterSpacing: '-0.025em',
                 lineHeight: 1.2,
-                marginBottom: '6px',
+                marginBottom: '8px',
               }}
             >
               Catálogo Geral de Alimentos para Cães e Gatos
             </h1>
 
-            <p style={{ fontSize: '0.90rem', color: 'var(--text-body)', lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-body)', lineHeight: 1.55, margin: 0 }}>
               Análise nutricional de <strong>{products.length} produtos oficiais</strong> em Matéria Seca (MS), confrontados com os padrões da 11ª Edição do Manual ABINPET. Filtre por espécie, fase de vida e conservantes abaixo.
             </p>
           </div>

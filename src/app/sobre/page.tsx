@@ -88,7 +88,7 @@ export default function SobrePage() {
             <h1
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(1.5rem, 3vw, 2.05rem)',
+                fontSize: 'clamp(1.5rem, 2.8vw, 1.95rem)',
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
                 letterSpacing: '-0.025em',

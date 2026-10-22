@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, PawPrint, Building2, ShieldCheck, Scale } from 'lucide-react';
+import { Menu, X, PawPrint, Building2, ShieldCheck, Scale, Calculator } from 'lucide-react';
+import QuickSearch from '@/components/QuickSearch';
 
 
 export default function Header() {
@@ -22,9 +23,8 @@ export default function Header() {
     { href: '/', label: 'Início (Observatório)' },
     { href: '/catalogo', label: 'Catálogo de Rações' },
     { href: '/comparar', label: 'Comparador de Rações', icon: Scale },
-    { href: '/coadjuvantes', label: 'Alimentos Coadjuvantes' },
+    { href: '/calculadora', label: 'Calculadora de Porção', icon: Calculator },
     { href: '/sobre', label: 'Metodologia' },
-    { href: '/fabricante', label: 'Portal do Fabricante', icon: Building2 },
     { href: '/contato', label: 'Fale Conosco' },
   ];
 
@@ -133,23 +133,25 @@ export default function Header() {
         {/* Espaçador flexível para alinhar o menu à direita com respiro */}
         <div style={{ flex: 1 }} />
 
-        {/* Lado Direito: Navegação Desktop + Gatilho Mobile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* Lado Direito: Busca Instantânea + Navegação Desktop + Gatilho Mobile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <QuickSearch />
+
           {/* Menu Desktop Visível e Limpo */}
           <nav
             aria-label="Navegação Principal"
             className="desktop-nav"
             style={{
               alignItems: 'center',
-              gap: '8px',
+              gap: '6px',
             }}
           >
             {[
               { href: '/', label: 'Início' },
               { href: '/catalogo', label: 'Catálogo' },
               { href: '/comparar', label: 'Comparar' },
+              { href: '/calculadora', label: 'Calculadora' },
               { href: '/sobre', label: 'Metodologia' },
-              { href: '/fabricante', label: 'Fabricantes' },
             ].map((link) => {
               const active = isActive(link.href);
               return (

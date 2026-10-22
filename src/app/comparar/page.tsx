@@ -119,94 +119,112 @@ export default async function CompararPage({
   const popularPresets = await getPopularComparisonPresets();
 
   return (
-    <main style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh', paddingTop: '20px' }}>
+    <div style={{ backgroundColor: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '80px' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      <div className="container">
-        {/* Navegação Breadcrumb */}
-        <nav
-          aria-label="Trilha de Navegação"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontSize: '0.80rem',
-            color: 'var(--text-muted)',
-            marginBottom: '16px',
-          }}
-        >
-          <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
-            Início
-          </Link>
-          <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
-          <Link href="/catalogo" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
-            Catálogo
-          </Link>
-          <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
-          <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
-            Comparador Lado a Lado
-          </span>
-        </nav>
-
-        {/* HERO KIT PADRONIZADO (3 CAMADAS - INVARIANTE 13) */}
-        <header style={{ marginBottom: '24px' }}>
-          {/* Camada 1: Eyebrow Badge com Ícone Temático */}
-          <div
+      {/* Barra Superior de Breadcrumbs Padronizada */}
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '10px 0',
+        }}
+      >
+        <div className="container">
+          <nav
+            aria-label="Trilha de Navegação"
             style={{
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              padding: '3px 10px',
-              borderRadius: 'var(--radius-full)',
-              backgroundColor: 'var(--brand-forest-50)',
-              border: '1px solid var(--brand-forest-200)',
-              color: 'var(--brand-forest-700)',
-              fontSize: '0.72rem',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              marginBottom: '8px',
+              gap: '8px',
+              fontSize: '0.82rem',
             }}
           >
-            <Scale size={13} aria-hidden="true" />
-            <span>Ferramenta de Confronto Bromatológico</span>
+            <Link href="/" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Início
+            </Link>
+            <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
+            <Link href="/catalogo" style={{ color: 'var(--text-body)', textDecoration: 'none' }}>
+              Catálogo
+            </Link>
+            <ChevronRight size={13} color="var(--text-subtle)" aria-hidden="true" />
+            <span style={{ color: 'var(--brand-forest-700)', fontWeight: 700 }}>
+              Comparador Lado a Lado
+            </span>
+          </nav>
+        </div>
+      </div>
+
+      {/* Hero Institucional Padronizado (Invariante 13) */}
+      <section
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid var(--border-cream)',
+          padding: '24px 0 20px 0',
+        }}
+      >
+        <div className="container">
+          <div style={{ maxWidth: '860px' }}>
+            {/* Camada 1: Eyebrow Badge com Ícone Temático */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '3px 10px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--brand-forest-50)',
+                border: '1px solid var(--brand-forest-200)',
+                color: 'var(--brand-forest-700)',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                marginBottom: '8px',
+              }}
+            >
+              <Scale size={13} aria-hidden="true" />
+              <span>Ferramenta de Confronto Bromatológico</span>
+            </div>
+
+            {/* Camada 2: H1 em Sentence Case */}
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.5rem, 2.8vw, 1.95rem)',
+                fontWeight: 800,
+                color: 'var(--brand-forest-900)',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.2,
+                marginBottom: '8px',
+              }}
+            >
+              Comparador de rações: confronto nutricional em Matéria Seca
+            </h1>
+
+            {/* Camada 3: Lead Técnico */}
+            <p
+              style={{
+                fontSize: '0.92rem',
+                color: 'var(--text-body)',
+                lineHeight: 1.55,
+                margin: 0,
+              }}
+            >
+              Compare até três alimentos para cães e gatos lado a lado. Analise a densidade real dos nutrientes desconsiderando a água (MS), a presença de antioxidantes naturais, grãos transgênicos e a ordem oficial dos ingredientes.
+            </p>
           </div>
+        </div>
+      </section>
 
-          {/* Camada 2: H1 em Sentence Case */}
-          <h1
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(1.45rem, 2.8vw, 1.85rem)',
-              fontWeight: 800,
-              color: 'var(--brand-forest-900)',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-              marginBottom: '6px',
-            }}
-          >
-            Comparador de rações: Confronto nutricional em Matéria Seca
-          </h1>
-
-          {/* Camada 3: Lead Técnico */}
-          <p
-            style={{
-              fontSize: '0.90rem',
-              color: 'var(--text-body)',
-              lineHeight: 1.5,
-              margin: 0,
-              maxWidth: '840px',
-            }}
-          >
-            Compare até três alimentos para cães e gatos lado a lado. Analise a densidade real dos nutrientes desconsiderando a água (MS), a presença de antioxidantes naturais, grãos transgênicos e a ordem oficial dos ingredientes.
-          </p>
-        </header>
+      <div className="container" style={{ paddingTop: '24px' }}>
 
         {/* COMPONENTE INTERATIVO DO COMPARADOR COM DUELOS FREQUENTES DINÂMICOS */}
         <ComparatorView initialProducts={formattedProducts} popularPresets={popularPresets} />
       </div>
-    </main>
+    </div>
   );
 }
