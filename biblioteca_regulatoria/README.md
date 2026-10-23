@@ -150,6 +150,30 @@
 * **Aplicação no PetRankings:**
   * **Controle Sanitário de Cereais e Grãos:** Referência complementar para a higidez fitossanitária de matérias-primas vegetais importadas utilizadas em pet food (trigo, cevada, aveia, polpas vegetais).
 
+### 1.19. Lei Federal nº 10.831/2003 (Marco Legal dos Alimentos e Produtos Orgânicos)
+* **Arquivo arquivado nesta pasta:** [`lei-no-10-831-de-23-de-dezembro-de-2003.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/lei-no-10-831-de-23-de-dezembro-de-2003.pdf) *(24,8 KB, 3 páginas)*
+* **Órgão emissor:** Presidência da República / Congresso Nacional.
+* **Tema:** Dispõe sobre a agricultura orgânica, sistemas de produção sustentável, conformidade e certificação de produtos orgânicos no Brasil.
+* **Aplicação no PetRankings:**
+  * **Confronto de Claims "Orgânico" e "Natural":** Fundamento legal contra o uso enganoso ou leviano do termo "orgânico" na rotulagem de pet food. O produto só pode ser comercializado como orgânico mediante certificação oficial por Auditoria ou Sistema Participativo de Garantia credenciado no MAPA.
+  * **Proibição Estrita de Transgênicos e Radiação:** Veda expressamente o uso de organismos geneticamente modificados (OGM) e de radiações ionizantes em qualquer fase da cadeia de insumos orgânicos.
+
+### 1.20. Instrução Normativa MAPA nº 17/2014 (Sistemas Orgânicos de Produção Animal e Ingredientes)
+* **Arquivo arquivado nesta pasta:** [`instrucao-normativa-no-17-de-18-de-junho-de-2014.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/instrucao-normativa-no-17-de-18-de-junho-de-2014.pdf) *(80 KB, 8 páginas)*
+* **Órgão emissor:** MAPA / Gabinete do Ministro.
+* **Tema:** Regulamenta as normas técnicas para a produção de animais e insumos em sistemas orgânicos, complementando o Decreto nº 6.323/2007 e a Lei nº 10.831/2003.
+* **Aplicação no PetRankings:**
+  * **Régua Probatória para Pet Food Orgânico:** Estabelece a proporção mínima de ingredientes: o alimento deve conter no mínimo 95% de ingredientes de origem orgânica certificada para ostentar o selo "Produto Orgânico", ou pelo menos 70% para ostentar a menção "Produto com Ingredientes Orgânicos".
+  * **Restrições de Conservantes e Aditivos:** Proíbe o uso de antioxidantes químicos sintéticos (BHT, BHA, etoxiquina), ureia e subprodutos de origem animal não certificados em rações e petiscos que reivindicam status ecológico ou orgânico.
+
+### 1.21. Instrução Normativa ANVISA nº 160/2022 (Limites Máximos Tolerados de Contaminantes e Micotoxinas)
+* **Arquivo arquivado nesta pasta:** [`Instrução Normativa ANVISA 2022_160.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Instru%C3%A7%C3%A3o%20Normativa%20ANVISA%202022_160.pdf) *(730 KB, 33 páginas)*
+* **Órgão emissor:** Ministério da Saúde / Agência Nacional de Vigilância Sanitária (ANVISA).
+* **Tema:** Estabelece os Limites Máximos Tolerados (LMT) de contaminantes químicos em alimentos, abrangendo micotoxinas, metais pesados (chumbo, cádmio, arsênio, mercúrio), toxinas bacterianas e contaminantes inorgânicos.
+* **Aplicação no PetRankings:**
+  * **Segurança Toxicológica de Grãos e Derivados:** Baliza analítica de alta sensibilidade para tetos de Aflatoxinas (B1, B2, G1, G2), Fumonisinas (B1 + B2), Zearalenona, Deoxinivalenol (DON) e Ocratoxina A em milho, arroz, trigo e carnes.
+  * **Alimentos Human-Grade e Matérias-Primas Nobres:** Padrão toxicológico oficial aplicado a ingredientes de grau de consumo humano empregados em rações Super Premium Natural e petiscos funcionais (conforme respaldo da Portaria SDA/MAPA nº 359/2021).
+
 ---
 
 ## 📖 2. Manuais Técnicos de Nutrição e Bromatologia
@@ -196,23 +220,18 @@
   * **Critérios de Suficiência e Fases de Vida:** Parâmetros modernos para declarações "All Life Stages", diferenciação explícita entre alimentos completos ("Daily Food") e complementares ("Food Mixer", "Food Supplement").
 
 ### 2.6. WSAVA Global Nutrition Toolkit (2021) — Selecting a Pet Food for Your Pet
-* **Arquivo arquivado nesta pasta:** [`Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf) *(2,2 MB, 3 páginas)*
-* **Órgão emissor:** World Small Animal Veterinary Association (WSAVA Global Nutrition Committee).
-* **Aplicação no PetRankings:**
-  * **Critérios de Ouro de Avaliação de Fabricantes:** Guia oficial de perguntas críticas que todo tutor e avaliador deve fazer ao fabricante:
-    1. A empresa emprega nutricionistas adequadamente qualificados (PhD em Nutrição Animal ou diplomados ACVIM/ECVCN)?
-    2. As dietas são formuladas para atender aos perfis ou testadas em ensaios práticos de alimentação (Feeding Trials)?
-    3. Onde os alimentos são produzidos (fábricas próprias com certificação vs. terceirização contínua)?
-    4. Qual o padrão de controle de qualidade, testes toxicológicos e retenção de amostras de lote?
-
-### 2.7. Waltham Petcare Science Institute (https://www.waltham.com/)
+* **Arquivo arquivado nesta pasta:** [`Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Selecti### 2.7. Waltham Petcare Science Institute (https://www.waltham.com/)
 * **Autoridade científica:** Mars Petcare Science / Leicestershire, Reino Unido.
 * **Histórico e Relevância:** Pioneiro há mais de 50 anos em pesquisas científicas de nutrição, saúde e comportamento animal, cujos estudos revisados por pares embasam as recomendações do NRC e FEDIAF.
+* **Arquivos arquivados nesta pasta:**
+  1. [`Essential cat and dog nutrition booklet V2 - electronic version.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/Essential%20cat%20and%20dog%20nutrition%20booklet%20V2%20-%20electronic%20version.pdf) *(43,2 MB, 48 páginas)*: Manual fundamental de fisiologia comparada entre cães e gatos, digestibilidade de macronutrientes, micronutrientes essenciais, taurina, ácidos graxos e água.
+  2. [`walthampocketbookofhealthyweightmaintenanceforcatsanddogs.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/walthampocketbookofhealthyweightmaintenanceforcatsanddogs.pdf) *(21,2 MB, 108 páginas)*: Diretrizes de manejo calórico, escores de condição corporal (BCS 1-9), densidade energética e prevenção clínica do sobrepeso em cães e gatos castrados.
+  3. [`walthampocketbookofpuppynutritionandcare.pdf`](file:///d:/Projetos/PetRankings/biblioteca_regulatoria/walthampocketbookofpuppynutritionandcare.pdf) *(3,7 MB, 64 páginas)*: Requisitos específicos para crescimento inicial e tardio, suporte articular, equilíbrio cálcio-fósforo e curvas percentilares de desenvolvimento para filhotes (*Puppy Growth Charts*).
 * **Aplicação no PetRankings:**
   * **Saúde Urinária Felina & Metodologia RSS (Relative Supersaturation):** Pesquisas seminais para prevenção de urólitos de estruvita e oxalato de cálcio através de modulação dietética.
   * **Necessidades de Aminoácidos Essenciais:** Determinação experimental de exigências de taurina, arginina e metionina em felinos estritos.
-  * **Curvas de Crescimento e Balanço Calórico (Waltham Puppy Growth Charts):** Referência internacional para predição de peso adulto, ritmo saudável de ganho de massa em filhotes de diferentes portes e prevenção da obesidade precoce.
-  * **Microbioma Gastrointestinal e Saúde Oral:** Evidências sobre o efeito de fibras prebióticas (FOS/MOS) na consistência fecal e aditivos quelantes na redução do cálculo dentário (tártaro).
+  * **Curvas de Crescimento e Balanço Calórico:** Referência internacional para predição de peso adulto, ritmo saudável de ganho de massa em filhotes de diferentes portes e prevenção da obesidade precoce.
+  * **Microbioma Gastrointestinal e Fibras:** Evidências sobre o efeito de fibras insolúveis e prebióticas (celulose, psyllium e FOS/MOS) no trânsito gástrico e na saúde intestinal.
 
 ---
 
@@ -229,6 +248,9 @@
 | **Anexo 1 — Ingredientes Autorizados MAPA** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Validação lexical e verificação de matérias-primas e fontes nobres. |
 | **Lista de Substâncias Proibidas & IN 26/2009** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Fundamentação de segurança toxicológica e combate a claims vazios de antibióticos. |
 | **Decreto 4.680/2003, Portaria MJ 2.658 & RN CTNBio 32** | [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Bônus de formulação não-transgênica (`containsGmo: false`) e checagem do símbolo T. |
+| **Lei 10.831/2003 e IN MAPA 17/2014 (Orgânicos)** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Auditoria de claims "Orgânico" vs "Natural", regras de 95%/70% e vedação de OGM. |
+| **IN ANVISA 160/2022 (Micotoxinas e Metais Pesados)** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Tetos máximos de Aflatoxinas, Fumonisinas, Zearalenona e padrão toxicológico Human-Grade. |
+| **Waltham Essential Nutrition & Pocket Books** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) e [`src/lib/audit-engine/calculator.ts`](file:///d:/Projetos/PetRankings/src/lib/audit-engine/calculator.ts) | Curvas de crescimento de filhotes, controle de peso/castrados e saúde do trato urinário. |
 | **IN 17/2020 e IN 04/2007 (SipeAgro & BPF)** | [`src/lib/custody-template.ts`](file:///d:/Projetos/PetRankings/src/lib/custody-template.ts) | Rastreabilidade fabril, registro e auditoria de boas práticas. |
 | **WSAVA Guidelines & Toolkit 2021** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Critérios clínicos, questionário de fabricantes e qualidade em estudos/guias. |
 | **AAFCO PFC Modernization (PFLM)** | [`src/lib/content/guides.ts`](file:///d:/Projetos/PetRankings/src/lib/content/guides.ts) | Referência internacional para rotulagem moderna e tabelas de fatos nutricionais. |
@@ -245,14 +267,19 @@ biblioteca_regulatoria/
 ├── Manual Pet Food Brasil - Abinpet.pdf                                   # Manual oficial 11ª Edição da ABINPET (14,6 MB)
 ├── Nutrient Requirements of Dogs and Cats (2006).pdf                      # NRC (2006) - Requisitos Nutricionais Caninos e Felinos (25,6 MB)
 ├── FEDIAF-Nutritional-Guidelines_2025-ONLINE.pdf                           # Diretrizes Nutricionais Europeias FEDIAF 2025 (2,2 MB)
+├── Essential cat and dog nutrition booklet V2 - electronic version.pdf     # WALTHAM - Nutrição Essencial Canina e Felina V2 (43,2 MB)
+├── walthampocketbookofhealthyweightmaintenanceforcatsanddogs.pdf          # WALTHAM - Manutenção de Peso Saudável em Cães e Gatos (21,2 MB)
+├── walthampocketbookofpuppynutritionandcare.pdf                           # WALTHAM - Nutrição e Cuidados de Filhotes / Curvas de Crescimento (3,7 MB)
 ├── FINAL_PFC_MBRC_for_Pet_Food_and_Specialty_Pet_Food.pdf                  # AAFCO Model Regulations - Modernização de Rótulos PFLM (382 KB)
 ├── WSAVA-Nutrition-Assessment-Guidelines-2011-JSAP.pdf                     # Diretrizes Clínicas Nutricionais da WSAVA (846 KB)
 ├── Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf # WSAVA Toolkit 2021 - Critérios de Seleção (2,2 MB)
 ├── lei-8078-11-setembro-1990-365086-normaatualizada-pl.pdf                 # Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor - CDC)
+├── lei-no-10-831-de-23-de-dezembro-de-2003.pdf                            # Lei Federal nº 10.831/2003 (Marco Legal de Alimentos e Produtos Orgânicos)
 ├── decreto-12031-28-maio-2024-795694-normaatualizada-pe.pdf               # Decreto Federal nº 12.031/2024 (Alimentação Animal / MAPA)
 ├── decreto-no-4-680-de-24-de-abril-de-2003.pdf                            # Decreto Federal nº 4.680/2003 (Rotulagem de Transgênicos - OGM)
 ├── portaria-no-2-658-de-22-de-dezembro-de-2003.pdf                        # Portaria MJ nº 2.658/2003 (Símbolo Transgênico "T")
 ├── Resolução Normativa CTNBio 32_2021.pdf                                  # RN CTNBio nº 32/2021 (Liberação Comercial e Biossegurança de OGM)
+├── instrucao-normativa-no-17-de-18-de-junho-de-2014.pdf                     # IN MAPA nº 17/2014 (Regulamento de Sistemas Orgânicos de Produção Animal)
 ├── instrucao-normativa-no-22-de-2-de-junho-de-2009.pdf                     # IN MAPA nº 22/2009 (Regulamento de Rotulagem)
 ├── instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf                     # IN MAPA nº 30/2009 (RTIQ Pet: Completo, Coadjuvante, Específico)
 ├── instrucao-normativa-no-34-de-28-de-maio-de-2008.pdf                     # IN MAPA nº 34/2008 (Processamento de Resíduos Animais e Farinhas)
@@ -265,7 +292,8 @@ biblioteca_regulatoria/
 ├── INSTRUCAONORMATIVAN17DE15DEABRILDE2020alteradaIN6010julho2020.pdf       # IN MAPA nº 17/2020 (SipeAgro: Registro e Cadastro de Pet Food)
 ├── InstruoNormativa04.2007.pdf                                            # IN MAPA nº 04/2007 (Boas Práticas de Fabricação - BPF)
 ├── Instrução Normativa MAPA nº 07-2011.pdf                                 # IN SDA/MAPA nº 07/2011 (Sanidade Fitossanitária de Matérias-Primas)
-└── instrucao-normativa-no-29-de-14-de-setembro-de.pdf                     # IN MAPA nº 29/2010 (VIGIAGRO / Importação)
+├── instrucao-normativa-no-29-de-14-de-setembro-de.pdf                     # IN MAPA nº 29/2010 (VIGIAGRO / Importação)
+└── Instrução Normativa ANVISA 2022_160.pdf                                 # IN ANVISA nº 160/2022 (Limites Máximos Tolerados de Contaminantes e Micotoxinas)
 ```
 
 
