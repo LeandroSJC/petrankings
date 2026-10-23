@@ -5,8 +5,7 @@ import prisma from '../src/lib/prisma';
 import { calcularScoreAnaliseRotulo, generateEditorialOpinionWithGemini } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
 import { parseProductFromHtml } from '../src/lib/html-product-parser';
-import { stripWeightFromTitle, normalizeIngredient } from '../src/lib/utils';
-import { processUrl } from './cadastrar-por-url';
+import { processUrl, closePlaywright } from './cadastrar-por-url';
 
 interface ProductMetadata {
   commercialName: string;
@@ -487,5 +486,7 @@ processAll()
     process.exit(1);
   })
   .finally(async () => {
+    await closePlaywright().catch(() => {});
     await prisma.$disconnect();
+    process.exit(0);
   });
