@@ -105,6 +105,16 @@ const nextConfig = {
   async headers() {
     return [
       {
+        // Impede terminantemente a indexação de arquivos HTML brutos de custódia pelo Google e outros buscadores
+        source: '/uploads/:path*.html',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
+      {
         // Aplica cabeçalhos de segurança a todas as rotas do site
         source: '/:path*',
         headers: securityHeaders,

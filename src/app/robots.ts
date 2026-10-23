@@ -21,6 +21,7 @@ export default function robots(): MetadataRoute.Robots {
           '/sobre',
           '/contato',
           '/politica-de-privacidade',
+          '/calculadora',
           '/llms.txt',
         ],
         disallow: [
@@ -30,6 +31,9 @@ export default function robots(): MetadataRoute.Robots {
           '/bastidores',
           '/gerenciar',
           '/fabricante?*',
+          '/uploads/*.html',
+          '/uploads/ficha_*',
+          '/uploads/raw_ficha_*',
         ],
       },
     ],
