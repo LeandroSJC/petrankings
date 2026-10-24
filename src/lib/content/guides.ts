@@ -4300,6 +4300,160 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'decreto-12031-2024-recolhimento-racoes-recall-direitos-tutor',
+    title: 'Decreto 12.031/2024 e recolhimento de rações : O que muda nos recalls do MAPA e quais os direitos do tutor?',
+    subtitle: 'Entenda as novas exigências de rastreabilidade e notificação compulsória para fabricantes de pet food, como checar lotes interditados e quais as proteções garantidas pelo Código de Defesa do Consumidor.',
+    cluster: 'Direito do Consumidor & Mercado',
+    speciesTarget: 'Cães e Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-23',
+    updatedAt: '2026-10-23',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/decreto-12031-2024-recall-racoes-cover.webp',
+    isFeatured: true,
+    summary:
+      'Em maio de 2024, o Decreto Federal nº 12.031 atualizou profundamente a fiscalização de alimentação animal no Brasil. Descubra como funcionam os procedimentos oficiais de recall pelo MAPA, as novas obrigações de rastreabilidade impostas à indústria e como o Código de Defesa do Consumidor resguarda o tutor em caso de contaminação ou inconformidade.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-novo-marco-regulatorio-do-decreto-12031-2024',
+        heading: 'O novo marco regulatório da fiscalização de alimentação animal',
+        paragraphs: [
+          'Quando surgem notícias sobre lotes de ração sob suspeita ou convocados para recolhimento, a primeira reação de qualquer tutor é de apreensão. O medo de que o alimento servido no comedouro possa causar intoxicação ou danos à saúde do cão ou do gato exige respostas rápidas e canais transparentes de comunicação.',
+          'Em 28 de maio de 2024, o governo federal publicou o Decreto nº 12.031, revogando o antigo Decreto nº 6.296/2007 e reestruturando todo o regulamento da Lei Federal nº 6.198/1974. Esse novo texto legal estabelece regras muito mais rígidas para o registro, a fabricação, o controle de qualidade e a fiscalização de produtos destinados à alimentação animal no Brasil.',
+          'A mudança mais relevante para quem compra ração no pet shop está na elevação do padrão de responsabilidade das indústrias. A partir do novo decreto, procedimentos de contenção de riscos que antes dependiam de iniciativas isoladas passaram a ser formalmente padronizados e fiscalizados pelo Ministério da Agricultura e Pecuária (MAPA).',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Base Legal Oficial no Brasil',
+          text: 'O Decreto Federal nº 12.031/2024 regulamenta a fiscalização industrial e sanitária dos alimentos para animais, determinando inspeções permanentes e critérios rigorosos para interdições e recolhimentos cautelares de produtos com inconformidades.',
+        },
+      },
+      {
+        id: 'rastreabilidade-de-ponta-a-ponta-e-dever-de-notificacao',
+        heading: 'Rastreabilidade obrigatória e comunicação compulsória ao MAPA',
+        paragraphs: [
+          'No regime anterior, a identificação da origem de um contaminante ou desvio de fórmula frequentemente enfrentava lacunas operacionais entre a cadeia de fornecedores e a fábrica. O Decreto nº 12.031/2024 tornou obrigatório que todos os estabelecimentos fabricantes mantenham sistemas verificáveis de rastreabilidade de ponta a ponta.',
+          'Na prática diária, isso significa que cada lote de produto acabado deve estar vinculado de forma inequívoca aos lotes exatos de matérias-primas utilizadas, incluindo farinhas de vísceras, gorduras, premixes vitamínicos e aditivos conservantes. Caso um ingrediente apresente desvio, o fabricante consegue mapear em poucas horas todas as embalagens distribuídas no comércio.',
+          'Além disso, o novo regulamento impõe à indústria o dever de notificação imediata à autoridade sanitária. Se o laboratório interno da fábrica ou exames de controle detectarem qualquer risco biológico, químico ou físico à integridade dos animais, a empresa tem a obrigação legal de comunicar o fato ao MAPA sem demora, dando início aos protocolos de bloqueio de distribuição.',
+        ],
+      },
+      {
+        id: 'como-funciona-o-procedimento-oficial-de-recall',
+        heading: 'A mecânica do recall: Como o lote é recolhido do mercado',
+        paragraphs: [
+          'O recolhimento sanitário (recall) de um alimento pet não é uma troca comercial voluntária ou informal. Trata-se de uma medida sanitária compulsória que visa impedir que animais continuem consumindo lotes com inconformidades microbiológicas (como Salmonella), contaminações por micotoxinas ou desequilíbrios graves de minerais.',
+          'Quando um lote é interditado pelo MAPA ou convocado para recall preventivo pela própria indústria, o fabricante é obrigado a apresentar um plano formal de recolhimento. Esse plano especifica o volume total produzido, as distribuidoras e redes de varejo que receberam o produto e a estratégia de logística reversa para a retirada física das prateleiras.',
+          'O processo só é encerrado perante as autoridades quando o fabricante comprova documentalmente a apreensão do lote e a sua destinação final adequada, realizada por meio de destruição térmica ou descarte controlado que impeça qualquer reaproveitamento em outras cadeias de ração.',
+        ],
+        table: {
+          caption: 'Quadro comparativo: Evolução das exigências de fiscalização e recall',
+          headers: ['Parâmetro Regulatório', 'Regime Anterior (Decreto 6.296/2007)', 'Novo Marco (Decreto 12.031/2024)'],
+          rows: [
+            ['Rastreabilidade de Insumos', 'Controle em registros internos sem padronização unificada', 'Mapeamento obrigatório de ponta a ponta entre insumos e lote final'],
+            ['Comunicação de Risco ao MAPA', 'Prazos dilatados e dependência de fiscalizações periódicas', 'Dever de notificação imediata ao detectar qualquer risco à saúde animal'],
+            ['Plano Formal de Recolhimento', 'Executado caso a caso com discricionariedade da empresa', 'Roteiro padronizado com prazos fixos de recolhimento e prestação de contas'],
+            ['Comprovação de Descarte', 'Comunicação simples de inutilização de estoque', 'Laudo probatório de destruição sob supervisão sanitária do órgão fiscalizador'],
+          ],
+        },
+      },
+      {
+        id: 'direitos-do-tutor-no-codigo-de-defesa-do-consumidor',
+        heading: 'O que o Código de Defesa do Consumidor assegura ao tutor',
+        paragraphs: [
+          'Embora o Decreto nº 12.031/2024 discipline a atuação fiscalizatória do MAPA perante a indústria, as garantias financeiras e materiais do tutor estão firmemente protegidas pelo Código de Defesa do Consumidor (Lei Federal nº 8.078/1990). No ordenamento jurídico brasileiro, o fornecedor responde objetivamente pela qualidade e segurança dos produtos que coloca em circulação.',
+          'Segundo o Artigo 10 do CDC, o fabricante é proibido de colocar no mercado qualquer produto que represente risco nocivo à segurança e à saúde. Ao constatar a periculosidade posterior, tem a obrigação de comunicar o fato aos órgãos públicos e convocar o chamamento público imediato dos consumidores por canais de grande alcance.',
+          'Pelo Artigo 18 do CDC, o consumidor que adquiriu um alimento viciado ou interditado tem o direito irrevogável de escolher entre a substituição do produto por outro equivalente e regularizado, a restituição imediata da quantia paga (corrigida monetariamente) ou o abatimento proporcional do preço.',
+          'O ponto mais relevante reside na responsabilidade civil: pelo Artigo 14 do CDC, o fabricante responde, independentemente de existência de culpa, pela reparação de todos os danos causados por defeitos do produto. Isso significa que, se um lote contaminado causar intoxicação no pet, o tutor tem direito ao ressarcimento integral de consultas de urgência, exames laboratoriais, medicamentos e internações hospitalares.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Responsabilidade Objetiva da Indústria',
+          text: 'Conforme o Artigo 14 da Lei nº 8.078/1990, o fabricante responde integralmente pelas despesas de atendimento veterinário decorrentes de produto defeituoso, sem que o tutor precise provar negligência ou dolo da empresa.',
+        },
+      },
+      {
+        id: 'roteiro-pratico-o-que-fazer-em-caso-de-suspeita',
+        heading: 'Passo a passo prático para o tutor diante de um alerta sanitário',
+        paragraphs: [
+          'Se você soube de um alerta de recall ou suspeita de que a ração comprada causou alterações de saúde no seu animal, siga um protocolo organizado para proteger a vida do seu pet e resguardar seus direitos legais.',
+          'Primeiro, interrompa o fornecimento da ração imediatamente e examine as informações gravadas na embalagem. Localize o número do lote, a data de fabricação e a data de validade, que costumam estar impressos no verso do pacote ou na área de solda plástica.',
+          'Segundo, nunca descarte o alimento nem jogue fora o pacote. Mantenha o restante da ração preservada dentro da embalagem original, pois esse material servirá como amostra física indispensável para confronto técnico em caso de contestação pelo fabricante.',
+          'Terceiro, se o cão ou gato manifestar sintomas como vômitos frequentes, diarreia persistente, prostração, icterícia ou recusa repentina do alimento, leve-o imediatamente ao hospital ou clínica veterinária. Solicite ao profissional um prontuário detalhado com histórico clínico, diagnóstico provisório e prescrição de exames, guardando todas as notas fiscais e recibos de pagamento.',
+          'Quarto, entre em contato formal com o Serviço de Atendimento ao Consumidor (SAC) do fabricante por e-mail ou canais com protocolo escrito, enviando fotos do lote e do cupom fiscal. Registre também o relato na ouvidoria oficial do MAPA por meio da plataforma federal Fala.BR, garantindo que o órgão fiscalizador tenha ciência do caso.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Como Documentar a Ocorrência com Eficiência',
+          text: 'Guarde sempre o comprovante fiscal da compra e tire fotos nítidas do lote e da data de validade estampados na embalagem. Esses dois elementos aceleram o reembolso financeiro e fundamentam a apuração das autoridades sanitárias.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'O fabricante é obrigado a pagar os gastos veterinários se a ração fez mal ao meu pet?',
+        a: 'Sim. Pelo Artigo 14 do Código de Defesa do Consumidor, o fabricante responde de forma objetiva por danos provocados por defeitos de fabricação ou contaminação em seus produtos. Havendo comprovação de nexo causal entre o consumo do lote defeituoso e a enfermidade do animal (por meio de prontuário veterinário e notas fiscais de despesas), a empresa deve ressarcir integralmente os custos de consultas, internações, medicamentos e exames.',
+      },
+      {
+        q: 'Posso pedir a devolução do dinheiro se a embalagem já estiver aberta ou quase vazia?',
+        a: 'Sim. Em casos de recall sanitário ou constatação de vício no produto, o direito à restituição financeira não é condicionado à devolução do pacote lacrado. O fato de o produto ter sido aberto e consumido parcial ou totalmente pelo animal reforça a necessidade de ressarcimento imediato e custódia da amostra remanescente.',
+      },
+      {
+        q: 'Como posso saber se o lote da ração que comprei está sob interdição oficial do MAPA?',
+        a: 'O Ministério da Agricultura e Pecuária publica comunicados oficiais, editais de interdição e notas de esclarecimento em seu portal oficial (gov.br/agricultura) e nos canais de imprensa. Adicionalmente, o fabricante é obrigado por lei a divulgar amplamente o aviso de recall em seu próprio site, redes sociais e pontos de venda.',
+      },
+      {
+        q: 'O pet shop onde comprei a ração pode se recusar a trocar o produto convocado em recall?',
+        a: 'Não. Pela cadeia de fornecimento regulamentada pelo CDC (Artigo 18), os comerciantes atuam como agentes solidários na entrega de produtos seguros. O estabelecimento que comercializou o lote tem o dever de acolher o consumidor, recolher a embalagem e viabilizar a substituição ou o estorno do valor pago, articulando o ressarcimento posterior com a distribuidora ou com o fabricante.',
+      },
+    ],
+    conclusion:
+      'A alimentação animal no Brasil avançou para um patamar de maior rigor técnico e sanitário com a promulgação do Decreto Federal nº 12.031/2024. A rastreabilidade contínua de matérias-primas e o dever legal de notificação imediata ao MAPA reduzem o tempo de resposta diante de inconformidades fabris. Aliado a esse marco regulatório, o Código de Defesa do Consumidor garante ao tutor o amparo jurídico indispensável para exigir a rápida substituição do produto, o estorno financeiro e a reparação de eventuais despesas veterinárias, assegurando que o comedouro continue sendo um espaço sagrado de nutrição e proteção.',
+    references: [
+      {
+        title: 'Decreto Federal nº 12.031, de 28 de maio de 2024',
+        institution: 'Presidência da República / Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/_ato2024-2027/2024/decreto/d12031.htm',
+        details: 'Regulamenta a Lei nº 6.198/1974 sobre a Inspeção e Fiscalização de Produtos Destinados à Alimentação Animal',
+      },
+      {
+        title: 'Lei Federal nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor)',
+        institution: 'Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+        details: 'Disposições sobre Proteção à Vida, Saúde e Segurança (Arts. 6º e 10), Responsabilidade por Vício e Fato do Produto (Arts. 12, 14 e 18)',
+      },
+      {
+        title: 'Lei Federal nº 6.198, de 26 de dezembro de 1974',
+        institution: 'Congresso Nacional',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/leis/l6198.htm',
+        details: 'Dispõe sobre a Inspeção e a Fiscalização Obrigatórias de Produtos Destinados à Alimentação Animal no Brasil',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 04, de 23 de fevereiro de 2007',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br',
+        details: 'Regulamento Técnico sobre as Boas Práticas de Fabricação (BPF) e Procedimentos Operacionais Padrão na Indústria de Alimentação Animal',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Capítulo de Gestão da Qualidade, Procedimentos de Rastreabilidade e Segurança Alimentar em Pet Food',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte Fichas Técnicas Oficiais no PetRankings',
+      text: 'O PetRankings cataloga e confronta fichas técnicas oficiais de centenas de alimentos para cães e gatos sob custódia documental com base nos parâmetros da ABINPET e do MAPA. Conheça as formulações verificadas em nosso acervo.',
+      buttonText: 'Explorar Catálogo Completo de Alimentos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
