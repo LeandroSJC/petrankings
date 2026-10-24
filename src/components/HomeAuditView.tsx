@@ -1115,7 +1115,7 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
                     key={`page-${page}`}
                     type="button"
                     onClick={() => goToPage(Number(page))}
-                    className={`pagination-page-btn ${safeCurrentPage === page ? 'active' : ''}`}
+                    className={`pagination-btn pagination-page-btn ${safeCurrentPage === page ? 'active' : ''}`}
                     aria-label={`Ir para página ${page}`}
                     aria-current={safeCurrentPage === page ? 'page' : undefined}
                   >

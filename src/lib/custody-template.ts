@@ -31,7 +31,7 @@ export interface CustodyProductData {
   moistureMaxPct: number;
   crudeProteinMinPct: number;
   etherExtractMinPct: number;
-  crudeFiberMaxPct: number;
+  crudeFiberMaxPct?: number | null;
   mineralMatterMaxPct: number;
   calciumMinPct: number;
   calciumMaxPct?: number | null;
@@ -773,7 +773,7 @@ export function generateCustodyHtml(data: CustodyProductData): string {
               <tr>
                 <td><strong>Matéria Fibrosa (Fibras Brutas)</strong></td>
                 <td>Máximo tolerado</td>
-                <td class="val-cell">${data.crudeFiberMaxPct.toFixed(1)}% (${(data.crudeFiberMaxPct * 10).toFixed(0)} g/kg)</td>
+                <td class="val-cell">${data.crudeFiberMaxPct != null ? `${data.crudeFiberMaxPct.toFixed(1)}% (${(data.crudeFiberMaxPct * 10).toFixed(0)} g/kg)` : 'Não informado pelo fabricante'}</td>
               </tr>
               <tr>
                 <td><strong>Matéria Mineral (Cinzas)</strong></td>
