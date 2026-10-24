@@ -128,11 +128,22 @@ export default function HomeGuidesSection({
                 fontWeight: 800,
                 color: 'var(--brand-forest-900)',
                 letterSpacing: '-0.02em',
-                margin: 0,
+                margin: '0 0 6px 0',
               }}
             >
-              Estudos Técnicos e Análises de Rótulos
+              Estudos Técnicos, Duelos e Análises de Rótulos
             </h2>
+            <p
+              style={{
+                fontSize: '0.88rem',
+                color: 'var(--text-body)',
+                margin: 0,
+                maxWidth: '620px',
+                lineHeight: 1.45,
+              }}
+            >
+              Confrontos bromatológicos em Matéria Seca (MS), comparativos entre marcas populares e investigações de conformidade segundo as normas da ABINPET e do MAPA.
+            </p>
           </div>
 
           {/* Abas Interativas de Filtro por Espécie */}
