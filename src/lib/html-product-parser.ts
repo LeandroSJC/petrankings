@@ -2314,8 +2314,7 @@ export function parseProductFromHtml(
     parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?|L[íi]p[ií]d[ie]?os?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   let materiaMineralMaxPct =
-    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?|Cenizas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-    (foodType === 'UMIDO' ? 2.5 : 8.0);
+    parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?|Cenizas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0;
 
   let materiaFibrosaMaxPct =
     parseGuarantee(/(?:Mat[ée]ria|Fibra)\s*(?:Fibrosa|Bruta|Cruda)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||

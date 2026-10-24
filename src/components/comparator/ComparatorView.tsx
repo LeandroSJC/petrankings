@@ -1087,7 +1087,7 @@ export default function ComparatorView({
                   <td style={{ padding: '10px 18px', color: 'var(--text-body)' }}>Matéria Mineral no Rótulo (MN)</td>
                   {populatedProducts.map((p) => (
                     <td key={p.id} style={{ padding: '10px 18px', borderLeft: '1px solid var(--border-cream)', fontWeight: 600 }}>
-                      {p.mineralMatterMaxPct.toFixed(1)}%
+                      {p.mineralMatterMaxPct > 0 ? `${p.mineralMatterMaxPct.toFixed(1)}%` : 'Não informado'}
                     </td>
                   ))}
                 </tr>

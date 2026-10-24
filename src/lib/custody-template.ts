@@ -778,7 +778,7 @@ export function generateCustodyHtml(data: CustodyProductData): string {
               <tr>
                 <td><strong>Matéria Mineral (Cinzas)</strong></td>
                 <td>Máximo tolerado</td>
-                <td class="val-cell">${data.mineralMatterMaxPct.toFixed(1)}% (${(data.mineralMatterMaxPct * 10).toFixed(0)} g/kg)</td>
+                <td class="val-cell">${data.mineralMatterMaxPct > 0 ? `${data.mineralMatterMaxPct.toFixed(1)}% (${(data.mineralMatterMaxPct * 10).toFixed(0)} g/kg)` : 'Não informado pelo fabricante'}</td>
               </tr>
               <tr>
                 <td><strong>Cálcio</strong></td>

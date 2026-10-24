@@ -39,7 +39,7 @@ function getSafeUrl(url?: string | null): string | null {
 }
 
 interface StatusBadgeInfo {
-  status: 'ADEQUADO' | 'LIMITROFE' | 'ALERTA';
+  status: 'ADEQUADO' | 'LIMITROFE' | 'ALERTA' | 'NAO_DECLARADO';
   label: string;
   color: string;
   bgColor: string;
@@ -47,9 +47,18 @@ interface StatusBadgeInfo {
 }
 
 function getStatusBadge(
-  status: 'ADEQUADO' | 'LIMITROFE' | 'ALERTA',
+  status: 'ADEQUADO' | 'LIMITROFE' | 'ALERTA' | 'NAO_DECLARADO',
   label: string
 ): StatusBadgeInfo {
+  if (status === 'NAO_DECLARADO') {
+    return {
+      status,
+      label,
+      color: '#64748b',
+      bgColor: '#f8fafc',
+      borderColor: '#cbd5e1',
+    };
+  }
   if (status === 'ADEQUADO') {
     return {
       status,
@@ -344,7 +353,9 @@ export default async function ProductDetailPage({
     : getStatusBadge('ALERTA', 'Fibras Elevadas');
 
   const badgeMineral: StatusBadgeInfo =
-    mineralMS <= 8.5
+    product.mineralMatterMaxPct <= 0
+      ? getStatusBadge('NAO_DECLARADO', 'Não Declarado')
+      : mineralMS <= 8.5
       ? getStatusBadge('ADEQUADO', 'Low Ash')
       : mineralMS <= 10.0
       ? getStatusBadge('LIMITROFE', 'Moderado')
@@ -999,12 +1010,25 @@ export default async function ProductDetailPage({
                   </tr>
                   <tr>
                     <td><strong>Matéria Mineral (Máx.)</strong></td>
-                    <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.mineralMatterMaxPct.toFixed(1)}%`}</td>
                     <td>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
-                        <strong style={{ color: badgeMineral.color }}>{mineralMS.toFixed(2)}%</strong>
-                        <NutrientStatusChip badge={badgeMineral} />
-                      </div>
+                      {product.mineralMatterMaxPct <= 0
+                        ? 'Não informado pelo fabricante'
+                        : isNativamenteMS
+                        ? '— (Declarado em MS)'
+                        : `${product.mineralMatterMaxPct.toFixed(1)}%`}
+                    </td>
+                    <td>
+                      {product.mineralMatterMaxPct <= 0 ? (
+                        <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                          <span style={{ color: 'var(--text-muted)' }}>—</span>
+                          <NutrientStatusChip badge={badgeMineral} />
+                        </div>
+                      ) : (
+                        <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
+                          <strong style={{ color: badgeMineral.color }}>{mineralMS.toFixed(2)}%</strong>
+                          <NutrientStatusChip badge={badgeMineral} />
+                        </div>
+                      )}
                     </td>
                     <td>Máximo recomendado: até 8.0-8.5% MS (Low Ash)</td>
                   </tr>

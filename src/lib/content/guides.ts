@@ -4311,7 +4311,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-23',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/decreto-12031-2024-recall-racoes-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Em maio de 2024, o Decreto Federal nº 12.031 atualizou profundamente a fiscalização de alimentação animal no Brasil. Descubra como funcionam os procedimentos oficiais de recall pelo MAPA, as novas obrigações de rastreabilidade impostas à indústria e como o Código de Defesa do Consumidor resguarda o tutor em caso de contaminação ou inconformidade.',
     relatedProductSlugs: [],
@@ -4445,6 +4445,200 @@ export const GUIDES: GuideItem[] = [
         type: 'literatura',
         url: 'https://abinpet.org.br/manual-pet-food-brasil/',
         details: 'Capítulo de Gestão da Qualidade, Procedimentos de Rastreabilidade e Segurança Alimentar em Pet Food',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte Fichas Técnicas Oficiais no PetRankings',
+      text: 'O PetRankings cataloga e confronta fichas técnicas oficiais de centenas de alimentos para cães e gatos sob custódia documental com base nos parâmetros da ABINPET e do MAPA. Conheça as formulações verificadas em nosso acervo.',
+      buttonText: 'Explorar Catálogo Completo de Alimentos',
+      buttonUrl: '/catalogo',
+    },
+  },
+  {
+    slug: 'royal-canin-light-vs-hills-perfect-weight',
+    title: "Royal Canin Light vs Hill's Perfect Weight: O que muda na prática além das calorias?",
+    subtitle: 'Confronto técnico e bromatológico entre duas das fórmulas mais populares para controle de peso felino no Brasil.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-24',
+    updatedAt: '2026-10-24',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/royal-canin-light-vs-hills-perfect-weight-duel-cover.webp',
+    isFeatured: true,
+    summary:
+      "Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), a concentração de L-carnitina, a densidade de energia metabolizável por quilo e a lista de ingredientes entre a Royal Canin Light Weight Care e a Hill's Science Diet Adult Perfect Weight.",
+    relatedProductSlugs: [
+      'royal-canin-light',
+      'science-diet-adult-perfect-weight-dry',
+    ],
+    sections: [
+      {
+        id: 'abordagens-de-controle-de-peso',
+        heading: '1. O Dilema na Balança: Duas Abordagens Distintas para o Emagrecimento Felino',
+        paragraphs: [
+          'Manter o gato no peso adequado é um dos maiores desafios enfrentados pelos tutores em apartamentos. Após a castração ou com o passar dos anos, o gasto energético diário do felino cai de forma acentuada, enquanto o apetite costuma permanecer o mesmo ou até aumentar. Na tentativa de conter a balança sem recorrer a dietas hospitalares de prescrição, duas marcas dominam a preferência nos pet shops: Royal Canin e Hill\'s.',
+          'A proposta da Royal Canin Feline Care Nutrition Light Weight Care concentra-se em uma redução moderada de calorias aliada a um formato de croquete desenhado para estimular a mastigação e fibras dietéticas que prolongam a sensação de plenitude no estômago.',
+          'Por outro lado, a Hill\'s Science Diet Adult Perfect Weight adota uma estratégia zootécnica com maior ênfase na densidade de proteína, aporte expressivo de L-carnitina para estimular o metabolismo lipídico e inclusão de óleo de coco como fonte de ácidos graxos de cadeia média.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal Conforme IN MAPA nº 30/2009',
+          text: 'Ambos os produtos são registrados perante o Ministério da Agricultura e Pecuária (MAPA) como "Alimento Completo para Gatos Adultos". Trata-se de alimentos de venda livre no varejo comercial, formulados para suprir integralmente todas as exigências nutricionais diárias do animal, diferenciando-se das rações coadjuvantes hospitalares reguladas pela IN MAPA nº 39/2014.',
+        },
+      },
+      {
+        id: 'analise-materia-seca',
+        heading: '2. Níveis de Garantia Confrontados em Matéria Seca (MS)',
+        paragraphs: [
+          'Para comparar as duas fórmulas de forma justa e científica, eliminamos a umidade declarada nos rótulos (8,0% na Royal Canin e cerca de 8,5% na Hill\'s), convertendo todos os nutrientes para Matéria Seca (MS). Apenas nessa base matemática é possível confrontar o real valor biológico entregue a cada refeição.',
+          'A análise bromatológica revela uma divergência significativa no aporte proteico: a Hill\'s Perfect Weight entrega 39,40% de Proteína Bruta na Matéria Seca (36,0% em Matéria Natural), enquanto a Royal Canin Light declara 27,17% na Matéria Seca (25,0% em Matéria Natural). Como os felinos são carnívoros estritos que utilizam aminoácidos de forma contínua para gliconeogênese, uma concentração proteica mais robusta ajuda a blindar a musculatura magra durante o período de perda de peso.',
+          'No teor de gordura (extrato etéreo), ambas as formulações operam com controle rigoroso e praticamente idêntico: 11,90% de MS na Hill\'s e 11,95% de MS na Royal Canin, mantendo o fornecimento de ácidos graxos essenciais sem sobrecarregar a dieta.',
+          'Em relação às cinzas minerais, o website oficial da Hill\'s omite a linha de matéria mineral em sua tabela de base seca. Contudo, nas embalagens físicas comercializadas no Brasil (em conformidade com a IN MAPA nº 30/2009), a fabricante estipula uma garantia de 88 g/kg (8,80% na Matéria Natural, equivalente a cerca de 9,56% em Matéria Seca), patamar ligeiramente superior ao teto de 8,80% MS da Royal Canin.',
+        ],
+        table: {
+          caption: 'Confronto Nutricional em Matéria Seca (MS) com Base nos Rótulos Oficiais',
+          headers: [
+            'Parâmetro Bromatológico',
+            'Royal Canin Light Weight Care',
+            "Hill's Science Diet Perfect Weight",
+            'Padrão Mínimo ABINPET (Gatos Adultos)',
+          ],
+          rows: [
+            [
+              'Proteína Bruta (Mín.)',
+              '27,17% MS (25,0% MN)',
+              '39,40% MS (36,0% MN)',
+              '26,00% MS (Adulto Manutenção)',
+            ],
+            [
+              'Extrato Etéreo / Gordura (Mín.)',
+              '11,95% MS (11,0% MN)',
+              '11,90% MS (10,9% MN)',
+              '9,00% MS',
+            ],
+            [
+              'Matéria Fibrosa (Máx.)',
+              '5,32% MS (4,9% MN)',
+              '6,00% MS (5,5% MN)',
+              'Não aplicável (teto técnico)',
+            ],
+            [
+              'Matéria Mineral / Cinzas (Máx.)',
+              '8,80% MS (8,1% MN)',
+              '8,80% MN na rotulagem BR (9,56% MS)*',
+              'Máximo recomendado 8,5% MS',
+            ],
+            [
+              'Cálcio Declarado',
+              '0,95% a 1,43% MS (0,88% a 1,32% MN)',
+              '1,05% MS',
+              'Mínimo 0,60% MS',
+            ],
+            [
+              'Fósforo (Mín.)',
+              '0,72% MS (0,67% MN)',
+              '0,77% MS',
+              'Mínimo 0,50% MS',
+            ],
+            [
+              'L-Carnitina (Mín.)',
+              '54,3 mg/kg MS (50 mg/kg MN)',
+              '606,7 mg/kg MS (ppm)',
+              'Não exigido por norma',
+            ],
+            [
+              'Energia Metabolizável',
+              '3.746 kcal/kg',
+              '3.412 kcal/kg',
+              'Balizamento zootécnico',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'l-carnitina-e-metabolismo',
+        heading: '3. A Diferença na L-Carnitina e Densidade Energética',
+        paragraphs: [
+          'Um dos destaques mais expressivos deste duelo repousa na dosagem de L-carnitina. Esse aminoácido atua como uma chave molecular que carreia os ácidos graxos para o interior das mitocôndrias, onde a gordura é oxidada e convertida em energia celular.',
+          'Enquanto a Royal Canin declara uma garantia mínima de 50 mg/kg de L-carnitina (cerca de 54,3 mg/kg na Matéria Seca), a Hill\'s Perfect Weight apresenta 606,7 mg/kg (ppm) na Matéria Seca. Trata-se de uma concentração cerca de 11 a 12 vezes superior, alinhada aos estudos científicos modernos que utilizam a carnitina para promover a queima lipídica preservando o glicogênio dos tecidos musculares.',
+          'Outro fator determinante no manejo prático é a densidade energética. A Hill\'s entrega 3.412 kcal por quilo de alimento, enquanto a Royal Canin Light registra 3.746 kcal por quilo. Na prática, a menor densidade calórica da Hill\'s possibilita ao tutor oferecer um volume sutilmente mais generoso no comedouro, diminuindo a sensação de fome do felino sem extrapolar a meta de calorias.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Por Que a Densidade Calórica Importa no Comedouro',
+          text: 'A diferença de 334 kcal por quilo entre as duas rações significa que, para uma mesma cota energética diária, a Hill\'s permite servir mais gramas de alimento do que a Royal Canin. Em gatos habituados a comedouro cheio, esse volume extra auxilia no controle comportamental de miados e ansiedade.',
+        },
+      },
+      {
+        id: 'ingredientes-e-antioxidantes',
+        heading: '4. Primeiros Ingredientes, Fontes Proteicas e Conservantes',
+        paragraphs: [
+          'Ao inspecionar a ordem decrescente de ingredientes no painel traseiro (exigência da Instrução Normativa MAPA nº 22/2009), nota-se uma escolha distinta de matérias-primas no topo de cada produto.',
+          'Na Royal Canin Light Weight Care, os dois primeiros ingredientes são carboidratos (quirera de arroz e milho moído), seguidos por farinha de vísceras de aves e farinha de torresmo como fontes de proteína concentrada de origem animal, além de fibra de soja e polpa desidratada de beterraba para o suporte de saciedade.',
+          'Já na Hill\'s Science Diet Adult Perfect Weight, o primeiro ingrediente é carne mecanicamente separada de frango (frango fresco antes da extrusão), sucedida por quirera de arroz, farelo proteico de milho 60 e glúten de trigo, incorporando ainda celulose em pó, massa de tomate desidratada, polpa de beterraba e óleo de coco.',
+          'No sistema de conservação, a Hill\'s destaca-se pela preservação 100% natural, utilizando concentrado de tocoferóis (vitamina E natural), extrato de alecrim, extrato de chá verde e hortelã, sem antioxidantes químicos sintéticos como BHT ou BHA.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Presença de Grãos Transgênicos (OGM)',
+          text: 'Ambas as fórmulas contêm grãos transgênicos em sua composição (derivados de milho ou soja identificados pelo símbolo triangular T amarelo no rótulo, em conformidade com o Decreto Federal nº 4.680/2003). Se o tutor prioriza alimentos sem qualquer ingrediente geneticamente modificado, precisará buscar opções da categoria Super Premium Natural.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual das duas rações emagrece o gato mais rápido?',
+        a: 'A perda de peso depende fundamentalmente do déficit calórico gerado pelo controle diário da quantidade servida, e não de um emagrecimento repentino, que é perigoso para felinos. No entanto, a Hill\'s possui menor densidade calórica (3.412 vs 3.746 kcal/kg) e dose muito mais alta de L-carnitina (606 ppm), o que facilita a queima de gordura mantendo o volume do prato.',
+      },
+      {
+        q: 'Posso dar essas rações para um gato que apenas é castrado e não tem sobrepeso?',
+        a: 'Sim, ambas são alimentos completos registrados no MAPA e atendem a todas as necessidades biológicas de um gato adulto. Contudo, se o gato castrado tem peso ideal e nível de atividade normal, uma ração específica para gatos castrados convencional pode ser mais indicada para evitar restrição desnecessária.',
+      },
+      {
+        q: 'Essas rações exigem receita veterinária para comprar?',
+        a: 'Não. Diferente das dietas coadjuvantes clínicas para obesidade severa (como Hill\'s r/d ou Royal Canin Satiety), tanto a Royal Canin Light quanto a Hill\'s Perfect Weight são alimentos completos comerciais de venda livre.',
+      },
+      {
+        q: 'Como deve ser feita a troca de uma ração para a outra?',
+        a: 'A transição deve ser feita de modo gradual ao longo de 7 a 10 dias. Misture 25% da ração nova nos primeiros dias, passando para 50%, 75% e finalmente 100%, prevenindo vômitos ou fezes amolecidas.',
+      },
+    ],
+    conclusion:
+      "Tanto a Royal Canin Light Weight Care quanto a Hill's Science Diet Adult Perfect Weight são opções sólidas para conter o ganho de peso felino no ambiente doméstico. A Royal Canin entrega excelente palatabilidade histórica e tradição no formato de croquetes de mastigação controlada. Por outro lado, a Hill's sobressai-se nos quesitos técnicos ao oferecer teor proteico consideravelmente superior em Matéria Seca (39,4% vs 27,1%), menor densidade calórica por quilo, conservação totalmente natural e uma dosagem de L-carnitina doze vezes maior para suporte ao metabolismo lipídico.",
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Tabela de Exigências Nutricionais para Gatos Adultos em Matéria Seca (MS)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'The European Pet Food Industry (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/self-regulation/nutrition/',
+        details: 'Seção de Manejo de Energia e Preservação Proteica em Dietas de Restrição Calórica Felina',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br',
+        details: 'Padrões de Identidade e Qualidade para Alimentos Completos de Animais de Companhia',
+      },
+      {
+        title: 'Ficha Técnica Oficial: Royal Canin Light Weight Care Gatos Adultos',
+        institution: 'Royal Canin do Brasil Indústria e Comércio Ltda. (Mars Inc.)',
+        type: 'rotulagem',
+        details: 'Níveis de garantia declarados (25% PB, 11% EE, 4,9% MF, 3.746 kcal/kg) sob custódia criptográfica em HTML oficial',
+      },
+      {
+        title: "Ficha Técnica Oficial: Hill's Science Diet Adult Perfect Weight Gatos Adultos",
+        institution: "Hill's Pet Nutrition Brasil Ltda. (Colgate-Palmolive)",
+        type: 'rotulagem',
+        details: 'Níveis de garantia declarados (39,4% PB na MS, 11,9% EE na MS, 606,7 ppm L-carnitina, 3.412 kcal/kg) sob custódia criptográfica em HTML oficial',
       },
     ],
     callToAction: {
