@@ -4648,6 +4648,157 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'bifinhos-petiscos-caes-excesso-sodio-desbalanco-mineral',
+    title: 'Bifinhos e petiscos para cães: Como evitar o excesso de sódio e o desbalanço mineral?',
+    subtitle:
+      'O que a Instrução Normativa MAPA nº 30/2009 e a literatura da ABINPET revelam sobre a diferença entre alimentos específicos e rações completas no organismo canino.',
+    cluster: 'Petiscos & Enriquecimento',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-25',
+    updatedAt: '2026-10-25',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/bifinhos-petiscos-caes-excesso-sodio-cover.webp',
+    isFeatured: true,
+    summary:
+      'Entenda como a oferta excessiva de bifinhos, tiras de carne e snacks comerciais pode elevar o sódio da dieta e desregular a proporção entre cálcio e fósforo, sobrecarregando rins e ossos de cães.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'classificacao-legal-mapa',
+        heading: '1. O Que a Lei Diz: Alimento Completo vs Alimento Específico',
+        paragraphs: [
+          'É quase impossível resistir ao olhar pidão de um cachorro ao lado da mesa ou na volta do passeio. O petisco funciona como uma ponte de afeto e uma ferramenta insubstituível no adestramento positivo. O problema surge quando o tutor passa a tratar o agrado como comida de verdade, ignorando a fronteira biológica entre cada produto.',
+          'No Brasil, a Instrução Normativa MAPA nº 30/2009 estabelece uma divisão regulatória rigorosa. A ração de manutenção diária é classificada como Alimento Completo, formulada com premix vitamínico e mineral capaz de suprir 100% das exigências nutricionais do animal por toda a vida.',
+          'Já os bifinhos, tiras de carne, ossinhos mastigáveis e biscoitos recebem a chancela de Alimento Específico ou Alimento Complementar. Por determinação do Ministério da Agricultura e Pecuária, esses itens destinam-se exclusivamente ao agrado, recompensa ou enriquecimento ambiental, sendo isentos de balanceamento integral.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Classificação Legal na IN MAPA nº 30/2009',
+          text: 'Alimentos específicos ou complementares não possuem obrigação legal de conter vitaminas, minerais balanceados ou aminoácidos essenciais. Oferecê-los em excesso dilui a nutrição da ração completa servida no comedouro.',
+        },
+      },
+      {
+        id: 'armadilha-do-sodio-cloreto-de-sodio',
+        heading: '2. A Armadilha do Sódio: Como o Sal Oculto Afeta os Rins e a Pressão',
+        paragraphs: [
+          'Para garantir textura macia, retenção de umidade e alta aceitação no primeiro contato, a indústria frequentemente adiciona cloreto de sódio (sal comum) em proporções bem superiores às encontradas na ração seca extrusada.',
+          'Em cães jovens e saudáveis, os rins conseguem excretar o excesso pontual de sódio por meio do aumento da ingestão hídrica e da micção. O perigo real reside na frequência diária: um cão pequeno que recebe três ou quatro bifinhos por dia atinge uma ingestão de sal incompatível com a capacidade de filtração de seus néfrons renais.',
+          'Na rotina do animal, a sobrecarga de sódio manifesta-se inicialmente por sede desmedida e idas constantes ao tapete higiênico. A médio prazo, a retenção de sódio aumenta a volemia vascular, elevando a pressão arterial e acelerando a perda funcional de glomérulos renais, risco crítico para raças predispostas a cardiopatias ou nefropatias como Poodle, Dachshund, Schnauzer e Cavalier.',
+        ],
+        table: {
+          caption: 'Comparativo de Ingestão de Sódio: Ração de Manutenção vs. Bifinhos Industriais',
+          headers: ['Item Consumido', 'Gramatura Total', 'Concentração (%)', 'Sódio Ingerido (mg)', 'Impacto na Cota Diária do Cão'],
+          rows: [
+            ['Ração Super Premium (Cão 5 kg)', '80 g / dia', '0,20% a 0,30%', '~200 mg', '100% da necessidade do dia suprida'],
+            ['1 Bifinho Tradicional', '10 g', '1,20% a 1,80%', '~150 mg', 'Acrescenta +75% de sódio além da ração'],
+            ['3 Bifinhos Tradicionais', '30 g', '1,20% a 1,80%', '~450 mg', 'Triplica a ingestão diária de sal'],
+            ['Ração Super Premium (Cão 15 kg)', '180 g / dia', '0,20% a 0,30%', '~450 mg', '100% da necessidade do dia suprida'],
+            ['3 Bifinhos Tradicionais', '30 g', '1,20% a 1,80%', '~450 mg', 'Dobra o consumo de sódio do dia'],
+          ],
+        },
+      },
+      {
+        id: 'desbalanco-calcio-fosforo-desmineralizacao-ossea',
+        heading: '3. O Desbalanço Cálcio:Fósforo (Ca:P) e a Falsa Segurança da Carne Pura',
+        paragraphs: [
+          'Muitos tutores migram para bifinhos e petiscos com apelo de carne pura ou miúdos desidratados acreditando estarem livres de riscos nutricionais. Embora tenham menos aditivos sintéticos, esses petiscos carregam um problema bromatológico silencioso: o excesso desmedido de fósforo em relação ao cálcio.',
+          'O tecido muscular e as vísceras animais são ricos em fósforo e naturalmente pobres em cálcio, registrando uma relação Cálcio:Fósforo (Ca:P) de cerca de 1:15 a 1:20. Em contrapartida, as tabelas científicas da 11ª Edição do Manual Pet Food Brasil (ABINPET) e do FEDIAF exigem que a dieta total do cão mantenha uma proporção rigorosa entre 1,2:1 e 1,4:1.',
+          'Quando o petisco desequilibra essa relação, o organismo canino sofre para manter os níveis ideais de cálcio no sangue. Para compensar, as glândulas paratireoides secretam o hormônio PTH, que passa a retirar cálcio dos próprios ossos do cão para estabilizar a corrente sanguínea. Esse quadro, conhecido como hiperparatireoidismo nutricional secundário, fragiliza dentes e ossos enquanto força os rins a eliminar a sobrecarga de fósforo na urina.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'O Equilíbrio Ca:P Exigido pela ABINPET',
+          text: 'Para cada grama de fósforo ingerido, o cão precisa receber entre 1,1 e 1,6 gramas de cálcio correspondente. Como petiscos de carne pura contêm quase zero cálcio, oferecê-los em grande quantidade destrói o balanço mineral construído pela ração balanceada.',
+        },
+      },
+      {
+        id: 'aditivos-quimicos-e-conservantes',
+        heading: '4. Conservantes Sintéticos, Glicerina e Corantes no Rótulo',
+        paragraphs: [
+          'Ao examinar a lista de ingredientes no verso das embalagens de petiscos convencionais, chama a atenção a presença de compostos químicos voltados à conservação industrial e à estética visual. Antioxidantes sintéticos como BHT (Butilhidroxitolueno) e BHA (Butilhidroxianisol) continuam amplamente presentes em snacks populares para evitar que as gorduras oxidem nas prateleiras.',
+          'Outro componente recorrente é a glicerina ou o propilenoglicol, aditivos umectantes que conferem aquela textura elástica e flexível ao bifinho. Embora permitidos dentro dos limites do Ministério da Agricultura, seu uso contínuo pode mascarar ingredientes de menor valor biológico e estimular a compulsão alimentar.',
+          'Corantes artificiais como caramelo IV, amarelo tartrazina e vermelho ponceau também surgem com frequência na rotulagem. Esses corantes possuem utilidade exclusiva para os olhos do tutor na hora da compra, pois o cão identifica o alimento pelo olfato apurado, e não pela tonalidade avermelhada da carne.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Como Escolher Petiscos Mais Limpos no Pet Shop',
+          text: 'Priorize snacks de ingrediente único (monoingrediente desidratado, como lombo suíno ou moela desidratada lentamente) conservados com tocoferóis naturais (vitamina E) e extrato de alecrim, sem adição de sal, açúcar ou corantes artificiais.',
+        },
+      },
+      {
+        id: 'regra-dos-10-por-cento-manejo-pratico',
+        heading: '5. A Regra dos 10%: Como Calcular a Porção Diária sem Engordar o Pet',
+        paragraphs: [
+          'Para proteger o cão tanto do desbalanço mineral quanto da obesidade, a diretriz global de nutrição da WSAVA (World Small Animal Veterinary Association) estabelece a regra de ouro: as calorias totais vindas de agrados nunca devem ultrapassar 10% da necessidade calórica diária do animal.',
+          'Para um cão de porte pequeno com 6 kg (como um Dachshund ou Shih Tzu), a demanda calórica diária para manutenção gira em torno de 380 a 420 kcal. Pela regra da WSAVA, a cota segura para petiscos é de cerca de 40 kcal por dia. Um único bifinho tradicional de 10 gramas pode conter entre 25 e 35 kcal, o que significa que apenas um petisco já esgota praticamente toda a cota permitida para aquele dia.',
+          'Existe ainda um passo fundamental frequentemente ignorado: para cada porção de petisco fornecida, o tutor precisa descontar proporcionalmente a quantidade de ração oferecida no prato. Manter a dosagem cheia de ração e somar petiscos por cima resulta invariavelmente em ganho gradual de peso e sobrecarga nas articulações.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Dica Prática: A Cumbuca Diária Fracionada',
+          text: 'Pela manhã, separe a cota diária máxima de petiscos em uma cumbuca fechada e corte os bifinhos em pequenos pedacinhos do tamanho de um grão de feijão. Ao longo do dia, utilize esses fragmentos para treinar e agradar sem estourar o limite nutricional do pet.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Quantos bifinhos tradicionais um cão pequeno pode comer por dia?',
+        a: 'Para cães de porte pequeno (até 7 kg), a recomendação veterinária prudente é de no máximo meio a um bifinho por dia, fracionado em pedaços bem pequenos. Oferecer três ou mais bifinhos diariamente sobrecarrega o organismo com excesso de sódio e fósforo.',
+      },
+      {
+        q: 'Frutas e vegetais também entram na cota máxima de 10%?',
+        a: 'Sim. Embora vegetais como cenoura crua e abobrinha em cubos sejam opções muito mais saudáveis (sem sódio adicionado e com baixa caloria), qualquer alimento externo à ração completa deve respeitar o teto calórico de 10% para não desregular o apetite nem diluir o premix nutricional.',
+      },
+      {
+        q: 'Filhotes de cães podem comer bifinhos industriais?',
+        a: 'O trato digestivo de filhotes é muito sensível e as exigências minerais nessa fase são extremamente precisas para a formação óssea. O ideal é evitar bifinhos industriais convencionais antes dos 4 a 6 meses de vida, dando preferência a grãos da própria ração de filhote como recompensa de adestramento.',
+      },
+      {
+        q: 'Quais são os primeiros sinais de que o cão comeu petiscos salgados demais?',
+        a: 'Os sinais mais imediatos são sede intensa, ingestão frenética de água na tigela e aumento perceptível no volume e frequência de urina. Em animais predispostos, pode ocorrer fezes amolecidas, vômito leve por irritação gástrica e recusa temporária da ração seca habitual.',
+      },
+    ],
+    conclusion:
+      'Petiscos, bifinhos e biscoitos cumprem um papel valioso de reforço positivo no adestramento e de estreitamento de laços de carinho entre o tutor e seu cão. Contudo, tratá-los como refeição ou oferecê-los em abundância desorganiza o equilíbrio metabólico cuidadosamente construído pelas rações de qualidade. Ao respeitar a fronteira dos 10% das calorias diárias, escolher formulações livres de conservantes sintéticos e manter o alimento completo como protagonista absoluto do comedouro, você garante agrado ao paladar do seu cão sem comprometer a longevidade de seus rins, ossos e coração.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Capítulo de Padrões Nutricionais para Cães: limites de sódio, exigências de fósforo e relação Cálcio:Fósforo (Ca:P)',
+      },
+      {
+        title: 'Global Nutrition Guidelines (2021)',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Diretriz sobre alimentos complementares e limite calórico máximo de 10% para agrados e petiscos',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br',
+        details: 'Regulamento técnico que estabelece a classificação e os requisitos para Alimentos Completos e Alimentos Específicos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'The European Pet Food Industry (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/self-regulation/nutrition/',
+        details: 'Seção de Balanço Mineral e Segurança Eletrolítica em Alimentos para Animais de Companhia',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte Avaliações Nutricionais no PetRankings',
+      text: 'O PetRankings avalia dezenas de alimentos completos sob custódia documental com base no Manual da ABINPET e normas do MAPA. Encontre a melhor ração completa para a saúde do seu cão.',
+      buttonText: 'Explorar Catálogo Completo de Alimentos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
