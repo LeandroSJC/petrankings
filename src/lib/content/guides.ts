@@ -4799,6 +4799,167 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'racao-renal-gatos-restricao-fosforo-in-mapa-39-2014',
+    title: 'Ração renal para gatos : Como a restrição de fósforo protege os rins segundo o MAPA?',
+    subtitle:
+      'O papel crítico do controle de fósforo na Doença Renal Crônica felina, as exigências da IN MAPA 39/2014 e por que a ração comum acelera a perda de néfrons.',
+    cluster: 'Dietas Coadjuvantes & Clínica',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-26',
+    updatedAt: '2026-10-26',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-renal-gatos-restricao-fosforo-cover.webp',
+    isFeatured: true,
+    summary:
+      'A Doença Renal Crônica (DRC) afeta mais de um terço dos felinos sêniores e transforma a alimentação na principal ferramenta terapêutica para prolongar a vida do pet. Entenda como a Instrução Normativa MAPA nº 39/2014 regulamenta os alimentos coadjuvantes renais, por que o fósforo em excesso destrói os néfrons remanescentes e como fórmulas especializadas como Hill\'s Prescription Diet k/d e Farmina Vet Life Renal preservam a massa magra sem sobrecarregar o organismo.',
+    relatedProductSlugs: [
+      'prescription-diet-kd-kidney-care-dry',
+      'vet-life-natural-feline-renal-feline',
+    ],
+    sections: [
+      {
+        id: 'o-impacto-do-diagnostico-renal',
+        heading: '1. O Diagnóstico de Doença Renal Crônica (DRC) e o Choque do Tutor',
+        paragraphs: [
+          'Receber o diagnóstico de Doença Renal Crônica (DRC) no consultório veterinário costuma gerar apreensão imediata no tutor. O gato, que até então parecia ativo e saudável, começa a demonstrar sinais sutis como beber mais água na tigela, urinar em volumes maiores na caixa de areia e apresentar perda progressiva de peso com episódios ocasionais de vômito matinal.',
+          'Diferente de infecções passageiras tratadas com antibióticos convencionais, a perda de função dos néfrons (as unidades funcionais de filtragem dos rins) é progressiva e irreversível. Como o rim não regenera o tecido fibroso cicatrizado, a sobrevida e o bem-estar do felino dependem quase inteiramente de poupar o trabalho dos néfrons que ainda restam funcionando.',
+          'Nesse cenário clínico, a mudança para um alimento coadjuvante renal não representa um agrado temporário, mas sim a base de sustentação da terapia conservadora. A literatura nefrológica veterinária comprova que gatos que iniciam a dieta renal precoce vivem mais que o dobro do tempo em relação àqueles mantidos com alimentos de manutenção convencionais.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Sinais Clínicos Iniciais em Felinos',
+          text: 'Os rins dos felinos possuem imensa reserva fisiológica. Quando os níveis de ureia e creatinina finalmente sobem nos exames de sangue, cerca de 65% a 75% da capacidade funcional dos néfrons já foi perdida de forma silenciosa.',
+        },
+      },
+      {
+        id: 'o-fosforo-como-vilao-da-progressao-renal',
+        heading: '2. O Fósforo sob a Lupa: Como o Excesso Mineral Destrói os Néfrons',
+        paragraphs: [
+          'Para entender o perigo de manter uma ração comum após o diagnóstico, é indispensável examinar a dinâmica do fósforo. Em um felino com rins íntegros, o excesso desse mineral presente na carne e nos ossos moídos da ração é filtrado e eliminado diariamente pela urina sem esforço.',
+          'Contudo, quando o número de néfrons diminui, o rim perde a capacidade de excretar o fósforo, fazendo com que ele se acumule na circulação sanguínea (quadro conhecido como hiperfosfatemia). Na tentativa desesperada de restaurar o equilíbrio mineral, as glândulas paratireoides entram em hiperatividade e secretam o hormônio PTH, provocando a retirada contínua de cálcio dos ossos.',
+          'Esse desbalanço resulta na precipitação de cristais microscópicos de fosfato de cálcio diretamente no parênquima renal. Esses cristais provocam inflamação local, calcificação dos vasos e morte acelerada dos néfrons que ainda estavam saudáveis. Por essa razão, as diretrizes da IRIS (International Renal Interest Society) apontam o controle do fósforo sérico como a meta número um no tratamento da DRC.',
+        ],
+        table: {
+          caption: 'Confronto Nutricional em Matéria Seca (MS): Ração Comum vs. Alimentos Renais Especializados',
+          headers: ['Parâmetro Nutricional', 'Ração Adulto Sadio (ABINPET)', 'Hill\'s Prescription Diet k/d Feline', 'Farmina Vet Life Feline Renal'],
+          rows: [
+            ['Fósforo em Matéria Seca', '0,90% a 1,40% MS (Livre)', '0,45% a 0,55% MS (Corte de 60%)', '0,38% a 0,48% MS (Corte de 65%)'],
+            ['Proteína Bruta em MS', '33,0% a 40,0% MS (Elevada)', '28,0% a 30,5% MS (Foco biológico)', '26,5% a 28,5% MS (Altíssima digestibilidade)'],
+            ['Sódio em Matéria Seca', '0,35% a 0,70% MS (Moderado)', '0,22% a 0,30% MS (Proteção vascular)', '0,20% a 0,28% MS (Controle pressórico)'],
+            ['Ômega-3 EPA e DHA', '0,10% a 0,30% MS (Básico)', 'Superior a 0,80% MS (Anti-inflamatório)', 'Superior a 0,75% MS (Óleo de peixe purificado)'],
+            ['Potássio em Matéria Seca', '0,60% a 0,80% MS', '0,75% a 0,95% MS (Prevenção de hipocalemia)', '0,70% a 0,90% MS (Reposição urinária)'],
+          ],
+        },
+      },
+      {
+        id: 'o-marco-regulatorio-da-in-mapa-39-2014',
+        heading: '3. O que Exige o MAPA: A Regulação da IN 39/2014 para Alimentos Renais',
+        paragraphs: [
+          'No Brasil, a categoria de alimentos coadjuvantes é submetida a rígidos controles pelo Ministério da Agricultura e Pecuária (MAPA). A Instrução Normativa MAPA nº 39/2014 estabelece os requisitos técnicos e as normas de rotulagem que diferenciam produtos clínicos de alimentos convencionais.',
+          'Em primeiro lugar, o Artigo 43 da norma determina que o alimento coadjuvante deve ser incondicionalmente livre de princípios farmacológicos ativos. As fabricantes não podem adicionar medicamentos na extrusora, devendo alcançar os efeitos clínicos através da modulação bromatológica das matérias-primas e da suplementação funcional.',
+          'Além disso, a legislação exige a comprovação científica da finalidade nutricional declarada. Para obter o registro de alimento coadjuvante renal no MAPA, a indústria deve apresentar relatórios de ensaios de eficácia e declarar na rotulagem a advertência obrigatória de que o uso do produto deve ser restrito a animais sob orientação de médico veterinário.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Exigência de Rotulagem Conforme IN MAPA 39/2014',
+          text: 'O painel frontal de alimentos coadjuvantes deve conter de forma legível e em destaque a expressão "Alimento Coadjuvante para Gatos", acompanhada da finalidade fisiológica ("Suporte à Função Renal") e do aviso expresso de uso sob recomendação veterinária.',
+        },
+      },
+      {
+        id: 'o-dilema-da-proteina-qualidade-vs-quantidade',
+        heading: '4. A Proteína na Dieta Renal: Por que Qualidade Biológica Vale Mais que Quantidade',
+        paragraphs: [
+          'Durante décadas, acreditava-se que a dieta renal deveria restringir a proteína a patamares mínimos para conter a formação de ureia. No entanto, os gatos são carnívoros estritos que dependem de aminoácidos para manter sua massa muscular e seu sistema imune.',
+          'Restringir a proteína de forma exagerada em felinos conduz rapidamente à caquexia renal, uma condição em que o corpo do gato quebra seus próprios músculos para obter aminoácidos essenciais. Isso acelera a fraqueza física sem trazer benefícios reais aos rins.',
+          'Por essa razão, produtos contemporâneos como a Hill\'s Prescription Diet k/d e a Farmina Vet Life Renal adotam a estratégia da densidade biológica: mantêm teores proteicos moderados (em torno de 26% a 30% na Matéria Seca), utilizando fontes purificadas como ovo desidratado e isolados nobres. Com isso, os aminoácidos são integralmente absorvidos pelo corpo, gerando o mínimo de resíduos nitrogenados para o rim excretar.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Densidade Calórica Alta contra a Náusea',
+          text: 'Toxinas urêmicas acumuladas causam náusea e falta de apetite no gato. Para compensar o menor consumo em volume, as rações renais concentram energia a partir de gorduras nobres (extrato etéreo acima de 19% a 22%), garantindo que cada grama ingerido forneça bastante caloria.',
+        },
+      },
+      {
+        id: 'manejo-e-palatabilidade-na-rotina-do-gato-renal',
+        heading: '5. Desafios Práticos de Manejo: Palatabilidade, Hidratação e Comedouro Raso',
+        paragraphs: [
+          'O maior obstáculo no tratamento do gato renal não é a formulação da ração, mas sim fazer o felino aceitar a comida nova. Como as rações com restrição de fósforo têm menor teor de farinhas cárneas comuns, o aroma e a palatabilidade exigem trabalho apurado da indústria e dedicação do tutor na adaptação.',
+          'A transição deve ser lenta e progressiva, estendendo-se por 10 a 14 dias se necessário. Misturar a ração renal à versão úmida correspondente (sachê ou lata renal) com uma colher de água morna costuma liberar aromas que estimulam o olfato sensível do gato sem recorrer a petiscos proibidos.',
+          'Outro cuidado elementar é a hidratação constante. O gato renal perde a capacidade de concentrar urina e desidrata com facilidade. Disponibilizar fontes de água corrente e espalhar potes rasos de vidro ou cerâmica por diferentes cômodos da residência estimula a ingestão hídrica e ajuda os rins a filtrarem o sangue.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Petiscos e Carne Caseira: O Perigo Invisível',
+          text: 'Oferecer mesmo uma pequena lasca de frango desfiado, carne moída ou bifinho comum ao gato renal destrói todo o controle nutricional da ração clínica. Carnes puras têm teores astronômicos de fósforo livre que elevam a ureia em poucas horas.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Posso dar ração renal como prevenção para um gato jovem e saudável?',
+        a: 'Não. Alimentos renais contêm teores restritos de fósforo e proteínas calibradas para órgãos doentes. Em animais saudáveis em fase de atividade plena, esse consumo contínuo pode causar carência de aminoácidos, perda de tônus muscular e desequilíbrios metabólicos desnecessários.',
+      },
+      {
+        q: 'O que fazer se o gato com problema renal recusar a ração clínica?',
+        a: 'Nunca deixe o gato em jejum prolongado, pois felinos sem comer por mais de 24 a 48 horas correm sério risco de desenvolver lipidose hepática. Converse com o médico veterinário para testar diferentes marcas homologadas no mercado (como Hill\'s k/d, Farmina Vet Life ou Royal Canin Renal), aquecer levemente os sachês renais ou avaliar estimulantes de apetite adequados.',
+      },
+      {
+        q: 'Qual é a diferença entre a ração renal seca e o sachê úmido renal?',
+        a: 'Em termos de equilíbrio bromatológico na Matéria Seca (MS), ambas entregam a mesma restrição rigorosa de fósforo e sódio. No entanto, o alimento úmido fornece cerca de 80% de água biológica, o que é de valor inestimável para compensar a perda excessiva de líquidos pela urina no gato renal.',
+      },
+      {
+        q: 'A ração renal substitui medicamentos quelantes de fósforo?',
+        a: 'Não necessariamente. Em estágios mais avançados da Doença Renal Crônica (estágios 3 e 4 da escala IRIS), a restrição de fósforo apenas pela ração pode não ser suficiente para manter os níveis sanguíneos dentro do teto seguro. Nesses casos, o médico veterinário prescreve quelantes orais para atuarem em conjunto com a dieta.',
+      },
+    ],
+    conclusion:
+      'Cuidar de um felino com Doença Renal Crônica exige paciência, acompanhamento veterinário metódico e respeito às particularidades zootécnicas da espécie. O corte de fósforo e a escolha de proteínas nobres de altíssima digestibilidade não são meras preferências comerciais, mas sim o único escudo comprovado pela ciência para conter o avanço silencioso da lesão nos rins. Ao manter o alimento coadjuvante como eixo da rotina, evitar agrados com carnes comuns e priorizar a hidratação com fontes de água fresca, você proporciona conforto, dignidade e muitos anos de vida com qualidade ao lado do seu companheiro de quatro patas.',
+    references: [
+      {
+        title: 'Instrução Normativa MAPA nº 39, de 21 de novembro de 2014',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-39-de-21-de-novembro-de-2014.pdf',
+        details: 'Regulamenta os requisitos para alimentos coadjuvantes de uso veterinário, proibição de princípios farmacológicos e diretrizes de rotulagem (Artigos 10, 34 e 43)',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Capítulo de Padrões Nutricionais para Gatos: exigências mínimas e tetos de fósforo, cálcio, proteína bruta e extrato etéreo',
+      },
+      {
+        title: 'IRIS Staging of CKD (International Renal Interest Society Guidelines, 2023)',
+        institution: 'International Renal Interest Society (IRIS)',
+        type: 'literatura',
+        url: 'http://www.iris-kidney.com/guidelines/staging.html',
+        details: 'Diretrizes mundiais de estadiamento e metas terapêuticas para controle de fósforo sérico na Doença Renal Crônica felina',
+      },
+      {
+        title: 'Prescription Diet k/d Feline — Ficha Técnica Oficial de Produto',
+        institution: 'Hill\'s Pet Nutrition Brasil',
+        type: 'rotulagem',
+        url: 'https://www.hillspet.com.br/',
+        details: 'Níveis de garantia oficiais, teor de fósforo controlado em Matéria Seca, perfil de aminoácidos e óleo de peixe EPA/DHA',
+      },
+      {
+        title: 'Vet Life Natural Feline Renal — Ficha Técnica Oficial de Produto',
+        institution: 'Farmina Pet Foods Brasil',
+        type: 'rotulagem',
+        url: 'https://www.farmina.com/br/',
+        details: 'Composição declarada, extrato de tocoferóis naturais, percentual de proteína bruta e controle mineral para felinos',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte Avaliações Nutricionais no PetRankings',
+      text: 'O PetRankings avalia dezenas de alimentos completos sob custódia documental com base no Manual da ABINPET e normas do MAPA. Encontre a melhor ração completa para a saúde do seu gato.',
+      buttonText: 'Explorar Catálogo Completo de Alimentos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
