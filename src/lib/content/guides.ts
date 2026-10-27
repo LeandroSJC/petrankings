@@ -4960,6 +4960,172 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo',
     },
   },
+  {
+    slug: 'materia-mineral-cinzas-racao-caes-ossos-low-ash',
+    title: 'Matéria mineral na ração de cães: O que o teor de cinzas revela sobre carnes e ossos?',
+    subtitle:
+      'Entenda como o teto de matéria mineral do Manual ABINPET indica o uso de farinhas Low Ash vs subprodutos ósseos e seu impacto na digestão e sobrecarga renal.',
+    cluster: 'Nutrição & Bromatologia',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-10-27',
+    updatedAt: '2026-10-27',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/materia-mineral-cinzas-racao-caes-low-ash-cover.webp',
+    isFeatured: true,
+    summary:
+      'Ao inspecionar a garantia de Matéria Mineral (ou cinzas) no verso da embalagem de ração canina, muitos tutores não sabem que aquele número reflete a pureza das fontes proteicas. Valores elevados sinalizam o uso de farinhas carregadas de ossos moídos, enquanto teores contidos apontam para carnes nobres e farinhas Low Ash, com impacto direto na digestão e na saúde dos rins.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-que-e-materia-mineral-teste-mufla',
+        heading: '1. O Que É Matéria Mineral e Por Que o Laboratório Queima a Ração?',
+        paragraphs: [
+          'Quando pegamos um pacote de ração no pet shop e lemos o termo "Matéria Mineral" nos níveis de garantia, a primeira dúvida comum é imaginar se adicionaram pedras ou terra na fórmula. Na realidade, esse número representa o total de minerais inorgânicos presentes no alimento.',
+          'Para determinar essa porcentagem, o laboratório bromatológico submete uma amostra da ração a uma queima completa em um forno especial chamado mufla, a temperaturas que chegam a 550°C. Todo o conteúdo orgânico (proteínas, carboidratos, gorduras e fibras) é calcinado e evapora na forma de gases.',
+          'O que sobra no fundo do cadinho após a incineração é um resíduo inorgânico cinzento, razão pela qual a literatura zootécnica internacional chama esse nutriente de "cinzas" (crude ash). Ali residem o cálcio, o fósforo, o magnésio, o potássio, o sódio e os microminerais como ferro, zinco e selênio.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Exigência Regulatória do MAPA',
+          text: 'Pela Instrução Normativa MAPA nº 30/2009, todo fabricante de alimento completo para cães é obrigado a declarar o limite máximo de Matéria Mineral na rotulagem, garantindo que o tutor saiba o teto de resíduo inorgânico no produto.',
+        },
+      },
+      {
+        id: 'farinhas-low-ash-vs-ossos-moidos',
+        heading: '2. Farinhas Low Ash vs Farinhas com Excesso de Osso: A Anatomia da Proteína',
+        paragraphs: [
+          'O ponto central para o tutor entender as cinzas é a sua origem anatômica. Em rações secas convencionais, a principal fonte de proteína animal é a farinha de vísceras de aves ou as farinhas de carne e ossos bovinas.',
+          'Quando um frigorífico processa as aves, ele pode separar partes com alta proporção de carne muscular e vísceras nobres ou incluir carcaças com alta concentração de ossos, pescoços e cartilagens. Os ossos são formados predominantemente por fosfato de cálcio, um mineral denso que não se queima no forno mufla.',
+          'Fórmulas que utilizam ingredientes de menor custo carregados de carcaça moída registram níveis de cinzas de 9,5% a 12%. Já as rações Super Premium investem em farinhas selecionadas chamadas de Low Ash (baixo teor de cinzas), obtidas a partir de cortes com pouquíssimo osso residual, mantendo a matéria mineral entre 6,5% e 8%.',
+        ],
+        table: {
+          caption: 'Comparativo Bromatológico: Farinhas Nobres vs Subprodutos Ósseos',
+          headers: ['Tipo de Matéria-Prima', 'Matéria Mineral (Cinzas)', 'Teor de Cálcio', 'Digestibilidade Proteica'],
+          rows: [
+            ['Farinha de vísceras Low Ash', '6,0% a 7,5%', '1,8% a 2,2%', 'Alta (acima de 85%)'],
+            ['Farinha de vísceras comum', '8,5% a 10,0%', '2,8% a 3,5%', 'Intermediária (78% a 82%)'],
+            ['Farinha de carne e ossos bovina', '10,5% a 14,0%', '4,0% a 5,5%', 'Baixa a Moderada (abaixo de 75%)'],
+          ],
+        },
+        callout: {
+          type: 'atencao',
+          title: 'Proteína Alta Nem Sempre Significa Carne Nobre',
+          text: 'Uma ração pode estampar 28% de proteína bruta no painel frontal, mas se a matéria mineral bater 11%, boa parte dessa proteína vem de colágeno e cartilagem presentes nos ossos triturados, que o cão aproveita com muito mais dificuldade.',
+        },
+      },
+      {
+        id: 'impacto-nos-rins-e-digestao-canina',
+        heading: '3. Digestibilidade, Fezes e Sobrecarga Renal: O Preço do Excesso de Cinzas',
+        paragraphs: [
+          'No trato gastrointestinal do cão, o excesso de matéria mineral não traz nenhum benefício nutricional. Como os minerais são inorgânicos e não fornecem calorias, tudo o que ultrapassa a exigência metabólica do animal precisa ser descartado nas fezes ou eliminado pelos rins.',
+          'Quando o cão consome rações com cinzas elevadas, a fração mineral não absorvida endurece o bolo fecal. O resultado prático observado no quintal são fezes muito volumosas, ressecadas e com coloração esbranquiçada após poucas horas ao sol, sinal clássico de excesso de cálcio fóssil eliminado.',
+          'Pior ainda é o impacto a médio e longo prazo no sistema urinário. O excesso de fósforo e cálcio absorvido força a taxa de filtração glomerular nos rins. Em cães idosos ou predispostos a nefropatias, essa carga mineral contínua acelera a perda gradual de néfrons e favorece a precipitação de urólitos (cálculos) na bexiga.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'A Tradução no Comedouro: Fezes Menores e Mais Firmes',
+          text: 'Rações com baixo teor de cinzas garantem digestibilidade superior. O cão aproveita melhor a carne, absorve os nutrientes com eficiência e produz fezes menores, consistentes e sem odor excessivo.',
+        },
+      },
+      {
+        id: 'como-calcular-cinzas-na-materia-seca',
+        heading: '4. Como Calcular o Teor Real de Cinzas na Matéria Seca (MS)',
+        paragraphs: [
+          'Para comparar de forma honesta dois pacotes de ração ou avaliar o teor de cinzas entre ração seca e alimento úmido, o tutor precisa converter o valor para Matéria Seca (MS). Isso ocorre porque a água presente no produto dilui percentualmente os minerais declarados.',
+          'A fórmula matemática é simples. Primeiro, subtraia a umidade máxima de 100 para descobrir a Matéria Seca total daquele alimento. Em seguida, divida o valor de matéria mineral declarado pela Matéria Seca e multiplique por 100.',
+          'Por exemplo, considere uma ração seca que declara 8,5% de Matéria Mineral máxima e 10% de umidade. A Matéria Seca é 90% (100 - 10). Ao dividir 8,5 por 90 e multiplicar por 100, descobrimos que a ração entrega 9,44% de cinzas reais no alimento desidratado.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'A Pegadinha das Rações Úmidas e Sachês',
+          text: 'Um sachê que declara apenas 2,5% de matéria mineral na embalagem parece levíssimo à primeira vista. Porém, como ele tem 82% de água (apenas 18% de Matéria Seca), esses 2,5% representam impressionantes 13,88% de cinzas reais na matéria seca, superando muitas rações secas comuns.',
+        },
+      },
+      {
+        id: 'parametros-abinpet-e-escolha-no-pet-shop',
+        heading: '5. Parâmetros da ABINPET: Como Escolher o Melhor Pacote na Gôndola',
+        paragraphs: [
+          'A 11ª Edição do Manual Pet Food Brasil (ABINPET) e as diretrizes do FEDIAF estabelecem padrões rigorosos para a formulação de pet food seguro no Brasil. Enquanto a exigência mínima de minerais é de cerca de 4,5% a 5% para suprir as necessidades vitais do cão adulto, o manual recomenda manter o teto o mais baixo possível.',
+          'Ao avaliar as opções disponíveis nas prateleiras ou lojas online, o tutor pode usar a seguinte régua prática de referência em Matéria Natural:',
+          'Em rações Super Premium e Super Premium Natural, procure produtos com Matéria Mineral máxima entre 7,0% e 8,0%. Esse patamar confirma o emprego de farinhas de vísceras Low Ash e cortes selecionados.',
+          'Em rações Premium Especial, valores entre 8,5% e 9,0% são comuns e aceitáveis para um orçamento intermediário. Já números acima de 10% em rações de manutenção merecem cautela redobrada, especialmente para cães de raças grandes propensas a sobrecarga articular e cães com mais de 7 anos.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Checklist Rápido na Hora da Compra',
+          text: 'Vire o pacote e cheque a linha "Matéria Mineral (máx.)". Se estiver abaixo de 8,0% e acompanhada de conservantes naturais (tocoferóis e extrato de alecrim), a fórmula demonstra respeito à digestibilidade do cão e pureza nas fontes proteicas.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Existe ração canina com zero de matéria mineral?',
+        a: 'Não, e isso seria perigoso para a vida do cão. O organismo canino necessita diariamente de cálcio e fósforo para ossos e dentes, magnésio para o tônus muscular, sódio e potássio para os impulsos nervosos e ferro para a oxigenação do sangue. O objetivo nunca é zerar as cinzas, mas sim mantê-las em teores controlados (entre 6,5% e 8%) a partir de fontes nobres, evitando o excesso de ossos moídos.',
+      },
+      {
+        q: 'Por que o nome no rótulo é matéria mineral e não cinzas?',
+        a: 'No Brasil, o Ministério da Agricultura e Pecuária (MAPA) padronizou na Instrução Normativa nº 30/2009 o termo técnico "Matéria Mineral" para a rotulagem em língua portuguesa. Já em normas internacionais como as da AAFCO e FEDIAF, o termo oficial utilizado é "Crude Ash" (cinzas brutas). Ambos se referem exatamente ao mesmo parâmetro laboratorial de queima em mufla.',
+      },
+      {
+        q: 'Rações com menos cinzas ajudam a evitar tártaro nos dentes?',
+        a: 'A formação do cálculo dentário (tártaro) decorre da mineralização da placa bacteriana salivar, influenciada pela textura do croquete, mastigação e aditivos específicos como o hexametafosfato de sódio. Embora as cinzas não causem tártaro diretamente, fórmulas com controle mineral impedem o excesso desnecessário de íons cálcio livres na saliva.',
+      },
+      {
+        q: 'Cães idosos precisam de rações com menor teor de cinzas?',
+        a: 'Sim. À medida que o cão envelhece, os rins sofrem perda fisiológica gradual de néfrons. Rações sênior de alta qualidade utilizam farinhas Low Ash para controlar estritamente os tetos de fósforo e cálcio, reduzindo o trabalho de filtragem renal e preservando a função dos órgãos vitais por mais tempo.',
+      },
+      {
+        q: 'O que significa farinha Low Ash na lista de ingredientes?',
+        a: 'É uma matéria-prima nobre produzida por frigoríficos que selecionam predominantemente cortes cárneos e vísceras nobres com remoção rigorosa de ossos e cartilagens. Por ter menos osso residual, essa farinha apresenta baixo teor de cinzas minerais e concentração superior de proteínas digeríveis de alto valor biológico.',
+      },
+    ],
+    conclusion:
+      'A Matéria Mineral impressa na tabela de garantia é uma das bússolas mais valiosas e menos compreendidas pelo tutor na escolha da ração canina. Ao entender que cinzas elevadas refletem subprodutos ósseos baratos e sobrecarga para o trato digestivo e urinário, você ganha autonomia para olhar além do marketing da embalagem. Priorizar fórmulas com teto controlado de cinzas (até 8%) e farinhas selecionadas Low Ash é um investimento silencioso em fezes mais firmes, excelente absorção de nutrientes e proteção da saúde renal do seu cão ao longo de toda a vida.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Tabelas de Padrões Nutricionais para Cães: exigências mínimas e tetos seguros de cálcio, fósforo, sódio, magnésio e cinzas minerais',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamento Técnico de Fixação de Padrões de Identidade e Qualidade para Alimentos Completos e declaração obrigatória de Matéria Mineral nos níveis de garantia',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 22, de 2 de junho de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br',
+        details: 'Regulamento Técnico sobre Boas Práticas de Fabricação e parâmetros físico-químicos para farinhas de subprodutos animais em pet food',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Capítulo 6: Minerais e cinzas brutas: biodisponibilidade de macrominerais, digestibilidade e tolerância máxima fisiológica',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'The European Pet Food Industry (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/self-regulation/nutrition/',
+        details: 'Seção de Minerais e Cinzas: tetos nutricionais, relação Cálcio:Fósforo (Ca:P) e métodos de análise bromatológica em Matéria Seca',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte Avaliações Nutricionais no PetRankings',
+      text: 'O PetRankings avalia dezenas de alimentos completos sob custódia documental com base no Manual da ABINPET e normas do MAPA. Encontre a melhor ração completa para a saúde do seu cão.',
+      buttonText: 'Explorar Catálogo Completo de Alimentos',
+      buttonUrl: '/catalogo',
+    },
+  },
 ];
 
 export function getAllGuides(): GuideItem[] {
