@@ -4972,7 +4972,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-27',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/materia-mineral-cinzas-racao-caes-low-ash-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Ao inspecionar a garantia de Matéria Mineral (ou cinzas) no verso da embalagem de ração canina, muitos tutores não sabem que aquele número reflete a pureza das fontes proteicas. Valores elevados sinalizam o uso de farinhas carregadas de ossos moídos, enquanto teores contidos apontam para carnes nobres e farinhas Low Ash, com impacto direto na digestão e na saúde dos rins.',
     relatedProductSlugs: [],
@@ -5124,6 +5124,205 @@ export const GUIDES: GuideItem[] = [
       text: 'O PetRankings avalia dezenas de alimentos completos sob custódia documental com base no Manual da ABINPET e normas do MAPA. Encontre a melhor ração completa para a saúde do seu cão.',
       buttonText: 'Explorar Catálogo Completo de Alimentos',
       buttonUrl: '/catalogo',
+    },
+  },
+  {
+    slug: 'racao-senior-gatos-7-e-11-anos-protecao-renal',
+    title: 'Ração sênior para gatos (+7 e +11 anos): O que muda para proteger os rins?',
+    subtitle:
+      'Entenda a diferença fisiológica entre gatos maduros (7+) e geriátricos (11+ ou 12+), o controle de fósforo para poupar os néfrons e como prevenir a perda de massa muscular.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-28',
+    updatedAt: '2026-10-28',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-senior-gatos-7-11-anos-cover.webp',
+    isFeatured: true,
+    summary:
+      'Quando o gato completa 7 anos, o corredor do pet shop passa a exibir embalagens divididas em faixas como 7+, 10+, 11+ e 12+. Mais do que segmentação comercial, esses marcos acompanham duas viradas metabólicas opostas na vida do felino: o risco de sobrepeso na meia-idade e a perda de massa muscular (sarcopenia) na velhice avançada, sempre com foco na proteção silenciosa dos rins.',
+    relatedProductSlugs: [
+      'science-diet-science-diet-pro-mature-adult-senior-dry',
+      'premier-gatos-castrados-de-7-a-11-anos-frango',
+      'premier-gatos-castrados-acima-de-12-anos-frango',
+      'royal-canin-idosos-castrados-12-plus',
+    ],
+    sections: [
+      {
+        id: 'envelhecimento-felino-duas-fases-7-e-11-anos',
+        heading: '1. O envelhecimento felino em duas fases: O que muda aos 7 e aos 11 anos?',
+        paragraphs: [
+          'Quem convive com um gato de 8 ou 9 anos dentro de um apartamento costuma duvidar quando lê a palavra "sênior" no pacote de ração. O felino continua ágil, salta nos móveis e mantém a pelagem bonita, sem aparentar velhice.',
+          'Na medicina felina e nas diretrizes nutricionais da WSAVA e do WALTHAM, a maturidade do gato é dividida em dois estágios bem diferentes. Dos 7 aos 10 anos (fase madura), o metabolismo basal desacelera e o animal castrado tende a acumular gordura abdominal se continuar comendo uma ração de adulto jovem.',
+          'A partir dos 11 ou 12 anos (fase geriátrica), o cenário se inverte no organismo do gato. A capacidade do intestino de digerir gorduras e proteínas cai significativamente, o olfato fica menos apurado e o perigo deixa de ser a obesidade para se tornar o emagrecimento progressivo.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Por que existem pacotes separados para 7+ e 12+?',
+          text: 'Enquanto a ração 7+ foca em segurar as calorias para evitar o ganho de peso e inicia a proteção renal, a ração 11+ ou 12+ aumenta a energia e a palatabilidade para impedir que o gato idoso perca peso e musculatura.',
+        },
+      },
+      {
+        id: 'controle-fosforo-materia-mineral-protecao-nefrons',
+        heading: '2. Controle de fósforo e matéria mineral: A primeira linha de proteção dos néfrons',
+        paragraphs: [
+          'Os rins dos gatos são compostos por cerca de 200 mil unidades microscópicas de filtragem chamadas néfrons. Com o avançar da idade, parte dessas estruturas sofre desgaste natural irreversível, obrigando os néfrons restantes a trabalhar dobrado para limpar o sangue.',
+          'O mineral que mais exige esforço dos rins envelhecidos é o fósforo. Embora seja indispensável para ossos e energia celular, o excesso de fósforo na corrente sanguínea estimula hormônios que calcificam o tecido renal e aceleram a perda de função do órgão.',
+          'Para proteger os rins antes que qualquer sintoma apareça, as boas rações sênior utilizam matérias-primas com baixo teor de cinzas (Low Ash), ou seja, carnes e farinhas com pouquíssimo osso moído. Na prática, isso mantém o fósforo próximo de 0,52% a 0,78% na Matéria Seca (MS), bem abaixo de rações comuns que superam 1,1% a 1,3% MS.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'O piso seguro da ABINPET e da FEDIAF',
+          text: 'Segundo a 11ª Edição do Manual Pet Food Brasil (ABINPET) e a FEDIAF (2025), a exigência mínima de fósforo para manutenção de gatos adultos e idosos saudáveis é de 0,50% a 0,64% na Matéria Seca (MS), com relação Cálcio:Fósforo equilibrada entre 1:1 e 2:1.',
+        },
+      },
+      {
+        id: 'sarcopenia-felina-proteina-omega-3-articulacoes',
+        heading: '3. Sarcopenia felina: Por que gatos acima de 11 anos precisam de proteína de alta digestibilidade?',
+        paragraphs: [
+          'Durante décadas, repetiu-se o mito de que todo gato idoso deveria comer pouca proteína para "poupar os rins". Estudos clínicos conduzidos pelo instituto WALTHAM e pelo NRC demonstraram que a restrição precoce de proteína em gatos saudáveis não previne problemas renais e ainda causa sarcopenia, que é a perda severa de massa muscular.',
+          'Como carnívoro estrito, o gato idoso que recebe pouca proteína passa a quebrar a própria musculatura das costas e das coxas para manter o fígado e o sistema imune funcionando. No dia a dia, o tutor percebe que os ossos da coluna e da bacia do gato começam a ficar salientes ao fazer carinho.',
+          'Por isso, fórmulas modernas para gatos acima de 11 e 12 anos mantêm níveis generosos de proteína de fácil digestão (como ovo em pó, carnes selecionadas e glúten de trigo/milho de alta assimilação), combinados com óleo de peixe marinho (rico em ômega-3 EPA e DHA) e condroprotetores (condroitina e glicosamina) para aliviar o desgaste das articulações.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Impacto real na rotina: Salto para a janela e caixa de areia',
+          text: 'A preservação da massa muscular e a presença de ômega-3 (EPA/DHA) com condroitina ajudam o gato idoso a subir na cama sem dor nas juntas e a entrar na caixa de areia com firmeza nas patas traseiras.',
+        },
+      },
+      {
+        id: 'confronto-rotulos-materia-seca-7-plus-vs-12-plus',
+        heading: '4. Confronto de rótulos em Matéria Seca (MS): Fórmulas 7+ vs. 12+ no Brasil',
+        paragraphs: [
+          'Para visualizar como a engenharia nutricional ajusta os nutrientes em cada etapa da maturidade, analisamos quatro alimentos completos sênior registrados no Brasil e custodiados no banco de dados do PetRankings, convertendo todos os níveis de garantia para a base de Matéria Seca (MS), que desconta a água do croquete.',
+          'Observe na linha da fabricante Grandfood a transição exata da meia-idade para a velhice: a PremieR Gatos Castrados 7 a 11 anos entrega 15,56% MS de gordura (extrato etéreo) e 0,78% MS de fósforo mínimo. Já na versão PremieR Gatos Castrados acima de 12 anos, a gordura sobe para 21,11% MS e a proteína vai a 44,44% MS para combater o emagrecimento senil, enquanto o fósforo cai para 0,67% MS.',
+          'No segmento de restrição mineral mais acentuada, a Hill\'s Science Diet Adulto 7+ trabalha com matéria mineral enxuta de 7,07% MS (6,5% no rótulo), 0,68% MS de fósforo e expressivos 0,57% MS de ômega-3 com antioxidantes naturais. Já a Royal Canin Idosos Castrados 12+ apresenta o menor teor de fósforo entre os alimentos completos avaliados (0,52% MS e 6,85% MS de cinzas), utilizando croquete de dupla textura fácil de mastigar, embora ainda empregue o antioxidante sintético BHA na conservação.',
+        ],
+        table: {
+          caption: 'Comparativo Técnico em Matéria Seca (MS): Rações Sênior 7+ e 12+ para Gatos',
+          headers: [
+            'Parâmetro Nutricional',
+            "Hill's Science Diet Adulto 7+ (Umid. 8%)",
+            'PremieR Castrados 7 a 11 anos (Umid. 10%)',
+            'PremieR Castrados 12+ anos (Umid. 10%)',
+            'Royal Canin Idosos Castrados 12+ (Umid. 8%)',
+          ],
+          rows: [
+            ['Proteína Bruta (Mín.)', '31,40% MS (28,89% MN)', '42,22% MS (38,0% MN)', '44,44% MS (40,0% MN)', '30,43% MS (28,0% MN)'],
+            ['Extrato Etéreo / Gordura (Mín.)', '18,50% MS (17,02% MN)', '15,56% MS (14,0% MN)', '21,11% MS (19,0% MN)', '14,13% MS (13,0% MN)'],
+            ['Matéria Mineral / Cinzas (Máx.)', '7,07% MS (6,5% MN)', '8,89% MS (8,0% MN)', '8,89% MS (8,0% MN)', '6,85% MS (6,3% MN)'],
+            ['Fósforo (Mín.)', '0,68% MS (0,63% MN)', '0,78% MS (0,70% MN)', '0,67% MS (0,60% MN)', '0,52% MS (0,48% MN)'],
+            ['Sódio (Mín.)', '0,32% MS (0,29% MN)', '0,33% MS (0,30% MN)', '0,33% MS (0,30% MN)', '0,26% MS (0,24% MN)'],
+            ['Ômega-3 (Mín.)', '0,57% MS (0,52% MN)', '0,39% MS (0,35% MN)', '0,44% MS (0,40% MN)', '0,22% MS (0,20% MN)'],
+            ['Sistema Antioxidante', 'Natural (Tocoferóis/Alecrim)', 'Natural (Tocoferóis/Alecrim)', 'Natural (Tocoferóis/Alecrim)', 'Sintético (BHA)'],
+          ],
+        },
+      },
+      {
+        id: 'racao-senior-vs-racao-renal-coadjuvante-mapa',
+        heading: '5. Ração sênior vs. ração renal coadjuvante: O limite da IN MAPA nº 39/2014',
+        paragraphs: [
+          'Uma dúvida frequente no consultório e nas lojas é se vale a pena dar uma "ração renal" por conta própria para um gato de 10 anos apenas como prevenção. A resposta técnica e regulatória é não.',
+          'Pela Instrução Normativa MAPA nº 30/2009, a ração sênior (7+ ou 12+) é um Alimento Completo, formulado para suprir todas as necessidades diárias de um gato idoso saudável por toda a vida. Já a ração renal é enquadrada pela Instrução Normativa MAPA nº 39/2014 como Alimento Coadjuvante, restrito a animais com diagnóstico clínico confirmado de Doença Renal Crônica (DRC).',
+          'As dietas renais coadjuvantes aplicam restrições severas de fósforo (0,30% a 0,45% MS) e reduzem a proteína para faixas próximas do limite fisiológico mínimo. Fornecer uma dieta renal sem prescrição veterinária a um gato idoso com rins saudáveis pode acelerar a perda de massa magra sem trazer benefício preventivo adicional.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Hidratação diária: O complemento indispensável',
+          text: 'Mesmo com a melhor ração seca sênior no comedouro, oferecer sachês completos para gatos 7+ (com mais de 80% de umidade) e espalhar fontes de água corrente pela casa reduz a concentração da urina e alivia o trabalho diário dos rins.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Com quantos anos devo trocar a ração de adulto para a ração sênior (7+)?',
+        a: 'A transição para uma fórmula 7+ (maduro/sênior inicial) é recomendada a partir dos 7 anos completos de idade. Nessa fase, mesmo que o gato pareça jovem por fora, o ajuste preventivo de fósforo, antioxidantes (vitamina E e C) e calorias protege os rins e evita o ganho de peso silencioso.',
+      },
+      {
+        q: 'Qual a diferença prática entre a ração para gatos 7+ e a ração para gatos 11+ ou 12+?',
+        a: 'Dos 7 aos 10 anos, o gato castrado tem metabolismo mais lento e tendência a engordar, pedindo gordura moderada (13% a 17% MN). A partir dos 11 ou 12 anos, a digestão de gorduras e proteínas perde eficiência e o gato tende a emagrecer e perder músculos; por isso, as fórmulas 12+ oferecem mais calorias, proteínas de alta absorção, croquetes mais macios e fósforo ainda mais baixo.',
+      },
+      {
+        q: 'Ração sênior com mais de 38% de proteína faz mal para os rins de um gato idoso saudável?',
+        a: 'Não. A ciência veterinária (WALTHAM, NRC e FEDIAF) comprova que a proteína não lesiona rins saudáveis em gatos. O que sobrecarrega os néfrons no envelhecimento é o excesso de fósforo e de cinzas minerais vindo de farinhas com muito osso moído. Gatos idosos saudáveis precisam de proteína de alta qualidade para evitar a sarcopenia (perda muscular).',
+      },
+      {
+        q: 'Meu gato idoso perdeu dentes e tem dificuldade para mastigar. O que fazer?',
+        a: 'Além de buscar avaliação odontológica veterinária, você pode optar por rações 12+ com croquetes recheados ou mais porosos, amornar levemente o alimento com um pouco de água filtrada ou adotar o manejo misto (Mix Feeding) com sachês e patês completos desenvolvidos para gatos idosos.',
+      },
+    ],
+    conclusion:
+      'Acompanhar o envelhecimento do gato pelo rótulo da ração é uma das formas mais eficazes de prolongar sua qualidade de vida. Ao respeitar a diferença entre a meia-idade (7 a 11 anos) e a fase geriátrica (12+ anos), priorizando alimentos completos com matéria mineral contida, fósforo controlado entre 0,52% e 0,78% na Matéria Seca e proteínas de alta digestibilidade, o tutor protege silenciosamente os néfrons sem abrir mão da força muscular e da vitalidade do felino.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Tabelas de Padrões Nutricionais para Gatos em Manutenção: pisos e tetos seguros de proteína, extrato etéreo, cálcio e fósforo em Matéria Seca (MS)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'The European Pet Food Industry (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/self-regulation/nutrition/',
+        details: 'Diretrizes nutricionais para felinos adultos e sêniores: balanço Cálcio:Fósforo, exigências de aminoácidos e digestibilidade proteica na velhice',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Critérios legais de enquadramento e rotulagem de Alimentos Completos destinados a gatos adultos e idosos no Brasil',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 39, de 21 de novembro de 2014',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br',
+        details: 'Regulamento Técnico para Alimentos Coadjuvantes para Animais de Companhia e distinção obrigatória frente aos alimentos completos de manutenção sênior',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Alterações metabólicas no envelhecimento felino, redução da digestibilidade lipídica e proteica acima dos 11 anos e prevenção da sarcopenia',
+      },
+      {
+        title: "Ficha Oficial: Hill's Science Diet Adulto 7+ para Gatos Idosos",
+        institution: "Hill's Pet Nutrition / Colgate-Palmolive",
+        type: 'rotulagem',
+        url: 'https://www.hillspet.com.br/cat-food/science-diet-science-diet-pro-mature-adult-senior-dry',
+        details: 'Níveis de garantia, umidade máxima, matéria mineral e composição básica declarados pelo fabricante',
+      },
+      {
+        title: 'Ficha Oficial: PremieR Gatos Castrados 7 a 11 anos Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://premierpet.com.br/produto/premier-gatos-castrados-de-7-a-11-anos-frango/',
+        details: 'Níveis de garantia, sistema antioxidante natural e composição básica declarados pelo fabricante',
+      },
+      {
+        title: 'Ficha Oficial: PremieR Gatos Castrados acima de 12 anos Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://premierpet.com.br/produto/premier-gatos-castrados-acima-de-12-anos-frango/',
+        details: 'Níveis de garantia, ajuste calórico-proteico 12+ e controle de fósforo declarados pelo fabricante',
+      },
+      {
+        title: 'Ficha Oficial: Royal Canin Idosos Castrados 12+',
+        institution: 'Royal Canin do Brasil Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://www.royalcanin.com/br/cats/products/retail-products/ageing-sterilised-12%2b-2565',
+        details: 'Níveis de garantia, restrição de fósforo (0,48% MN) e composição básica declarados pelo fabricante',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Rações Sênior para Gatos no PetRankings',
+      text: 'Consulte o dossiê técnico completo de cada alimento para gatos 7+, 10+ e 12+, com conversão automática para Matéria Seca (MS) e avaliação de ingredientes sob custódia.',
+      buttonText: 'Ver Catálogo de Rações para Gatos',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
