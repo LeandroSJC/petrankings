@@ -5138,7 +5138,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-28',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-senior-gatos-7-11-anos-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Quando o gato completa 7 anos, o corredor do pet shop passa a exibir embalagens divididas em faixas como 7+, 10+, 11+ e 12+. Mais do que segmentação comercial, esses marcos acompanham duas viradas metabólicas opostas na vida do felino: o risco de sobrepeso na meia-idade e a perda de massa muscular (sarcopenia) na velhice avançada, sempre com foco na proteção silenciosa dos rins.',
     relatedProductSlugs: [
@@ -5323,6 +5323,158 @@ export const GUIDES: GuideItem[] = [
       text: 'Consulte o dossiê técnico completo de cada alimento para gatos 7+, 10+ e 12+, com conversão automática para Matéria Seca (MS) e avaliação de ingredientes sob custódia.',
       buttonText: 'Ver Catálogo de Rações para Gatos',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'hills-science-diet-vs-royal-canin-caes-pequenos',
+    title: "Hill's Science Diet vs Royal Canin Mini: O que muda na prática no rótulo?",
+    subtitle:
+      'Confronto bromatológico em Matéria Seca (MS), ordem dos ingredientes, teto de cinzas minerais e sistema antioxidante entre duas referências globais para cães adultos de porte pequeno.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-29',
+    updatedAt: '2026-10-29',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/hills-science-diet-vs-royal-canin-caes-pequenos-duel-cover.webp',
+    isFeatured: true,
+    summary:
+      'Para quem cria cães de porte pequeno ou mini em apartamento, a dúvida entre Hill\'s Science Diet Pequenos e Mini e Royal Canin Mini Adult é quase inevitável no consultório e no pet shop. Colocamos os rótulos oficiais lado a lado na Matéria Seca (MS) para mostrar onde cada fórmula se destaca em proteínas, ômega-3, controle de tártaro e conservantes.',
+    relatedProductSlugs: [
+      'science-diet-science-diet-pro-adult-small-paws-breed-dry',
+      'royal-canin-mini-adult',
+    ],
+    sections: [
+      {
+        id: 'posicionamento-portes-pequenos-mandibula-metabolismo',
+        heading: '1. O desafio nutricional dos cães pequenos: Metabolismo acelerado e arcada compacta',
+        paragraphs: [
+          'Quem convive com um Shih Tzu, Yorkshire, Spitz Alemão, Poodle ou SRD de até 10 kg sabe que cães pequenos têm particularidades bem distintas dos cães grandes. Por terem uma superfície corporal proporcionalmente maior em relação ao peso, eles gastam mais calorias por quilo para manter a temperatura do corpo.',
+          'Além disso, a mandíbula curta agrupa os dentes em pouco espaço, facilitando o acúmulo de placa bacteriana e a formação precoce de tártaro. Por viverem facilmente 14 a 17 anos, qualquer excesso de minerais ou escolha de aditivos acompanha o cão por mais de uma década.',
+          'Tanto a Hill\'s Science Diet Cães Adultos Pequenos e Mini (fabricada pela Hill\'s Pet Nutrition / Colgate-Palmolive) quanto a Royal Canin Mini Adult ocupam o topo do segmento Super Premium, mas seguem filosofias bem diferentes de formulação.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Enquadramento legal perante o MAPA (IN nº 30/2009)',
+          text: 'Perante o Ministério da Agricultura e Pecuária (MAPA), ambos os produtos são registrados como "Alimento Completo para Cães Adultos", superando com ampla margem os pisos mínimos da 11ª Edição do Manual Pet Food Brasil da ABINPET.',
+        },
+      },
+      {
+        id: 'confronto-niveis-garantia-materia-seca',
+        heading: '2. Níveis de garantia confrontados em Matéria Seca (MS)',
+        paragraphs: [
+          'Os dois produtos declaram limites de umidade ligeiramente diferentes nos rótulos brasileiros: 10,0% na Hill\'s Science Diet (90% de Matéria Seca) e 11,0% na Royal Canin Mini Adult (89% de Matéria Seca). Para comparar os nutrientes sem a interferência da água, convertemos ambos os pacotes para a base de Matéria Seca (MS).',
+          'Na concentração proteica, a Royal Canin Mini Adult leva vantagem numérica, entregando 28,09% MS de proteína bruta mínima frente a 25,00% MS da Hill\'s Science Diet. No teor de gorduras (extrato etéreo), que fornece energia e palatabilidade para o metabolismo rápido dos pequenos, as duas empatam tecnicamente: 15,30% MS na Hill\'s contra 15,73% MS na Royal Canin.',
+          'Por outro lado, a Hill\'s Science Diet entrega mais que o dobro de ômega-3 garantido na matéria seca (0,59% MS contra 0,22% MS da Royal Canin), um diferencial importante para nutrir a barreira da pele e manter a pelagem sedosa em raças de pelo longo.',
+        ],
+        table: {
+          caption: 'Comparativo Oficial em Matéria Seca (MS): Hill\'s Science Diet Pequenos e Mini vs. Royal Canin Mini Adult',
+          headers: [
+            'Parâmetro Nutricional',
+            "Hill's Science Diet Pequenos e Mini (Umid. 10%)",
+            'Royal Canin Mini Adult (Umid. 11%)',
+            'Piso Mínimo ABINPET (Cão Adulto)',
+          ],
+          rows: [
+            ['Proteína Bruta (Mín.)', '25,00% MS (22,50% MN)', '28,09% MS (25,00% MN)', '18,00% MS'],
+            ['Extrato Etéreo / Gordura (Mín.)', '15,30% MS (13,77% MN)', '15,73% MS (14,00% MN)', '5,50% MS'],
+            ['Fibra Bruta (Máx.)', '1,50% MS (1,35% MN)', '2,58% MS (2,30% MN)', 'Não aplicável'],
+            ['Matéria Mineral / Cinzas (Máx.)', '7,22% MS (6,50% MN)', '6,52% MS (5,80% MN)', 'Máximo recomendado 10,0%'],
+            ['Cálcio (Mín.)', '0,84% MS (0,76% MN)', '0,62% MS (0,552% MN)', '0,50% MS'],
+            ['Fósforo (Mín.)', '0,76% MS (0,68% MN)', '0,55% MS (0,486% MN)', '0,40% MS'],
+            ['Sódio (Mín.)', '0,33% MS (0,30% MN)', '0,37% MS (0,33% MN)', '0,08% MS'],
+            ['Ômega-3 (Mín.)', '0,59% MS (0,53% MN)', '0,22% MS (0,20% MN)', 'Recomendado funcional'],
+            ['Sistema Antioxidante', 'Natural (Tocoferóis, Alecrim e Chá Verde)', 'Sintético (BHA)', 'Preferência Natural'],
+          ],
+        },
+      },
+      {
+        id: 'ordem-ingredientes-fontes-proteicas-carboidratos',
+        heading: '3. Lista de ingredientes: Carne mecanicamente separada vs. farinha de vísceras e torresmo',
+        paragraphs: [
+          'Pela Instrução Normativa MAPA nº 22/2009, os ingredientes são listados em ordem decrescente de peso. Na Hill\'s Science Diet Pequenos e Mini, o primeiro ingrediente é a carne mecanicamente separada de frango, seguida por uma combinação de grãos integrais (arroz integral, grão de trigo, grão de milho e sorgo), quirera de arroz e farinha de carnes e ossos de aves.',
+          'A fórmula da Hill\'s também incorpora abóbora desidratada e grão de linhaça, mantendo a fibra bruta bem baixa (1,50% MS), o que favorece alta assimilação intestinal e fezes em pequeno volume para quem limpa o tapete higiênico em casa.',
+          'Já a Royal Canin Mini Adult abre a composição com farinha de vísceras de aves (matéria-prima já desidratada e concentrada em proteínas), acompanhada de milho integral moído, quirera de arroz, farelo de glúten de milho e farinha de torresmo (proteína suína de alta digestibilidade). Nas fontes lipídicas, a Royal Canin inclui óleo de peixe refinado (fonte direta de EPA e DHA marinhos), enquanto a Hill\'s apoia-se principalmente na gordura de frango e na linhaça.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Presença de grãos transgênicos (OGM)',
+          text: 'Ambas as fórmulas utilizam milho e derivados de soja geneticamente modificados, exibindo o símbolo "T" amarelo obrigatório pelo Decreto nº 4.680/2003 no painel da embalagem.',
+        },
+      },
+      {
+        id: 'conservantes-tartaro-e-controle-mineral',
+        heading: '4. Conservantes, proteção contra o tártaro e controle de cinzas minerais',
+        paragraphs: [
+          'A diferença mais marcante entre os dois rótulos aparece no sistema de conservação da gordura. A Hill\'s Science Diet utiliza exclusivamente antioxidantes naturais, combinando concentrado de tocoferóis (vitamina E), extrato de alecrim, extrato de chá verde, menta e hortelã. A Royal Canin Mini Adult, por sua vez, ainda emprega o antioxidante sintético BHA (butilhidroxianisol) na preservação do produto.',
+          'Em compensação, a Royal Canin destaca-se em dois pontos técnicos valiosos para raças pequenas: o controle de tártaro e a leveza mineral. A fórmula traz tripolifosfato de sódio, um aditivo funcional que funciona como uma "esponja" na saliva do cão, capturando o cálcio livre antes que ele endureça sobre os dentes na forma de placa calcificada.',
+          'Além disso, a Royal Canin registra um teto de matéria mineral (cinzas) de apenas 6,52% MS (5,8% no rótulo) e fósforo de 0,55% MS, contra 7,22% MS de cinzas e 0,76% MS de fósforo na Hill\'s. Ambos os índices são excelentes e comprovam o uso de matérias-primas puras (Low Ash), poupando os rins do cão ao longo dos anos.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'A tradução prática na rotina do tutor',
+          text: 'Se o seu cão de porte pequeno acumula tártaro com muita facilidade, o tripolifosfato de sódio da Royal Canin ajuda na prevenção diária. Se você faz questão de evitar conservantes sintéticos (BHA) e busca mais ômega-3 para a pelagem, a Hill\'s leva vantagem.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual das duas rações tem o croquete menor para cães miniaturas?',
+        a: 'Ambas possuem croquetes adaptados para mandíbulas pequenas (até 10 kg ou 11 kg). Na linha Hill\'s Science Diet, a versão "Pequenos e Mini" (Small & Mini) oferece o menor grão da marca, ainda menor que o "Pedaços Pequenos" (Small Bites). Já na Royal Canin, caso o cão pese até 4 kg (como Chihuahua ou Spitz micro), existe ainda a variante específica Royal Canin X-Small Adult.',
+      },
+      {
+        q: 'Por que a Royal Canin Mini Adult tem mais proteína no rótulo que a Hill\'s?',
+        a: 'A Royal Canin combina farinha de vísceras de aves, farinha de torresmo e farelo de glúten de milho para atingir 28,09% de proteína na Matéria Seca. Já a Hill\'s trabalha com um perfil proteico moderado de 25,00% MS (acima dos 18% exigidos pela ABINPET), priorizando carne mecanicamente separada de frango no topo da lista e alta digestibilidade.',
+      },
+      {
+        q: 'Ambas as rações ajudam a controlar o peso de cães pequenos que vivem em apartamento?',
+        a: 'Sim, ambas contam com L-carnitina na composição para auxiliar no metabolismo das gorduras e manter a massa magra. Porém, como entregam cerca de 15,3% a 15,7% de gordura na matéria seca (para suprir o metabolismo acelerado dos pequenos), cães castrados sedentários com tendência real à obesidade devem migrar para as versões Light ou Peso Perfeito de cada marca.',
+      },
+    ],
+    conclusion:
+      'Tanto a Hill\'s Science Diet Pequenos e Mini quanto a Royal Canin Mini Adult entregam padrões elevados de digestibilidade e baixo teor de cinzas minerais. A escolha ideal depende da prioridade do tutor: a Hill\'s Science Diet vence na naturalidade do sistema conservante (100% livre de BHA, com tocoferóis e alecrim), na abertura com carne de frango e no dobro de ômega-3 para pele e pelagem; já a Royal Canin Mini Adult sobressai na maior concentração proteica em Matéria Seca (28,09% MS), no menor índice de cinzas e fósforo e na inclusão ativa de tripolifosfato de sódio contra o tártaro.',
+    references: [
+      {
+        title: "Ficha Oficial: Hill's Science Diet Cães Adultos Pequenos e Mini",
+        institution: "Hill's Pet Nutrition / Colgate-Palmolive",
+        type: 'rotulagem',
+        url: 'https://www.hillspet.com.br/dog-food/science-diet-science-diet-pro-adult-small-paws-breed-dry',
+        details: 'Níveis de garantia, energia metabolizável (3.711 kcal/kg), antioxidantes naturais e lista de ingredientes declarados pelo fabricante',
+      },
+      {
+        title: 'Ficha Oficial: Royal Canin Mini Adult',
+        institution: 'Royal Canin do Brasil Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://www.royalcanin.com/br/dogs/products/retail-products/mini-adult-3001',
+        details: 'Níveis de garantia, tripolifosfato de sódio, teto de matéria mineral (5,8% MN) e lista de ingredientes declarados pelo fabricante',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Parâmetros nutricionais para cães adultos em manutenção e diretrizes de conversão para Matéria Seca (MS)',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Critérios obrigatórios para rotulagem e níveis de garantia de Alimentos Completos para Cães',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 22, de 2 de junho de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br',
+        details: 'Regra de declaração da composição básica em ordem estritamente decrescente de inclusão no produto',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Lado a Lado no Comparador Interativo',
+      text: 'Quer cruzar a Hill\'s Science Diet ou a Royal Canin com qualquer outra marca do mercado? Use o Comparador Técnico do PetRankings para confrontar cada nutriente em Matéria Seca.',
+      buttonText: 'Abrir Comparador de Rações',
+      buttonUrl: '/comparar',
     },
   },
 ];
