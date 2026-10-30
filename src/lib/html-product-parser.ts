@@ -78,6 +78,36 @@ const CURATED_INGREDIENTS_FALLBACKS: Record<string, string> = {
     'Farinha de Carne e Ossos de Bovinos, Farinha de Vísceras de Aves, Farelo de Soja, Quirera de Arroz, Milho Moído*, Grão de Sorgo, Grão de Linhaça, Farelo de Trigo, Levedura de Cervejaria Inativada Desidratada, Gordura de Frango, Palatabilizante (Hidrolisado de Fígado de Aves e Suínos), Cloreto de Sódio, Cloreto de Potássio, Fosfato Bicálcico, Prebióticos (MOS e β-Glucanas), Vitamina: A, D, E, K3, B1, B2, B6, B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Minerais: Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Ácido Propiônico, Antioxidante (BHA), Zeolita.',
   'senior-medio-e-grande':
     'Farinha de Carne e Ossos de Bovinos, Farinha de Vísceras de Aves, Farelo de Soja, Quirera de Arroz, Milho Moído*, Grão de Sorgo, Grão de Linhaça, Farelo de Trigo, Levedura de Cervejaria Inativada Desidratada, Gordura de Frango, Palatabilizante (Hidrolisado de Fígado de Aves e Suínos), Cloreto de Sódio, Cloreto de Potássio, Fosfato Bicálcico, Prebióticos (MOS e β-Glucanas), Vitamina: A, D, E, K3, B1, B2, B6, B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Minerais: Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Ácido Propiônico, Antioxidante (BHA), Zeolita.',
+
+  // Rações Reis — Linhas Baw Waw Tradicional, Beauty Pet e Speto
+  'alimento-completo-6/13565':
+    'Farinha de Carne e Ossos de Bovinos, Farinha de Vísceras de Aves, Farelo de Soja, Quirera de Arroz, Milho Moído*, Grão de Sorgo, Grão de Linhaça, Farelo de Trigo, Levedura de Cervejaria Inativada Desidratada, Gordura de Frango, Palatabilizante (Hidrolisado de Fígado de Aves e Suínos), Cloreto de Sódio, Cloreto de Potássio, Fosfato Bicálcico, Prebióticos (MOS e β-Glucanas), Vitamina: A, D, E, K3, B1, B2, B6, B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Minerais: Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Ácido Propiônico, Antioxidante (BHA), Zeolita.',
+  'alimento-completo-16/7774':
+    'Milho Integral Moído*, Farelo de Trigo, Farelo de Soja*, Farinha de Carne e Ossos de Bovinos, Óleo de Frango, Hidrolisado de Vísceras de Frango, Cloreto de Sódio (Sal Comum), Extrato de Yucca, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Antioxidante (BHT/BHA), Antifúngico.',
+  'alimento-completo-17/7777':
+    'Milho Integral Moído*, Farelo de Trigo, Farelo de Soja*, Farinha de Carne e Ossos de Bovinos, Óleo de Frango, Hidrolisado de Vísceras de Frango, Cloreto de Sódio (Sal Comum), Espinafre Desidratado, Cenoura Desidratada, Extrato de Yucca, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Antioxidante (BHT/BHA), Antifúngico.',
+  'alimento-completo-18/7780':
+    'Milho Integral Moído*, Farelo de Trigo, Farelo de Soja*, Farinha de Carne e Ossos de Bovinos, Gordura de Frango, Hidrolisado de Fígado de Aves, Cloreto de Sódio (Sal Comum), Extrato de Yucca, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Minerais: Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Antioxidante (BHT/BHA), Antifúngico.',
+  'alimento-carne/7730':
+    'Farinha de Carne e Ossos, Farinha de vísceras de aves, Milho integral moído*, Quirera de arroz, Farelo de glúten de milho 60*, Levedura seca de Cervejaria, Semente de Linhaça, Psyllium, Fibra de Ervilha, Óleo de Frango, Óleo Vegetal, Óleo de Peixe, Cloreto de Sódio (Sal comum), Cloreto de Potássio, Fosfato Bicálcico, Hidrolisado de Fígado, Mannan-oligossacarídeos, Taurina, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Vitamina A, Vitamina D, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante, Sorbato de Potássio, Zeolita.',
+  'alimento-castrados-2/7739':
+    'Farinha de Carne e Ossos, Farinha de vísceras de aves, Milho integral moído*, Quirera de arroz, Farelo de glúten de milho 60*, Fibra de Ervilha, Psyllium, Semente de Linhaça, Levedura seca de Cervejaria, Polpa de Beterraba, Hidrolisado de Fígado, Óleo de Peixe, Óleo de Frango, Cloreto de Sódio (Sal comum), Cloreto de Potássio, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Vitamina A, Vitamina C, Vitamina D, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Metionina, Lisina, Taurina, L-carnitina, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Transquelato de Zinco, Manann-oligossacarídeos, Probióticos (Bacillus subtilis), Extrato de Yucca, Antioxidante, Sorbato de Potássio, Zeolita.',
+  'alimento-mix/7745':
+    'Farinha de Carne e Ossos, Farinha de vísceras de aves, Milho integral moído*, Quirera de arroz, Farelo de glúten de milho 60*, Levedura seca de Cervejaria, Semente de Linhaça, Psyllium, Fibra de Ervilha, Óleo de Frango, Óleo Vegetal, Óleo de Peixe, Cloreto de Sódio (Sal comum), Cloreto de Potássio, Fosfato Bicálcico, Hidrolisado de Fígado, Mannan-oligossacarídeos, Taurina, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Vitamina A, Vitamina D, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Corante Caramelo Natural, Antioxidante, Sorbato de Potássio, Zeolita.',
+  'alimento-peixe/7752':
+    'Farinha de vísceras de aves, Farinha de Peixe, Farinha de Carne e Ossos, Milho integral moído*, Quirera de Arroz, Farelo de glúten de Milho 60*, Levedura seca de Cervejaria, Semente de Linhaça, Psyllium, Fibra de Ervilha, Óleo de Frango, Óleo Vegetal, Óleo de Peixe, Cloreto de Sódio (Sal comum), Cloreto de Potássio, Fosfato Bicálcico, Hidrolisado de Fígado, Mannan-oligossacarídeos, Taurina, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Vitamina A, Vitamina D, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante (BHT/BHA), Sorbato de Potássio, Zeolita.',
+  'alimento-fihotes/7755':
+    'Farinha de Carne e Ossos, Farinha de vísceras de aves, Milho integral moído*, Quirera de Arroz, Farelo de glúten de milho-60*, Levedura seca de Cervejaria, Polpa de Beterraba, Semente de Linhaça, Farinha de Algas, Óleo de Frango, Óleo Vegetal, Óleo de Peixe, Cloreto de Sódio (Sal comum), Cloreto de Potássio, Fosfato Bicálcico, Hidrolisado de Fígado, Mannan-oligossacarídeos, Taurina, Ácido fólico, Biotina, Cloreto de colina, Niacina, Pantotenato de Cálcio, Vitamina A, Vitamina D, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Iodato de cálcio, Selenito de sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante, Sorbato de Potássio, Zeolita.',
+  'gato-alimento-completo-carne-beautypet/8500':
+    'Farinha de vísceras de aves, Farinha de carne e ossos bovinos, Milho integral moído*, Farelo de glúten de milho 60*, Farelo de trigo, Farelo de soja*, Óleo de frango, Semente de linhaça, Cloreto de sódio (sal comum), Taurina, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante (BHT/BHA), Antifúngico.',
+  'gato-alimento-completo-mix-beautypet/8504':
+    'Farinha de vísceras de aves, Farinha de carne e ossos bovinos, Milho integral moído*, Farelo de glúten de milho 60*, Farelo de trigo, Farelo de soja*, Óleo de frango, Semente de linhaça, Cloreto de sódio (sal comum), Taurina, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Corante Caramelo Natural, Antioxidante (BHT/BHA), Antifúngico.',
+  'alimento-completo-3/8510':
+    'Farinha de peixe, Farinha de vísceras de aves, Farinha de carne e ossos bovinos, Milho integral moído*, Farelo de glúten de milho 60*, Farelo de trigo, Farelo de soja*, Óleo de frango, Semente de linhaça, Cloreto de sódio (sal comum), Taurina, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante (BHT/BHA), Antifúngico.',
+  'alimento-completo-7/13872':
+    'Farinha de vísceras de aves, Farinha de carne e ossos bovinos, Milho integral moído*, Farelo de glúten de milho 60*, Farelo de trigo, Farelo de soja*, Óleo de frango, Semente de linhaça, Fibras especiais, L-Carnitina, Cloreto de sódio (sal comum), Taurina, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante (BHT/BHA), Antifúngico.',
+  'alimento-completo-8/13878':
+    'Farinha de carne e ossos bovinos, Farinha de vísceras de aves, Milho integral moído*, Farelo de glúten de milho 60*, Quirera de arroz, Farelo de soja*, Óleo de frango, Semente de linhaça, Cloreto de sódio (sal comum), Taurina, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante (BHT/BHA), Antifúngico.',
 };
 
 function capitalizeTitle(str: string): string {
@@ -1370,27 +1400,43 @@ export function parseProductFromHtml(
       : 'Adultos';
 
     let breedSizeLabel = '';
-    if (/pequenas?\s*e\s*m[ée]dias?|pequenos|rpm/i.test(fullText)) {
-      breedSizeLabel = 'Raças Pequenas e Médias';
-    } else if (/m[ée]dias?\s*e\s*grandes?|m[ée]dios?\s*e\s*grandes?|m[ée]dio\s*e\s*grande/i.test(fullText)) {
-      breedSizeLabel = 'Raças Médias e Grandes';
-    } else if (/ra[çc]as?\s*pequenas?|\brp\b/i.test(fullText)) {
-      breedSizeLabel = 'Raças Pequenas';
-    } else if (/ra[çc]as?\s*grandes?|\brg\b/i.test(fullText)) {
-      breedSizeLabel = 'Raças Grandes';
-    } else if (/ra[çc]as?\s*m[ée]dias?|\brm\b/i.test(fullText)) {
-      breedSizeLabel = 'Raças Médias';
+    if (speciesLabel === 'Cães') {
+      if (/pequenos?\s*e\s*minis?|pequenas?\s*e\s*minis?/i.test(fullText)) {
+        breedSizeLabel = 'Raças Pequenas e Minis';
+      } else if (/pequenas?\s*e\s*m[ée]dias?|pequenos|rpm/i.test(fullText)) {
+        breedSizeLabel = 'Raças Pequenas e Médias';
+      } else if (/m[ée]dias?\s*e\s*grandes?|m[ée]dios?\s*e\s*grandes?|m[ée]dio\s*e\s*grande/i.test(fullText)) {
+        breedSizeLabel = 'Raças Médias e Grandes';
+      } else if (/ra[çc]as?\s*pequenas?|\brp\b/i.test(fullText)) {
+        breedSizeLabel = 'Raças Pequenas';
+      } else if (/ra[çc]as?\s*grandes?|\brg\b/i.test(fullText)) {
+        breedSizeLabel = 'Raças Grandes';
+      } else if (/ra[çc]as?\s*m[ée]dias?|\brm\b/i.test(fullText)) {
+        breedSizeLabel = 'Raças Médias';
+      }
     }
 
     let flavorLabel = '';
     if (/carne.*frango|frango.*carne/i.test(fullText)) {
       flavorLabel = 'Carne, Frango e Arroz';
-    } else if (/salm[ãa]o/i.test(fullText)) {
+    } else if (/carne.*vegetais|vegetais/i.test(fullText)) {
+      flavorLabel = 'Carne e Vegetais';
+    } else if (/peixe\s*e\s*arroz/i.test(fullText)) {
+      flavorLabel = 'Peixe e Arroz';
+    } else if (/peixe/i.test(fullText)) {
+      flavorLabel = 'Peixe';
+    } else if (/salm[ãa]o\s*e\s*arroz/i.test(fullText) || /salm[ãa]o/i.test(fullText)) {
       flavorLabel = 'Salmão e Arroz';
+    } else if (/carne\s*e\s*leite|leite/i.test(fullText)) {
+      flavorLabel = 'Carne e Leite';
+    } else if (/mix/i.test(fullText)) {
+      flavorLabel = 'Mix';
     } else if (/frango\s*e\s*arroz/i.test(fullText) || /frango/i.test(fullText)) {
       flavorLabel = 'Frango e Arroz';
-    } else if (/carne\s*e\s*arroz/i.test(fullText) || /carne/i.test(fullText)) {
+    } else if (/carne\s*e\s*arroz/i.test(fullText)) {
       flavorLabel = 'Carne e Arroz';
+    } else if (/carne/i.test(fullText)) {
+      flavorLabel = 'Carne';
     }
 
     const nameParts = [brandName, lineName, speciesLabel, breedSizeLabel, lifeStageLabel, flavorLabel].filter(Boolean);
