@@ -25,7 +25,7 @@
 > - **SEMPRE USAR:** "Avaliação Técnica", "Análise de Rótulo", "Confronto Documental", "Laudo Técnico de Conformidade", "Verificação Nutricional", "Produtos Analisados", "Fichas Avaliadas", "Cadastrar / Analisar Produto", "Analisar Novo Produto".
 
 > ⚠️ **REGRA MANDATÓRIA 4 — FIDELIDADE RIGOROSA DE CITAÇÕES EM ESTUDOS E GUIAS (ZERO PRODUTOS ALEATÓRIOS)**  
-> Em qualquer artigo, estudo, duelo técnico ou guia bromatológico, a listagem e exibição do bloco "Produtos Analisados Citados neste Estudo" só pode conter produtos que foram formal e textualmente mencionados, confrontados ou avaliados na matéria.  
+> Em qualquer artigo, estudo, duelo técnico ou guia bromatológico, a listagem e exibição do bloco "Produtos analisados neste estudo" só pode conter produtos que foram formal e textualmente mencionados, confrontados ou avaliados na matéria.  
 > É estritamente vedada a inserção de produtos aleatórios ou meramente ilustrativos para "preencher espaço" visual. Artigos teóricos, conceituais, metodológicos ou didáticos sem menção a produtos cadastrados devem manter `relatedProductSlugs: []`, omitindo compulsoriamente a seção de produtos citados.
 
 > ⚠️ **REGRA MANDATÓRIA 5 — RIGOR PROBATÓRIO E TOLERÂNCIA ZERO A INFORMAÇÕES OU DADOS FICTÍCIOS EM ESTUDOS E GUIAS**  

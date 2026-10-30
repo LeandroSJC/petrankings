@@ -23,10 +23,7 @@ interface GuidePageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  const guides = getAllGuides();
-  return guides.map((g) => ({ slug: g.slug }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -84,7 +81,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
   let citedProducts: any[] = [];
   if (guide.relatedProductSlugs.length > 0) {
     try {
-      citedProducts = await prisma.product.findMany({
+      const foundProducts = await prisma.product.findMany({
         where: {
           slug: { in: guide.relatedProductSlugs },
           isPublished: true,
@@ -101,6 +98,10 @@ export default async function GuidePage({ params }: GuidePageProps) {
           containsGmo: true,
         },
       });
+      const productBySlug = new Map(foundProducts.map((p) => [p.slug, p]));
+      citedProducts = guide.relatedProductSlugs
+        .map((s) => productBySlug.get(s))
+        .filter(Boolean);
     } catch (error) {
       console.error(`Erro ao buscar produtos citados para o guia ${guide.slug}:`, error);
     }
@@ -593,7 +594,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
                   marginBottom: '16px',
                 }}
               >
-                Produtos Analisados Citados neste Estudo
+                Produtos analisados neste estudo
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
                 {citedProducts.map((p) => (

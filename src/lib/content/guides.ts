@@ -17,7 +17,7 @@
  *   Se o artigo/estudo for conceitual, didático, regulatório ou metodológico e não citar
  *   produtos específicos cadastrados no banco de dados, `relatedProductSlugs` DEVE ser
  *   obrigatoriamente um array vazio (`[]`). É terminantemente proibido inserir produtos
- *   aleatórios apenas para preencher o bloco "Produtos Analisados Citados neste Estudo".
+ *   aleatórios apenas para preencher o bloco "Produtos analisados neste estudo".
  * - PARIDADE E EQUILÍBRIO DE ESPÉCIES (INVARIANTE 14): Manter proporção equilibrada (1:1)
  *   entre publicações dedicadas a Cães e Gatos, alternando a esteira editorial e utilizando
  *   "Cães e Gatos" em estudos metodológicos transversais com exemplos de ambas as espécies.
@@ -83,7 +83,7 @@ export interface GuideItem {
    * no corpo do texto deste estudo/guia.
    * REGRA MANDATÓRIA: Se nenhum produto for citado no corpo do artigo/estudo,
    * este array DEVE ser vazio ([]). É terminantemente proibido inserir produtos aleatórios
-   * apenas para preencher visualmente o bloco "Produtos Analisados Citados neste Estudo".
+   * apenas para preencher visualmente o bloco "Produtos analisados neste estudo".
    */
   relatedProductSlugs: string[];
   sections: GuideSection[];
@@ -5337,7 +5337,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-29',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/hills-science-diet-vs-royal-canin-caes-pequenos-duel-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Para quem cria cães de porte pequeno ou mini em apartamento, a dúvida entre Hill\'s Science Diet Pequenos e Mini e Royal Canin Mini Adult é quase inevitável no consultório e no pet shop. Colocamos os rótulos oficiais lado a lado na Matéria Seca (MS) para mostrar onde cada fórmula se destaca em proteínas, ômega-3, controle de tártaro e conservantes.',
     relatedProductSlugs: [
@@ -5475,6 +5475,205 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer cruzar a Hill\'s Science Diet ou a Royal Canin com qualquer outra marca do mercado? Use o Comparador Técnico do PetRankings para confrontar cada nutriente em Matéria Seca.',
       buttonText: 'Abrir Comparador de Rações',
       buttonUrl: '/comparar',
+    },
+  },
+  {
+    slug: 'sodio-racao-gatos-castrados-rins-hidratacao',
+    title: 'Sódio na ração para gatos castrados: Vilão dos rins ou estímulo à hidratação?',
+    subtitle:
+      'Entenda por que fórmulas Super Premium para felinos castrados calibram o cloreto de sódio, o que dizem os estudos do WALTHAM e da FEDIAF sobre pressão arterial e como a diluição urinária evita cálculos.',
+    cluster: 'Nutrição & Bromatologia',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-30',
+    updatedAt: '2026-10-30',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/sodio-racao-gatos-castrados-hidratacao-cover.webp',
+    isFeatured: true,
+    summary:
+      'Ao virar o pacote de ração para gatos castrados e ler "cloreto de sódio (sal comum)" ou um teor de sódio entre 0,30% e 0,48%, muitos tutores se assustam achando que o sal vai atacar os rins ou subir a pressão do animal. A ciência nutricional da FEDIAF, da ABINPET e do instituto WALTHAM mostra uma realidade bem diferente para gatos saudáveis.',
+    relatedProductSlugs: [
+      'royal-canin-castrados',
+      'science-diet-adult-indoor-dry',
+      'premier-gatos-castrados-6-meses-a-6-anos-frango',
+      'proplan-gatos-sterilized',
+    ],
+    sections: [
+      {
+        id: 'por-que-gato-castrado-bebe-pouca-agua',
+        heading: '1. O ancestral do deserto no sofá: Por que o gato castrado bebe tão pouca água?',
+        paragraphs: [
+          'Quem tem gato em casa sabe que o bebedouro muitas vezes passa o dia quase intocado. Esse comportamento vem da evolução: o gato doméstico descende do gato-selvagem-africano (Felis lybica), um caçador de regiões áridas que obtinha cerca de 70% da água diretamente da carne das presas.',
+          'Por essa herança genética, o cérebro do felino possui um centro de sede muito menos sensível que o do cão ou do ser humano. Quando o gato passa a comer apenas ração seca (que tem entre 8% e 12% de umidade) e ainda é castrado, o desafio aumenta.',
+          'Após a castração, o gato reduz o nível de atividade física, caminha menos até o pote de água e passa a urinar com menor frequência. Na caixa de areia, isso se traduz em uma urina altamente concentrada, ambiente perfeito para que minerais como magnésio, fósforo e cálcio se agrupem formando cristais e cálculos na bexiga.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'O sinal prático na caixa de areia',
+          text: 'Torrões de xixi muito pequenos e escuros indicam que o gato está produzindo urina concentrada. Quanto maior a ingestão de água e a diluição urinária, menor o risco de obstrução uretral e cistite.',
+        },
+      },
+      {
+        id: 'papel-sodio-sede-diluicao-urinaria',
+        heading: '2. Como o sódio moderado estimula a sede e dilui a urina na prática',
+        paragraphs: [
+          'Quando você encontra o termo "cloreto de sódio" na lista de ingredientes de uma ração para gatos castrados, ele não está ali para salgar o alimento como fazemos na comida humana. O sódio é um eletrólito vital para a transmissão dos impulsos nervosos, batimentos cardíacos e equilíbrio de água nas células.',
+          'Nas fórmulas modernas para gatos castrados, os nutricionistas ajustam o sódio de forma milimétrica (geralmente entre 0,28% e 0,52% na Matéria Seca) para acionar suavemente os receptores de sede do gato. Com esse estímulo fisiológico natural, o animal vai mais vezes à fonte de água ao longo do dia.',
+          'Ao beber mais água, o volume de urina produzido aumenta e o tempo que o líquido fica parado na bexiga diminui. Na prática clínica, essa diluição reduz a chamada Supersaturação Relativa (RSS) da urina, impedindo que cristais de estruvita ou oxalato de cálcio tenham tempo de se cristalizar.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Por que o MAPA exige o nome "sal comum"?',
+          text: 'Pelo catálogo oficial de matérias-primas do MAPA (IN nº 110/2020), o cloreto de sódio purificado de grau nutricional deve ser declarado pelo nome técnico seguido ou não da expressão "sal comum", tratando-se de fonte mineral padronizada e livre de contaminantes.',
+        },
+      },
+      {
+        id: 'mito-pressao-alta-lesao-renal-waltham-fediaf',
+        heading: '3. O sódio da ração causa pressão alta ou doença renal em gatos saudáveis?',
+        paragraphs: [
+          'O medo do sódio nos tutores vem de uma associação direta com a medicina humana, onde o excesso de sal está ligado à hipertensão arterial. Porém, a fisiologia renal e vascular do gato saudável responde de maneira diferente da humana aos níveis nutricionais de sódio.',
+          'Pesquisas clínicas de longa duração conduzidas pelo Waltham Petcare Science Institute (WALTHAM) e revisadas pelo National Research Council (NRC) acompanharam gatos adultos e idosos saudáveis alimentados por até dois anos com dietas contendo até 1,50% de sódio na Matéria Seca (MS). O resultado comprovou que não houve aumento da pressão arterial nem deterioração da taxa de filtração dos rins.',
+          'Para colocar em perspectiva, a 11ª Edição do Manual Pet Food Brasil (ABINPET) e a FEDIAF estabelecem o piso mínimo de 0,08% MS de sódio para manutenção felina, enquanto o teto seguro científico chega a 1,50% MS. As rações Super Premium brasileiras para gatos castrados trabalham entre 0,28% MS e 0,52% MS, ou seja, cerca de um terço do limite máximo seguro.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Onde mora o perigo real de sódio para o gato?',
+          text: 'O risco verdadeiro não vem da ração balanceada para castrados, e sim de petiscos humanos como presunto, peito de peru, queijos e atum enlatado em salmoura, que ultrapassam 2,5% a 4,0% de sódio na Matéria Seca sem equilíbrio mineral.',
+        },
+      },
+      {
+        id: 'confronto-rotulos-sodio-materia-seca-castrados',
+        heading: '4. Confronto de rótulos em Matéria Seca (MS): O teor de sódio nas rações para castrados',
+        paragraphs: [
+          'Para mostrar como cada fabricante calibra os minerais na prática, comparamos quatro alimentos completos para gatos adultos castrados avaliados no banco de dados do PetRankings, convertendo os níveis de garantia para Matéria Seca (MS) após descontar a umidade de cada pacote.',
+          'Observe que a Royal Canin Castrados e a Hill\'s Science Diet Indoor Gatos Castrados adotam a estratégia de estímulo hídrico um pouco mais ativo, entregando respectivamente 0,52% MS (0,48% no rótulo) e 0,45% MS (0,41% no rótulo) de sódio mínimo, combinados com baixo teor de gordura para controle de peso.',
+          'Já a PremieR Gatos Castrados (6 meses a 6 anos) e a Purina Pro Plan Castrado Salmão trabalham em uma faixa mais conservadora de sódio, com 0,33% MS (0,30% no rótulo) e 0,28% MS (0,25% no rótulo), apoiando o controle urinário principalmente no ajuste de pH e na alta densidade proteica acima de 42% MS.',
+        ],
+        table: {
+          caption: 'Comparativo de Sódio e Minerais em Matéria Seca (MS): Rações para Gatos Castrados vs. Limites Oficiais',
+          headers: [
+            'Parâmetro Nutricional',
+            'Royal Canin Castrados (Umid. 8%)',
+            "Hill's Science Diet Indoor Castrados (Umid. 8%)",
+            'PremieR Castrados 6m a 6a (Umid. 10%)',
+            'Purina Pro Plan Castrado (Umid. 12%)',
+            'Referência ABINPET / FEDIAF',
+          ],
+          rows: [
+            ['Sódio (Mín.)', '0,52% MS (0,48% MN)', '0,45% MS (0,41% MN)', '0,33% MS (0,30% MN)', '0,28% MS (0,25% MN)', 'Mín. 0,08% | Teto seguro 1,50% MS'],
+            ['Fósforo (Mín.)', '0,87% MS (0,80% MN)', '0,77% MS (0,71% MN)', '0,93% MS (0,84% MN)', '0,91% MS (0,80% MN)', 'Mín. 0,50% MS'],
+            ['Matéria Mineral / Cinzas (Máx.)', '10,00% MS (9,2% MN)', '8,70% MS (8,0% MN)', '8,89% MS (8,0% MN)', '9,66% MS (8,5% MN)', 'Controle recomendado < 10% MS'],
+            ['Proteína Bruta (Mín.)', '38,04% MS (35,0% MN)', '36,10% MS (33,21% MN)', '42,22% MS (38,0% MN)', '43,18% MS (38,0% MN)', 'Mín. 26,0% MS'],
+            ['Extrato Etéreo / Gordura (Mín.)', '10,87% MS (10,0% MN)', '14,80% MS (13,62% MN)', '13,33% MS (12,0% MN)', '13,64% MS (12,0% MN)', 'Mín. 9,0% MS'],
+            ['Sistema Antioxidante', 'Sintético (BHA)', 'Natural (Tocoferóis/Alecrim)', 'Natural (Tocoferóis/Alecrim)', 'Natural (Tocoferóis/Alecrim)', 'Preferência Natural'],
+          ],
+        },
+      },
+      {
+        id: 'quando-restringir-sodio-doenca-renal-cardiaca',
+        heading: '5. Quando o sódio realmente deve ser restrito no comedouro do gato?',
+        paragraphs: [
+          'Se o sódio moderado (0,28% a 0,52% MS) é seguro e benéfico para o gato adulto castrado saudável, existem situações clínicas específicas em que o mineral precisa ser reduzido sob orientação veterinária.',
+          'Gatos diagnosticados com Doença Renal Crônica (DRC) avançada acompanhada de hipertensão arterial sistêmica, ou felinos com cardiopatias congestivas, perdem a capacidade plena de excretar o excesso de sódio pelos néfrons.',
+          'Nesses quadros clínicos, o médico veterinário prescreve um Alimento Coadjuvante Renal ou Cardíaco (regulamentado pela IN MAPA nº 39/2014), no qual o sódio é mantido estritamente próximo de 0,20% a 0,25% MS e o fósforo cai para menos de 0,45% MS.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Regra de ouro: Água fresca sempre disponível',
+          text: 'Para que o estímulo à sede da ração de gatos castrados funcione a favor do trato urinário, o gato precisa ter acesso permanente a água limpa e fresca em potes largos (que não encostem nos bigodes) ou fontes de água corrente, além do apoio de sachês úmidos na rotina.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Uma ração com 0,40% ou 0,48% de sódio no rótulo é salgada demais para o meu gato?',
+        a: 'Não. Convertido para Matéria Seca (MS), 0,40% a 0,48% equivale a 0,44% a 0,52% MS, patamar que representa cerca de um terço do limite máximo seguro estabelecido pelo NRC e pela FEDIAF (1,50% MS). Essa faixa é calibrada justamente para estimular o gato castrado a beber mais água e diluir a urina.',
+      },
+      {
+        q: 'Por que o rótulo mostra apenas o "Sódio (mín.)" e não o "Sódio (máx.)"?',
+        a: 'Pela legislação brasileira de rotulagem (IN MAPA nº 30/2009), os macrominerais essenciais como sódio e potássio são declarados obrigatoriamente pelo seu valor mínimo garantido para assegurar que o animal não sofra deficiência eletrolítica. Já o teto total de sais inorgânicos da fórmula é controlado na linha "Matéria Mineral (máx.)".',
+      },
+      {
+        q: 'Dar sachê úmido aumenta ainda mais o sódio da dieta do gato?',
+        a: 'Os sachês completos para gatos castrados são a melhor forma de hidratar o felino sem depender apenas do estímulo do sódio, pois entregam de 78% a 85% de água pura diretamente no alimento. Apenas evite sachês de baixa qualidade ou conservas humanas de peixe em salmoura.',
+      },
+      {
+        q: 'Gatos idosos (+7 e +11 anos) saudáveis podem comer ração com sódio moderado?',
+        a: 'Sim, desde que os exames renais e a pressão arterial estejam normais. Mesmo nas linhas sênior (7+ e 12+), o sódio costuma ficar entre 0,26% e 0,33% MS, mantendo boa hidratação enquanto o fósforo é reduzido para poupar os néfrons.',
+      },
+    ],
+    conclusion:
+      'O sódio presente nas rações completas de qualidade para gatos castrados não é um inimigo silencioso dos rins, mas sim uma ferramenta zootécnica respaldada pela ciência para vencer a baixa ingestão de água típica dos felinos domésticos. Enquanto os níveis permanecerem na faixa segura de 0,28% a 0,52% na Matéria Seca, acompanhados de fósforo controlado e potes de água fresca sempre cheios, o resultado prático é uma urina mais diluída e uma bexiga protegida contra cálculos urinários.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Tabelas de Padrões Nutricionais para Gatos em Manutenção: exigência mínima de sódio, cloro e potássio em Matéria Seca (MS)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'The European Pet Food Industry (FEDIAF)',
+        type: 'literatura',
+        url: 'https://fediaf.org/self-regulation/nutrition/',
+        details: 'Diretrizes de macrominerais para felinos adultos, balanço eletrolítico e limites nutricionais seguros de cloreto de sódio',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (2006)',
+        institution: 'National Research Council (NRC)',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Capítulo 6 (Minerais): Limite superior seguro (Safe Upper Limit) de sódio para gatos adultos (1,5% MS) e avaliação de segurança renal e pressórica',
+      },
+      {
+        title: 'Waltham Science: Dietary Sodium, Water Intake and Urine Dilution in Cats',
+        institution: 'Waltham Petcare Science Institute (WALTHAM)',
+        type: 'estudo',
+        url: 'https://www.waltham.com/',
+        details: 'Estudos clínicos de longo prazo sobre o efeito do sódio dietético moderado na ingestão hídrica voluntária, Supersaturação Relativa (RSS) urinária e ausência de impacto na pressão arterial e função renal de gatos saudáveis',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Padrões de declaração obrigatória de níveis de garantia e matérias-primas em Alimentos Completos para Gatos',
+      },
+      {
+        title: 'Ficha Oficial: Royal Canin Castrados',
+        institution: 'Royal Canin do Brasil Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://www.royalcanin.com/br/cats/products/retail-products/sterilised-37-2537',
+        details: 'Níveis de garantia declarados pelo fabricante: Sódio (mín.) 0,48% MN (0,52% MS), Fósforo (mín.) 0,80% MN e Umidade (máx.) 8,0%',
+      },
+      {
+        title: "Ficha Oficial: Hill's Science Diet Indoor para Gatos Adultos Castrados",
+        institution: "Hill's Pet Nutrition / Colgate-Palmolive",
+        type: 'rotulagem',
+        url: 'https://www.hillspet.com.br/cat-food/science-diet-adult-indoor-dry',
+        details: 'Níveis de garantia declarados pelo fabricante: Sódio 0,41% MN (0,45% MS), Fósforo 0,71% MN e Umidade (máx.) 8,0%',
+      },
+      {
+        title: 'Ficha Oficial: PremieR Gatos Castrados 6 meses a 6 anos Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://premierpet.com.br/produto/premier-gatos-castrados-6-meses-a-6-anos-frango/',
+        details: 'Níveis de garantia declarados pelo fabricante: Sódio (mín.) 0,30% MN (0,33% MS), Fósforo (mín.) 0,84% MN e Umidade (máx.) 10,0%',
+      },
+      {
+        title: 'Ficha Oficial: Purina Pro Plan Cuidado Excepcional Castrado com Salmão',
+        institution: 'Nestlé Brasil Ltda',
+        type: 'rotulagem',
+        url: 'https://purina.com.br/proplan/gatos/sterilized/produto',
+        details: 'Níveis de garantia declarados pelo fabricante: Sódio (mín.) 0,25% MN (0,28% MS), Fósforo (mín.) 0,80% MN e Umidade (máx.) 12,0%',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte o Teor de Sódio e Minerais no Catálogo',
+      text: 'Quer verificar os níveis de sódio, fósforo e matéria mineral da ração do seu gato em Matéria Seca (MS)? Acesse o catálogo completo de alimentos avaliados.',
+      buttonText: 'Explorar Rações para Gatos',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
