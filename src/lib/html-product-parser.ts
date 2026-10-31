@@ -130,6 +130,89 @@ const CURATED_INGREDIENTS_FALLBACKS: Record<string, string> = {
     'Carne Bovina, Carne de Peixe, Fígado de Frango, Farinha de Peixe, Taurina, Proteína Texturizada de Soja, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
   '13907':
     'Carne Bovina, Carne de Peixe, Fígado de Frango, Farinha de Peixe, Taurina, Proteína Texturizada de Soja, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+
+  // Rações Reis — Petiscos, Snacks, Bifinhos, Biscoitos e Mastigáveis
+  // Grupo A: Dental Care
+  '13782':
+    'Amido de milho, farinha de trigo, farinha de arroz, farinha de vísceras de aves, levedura de cervejaria inativada desidratada, óleo de aves, carne de aves, cloreto de sódio (sal comum), propilenoglicol, carboximetilcelulose sódica, hexametafosfato de sódio, aroma de menta, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidante natural (extrato de alecrim e tocoferóis), sorbato de potássio.',
+  '13788':
+    'Amido de milho, farinha de trigo, farinha de arroz, farinha de vísceras de aves, levedura de cervejaria inativada desidratada, óleo de aves, carne de aves, cloreto de sódio (sal comum), propilenoglicol, carboximetilcelulose sódica, hexametafosfato de sódio, aroma de menta, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidante natural (extrato de alecrim e tocoferóis), sorbato de potássio.',
+  '13795':
+    'Amido de milho, farinha de trigo, farinha de arroz, farinha de vísceras de aves, levedura de cervejaria inativada desidratada, óleo de aves, carne de aves, cloreto de sódio (sal comum), propilenoglicol, carboximetilcelulose sódica, hexametafosfato de sódio, aroma de menta, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidante natural (extrato de alecrim e tocoferóis), sorbato de potássio.',
+
+  // Grupo B: Snacks Funcionais e Naturais
+  '13803':
+    'Amido de mandioca, farinha de trigo, propilenoglicol, farinha de arroz, água, farinha de vísceras de aves, levedura de cerveja inativada desidratada, carne de aves, óleo de vísceras de aves, carboximetilcelulose sódica, cloreto de sódio, hidrolisado de fígado de aves, sulfato de condroitina, sulfato de glicosamina, colágeno hidrolisado, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidante natural (extrato de alecrim e tocoferóis), sorbato de potássio.',
+  '13808':
+    'Farinha de trigo, amido de mandioca, farinha de arroz, propilenoglicol, água, levedura de cerveja inativada desidratada, carboximetilcelulose sódica, cloreto de sódio, farinha de salmão, beterraba, óleo de canola refinado, grão de linhaça, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais, corante caramelo, antioxidantes (BHA e BHT), sorbato de potássio.',
+  '13812':
+    'Amido de mandioca, farinha de trigo, propilenoglicol, farinha de arroz, água, farinha de vísceras de aves, levedura de cerveja inativada desidratada, carne de aves, óleo de vísceras de aves, carboximetilcelulose sódica, cloreto de sódio, hidrolisado de fígado de aves, farelo de maracujá, extrato de valeriana, L-triptofano, vitaminas, minerais, antioxidantes (BHA e BHT), corante caramelo, sorbato de potássio.',
+  '13816':
+    'Amido de mandioca, farinha de trigo, propilenoglicol, farinha de arroz, farinha de vísceras de aves, levedura de cervejaria inativada desidratada, carne de aves, óleo de aves, cloreto de sódio, carboximetilcelulose sódica, corante caramelo IV, sacarose, hidrolisado de fígado de aves, maçã, banana, abóbora, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidante natural (extrato de alecrim e tocoferóis), sorbato de potássio.',
+  '13821':
+    'Amido de mandioca, farinha de trigo, propilenoglicol, farinha de arroz, farinha de vísceras de aves, levedura de cervejaria inativada desidratada, carne de aves, óleo de aves, cloreto de sódio, carboximetilcelulose sódica, corante caramelo IV, sacarose, hidrolisado de fígado de aves, maracujá, camomila, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidante natural (extrato de alecrim e tocoferóis), sorbato de potássio.',
+  '13824':
+    'Amido de mandioca, farinha de trigo, propilenoglicol, farinha de arroz, farinha de vísceras de aves, levedura de cervejaria inativada desidratada, carne de aves, óleo de aves, cloreto de sódio, carboximetilcelulose sódica, corante caramelo IV, sacarose, hidrolisado de fígado de aves, maçã, banana, abóbora, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidante natural (extrato de alecrim e tocoferóis), sorbato de potássio.',
+
+  // Grupo C: Osso Recheado
+  '13828':
+    'Amido de mandioca, farinha de trigo, água, farinha de arroz, farinha de vísceras de aves, levedura de cervejaria inativada desidratada, óleo de aves, cloreto de sódio (sal comum), propilenoglicol, carboximetilcelulose sódica, hidrolisado de fígado de aves, aroma artificial de carne, aroma artificial de bacon, hexametafosfato de sódio, vitaminas (A, B1, B2, B6, B9, B12, D3, E, biotina, niacina, pantotenato de cálcio, cloreto de colina), minerais (iodato de cálcio, selenito de sódio, sulfato ferroso, sulfato de cobre, óxido de zinco, óxido de manganês), antioxidantes (BHA, BHT e ácido cítrico), corante caramelo IV, sorbato de potássio.',
+
+  // Grupo D: Biscoitos Natural Pro
+  '13834':
+    'Farinha de trigo, arroz quebrado, fibra de trigo, grão de linhaça, farinha de vísceras de aves, gordura de frango, frutas vermelhas desidratadas (morango, amora e framboesa), hidrolisado de fígado suíno, sacarose, parede celular de levedura (MOS), hexametafosfato de sódio, extrato de Yucca schidigera, antioxidante natural (tocoferol e essência de alecrim), propionato de cálcio, cloreto de sódio (sal comum), bicarbonato de sódio.',
+  '13838':
+    'Farinha de trigo, arroz quebrado, fibra de trigo, grão de linhaça, farinha de vísceras de aves, gordura de frango, frutas vermelhas desidratadas (morango, amora e framboesa), hidrolisado de fígado suíno, sacarose, parede celular de levedura (MOS), hexametafosfato de sódio, extrato de Yucca schidigera, antioxidante natural (tocoferol e essência de alecrim), propionato de cálcio, cloreto de sódio (sal comum), bicarbonato de sódio.',
+  '13843':
+    'Farinha de trigo, arroz quebrado, fibra de trigo, grão de aveia, banana desidratada, farinha de vísceras de aves, gordura de frango, hidrolisado de fígado de suíno, sacarose, parede celular de levedura (MOS), hexametafosfato de sódio, extrato de Yucca schidigera, antioxidante natural (tocoferol e essência de alecrim), propionato de cálcio, cloreto de sódio (sal comum), bicarbonato de sódio.',
+
+  // Grupo E: Bifinhos Tradicionais
+  '13694':
+    'Carne industrial bovina, miúdos bovinos, carne mecanicamente separada de aves, miúdos suínos, proteína texturizada de soja, glicerina branca bidestilada USP, cloreto de sódio (sal comum), goma xantana, propilenoglicol, ácido sórbico, tripolifosfato de sódio, aroma de fumaça, farinha de arroz, pó húngaro, antioxidantes (BHT/BHA).',
+  '13704':
+    'Carne industrial bovina, miúdos bovinos, carne mecanicamente separada de aves, miúdos suínos, proteína texturizada de soja, glicerina branca bidestilada USP, cloreto de sódio (sal comum), goma xantana, propilenoglicol, ácido sórbico, tripolifosfato de sódio, aroma de fumaça, farinha de arroz, pó húngaro, antioxidantes (BHT/BHA).',
+  '13709':
+    'Carne bovina fresca, pulmão bovino, baço bovino, carne mecanicamente separada de aves, proteína texturizada de soja, farinha de carne e ossos, quirela de arroz, cenoura desidratada, alho em pó, gordura bovina, glicerina líquida, propilenoglicol, aroma de churrasco, cloreto de sódio (sal comum), goma xantana, tripolifosfato de sódio, hemoglobina, antioxidantes (BHA/BHT), corante vermelho.',
+  '13713':
+    'Carne bovina fresca, pulmão bovino, baço bovino, carne mecanicamente separada de aves, proteína texturizada de soja, farinha de carne e ossos, quirela de arroz, cenoura desidratada, alho em pó, gordura bovina, glicerina líquida, propilenoglicol, aroma de churrasco, cloreto de sódio (sal comum), goma xantana, tripolifosfato de sódio, hemoglobina, antioxidantes (BHA/BHT), corante vermelho.',
+  '13717':
+    'Carne bovina industrial, carne mecanicamente separada de frango, miúdos bovinos, miúdos de frango, proteína texturizada de soja, farinha de arroz, propilenoglicol USP, glicerina branca bidestilada, goma xantana, hidrolisado de fígado de frango, pó húngaro IV, ácido sórbico, cloreto de sódio (sal comum), tripolifosfato de sódio, antioxidantes (BHT/BHA), corantes artificiais amarelo tartrazina e amarelo crepúsculo.',
+  '13722':
+    'Carne bovina industrial, carne mecanicamente separada de frango, miúdos bovinos, miúdos de frango, proteína texturizada de soja, farinha de arroz, propilenoglicol USP, glicerina branca bidestilada, goma xantana, hidrolisado de fígado de frango, pó húngaro IV, ácido sórbico, cloreto de sódio (sal comum), tripolifosfato de sódio, antioxidantes (BHT/BHA), corantes artificiais amarelo tartrazina e amarelo crepúsculo.',
+  '13726':
+    'Carne mecanicamente separada de aves, miúdos bovinos, proteína texturizada de soja, amido de milho, glicerina bidestilada, aroma de picanha, aroma de fumaça, cloreto de sódio (sal comum), ácido sórbico, nitrito de sódio, tripolifosfato de sódio, eritorbato de sódio, maltodextrina, glutamato monossódico, corante vermelho 40, corante caramelo.',
+  '13730':
+    'Carne mecanicamente separada de aves, miúdos bovinos, proteína texturizada de soja, amido de milho, glicerina bidestilada, aroma de picanha, aroma de fumaça, cloreto de sódio (sal comum), ácido sórbico, nitrito de sódio, tripolifosfato de sódio, eritorbato de sódio, maltodextrina, glutamato monossódico, corante vermelho 40, corante caramelo.',
+  '13735':
+    'Carne industrial bovina, miúdos bovinos, carne mecanicamente separada de aves, miúdos suínos, proteína texturizada de soja, glicerina branca bidestilada USP, cloreto de sódio (sal comum), goma xantana, propilenoglicol, ácido sórbico, tripolifosfato de sódio, aroma de churrasco, farinha de arroz, pó húngaro, antioxidantes (BHT/BHA).',
+  '13740':
+    'Carne mecanicamente separada de aves, miúdos bovinos, proteína texturizada de soja, amido de milho, glicerina bidestilada, cloreto de sódio (sal comum), ácido sórbico, nitrito de sódio, tripolifosfato de sódio, eritorbato de sódio, maltodextrina, glutamato monossódico, aroma de leite, aroma de carne, corante vermelho 40, corante caramelo.',
+  '13744':
+    'Carne mecanicamente separada de aves, miúdos bovinos, proteína texturizada de soja, amido de milho, glicerina bidestilada, tripolifosfato de sódio, maltodextrina, cloreto de sódio (sal comum), aroma de menta, corante vermelho 40, corante caramelo, ácido sórbico, eritorbato de sódio, nitrito de sódio.',
+
+  // Grupo F: Biscoitos Tradicionais
+  '13756':
+    'Farinha de trigo, arroz quebrado, farinha de vísceras de aves, gordura de frango, hidrolisado de fígado suíno, sacarose, extrato natural de fumaça, antioxidante natural (tocoferol e essência de alecrim), propionato de cálcio, cloreto de sódio (sal comum), bicarbonato de sódio.',
+  '13763':
+    'Farinha de trigo, arroz quebrado, farinha de vísceras de aves, gordura de frango, hidrolisado de fígado suíno, sacarose, extrato natural de fumaça, antioxidante natural (tocoferol e essência de alecrim), propionato de cálcio, cloreto de sódio (sal comum), bicarbonato de sódio.',
+
+  // Grupo G: Ossos Palito e Nó
+  '13925':
+    'Raspa e pele conservada de bovino, quirela de arroz, fécula de mandioca, cloreto de sódio (sal comum).',
+  '13932':
+    'Raspa e pele conservada de bovino, quirela de arroz, fécula de mandioca, cloreto de sódio (sal comum).',
+  '13939':
+    'Raspa e pele conservada de bovino, quirela de arroz, fécula de mandioca, cloreto de sódio (sal comum).',
+  '13944':
+    'Raspa e pele conservada de bovino, quirela de arroz, fécula de mandioca, cloreto de sódio (sal comum).',
+  '13953':
+    'Subproduto bovino (couro bovino desidratado).',
+  '13957':
+    'Subproduto bovino (couro bovino desidratado).',
+  '13963':
+    'Subproduto bovino (couro bovino desidratado).',
+  '13968':
+    'Subproduto bovino (couro bovino desidratado).',
 };
 
 function capitalizeTitle(str: string): string {
@@ -571,6 +654,7 @@ export function parseProductFromHtml(
   const isNutrire = /nutrire\.ind\.br/i.test(sourceUrl) || /nutrire\.ind\.br/i.test(fallbackUrl);
   const isSpecialNutri = /specialnutri\.com\.br/i.test(sourceUrl) || /specialnutri/i.test(fallbackUrl);
   const isRacoesReis = /racoesreis\.com\.br/i.test(sourceUrl) || /racoesreis/i.test(fallbackUrl);
+  const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
     ? $('.post-img.gallery img.big-img[alt="3"]').attr('data-src') ||
@@ -584,7 +668,9 @@ export function parseProductFromHtml(
 
   let imageUrl =
     (isRacoesReis
-      ? $('.post-img img.big-img, article img.big-img').first().attr('data-src') ||
+      ? $('img.big-img.active').attr('data-src') ||
+        $('img.big-img').first().attr('data-src') ||
+        $('.post-img img.big-img, article img.big-img').first().attr('data-src') ||
         $('.post-img.gallery img.big-img[alt="1"]').attr('data-src') ||
         $('.post-img.gallery img.big-img[alt="1"]').attr('src') ||
         $('.post-img.gallery .thumbs img[id="1"]').attr('data-src') ||
@@ -1414,9 +1500,12 @@ export function parseProductFromHtml(
       lineName = '';
     }
 
+    const idMatch = sourceUrl.match(/\/(\d+)\//);
+    const id = idMatch ? idMatch[1] : '';
+
     const isWet = /pat[êe]|enlatado/i.test(fullText);
     const speciesLabel = /gato|gat-/i.test(fullText) ? 'Gatos' : 'Cães';
-    const lifeStageLabel = /castrad/i.test(fullText)
+    let lifeStageLabel = /castrad/i.test(fullText)
       ? 'Castrados'
       : /filhote|em crescimento/i.test(fullText)
       ? 'Filhotes'
@@ -1432,17 +1521,157 @@ export function parseProductFromHtml(
         breedSizeLabel = 'Raças Pequenas e Médias';
       } else if (/m[ée]dias?\s*e\s*grandes?|m[ée]dios?\s*e\s*grandes?|m[ée]dio\s*e\s*grande/i.test(fullText)) {
         breedSizeLabel = 'Raças Médias e Grandes';
-      } else if (/ra[çc]as?\s*pequenas?|\brp\b/i.test(fullText)) {
+      } else if (/ra[çc]as?\s*pequenas?|\brp\b|porte pequeno/i.test(fullText)) {
         breedSizeLabel = 'Raças Pequenas';
-      } else if (/ra[çc]as?\s*grandes?|\brg\b/i.test(fullText)) {
+      } else if (/ra[çc]as?\s*grandes?|\brg\b|porte grande/i.test(fullText)) {
         breedSizeLabel = 'Raças Grandes';
-      } else if (/ra[çc]as?\s*m[ée]dias?|\brm\b/i.test(fullText)) {
+      } else if (/ra[çc]as?\s*m[ée]dias?|\brm\b|porte m[ée]dio/i.test(fullText)) {
         breedSizeLabel = 'Raças Médias';
       }
     }
 
     let flavorLabel = '';
-    if (/carne.*frango|frango.*carne/i.test(fullText)) {
+    let formatLabel = isWet ? 'Patê' : '';
+
+    if (id === '13782') {
+      breedSizeLabel = 'Raças Grandes';
+      flavorLabel = 'Dental Care';
+      formatLabel = 'Petisco';
+    } else if (id === '13788') {
+      breedSizeLabel = 'Raças Pequenas';
+      flavorLabel = 'Dental Care';
+      formatLabel = 'Petisco';
+    } else if (id === '13795') {
+      breedSizeLabel = 'Raças Médias';
+      flavorLabel = 'Dental Care';
+      formatLabel = 'Petisco';
+    } else if (id === '13803') {
+      breedSizeLabel = '';
+      flavorLabel = 'Flex';
+      formatLabel = 'Snack Funcional';
+    } else if (id === '13808') {
+      breedSizeLabel = '';
+      flavorLabel = 'Sensitive';
+      formatLabel = 'Snack Funcional';
+    } else if (id === '13812') {
+      breedSizeLabel = '';
+      flavorLabel = 'Calming';
+      formatLabel = 'Snack Funcional';
+    } else if (id === '13816') {
+      breedSizeLabel = '';
+      flavorLabel = 'Digest Mamão e Banana';
+      formatLabel = 'Snack Natural';
+    } else if (id === '13821') {
+      breedSizeLabel = '';
+      flavorLabel = 'Relax Maracujá e Camomila';
+      formatLabel = 'Snack Natural';
+    } else if (id === '13824') {
+      breedSizeLabel = '';
+      flavorLabel = 'Fit Abóbora e Banana';
+      formatLabel = 'Snack Natural';
+    } else if (id === '13828') {
+      breedSizeLabel = '';
+      flavorLabel = 'Carne e Bacon';
+      formatLabel = 'Osso Recheado';
+    } else if (id === '13834') {
+      breedSizeLabel = 'Raças Pequenas e Minis';
+      flavorLabel = 'Frutas Vermelhas';
+      formatLabel = 'Biscoito';
+    } else if (id === '13838') {
+      breedSizeLabel = 'Raças Médias e Grandes';
+      flavorLabel = 'Frutas Vermelhas';
+      formatLabel = 'Biscoito';
+    } else if (id === '13843') {
+      breedSizeLabel = '';
+      lifeStageLabel = 'Filhotes';
+      flavorLabel = 'Banana e Aveia';
+      formatLabel = 'Biscoito';
+    } else if (id === '13694') {
+      breedSizeLabel = 'Raças Médias e Grandes';
+      flavorLabel = 'Carne';
+      formatLabel = 'Bifinho';
+    } else if (id === '13704') {
+      breedSizeLabel = 'Raças Pequenas e Minis';
+      flavorLabel = 'Carne';
+      formatLabel = 'Bifinho';
+    } else if (id === '13709') {
+      breedSizeLabel = 'Raças Médias e Grandes';
+      flavorLabel = 'Carne e Vegetais';
+      formatLabel = 'Bifinho';
+    } else if (id === '13713') {
+      breedSizeLabel = 'Raças Pequenas e Minis';
+      flavorLabel = 'Carne e Vegetais';
+      formatLabel = 'Bifinho';
+    } else if (id === '13717') {
+      breedSizeLabel = 'Raças Médias e Grandes';
+      flavorLabel = 'Frango';
+      formatLabel = 'Bifinho';
+    } else if (id === '13722') {
+      breedSizeLabel = 'Raças Pequenas e Minis';
+      flavorLabel = 'Frango';
+      formatLabel = 'Bifinho';
+    } else if (id === '13726') {
+      breedSizeLabel = 'Raças Médias e Grandes';
+      flavorLabel = 'Picanha';
+      formatLabel = 'Bifinho';
+    } else if (id === '13730') {
+      breedSizeLabel = 'Raças Pequenas e Minis';
+      flavorLabel = 'Picanha';
+      formatLabel = 'Bifinho';
+    } else if (id === '13735') {
+      breedSizeLabel = 'Raças Médias e Grandes';
+      flavorLabel = 'Churrasco';
+      formatLabel = 'Bifinho';
+    } else if (id === '13740') {
+      breedSizeLabel = '';
+      lifeStageLabel = 'Filhotes';
+      flavorLabel = 'Carne e Leite';
+      formatLabel = 'Bifinho';
+    } else if (id === '13744') {
+      breedSizeLabel = '';
+      flavorLabel = 'Menta Dental Fresh';
+      formatLabel = 'Bifinho';
+    } else if (id === '13756') {
+      breedSizeLabel = 'Raças Médias e Grandes';
+      flavorLabel = '';
+      formatLabel = 'Biscoito';
+    } else if (id === '13763') {
+      breedSizeLabel = 'Raças Pequenas e Minis';
+      flavorLabel = '';
+      formatLabel = 'Biscoito';
+    } else if (id === '13925') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Palito nº 06';
+      formatLabel = 'Mastigável';
+    } else if (id === '13932') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Palito nº 08';
+      formatLabel = 'Mastigável';
+    } else if (id === '13939') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Palito nº 10';
+      formatLabel = 'Mastigável';
+    } else if (id === '13944') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Palito nº 15 Unitário';
+      formatLabel = 'Mastigável';
+    } else if (id === '13953') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Nó 2/3';
+      formatLabel = 'Mastigável';
+    } else if (id === '13957') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Nó 3/4';
+      formatLabel = 'Mastigável';
+    } else if (id === '13963') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Nó 4/5';
+      formatLabel = 'Mastigável';
+    } else if (id === '13968') {
+      breedSizeLabel = '';
+      flavorLabel = 'Osso Nó 5/6';
+      formatLabel = 'Mastigável';
+    } else if (/carne.*frango|frango.*carne/i.test(fullText)) {
       flavorLabel = 'Carne, Frango e Arroz';
     } else if (/carne.*vegetais|vegetais/i.test(fullText)) {
       flavorLabel = 'Carne e Vegetais';
@@ -1465,8 +1694,6 @@ export function parseProductFromHtml(
     } else if (/carne/i.test(fullText)) {
       flavorLabel = 'Carne';
     }
-
-    const formatLabel = isWet ? 'Patê' : '';
 
     const nameParts = [brandName, lineName, speciesLabel, breedSizeLabel, lifeStageLabel, flavorLabel, formatLabel].filter(Boolean);
     rawName = nameParts.join(' ').replace(/\s+/g, ' ').trim();
@@ -1916,6 +2143,9 @@ export function parseProductFromHtml(
   if (isSpecialNutri) {
     legalCategory = 'ALIMENTO_COMPLETO';
   }
+  if (isRacoesReis && /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + commercialName)) {
+    legalCategory = 'ALIMENTO_COMPLEMENTAR';
+  }
 
   // 5. Extração de Composição e Garantias a partir do DOM
   let compText = isQuatree ? quatreeCompText : '';
@@ -2306,7 +2536,7 @@ export function parseProductFromHtml(
   }
 
   // Fallback curado para páginas onde o fabricante omitiu a composição no HTML
-  if ((!compText || compText.length < 15 || /dispon[íi]vel nos tamanhos/i.test(compText)) && (sourceUrl || racoesReisCompImg)) {
+  if ((!compText || compText.length < 15 || (compText.match(/,/g) || []).length < 2 || /dispon[íi]vel nos tamanhos/i.test(compText) || (isRacoesReis && isSnackOrTreat)) && (sourceUrl || racoesReisCompImg)) {
     for (const [key, val] of Object.entries(CURATED_INGREDIENTS_FALLBACKS)) {
       if ((sourceUrl && sourceUrl.includes(key)) || (racoesReisCompImg && racoesReisCompImg.includes(key))) {
         compText = val;
@@ -2316,7 +2546,7 @@ export function parseProductFromHtml(
   }
 
   // Validação estrita de ingredientes: se não contiver nenhum ingrediente zootécnico básico, descarta
-  if (compText && (/dispon[íi]vel nos tamanhos/i.test(compText) || !/farinha|carne|arroz|milho|ave|frango|peixe|gl[úu]ten|prote[íi]na|ovo|soja/i.test(compText))) {
+  if (compText && (/dispon[íi]vel nos tamanhos/i.test(compText) || !/farinha|carne|arroz|milho|ave|frango|peixe|gl[úu]ten|prote[íi]na|ovo|soja|subproduto|couro|bovin|raspa/i.test(compText))) {
     compText = '';
   }
 
