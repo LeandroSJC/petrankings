@@ -1,0 +1,98 @@
+{
+  "productId": "c788d8e05471b39d429f3154b",
+  "slug": "dog-excellence-essence-hi-premium-racas-pequenas-adulto-carne-e-frango",
+  "commercialName": "Dog Excellence Essence Hi-Premium Raças Pequenas Cães Adultos Carne e Frango",
+  "brand": "Dog Excellence",
+  "manufacturer": "Selecta Pet Care Ind. Com. Ltda",
+  "primarySource": {
+    "type": "PDF_OFICIAL",
+    "url": "https://excellencepetcare.com.br/wp-content/uploads/2026/08/3312-Dog-Excellence-Essence-Racas-Pequenas-Adulto.pdf",
+    "localFile": "custodia_documental/excellence/dog-excellence-essence-hi-premium-racas-pequenas-adulto-carne-e-frango.pdf",
+    "sha256": "b2a1bc3b260dbb42b6dc793fd8e93a9009e5a8fec95f3a20eeed272131ca6a23",
+    "retrievedAt": "2026-10-31T18:38:24.430Z"
+  },
+  "guaranteesDeclared": {
+    "umidadeMaxPct": 10,
+    "proteinaBrutaMinPct": 22,
+    "extratoEtereoMinPct": 10,
+    "materiaFibrosaMaxPct": 4,
+    "materiaMineralMaxPct": 8.5,
+    "calcioMinPct": 2,
+    "calcioMaxPct": null,
+    "fosforoMinPct": 0.7,
+    "sodioMinPct": 0.2,
+    "omega3MinPct": null
+  },
+  "rawIngredientsText": "Farinha de vísceras de frango, Farinha de carne e ossos de bovino, quirera de arroz, grão de milho transgênico, grão de sorgo, polpa de beterraba, levedura de cervejaria desidratada, gordura de frango, farelo de arroz desengordurado, hidrolisado de fígado de aves e suíno, cloreto de sódio, cloreto de potássio, BHA (Butilhidroxianisol propiônico, cloreto de colina, vitamina A, vitamina E, vitamina D3, vitamina K3, vitamina B1, vitamina B2, vitamina B6, vitamina B12, vitamina C, niacina, pantotenato de cálcio, biotina, ácido fólico, selenito de sódio, sulfato de ferro, sulfato de cobre, iodato de cálcio, óxido de zinco, sulfato de manganês, ferro aminoácido quelato, zinco aminoácido quelato, manganês aminoácido quelato, cobre aminoácido quelato, complexo selênio aminoácido",
+  "cleanIngredients": [
+    "Farinha de vísceras de frango",
+    "Farinha de carne e ossos de bovino",
+    "Quirera de arroz",
+    "Grão de milho transgênico",
+    "Grão de sorgo",
+    "Polpa de beterraba",
+    "Levedura de cervejaria desidratada",
+    "Gordura de frango",
+    "Farelo de arroz desengordurado",
+    "Hidrolisado de fígado de aves e suíno",
+    "Cloreto de sódio",
+    "Cloreto de potássio",
+    "BHA (Butilhidroxianisol propiônico",
+    "Cloreto de colina",
+    "Vitamina A",
+    "Vitamina E",
+    "Vitamina D3",
+    "Vitamina K3",
+    "Vitamina B1",
+    "Vitamina B2",
+    "Vitamina B6",
+    "Vitamina B12",
+    "Vitamina C",
+    "Niacina",
+    "Pantotenato de cálcio",
+    "Biotina",
+    "Ácido fólico",
+    "Selenito de sódio",
+    "Sulfato de ferro",
+    "Sulfato de cobre",
+    "Iodato de cálcio",
+    "Óxido de zinco",
+    "Sulfato de manganês",
+    "Ferro aminoácido quelato",
+    "Zinco aminoácido quelato",
+    "Manganês aminoácido quelato",
+    "Cobre aminoácido quelato",
+    "Complexo selênio aminoácido"
+  ],
+  "evaluation": {
+    "scoreTotal": 45,
+    "classificationTier": "SOB_OBSERVACAO",
+    "scoreBreakdown": [
+      {
+        "pilar": "Conformidade MS",
+        "pontos_obtidos": 25,
+        "pontos_max": 40,
+        "justificativa": "Base proteica (30 pts) com ajustes bromatológicos: Cinzas moderadas (9.44% MS fora do padrão Low Ash <= 8.5%) (-5)."
+      },
+      {
+        "pilar": "Balanço Ca:P",
+        "pontos_obtidos": 0,
+        "pontos_max": 20,
+        "justificativa": "Relação Ca:P calculada em 2.86:1 (desbalanceada com risco nutricional: < 1,0:1 ou > 2,0:1)."
+      },
+      {
+        "pilar": "Ingredientes Principais",
+        "pontos_obtidos": 20,
+        "pontos_max": 25,
+        "justificativa": "1º ingrediente nutritivo é proteína cárnea nobre de alta digestibilidade (Farinha de vísceras de frango) (+15); 2º ingrediente é proteína com alta fração óssea (Farinha de carne e ossos de bovino) (+5)."
+      },
+      {
+        "pilar": "Transparência e Atributos",
+        "pontos_obtidos": 0,
+        "pontos_max": 15,
+        "justificativa": "Uso de conservantes sintéticos BHA/BHT (+0). Presença declarada de ingredientes transgênicos (+0). Sem garantia expressa de Ômega-3 funcional ou prebióticos (+0)."
+      }
+    ],
+    "calculatedAt": "2026-10-31T18:38:24.430Z"
+  }
+}

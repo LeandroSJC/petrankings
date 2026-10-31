@@ -2600,6 +2600,11 @@ export function parseProductFromHtml(
     });
   }
 
+  // 5b-2. PetRankings Ficha Técnica Custodiada (.ingredients-box)
+  if (!compText && $('.ingredients-box').length > 0) {
+    compText = $('.ingredients-box').first().text().trim();
+  }
+
   // 5c. Elementor Off-Canvas / Abas Modernas (PremieRpet)
   if (!compText) {
     const elComp = $('[class*="e-off-canvas"][aria-label*="Composi"], div[aria-label*="Composi"]');

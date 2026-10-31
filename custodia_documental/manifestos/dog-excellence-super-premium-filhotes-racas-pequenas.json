@@ -1,0 +1,106 @@
+{
+  "productId": "cmtz1f9a27f8da72daae2f66",
+  "slug": "dog-excellence-super-premium-filhotes-racas-pequenas",
+  "commercialName": "Dog Excellence Super Premium Cães Filhotes Raças Pequenas",
+  "brand": "Dog Excellence",
+  "manufacturer": "Selecta Pet Care Ind. Com. Ltda",
+  "primarySource": {
+    "type": "PDF_OFICIAL",
+    "url": "https://excellencepetcare.com.br/wp-content/uploads/2022/05/Puppy-Filhote-Small-Breed.pdf",
+    "localFile": "custodia_documental/excellence/dog-excellence-super-premium-filhotes-racas-pequenas.pdf",
+    "sha256": "4f4cc4b8631ebb24ac05f4c42cab5fd365f12ccb45d4b10cfffb6697f19d834d",
+    "retrievedAt": "2026-10-31T18:38:34.423Z"
+  },
+  "guaranteesDeclared": {
+    "umidadeMaxPct": 9,
+    "proteinaBrutaMinPct": 30,
+    "extratoEtereoMinPct": 19,
+    "materiaFibrosaMaxPct": 3,
+    "materiaMineralMaxPct": 7.5,
+    "calcioMinPct": 1.6,
+    "calcioMaxPct": null,
+    "fosforoMinPct": 0.8,
+    "sodioMinPct": 0.2,
+    "omega3MinPct": null
+  },
+  "rawIngredientsText": "Farinha de vísceras de frango, arroz quebrado, milho integral e glúten de milho 60% transgênicos*, óleo de vísceras de frango, polpa de beterraba, levedura seca de cervejaria, semente de linhaça, ovo integral desidratado, óleo de soja**, óleo de salmão, hidrolisado de frango, parede celular de levedura, mananoligossacarídeos, frutoligossacarídeos, DL- metionina, L-lisina, cloreto de sódio (sal comum), cloreto de potássio, extrato de Yucca Schidigera, antioxidante (BHA e BHT), ácido propiônico, cloreto de colina, vitamina A, vitamina E, vitamina D3, vitamina K3, vitamina B1, vitamina B2, vitamina B6, vitamina B12, vitamina C, niacina, pantotenato de cálcio, biotina, ácido fólico, selenito de sódio, sulfato de ferro, sulfato de cobre, iodato de cálcio, óxido de zinco, sulfato de manganês, ferro quelatado, zinco quelatado, manganês quelatado, cobre quelatado, selênio quelatado",
+  "cleanIngredients": [
+    "Farinha de vísceras de frango",
+    "Arroz quebrado",
+    "Milho integral e glúten de milho 60% transgênicos",
+    "Óleo de vísceras de frango",
+    "Polpa de beterraba",
+    "Levedura seca de cervejaria",
+    "Semente de linhaça",
+    "Ovo integral desidratado",
+    "Óleo de soja",
+    "Óleo de salmão",
+    "Hidrolisado de frango",
+    "Parede celular de levedura",
+    "Mananoligossacarídeos",
+    "Frutoligossacarídeos",
+    "DL- metionina",
+    "L-lisina",
+    "Cloreto de sódio (sal comum)",
+    "Cloreto de potássio",
+    "Extrato de Yucca Schidigera",
+    "Antioxidante (BHA e BHT)",
+    "Ácido propiônico",
+    "Cloreto de colina",
+    "Vitamina A",
+    "Vitamina E",
+    "Vitamina D3",
+    "Vitamina K3",
+    "Vitamina B1",
+    "Vitamina B2",
+    "Vitamina B6",
+    "Vitamina B12",
+    "Vitamina C",
+    "Niacina",
+    "Pantotenato de cálcio",
+    "Biotina",
+    "Ácido fólico",
+    "Selenito de sódio",
+    "Sulfato de ferro",
+    "Sulfato de cobre",
+    "Iodato de cálcio",
+    "Óxido de zinco",
+    "Sulfato de manganês",
+    "Ferro quelatado",
+    "Zinco quelatado",
+    "Manganês quelatado",
+    "Cobre quelatado",
+    "Selênio quelatado"
+  ],
+  "evaluation": {
+    "scoreTotal": 80,
+    "classificationTier": "NIVEL_PRATA",
+    "scoreBreakdown": [
+      {
+        "pilar": "Conformidade MS",
+        "pontos_obtidos": 40,
+        "pontos_max": 40,
+        "justificativa": "Excelente adequação bromatológica na Matéria Seca (PB: 32.97% MS, Cinzas: 8.24% MS)."
+      },
+      {
+        "pilar": "Balanço Ca:P",
+        "pontos_obtidos": 10,
+        "pontos_max": 20,
+        "justificativa": "Relação Ca:P calculada em 2:1 (faixa aceitável de tolerância: 1,0:1 até 2,0:1)."
+      },
+      {
+        "pilar": "Ingredientes Principais",
+        "pontos_obtidos": 25,
+        "pontos_max": 25,
+        "justificativa": "1º ingrediente nutritivo é proteína cárnea nobre de alta digestibilidade (Farinha de vísceras de frango) (+15); 2º ingrediente nutritivo é carboidrato nobre de alta digestibilidade (Arroz quebrado) (+10)."
+      },
+      {
+        "pilar": "Transparência e Atributos",
+        "pontos_obtidos": 5,
+        "pontos_max": 15,
+        "justificativa": "Uso de conservantes sintéticos BHA/BHT (+0). Presença declarada de ingredientes transgênicos (+0). Inclusão garantida de Ômega-3 funcional ou prebióticos (+5)."
+      }
+    ],
+    "calculatedAt": "2026-10-31T18:38:34.423Z"
+  }
+}
