@@ -186,10 +186,10 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
       : 'Como ressalvas na análise de aditivos, constatam-se a presença de conservantes químicos sintéticos (BHA/BHT) e o emprego de cereais transgênicos.';
 
   // -------------------------------------------------------------------------
-  // 3.1 NÍVEL DIAMANTE / NÍVEL OURO (Score >= 80)
+  // 3.1 NÍVEL OURO (Score >= 90)
   // -------------------------------------------------------------------------
-  if (score >= 80) {
-    const faixaLabel = classificationTier === 'NIVEL_DIAMANTE' || score >= 95 ? 'Nível Diamante' : 'Nível Ouro';
+  if (score >= 90) {
+    const faixaLabel = 'Nível Ouro';
     const mineralBalanço =
       relCaP !== null
         ? ` Relação cálcio:fósforo perfeitamente balanceada em ${relCaP}:1, dentro da faixa ideal da ABINPET.`
@@ -203,14 +203,29 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
   }
 
   // -------------------------------------------------------------------------
-  // 3.2 NÍVEL PRATA / NÍVEL BRONZE (Score 60 a 79)
+  // 3.2 NÍVEL PRATA (Score 75 a 89)
   // -------------------------------------------------------------------------
-  if (score >= 60) {
-    const faixaLabel = score >= 70 ? 'Nível Prata' : 'Nível Bronze';
+  if (score >= 75) {
+    const faixaLabel = 'Nível Prata';
     const caPStr =
       relCaP !== null
         ? relCaP >= 1.0 && relCaP <= 2.0
           ? ` Apresenta relação cálcio:fósforo calculada em ${relCaP}:1 (faixa tolerada).`
+          : ` Apresenta relação cálcio:fósforo calculada em ${relCaP}:1, fora da proporção recomendada.`
+        : '';
+
+    return `A ${commercialName} obteve a classificação ${faixaLabel} (${score} pts) ao demonstrar excelente atendimento aos parâmetros da 11ª Edição do Manual ABINPET na matéria seca (${pbMS}% de proteína bruta).${ingredienteStr}${caPStr} ${aditivosFrase}`;
+  }
+
+  // -------------------------------------------------------------------------
+  // 3.3 NÍVEL BRONZE (Score 60 a 74)
+  // -------------------------------------------------------------------------
+  if (score >= 60) {
+    const faixaLabel = 'Nível Bronze';
+    const caPStr =
+      relCaP !== null
+        ? relCaP >= 1.0 && relCaP <= 2.0
+          ? ` Apresenta relação cálcio:fósforo calculada em ${relCaP}:1 (faixa aceitável de tolerância).`
           : ` Apresenta relação cálcio:fósforo calculada em ${relCaP}:1, fora da proporção recomendada.`
         : '';
 

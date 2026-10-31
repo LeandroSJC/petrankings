@@ -356,9 +356,9 @@ export default async function ProductDetailPage({
   const badgeMineral: StatusBadgeInfo =
     product.mineralMatterMaxPct <= 0
       ? getStatusBadge('NAO_DECLARADO', 'Não Declarado')
-      : mineralMS <= 8.5
+      : mineralMS <= abinpetPadrao.materiaMineralNobreLowAshMS
       ? getStatusBadge('ADEQUADO', 'Low Ash')
-      : mineralMS <= 10.0
+      : mineralMS <= abinpetPadrao.materiaMineralTetoSeguroMS
       ? getStatusBadge('LIMITROFE', 'Moderado')
       : getStatusBadge('ALERTA', 'Cinzas Elevadas');
 
@@ -1031,7 +1031,11 @@ export default async function ProductDetailPage({
                         </div>
                       )}
                     </td>
-                    <td>Máximo recomendado: até 8.0-8.5% MS (Low Ash)</td>
+                    <td>
+                      {product.foodType === 'UMIDO'
+                        ? `Low Ash úmido: até ${abinpetPadrao.materiaMineralNobreLowAshMS.toFixed(1)}% MS (Teto seguro: ${abinpetPadrao.materiaMineralTetoSeguroMS.toFixed(1)}% MS)`
+                        : `Máximo recomendado: até ${abinpetPadrao.materiaMineralNobreLowAshMS.toFixed(1)}% MS (Low Ash)`}
+                    </td>
                   </tr>
                   <tr>
                     <td><strong>Cálcio (Mín. / Máx.)</strong></td>
