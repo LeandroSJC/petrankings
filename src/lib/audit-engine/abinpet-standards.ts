@@ -125,11 +125,18 @@ export function getAbinpetStandard(
   if (foodType === 'UMIDO') {
     // Em alimentos úmidos (80% a 88% de umidade), a baixa fração de sólidos (12% a 20% MS)
     // amplifica matematicamente os limites analíticos de segurança declarados na Matéria Natural.
-    // Em conformidade com as diretrizes internacionais da FEDIAF (2025) e NRC (2006),
-    // o teto nutricional seguro de cálcio em Matéria Seca para dietas úmidas é de até 3,00% MS.
+    // Conforme as diretrizes internacionais da FEDIAF (2025) e NRC (2006):
+    // 1. O teto de tolerância fisiológica de cálcio em Matéria Seca para dietas úmidas é de até 3,00% MS.
+    // 2. Em felinos adultos sob dietas úmidas, a ingestão volêmica mais alta atende à exigência
+    //    fisiológica de cálcio a partir de 0,50% MS (FEDIAF 100 kcal / NRC AI).
+    // 3. Padrão de cinzas/matéria mineral em úmidos: Low Ash (carnes/filés limpos) <= 10.0% MS,
+    //    teto aceitável antes de alerta de excesso ósseo de carcaça <= 13.5% MS.
     return {
       ...baseStandard,
+      calcioMinMS: !isFilhote && espKey === 'GATO' ? Math.min(baseStandard.calcioMinMS, 0.50) : baseStandard.calcioMinMS,
       calcioMaxSeguroMS: Math.max(baseStandard.calcioMaxSeguroMS, 3.00),
+      materiaMineralNobreLowAshMS: 10.0,
+      materiaMineralTetoSeguroMS: 13.5,
     };
   }
 

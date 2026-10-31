@@ -389,7 +389,9 @@ export function extractCalciumPrecise(garText: string, foodType: 'SECO' | 'UMIDO
     if (trailingText) {
       const pctMatch = trailingText.match(/^\s*(?::|\/|\(|-)?\s*(\d+(?:[\.,]\d+)?)\s*%\s*\)?/);
       if (pctMatch) {
-        return parseNutritionNumber(pctMatch[1]);
+        // Em porcentagens nutricionais (ex: "1,134%"), a vírgula/ponto é sempre separador decimal, nunca milhar!
+        const pctClean = pctMatch[1].replace(',', '.');
+        return parseFloat(pctClean);
       }
       if (!unitStr) {
         const uMatch = trailingText.match(/^\s*(?::|\/|\(|-)?\s*(%|g\/kg|mg\/kg|mg|g)\b/i);
@@ -412,7 +414,13 @@ export function extractCalciumPrecise(garText: string, foodType: 'SECO' | 'UMIDO
     return val;
   };
 
-  const clauses = garText
+  // Pré-segmenta garText inserindo quebra de linha antes de nomes de nutrientes para páginas onde todas as garantias vêm na mesma linha
+  const normalizedGarText = garText.replace(
+    /(?<=\S)\s+(?=(?:Umidade|Prote[íi]na|Extrato|Mat[ée]ria|C[áa]lcio|F[óo]sforo|S[óo]dio|Pot[áa]ssio|Magn[ée]sio|Taurina|Metionina|Ômega|Energia)\b)/gi,
+    '\n'
+  );
+
+  const clauses = normalizedGarText
     .split(/(?:[\r\n;]+|,(?!\s*\d))/i)
     .map(c => c.trim())
     .filter(Boolean);
@@ -422,7 +430,7 @@ export function extractCalciumPrecise(garText: string, foodType: 'SECO' | 'UMIDO
   );
 
   const fullCaContext = caClauses.length > 0 ? caClauses.join(' ; ') : (() => {
-    const m = garText.match(/(?<!\b(?:de|pantotenato|iodato|carbonato|sulfato|aluminossilicato|aluminosilicato|propionato)\s+)\bc[áa]lcio\b[\s\S]{0,180}?(?=(?:f[óo]sforo|s[óo]dio|umidade|prote[íi]na|extrato|mat[ée]ria|cinzas|[\r\n]|$))/i);
+    const m = normalizedGarText.match(/(?<!\b(?:de|pantotenato|iodato|carbonato|sulfato|aluminossilicato|aluminosilicato|propionato)\s+)\bc[áa]lcio\b[\s\S]{0,180}?(?=(?:f[óo]sforo|s[óo]dio|umidade|prote[íi]na|extrato|mat[ée]ria|cinzas|[\r\n]|$))/i);
     return m ? m[0] : '';
   })();
 
@@ -430,7 +438,7 @@ export function extractCalciumPrecise(garText: string, foodType: 'SECO' | 'UMIDO
     const pcts: number[] = [];
     const pctMatches = fullCaContext.matchAll(/(\d+(?:[\.,]\d+)?)\s*%/g);
     for (const pm of pctMatches) {
-      pcts.push(parseNutritionNumber(pm[1]));
+      pcts.push(parseFloat(pm[1].replace(',', '.')));
     }
 
     // 2. Check if context has a compound min/max label: e.g. "Cálcio (mín./máx.)" or "Cálcio (mín/máx)" or "Cálcio (mín. - máx.)"

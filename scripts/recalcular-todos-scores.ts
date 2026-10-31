@@ -1,9 +1,13 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import prisma from '../src/lib/prisma';
+import { parseProductFromHtml } from '../src/lib/html-product-parser';
 import { calcularScoreAnaliseRotulo } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
 
 async function main() {
-  console.log('🔄 [PetRankings] Recalculando scores com o Motor Nutricional Calibrado (ABINPET 11ª Ed., MAPA, FEDIAF)...\n');
+  const isDryRun = process.argv.includes('--dry-run');
+  console.log(`🔄 [PetRankings] Recalculando scores com sincronização de custódia HTML (${isDryRun ? 'SIMULAÇÃO / DRY-RUN' : 'APLICAR NO BANCO'})...\n`);
 
   const products = await prisma.product.findMany({
     where: {
@@ -15,17 +19,53 @@ async function main() {
 
   let atualizados = 0;
   let inalterados = 0;
+  let garantiasSincronizadas = 0;
 
   for (const p of products) {
+    let htmlPath = p.sourceDocumentUrl
+      ? path.join(process.cwd(), 'public', p.sourceDocumentUrl)
+      : path.join(process.cwd(), 'public', 'uploads', `ficha_${p.id}.html`);
+
+    if (!fs.existsSync(htmlPath)) {
+      htmlPath = path.join(process.cwd(), 'public', 'uploads', `ficha_${p.id}.html`);
+    }
+
+    let parsed: any = null;
+    if (fs.existsSync(htmlPath)) {
+      try {
+        const html = fs.readFileSync(htmlPath, 'utf8');
+        parsed = parseProductFromHtml(html, p.sourceUrl);
+      } catch (err) {
+        // Fallback to DB fields
+      }
+    }
+
+    const umidade = parsed ? parsed.umidadeMaxPct : (p.moistureMaxPct ?? (p.foodType === 'UMIDO' ? 82 : 10));
+    const pb = parsed ? parsed.proteinaBrutaMinPct : p.crudeProteinMinPct;
+    const ee = parsed ? parsed.extratoEtereoMinPct : p.etherExtractMinPct;
+    const fb = parsed ? parsed.materiaFibrosaMaxPct : p.crudeFiberMaxPct;
+    const mm = parsed ? parsed.materiaMineralMaxPct : p.mineralMatterMaxPct;
+    const caMin = parsed ? parsed.calcioMinPct : p.calciumMinPct;
+    const caMax = parsed ? parsed.calcioMaxPct : p.calciumMaxPct;
+    const pMin = parsed ? parsed.fosforoMinPct : p.phosphorusMinPct;
+    const sodio = parsed ? parsed.sodioMinPct : p.sodiumMinPct;
+    const omega = parsed ? parsed.omega3MinPct : p.omega3MinPct;
+    const gmo = parsed ? parsed.containsGmo : p.containsGmo;
+    const antioxidant = parsed ? parsed.antioxidantType : p.antioxidantType;
+
     let ingredients: string[] = [];
-    try {
-      ingredients = Array.isArray(p.topIngredients)
-        ? p.topIngredients
-        : JSON.parse(p.topIngredients || '[]');
-    } catch {
-      ingredients = p.topIngredients
-        ? p.topIngredients.split(',').map((s) => s.trim())
-        : [];
+    if (parsed && Array.isArray(parsed.topIngredientsList) && parsed.topIngredientsList.length > 0) {
+      ingredients = parsed.topIngredientsList;
+    } else {
+      try {
+        ingredients = Array.isArray(p.topIngredients)
+          ? p.topIngredients
+          : JSON.parse(p.topIngredients || '[]');
+      } catch {
+        ingredients = p.topIngredients
+          ? p.topIngredients.split(',').map((s) => s.trim())
+          : [];
+      }
     }
 
     const isFilhote = p.lifeStage === 'CRESCIMENTO_INICIAL' || p.lifeStage === 'CRESCIMENTO_FINAL' || p.lifeStage === 'FILHOTE';
@@ -37,16 +77,16 @@ async function main() {
     );
 
     const garantias = {
-      umidadeMaxPct: p.moistureMaxPct ?? (isWet ? 82 : 10),
-      proteinaBrutaMinPct: p.crudeProteinMinPct,
-      extratoEtereoMinPct: p.etherExtractMinPct,
-      materiaFibrosaMaxPct: p.crudeFiberMaxPct,
-      materiaMineralMaxPct: p.mineralMatterMaxPct,
-      calcioMinPct: p.calciumMinPct,
-      calcioMaxPct: p.calciumMaxPct,
-      fosforoMinPct: p.phosphorusMinPct,
-      sodioMinPct: p.sodiumMinPct,
-      omega3MinPct: p.omega3MinPct,
+      umidadeMaxPct: umidade,
+      proteinaBrutaMinPct: pb,
+      extratoEtereoMinPct: ee,
+      materiaFibrosaMaxPct: fb,
+      materiaMineralMaxPct: mm,
+      calcioMinPct: caMin,
+      calcioMaxPct: caMax,
+      fosforoMinPct: pMin,
+      sodioMinPct: sodio,
+      omega3MinPct: omega,
     };
 
     const audit = calcularScoreAnaliseRotulo(
@@ -55,11 +95,11 @@ async function main() {
       garantias,
       {
         topIngredientes: ingredients,
-        antioxidanteTipo: (p.antioxidantType as any) || 'SINTETICO',
-        containsGmo: p.containsGmo,
+        antioxidanteTipo: (antioxidant as any) || 'SINTETICO',
+        containsGmo: gmo,
         omega3OuPrebioticosGarantidos: isWet
-          ? (p.omega3MinPct ?? 0) >= 0.015
-          : (p.omega3MinPct ?? 0) >= 0.2,
+          ? (omega ?? 0) >= 0.015
+          : (omega ?? 0) >= 0.2,
         claimCarneTipo: (p.meatClaimType as any) || 'COM_CARNE',
         claimCarneAdequado: true,
         foodType: p.foodType as any,
@@ -69,22 +109,35 @@ async function main() {
       p.foodType as any
     );
 
-    const mudou = audit.scoreTotal !== p.scoreTotal || audit.classificacaoFaixa !== p.classificationTier;
+    const caMaxDiff = caMax !== p.calciumMaxPct;
+    const omegaDiff = (omega ?? null) !== (p.omega3MinPct ?? null);
+    const scoreDiff = audit.scoreTotal !== p.scoreTotal || audit.classificacaoFaixa !== p.classificationTier;
 
-    if (mudou) {
+    if (caMaxDiff || omegaDiff) {
+      garantiasSincronizadas++;
+    }
+
+    if (scoreDiff || caMaxDiff || omegaDiff) {
       atualizados++;
-      await prisma.product.update({
-        where: { id: p.id },
-        data: {
-          scoreTotal: audit.scoreTotal,
-          classificationTier: audit.classificacaoFaixa,
-          scoreBreakdown: audit.extratoPontos as any,
-          calculatedAt: new Date(),
-        },
-      });
+      if (!isDryRun) {
+        await prisma.product.update({
+          where: { id: p.id },
+          data: {
+            scoreTotal: audit.scoreTotal,
+            classificationTier: audit.classificacaoFaixa,
+            scoreBreakdown: audit.extratoPontos as any,
+            calciumMinPct: caMin,
+            calciumMaxPct: caMax,
+            omega3MinPct: omega,
+            sodiumMinPct: sodio,
+            topIngredients: JSON.stringify(ingredients),
+            calculatedAt: new Date(),
+          },
+        });
+      }
 
-      if (atualizados <= 15 || atualizados % 100 === 0) {
-        console.log(`[${atualizados}] ${p.commercialName}: ${p.scoreTotal} (${p.classificationTier}) ➔ ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
+      if (atualizados <= 15 || atualizados % 100 === 0 || p.slug.includes('dogchow-adultos-todos-os-tamanhos-sabor-cordeiro')) {
+        console.log(`[${atualizados}] ${p.commercialName} (${p.slug}): ${p.scoreTotal} (${p.classificationTier}) ➔ ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
       }
     } else {
       inalterados++;
@@ -92,9 +145,10 @@ async function main() {
   }
 
   console.log(`\n======================================================`);
-  console.log(`✅ Recálculo concluído com sucesso!`);
-  console.log(`📊 Atualizados no PostgreSQL: ${atualizados}`);
-  console.log(`⏸️ Inalterados (já estavam precisos): ${inalterados}`);
+  console.log(`✅ Processamento concluído!`);
+  console.log(`📊 Atualizados: ${atualizados}`);
+  console.log(`🔄 Garantias ressincronizadas do HTML: ${garantiasSincronizadas}`);
+  console.log(`⏸️ Inalterados: ${inalterados}`);
   console.log(`======================================================\n`);
 }
 

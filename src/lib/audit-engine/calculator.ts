@@ -13,6 +13,10 @@ import { getAbinpetStandard } from './abinpet-standards';
 /** Palavras-chave para identificação de fontes nobres e proteínas cárneas */
 const CARNE_E_OSSOS_REGEX = /farinha\s+de\s+(?:carne\s+e\s+ossos?|ossos?|subprodutos)/i;
 const PALATABILIZANTE_REGEX = /^(?:hidrolisado\s+de\s+(?:f[ií]gado|aves|su[ií]no|frango)|palatabilizante|digest)\b/i;
+const CMS_OU_CARCACA_REGEX = /(?:carne\s+mecanicamente\s+separada|\bcms\b|carca[cç]a|pesco[çc]o|cabe[cç]a\s+de\s+frango)/i;
+const LIPIDEOS_FUNCIONAIS_NOBRES_REGEX = /(?:[óo]leo\s+de\s+(?:peixe|salm[aã]o|linha[cç]a|frango)|gordura\s+de\s+frango)/i;
+const EXTENSORES_VEGETAIS_UMIDO_REGEX = /(?:gl[uú]ten\s+de\s+trigo|prote[íi]na\s+(?:concentrada|isolada)\s+de\s+soja|amido|dextrose|farinha\s+de\s+trigo)/i;
+const ADITIVOS_CORANTES_ACUCARES_REGEX = /(?:corante|caramelo|dextrose|xarope|a[cç][uú]car|sacarose|glicose)/i;
 
 const PROTEINAS_NOBRES_REGEX =
   /(farinha\s+de\s+(?:v[ií]sceras|frango|aves|peixe|salm[aã]o|cordeiro|peru|su[ií]no|torresmo|til[aá]pia|bacalhau|truta|pato))|(torresmo)|(plasma(\s+sangu[ií]neo)?(\s+desidratado)?)|(albumina(\s+de\s+ovo)?)|(prote[ií]na\s+(?:hidrolisada|isolada|concentrada)?\s*(?:de|animal)?\s*(?:su[ií]no|frango|aves|peixe|carne|salm[aã]o|soro|leite))|((?<!aroma\s+(?:de\s+)?|sabor\s+(?:de\s+)?)\bcarne\b)|(\b(?:fil[eé]|peito|peda[cç]os?|iscas?|lombinho)\s+de\s+[a-zÀ-ÿ]+)|(ovo\s+(?:em\s+p[oó]|desidratado|integral)?)|((?<![óo]leo\s+de\s+|gordura\s+de\s+|aroma\s+(?:de\s+)?|sabor\s+(?:de\s+)?)\b(?:til[aá]pia|peixe|peixes|peixe-branco|salm[aã]o|atum|sardinha|arenque|bacalhau|truta)\b)/i;
@@ -103,31 +107,29 @@ export function calcularScoreAnaliseRotulo(
     // 2. Penalidades Bromatológicas (Cinzas e Limítrofes)
     let penalidades = 0;
     const notasPenalidades: string[] = [];
-    const umidade = garantias.umidadeMaxPct ?? 10;
+    const umidade = garantias.umidadeMaxPct ?? (foodType === 'UMIDO' ? 82 : 10);
     const divisor = (100 - umidade) / 100;
     const mineralMS = Number(((garantias.materiaMineralMaxPct ?? 0) / (divisor > 0 ? divisor : 1)).toFixed(2));
 
-    if (foodType === 'SECO') {
-      // Excesso de Cinzas / Matéria Mineral (> 10.0% MS) conforme IN MAPA nº 34/2008
-      if (mineralMS > standard.materiaMineralTetoSeguroMS) {
-        penalidades += 10;
-        notasPenalidades.push(`Cinzas elevadas (${mineralMS}% MS > ${standard.materiaMineralTetoSeguroMS}% máx) indicando fração óssea excessiva (-10)`);
-      } else if (mineralMS > standard.materiaMineralNobreLowAshMS) {
-        penalidades += 5;
-        notasPenalidades.push(`Cinzas moderadas (${mineralMS}% MS fora do padrão Low Ash <= ${standard.materiaMineralNobreLowAshMS}%) (-5)`);
-      }
+    // Excesso de Cinzas / Matéria Mineral conforme IN MAPA nº 34/2008 e FEDIAF 2025
+    if (mineralMS > standard.materiaMineralTetoSeguroMS) {
+      penalidades += 10;
+      notasPenalidades.push(`Cinzas elevadas (${mineralMS}% MS > ${standard.materiaMineralTetoSeguroMS}% máx) indicando fração óssea excessiva (-10)`);
+    } else if (mineralMS > standard.materiaMineralNobreLowAshMS) {
+      penalidades += 5;
+      notasPenalidades.push(`Cinzas moderadas (${mineralMS}% MS fora do padrão Low Ash <= ${standard.materiaMineralNobreLowAshMS}%) (-5)`);
+    }
 
-      // Cálcio máximo na faixa limítrofe do teto seguro (>= 92% do teto)
-      if (ms.calcioMaxPct && ms.calcioMaxPct >= standard.calcioMaxSeguroMS * 0.92) {
-        penalidades += 5;
-        notasPenalidades.push(`Cálcio máximo (${ms.calcioMaxPct}% MS) na faixa limítrofe do teto toxicológico (-5)`);
-      }
+    // Cálcio máximo na faixa limítrofe do teto seguro (>= 92% do teto)
+    if (ms.calcioMaxPct && ms.calcioMaxPct >= standard.calcioMaxSeguroMS * 0.92) {
+      penalidades += 5;
+      notasPenalidades.push(`Cálcio máximo (${ms.calcioMaxPct}% MS) na faixa limítrofe do teto toxicológico (-5)`);
+    }
 
-      // Alerta de Sódio em animais seniores (WALTHAM / NRC 2006)
-      if (faseVida === 'SENIOR' && ms.sodioMinPct != null && ms.sodioMinPct > 0.50) {
-        penalidades += 5;
-        notasPenalidades.push(`Sódio (${ms.sodioMinPct}% MS) elevado para nutrição de animais idosos (-5)`);
-      }
+    // Alerta de Sódio em animais seniores (WALTHAM / NRC 2006)
+    if (faseVida === 'SENIOR' && ms.sodioMinPct != null && ms.sodioMinPct > 0.50) {
+      penalidades += 5;
+      notasPenalidades.push(`Sódio (${ms.sodioMinPct}% MS) elevado para nutrição de animais idosos (-5)`);
     }
 
     pilar1Pontos = Math.max(basePontos - penalidades, 15);
@@ -203,9 +205,10 @@ export function calcularScoreAnaliseRotulo(
   const prefixoUmido = foodType === 'UMIDO' ? ' (desconsiderando a água de cocção exigida pelo MAPA)' : '';
 
   // 1º Ingrediente Nutritivo
-  const ing1IsNobre = PROTEINAS_NOBRES_REGEX.test(ing1) && !CARNE_E_OSSOS_REGEX.test(ing1);
+  const ing1IsCMS = CMS_OU_CARCACA_REGEX.test(ing1);
+  const ing1IsNobre = PROTEINAS_NOBRES_REGEX.test(ing1) && !CARNE_E_OSSOS_REGEX.test(ing1) && !ing1IsCMS;
   const ing1IsCarneOssos = CARNE_E_OSSOS_REGEX.test(ing1);
-  const ing1IsOutraAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing1);
+  const ing1IsOutraAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing1) || ing1IsCMS;
 
   let ing1Texto = '';
   if (ing1IsNobre) {
@@ -214,6 +217,9 @@ export function calcularScoreAnaliseRotulo(
   } else if (ing1IsCarneOssos) {
     pilar3Pontos += 8;
     ing1Texto = `1º ingrediente nutritivo${prefixoUmido} é proteína animal com alta fração óssea/cinzas (${ing1}) (+8)`;
+  } else if (ing1IsCMS) {
+    pilar3Pontos += 10;
+    ing1Texto = `1º ingrediente nutritivo${prefixoUmido} é carne mecanicamente separada (CMS/carcaça) de menor valor biológico (${ing1}) (+10)`;
   } else if (ing1IsOutraAnimal) {
     pilar3Pontos += 10;
     ing1Texto = `1º ingrediente nutritivo${prefixoUmido} é proteína animal de aproveitamento intermediário (${ing1}) (+10)`;
@@ -225,11 +231,13 @@ export function calcularScoreAnaliseRotulo(
   }
 
   // 2º Ingrediente Nutritivo
-  const ing2IsNobre = PROTEINAS_NOBRES_REGEX.test(ing2) && !CARNE_E_OSSOS_REGEX.test(ing2) && !PALATABILIZANTE_REGEX.test(ing2);
+  const ing2IsCMS = CMS_OU_CARCACA_REGEX.test(ing2);
+  const ing2IsNobre = PROTEINAS_NOBRES_REGEX.test(ing2) && !CARNE_E_OSSOS_REGEX.test(ing2) && !PALATABILIZANTE_REGEX.test(ing2) && !ing2IsCMS;
   const ing2IsCarbNobre = CARBOIDRATOS_NOBRES_REGEX.test(ing2);
+  const ing2IsLipideoNobre = LIPIDEOS_FUNCIONAIS_NOBRES_REGEX.test(ing2);
   const ing2IsPalatabilizante = PALATABILIZANTE_REGEX.test(ing2);
   const ing2IsCarneOssos = CARNE_E_OSSOS_REGEX.test(ing2);
-  const ing2IsOutraAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing2);
+  const ing2IsOutraAnimal = PROTEINAS_ANIMAIS_REGEX.test(ing2) || ing2IsCMS;
 
   let ing2Texto = '';
   if (ing2IsNobre) {
@@ -238,12 +246,18 @@ export function calcularScoreAnaliseRotulo(
   } else if (ing2IsCarbNobre) {
     pilar3Pontos += 10;
     ing2Texto = `2º ingrediente nutritivo é carboidrato nobre de alta digestibilidade (${ing2}) (+10)`;
+  } else if (ing2IsLipideoNobre) {
+    pilar3Pontos += 10;
+    ing2Texto = `2º ingrediente nutritivo é fonte lipídica nobre e ácidos graxos essenciais (${ing2}) (+10)`;
   } else if (ing2IsPalatabilizante) {
     pilar3Pontos += 4;
     ing2Texto = `2º ingrediente (${ing2}) é aditivo sensorial/palatabilizante (1% a 2%) sem volume estrutural de massa proteica (+4)`;
   } else if (ing2IsCarneOssos) {
     pilar3Pontos += 5;
     ing2Texto = `2º ingrediente é proteína com alta fração óssea (${ing2}) (+5)`;
+  } else if (ing2IsCMS) {
+    pilar3Pontos += 7;
+    ing2Texto = `2º ingrediente é carne mecanicamente separada (CMS/carcaça) (+7)`;
   } else if (ing2IsOutraAnimal) {
     pilar3Pontos += 7;
     ing2Texto = `2º ingrediente é fonte proteica animal secundária (${ing2}) (+7)`;
@@ -263,11 +277,22 @@ export function calcularScoreAnaliseRotulo(
     splittingTexto = '; Detecção de fracionamento de grãos (splitting) entre os 5 primeiros ingredientes (-3)';
   }
 
+  // Detecção de Extensores Vegetais em Alimentos Úmidos (pedaços reconstituídos TVP)
+  let extensoresTexto = '';
+  if (foodType === 'UMIDO') {
+    const top8 = ingredientesParaAnalise.slice(0, 8);
+    const extensores = top8.filter((ing) => EXTENSORES_VEGETAIS_UMIDO_REGEX.test(ing));
+    if (extensores.length >= 1) {
+      pilar3Pontos = Math.max(pilar3Pontos - 5, 0);
+      extensoresTexto = `; Detecção de extensores/aglutinantes vegetais (${extensores.slice(0, 2).join(', ')}) caracterizando pedaços reconstituídos (-5)`;
+    }
+  }
+
   extrato.push({
     pilar: 'Ingredientes Principais',
     pontos_obtidos: pilar3Pontos,
     pontos_max: 25,
-    justificativa: `${ing1Texto}; ${ing2Texto}${splittingTexto}.`,
+    justificativa: `${ing1Texto}; ${ing2Texto}${splittingTexto}${extensoresTexto}.`,
   });
 
   // =========================================================================
@@ -278,9 +303,15 @@ export function calcularScoreAnaliseRotulo(
   const justificativasPilar4: string[] = [];
 
   // 1. Conservantes Naturais (+5)
-  if (rotulagem.antioxidanteTipo === 'NATURAL') {
+  const temCoranteOuAcucarEmUmido =
+    foodType === 'UMIDO' &&
+    rotulagem.topIngredientes.some((ing) => ADITIVOS_CORANTES_ACUCARES_REGEX.test(ing));
+
+  if (rotulagem.antioxidanteTipo === 'NATURAL' && !temCoranteOuAcucarEmUmido) {
     pilar4Pontos += 5;
     justificativasPilar4.push('Conservantes 100% naturais sem BHA/BHT (+5)');
+  } else if (temCoranteOuAcucarEmUmido) {
+    justificativasPilar4.push('Alimento úmido com presença declarada de corantes (caramelo) ou açúcares (+0)');
   } else {
     justificativasPilar4.push('Uso de conservantes sintéticos BHA/BHT (+0)');
   }
