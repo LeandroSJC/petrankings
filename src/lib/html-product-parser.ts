@@ -132,6 +132,20 @@ const CURATED_INGREDIENTS_FALLBACKS: Record<string, string> = {
   '13907':
     'Carne Bovina, Carne de Peixe, Fígado de Frango, Farinha de Peixe, Taurina, Proteína Texturizada de Soja, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
 
+  // Royal Canin — Fórmulas oficiais de rotulagem nacional brasileira
+  'giant-adult':
+    'Farinha de vísceras de aves, milho moído*, quirera de arroz, farinha de trigo, gordura de frango, gordura suína, farinha de torresmo, farelo de glúten de milho*, fibra de soja*, polpa desidratada de beterraba, óleo branqueado e desodorizado de peixes, óleo de soja refinado*, levedura de cervejaria inativada desidratada, casca de psyllium (0,5%), cloreto de sódio (sal comum), cloreto de potássio, carbonato de cálcio, tripolifosfato de sódio, fruto-oligossacarídeos, mannan-oligossacarídeos, extrato de marigold (Tagetes erecta), sulfato de condroitina, hidrocloreto de glicosamina, zeolita, hidrolisado de fígado de aves, antioxidante BHA, premix vitamínico mineral.',
+  'maxi-adult-5':
+    'Quirera de arroz, proteína de aves desidratada (farinha de vísceras de aves), trigo, milho moído*, gordura de frango, farinha de trigo, farelo de glúten de milho*, farinha de torresmo, hidrolisado de fígados de aves e suínos, polpa desidratada de beterraba, óleo branqueado e desodorizado de peixes, óleo de soja refinado*, levedura de cervejaria inativada desidratada, casca de psyllium, fruto-oligossacarídeos, óleo de borragem, extrato de marigold, sulfato de condroitina, hidrocloreto de glicosamina, zeolita, antioxidante BHA, premix vitamínico mineral.',
+  'maxi-ageing-8':
+    'Milho moído*, quirera de arroz, proteína de aves desidratada (farinha de vísceras de aves), gordura de frango, trigo, farinha de trigo, farelo de glúten de milho*, farinha de torresmo, hidrolisado de fígados de aves e suínos, polpa desidratada de beterraba, óleo branqueado e desodorizado de peixes, óleo de soja refinado*, polpa de tomate desidratada (fonte de licopeno), casca de psyllium, fruto-oligossacarídeos, mannan-oligossacarídeos, óleo de borragem, extrato de marigold, extrato de chá verde, sulfato de condroitina, hidrocloreto de glicosamina, zeolita, antioxidante BHA, premix vitamínico mineral.',
+  'maxi-joint-care':
+    'Milho moído*, proteína de aves desidratada (farinha de vísceras de aves), trigo, gordura de frango, farinha de trigo, farelo de glúten de milho*, hidrolisado de fígados de aves e suínos, polpa desidratada de beterraba, óleo branqueado e desodorizado de peixes, colágeno hidrolisado (0,45%), levedura de cervejaria inativada desidratada, óleo de soja refinado*, extrato de marigold, zeolita, antioxidante BHA, premix vitamínico mineral.',
+
+  // Dodi Dog — Fórmula de rotulagem oficial brasileira (Fortbrain / Answer Alimentos)
+  'produtos/61':
+    'Milho moído*, farelo de trigo, farelo de soja*, farinha de carne e ossos de bovino, gordura de frango, hidrolisado de fígado de frango, cloreto de sódio (sal comum), extrato de yucca (mín. 0,025%), parede celular de levedura (fonte de MOS), premix vitamínico mineral, antioxidantes (BHT/BHA).',
+
   // Rações Reis — Petiscos, Snacks, Bifinhos, Biscoitos e Mastigáveis
   // Grupo A: Dental Care
   '13782':
@@ -2409,23 +2423,51 @@ export function parseProductFromHtml(
     });
   }
 
-  // 5a-0c. Accordions da Purina Pro Plan (.accordion-item)
-  if (/purina\.com\.br/i.test(sourceUrl)) {
-    $('.accordion-item').each((_, el) => {
-      const headerText = $(el).find('.accordion-header, button').text().trim().toLowerCase();
-      const bodyEl = $(el).find('.accordion-body, .accordion-collapse');
-      const bodyText = extractStructuredText(bodyEl, $);
-      if ((headerText.includes('composição') || headerText.includes('ingredientes')) && !compText) {
-        const ingIdx = bodyText.indexOf('Lista de Ingredientes');
-        if (ingIdx !== -1) {
-          compText = bodyText.substring(ingIdx + 'Lista de Ingredientes'.length).trim();
-        } else {
-          compText = bodyText;
+  // 5a-0c. Accordions da Purina (Dog Chow, Cat Chow, Purina ONE, Pro Plan)
+  if (/purina\.com\.br/i.test(sourceUrl) || $('#ingredientBody').length > 0 || $('[id*="ingredient"]').length > 0) {
+    const candidates: string[] = [];
+    $('#ingredientBody p, #ingredientBody div, .accordion-collapse p, .accordion-body p, [id*="ingredient"] p, div.composicao-basica p, p, div').each((_, el) => {
+      const text = $(el).clone().children().remove().end().text().trim().replace(/\s+/g, ' ') 
+        || $(el).text().trim().replace(/\s+/g, ' ');
+      if (text.length > 50 && (text.match(/,/g) || []).length >= 4) {
+        if (/farinha|carne|gr[ãa]o\s+de\s+milho|milho|trigo|quirera|arroz|f[íi]gado|gl[úu]ten/i.test(text)) {
+          if (!/^(?:Sem\s+adi[çc][ãa]o|Fortalece|Composto\s+mineral|Especifica[çc][õo]es\s+do\s+produto|Apoia\s+os|Alimento\s+completo|Para\s+gatos\s+a\s+partir|Para\s+c[ãa]es|Eventuais\s+substitutivos)/i.test(text)) {
+            if (!candidates.includes(text)) candidates.push(text);
+          }
         }
-      } else if ((headerText.includes('garantia') || headerText.includes('nutricional')) && !garText) {
-        garText = bodyText;
       }
     });
+
+    candidates.sort((a, b) => {
+      const clean = (s: string) => s
+        .replace(/^(?:PREBI[ÓO]TICO\s+NATURAL\s+SEM\s+CORANTES[^\n]*?ALIMENTO\s+COMPLETO\s+PARA\s+GATOS\s*)/i, '')
+        .replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s+(?:b[áa]sica|qualitativa)?[^:]*:\s*|do\s+produto\s*:\s*)/i, '')
+        .trim();
+      const aClean = clean(a);
+      const bClean = clean(b);
+      const aStarts = /^(?:Carne|Farinha|Gr[ãa]o|Milho|Trigo|Quirera|Arroz|Mi[úu]dos)/i.test(aClean);
+      const bStarts = /^(?:Carne|Farinha|Gr[ãa]o|Milho|Trigo|Quirera|Arroz|Mi[úu]dos)/i.test(bClean);
+      if (aStarts && !bStarts) return -1;
+      if (!aStarts && bStarts) return 1;
+      return bClean.length - aClean.length;
+    });
+
+    if (candidates.length > 0) {
+      let best = candidates[0];
+      best = best.replace(/^(?:PREBI[ÓO]TICO\s+NATURAL\s+SEM\s+CORANTES[^\n]*?ALIMENTO\s+COMPLETO\s+PARA\s+GATOS\s*)/i, '');
+      best = best.replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s+(?:b[áa]sica|qualitativa)?[^:]*:\s*|do\s+produto\s*:\s*)/i, '');
+      best = best.trim();
+      compText = best;
+    }
+
+    if (!garText) {
+      $('.accordion-item').each((_, el) => {
+        const headerText = $(el).find('.accordion-header, button').text().trim().toLowerCase();
+        if (headerText.includes('garantia') || headerText.includes('nutricional')) {
+          garText = extractStructuredText($(el).find('.accordion-body, .accordion-collapse'), $);
+        }
+      });
+    }
   }
 
   // 5a-0d. Extração Hill's Pet Nutrition (Accordions AEM e Tabela de Matéria Seca)
@@ -2660,6 +2702,44 @@ export function parseProductFromHtml(
     }
   }
 
+  // 5d-3. Purina / Nestlé Purina (Dog Chow, Cat Chow, Purina ONE, Pro Plan)
+  if (!compText && (/purina\.com\.br/i.test(sourceUrl) || $('#ingredientBody').length > 0 || $('[id*="ingredient"]').length > 0)) {
+    const candidates: string[] = [];
+    $('#ingredientBody p, #ingredientBody div, .accordion-collapse p, .accordion-body p, [id*="ingredient"] p, div.composicao-basica p, p, div').each((_, el) => {
+      const text = $(el).clone().children().remove().end().text().trim().replace(/\s+/g, ' ') 
+        || $(el).text().trim().replace(/\s+/g, ' ');
+      if (text.length > 50 && (text.match(/,/g) || []).length >= 4) {
+        if (/farinha|carne|gr[ãa]o\s+de\s+milho|milho|trigo|quirera|arroz|f[íi]gado|gl[úu]ten/i.test(text)) {
+          if (!/^(?:Sem\s+adi[çc][ãa]o|Fortalece|Composto\s+mineral|Especifica[çc][õo]es\s+do\s+produto|Apoia\s+os|Alimento\s+completo|Para\s+gatos\s+a\s+partir|Para\s+c[ãa]es|Eventuais\s+substitutivos)/i.test(text)) {
+            if (!candidates.includes(text)) candidates.push(text);
+          }
+        }
+      }
+    });
+
+    candidates.sort((a, b) => {
+      const clean = (s: string) => s
+        .replace(/^(?:PREBI[ÓO]TICO\s+NATURAL\s+SEM\s+CORANTES[^\n]*?ALIMENTO\s+COMPLETO\s+PARA\s+GATOS\s*)/i, '')
+        .replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s+(?:b[áa]sica|qualitativa)?[^:]*:\s*|do\s+produto\s*:\s*)/i, '')
+        .trim();
+      const aClean = clean(a);
+      const bClean = clean(b);
+      const aStarts = /^(?:Carne|Farinha|Gr[ãa]o|Milho|Trigo|Quirera|Arroz|Mi[úu]dos)/i.test(aClean);
+      const bStarts = /^(?:Carne|Farinha|Gr[ãa]o|Milho|Trigo|Quirera|Arroz|Mi[úu]dos)/i.test(bClean);
+      if (aStarts && !bStarts) return -1;
+      if (!aStarts && bStarts) return 1;
+      return bClean.length - aClean.length;
+    });
+
+    if (candidates.length > 0) {
+      let best = candidates[0];
+      best = best.replace(/^(?:PREBI[ÓO]TICO\s+NATURAL\s+SEM\s+CORANTES[^\n]*?ALIMENTO\s+COMPLETO\s+PARA\s+GATOS\s*)/i, '');
+      best = best.replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s+(?:b[áa]sica|qualitativa)?[^:]*:\s*|do\s+produto\s*:\s*)/i, '');
+      best = best.trim();
+      compText = best;
+    }
+  }
+
   // 5e. Special Cat / Special Dog / Special Croc (Manfrim)
   if (!compText) {
     const specialComp = $('#descricao-composicao').text().trim();
@@ -2730,10 +2810,18 @@ export function parseProductFromHtml(
     if (m) compText = m[1].trim();
   }
 
-  // Fallback curado para páginas onde o fabricante omitiu a composição no HTML
-  if ((!compText || compText.length < 15 || (compText.match(/,/g) || []).length < 2 || /dispon[íi]vel nos tamanhos/i.test(compText) || (isRacoesReis && isSnackOrTreat)) && (sourceUrl || racoesReisCompImg)) {
-    for (const [key, val] of Object.entries(CURATED_INGREDIENTS_FALLBACKS)) {
-      if ((sourceUrl && sourceUrl.includes(key)) || (racoesReisCompImg && racoesReisCompImg.includes(key))) {
+  // Fallback curado para páginas onde o fabricante omitiu a composição no HTML ou publicou em inglês
+  for (const [key, val] of Object.entries(CURATED_INGREDIENTS_FALLBACKS)) {
+    if ((sourceUrl && sourceUrl.includes(key)) || (racoesReisCompImg && racoesReisCompImg.includes(key))) {
+      if (
+        !compText ||
+        compText.length < 15 ||
+        (compText.match(/,/g) || []).length < 2 ||
+        /dispon[íi]vel nos tamanhos/i.test(compText) ||
+        /Chicken viscera|brewers rice|ground corn|dehydrated poultry/i.test(compText) ||
+        !/farinha|carne|arroz|milho|ave|frango|peixe|gl[úu]ten|prote[íi]na|ovo|soja/i.test(compText) ||
+        (isRacoesReis && isSnackOrTreat)
+      ) {
         compText = val;
         break;
       }
@@ -2881,7 +2969,8 @@ export function parseProductFromHtml(
 
   // 7. Ingredientes
   let cleanComp = compText
-    .replace(/^Composição\s*(?:básica|qualitativa)?[:\s]*/i, '')
+    .replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s*(?:b[áa]sica|qualitativa)?[^:]*:\s*|do\s+produto\s*:\s*|do\s+alimento\s*:\s*)/i, '')
+    .replace(/^do\s+produto\s*:\s*/i, '')
     .replace(/-- \d+ of \d+ --/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -2910,6 +2999,17 @@ export function parseProductFromHtml(
   cleanComp = cleanComp.replace(/\\u003c[\s\S]*$/i, '');
   cleanComp = cleanComp.replace(/<div[\s\S]*$/i, '');
   cleanComp = cleanComp.replace(/\b(?:FORTALECE|STRENGTHENS|Selecci[oó]n|Selection|Composici[oó]n|Guia alimentar|N[íi]veis de garantia)\b[\s\S]*$/i, '');
+
+  // Remove prefixos residuais no início do texto limpo
+  cleanComp = cleanComp.replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s*(?:b[áa]sica|qualitativa)?[^:]*:\s*|do\s+produto\s*:\s*|do\s+alimento\s*:\s*)/i, '').trim();
+
+  // Correção de erro de digitação de fabricante: parênteses desbalanceados ao declarar sub-cortes de carne
+  // Ex: "Cordeiro (carne de ovino, farinha de carne e ossos de ovino (mín. 6%), farinha de vísceras..."
+  const openParens = (cleanComp.match(/\(/g) || []).length;
+  const closeParens = (cleanComp.match(/\)/g) || []).length;
+  if (openParens > closeParens) {
+    cleanComp = cleanComp.replace(/\((m[íi]n\.\s*[\d,]+%)\),\s*(farinha|óleo|gordura|quirera|arroz|milho|polpa|ovo|levedura|amido)/gi, '($1)), $2');
+  }
 
   const topIngredientsList: string[] = [];
   let cur = '';

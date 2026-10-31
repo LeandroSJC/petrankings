@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha Técnica Oficial — PremieR Nattu Seleção Natural Gatos Castrados Sabor Frango Korin — PetRankings</title>
+  <meta name="robots" content="noindex, follow">
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & TIPOGRAFIA PETRANKINGS
+       ========================================================================== */
+    :root {
+      --brand-slate-950: #020617;
+      --brand-slate-900: #0f172a;
+      --brand-slate-800: #1e293b;
+      --brand-slate-700: #334155;
+      --brand-slate-600: #475569;
+      --brand-slate-500: #64748b;
+      --brand-slate-400: #94a3b8;
+      --brand-slate-200: #e2e8f0;
+      --brand-slate-100: #f1f5f9;
+      --brand-slate-50:  #f8fafc;
+
+      --brand-emerald-800: #065f46;
+      --brand-emerald-700: #047857;
+      --brand-emerald-600: #059669;
+      --brand-emerald-100: #d1fae5;
+      --brand-emerald-50:  #ecfdf5;
+
+      --brand-amber-800: #92400e;
+      --brand-amber-600: #d97706;
+      --brand-amber-100: #fef3c7;
+      --brand-amber-50:  #fffbeb;
+
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--brand-slate-100);
+      color: var(--brand-slate-900);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+
+    /* BARRA SUPERIOR DE AÇÕES INTERATIVAS (OCULTA NA IMPRESSÃO) */
+    .top-actions-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--brand-slate-900);
+      color: #ffffff;
+      padding: 12px 24px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .top-actions-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--brand-emerald-100);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-actions-btns {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .action-btn-primary {
+      background: var(--brand-emerald-600);
+      color: #ffffff;
+    }
+    .action-btn-primary:hover {
+      background: var(--brand-emerald-700);
+    }
+
+    .action-btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .action-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* CONTAINER DO DOCUMENTO (FOLHA A4 ESTILIZADA) */
+    .sheet-container {
+      max-width: 960px;
+      margin: 32px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid var(--brand-slate-200);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+    }
+
+    /* CABEÇALHO DO LAUDO */
+    .sheet-header {
+      background: linear-gradient(135deg, var(--brand-slate-900) 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 32px 40px;
+      border-bottom: 4px solid var(--brand-emerald-600);
+    }
+
+    .sheet-brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .brand-logo-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+    .brand-logo-text span {
+      color: var(--brand-emerald-600);
+    }
+
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .sheet-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .sheet-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.8rem;
+    }
+
+    .sheet-meta-item strong {
+      display: block;
+      color: var(--brand-slate-400);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    .sheet-meta-item span {
+      color: #f1f5f9;
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    /* CORPO DO DOCUMENTO */
+    .sheet-body {
+      padding: 40px;
+    }
+
+    /* SEÇÕES */
+    .section-block {
+      margin-bottom: 36px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--brand-slate-900);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--brand-slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--brand-slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* CARDS DE ESPECIFICAÇÃO */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .spec-card {
+      background: var(--brand-slate-50);
+      border: 1px solid var(--brand-slate-200);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .spec-label {
+      font-size: 0.72rem;
+      color: var(--brand-slate-500);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .spec-val {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--brand-slate-900);
+    }
+
+    /* TABELA DE NÍVEIS DE GARANTIA */
+    .table-container {
+      border: 1px solid var(--brand-slate-200);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      background: var(--brand-slate-50);
+      color: var(--brand-slate-700);
+      font-weight: 600;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--brand-slate-200);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .data-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--brand-slate-200);
+      color: var(--brand-slate-800);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tr:nth-child(even) td {
+      background: #fafbfd;
+    }
+
+    .val-cell {
+      text-align: right;
+      font-weight: 700;
+      color: var(--brand-slate-900);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* BADGES DE ATRIBUTOS */
+    .badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .attr-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .attr-badge-success {
+      background: var(--brand-emerald-50);
+      border: 1px solid var(--brand-emerald-100);
+      color: var(--brand-emerald-800);
+    }
+
+    .attr-badge-warning {
+      background: var(--brand-amber-50);
+      border: 1px solid var(--brand-amber-100);
+      color: var(--brand-amber-800);
+    }
+
+    .attr-badge-neutral {
+      background: var(--brand-slate-100);
+      border: 1px solid var(--brand-slate-200);
+      color: var(--brand-slate-700);
+    }
+
+    /* LISTA DE INGREDIENTES */
+    .ingredients-box {
+      background: var(--brand-slate-50);
+      border: 1px solid var(--brand-slate-200);
+      border-radius: 8px;
+      padding: 18px 20px;
+      font-size: 0.88rem;
+      color: var(--brand-slate-700);
+      line-height: 1.6;
+    }
+
+    .highlighted-ingredients {
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ing-tag {
+      background: #ffffff;
+      border: 1px solid var(--brand-slate-200);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      color: var(--brand-slate-800);
+      font-weight: 500;
+    }
+    .ing-tag strong {
+      color: var(--brand-emerald-700);
+      margin-right: 4px;
+    }
+
+    /* SEÇÃO DE AUDITORIA & SCORE */
+    .audit-summary-box {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, var(--brand-emerald-50) 0%, #ffffff 100%);
+      border: 1px solid var(--brand-emerald-100);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+
+    .score-circle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: var(--brand-emerald-700);
+      color: #ffffff;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+    }
+    .score-number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .score-denom {
+      font-size: 0.65rem;
+      font-weight: 600;
+      opacity: 0.85;
+      text-transform: uppercase;
+    }
+
+    .audit-details h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--brand-emerald-800);
+      margin-bottom: 4px;
+    }
+    .audit-details p {
+      font-size: 0.86rem;
+      color: var(--brand-slate-600);
+      line-height: 1.4;
+    }
+
+    .opinion-box {
+      font-style: italic;
+      background: #ffffff;
+      border-left: 3px solid var(--brand-emerald-600);
+      padding: 12px 18px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.88rem;
+      color: var(--brand-slate-700);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    /* RODAPÉ DO DOCUMENTO */
+    .sheet-footer {
+      background: var(--brand-slate-50);
+      border-top: 1px solid var(--brand-slate-200);
+      padding: 24px 40px;
+      font-size: 0.75rem;
+      color: var(--brand-slate-500);
+      line-height: 1.5;
+    }
+    .sheet-footer strong {
+      color: var(--brand-slate-700);
+    }
+
+    /* ==========================================================================
+       OTIMIZAÇÕES DE IMPRESSÃO (A4 / PDF)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        color: #000000 !important;
+      }
+      .top-actions-bar {
+        display: none !important;
+      }
+      .sheet-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+      .sheet-header {
+        background: #0f172a !important;
+        color: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        padding: 24px !important;
+      }
+      .sheet-body {
+        padding: 24px !important;
+      }
+      .section-block {
+        page-break-inside: avoid;
+      }
+      .table-container {
+        page-break-inside: avoid;
+      }
+      .data-table th {
+        background: #f1f5f9 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .audit-summary-box {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .score-circle {
+        background: #047857 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE AÇÕES (WEB APENAS) -->
+  <header class="top-actions-bar">
+    <div class="top-actions-title">
+      <span>🛡️ PetRankings</span>
+      <span>•</span>
+      <span>Custódia Documental & Ficha Técnica Oficial</span>
+    </div>
+    <div class="top-actions-btns">
+      <button onclick="window.print()" class="action-btn action-btn-primary">
+        🖨️ Salvar como PDF / Imprimir
+      </button>
+      <a href="https://premierpet.com.br/produto/nattu-selecao-natural-para-gatos-castrados-no-sabor-frango/" target="_blank" rel="noopener noreferrer" class="action-btn action-btn-secondary">
+              🌐 Acessar Website Original
+            </a>
+      <a href="/uploads/raw_pdf_cmtz4c4e955b8ad1f8265832.pdf" target="_blank" rel="noopener noreferrer" class="action-btn action-btn-secondary">
+              📄 Código-Fonte Bruto Arquivado
+            </a>
+    </div>
+  </header>
+
+  <!-- LAUDO TÉCNICO OFICIAL -->
+  <main class="sheet-container">
+    
+    <!-- CABEÇALHO -->
+    <header class="sheet-header">
+      <div class="sheet-brand-row">
+        <div class="brand-logo-text">Pet<span>Rankings</span></div>
+        <div class="cert-badge">✓ Coleta Oficial Verificada</div>
+      </div>
+      <h1 class="sheet-title">PremieR Nattu Seleção Natural Gatos Castrados Sabor Frango Korin</h1>
+      
+      <div class="sheet-meta-grid">
+        <div class="sheet-meta-item">
+          <strong>Identificador do Registro</strong>
+          <span>cmtz4c4e955b8ad1f8265832</span>
+        </div>
+        <div class="sheet-meta-item">
+          <strong>Data da Coleta Digital</strong>
+          <span>13/09/2026, 09:00:00 (Horário de Brasília)</span>
+        </div>
+        <div class="sheet-meta-item">
+          <strong>Curadoria Responsável</strong>
+          <span>Curadoria Técnica</span>
+        </div>
+        <div class="sheet-meta-item">
+          <strong>Fonte Oficial Original</strong>
+          <span><a href="https://premierpet.com.br/produto/nattu-selecao-natural-para-gatos-castrados-no-sabor-frango/" target="_blank" rel="noopener noreferrer" style="color: #6ee7b7; text-decoration: underline;">Portal do Fabricante</a></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CORPO -->
+    <div class="sheet-body">
+
+      <!-- IDENTIFICAÇÃO REGULATÓRIA -->
+      <section class="section-block">
+        <div class="section-title">
+          <span>Identificação Comercial & Classificação MAPA</span>
+          <span class="section-title-tag">Decreto nº 12.031/2024</span>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-card">
+            <div class="spec-label">Marca Comercial</div>
+            <div class="spec-val">PremieR</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Razão Social Fabricante</div>
+            <div class="spec-val">Grandfood Indústria e Comércio Ltda</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Classificação Legal</div>
+            <div class="spec-val">Alimento Completo para Animais de Estimação</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Espécie Destinada</div>
+            <div class="spec-val">Gatos / Felinos</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Fase da Vida</div>
+            <div class="spec-val">Adultos</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Formato do Alimento</div>
+            <div class="spec-val">Alimento Seco (Extrusado)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NÍVEIS DE GARANTIA DECLARADOS -->
+      <section class="section-block">
+        <div class="section-title">
+          <span>Níveis de Garantia Declarados no Rótulo</span>
+          <span class="section-title-tag">Matéria Natural (MN)</span>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nutriente / Parâmetro Químico</th>
+                <th>Base Regulamentar</th>
+                <th style="text-align: right;">Garantia Declarada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Proteína Bruta</strong></td>
+                <td>Mínimo por kg de alimento</td>
+                <td class="val-cell">37.0% (370 g/kg)</td>
+              </tr>
+              <tr>
+                <td><strong>Extrato Etéreo (Gorduras)</strong></td>
+                <td>Mínimo por kg de alimento</td>
+                <td class="val-cell">12.0% (120 g/kg)</td>
+              </tr>
+              <tr>
+                <td><strong>Umidade</strong></td>
+                <td>Máximo tolerado</td>
+                <td class="val-cell">10.0% (100 g/kg)</td>
+              </tr>
+              <tr>
+                <td><strong>Matéria Fibrosa (Fibras Brutas)</strong></td>
+                <td>Máximo tolerado</td>
+                <td class="val-cell">4.5% (45 g/kg)</td>
+              </tr>
+              <tr>
+                <td><strong>Matéria Mineral (Cinzas)</strong></td>
+                <td>Máximo tolerado</td>
+                <td class="val-cell">8.5% (85 g/kg)</td>
+              </tr>
+              <tr>
+                <td><strong>Cálcio</strong></td>
+                <td>Faixa de segurança</td>
+                <td class="val-cell">1.00% mín. / 1.45% máx.</td>
+              </tr>
+              <tr>
+                <td><strong>Fósforo</strong></td>
+                <td>Mínimo por kg de alimento</td>
+                <td class="val-cell">0.84% (8.4 g/kg)</td>
+              </tr>
+              <tr>
+                      <td><strong>Sódio</strong></td>
+                      <td>Mínimo por kg de alimento</td>
+                      <td class="val-cell">0.35% (3.5 g/kg)</td>
+                    </tr>
+              <tr>
+                      <td><strong>Ácido Graxo Ômega-3</strong></td>
+                      <td>Mínimo por kg de alimento</td>
+                      <td class="val-cell">0.20% (2.0 g/kg)</td>
+                    </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- COMPOSIÇÃO BÁSICA E INGREDIENTES -->
+      <section class="section-block">
+        <div class="section-title">
+          <span>Composição Básica & Análise de Ingredientes</span>
+          <span class="section-title-tag">Ordem Decrescente de Peso</span>
+        </div>
+
+        <!-- BADGES DE QUALIDADE -->
+        <div class="badges-row">
+          <span class="attr-badge attr-badge-success">
+            🌱 Livre de Transgênicos (100% OGM Free)
+          </span>
+          <span class="attr-badge attr-badge-success">
+            🌿 Conservação 100% Natural (Tocoferóis/Alecrim)
+          </span>
+          <span class="attr-badge attr-badge-neutral">🥩 Reivindicação de Carne: COM_CARNE</span>
+        </div>
+
+        <!-- PRIMEIROS INGREDIENTES EM DESTAQUE -->
+        <div style="margin-bottom: 12px; font-size: 0.8rem; font-weight: 600; color: var(--brand-slate-600); text-transform: uppercase;">
+                Principais Fontes Declaradas (Top Ingredientes):
+              </div>
+              <div class="highlighted-ingredients">
+                <div class="ing-tag"><strong>#1</strong> Farinha de vísceras de frango (Korin)</div><div class="ing-tag"><strong>#2</strong> Farinha de torresmo</div><div class="ing-tag"><strong>#3</strong> Ovo em pó</div><div class="ing-tag"><strong>#4</strong> Proteína isolada de soja</div><div class="ing-tag"><strong>#5</strong> Quirera de arroz</div>
+              </div>
+
+        <!-- LISTA INTEGRAL -->
+        <div class="ingredients-box">
+          Farinha de vísceras de frango (Korin), Farinha de torresmo, Ovo em pó, Proteína isolada de soja, Quirera de arroz, Aveia, Complexo de vegetais – 7,0% (abóbora, alecrim, cenoura, extrato de marigold (Tagetes erecta), grão de quinoa, polpa desidratada de beterraba), Farinha de mandioca, Gordura de frango, Óleo refinado de peixe, Cloreto de potássio, Cloreto de sódio, Levedura de cana-de-açúcar autolisada e desidratada, Ácido cítrico, Antioxidante natural (concentrado de tocoferóis, extrato de alecrim, extrato de chá verde, extrato de menta, hortelã – mín. 0,05%), Bentonita, Cloreto de amônio, DL-metionina, Extrato de yucca (0,06%), Hexametafosfato de sódio, Hidrolisado de fígado de suíno, Hidrolisado de fígado de aves, L-carnitina, Parede celular de levedura, Parede celular de levedura (fonte de beta-glucanas), Sulfato de amônio, Taurina, Vitamina A, Vitamina B1, Vitamina B2, Vitamina B3, Vitamina B5, Vitamina B6, Vitamina B7, Vitamina B9, Vitamina B12, Vitamina C, Cloreto de colina, Vitamina D3, Vitamina E, Vitamina K3, Ferro aminoácido quelato, Iodato de cálcio, Manganês aminoácido quelato, Selenometionina hidroxi análoga, Sulfato de cobre pentahidratado, Sulfato de ferro, Sulfato de manganês, Sulfato de zinco monohidratado, Zinco aminoácido quelato
+        </div>
+      </section>
+
+      <!-- EXTRATO DA AUDITORIA DETERMINÍSTICA -->
+      <section class="section-block">
+              <div class="section-title">
+                <span>Avaliação Nutricional Determinística</span>
+                <span class="section-title-tag">Motor de Auditoria V5 PetRankings</span>
+              </div>
+
+              <div class="audit-summary-box">
+                <div class="score-circle">
+                  <div class="score-number">100</div>
+                  <div class="score-denom">Pontos</div>
+                </div>
+                <div class="audit-details">
+                  <h4>Classificação: NIVEL_OURO</h4>
+                  <p>Índice calculado com base nos limites do <strong>Manual Pet Food Brasil da ABINPET (11ª Edição)</strong> e conformidade da matéria seca.</p>
+                </div>
+              </div>
+
+              <div class="table-container" style="margin-bottom: 16px;">
+                      <table class="data-table">
+                        <thead>
+                          <tr>
+                            <th>Pilar da Auditoria</th>
+                            <th>Pontuação</th>
+                            <th>Fundamentação Técnica</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                                <td><strong>Conformidade MS</strong></td>
+                                <td class="val-cell">40 / 40</td>
+                                <td>Todos os nutrientes (Proteína Bruta, Extrato Etéreo, Cálcio e Fósforo) atendem com margem técnica de segurança na MS.</td>
+                              </tr><tr>
+                                <td><strong>Balanço Ca:P</strong></td>
+                                <td class="val-cell">20 / 20</td>
+                                <td>Relação Ca:P calculada em 1.19:1 (faixa ideal e segura: 1.1:1 a 1.6:1).</td>
+                              </tr><tr>
+                                <td><strong>Ingredientes Principais</strong></td>
+                                <td class="val-cell">25 / 25</td>
+                                <td>1º ingrediente nutritivo é proteína cárnea de alta digestibilidade (+15); 2º ingrediente nutritivo nobre/animal declarado (+10).</td>
+                              </tr><tr>
+                                <td><strong>Transparência e Atributos</strong></td>
+                                <td class="val-cell">15 / 15</td>
+                                <td>Conservantes 100% naturais sem BHA/BHT (+5). Inclusão garantida de Ômega-3 funcional ou prebióticos (+5). Estrita conformidade dos claims comerciais declarados (+5).</td>
+                              </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+              <div class="opinion-box">
+                      <strong>Parecer Editorial Independente:</strong><br>
+                      "O alimento PremieR Nattu Seleção Natural Gatos Castrados Sabor Frango Korin atinge a pontuação máxima na auditoria do PetRankings, destacando-se pelo rigor técnico e atendimento pleno aos parâmetros normativos da ABINPET. A formulação apresenta excelente densidade proteica com proteína cárnea nobre como primeiro ingrediente, além de exibir relação cálcio e fósforo perfeitamente balanceada dentro da faixa de segurança recomendada. A ausência total de ingredientes transgênicos e o uso exclusivo de conservantes 100% naturais reforçam a qualidade superior da composição, consolidando este alimento completo como uma opção altamente qualificada para gatos adultos castrados."
+                    </div>
+            </section>
+
+    </div>
+
+    <!-- RODAPÉ LEGAL & CUSTÓDIA -->
+    <footer class="sheet-footer">
+      <p style="margin-bottom: 8px;">
+        <strong>Certificação de Custódia Probatória Digital:</strong> Este documento foi gerado a partir da extração direta do conteúdo publicado no website oficial do fabricante em <strong>13/09/2026, 09:00:00 (Horário de Brasília)</strong>, sob estrita observância da legislação de defesa do consumidor (Lei nº 8.078/1990 — CDC) e dos atos regulatórios do Ministério da Agricultura e Pecuária (MAPA).
+      </p>
+      <p>
+        <strong>Aviso Legal Veterinário:</strong> O PetRankings é um portal independente de auditoria de rótulos e análise de composição de produtos comerciais. Esta ficha técnica destina-se a fins informativos e comparativos, não substituindo a consulta e orientação de um médico-veterinário ou zootecnista.
+      </p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
