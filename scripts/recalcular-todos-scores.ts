@@ -3,30 +3,50 @@ import { calcularScoreAnaliseRotulo } from '../src/lib/audit-engine';
 import { FaseVida } from '../src/lib/audit-engine/types';
 
 async function main() {
-  console.log('🔄 Recalculando scores de todos os produtos com o novo dicionário de proteínas...\n');
+  console.log('🔄 [PetRankings] Recalculando scores com o Motor Nutricional Calibrado (ABINPET 11ª Ed., MAPA, FEDIAF)...\n');
 
-  const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany({
+    where: {
+      legalCategory: 'ALIMENTO_COMPLETO',
+    },
+  });
+
+  console.log(`📦 Encontrados ${products.length} alimentos completos para reavaliação determinística.\n`);
+
+  let atualizados = 0;
+  let inalterados = 0;
 
   for (const p of products) {
     let ingredients: string[] = [];
     try {
-      ingredients = JSON.parse(p.topIngredients || '[]');
+      ingredients = Array.isArray(p.topIngredients)
+        ? p.topIngredients
+        : JSON.parse(p.topIngredients || '[]');
     } catch {
-      ingredients = [];
+      ingredients = p.topIngredients
+        ? p.topIngredients.split(',').map((s) => s.trim())
+        : [];
     }
 
-    const auditFase: FaseVida = p.lifeStage as FaseVida;
+    const isFilhote = p.lifeStage === 'CRESCIMENTO_INICIAL' || p.lifeStage === 'CRESCIMENTO_FINAL' || p.lifeStage === 'FILHOTE';
+    const auditFase: FaseVida = (isFilhote ? 'CRESCIMENTO_INICIAL' : p.lifeStage) as FaseVida;
+
+    const isWet = p.foodType === 'UMIDO';
+    const isLight = /light|baixas?\s+calorias|controle\s+de\s+peso|reduced\s+calorie|weight\s+care|peso\s+perfeito/i.test(
+      p.commercialName + ' ' + p.slug
+    );
+
     const garantias = {
-      umidadeMaxPct: p.moistureMaxPct || 10,
-      proteinaBrutaMinPct: p.crudeProteinMinPct || 30,
-      extratoEtereoMinPct: p.etherExtractMinPct || 10,
-      materiaFibrosaMaxPct: p.crudeFiberMaxPct || 4,
-      materiaMineralMaxPct: p.mineralMatterMaxPct || 8,
-      calcioMinPct: p.calciumMinPct || 1,
-      calcioMaxPct: p.calciumMaxPct || 1.5,
-      fosforoMinPct: p.phosphorusMinPct || 0.8,
-      sodioMinPct: p.sodiumMinPct || 0.2,
-      omega3MinPct: p.omega3MinPct || 0.3,
+      umidadeMaxPct: p.moistureMaxPct ?? (isWet ? 82 : 10),
+      proteinaBrutaMinPct: p.crudeProteinMinPct,
+      extratoEtereoMinPct: p.etherExtractMinPct,
+      materiaFibrosaMaxPct: p.crudeFiberMaxPct,
+      materiaMineralMaxPct: p.mineralMatterMaxPct,
+      calcioMinPct: p.calciumMinPct,
+      calcioMaxPct: p.calciumMaxPct,
+      fosforoMinPct: p.phosphorusMinPct,
+      sodioMinPct: p.sodiumMinPct,
+      omega3MinPct: p.omega3MinPct,
     };
 
     const audit = calcularScoreAnaliseRotulo(
@@ -34,24 +54,25 @@ async function main() {
       auditFase,
       garantias,
       {
-        topIngredientes: ingredients.slice(0, 3),
-        antioxidanteTipo: p.antioxidantType as any,
-        omega3OuPrebioticosGarantidos: (p.omega3MinPct ?? 0) > 0,
+        topIngredientes: ingredients,
+        antioxidanteTipo: (p.antioxidantType as any) || 'SINTETICO',
+        containsGmo: p.containsGmo,
+        omega3OuPrebioticosGarantidos: isWet
+          ? (p.omega3MinPct ?? 0) >= 0.015
+          : (p.omega3MinPct ?? 0) >= 0.2,
         claimCarneTipo: (p.meatClaimType as any) || 'COM_CARNE',
         claimCarneAdequado: true,
-      }
+        foodType: p.foodType as any,
+        isLightOuControlePeso: isLight,
+        nomeComercial: p.commercialName,
+      },
+      p.foodType as any
     );
 
-    const scoreMudou = audit.scoreTotal !== p.scoreTotal;
+    const mudou = audit.scoreTotal !== p.scoreTotal || audit.classificacaoFaixa !== p.classificationTier;
 
-    if (scoreMudou) {
-      console.log(`✨ [ATUALIZADO] ${p.commercialName}`);
-      console.log(`   Ingrediente 1: "${ingredients[0]}"`);
-      console.log(`   Ingrediente 2: "${ingredients[1]}"`);
-      console.log(`   Score Anterior: ${p.scoreTotal} ➔ Novo Score: ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
-      const pilar3 = audit.extratoPontos.find((it: any) => it.pilar === 'Ingredientes Principais');
-      console.log(`   Justificativa Pilar 3: ${pilar3?.justificativa}\n`);
-
+    if (mudou) {
+      atualizados++;
       await prisma.product.update({
         where: { id: p.id },
         data: {
@@ -61,10 +82,20 @@ async function main() {
           calculatedAt: new Date(),
         },
       });
+
+      if (atualizados <= 15 || atualizados % 100 === 0) {
+        console.log(`[${atualizados}] ${p.commercialName}: ${p.scoreTotal} (${p.classificationTier}) ➔ ${audit.scoreTotal} (${audit.classificacaoFaixa})`);
+      }
+    } else {
+      inalterados++;
     }
   }
 
-  console.log('✅ Verificação e sincronização concluídas!');
+  console.log(`\n======================================================`);
+  console.log(`✅ Recálculo concluído com sucesso!`);
+  console.log(`📊 Atualizados no PostgreSQL: ${atualizados}`);
+  console.log(`⏸️ Inalterados (já estavam precisos): ${inalterados}`);
+  console.log(`======================================================\n`);
 }
 
 main()

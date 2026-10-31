@@ -72,6 +72,7 @@ export interface RotulagemAnaliseInput {
   foodType?: TipoAlimento;
   isLightOuControlePeso?: boolean; // Se é alimento formulado para baixa caloria / controle de peso / castrado (FEDIAF 2025 / AAFCO)
   nomeComercial?: string; // Nome comercial para detecção contextual de claims nutricionais
+  containsGmo?: boolean; // Se contém organismos geneticamente modificados - OGM (Decreto nº 4.680/2003)
 }
 
 /** Detalhe de cada pilar no Extrato da Análise de Rótulo */

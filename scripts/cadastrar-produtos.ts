@@ -237,6 +237,7 @@ async function processAll() {
         claimCarneTipo: 'COM_CARNE',
         claimCarneAdequado: true,
         foodType: meta.foodType,
+        containsGmo: meta.containsGmo,
       },
       meta.foodType
     );

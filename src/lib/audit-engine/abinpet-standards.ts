@@ -8,6 +8,7 @@ import { Especie, FaseVida } from './types';
 export interface AbinpetNutrientStandard {
   proteinaBrutaMinMS: number;
   proteinaBrutaMargemSegurancaMS: number; // Mínimo + margem técnica de segurança
+  proteinaBrutaSuperPremiumMS: number;   // Patamar de excelência Super Premium (ABINPET/FEDIAF 2025)
   extratoEtereoMinMS: number;
   extratoEtereoMargemSegurancaMS: number;
   calcioMinMS: number;
@@ -18,6 +19,8 @@ export interface AbinpetNutrientStandard {
   relacaoCaPIdealMax: number;
   relacaoCaPToleranciaMin: number;
   relacaoCaPToleranciaMax: number;
+  materiaMineralNobreLowAshMS: number;  // Padrão de farinhas nobres desengorduradas (IN MAPA 34/2008)
+  materiaMineralTetoSeguroMS: number;   // Teto zootécnico antes de alerta de excesso ósseo
 }
 
 export const ABINPET_STANDARDS: Record<string, AbinpetNutrientStandard> = {
@@ -25,6 +28,7 @@ export const ABINPET_STANDARDS: Record<string, AbinpetNutrientStandard> = {
   'CAO_ADULTO': {
     proteinaBrutaMinMS: 18.0,
     proteinaBrutaMargemSegurancaMS: 20.0,
+    proteinaBrutaSuperPremiumMS: 26.0,
     extratoEtereoMinMS: 5.5,
     extratoEtereoMargemSegurancaMS: 7.0,
     calcioMinMS: 0.50,
@@ -35,11 +39,14 @@ export const ABINPET_STANDARDS: Record<string, AbinpetNutrientStandard> = {
     relacaoCaPIdealMax: 1.6,
     relacaoCaPToleranciaMin: 1.0,
     relacaoCaPToleranciaMax: 2.0,
+    materiaMineralNobreLowAshMS: 8.5,
+    materiaMineralTetoSeguroMS: 10.0,
   },
   // Cão Filhote (Crescimento)
   'CAO_FILHOTE': {
     proteinaBrutaMinMS: 22.0,
     proteinaBrutaMargemSegurancaMS: 24.0,
+    proteinaBrutaSuperPremiumMS: 30.0,
     extratoEtereoMinMS: 8.5,
     extratoEtereoMargemSegurancaMS: 9.5,
     calcioMinMS: 1.00,
@@ -50,11 +57,14 @@ export const ABINPET_STANDARDS: Record<string, AbinpetNutrientStandard> = {
     relacaoCaPIdealMax: 1.5,
     relacaoCaPToleranciaMin: 1.0,
     relacaoCaPToleranciaMax: 2.0,
+    materiaMineralNobreLowAshMS: 8.5,
+    materiaMineralTetoSeguroMS: 10.0,
   },
   // Gato Adulto (Manutenção)
   'GATO_ADULTO': {
     proteinaBrutaMinMS: 26.0,
     proteinaBrutaMargemSegurancaMS: 28.0,
+    proteinaBrutaSuperPremiumMS: 35.0,
     extratoEtereoMinMS: 9.0,
     extratoEtereoMargemSegurancaMS: 10.0,
     calcioMinMS: 0.60,
@@ -65,11 +75,14 @@ export const ABINPET_STANDARDS: Record<string, AbinpetNutrientStandard> = {
     relacaoCaPIdealMax: 1.6,
     relacaoCaPToleranciaMin: 1.0,
     relacaoCaPToleranciaMax: 2.0,
+    materiaMineralNobreLowAshMS: 8.0,
+    materiaMineralTetoSeguroMS: 9.5,
   },
   // Gato Filhote (Crescimento)
   'GATO_FILHOTE': {
     proteinaBrutaMinMS: 30.0,
     proteinaBrutaMargemSegurancaMS: 32.0,
+    proteinaBrutaSuperPremiumMS: 38.0,
     extratoEtereoMinMS: 9.0,
     extratoEtereoMargemSegurancaMS: 10.0,
     calcioMinMS: 1.00,
@@ -80,6 +93,8 @@ export const ABINPET_STANDARDS: Record<string, AbinpetNutrientStandard> = {
     relacaoCaPIdealMax: 1.5,
     relacaoCaPToleranciaMin: 1.0,
     relacaoCaPToleranciaMax: 2.0,
+    materiaMineralNobreLowAshMS: 8.5,
+    materiaMineralTetoSeguroMS: 10.0,
   },
 };
 

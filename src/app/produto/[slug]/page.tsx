@@ -282,6 +282,7 @@ export default async function ProductDetailPage({
           claimCarneTipo: (product.meatClaimType as any) || 'COM_CARNE',
           isLightOuControlePeso: isLight,
           nomeComercial: product.commercialName,
+          containsGmo: product.containsGmo,
         },
         product.foodType as any
       );

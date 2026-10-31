@@ -450,6 +450,7 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
       claimCarneTipo: 'COM_CARNE',
       isLightOuControlePeso: isLight,
       nomeComercial: meta.commercialName,
+      containsGmo: meta.containsGmo,
     },
     meta.foodType as any
   );
