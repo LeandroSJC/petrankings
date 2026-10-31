@@ -605,7 +605,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-09-30',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?w=1200&auto=format&fit=crop&q=80',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Compreenda a legislação brasileira que rege as denominações e alegações das rações para cães e gatos. Entenda por que a ordem dos ingredientes no rótulo obedece à regra de peso no misturador antes da cocção, como diferenciar o claim "Com Frango" do "Sabor Frango" segundo a IN MAPA nº 22/2009 e a IN nº 39/2014, e por que a farinha de vísceras de alta qualidade não é o vilão que muitos imaginam.',
     relatedProductSlugs: [],
@@ -749,7 +749,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-01',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/transgenicos-racao-pet-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Entenda a legislação brasileira que regulamenta a rotulagem de transgênicos em rações para cães e gatos. Descubra a origem do triângulo amarelo com a letra "T" estabelecido pelo Decreto nº 4.680/2003 e pela Portaria MJ nº 2.658/2003, o papel da CTNBio, o impacto biológico de milho e soja geneticamente modificados na digestibilidade pet e quais linhas do mercado nacional oferecem fórmulas 100% livres de grãos transgênicos.',
     relatedProductSlugs: [
@@ -917,7 +917,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-02',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/custo-diario-racao-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Descubra por que comparar rações apenas pelo valor da saca ou pelo preço do quilo (R$/kg) é uma ilusão financeira. Entenda como a densidade calórica e a digestibilidade zootécnica determinam a porção diária real em gramas e veja a fórmula matemática para calcular o custo exato por dia de qualquer alimento pet.',
     relatedProductSlugs: [],
@@ -1079,7 +1079,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-03',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/premier-vs-royal-canin-duel-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), o perfil de fibras para controle de saciedade e bolas de pelo, os sistemas de conservação (antioxidantes naturais vs BHA sintético) e o manejo do trato urinário entre PremieR Formula Gatos Castrados e Royal Canin Castrados.',
     relatedProductSlugs: [
@@ -1243,7 +1243,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-04',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/calcio-filhotes-caes-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Muitos tutores ainda acreditam que filhotes precisam de suplementação de cálcio para crescer com ossos fortes. No entanto, a literatura científica e o Manual Pet Food Brasil da ABINPET revelam o oposto: até os 6 meses, cães não regulam a absorção intestinal de cálcio. O excesso mineral não é descartado e se deposita nas cartilagens de crescimento, provocando osteocondrose (OCD), deformidades nos membros e agravando a displasia coxofemoral em raças médias e grandes.',
     relatedProductSlugs: [
@@ -1406,7 +1406,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-05',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/royal-canin-vs-pro-plan-duel-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Colocamos frente a frente as linhas para gatos da Royal Canin e da Purina Pro Plan: descubra a proteína real calculada em Matéria Seca (MS), a presença de carne fresca contra glúten vegetal, os conservantes do pacote e o manejo contra tártaro e bolas de pelo.',
     relatedProductSlugs: [
@@ -1773,7 +1773,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-07',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/garantia-satisfacao-racao-cdc-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Comprou um pacote de ração caro e o pet virou a cara? Descubra o que a legislação brasileira e o CDC realmente garantem, as exigências de peso mínimo no pacote para acionar o SAC dos fabricantes e o roteiro prático para conseguir a troca ou o reembolso sem dor de cabeça.',
     relatedProductSlugs: [],
@@ -1933,7 +1933,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-08',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-medicamentosa-coadjuvante-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Muitos tutores acreditam que as rações veterinárias contêm antibióticos ou anti-inflamatórios em sua composição. No entanto, a Instrução Normativa MAPA nº 39/2014 proíbe qualquer princípio farmacológico ativo em alimentos para animais. Entenda o mecanismo estritamente nutricional das dietas coadjuvantes e por que oferecê-las a cães e gatos saudáveis pode provocar desnutrição, desequilíbrio do pH urinário e sobrecarga metabólica.',
     relatedProductSlugs: [
@@ -2297,7 +2297,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-10',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-15kg-caes-consumo-oxidacao-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Comprar pacotes de 15kg costuma baratear o quilo em até 40%, mas pode transformar o comedouro em armadilha para cães de pequeno e médio porte. Explicamos o cálculo exato de durabilidade pela Energia Metabolizável (EM), a perda de vitaminas por oxidação lipídica e o manejo com embalagem hermética.',
     relatedProductSlugs: [
@@ -2627,7 +2627,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-12',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/mix-feeding-gatos-racao-sache-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary: 'Aprenda como calcular a alimentação mista (mix feeding) para gatos passo a passo. Entenda a regra de substituição calórica entre ração seca e sachê, os benefícios comprovados pela WSAVA para a saúde renal e como evitar a obesidade em gatos castrados.',
     relatedProductSlugs: [],
     sections: [
@@ -2927,7 +2927,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-14',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/grain-free-racao-pet-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Investigamos a ciência por trás do apelo sem grãos. Entenda a digestibilidade do amido cozido em cães e gatos, o impacto da substituição por ervilhas e batatas, e as orientações da ABINPET e da FDA sobre o assunto.',
     relatedProductSlugs: [],
@@ -3077,7 +3077,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-15',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/premier-vs-farmina-nd-duel-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Análise técnica comparativa entre PremieR Formula Gatos Castrados e Farmina N&D Ancestral Grain Feline Frango & Romã Castrados. Confrontamos níveis de proteína na Matéria Seca (MS), fontes de carboidratos (grãos ancestrais vs transgênicos), inclusão de carnes nobres e controle de minerais para a proteção renal.',
     relatedProductSlugs: [
@@ -3251,7 +3251,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-16',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/premier-vs-royal-canin-caes-duel-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), o primeiro ingrediente da lista, a conservação natural vs BHA sintético e os aditivos articulares entre PremieR Formula e Royal Canin para cães adultos.',
     relatedProductSlugs: [
@@ -3414,7 +3414,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-17',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/ph-urinario-magnesio-gatos-calculos-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Entenda como a composição bromatológica da ração regula a acidez da urina e por que o controle estrito de magnésio e fósforo é essencial para evitar obstruções uretrais em felinos domésticos.',
     relatedProductSlugs: [],
@@ -3566,7 +3566,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-18',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/condroitina-glicosamina-caes-articulacoes-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary: 'Entenda como o sulfato de condroitina e a glicosamina atuam na cartilagem articular dos cães, a diferença matemática entre a quantidade presente na ração e a dose terapêutica clínica, e quais cuidados nutricionais realmente preservam a mobilidade.',
     relatedProductSlugs: [],
     sections: [
@@ -3718,7 +3718,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-19',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/taurina-racao-gatos-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary: 'A taurina é um aminoácido estritamente essencial para gatos, pois os felinos não conseguem produzi-la no fígado em quantidades suficientes e a perdem continuamente na bile. Sua carência crônica provoca degeneração irreversível da retina e cardiomiopatia dilatada. Veja os limites mínimos exigidos pelo Manual ABINPET (1.000 mg/kg em rações secas e 2.000 mg/kg em alimentos úmidos) e aprenda a conferir a garantia nos rótulos.',
     relatedProductSlugs: [],
     sections: [
@@ -3872,7 +3872,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-20',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-hipoalergenica-caes-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Comparamos os mecanismos biológicos das proteínas intactas frente às fórmulas hidrolisadas, o papel da barreira cutânea e as exigências da Instrução Normativa MAPA nº 39/2014 para alimentos coadjuvantes de eliminação.',
     relatedProductSlugs: [],
@@ -4009,7 +4009,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-21',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/crescimento-filhotes-caes-curvas-peso.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Entenda por que filhote pesado não significa filhote saudável. Analisamos como a alta densidade calórica acelera o ganho de massa antes da mineralização dos ossos, os tetos de cálcio da ABINPET e como usar as curvas de crescimento do Waltham para prevenir lesões articulares precoces.',
     relatedProductSlugs: [],
@@ -4151,7 +4151,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-22',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/bolas-de-pelo-gatos-fibras-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Entenda por que os gatos engolem pelos durante a autolimpeza, como as papilas filiformes da língua direcionam os fios ao estômago e de que forma o equilíbrio entre fibras insolúveis e solúveis na ração conduz os pelos com segurança até as fezes, prevenindo vômitos e obstruções.',
     relatedProductSlugs: [],
@@ -4465,7 +4465,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-24',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/royal-canin-light-vs-hills-perfect-weight-duel-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       "Comparamos detalhadamente os níveis de garantia em Matéria Seca (MS), a concentração de L-carnitina, a densidade de energia metabolizável por quilo e a lista de ingredientes entre a Royal Canin Light Weight Care e a Hill's Science Diet Adult Perfect Weight.",
     relatedProductSlugs: [
@@ -4660,7 +4660,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-25',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/bifinhos-petiscos-caes-excesso-sodio-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Entenda como a oferta excessiva de bifinhos, tiras de carne e snacks comerciais pode elevar o sódio da dieta e desregular a proporção entre cálcio e fósforo, sobrecarregando rins e ossos de cães.',
     relatedProductSlugs: [],
@@ -4811,7 +4811,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-26',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-renal-gatos-restricao-fosforo-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'A Doença Renal Crônica (DRC) afeta mais de um terço dos felinos sêniores e transforma a alimentação na principal ferramenta terapêutica para prolongar a vida do pet. Entenda como a Instrução Normativa MAPA nº 39/2014 regulamenta os alimentos coadjuvantes renais, por que o fósforo em excesso destrói os néfrons remanescentes e como fórmulas especializadas como Hill\'s Prescription Diet k/d e Farmina Vet Life Renal preservam a massa magra sem sobrecarregar o organismo.',
     relatedProductSlugs: [
@@ -5489,7 +5489,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-10-30',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/sodio-racao-gatos-castrados-hidratacao-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Ao virar o pacote de ração para gatos castrados e ler "cloreto de sódio (sal comum)" ou um teor de sódio entre 0,30% e 0,48%, muitos tutores se assustam achando que o sal vai atacar os rins ou subir a pressão do animal. A ciência nutricional da FEDIAF, da ABINPET e do instituto WALTHAM mostra uma realidade bem diferente para gatos saudáveis.',
     relatedProductSlugs: [
@@ -5674,6 +5674,263 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer verificar os níveis de sódio, fósforo e matéria mineral da ração do seu gato em Matéria Seca (MS)? Acesse o catálogo completo de alimentos avaliados.',
       buttonText: 'Explorar Rações para Gatos',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'hexametafosfato-sodio-racao-tartaro-caes',
+    title: 'Hexametafosfato de sódio na ração: Como esse mineral previne o tártaro em cães?',
+    subtitle:
+      'Entenda como os polifosfatos agem como um "ímã" de cálcio na saliva do cão, por que raças pequenas formam placa bacteriana tão rápido e o que mudam as dosagens de 0,10% a 0,60% nos rótulos.',
+    cluster: 'Ingredientes & Rótulos',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-10-31',
+    updatedAt: '2026-10-31',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/hexametafosfato-sodio-tartaro-caes-cover.webp',
+    isFeatured: true,
+    summary:
+      'Ao procurar uma ração ou petisco funcional para combater o mau hálito do cão, você certamente já viu o selo de controle de tártaro ligado ao hexametafosfato de sódio ou ao tripolifosfato de sódio. Longe de ser um branqueador mágico ou um substituto da escova de dentes, esse mineral atua quimicamente na saliva para impedir que a placa mole vire uma crosta dura no esmalte.',
+    relatedProductSlugs: [
+      'formula-natural-super-premium-fresh-meat-oral-caes-adultos-medio-grande-frango-mandioca-hortela',
+      'cao-adulto-castrado-medio-sabor-mix-de-carnes',
+      'premier-racas-especificas-shih-tzu-caes-adultos-sabor-frango',
+      'royal-canin-poodle-adult',
+      'pedigree-dentastix-adulto-racas-pequenas',
+      'baw-waw-natural-pro-caes-racas-medias-adultos-dental-care-petisco',
+    ],
+    sections: [
+      {
+        id: 'por-que-placa-mole-vira-tartaro-duro-em-48-horas',
+        heading: '1. Da película invisível à crosta amarela: Como o tártaro se forma em 48 horas',
+        paragraphs: [
+          'Quando você sente aquele cheiro forte vindo da boca do seu cão e levanta o lábio dele, costuma encontrar uma camada amarelada ou marrom grudada perto da gengiva. Muita gente acha que aquilo é resto de ração acumulada, mas o processo real acontece em duas etapas bem distintas.',
+          'Logo após o cão comer, forma-se sobre os dentes a placa bacteriana (também chamada de biofilme dental), uma película macia e invisível composta por saliva, glicoproteínas e bactérias naturais da boca. Enquanto ainda está mole, essa película sai facilmente com o atrito da escovação ou da mastigação.',
+          'O problema começa entre 24 e 48 horas depois: a saliva do cão tem um pH mais alcalino que a humana e é muito rica em cálcio dissolvido. Esse cálcio reage com a placa bacteriana e endurece a película como se fosse cimento, formando o cálculo dentário (o popular tártaro), que irrita a gengiva e causa perda óssea ao redor da raiz do dente.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Por que raças pequenas sofrem muito mais com o tártaro?',
+          text: 'Cães de porte pequeno e mini (como Shih Tzu, Poodle, Schnauzer Miniatura, Spitz Alemão e Yorkshire) têm o mesmo número de dentes de um Pastor Alemão (42 dentes permanentes) espremidos em uma mandíbula minúscula. Esse apinhamento cria frestas onde a saliva e a placa ficam retidas com muito mais facilidade.',
+        },
+      },
+      {
+        id: 'mecanismo-ima-calcio-hexametafosfato-tripolifosfato',
+        heading: '2. O efeito "ímã" na saliva: Como o hexametafosfato e o tripolifosfato agem na boca',
+        paragraphs: [
+          'Por muito tempo, acreditou-se que a ração seca limpava os dentes apenas porque o grão duro "raspava" a superfície do esmalte. O problema é que o grão comum costuma quebrar na ponta do dente antes mesmo de encostar na margem da gengiva, exatamente onde o tártaro começa.',
+          'Foi para resolver essa limitação mecânica que a ciência nutricional introduziu os polifosfatos, principalmente o Hexametafosfato de Sódio (SHMP) e o Tripolifosfato de Sódio (STPP). Na fábrica, esses minerais são aplicados na cobertura externa do grão da ração ou na massa dos petiscos dentais.',
+          'Durante a mastigação, o hexametafosfato se dissolve na boca e funciona como um agente quelante (um verdadeiro "ímã" químico de minerais). Ele captura os íons de cálcio livres na saliva antes que eles consigam se juntar à placa bacteriana, mantendo o cálcio suspenso na saliva até ser engolido e aproveitado normalmente na digestão.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Tradução prática para o dia a dia do tutor',
+          text: 'O hexametafosfato de sódio não dissolve nem arranca o tártaro antigo que já está petrificado no dente. O papel dele na rotina é impedir que a placa bacteriana do dia se mineralize, mantendo os dentes limpos por muito mais tempo após uma profilaxia veterinária ou junto com a escovação.',
+        },
+      },
+      {
+        id: 'hexametafosfato-vs-tripolifosfato-seguranca-digestiva',
+        heading: '3. Hexametafosfato vs. Tripolifosfato de sódio: Existe diferença prática ou risco renal?',
+        paragraphs: [
+          'Ao comparar pacotes de diferentes marcas Super Premium, você verá que fabricantes brasileiros como Adimax (Fórmula Natural), BRF Pet (Biofresh) e PremieRpet utilizam o Hexametafosfato de Sódio, enquanto multinacionais como Royal Canin e Mars (Pedigree Dentastix) declaram o Tripolifosfato de Sódio.',
+          'Ambos pertencem à mesma família de polifosfatos lineares reconhecidos pelo Veterinary Oral Health Council (VOHC) e pelo instituto WALTHAM pela eficácia na redução da mineralização da placa. A diferença está apenas no tamanho da cadeia de fosfatos, mas os dois cumprem o mesmo papel quelante de cálcio em toda a cavidade oral, inclusive nos dentes que não mastigaram diretamente o grão.',
+          'Quanto à segurança para os rins e para a pressão arterial, a quantidade de sódio e fósforo adicionada por esses aditivos (geralmente entre 0,10% e 0,60% da fórmula) já está integralmente contabilizada nos Níveis de Garantia do rótulo. No estômago, os ácidos digestivos quebram o polifosfato em ortofosfato simples e liberam o cálcio para absorção normal, sem sobrecarregar cães saudáveis.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Como o MAPA classifica os polifosfatos no rótulo?',
+          text: 'Pela Instrução Normativa MAPA nº 22/2009 e pelo regulamento de aditivos tecnológicos, o hexametafosfato de sódio e o tripolifosfato de sódio devem constar na lista de ingredientes ou nos níveis de garantia quando utilizados para embasar alegações funcionais de cuidado oral no pacote.',
+        },
+      },
+      {
+        id: 'confronto-rotulos-racoes-petiscos-hexametafosfato',
+        heading: '4. Confronto de rótulos: Dosagens reais em rações completas e petiscos dentais',
+        paragraphs: [
+          'Para mostrar como a indústria aplica esses minerais na prática, cruzamos seis produtos cadastrados no banco de dados do PetRankings: quatro alimentos completos secos e dois alimentos complementares (petiscos funcionais de mastigação).',
+          'Nos alimentos completos de uso diário, a PremieR Raças Específicas Shih Tzu Adultos declara 0,10% (1.000 mg/kg) de hexametafosfato de sódio, enquanto a Biofresh Cão Adulto Castrado Raças Médias eleva a inclusão para 0,30% (3.000 mg/kg). Já a Fórmula Natural Fresh Meat Cuidado Oral, desenvolvida especificamente para cães com alta tendência à formação de cálculo, dobra essa concentração para 0,60% (6.000 mg/kg), associada a extrato de própolis e hortelã.',
+          'Na linha de petiscos mastigáveis, que unem a textura elástica de limpeza mecânica à ação química na saliva, o Pedigree Dentastix Raças Pequenas aposta no tripolifosfato de sódio com baixíssima gordura (0,70% em Matéria Seca), e o Baw Waw Natural Pro Dental Care combina o hexametafosfato de sódio com óleo de menta e extrato de romã.',
+        ],
+        table: {
+          caption: 'Comparativo Técnico de Produtos com Polifosfatos Orais Avaliados no PetRankings (MN e MS)',
+          headers: [
+            'Produto Analisado',
+            'Categoria MAPA',
+            'Polifosfato Oral Declarado',
+            'Proteína Bruta (MS)',
+            'Extrato Etéreo / Gordura (MS)',
+            'Fósforo e Sódio Mín. (MN)',
+          ],
+          rows: [
+            [
+              'Fórmula Natural Fresh Meat Cuidado Oral Médio/Grande',
+              'Alimento Completo (Umid. 9%)',
+              'Hexametafosfato de sódio (0,60% / 6.000 mg/kg)',
+              '30,77% MS (28,0% MN)',
+              '16,48% MS (15,0% MN)',
+              'P: 0,80% | Na: 0,20%',
+            ],
+            [
+              'Biofresh Cão Adulto Castrado Raças Médias',
+              'Alimento Completo (Umid. 10%)',
+              'Hexametafosfato de sódio (0,30% / 3.000 mg/kg)',
+              '35,56% MS (32,0% MN)',
+              '11,67% MS (10,5% MN)',
+              'P: 0,70% | Na: 0,14%',
+            ],
+            [
+              'PremieR Raças Específicas Shih Tzu Adultos',
+              'Alimento Completo (Umid. 10%)',
+              'Hexametafosfato de sódio (0,10% / 1.000 mg/kg)',
+              '27,78% MS (25,0% MN)',
+              '17,78% MS (16,0% MN)',
+              'P: 0,46% | Na: 0,20%',
+            ],
+            [
+              'Royal Canin Poodle Adult',
+              'Alimento Completo (Umid. 11%)',
+              'Tripolifosfato de sódio (na composição)',
+              '31,46% MS (28,0% MN)',
+              '19,10% MS (17,0% MN)',
+              'P: 0,36% | Na: 0,248%',
+            ],
+            [
+              'Pedigree Dentastix Adulto Raças Pequenas',
+              'Alimento Complementar (Umid. 14%)',
+              'Tripolifosfato de sódio (na composição)',
+              '5,81% MS (5,0% MN)',
+              '0,70% MS (0,6% MN)',
+              'Matéria Mineral máx.: 8,1%',
+            ],
+            [
+              'Baw Waw Natural Pro Dental Care Raças Médias',
+              'Alimento Complementar (Umid. 21%)',
+              'Hexametafosfato de sódio (na composição)',
+              '10,13% MS (8,0% MN)',
+              '3,80% MS (3,0% MN)',
+              'P: 0,20% | Ca: 0,15% a 1,0%',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'protocolo-pratico-escovacao-racao-petisco-wsava',
+        heading: '5. A ração com hexametafosfato substitui a escova de dentes? O protocolo da WSAVA',
+        paragraphs: [
+          'Segundo as Diretrizes Globais de Odontologia Veterinária da WSAVA (World Small Animal Veterinary Association), a escovação mecânica diária (ou no mínimo três vezes por semana) continua sendo o padrão-ouro insubstituível para desorganizar o biofilme dental antes que ele amadureça.',
+          'No entanto, a própria WSAVA reconhece que a maioria dos tutores não consegue escovar os dentes do cão todos os dias. É exatamente nesse intervalo que a ração enriquecida com hexametafosfato ou tripolifosfato de sódio mostra seu valor clínico, reduzindo em até 40% a 55% a velocidade de formação de novo cálculo dentário em estudos controlados.',
+          'Se o seu cão já apresenta placas grossas e escuras acompanhadas de gengiva avermelhada (gengivite) ou sangramento, nenhum alimento ou petisco conseguirá reverter o quadro sozinho. O caminho seguro é realizar a profilaxia periodontal com o médico veterinário e, logo no dia seguinte à limpeza, adotar a dieta com polifosfatos para blindar o esmalte recém-polido.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Atenção às calorias dos petiscos dentais na rotina',
+          text: 'Se você utiliza sticks dentais diários como apoio ao controle do tártaro, lembre-se de que eles são Alimentos Complementares (IN MAPA nº 30/2009) e não devem ultrapassar 10% das calorias diárias do cão para evitar o ganho de peso.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'O hexametafosfato de sódio consegue remover o tártaro que já está amarelo e duro no dente do cão?',
+        a: 'Não. Uma vez que a placa bacteriana sofreu mineralização e virou cálculo dentário duro aderido ao esmalte, apenas a raspagem periodontal por ultrassom feita pelo médico veterinário sob anestesia consegue removê-lo com segurança. O hexametafosfato atua prevenindo a formação de novas camadas de cálculo.',
+      },
+      {
+        q: 'Cães que engolem a ração quase sem mastigar ainda têm benefício com o hexametafosfato?',
+        a: 'O benefício é reduzido, mas não desaparece totalmente. Como o hexametafosfato de sódio é aplicado na superfície externa dos grãos e tem alta solubilidade em água, o contato rápido com a saliva já libera parte dos polifosfatos na cavidade oral, embora a mastigação prolongada potencialize muito o efeito.',
+      },
+      {
+        q: 'Qual a diferença entre uma ração com 0,10% e outra com 0,60% de hexametafosfato de sódio?',
+        a: 'A dosagem de 0,10% (1.000 mg/kg) a 0,30% (3.000 mg/kg) é o padrão preventivo de manutenção em rações Super Premium de uso diário. Já a concentração de 0,60% (6.000 mg/kg), presente em linhas específicas de cuidado oral, entrega o dobro de agentes quelantes na saliva para cães com alta predisposição ao cálculo dentário.',
+      },
+      {
+        q: 'Gatos também podem comer rações com hexametafosfato ou tripolifosfato de sódio?',
+        a: 'Sim, desde que o alimento seja formulado especificamente para felinos. Diversas rações Super Premium para gatos utilizam polifosfatos na cobertura do croquete com o mesmo objetivo de sequestrar o cálcio salivar e reduzir a formação de cálculo dentário.',
+      },
+    ],
+    conclusion:
+      'O hexametafosfato de sódio e o tripolifosfato de sódio estão entre os poucos aditivos funcionais da nutrição pet com eficácia clínica comprovada por conselhos internacionais de odontologia veterinária. Embora não substituam a escovação mecânica nem removam crostas antigas já petrificadas, escolher uma ração que declare esses polifosfatos na superfície do grão é a estratégia mais prática e segura para frear a mineralização da placa no dia a dia, protegendo a gengiva e o hálito do seu cão a cada refeição.',
+    references: [
+      {
+        title: 'WSAVA Global Dental Guidelines',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/dental-guidelines/',
+        details: 'Diretrizes clínicas de prevenção da doença periodontal em cães, fisiopatologia da mineralização do biofilme dental e eficácia de aditivos químicos redutores de cálculo (polifosfatos)',
+      },
+      {
+        title: 'VOHC Accepted Products and Protocols for Dogs (Plaque and Tartar Control)',
+        institution: 'Veterinary Oral Health Council (VOHC)',
+        type: 'estudo',
+        url: 'https://vohc.org/',
+        details: 'Protocolos de avaliação clínica de agentes químicos anti-cálculo (Hexametafosfato de Sódio e Tripolifosfato de Sódio) por quelação do cálcio salivar em alimentos secos e petiscos mastigáveis',
+      },
+      {
+        title: 'Waltham Science: Role of Polyphosphates in Canine Oral Health and Calculus Reduction',
+        institution: 'Waltham Petcare Science Institute (WALTHAM)',
+        type: 'estudo',
+        url: 'https://www.waltham.com/',
+        details: 'Estudos de redução do acúmulo de cálculo supragengival em cães alimentados com croquetes e snacks revestidos com tripolifosfato e hexametafosfato de sódio',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Padrões nutricionais de cálcio, fósforo e sódio em Matéria Seca (MS) e diretrizes de aditivos tecnológicos e funcionais para cães adultos',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Critérios de classificação e rotulagem de Alimentos Completos e Alimentos Complementares (petiscos funcionais) para animais de companhia',
+      },
+      {
+        title: 'Ficha Oficial: Fórmula Natural Super Premium Fresh Meat Cuidado Oral Cães Adultos Portes Médio e Grande',
+        institution: 'Adimax Indústria e Comércio de Alimentos Ltda',
+        type: 'rotulagem',
+        url: 'https://adimax.com.br/produto/formula-natural-super-premium-fresh-meat-oral-caes-adultos-medio-grande-frango-mandioca-hortela/',
+        details: 'Níveis de garantia declarados: Hexametafosfato de sódio 0,60% (6.000 mg/kg), Proteína Bruta (mín.) 28%, Extrato Etéreo (mín.) 15% e Umidade (máx.) 9%',
+      },
+      {
+        title: 'Ficha Oficial: Biofresh Cão Adulto Castrado Raças Médias Mix de Carnes, Frutas e Vegetais',
+        institution: 'BRF Pet S.A.',
+        type: 'rotulagem',
+        url: 'https://www.biofreshpet.com.br/pt/caes/cao-adulto-castrado-medio-sabor-mix-de-carnes',
+        details: 'Composição e garantias declaradas: Hexametafosfato de sódio (0,3%), Proteína Bruta (mín.) 32%, Extrato Etéreo (mín.) 10,5% e Umidade (máx.) 10%',
+      },
+      {
+        title: 'Ficha Oficial: PremieR Raças Específicas Shih Tzu Adultos Porte Pequeno Frango',
+        institution: 'Grandfood Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://premierpet.com.br/produto/premier-racas-especificas-shih-tzu-caes-adultos-sabor-frango/',
+        details: 'Composição e garantias declaradas: Hexametafosfato de sódio (0,10%), Proteína Bruta (mín.) 25%, Extrato Etéreo (mín.) 16% e Umidade (máx.) 10%',
+      },
+      {
+        title: 'Ficha Oficial: Royal Canin Poodle Adult',
+        institution: 'Royal Canin do Brasil Indústria e Comércio Ltda',
+        type: 'rotulagem',
+        url: 'https://www.royalcanin.com/br/dogs/products/retail-products/poodle-adult-3057',
+        details: 'Composição e garantias declaradas: Tripolifosfato de sódio, Proteína Bruta (mín.) 28%, Extrato Etéreo (mín.) 17%, Fósforo (mín.) 0,36% e Umidade (máx.) 11%',
+      },
+      {
+        title: 'Ficha Oficial: Pedigree Dentastix Adulto Raças Pequenas',
+        institution: 'Mars Brasil Alimentos Ltda',
+        type: 'rotulagem',
+        url: 'https://www.pedigree.com.br/nossos-produtos/produtos-funcionais/pedigree-dentastix-adulto-racas-pequenas',
+        details: 'Composição e garantias declaradas: Tripolifosfato de sódio, Proteína Bruta (mín.) 5%, Extrato Etéreo (mín.) 0,6%, Matéria Mineral (máx.) 8,1% e Umidade (máx.) 14%',
+      },
+      {
+        title: 'Ficha Oficial: Baw Waw Natural Pro Cães Raças Médias Adultos Dental Care Petisco',
+        institution: 'Rações Reis Indústria e Comércio de Alimentos Ltda',
+        type: 'rotulagem',
+        url: 'https://www.racoesreis.com.br/dental-care-3/13795/produtos/caes/cae-ali/natural-pro/',
+        details: 'Composição e garantias declaradas: Hexametafosfato de sódio, Proteína Bruta (mín.) 8%, Extrato Etéreo (mín.) 3%, Matéria Mineral (máx.) 5,5% e Umidade (máx.) 21%',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Rações e Petiscos no Catálogo Técnico',
+      text: 'Quer conferir quais rações para a raça e o porte do seu cão trazem hexametafosfato de sódio na fórmula? Consulte as fichas técnicas completas avaliadas no PetRankings.',
+      buttonText: 'Explorar Catálogo para Cães',
+      buttonUrl: '/catalogo?especie=Caes',
     },
   },
 ];
