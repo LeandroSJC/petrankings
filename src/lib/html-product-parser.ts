@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio';
 import { stripWeightFromTitle, normalizeIngredient, stripFootnotesFromIngredient } from '@/lib/utils';
+import alisulBestImages from '@/lib/content/alisul-best-images.json';
 
 export interface ProductHtmlMetadata {
   commercialName: string;
@@ -654,6 +655,7 @@ export function parseProductFromHtml(
   const isNutrire = /nutrire\.ind\.br/i.test(sourceUrl) || /nutrire\.ind\.br/i.test(fallbackUrl);
   const isSpecialNutri = /specialnutri\.com\.br/i.test(sourceUrl) || /specialnutri/i.test(fallbackUrl);
   const isRacoesReis = /racoesreis\.com\.br/i.test(sourceUrl) || /racoesreis/i.test(fallbackUrl);
+  const isAlisul = /alisul\.com\.br/i.test(sourceUrl) || /alisul\.com\.br/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -695,6 +697,15 @@ export function parseProductFromHtml(
       imageUrl = specialNutriImg.startsWith('http')
         ? specialNutriImg
         : `https://specialnutri.com.br${specialNutriImg.startsWith('/') ? '' : '/'}${specialNutriImg}`;
+    }
+  }
+
+  if (isAlisul) {
+    const cleanUrl = (sourceUrl || fallbackUrl || '').replace(/\/$/, '') + '/';
+    const alisulMap = alisulBestImages as Record<string, string>;
+    const alisulImg = alisulMap[cleanUrl] || alisulMap[cleanUrl.replace(/\/$/, '')];
+    if (alisulImg) {
+      imageUrl = alisulImg;
     }
   }
 
@@ -976,6 +987,15 @@ export function parseProductFromHtml(
       imageUrl = specialNutriImg.startsWith('http')
         ? specialNutriImg
         : `https://specialnutri.com.br${specialNutriImg.startsWith('/') ? '' : '/'}${specialNutriImg}`;
+    }
+  }
+
+  if (isAlisul) {
+    const cleanUrl = (sourceUrl || fallbackUrl || '').replace(/\/$/, '') + '/';
+    const alisulMap = alisulBestImages as Record<string, string>;
+    const alisulImg = alisulMap[cleanUrl] || alisulMap[cleanUrl.replace(/\/$/, '')];
+    if (alisulImg) {
+      imageUrl = alisulImg;
     }
   }
 
@@ -1697,6 +1717,114 @@ export function parseProductFromHtml(
 
     const nameParts = [brandName, lineName, speciesLabel, breedSizeLabel, lifeStageLabel, flavorLabel, formatLabel].filter(Boolean);
     rawName = nameParts.join(' ').replace(/\s+/g, ' ').trim();
+  } else if (isAlisul) {
+    const h1 = $('article h1').first().text().replace(/[®™©]/g, '').replace(/&#8211;|–|—/g, '-').replace(/\s+/g, ' ').trim();
+    const sub = $('article h1').first().next('p').text().replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim();
+    let cleanName = h1;
+
+    // 1. Frost
+    if (/^frost/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Frost\s+Puppy\s+Mini\s*&\s*Small/i, 'Frost Puppy Mini & Small Cães Filhotes Portes Mini e Pequeno')
+        .replace(/Frost\s+Puppy\s+Medium\s*&\s*Large/i, 'Frost Puppy Medium & Large Cães Filhotes Portes Médio e Grande')
+        .replace(/Frost\s+Adult\s+Mini\s*&\s*Small/i, 'Frost Adult Mini & Small Cães Adultos Portes Mini e Pequeno')
+        .replace(/Frost\s+Adult\s+Medium\s*&\s*Large/i, 'Frost Adult Medium & Large Cães Adultos Portes Médio e Grande')
+        .replace(/Frost\s+Adult\s+Light\s+Mini\s*&\s*Small/i, 'Frost Adult Light Mini & Small Cães Adultos Portes Mini e Pequeno')
+        .replace(/Frost\s+Adult\s+Light\s+All\s*Breeds/i, 'Frost Adult Light Cães Adultos Todas as Raças')
+        .replace(/Frost\s+Sensitive\s+Skin\s+Mini\s*&\s*Small/i, 'Frost Sensitive Skin Mini & Small Cães Adultos Portes Mini e Pequeno')
+        .replace(/Frost\s+Sensitive\s+Skin\s+All\s*Breeds/i, 'Frost Sensitive Skin Cães Adultos Todas as Raças')
+        .replace(/Frost\s+Technical\s+All\s*Breeds/i, 'Frost Technical Cães Adultos Todas as Raças')
+        .replace(/Frost\s+Senior\s+Mini\s*&\s*Small/i, 'Frost Senior Mini & Small Cães Idosos Portes Mini e Pequeno')
+        .replace(/Frost\s+Senior\s+Medium\s*&\s*Large/i, 'Frost Senior Medium & Large Cães Idosos Portes Médio e Grande')
+        .replace(/Frost\s+Kitten/i, 'Frost Kitten Gatos Filhotes')
+        .replace(/Frost\s+Cat\s+Indoor\s+Sterilized/i, 'Frost Cat Indoor Gatos Adultos Castrados Ambientes Internos')
+        .replace(/Frost\s+Cat\s+Senior\s+Sterilized/i, 'Frost Cat Senior Gatos Idosos Castrados');
+    }
+    // 2. Atacama
+    else if (/^atacama/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Atacama\s+Puppies\s+All\s*Breeds[^\n]*/i, 'Atacama Puppies Cães Filhotes Todas as Raças')
+        .replace(/Atacama\s+All\s*Breeds[^\n]*/i, 'Atacama Cães Adultos Todas as Raças')
+        .replace(/Atacama\s+Cats\s+Sterilized/i, 'Atacama Cats Gatos Adultos Castrados');
+    }
+    // 3. Funny Dog / Funny Cat
+    else if (/^funny\s*dog/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Funny\s+Dog\s+Carne/i, 'Funny Dog Cães Adultos Sabor Carne')
+        .replace(/Funny\s+Dog\s+Frango/i, 'Funny Dog Cães Adultos Sabor Frango');
+    }
+    else if (/^funny\s*cat/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Funny\s+Cat\s+Frango/i, 'Funny Cat Gatos Adultos Sabor Frango')
+        .replace(/Funny\s+Cat\s+Salm[ãa]o/i, 'Funny Cat Gatos Adultos Sabor Salmão');
+    }
+    // 4. Astro
+    else if (/^astro/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Astro\s+Junior/i, 'Astro Junior Cães Filhotes Todas as Raças')
+        .replace(/Astro\s+Small\s*Breeds/i, 'Astro Small Breeds Cães Adultos Raças Pequenas')
+        .replace(/Astro\s+Selection/i, 'Astro Selection Cães Adultos Todas as Raças')
+        .replace(/Astro\s+Vitality/i, 'Astro Vitality Cães Adultos Todas as Raças')
+        .replace(/Astro\s+Senior/i, 'Astro Senior Cães Idosos Todas as Raças')
+        .replace(/Astro\s+Cat\s+Gourmet/i, 'Astro Cat Gourmet Gatos Adultos Salmão e Frango');
+    }
+    // 5. Bravo
+    else if (/^bravo/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Bravo\s+Filhotes/i, 'Bravo Formação Essencial Cães Filhotes Todas as Raças')
+        .replace(/Bravo\s+Pequeno\s*Porte/i, 'Bravo Pequeno Porte Cães Adultos Raças Pequenas')
+        .replace(/Bravo\s+Cordeiro\s*(?:&|e)\s*Arroz/i, 'Bravo Cordeiro e Arroz Cães Adultos Todas as Raças')
+        .replace(/Bravo\s+Alta\s*Perfo?rmance/i, 'Bravo Alta Performance Cães Adultos Todas as Raças');
+    }
+    // 6. Sapeca
+    else if (/^sapeca/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Sapeca\s+Filhotes/i, 'Sapeca Cães Filhotes Todas as Raças')
+        .replace(/Sapeca\s+Pequenas\s*Ra[çc]as/i, 'Sapeca Cães Adultos Raças Pequenas')
+        .replace(/Sapeca\s+Adultos/i, 'Sapeca Cães Adultos Todas as Raças');
+    }
+    // 7. Nhock
+    else if (/^nhock/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Nhock\s+Junior/i, 'Nhock Junior Cães Filhotes Todas as Raças')
+        .replace(/Nhock\s+Mini/i, 'Nhock Mini Cães Adultos Raças Pequenas')
+        .replace(/Nhock\s+Classic/i, 'Nhock Classic Cães Adultos Todas as Raças');
+    }
+    // 8. Trotter
+    else if (/^trotter/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Trotter\s+Filhotes/i, 'Trotter Cães Filhotes Todas as Raças')
+        .replace(/Trotter\s+Pequeno\s*Porte/i, 'Trotter Pequeno Porte Cães Adultos Raças Pequenas')
+        .replace(/Trotter\s+Adultos/i, 'Trotter Cães Adultos Todas as Raças')
+        .replace(/Trotter\s+Gatos/i, 'Trotter Gatos Adultos Mix de Carnes');
+    }
+    // 9. Tango
+    else if (/^tango/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Tango\s+Mix/i, 'Tango Mix Cães Adultos Todas as Raças')
+        .replace(/Tango\s+Dia\s*a\s*Dia/i, 'Tango Dia a Dia Cães Adultos Todas as Raças');
+    }
+    // 10. LeRoy
+    else if (/^leroy/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Leroy\s+Petit/i, 'LeRoy Petit Gatos Filhotes Frango e Peixe')
+        .replace(/Leroy\s+Cocktail\s+do\s*Mar/i, 'LeRoy Cocktail do Mar Gatos Adultos Peixe e Frango')
+        .replace(/Leroy\s+Grill[ée]\s+de\s*Carnes/i, 'LeRoy Grillé de Carnes Gatos Adultos Carne e Frango')
+        .replace(/Leroy\s+Fillet\s+de\s*Frango/i, 'LeRoy Fillet de Frango Gatos Adultos Frango e Vegetais')
+        .replace(/Leroy\s+Buffet\s+Mix/i, 'LeRoy Buffet Mix Gatos Adultos Carne, Peixe e Frango');
+    }
+    // 11. Jazz
+    else if (/^jazz/i.test(h1)) {
+      cleanName = cleanName
+        .replace(/Jazz\s+Carne/i, 'Jazz Gatos Adultos Sabor Carne')
+        .replace(/Jazz\s+Mix/i, 'Jazz Mix Gatos Adultos Carne e Peixe');
+    }
+    // 12. Alix
+    else if (/^alix/i.test(h1)) {
+      cleanName = 'Alix Gatos Adultos Mix de Frango e Carne';
+    }
+
+    rawName = cleanName.replace(/\s+/g, ' ').trim();
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -1728,7 +1856,7 @@ export function parseProductFromHtml(
       }
     } else {
       const m =
-        sourceUrl.match(/\/(?:produto|products\/[^\/]+)\/([^/]+)\/?$/i) ||
+        sourceUrl.match(/\/(?:produto|produtos|products\/[^\/]+)\/([^/]+)\/?$/i) ||
         sourceUrl.match(/\/([^/]+)\/?$/);
       if (m && m[1] && m[1] !== 'produto' && m[1] !== 'products' && m[1] !== 'index' && m[1].length > 3) {
         slug = m[1].replace(/\.php$/i, '').replace(/\.html?$/i, '').replace(/^-+|-+$/g, '');
@@ -2055,6 +2183,42 @@ export function parseProductFromHtml(
     } else {
       brand = 'Baw Waw';
     }
+  } else if (
+    isAlisul ||
+    /alisul\.com\.br/i.test(sourceUrl) ||
+    /frost|atacama|funny\s*dog|funny\s*cat|astro|bravo|sapeca|nhock|trotter|tango|leroy|jazz|alix/i.test(commercialName)
+  ) {
+    manufacturerLegalName = 'Alisul Alimentos S.A.';
+    const fullText = (commercialName + ' ' + sourceUrl).toLowerCase();
+    if (/frost/i.test(fullText)) {
+      brand = 'Frost';
+    } else if (/atacama/i.test(fullText)) {
+      brand = 'Atacama';
+    } else if (/funny\s*dog/i.test(fullText)) {
+      brand = 'Funny Dog';
+    } else if (/funny\s*cat/i.test(fullText)) {
+      brand = 'Funny Cat';
+    } else if (/astro/i.test(fullText)) {
+      brand = 'Astro';
+    } else if (/bravo/i.test(fullText)) {
+      brand = 'Bravo';
+    } else if (/sapeca/i.test(fullText)) {
+      brand = 'Sapeca';
+    } else if (/nhock/i.test(fullText)) {
+      brand = 'Nhock';
+    } else if (/trotter/i.test(fullText)) {
+      brand = 'Trotter';
+    } else if (/tango/i.test(fullText)) {
+      brand = 'Tango';
+    } else if (/leroy/i.test(fullText)) {
+      brand = 'LeRoy';
+    } else if (/jazz/i.test(fullText)) {
+      brand = 'Jazz';
+    } else if (/alix/i.test(fullText)) {
+      brand = 'Alix';
+    } else {
+      brand = 'Alisul';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2069,11 +2233,12 @@ export function parseProductFromHtml(
     !isNutrire &&
     !isSpecialNutri &&
     !isRacoesReis &&
+    !isAlisul &&
     !/baw\s*waw|beauty\s*pet|speto/i.test(commercialName) &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
-    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br|racoesreis\.com\.br/i.test(sourceUrl)
+    !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care|frost|atacama|funny\s*dog|funny\s*cat|astro|bravo|sapeca|nhock|trotter|tango|leroy|jazz|alix/i.test(commercialName) &&
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br|racoesreis\.com\.br|alisul\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -2356,6 +2521,23 @@ export function parseProductFromHtml(
         compText = (p.length > 0 ? p.text() : $(el).find('.card-body').text()).replace(/\s+/g, ' ').trim();
       }
     });
+  }
+
+  // 5-alisul. Alisul Alimentos (Frost, Atacama, Funny Dog, Funny Cat, Astro, Bravo, Sapeca, Nhock, Trotter, Tango, LeRoy, Jazz, Alix)
+  if (isAlisul) {
+    const tabs: string[] = [];
+    $('.listaTextosItem').each((_, el) => {
+      tabs.push($(el).text().replace(/\s+/g, ' ').trim());
+    });
+    if (tabs[1] && (!compText || compText.length < 20)) {
+      compText = tabs[1];
+    }
+    if (tabs[2] && (!garText || garText.length < 20)) {
+      garText = tabs[2];
+    }
+    if (tabs[3]) {
+      garText = (garText ? garText + ' ' : '') + tabs[3];
+    }
   }
 
   // 5a. JetTabs / Accordions / Elementor Nested Tabs (.e-n-tab-title)
@@ -2650,16 +2832,9 @@ export function parseProductFromHtml(
   }
 
   let sodioMinPct: number | null = null;
-  const sodioLineMatch = garText.match(/(?:^|[\n\r]|;)\s*([^\n\r;]*\b(?<!de\s+)s[óo]dio\b[^\n\r;]*)/i);
-  if (sodioLineMatch && !/sel[êe]nio\s+de\s+s[óo]dio|cloreto\s+de\s+s[óo]dio|iodato/i.test(sodioLineMatch[1])) {
-    const sLine = sodioLineMatch[1];
-    sodioMinPct = parseValFromText(sLine, /(?:(?:m[íi]n\.?|m[íi]nimo)[^\d]*)?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
-  }
-  if (sodioMinPct === null) {
-    const sMatch = garText.match(/(?:^|[\n\r])\s*S[óo]dio(?!\s*de)\b[^\d]{0,45}(?:(?:m[íi]n\.?|m[íi]nimo)[^\d]{0,20})?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
-    if (sMatch) {
-      sodioMinPct = parseValFromText(sMatch[0], /(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
-    }
+  const sMatch = garText.match(/(?<!(?:de|com)\s+)\bS[óo]dio(?!\s*de)\b[^\d]{0,45}(?:(?:m[íi]n\.?|m[íi]nimo)[^\d]{0,20})?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+  if (sMatch && !/sel[êe]nio\s+de\s+s[óo]dio|cloreto\s+de\s+s[óo]dio|iodato|hexametafosfato/i.test(sMatch[0])) {
+    sodioMinPct = parseValFromText(garText.slice(sMatch.index!), /(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
   }
   if (sodioMinPct !== null && (sodioMinPct > 3.0 || sodioMinPct <= 0)) {
     sodioMinPct = null;

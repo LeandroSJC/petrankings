@@ -41,7 +41,7 @@ export async function ensureTunnelOpen() {
 
   console.log('🔒 [Túnel SSH] Abrindo túnel temporário seguro com a Oracle Cloud (porta 5433)...');
   const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
-  autoTunnel = spawn('ssh', ['-L', '5433:127.0.0.1:5432', '-N', sshTarget], {
+  autoTunnel = spawn('ssh', ['-o', 'ServerAliveInterval=15', '-o', 'ServerAliveCountMax=6', '-L', '5433:127.0.0.1:5432', '-N', sshTarget], {
     stdio: 'ignore',
     windowsHide: true,
   });
@@ -279,7 +279,7 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
       }
       if (destPath.endsWith('.webp')) {
         try {
-          await sharp(buf).webp({ quality: 90 }).toFile(destPath);
+          await sharp(buf).trim().webp({ quality: 90 }).toFile(destPath);
         } catch {
           fs.writeFileSync(destPath, buf);
         }
@@ -624,7 +624,7 @@ async function main() {
     const urls = content
       .split('\n')
       .map((l) => l.trim())
-      .filter((l) => l.startsWith('http'));
+      .filter((l) => l.startsWith('http') && !l.includes('/categorias/'));
 
     if (urls.length > 0) {
       console.log(`📁 Encontradas ${urls.length} URLs no arquivo "${path.relative(process.cwd(), batchFile)}".`);
