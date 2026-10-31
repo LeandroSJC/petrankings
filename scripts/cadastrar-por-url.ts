@@ -88,7 +88,7 @@ export async function closePlaywright() {
   }
 }
 
-async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ status: number; html: string; error?: string }> {
+export async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ status: number; html: string; error?: string }> {
   const fortbrainMatch = url.match(/fortbrain\.com\.br\/produtos\/(\d+)/i);
   if (fortbrainMatch) {
     const prodId = fortbrainMatch[1];

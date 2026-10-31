@@ -108,6 +108,28 @@ const CURATED_INGREDIENTS_FALLBACKS: Record<string, string> = {
     'Farinha de vísceras de aves, Farinha de carne e ossos bovinos, Milho integral moído*, Farelo de glúten de milho 60*, Farelo de trigo, Farelo de soja*, Óleo de frango, Semente de linhaça, Fibras especiais, L-Carnitina, Cloreto de sódio (sal comum), Taurina, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante (BHT/BHA), Antifúngico.',
   'alimento-completo-8/13878':
     'Farinha de carne e ossos bovinos, Farinha de vísceras de aves, Milho integral moído*, Farelo de glúten de milho 60*, Quirera de arroz, Farelo de soja*, Óleo de frango, Semente de linhaça, Cloreto de sódio (sal comum), Taurina, Vitamina A, Vitamina D3, Vitamina E, Vitamina K3, Vitamina B1, Vitamina B2, Vitamina B6, Vitamina B12, Ácido Fólico, Biotina, Cloreto de Colina, Niacina, Pantotenato de Cálcio, Iodato de Cálcio, Selenito de Sódio, Sulfato de Cobre, Sulfato de Ferro, Sulfato de Manganês, Sulfato de Zinco, Extrato de Yucca, Antioxidante (BHT/BHA), Antifúngico.',
+
+  // Rações Reis — Alimentos Úmidos (Patês Enlatados 280g)
+  'pate-enlatado-sabor-carne-e-leite':
+    'Carne Bovina, Carne de Frango, Fígado de Frango, Proteína Texturizada de Soja, Fécula de Mandioca, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  '4493':
+    'Carne Bovina, Carne de Frango, Fígado de Frango, Proteína Texturizada de Soja, Fécula de Mandioca, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  'pate-enlatado/13894':
+    'Carne Bovina, Carne de Frango, Fígado de Frango, Proteína Texturizada de Soja, Fécula de Mandioca, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  '13894':
+    'Carne Bovina, Carne de Frango, Fígado de Frango, Proteína Texturizada de Soja, Fécula de Mandioca, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  'pate-enlatado-2/13898':
+    'Carne de Frango, Carne Bovina, Fígado de Frango, Proteína Texturizada de Soja, Fécula de Mandioca, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  '13898':
+    'Carne de Frango, Carne Bovina, Fígado de Frango, Proteína Texturizada de Soja, Fécula de Mandioca, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  'pate-enlatado-3/13903':
+    'Carne Bovina, Carne de Frango, Fígado de Frango, Taurina, Proteína Texturizada de Soja, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  '13903':
+    'Carne Bovina, Carne de Frango, Fígado de Frango, Taurina, Proteína Texturizada de Soja, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  'rascunho-automatico/13907':
+    'Carne Bovina, Carne de Peixe, Fígado de Frango, Farinha de Peixe, Taurina, Proteína Texturizada de Soja, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
+  '13907':
+    'Carne Bovina, Carne de Peixe, Fígado de Frango, Farinha de Peixe, Taurina, Proteína Texturizada de Soja, Cloreto de Sódio (Sal Comum), Premix Vitamínico Mineral, Água.',
 };
 
 function capitalizeTitle(str: string): string {
@@ -562,18 +584,20 @@ export function parseProductFromHtml(
 
   let imageUrl =
     (isRacoesReis
-      ? $('.post-img.gallery img.big-img[alt="1"]').attr('data-src') ||
+      ? $('.post-img img.big-img, article img.big-img').first().attr('data-src') ||
+        $('.post-img.gallery img.big-img[alt="1"]').attr('data-src') ||
         $('.post-img.gallery img.big-img[alt="1"]').attr('src') ||
         $('.post-img.gallery .thumbs img[id="1"]').attr('data-src') ||
         $('.post-img.gallery .thumbs img[id="1"]').attr('src') ||
         $('.post-img.gallery img.big-img').first().attr('data-src') ||
-        $('.post-img.gallery img.big-img').first().attr('src')
+        $('.post-img.gallery img.big-img').first().attr('src') ||
+        $('.post-img img.big-img, article img.big-img').first().attr('src')
       : null) ||
     $('meta[property="og:image"]').attr('content') ||
     $('img.wp-post-image, .woocommerce-product-gallery__image img').first().attr('src') ||
     null;
 
-  if (imageUrl && (/hills-logo/i.test(imageUrl) || imageUrl.includes('seo-default') || (isSpecialNutri && imageUrl.includes('og-image')))) {
+  if (imageUrl && (imageUrl.startsWith('data:image/svg') || /hills-logo/i.test(imageUrl) || imageUrl.includes('seo-default') || (isSpecialNutri && imageUrl.includes('og-image')))) {
     imageUrl = null;
   }
 
@@ -1390,17 +1414,18 @@ export function parseProductFromHtml(
       lineName = '';
     }
 
+    const isWet = /pat[êe]|enlatado/i.test(fullText);
     const speciesLabel = /gato|gat-/i.test(fullText) ? 'Gatos' : 'Cães';
     const lifeStageLabel = /castrad/i.test(fullText)
       ? 'Castrados'
-      : /filhote/i.test(fullText)
+      : /filhote|em crescimento/i.test(fullText)
       ? 'Filhotes'
       : /s[êe]nior/i.test(fullText)
       ? 'Sênior'
       : 'Adultos';
 
     let breedSizeLabel = '';
-    if (speciesLabel === 'Cães') {
+    if (speciesLabel === 'Cães' && !isWet) {
       if (/pequenos?\s*e\s*minis?|pequenas?\s*e\s*minis?/i.test(fullText)) {
         breedSizeLabel = 'Raças Pequenas e Minis';
       } else if (/pequenas?\s*e\s*m[ée]dias?|pequenos|rpm/i.test(fullText)) {
@@ -1431,15 +1456,19 @@ export function parseProductFromHtml(
       flavorLabel = 'Carne e Leite';
     } else if (/mix/i.test(fullText)) {
       flavorLabel = 'Mix';
-    } else if (/frango\s*e\s*arroz/i.test(fullText) || /frango/i.test(fullText)) {
+    } else if (/frango\s*e\s*arroz/i.test(fullText)) {
       flavorLabel = 'Frango e Arroz';
+    } else if (/frango/i.test(fullText)) {
+      flavorLabel = isWet ? 'Frango' : 'Frango e Arroz';
     } else if (/carne\s*e\s*arroz/i.test(fullText)) {
       flavorLabel = 'Carne e Arroz';
     } else if (/carne/i.test(fullText)) {
       flavorLabel = 'Carne';
     }
 
-    const nameParts = [brandName, lineName, speciesLabel, breedSizeLabel, lifeStageLabel, flavorLabel].filter(Boolean);
+    const formatLabel = isWet ? 'Patê' : '';
+
+    const nameParts = [brandName, lineName, speciesLabel, breedSizeLabel, lifeStageLabel, flavorLabel, formatLabel].filter(Boolean);
     rawName = nameParts.join(' ').replace(/\s+/g, ' ').trim();
   } else {
     rawName =
@@ -2372,6 +2401,11 @@ export function parseProductFromHtml(
   let fosforoMinPct =
     parseGuarantee(/F[óo]sforo[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
     (foodType === 'UMIDO' ? 0.15 : 0.7);
+
+  if (fosforoMinPct > 0 && fosforoMinPct < 0.05 && foodType === 'UMIDO') {
+    // Correção de erro tipográfico de rotulagem do fabricante (ex: "3 mg/kg" em vez de "3 g/kg" = 0,30%)
+    fosforoMinPct = 0.3;
+  }
 
   // Fallback comprovado de rotulagem oficial para AllCanis Sênior Raças Médias e Grandes
   // (O site oficial do fabricante omitiu a primeira coluna da tabela por erro na página HTML)
