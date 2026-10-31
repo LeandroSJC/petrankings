@@ -22,11 +22,15 @@ async function main() {
   let garantiasSincronizadas = 0;
 
   for (const p of products) {
-    let htmlPath = p.sourceDocumentUrl
-      ? path.join(process.cwd(), 'public', p.sourceDocumentUrl)
-      : path.join(process.cwd(), 'public', 'uploads', `ficha_${p.id}.html`);
-
-    if (!fs.existsSync(htmlPath)) {
+    let htmlPath = '';
+    const archiveUrl = p.sourceArchiveUrl || p.sourceDocumentUrl;
+    if (archiveUrl && archiveUrl.includes('/uploads/')) {
+      const filename = path.basename(archiveUrl);
+      htmlPath = path.join(process.cwd(), 'public', 'uploads', filename);
+    } else if (p.sourceDocumentUrl) {
+      htmlPath = path.join(process.cwd(), 'public', p.sourceDocumentUrl);
+    }
+    if (!htmlPath || !fs.existsSync(htmlPath)) {
       htmlPath = path.join(process.cwd(), 'public', 'uploads', `ficha_${p.id}.html`);
     }
 
@@ -54,7 +58,9 @@ async function main() {
     const antioxidant = parsed ? parsed.antioxidantType : p.antioxidantType;
 
     let ingredients: string[] = [];
-    if (parsed && Array.isArray(parsed.topIngredientsList) && parsed.topIngredientsList.length > 0) {
+    if (parsed && Array.isArray(parsed.topIngredients) && parsed.topIngredients.length > 0) {
+      ingredients = parsed.topIngredients;
+    } else if (parsed && Array.isArray(parsed.topIngredientsList) && parsed.topIngredientsList.length > 0) {
       ingredients = parsed.topIngredientsList;
     } else {
       try {
@@ -113,11 +119,30 @@ async function main() {
     const omegaDiff = (omega ?? null) !== (p.omega3MinPct ?? null);
     const scoreDiff = audit.scoreTotal !== p.scoreTotal || audit.classificacaoFaixa !== p.classificationTier;
 
+    let breakdownDiff = false;
+    const current = (p.scoreBreakdown as any[]) || [];
+    const fresh = audit.extratoPontos || [];
+    if (current.length !== fresh.length) {
+      breakdownDiff = true;
+    } else {
+      for (let i = 0; i < current.length; i++) {
+        if (
+          current[i].pilar !== fresh[i].pilar ||
+          current[i].pontos_obtidos !== fresh[i].pontos_obtidos ||
+          current[i].pontos_max !== fresh[i].pontos_max ||
+          current[i].justificativa !== fresh[i].justificativa
+        ) {
+          breakdownDiff = true;
+          break;
+        }
+      }
+    }
+
     if (caMaxDiff || omegaDiff) {
       garantiasSincronizadas++;
     }
 
-    if (scoreDiff || caMaxDiff || omegaDiff) {
+    if (scoreDiff || caMaxDiff || omegaDiff || breakdownDiff) {
       atualizados++;
       if (!isDryRun) {
         await prisma.product.update({
