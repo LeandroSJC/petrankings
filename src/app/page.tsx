@@ -62,7 +62,7 @@ export default async function HomePage() {
   const faqs = [
     {
       q: 'Como funciona a Avaliação Nutricional do PetRankings?',
-      a: 'É uma metodologia técnica e determinística que avalia as informações nutricionais divulgadas nos sites oficiais dos fabricantes de alimentos para cães e gatos sob 4 pilares: adequação nutricional em Matéria Seca (MS), equilíbrio Cálcio:Fósforo (Ca:P), nobreza dos primeiros ingredientes declarados e transparência com aditivos e conservantes naturais.',
+      a: 'É uma metodologia técnica e determinística que avalia as informações nutricionais declaradas nas fichas e páginas oficiais dos fabricantes sob 4 pilares: adequação nutricional e controle de cinzas em Matéria Seca (MS), balanço mineral Cálcio:Fósforo (Ca:P), nobreza dos primeiros ingredientes (com combate a fracionamento de grãos) e transparência em conservantes 100% naturais, ausência de transgênicos e aditivos funcionais.',
     },
     {
       q: 'Por que os cálculos são feitos na Matéria Seca (MS) e não na Matéria Natural (MN)?',
@@ -717,7 +717,7 @@ export default async function HomePage() {
                 Matéria Seca (MS)
               </h3>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', lineHeight: 1.55, margin: 0 }}>
-                Neutralização da água para apurar os teores reais de Proteína Bruta e Extrato Etéreo confrontados com a 11ª Edição da ABINPET.
+                Neutralização da água para apurar teores de Proteína Bruta, Extrato Etéreo e controle rigoroso de cinzas (Low Ash) segundo o Manual ABINPET.
               </p>
             </div>
 
@@ -750,7 +750,7 @@ export default async function HomePage() {
                 Balanço Cálcio:Fósforo
               </h3>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', lineHeight: 1.55, margin: 0 }}>
-                Avaliação da proporção mineral (faixa ideal de 1,0:1 a 2,0:1) para proteger a saúde óssea e o trato urinário.
+                Avaliação da proporção mineral (faixa ideal de 1,1:1 a 1,6:1 para adultos) para proteger a saúde óssea e o trato urinário sem sobrecarga renal.
               </p>
             </div>
 
@@ -783,7 +783,7 @@ export default async function HomePage() {
                 Nobreza de Ingredientes
               </h3>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', lineHeight: 1.55, margin: 0 }}>
-                Inspeção da ordem decrescente dos primeiros 5 ingredientes (IN MAPA 22/2009) priorizando fontes proteicas de alta digestibilidade.
+                Inspeção da ordem decrescente oficial (IN MAPA 22/2009), priorizando carnes nobres nos primeiros lugares com trava contra fracionamento de grãos.
               </p>
             </div>
 
@@ -816,7 +816,7 @@ export default async function HomePage() {
                 Conservantes e Aditivos
               </h3>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-body)', lineHeight: 1.55, margin: 0 }}>
-                Análise de aditivos tecnológicos (IN MAPA 110/2020), pontuando a eliminação de conservantes sintéticos (BHT/BHA) e ausência de OGM.
+                Pontuação para antioxidantes 100% naturais (tocoferóis/alecrim sem BHA/BHT), fórmulas sem transgênicos (OGM) e presença de Ômega-3 ou prebióticos.
               </p>
             </div>
           </div>

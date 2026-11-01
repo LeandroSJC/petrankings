@@ -284,7 +284,7 @@ export const GUIDES: GuideItem[] = [
             ['Origem', 'Natural e Vegetal (Vitamina E, Alecrim e Chá Verde)', 'Síntese química industrial de derivados fenólicos'],
             ['Custo de Fabricação', 'Mais elevado (impacta o preço final)', 'Muito baixo e de ampla oferta'],
             ['Estabilidade Térmica', 'Moderada (exige adição em pós-extrusão)', 'Altíssima (resiste a grandes choques térmicos)'],
-            ['Impacto no Score PetRankings', 'Pontuação Máxima (Pilar 3: Transparência)', 'Pontuação Básica (Sem bônus natural)'],
+            ['Impacto no Score PetRankings', 'Pontuação Máxima (Pilar 4: Transparência)', 'Pontuação Básica (Sem bônus natural)'],
           ],
         },
       },
@@ -820,7 +820,7 @@ export const GUIDES: GuideItem[] = [
           '1. Linhas com Cereais Ancestrais (Low Grain): Substituem integralmente o milho e a soja transgênicos por cereais ancestrais de baixo índice glicêmico, como aveia descascada e cevada em grão, cultivados sob rigoroso controle de pureza varietal. O maior expoente técnico dessa vertente analisado no Observatório PetRankings é a linha Farmina N&D Ancestral Grain (como o alimento N&D Ancestral Grain Canine Frango & Romã Adult Medium), que combina fontes cárneas nobres com carboidratos de absorção lenta e zero grãos transgênicos.',
           '2. Linhas Grain-Free e Fórmulas com Carnes Frescas: Eliminam completamente quaisquer cereais da receita, recorrendo a carboidratos alternativos provenientes de raízes e tubérculos (como mandioca e batata-doce) e frutas desidratadas. Dois exemplos de alta complexidade nutricional avaliados em nosso acervo oficial são a Biofresh Cão Adulto Castrado Raças Médias (formulada com mix de carnes frescas, maçã, mamão e orégano) e a Fórmula Natural Fresh Meat Gatos Filhotes Frango, Maçã e Cúrcuma, ambas declarando ausência total de ingredientes geneticamente modificados.',
           '3. Rações Tradicionais com Arroz e Sorgo Não Transgênicos: Alimentos que preservam grãos convencionais de alta digestibilidade (como quirera de arroz e sorgo integral selecionado), garantindo a integridade dos croquetes sem recorrer a grãos com o símbolo "T".',
-          'Para o tutor identificar esses produtos na prática, a regra de inspeção é direta: alimentos verdadeiramente sem transgênicos não exibem o triângulo com a letra "T" no painel principal e frequentemente trazem no rótulo frontal selos informativos como "Livre de Transgênicos" ou "Non-GMO", respaldados por laudos de custódia e rastreabilidade documental perante o Ministério da Agricultura.',
+          'Para o tutor identificar esses produtos na prática, a regra de inspeção é direta: alimentos verdadeiramente sem transgênicos não exibem o triângulo com a letra "T" no painel principal e frequentemente trazem no rótulo frontal selos informativos como "Livre de Transgênicos" ou "Non-GMO", respaldados por registros de custódia e rastreabilidade documental perante o Ministério da Agricultura.',
         ],
         table: {
           caption: 'Comparativo de Fórmulas: Produtos com Transgênicos vs Livres de Transgênicos Analisados no PetRankings',
@@ -1189,7 +1189,7 @@ export const GUIDES: GuideItem[] = [
       },
     ],
     conclusion:
-      'Em síntese, o confronto entre PremieR Formula Gatos Castrados e Royal Canin Castrados / Sterilised 37 coloca frente a frente duas formulações Super Premium de alto gabarito zootécnico. A Royal Canin destaca-se pelo perfil mais fibroso e enxuto para saciedade e controle de pelos, mas permanece atrelada ao conservante sintético BHA. A PremieR Formula sobressai-se pela conservação 100% natural com tocoferóis e extrato de alecrim, aliada a um menor teor de cinzas minerais (8,89% MS), conquistando pontuação mais equilibrada em nosso laudo técnico de rotulagem.',
+      'Em síntese, o confronto entre PremieR Formula Gatos Castrados e Royal Canin Castrados / Sterilised 37 coloca frente a frente duas formulações Super Premium de alto gabarito zootécnico. A Royal Canin destaca-se pelo perfil mais fibroso e enxuto para saciedade e controle de pelos, mas permanece atrelada ao conservante sintético BHA. A PremieR Formula sobressai-se pela conservação 100% natural com tocoferóis e extrato de alecrim, aliada a um menor teor de cinzas minerais (8,89% MS), conquistando pontuação mais equilibrada em nossa avaliação técnica de rotulagem.',
     references: [
       {
         title: 'Manual Pet Food Brasil — 11ª Edição',
@@ -2141,7 +2141,7 @@ export const GUIDES: GuideItem[] = [
         id: 'extrato-etereo-e-energia',
         heading: '3. Extrato Etéreo sob Controle: O Piso Mínimo e a Densidade Calórica',
         paragraphs: [
-          'A gordura (medida nos laudos bromatológicos como Extrato Etéreo) é o macronutriente mais denso da alimentação animal: cada grama de gordura fornece cerca de 9 quilocalorias, contra apenas 4 quilocalorias fornecidas por um grama de proteína ou carboidrato. Por isso, a redução de gordura é a ferramenta mais eficiente para enxugar as calorias totais do alimento.',
+          'A gordura (medida nas análises bromatológicas como Extrato Etéreo) é o macronutriente mais denso da alimentação animal: cada grama de gordura fornece cerca de 9 quilocalorias, contra apenas 4 quilocalorias fornecidas por um grama de proteína ou carboidrato. Por isso, a redução de gordura é a ferramenta mais eficiente para enxugar as calorias totais do alimento.',
           'Pelas diretrizes internacionais da AAFCO (Model Regulation PF9), um alimento felino só pode ostentar o termo "Light" ou "Baixas Calorias" no rótulo se apresentar uma densidade energética máxima de 3.250 kcal/kg de energia metabolizável. Para atingir essa meta, produtos de alta precisão reduzem o Extrato Etéreo para a faixa de 8,5% a 9,5% na Matéria Natural.',
           'Embora o manual genérico da ABINPET para manutenção estabeleça piso de 9,0% MS de gordura, o guia europeu da FEDIAF (2025, Tabela VII-2) reconhece explicitamente que dietas de restrição energética e perda de peso podem operar com teores lipídicos reduzidos, desde que os ácidos graxos essenciais (ácido linoleico e ácido araquidônico) sejam rigorosamente atendidos para proteger a barreira da pele e a pelagem.',
         ],
@@ -4354,7 +4354,7 @@ export const GUIDES: GuideItem[] = [
             ['Rastreabilidade de Insumos', 'Controle em registros internos sem padronização unificada', 'Mapeamento obrigatório de ponta a ponta entre insumos e lote final'],
             ['Comunicação de Risco ao MAPA', 'Prazos dilatados e dependência de fiscalizações periódicas', 'Dever de notificação imediata ao detectar qualquer risco à saúde animal'],
             ['Plano Formal de Recolhimento', 'Executado caso a caso com discricionariedade da empresa', 'Roteiro padronizado com prazos fixos de recolhimento e prestação de contas'],
-            ['Comprovação de Descarte', 'Comunicação simples de inutilização de estoque', 'Laudo probatório de destruição sob supervisão sanitária do órgão fiscalizador'],
+            ['Comprovação de Descarte', 'Comunicação simples de inutilização de estoque', 'Certificado probatório de destruição sob supervisão sanitária do órgão fiscalizador'],
           ],
         },
       },

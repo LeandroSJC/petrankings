@@ -295,41 +295,41 @@ export default function SobrePage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div style={{ border: '1px solid var(--border-cream)', borderRadius: 'var(--radius-sm)', padding: '18px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 1: Conformidade Nutricional em Matéria Seca (MS)</strong>
+                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 1: Conformidade Bromatológica em Matéria Seca (MS)</strong>
                   <span style={{ fontWeight: 800, color: 'var(--brand-forest-700)', backgroundColor: 'var(--brand-forest-50)', padding: '4px 10px', borderRadius: 'var(--radius-full)', fontSize: '0.88rem' }}>40 Pontos</span>
                 </div>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                  Verifica se Proteína Bruta, Extrato Etéreo (Gordura), Cálcio e Fósforo atendem aos pisos e respeitam os limites máximos na MS com margem técnica de segurança industrial (+40 pts) ou no limite estrito (+20 pts), consoante os parâmetros da ABINPET e diretrizes FEDIAF/NRC para alimentos úmidos. Caso algum nutriente essencial esteja fora dos parâmetros seguros, o pilar zera (0 pts).
+                  Calcula a densidade de Proteína Bruta e Extrato Etéreo convertidos para base 100% seca (MS) conforme os parâmetros da ABINPET (11ª Edição) e FEDIAF/NRC. O alimento recebe uma pontuação base de densidade nutricional (+40 pts para padrão Super Premium / Alta Performance, +30 pts para Perfil Regular com margem de segurança ou +20 pts para o piso estrito de manutenção legal). Em seguida, o algoritmo aplica deduções bromatológicas calibradas: desconto punitivo de até -10 pts para excesso de matéria mineral/cinzas (&gt;9,5% MS em gatos ou &gt;10% MS em cães), que sinaliza o uso excessivo de ossos e cartilagens moídas em vez de carne; desconto de -5 pts para cinzas moderadas acima do padrão nobre Low Ash (&gt;8,0% a 8,5% MS); desconto de -5 pts se o cálcio máximo declarado atingir a margem limítrofe do teto toxicológico (&ge;92% do teto seguro); e desconto de -5 pts para excesso de sódio em animais sêniores (&gt;0,50% MS). Atendendo a todos os pisos essenciais, garante-se uma pontuação mínima de 15 pts. Se algum nutriente essencial violar os pisos mínimos ou extrapolar os tetos toxicológicos seguros, o pilar zera (0 pts).
                 </p>
               </div>
 
               <div style={{ border: '1px solid var(--border-cream)', borderRadius: 'var(--radius-sm)', padding: '18px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 2: Equilíbrio e Relação Cálcio : Fósforo (Ca:P)</strong>
+                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 2: Balanço Mineral e Relação Cálcio : Fósforo (Ca:P)</strong>
                   <span style={{ fontWeight: 800, color: 'var(--brand-forest-700)', backgroundColor: 'var(--brand-forest-50)', padding: '4px 10px', borderRadius: 'var(--radius-full)', fontSize: '0.88rem' }}>20 Pontos</span>
                 </div>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                  Calcula a relação matemática entre cálcio e fósforo declarados. Proporção ideal (Adultos: 1,1:1 a 1,6:1; Filhotes: 1,1:1 a 1,5:1) confere 20 pts. Faixa tolerável (1,0:1 até 2,0:1) confere 10 pts. Desbalanço crítico confere 0 pts, evitando riscos de calcificação ou sobrecarga renal.
+                  Mede a razão estrita entre Cálcio e Fósforo nos níveis de garantia declarados. Proporção ideal dentro dos limites biológicos seguros (1,1:1 a 1,6:1 para adultos e 1,1:1 a 1,5:1 para filhotes) confere 20 pts integrais, desde que estável até o teto declarado de cálcio. Se a proporção no piso for ideal porém a amplitude máxima permitir desbalanço (&gt;2,0:1), ou se estiver na faixa de tolerância aceitável (1,0:1 até 2,0:1), confere 10 pts. Desbalanço crítico (&lt; 1,0:1 ou &gt; 2,0:1) confere 0 pts, prevenindo riscos de sobrecarga renal crônica ou osteodistrofias.
                 </p>
               </div>
 
               <div style={{ border: '1px solid var(--border-cream)', borderRadius: 'var(--radius-sm)', padding: '18px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 3: Qualidade Declarada dos Ingredientes Principais</strong>
+                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 3: Nobreza e Digestibilidade dos Ingredientes Principais</strong>
                   <span style={{ fontWeight: 800, color: 'var(--brand-forest-700)', backgroundColor: 'var(--brand-forest-50)', padding: '4px 10px', borderRadius: 'var(--radius-full)', fontSize: '0.88rem' }}>25 Pontos</span>
                 </div>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                  Em obediência à IN MAPA 22/2009 e ao Decreto nº 12.031/2024, os ingredientes aparecem em ordem decrescente de quantidade na declaração oficial do produto. Primeiro ingrediente de fonte cárnea de alta digestibilidade confere +15 pts; segundo ingrediente de origem animal ou carboidrato nobre confere +10 pts adicionais. <em>(Nota para alimentos úmidos: como a água/caldo é legalmente obrigatória como veículo físico de cocção no 1º lugar da batelada, o motor filtra a água inerte e pontua a qualidade biológica a partir dos dois primeiros ingredientes nutritivos reais).</em>
+                  Avalia a ordem decrescente compulsória de matérias-primas no misturador (IN MAPA nº 22/2009 e Decreto nº 12.031/2024). Primeiro ingrediente nutritivo de fonte cárnea nobre de alta digestibilidade (carne fresca, farinha de vísceras isolada, peixe, salmão, cordeiro) confere +15 pts (ou +10 pts para CMS/carcaça e +8 pts para farinha de carne e ossos). Segundo ingrediente nutritivo de origem animal nobre, carboidrato nobre (arroz integral, aveia, batata-doce, mandioca) ou lipídeo funcional (óleo de salmão ou de peixe) confere +10 pts adicionais. Inclui travas antifraude: desconto de -3 pts para fracionamento de grãos (splitting de milho, trigo ou soja entre os 5 primeiros ingredientes) e -5 pts para extensores ou aglutinantes vegetais em alimentos úmidos (pedaços reconstituídos de TVP com glúten de trigo ou soja). Em alimentos úmidos, a água ou caldo de cocção é desconsiderada da pontuação para avaliar os dois primeiros nutrientes reais.
                 </p>
               </div>
 
               <div style={{ border: '1px solid var(--border-cream)', borderRadius: 'var(--radius-sm)', padding: '18px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 4: Transparência e Atributos Funcionais Declarados</strong>
+                  <strong style={{ color: 'var(--brand-forest-900)', fontSize: '1.02rem' }}>Pilar 4: Transparência, Conservantes e Atributos Funcionais</strong>
                   <span style={{ fontWeight: 800, color: 'var(--brand-forest-700)', backgroundColor: 'var(--brand-forest-50)', padding: '4px 10px', borderRadius: 'var(--radius-full)', fontSize: '0.88rem' }}>15 Pontos</span>
                 </div>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                  Conservantes 100% naturais sem BHA/BHT (+5 pts), inclusão comprovada de Ômega-3 funcional ou prebióticos no nível de garantia (+5 pts) e aderência estrita de alegações de carne segundo a Tabela 14 do Manual ABINPET (+5 pts).
+                  Avalia transparência, aditivos tecnológicos e claims comprovados em 3 blocos objetivos de 5 pontos: conservantes 100% naturais à base de tocoferóis, alecrim e chá verde em substituição a antioxidantes químicos sintéticos como BHT e BHA (+5 pts); fórmula comprovadamente livre de ingredientes transgênicos sem o símbolo triangular &quot;T&quot; no rótulo, conforme o Decreto Federal nº 4.680/2003 (+5 pts); e inclusão comprovada de Ômega-3 funcional ou prebióticos funcionais (MOS, FOS, betaglucanos ou inulina) garantidos no rótulo (+5 pts).
                 </p>
               </div>
             </div>

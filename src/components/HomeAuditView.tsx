@@ -952,7 +952,7 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
             <strong style={{ color: '#1d4ed8', display: 'block', marginBottom: '2px' }}>
               Isolamento Metodológico de Alimentos Coadjuvantes (Prescrição Veterinária)
             </strong>
-            Alimentos coadjuvantes possuem formulações clínicas específicas para suporte terapêutico e não competem em notas comparativas gerais com rações regulares. Seus laudos detalham a conformidade dos níveis de garantia declarados pelos fabricantes oficiais.
+            Alimentos coadjuvantes possuem formulações clínicas específicas para suporte terapêutico e não competem em notas comparativas gerais com rações regulares. Suas fichas técnicas detalham a conformidade dos níveis de garantia declarados pelos fabricantes oficiais.
           </div>
         </div>
       )}
