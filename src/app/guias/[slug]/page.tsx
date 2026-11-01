@@ -109,61 +109,82 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
   const relatedGuides = getRelatedGuides(guide.slug, 2);
 
-  // Schema.org JSON-LD para Article e BreadcrumbList
+  // Schema.org JSON-LD para Article, BreadcrumbList e FAQPage (GEO & Rich Results)
+  const articleSchema = {
+    '@type': 'Article',
+    '@id': `${SITE_URL}/guias/${guide.slug}#article`,
+    headline: guide.title,
+    description: guide.summary,
+    image: guide.coverImageUrl,
+    datePublished: guide.publishedAt,
+    dateModified: guide.updatedAt,
+    author: {
+      '@type': 'Organization',
+      name: guide.author.name,
+      url: SITE_URL,
+    },
+    citation: guide.references?.map((r) => `${r.institution}: ${r.title}`),
+    publisher: {
+      '@type': 'Organization',
+      name: 'PetRankings',
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/icon.svg`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/guias/${guide.slug}`,
+    },
+  };
+
+  const breadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Início',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Estudos & Guias',
+        item: `${SITE_URL}/#estudos`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: guide.title,
+        item: `${SITE_URL}/guias/${guide.slug}`,
+      },
+    ],
+  };
+
+  const faqSchema =
+    guide.faq && guide.faq.length > 0
+      ? {
+          '@type': 'FAQPage',
+          '@id': `${SITE_URL}/guias/${guide.slug}#faq`,
+          mainEntity: guide.faq.map((item) => ({
+            '@type': 'Question',
+            name: item.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.a,
+            },
+          })),
+        }
+      : null;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
-      {
-        '@type': 'Article',
-        '@id': `${SITE_URL}/guias/${guide.slug}#article`,
-        headline: guide.title,
-        description: guide.summary,
-        image: guide.coverImageUrl,
-        datePublished: guide.publishedAt,
-        dateModified: guide.updatedAt,
-        author: {
-          '@type': 'Organization',
-          name: guide.author.name,
-          url: SITE_URL,
-        },
-        citation: guide.references?.map((r) => `${r.institution}: ${r.title}`),
-        publisher: {
-          '@type': 'Organization',
-          name: 'PetRankings',
-          url: SITE_URL,
-          logo: {
-            '@type': 'ImageObject',
-            url: `${SITE_URL}/icon.svg`,
-          },
-        },
-        mainEntityOfPage: {
-          '@type': 'WebPage',
-          '@id': `${SITE_URL}/guias/${guide.slug}`,
-        },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Início',
-            item: SITE_URL,
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Estudos & Guias',
-            item: `${SITE_URL}/#estudos`,
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: guide.title,
-            item: `${SITE_URL}/guias/${guide.slug}`,
-          },
-        ],
-      },
+      articleSchema,
+      breadcrumbSchema,
+      ...(faqSchema ? [faqSchema] : []),
     ],
   };
 
@@ -171,7 +192,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
 
       <article style={{ backgroundColor: '#ffffff', minHeight: '100vh', paddingBottom: '90px' }}>
