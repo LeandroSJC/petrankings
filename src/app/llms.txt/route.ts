@@ -3,7 +3,7 @@ import { SITE_URL } from '@/lib/utils';
 import { formatarTermo } from '@/lib/formatters';
 import { getAllGuides } from '@/lib/content/guides';
 
-export const revalidate = 3600; // Revalidação a cada 1 hora (ISR)
+export const dynamic = 'force-dynamic'; // Renderizado em runtime com conexão ativa ao banco e cacheado via HTTP headers
 
 export async function GET(): Promise<Response> {
   const siteUrl = SITE_URL;
