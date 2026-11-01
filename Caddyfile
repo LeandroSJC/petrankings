@@ -5,13 +5,7 @@
         reverse_proxy umami:3000
     }
 
-    # 2. Painel de Monitoramento 24/7 (Uptime Kuma)
-    @status host status.petrankings.com.br
-    handle @status {
-        reverse_proxy uptime-kuma:3001
-    }
-
-    # 3. Arquivos Estáticos de Uploads (Imagens WebP e Fichas Técnicas HTML com Alta Performance)
+    # 2. Arquivos Estáticos de Uploads (Imagens WebP e Fichas Técnicas HTML com Alta Performance)
     handle_path /uploads/* {
         root * /var/www/uploads
         @html path *.html
@@ -19,7 +13,7 @@
         file_server
     }
 
-    # 4. Portal PetRankings (Next.js 15) - Default / Fallback
+    # 3. Portal PetRankings (Next.js 15) - Default / Fallback
     handle {
         reverse_proxy app:3000
     }

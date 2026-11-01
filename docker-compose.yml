@@ -22,7 +22,6 @@ services:
     depends_on:
       - app
       - umami
-      - uptime-kuma
     networks:
       - petrankings-net
 
@@ -131,24 +130,8 @@ services:
     networks:
       - petrankings-net
 
-  # ==============================================================================
-  # 5. Uptime Kuma (Monitoramento 24/7 com Alerta em Tempo Real)
-  # ==============================================================================
-  uptime-kuma:
-    <<: *default-logging
-    image: louislam/uptime-kuma:2
-    container_name: petrankings-uptime
-    restart: always
-    expose:
-      - "3001"
-    volumes:
-      - uptime_kuma_data:/app/data
-    networks:
-      - petrankings-net
-
 volumes:
   postgres_data:
-  uptime_kuma_data:
 
 networks:
   petrankings-net:

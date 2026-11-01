@@ -3,7 +3,7 @@ name: oracle-vps-sysadmin
 description: >-
   Specialized system administration and DevOps operations for the PetRankings dedicated Oracle Cloud Always Free
   ARM Ampere A1 server (Ubuntu 24.04, 2 OCPUs, 12 GB RAM, 200 GB SSD). Manages Docker Compose multi-container
-  orchestration (Next.js, PostgreSQL 16 tuned, Caddy, Umami, Uptime Kuma), SSH tunnel routines, backup retention,
+  orchestration (Next.js, PostgreSQL 16 tuned, Caddy, Umami), SSH tunnel routines, backup retention,
   disaster recovery, fail2ban host security, and zero-downtime remote deployments.
 ---
 
@@ -28,7 +28,7 @@ This skill provides comprehensive operational runbooks, infrastructure topology,
 
 ## 2. Docker Compose Multi-Container Orchestration
 
-The application stack operates 5 isolated containers connected via the bridge network `petrankings-net`:
+The application stack operates 4 isolated containers connected via the bridge network `petrankings-net`:
 
 | Container Name | Image | Internal Port | Exposed Port | Purpose |
 | :--- | :--- | :--- | :--- | :--- |
@@ -36,7 +36,6 @@ The application stack operates 5 isolated containers connected via the bridge ne
 | `petrankings-app` | `petrankings-app:latest` | `3000` | Interno | Next.js 15 Standalone portal (SSR/SSG) |
 | `petrankings-postgres` | `postgres:16-alpine` | `5432` | `127.0.0.1:5432` | Master PostgreSQL 16 database (Tuned 12GB RAM) |
 | `petrankings-umami` | `umami:postgresql-latest` | `3000` | Interno | Privacy-friendly, cookie-free web analytics |
-| `petrankings-uptime` | `louislam/uptime-kuma:2` | `3001` | Interno | 24/7 Service health monitor & uptime dashboard |
 
 ### Invariante Crítica de Segurança de Rede
 > ⚠️ **REGRA INEGOCIÁVEL:** A porta do PostgreSQL (`5432`) **JAMAIS** deve ser exposta publicamente (`0.0.0.0:5432`). Ela é obrigatoriamente vinculada a `127.0.0.1:5432:5432` no host da VM, acessível externamente **exclusivamente via Túnel Criptografado SSH**.
