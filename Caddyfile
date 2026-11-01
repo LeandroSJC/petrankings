@@ -13,7 +13,16 @@
         file_server
     }
 
-    # 3. Portal PetRankings (Next.js 15) - Default / Fallback
+    # 3. Bloqueio Estrito de Borda para Área Administrativa e Autenticação (Acesso Estritamente Local)
+    @blocked_admin {
+        path /admin*
+        path /api/auth*
+    }
+    handle @blocked_admin {
+        respond "Not Found" 404
+    }
+
+    # 4. Portal PetRankings (Next.js 15) - Default / Fallback
     handle {
         reverse_proxy app:3000
     }

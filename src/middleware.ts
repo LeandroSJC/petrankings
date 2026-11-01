@@ -47,11 +47,12 @@ export async function middleware(req: NextRequest) {
   const normalizedPath = pathname.replace(/\/$/, '') || '/';
   const isGatePath = normalizedPath === gatePath.replace(/\/$/, '');
   const isAdminPath = pathname === '/admin' || pathname.startsWith('/admin/');
-  const isAuthApi = pathname.startsWith('/api/auth/') && pathname !== '/api/auth/logout';
+  const isAuthApi = pathname.startsWith('/api/auth');
   const isRestrictedApi =
     pathname.startsWith('/api/chamados') ||
     pathname.startsWith('/api/upload') ||
-    pathname.startsWith('/api/products');
+    pathname.startsWith('/api/products') ||
+    pathname.startsWith('/api/stores');
 
   // 1. Otimização de Performance: Se não for rota administrativa nem portão, passa direto
   if (!isGatePath && !isAdminPath && !isAuthApi && !isRestrictedApi) {
@@ -99,7 +100,7 @@ export async function middleware(req: NextRequest) {
 
   // 4. Verificação do Portão para rotas administrativas e APIs restritas
   const gateCookie = req.cookies.get(GATE_COOKIE_NAME)?.value;
-  const isGateUnlocked = await verifyGateToken(gateCookie);
+  const isGateUnlocked = !isProduction || (await verifyGateToken(gateCookie));
 
   // Se o portão estiver trancado (sem cookie ou inválido): Camuflagem ativa (404 Not Found)
   if (!isGateUnlocked) {

@@ -35,6 +35,8 @@ export async function createGateToken(): Promise<string> {
  * Verifica a validade e integridade criptográfica do token do portão.
  */
 export async function verifyGateToken(token: string | undefined | null): Promise<boolean> {
+  // Em ambiente local (desenvolvimento), o portão de camuflagem não é exigido pois o acesso é estritamente local
+  if (!isProduction) return true;
   if (!token) return false;
 
   try {
