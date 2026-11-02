@@ -1,0 +1,105 @@
+{
+  "productId": "c2c8930f6df199241128de630",
+  "slug": "cat-excellence-gatos-adultos-sabor-frango",
+  "commercialName": "Cat Excellence Gatos Adultos Sabor Frango",
+  "brand": "Cat Excellence",
+  "manufacturer": "Selecta Pet Care Ind. Com. Ltda",
+  "primarySource": {
+    "type": "PDF_OFICIAL",
+    "url": "https://excellencepetcare.com.br/wp-content/uploads/2022/05/ADULTO-Sabor-Frango.pdf",
+    "localFile": "public/uploads/custodia/excellence/cat-excellence-gatos-adultos-sabor-frango.pdf",
+    "sha256": "3d3f290513e8683aaa7f3749edc7609208b8de9aace90d7e1702b308290df1b4",
+    "retrievedAt": "2026-10-31T18:38:23.718Z"
+  },
+  "guaranteesDeclared": {
+    "umidadeMaxPct": 10,
+    "proteinaBrutaMinPct": 32,
+    "extratoEtereoMinPct": 12,
+    "materiaFibrosaMaxPct": 3,
+    "materiaMineralMaxPct": 7.5,
+    "calcioMinPct": 1.4,
+    "calcioMaxPct": null,
+    "fosforoMinPct": 0.7,
+    "sodioMinPct": 0.2,
+    "omega3MinPct": null
+  },
+  "rawIngredientsText": "Farinha de vísceras de frango, quirera de arroz, milho integral e glúten de milho 60% transgênicos, gordura de frango, polpa de beterraba, levedura seca de cervejaria, semente de linhaça, ovo integral desidratado, óleo de soja, óleo de peixe refinado, hidrolisado de frango, parede celular de levedura, Taurina (mín 0,15%), DL-metionina, L-lisina, cloreto de sódio (sal comum), cloreto de potássio, antioxidante (BHA e BHT), ácido propiônico, ácido fosfórico, cloreto de colina, vitamina A, vitamina E, vitamina D3, vitamina K3, vitamina B1, vitamina B2, vitamina B6, vitamina B12, vitamina C, niacina, pantotenato de cálcio, biotina, ácido fólico, selenito de sódio, sulfato de ferro, sulfato de cobre, iodato de cálcio, óxido de zinco, sulfato de manganês, ferro quelatado, zinco quelatado, manganês quelatado, cobre quelatado, selênio quelatado",
+  "cleanIngredients": [
+    "Farinha de vísceras de frango",
+    "Quirera de arroz",
+    "Milho integral e glúten de milho 60% transgênicos",
+    "Gordura de frango",
+    "Polpa de beterraba",
+    "Levedura seca de cervejaria",
+    "Semente de linhaça",
+    "Ovo integral desidratado",
+    "Óleo de soja",
+    "Óleo de peixe refinado",
+    "Hidrolisado de frango",
+    "Parede celular de levedura",
+    "Taurina (mín 0,15%)",
+    "DL-metionina",
+    "L-lisina",
+    "Cloreto de sódio (sal comum)",
+    "Cloreto de potássio",
+    "Antioxidante (BHA e BHT)",
+    "Ácido propiônico",
+    "Ácido fosfórico",
+    "Cloreto de colina",
+    "Vitamina A",
+    "Vitamina E",
+    "Vitamina D3",
+    "Vitamina K3",
+    "Vitamina B1",
+    "Vitamina B2",
+    "Vitamina B6",
+    "Vitamina B12",
+    "Vitamina C",
+    "Niacina",
+    "Pantotenato de cálcio",
+    "Biotina",
+    "Ácido fólico",
+    "Selenito de sódio",
+    "Sulfato de ferro",
+    "Sulfato de cobre",
+    "Iodato de cálcio",
+    "Óxido de zinco",
+    "Sulfato de manganês",
+    "Ferro quelatado",
+    "Zinco quelatado",
+    "Manganês quelatado",
+    "Cobre quelatado",
+    "Selênio quelatado"
+  ],
+  "evaluation": {
+    "scoreTotal": 75,
+    "classificationTier": "NIVEL_PRATA",
+    "scoreBreakdown": [
+      {
+        "pilar": "Conformidade MS",
+        "pontos_obtidos": 35,
+        "pontos_max": 40,
+        "justificativa": "Base proteica (40 pts) com ajustes bromatológicos: Cinzas moderadas (8.33% MS fora do padrão Low Ash <= 8%) (-5)."
+      },
+      {
+        "pilar": "Balanço Ca:P",
+        "pontos_obtidos": 10,
+        "pontos_max": 20,
+        "justificativa": "Relação Ca:P calculada em 2:1 (faixa aceitável de tolerância: 1,0:1 até 2,0:1)."
+      },
+      {
+        "pilar": "Ingredientes Principais",
+        "pontos_obtidos": 25,
+        "pontos_max": 25,
+        "justificativa": "1º ingrediente nutritivo é proteína cárnea nobre de alta digestibilidade (Farinha de vísceras de frango) (+15); 2º ingrediente nutritivo é carboidrato nobre de alta digestibilidade (Quirera de arroz) (+10)."
+      },
+      {
+        "pilar": "Transparência e Atributos",
+        "pontos_obtidos": 5,
+        "pontos_max": 15,
+        "justificativa": "Uso de conservantes sintéticos BHA/BHT (+0). Presença declarada de ingredientes transgênicos (+0). Inclusão garantida de Ômega-3 funcional ou prebióticos (+5)."
+      }
+    ],
+    "calculatedAt": "2026-10-31T18:38:23.718Z"
+  }
+}

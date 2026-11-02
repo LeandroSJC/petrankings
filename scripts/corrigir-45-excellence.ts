@@ -89,8 +89,8 @@ async function main() {
   console.log(`📦 Encontrados ${products.length} produtos correspondentes no banco de dados.\n`);
 
   // Diretório de custódia bruta permanente
-  const custodyBaseDir = path.join(process.cwd(), 'custodia_documental', 'excellence');
-  const manifestsDir = path.join(process.cwd(), 'custodia_documental', 'manifestos');
+  const custodyBaseDir = path.join(process.cwd(), 'public', 'uploads', 'custodia', 'excellence');
+  const manifestsDir = path.join(process.cwd(), 'public', 'uploads', 'custodia', 'manifestos');
   fs.mkdirSync(custodyBaseDir, { recursive: true });
   fs.mkdirSync(manifestsDir, { recursive: true });
 
@@ -234,7 +234,7 @@ async function main() {
       pdfSha256 = await downloadPdf(p.sourceUrl, targetPdfFile);
       if (pdfSha256) {
         pdfDownloadedCount++;
-        localPdfPath = `custodia_documental/excellence/${safePdfName}`;
+        localPdfPath = `public/uploads/custodia/excellence/${safePdfName}`;
       }
     }
 

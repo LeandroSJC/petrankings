@@ -1,3 +1,5 @@
+import { spawn } from 'child_process';
+import net from 'net';
 import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
@@ -13,8 +15,24 @@ const prisma = new PrismaClient({
   }
 });
 
-const CUSTODY_DIR = path.join(process.cwd(), 'custodia_documental');
+const CUSTODY_DIR = path.join(process.cwd(), 'public', 'uploads', 'custodia');
 const MANIFESTS_DIR = path.join(CUSTODY_DIR, 'manifestos');
+
+function isPortOpen(port: number, host = '127.0.0.1'): Promise<boolean> {
+  return new Promise((resolve) => {
+    const s = new net.Socket();
+    s.setTimeout(1500);
+    s.once('connect', () => { s.destroy(); resolve(true); });
+    s.once('timeout', () => { s.destroy(); resolve(false); });
+    s.once('error', () => { s.destroy(); resolve(false); });
+    s.connect(port, host);
+  });
+}
+
+function sleep(ms: number) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
 
 export interface CustodyManifest {
   productId: string;
@@ -254,31 +272,50 @@ async function recalcularCustodia(slug: string) {
 }
 
 async function main() {
-  const [action, ...args] = process.argv.slice(2);
+  let tunnelProcess: any = null;
+  const alreadyOpen = await isPortOpen(5433);
+  if (!alreadyOpen) {
+    const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
+    tunnelProcess = spawn('ssh', ['-L', '5433:127.0.0.1:5432', '-N', sshTarget], {
+      stdio: 'ignore',
+      windowsHide: true,
+    });
+    for (let i = 0; i < 15; i++) {
+      await sleep(1000);
+      if (await isPortOpen(5433)) break;
+    }
+  }
 
-  switch (action) {
-    case 'buscar':
-      await buscarCustodia(args.join(' '));
-      break;
-    case 'status':
-      await statusCustodia();
-      break;
-    case 'recalcular':
-      await recalcularCustodia(args[0]);
-      break;
-    default:
-      console.log(`
+  try {
+    const [action, ...args] = process.argv.slice(2);
+
+    switch (action) {
+      case 'buscar':
+        await buscarCustodia(args.join(' '));
+        break;
+      case 'status':
+        await statusCustodia();
+        break;
+      case 'recalcular':
+        await recalcularCustodia(args[0]);
+        break;
+      default:
+        console.log(`
 PetRankings — Sistema de Custódia Probatória & Rastreabilidade Documental
 
 Uso:
   npx tsx scripts/custodia.ts buscar <slug-ou-marca>    Busca dados brutos e evidências de um produto
   npx tsx scripts/custodia.ts status                    Exibe o status e estatísticas do arquivo de custódia
   npx tsx scripts/custodia.ts recalcular <slug>         Recalcula determinísticamente a partir dos dados custodiados
-      `);
-      break;
+        `);
+        break;
+    }
+  } finally {
+    if (tunnelProcess) {
+      tunnelProcess.kill();
+    }
+    await prisma.$disconnect();
   }
 }
 
-main()
-  .catch(console.error)
-  .finally(() => prisma.$disconnect());
+main().catch(console.error);
