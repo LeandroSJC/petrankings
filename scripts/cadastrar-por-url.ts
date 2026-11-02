@@ -70,10 +70,25 @@ let playwrightPage: Page | null = null;
 
 async function getPlaywrightPage(): Promise<Page> {
   if (!playwrightBrowser) {
-    playwrightBrowser = await chromium.launch({ headless: true });
+    try {
+      playwrightBrowser = await chromium.launch({
+        channel: 'chrome',
+        headless: true,
+        args: ['--disable-blink-features=AutomationControlled', '--no-sandbox'],
+      });
+    } catch {
+      playwrightBrowser = await chromium.launch({
+        headless: true,
+        args: ['--disable-blink-features=AutomationControlled', '--no-sandbox'],
+      });
+    }
     const context = await playwrightBrowser.newContext({
       userAgent:
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+      locale: 'pt-BR',
+    });
+    await context.addInitScript(() => {
+      Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
     });
     playwrightPage = await context.newPage();
   }
@@ -89,6 +104,18 @@ export async function closePlaywright() {
 }
 
 export async function fetchWithBrowserHeaders(url: string, retries = 3): Promise<{ status: number; html: string; error?: string }> {
+  // Otimização para páginas Petz previamente cacheadas em scratch/petz_cache/
+  const petzMatch = url.match(/petz\.com\.br\/produto\/.*?(\d+)\/?$/i);
+  if (petzMatch) {
+    const sku = petzMatch[1];
+    const cacheFile = path.join(process.cwd(), 'scratch', 'petz_cache', `${sku}.html`);
+    if (fs.existsSync(cacheFile)) {
+      const cachedHtml = fs.readFileSync(cacheFile, 'utf-8');
+      if (cachedHtml.length > 5000 && !cachedHtml.includes('Access Denied')) {
+        return { status: 200, html: cachedHtml };
+      }
+    }
+  }
   const fortbrainMatch = url.match(/fortbrain\.com\.br\/produtos\/(\d+)/i);
   if (fortbrainMatch) {
     const prodId = fortbrainMatch[1];

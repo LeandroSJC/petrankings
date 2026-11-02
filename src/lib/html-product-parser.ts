@@ -678,6 +678,7 @@ export function parseProductFromHtml(
   const isSpecialNutri = /specialnutri\.com\.br/i.test(sourceUrl) || /specialnutri/i.test(fallbackUrl);
   const isRacoesReis = /racoesreis\.com\.br/i.test(sourceUrl) || /racoesreis/i.test(fallbackUrl);
   const isAlisul = /alisul\.com\.br/i.test(sourceUrl) || /alisul\.com\.br/i.test(fallbackUrl);
+  const isPetz = /petz\.com\.br/i.test(sourceUrl) || /petz\.com\.br/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -1847,6 +1848,60 @@ export function parseProductFromHtml(
     }
 
     rawName = cleanName.replace(/\s+/g, ' ').trim();
+  } else if (isPetz) {
+    const rawH1 = $('h1').first().text().replace(/\s+/g, ' ').trim();
+    const pet = $('dl[data-testid="product-info-pet"] dd').text().trim();
+    const idade = $('dl[data-testid="product-info-idade"] dd').text().trim();
+    const porte = $('dl[data-testid="product-info-porte-de-raça"] dd, dl[data-testid="product-info-porte"] dd').text().trim();
+    const tipo = $('dl[data-testid="product-info-tipo"] dd').text().trim();
+
+    const isGato = /gato/i.test(pet || rawH1);
+    const isWet = /pat[êe]|alimento\s+[úu]mido|sach[êe]|ra[cç][aã]o\s+[úu]mida/i.test(tipo + ' ' + rawH1);
+    const speciesPart = isGato ? 'Gatos' : 'Cães';
+
+    let lifeStagePart = 'Adultos';
+    if (!isWet) {
+      if (/filhote/i.test(idade || rawH1)) {
+        lifeStagePart = 'Filhotes';
+      } else if (/s[êe]nior/i.test(idade || rawH1)) {
+        lifeStagePart = 'Sênior';
+      } else if (isGato && /castrad/i.test(rawH1)) {
+        lifeStagePart = 'Adultos Castrados';
+      }
+    }
+
+    let breedPart = '';
+    if (!isGato && !isWet) {
+      if (/mini|pequeno/i.test(porte || rawH1)) {
+        breedPart = 'Raças Mini e Pequenas';
+      } else if (/m[ée]dio|grande|gigante/i.test(porte || rawH1)) {
+        breedPart = 'Raças Médias e Grandes';
+      }
+    }
+
+    let flavorPart = '';
+    if (/carne\s*e\s*frango/i.test(rawH1)) {
+      flavorPart = 'Carne e Frango';
+    } else if (/salm[aã]o/i.test(rawH1)) {
+      flavorPart = 'Salmão';
+    } else if (/peixe/i.test(rawH1)) {
+      flavorPart = 'Peixe';
+    } else if (/frango/i.test(rawH1)) {
+      flavorPart = 'Frango';
+    } else if (/carne/i.test(rawH1)) {
+      flavorPart = 'Carne';
+    }
+
+    const parts = [
+      'Selections for Pet',
+      speciesPart,
+      breedPart,
+      lifeStagePart,
+      flavorPart,
+      isWet ? 'Patê' : '',
+    ].filter(Boolean);
+
+    rawName = parts.join(' ').replace(/\s+/g, ' ').trim();
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -1859,6 +1914,7 @@ export function parseProductFromHtml(
   let commercialName = stripWeightFromTitle(
     capitalizeTitle(rawName.replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim())
   );
+  commercialName = commercialName.replace(/Selections\s+For\s+Pet/gi, 'Selections for Pet');
 
   let slug = '';
   if (sourceUrl && !/farmina\.com/i.test(sourceUrl)) {
@@ -1885,7 +1941,7 @@ export function parseProductFromHtml(
       }
     }
   }
-  if (isFortbrain || isSpecialNutri || isRacoesReis) {
+  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz) {
     slug = '';
   }
   if (!slug && commercialName) {
@@ -2241,6 +2297,9 @@ export function parseProductFromHtml(
     } else {
       brand = 'Alisul';
     }
+  } else if (isPetz || /selections\s*for\s*pet/i.test(commercialName)) {
+    brand = 'Selections for Pets';
+    manufacturerLegalName = 'Pet Center Comércio e Participações S.A.';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2256,11 +2315,13 @@ export function parseProductFromHtml(
     !isSpecialNutri &&
     !isRacoesReis &&
     !isAlisul &&
+    !isPetz &&
+    !/selections/i.test(commercialName) &&
     !/baw\s*waw|beauty\s*pet|speto/i.test(commercialName) &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care|frost|atacama|funny\s*dog|funny\s*cat|astro|bravo|sapeca|nhock|trotter|tango|leroy|jazz|alix/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br|racoesreis\.com\.br|alisul\.com\.br/i.test(sourceUrl)
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br|racoesreis\.com\.br|alisul\.com\.br|petz\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -2337,6 +2398,13 @@ export function parseProductFromHtml(
   // 5. Extração de Composição e Garantias a partir do DOM
   let compText = isQuatree ? quatreeCompText : '';
   let garText = isQuatree ? quatreeGarText : '';
+
+  if (isPetz) {
+    const petzComp = $('dl[data-testid="product-info-composição"] dd').text().trim();
+    if (petzComp) compText = petzComp;
+    const petzGar = $('dl[data-testid="product-info-níveis-de-garantia"] dd').text().trim();
+    if (petzGar) garText = petzGar;
+  }
 
   // 5a-0. Extração de Next.js Flight Payload (Biofresh / GranPlus / BRF Pet)
   if (/biofreshpet\.com\.br|granplus\.com\.br/i.test(sourceUrl) || isGranPlus || html.includes('categoria-composicao-basica')) {
