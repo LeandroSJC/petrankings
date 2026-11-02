@@ -234,4 +234,11 @@ When generating, selecting, or updating cover images for guides and bromatologic
 - **Visual Staging**: Photorealistic studio lighting, clean compositions, dogs and cats coexisting peacefully or interacting with kibble/bowls naturally.
 - **Dimensions & Format**: Strictly 1.91:1 (1200 × 630 px WebP), compressed with sharp to maintain page speed and Core Web Vitals.
 
+## 10. Mandatory Topic Novelty & Anti-Repetition Audit (Invariante 20)
+
+Before proposing, outlining, or drafting any new article, study, brand duel, or guide for the user:
+- **Mandatory Pre-Proposal Audit**: The agent must inspect all existing published entries in `src/lib/content/guides.ts`.
+- **Zero Topic Duplication**: Never propose or author a study covering a topic, nutrient, ingredient dilemma, or angle that has already been published (e.g. joint supplements/glucosamine, sodium in cat diets, cost per serving calculations).
+- **Novelty Guarantee**: All candidate topics proposed to the user must be verified as completely unpublished in the project's historical archive.
+
 

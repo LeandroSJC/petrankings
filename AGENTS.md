@@ -111,19 +111,24 @@
       - *Cães:* Border Collie, Beagle, Dachshund (Salsicha), Schnauzer, Spitz Alemão (Lulu), Corgi, Cocker Spaniel, Pastor Alemão e o clássico SRD (vira-lata carismático).
       - *Gatos:* Siamês, Azul Russo, British Shorthair, Maine Coon, Frajola (tuxedo), Gato Laranja (Ginger/Red Tabby) e Persa.
 18. **Checklist Pré-Publicação Inegociável (Gatekeeper de Qualidade Editorial):**
-    - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 6 pontos:
-      1. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados? Se for foto de estúdio, foi garantida a ausência total de textos/inscrições em comedouros e objetos, além da diversidade e rotatividade de raças/portes (evitando a repetição de Golden Retriever/Labrador)?
-      2. *Anti-Slop & Humanizer:* O texto foi submetido aos filtros do Humanizer (sem contrastes falsos "not X but Y", sem frases de efeito de encerramento, sem travessões "—", sem aberturas teatrais e sem termos fabris como "sacaria")?
-      3. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
-      4. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
-      5. *Fidelidade de Citações (`relatedProductSlugs`) & Fontes:* Apenas produtos realmente analisados no texto constam na lista? Se a lista for vazia (`[]`), foi verificado que NÃO há referências do tipo 'rotulagem' (Ficha Oficial/Fabricante) nas fontes?
-      6. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA, WALTHAM e fichas oficiais) estão discriminadas?
+    - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 7 pontos:
+      1. *Ineditismo & Não Repetição:* O tema proposto foi expressamente auditado contra todos os estudos já cadastrados em `src/lib/content/guides.ts` para garantir ineditismo absoluto (proibido repetir tema, dilema ou nutriente já coberto)?
+      2. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados? Se for foto de estúdio, foi garantida a ausência total de textos/inscrições em comedouros e objetos, além da diversidade e rotatividade de raças/portes (evitando a repetição de Golden Retriever/Labrador)?
+      3. *Anti-Slop & Humanizer:* O texto foi submetido aos filtros do Humanizer (sem contrastes falsos "not X but Y", sem frases de efeito de encerramento, sem travessões "—", sem aberturas teatrais e sem termos fabris como "sacaria")?
+      4. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
+      5. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
+      6. *Fidelidade de Citações (`relatedProductSlugs`) & Fontes:* Apenas produtos realmente analisados no texto constam na lista? Se a lista for vazia (`[]`), foi verificado que NÃO há referências do tipo 'rotulagem' (Ficha Oficial/Fabricante) nas fontes?
+      7. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA, WALTHAM e fichas oficiais) estão discriminadas?
 19. **Pragmatismo de Código e Princípio do Menor Diff Viável (Anti-Bloat & YAGNI):**
     - **Menor Diff Viável:** Privilegie a menor alteração no código que resolva 100% da causa raiz do problema. Nunca refatore arquivos alheios, altere estilos não solicitados ou reescreva módulos funcionais sem demanda expressa.
     - **Proibição de Abstrações Prematuras e Wrappers Inúteis:** Não crie arquivos de utilitários para funções de uso único, classes intermediárias supérfluas, camadas de abstração desnecessárias ou código "para o futuro" (YAGNI). Use as APIs nativas do TypeScript, Next.js e Node.js.
     - **Aproveitamento Estrito das Dependências Existentes:** É expressamente proibido instalar pacotes npm adicionais para tarefas que possam ser resolvidas com poucas linhas nativas ou com as bibliotecas já instaladas no repositório.
     - **Auditoria Obrigatória de Todos os Chamadores:** Ao modificar qualquer função de cálculo, utilitário central, rota de API ou campo de modelo Prisma, faça uma busca em todos os arquivos chamadores para garantir que a mudança não gere quebras, divergências de regras de negócio ou dessincronizações entre catálogo, APIs e páginas de detalhe.
     - **Inviolabilidade de Segurança e Tratamento de Erros:** O foco em código enxuto nunca autoriza cortar validações de entrada, sanitizações, proteção de segredos, tratamento de erros ou acessibilidade.
+20. **Auditoria Obrigatória de Pautas Pré-Proposta contra `src/lib/content/guides.ts` (Tolerância Zero a Repetições):**
+    - Antes de propor qualquer nova pauta, tema de estudo, duelo ou guia ao usuário, o agente DEVE compulsoriamente realizar uma leitura e conferência de todas as publicações já existentes em `src/lib/content/guides.ts`.
+    - É terminantemente proibido sugerir temas, nutrientes, aditivos ou dilemas que já tenham sido objeto de publicação anterior (ex.: condroprotetores, sódio para gatos, cálculo de custo por porção, etc.).
+    - Ao submeter opções de pauta, todas as alternativas devem ser rigorosamente inéditas, atestando no raciocínio prévio que foram confrontadas com o acervo de publicações já realizadas.
 
 ---
 

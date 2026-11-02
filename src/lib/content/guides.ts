@@ -5945,7 +5945,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-01',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/petiscos-cremosos-e-crocantes-gatos-cover.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Basta abrir um tubinho de purê cremoso ou sacudir o pacote de almofadinhas crocantes para o gato aparecer correndo. Analisamos os rótulos oficiais na Matéria Seca (MS) para responder qual formato entrega mais hidratação, menos carga de fósforo para os rins e como aplicar a regra dos 10% sem causar sobrepeso.',
     relatedProductSlugs: [
@@ -6178,6 +6178,192 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer conferir os níveis de garantia na Matéria Seca (MS), a lista completa de ingredientes e os conservantes dos alimentos e petiscos do seu gato? Consulte nosso catálogo técnico.',
       buttonText: 'Explorar Catálogo para Gatos',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'corantes-na-racao-para-caes-industria-tinge-pet-nao-enxerga-cores',
+    title: 'Corantes na ração para cães: Por que a indústria tinge se o pet não enxerga cores?',
+    subtitle:
+      'Entenda a visão dicromática canina, por que os grãos são tingidos para atrair o tutor e quais os impactos dos aditivos sintéticos na saúde do cão.',
+    cluster: 'Ingredientes & Rótulos',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-11-02',
+    updatedAt: '2026-11-02',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/corantes-na-racao-para-caes-industria-tinge-pet-nao-enxerga-cores.webp',
+    isFeatured: true,
+    summary:
+      'Cães possuem visão dicromática e não diferenciam tons de vermelho e verde, tornando as cores da ração irrelevantes para eles. Analisamos por que a indústria pet utiliza corantes sintéticos como Tartrazina e Caramelo IV para atrair o tutor na prateleira, além de explicar o risco de hipersensibilidade alimentar e como identificar opções naturais no rótulo.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-prato-colorido-e-a-ilusao-humana',
+        heading: '1. O prato colorido na prateleira: Para quem é essa cor?',
+        paragraphs: [
+          'Ao caminhar pelos corredores de um pet shop ou supermercado, é muito comum encontrar embalagens de ração destacando ilustrações apetitosas de bifes grelhados, cenouras frescas e ramos de espinafre. Ao abrir o saco, o tutor encontra croquetes com formatos variados e tonalidades vivas de vermelho, verde e amarelo brilhante.',
+          'A associação psicológica imediata parece evidente: o grão vermelho representaria a carne, o grão verde conteria vegetais saudáveis e o grão amarelo traria cereais ou queijo. No entanto, essa paleta cromática foi pensada exclusivamente para os olhos de quem paga a conta, e não para o organismo do animal que consome o alimento.',
+          'Os cães se orientam primariamente pelo olfato, dispondo de mais de 200 milhões de receptores olfativos na mucosa nasal, em comparação com cerca de 5 milhões presentes nos seres humanos. No comedouro, o interesse do cão é despertado pelo perfil lipídico, aroma de hidrolisados de fígado e textura crocante do grão, sendo a cor uma propriedade absolutamente indiferente para o apetite da espécie.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Olfato versus visão na escolha do alimento',
+          text: 'Enquanto o ser humano decide grande parte das compras alimentares pelo aspecto visual das cores, os cães utilizam o olfato e o paladar para avaliar o alimento. Um croquete marrom escuro natural com gorduras preservadas desperta muito mais interesse no cão do que um grão colorido com corantes artificiais.',
+        },
+      },
+      {
+        id: 'fisiologia-da-visao-canina-dicromatica',
+        heading: '2. Como o cão realmente enxerga: A visão dicromática',
+        paragraphs: [
+          'A retina dos mamíferos contém células fotossensíveis chamadas cones, responsáveis pela percepção de cores sob a luz do dia. A visão humana padrão é tricromática, com três tipos distintos de cones sintonizados nos comprimentos de onda do azul, verde e vermelho. Isso permite ao olho humano distinguir milhões de gradações no arco-íris.',
+          'Os cães, por outro lado, possuem uma visão dicromática, equipada com apenas dois tipos funcionais de cones: um sensível a comprimentos de onda curtos (azul-violeta, cerca de 429 nm) e outro sensível a comprimentos médios e longos (amarelo, cerca de 555 nm). Eles não possuem o cone específico para o comprimento de onda do vermelho.',
+          'Em termos práticos, a experiência visual de um cão é bastante similar à de uma pessoa com daltonismo do tipo protanopia ou deuteranopia. As cores vermelho, laranja e verde não são vistas como tons vibrantes, mas sim como variações acinzentadas, beges ou castanhas escuras.',
+          'Quando um fabricante colore artificialmente um croquete de vermelho com Tartrazina e Vermelho Allura para simular carne bovina, ou de verde para sugerir ervilhas, o cão enxerga apenas um grão em tom terroso opaco. A adição desse produto químico não altera em nada a experiência visual do pet.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Comprovação científica da visão canina',
+          text: 'Pesquisas pioneiras em oftalmologia veterinária conduzidas pelo laboratório do Dr. Jay Neitz (Universidade da Califórnia) comprovaram por eletrorretinografia que cães não discriminam o vermelho do verde. Um brinquedo ou croquete vermelho jogado sobre a grama é localizado quase que puramente pelo faro e pelo movimento, pois tem aparência similar à folhagem para o animal.',
+        },
+      },
+      {
+        id: 'corantes-sinteticos-e-riscos-a-saude',
+        heading: '3. Corantes sintéticos mais comuns e o risco de hipersensibilidade',
+        paragraphs: [
+          'No painel de ingredientes da embalagem, os corantes artificiais são agrupados na seção de aditivos sensoriais. No mercado nacional, os quatro compostos mais frequentes em fórmulas comerciais são o Amarelo Tartrazina (INS 102), o Amarelo Crepúsculo (INS 110), o Vermelho 40 ou Allura (INS 129) e o Caramelo IV (processo sulfito-amônia, INS 150d).',
+          'Diferente de vitaminas ou minerais, os corantes sintéticos não desempenham nenhuma função nutricional ou zootécnica no organismo. Sua única finalidade na linha de montagem é cosmética. Embora autorizados pelo Ministério da Agricultura e Pecuária (MAPA) dentro de limites seguros de ingestão diária, esses aditivos químicos são frequentemente investigados na dermatologia veterinária.',
+          'Cães geneticamente predispostos à atopia ou com hipersensibilidade alimentar podem apresentar reações inflamatórias decorrentes do contato crônico com corantes azoicos. Os sinais clínicos mais comuns incluem prurido intenso (coceira frequente), lambedura excessiva das patas dianteiras, eritema em regiões sem pelos (como abdômen e virilha) e episódios recorrentes de fezes pastosas sem causa parasitária aparente.',
+          'Além dos corantes azoicos, o corante Caramelo IV passa por um processo industrial de aquecimento de carboidratos com compostos amoniacais que gera subprodutos químicos como o 4-metilimidazol (4-MEI), substância que permanece sob constante monitoramento toxicológico em órgãos de vigilância sanitária internacionais.',
+        ],
+        table: {
+          caption: 'Quadro comparativo: Principais corantes utilizados na alimentação de cães',
+          headers: ['Tipo de Aditivo', 'Exemplos no Rótulo', 'Origem', 'Finalidade Técnica', 'Impacto no Cão'],
+          rows: [
+            [
+              'Sintético Azoico',
+              'Amarelo Tartrazina (INS 102), Amarelo Crepúsculo (INS 110)',
+              'Síntese petroquímica',
+              'Conferir cor amarela e laranja aos croquetes',
+              'Potencial desencadeador de coceiras, alergias cutâneas e reações de sensibilidade em cães atópicos',
+            ],
+            [
+              'Sintético Vermelho',
+              'Vermelho 40 / Allura (INS 129), Ponceau 4R',
+              'Síntese petroquímica',
+              'Simular a cor avermelhada de cortes de carne bovina',
+              'Aditivo puramente cosmético, sem valor biológico e com relatos de intolerância gastrointestinal',
+            ],
+            [
+              'Caramelo Industrial',
+              'Caramelo IV processo sulfito-amônia (INS 150d)',
+              'Tratamento térmico de açúcares com amônia e sulfito',
+              'Uniformizar lotes escuros e mascarar variações de farinhas',
+              'Formação de subprodutos como 4-MEI sob acompanhamento toxicológico preventivo',
+            ],
+            [
+              'Pigmento Natural',
+              'Extrato de urucum, cúrcuma (açafrão), espinafre em pó',
+              'Origem vegetal e botânica pura',
+              'Tonalização suave sem resíduos sintéticos',
+              'Excelente tolerabilidade metabólica e menor potencial irritativo para o sistema imune',
+            ],
+            [
+              'Sem Corantes (Cor Natural)',
+              'Nenhum aditivo de cor declarado na Composição',
+              'Cor própria das farinhas de carnes e cereais cozidos',
+              'Respeito à aparência genuína após a extrusão',
+              'Padrão recomendado para cães com pele sensível, histórico de dermatite ou alergias alimentares',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'por-que-algumas-marcas-usam-e-outras-dispensam',
+        heading: '4. Por que rações econômicas usam cores e as Super Premium evitam?',
+        paragraphs: [
+          'A presença ou ausência de corantes artificiais no pacote costuma refletir a categoria mercadológica e a filosofia de formulação do alimento. Nas categorias Econômica e Standard, as fábricas lidam com matérias-primas de maior flutuação entre safras e lotes, utilizando frações mais elevadas de farelos vegetais e subprodutos proteicos mistos.',
+          'Quando esses ingredientes passam pela máquina extrusora sob alta temperatura e pressão, a cor final do grão pode variar de lote para lote. O uso de corantes artificiais atua como um recurso de padronização industrial, homogeneizando o aspecto visual de cada fornada para evitar que o consumidor desconfie de alterações no produto.',
+          'Além disso, o público que consome esses segmentos ainda é fortemente impactado por estímulos visuais rápidos na gôndola. O pacote colorido com croquetes que lembram petiscos infantis comunica uma sensação subjetiva de refeição alegre e rica em variedade para quem compra.',
+          'Já nas categorias Super Premium e Super Premium Natural, os ingredientes nobres possuem perfil padronizado, como farinhas de vísceras com baixo teor de cinzas minerais e arroz integral. Como o tutor desse segmento busca pureza nutricional e lê atentamente os rótulos, as marcas dispensam corantes sintéticos, adotando o marrom natural pós-cozimento como atestado de qualidade.',
+        ],
+      },
+      {
+        id: 'como-identificar-no-rotulo-e-fazer-a-troca',
+        heading: '5. Como checar o rótulo do seu cão e fazer a transição',
+        paragraphs: [
+          'Identificar a presença de corantes é um exercício simples que requer apenas a leitura do painel traseiro da embalagem. Por determinação da Instrução Normativa MAPA nº 30/2009, todo fabricante é obrigado a listar todos os ingredientes em ordem decrescente de peso e discriminar explicitamente os aditivos sensoriais ao final da Composição Básica.',
+          'Procure no texto termos como "corante artificial amarelo tartrazina", "corante vermelho allura" ou "corante caramelo IV". Se encontrar essas expressões, o croquete passou por tingimento sintético. Se o rótulo indicar "extrato de urucum" ou declarar de forma explícita "alimento sem corantes e aromatizantes artificiais", o produto preserva a tonalidade autêntica dos alimentos.',
+          'Se o seu cão sofre de coceira persistente nas orelhas, lambe as patas até avermelhar a pele ou apresenta episódios de gases e fezes moles, faça um teste trocando o alimento gradualmente por uma opção sem corantes artificiais. Essa substituição deve ser feita em um período de 7 a 10 dias, misturando a nova ração à antiga para adaptar a microbiota intestinal.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Regra de ouro para a transição de ração',
+          text: 'Nunca substitua a ração do seu cão de forma abrupta de um dia para o outro. Comece oferecendo 75% da ração habitual com 25% da nova nos dias 1 a 3; passe para 50%/50% nos dias 4 a 6; e atinja 100% da nova ração a partir do sétimo ou décimo dia. Isso evita gastrite transitória e diarreia osmótica.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'Os cães realmente não ligam para a cor dos grãos da ração?',
+        a: 'Sim, a preferência alimentar dos cães é guiada principalmente pelo aroma das gorduras e pela textura do grão. Como a visão canina é dicromática e não diferencia vermelho de verde, a tonalidade do croquete é biologicamente insignificante para o animal.',
+      },
+      {
+        q: 'Corantes artificiais na ração fazem mal à saúde do pet?',
+        a: 'Eles não possuem função nutritiva e cumprem papel puramente cosmético para os olhos humanos. Embora permitidos em quantidades dosadas pelo MAPA, estão associados na rotina veterinária a crises de dermatite, prurido e hipersensibilidade alimentar em cães predispostos.',
+      },
+      {
+        q: 'Como descobrir se a ração atual tem corantes artificiais?',
+        a: 'Examine o bloco Composição Básica no verso do pacote. Os corantes constam no final da lista, identificados por nomes como Tartrazina, Vermelho 40, Amarelo Crepúsculo ou pelo código INS. Se a fórmula for livre, o rótulo trará o claim sem corantes artificiais.',
+      },
+      {
+        q: 'Rações sem corantes são muito mais caras do que as coloridas?',
+        a: 'Não necessariamente. Enquanto fórmulas Super Premium Natural são naturalmente isentas de pigmentos químicos, diversas marcas da categoria Premium Especial já oferecem excelentes opções livres de corantes com custo diário bastante acessível ao bolso do tutor.',
+      },
+    ],
+    conclusion:
+      'Tingir a ração de cães com pigmentos artificiais é uma decisão comercial pensada para agradar aos olhos humanos na hora da compra, e não para atender às necessidades biológicas do animal. Como os cães enxergam o mundo em tons dicromáticos de azul e amarelo, croquetes vermelhos ou verdes aparecem para eles como variações acinzentadas idênticas, sem adicionar qualquer benefício de sabor ou nutrição. Ao escolher o alimento do seu companheiro, priorize formulações que valorizem ingredientes nobres e preservem a coloração marrom natural pós-cozimento, eliminando aditivos sintéticos desnecessários da rotina do seu cão.',
+    references: [
+      {
+        title: 'Color vision in the dog (Visual Neuroscience, 1989)',
+        institution: 'University of California, Santa Barbara',
+        type: 'estudo',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/2487095/',
+        details: 'Estudo clássico pioneiro dos pesquisadores Jay Neitz, Timothy Geist e Gerald H. Jacobs comprovando a existência de visão dicromática canina com dois fotopigmentos de cones (429 nm e 555 nm)',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes tecnológicas de rotulagem, classificação funcional de aditivos sensoriais e padrões de boas práticas industriais na alimentação de pequenos animais',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Regulamento técnico sobre rotulagem de produtos destinados à alimentação animal e regras de declaração obrigatória de aditivos na Composição Básica',
+      },
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Critérios europeus sobre segurança e palatabilidade de alimentos balanceados e avaliação de aditivos sensoriais em cães',
+      },
+      {
+        title: 'Scientific Opinion on the safety and efficacy of synthetic colorants in animal nutrition',
+        institution: 'European Food Safety Authority (EFSA FEEDAP Panel)',
+        type: 'estudo',
+        url: 'https://www.efsa.europa.eu/en/efsajournal/pub/2830',
+        details: 'Avaliação científica de risco toxicológico, alergenicidade e limites máximos de segurança para corantes azoicos como Tartrazina e Vermelho Allura',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Alimentos Livres de Corantes no Catálogo Técnico',
+      text: 'Quer conferir quais rações para o porte e a fase de vida do seu cão dispensam corantes artificiais e conservantes sintéticos? Consulte as fichas técnicas completas avaliadas no PetRankings.',
+      buttonText: 'Explorar Catálogo para Cães',
+      buttonUrl: '/catalogo?especie=Caes',
     },
   },
 ];
