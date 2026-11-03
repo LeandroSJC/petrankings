@@ -679,6 +679,7 @@ export function parseProductFromHtml(
   const isRacoesReis = /racoesreis\.com\.br/i.test(sourceUrl) || /racoesreis/i.test(fallbackUrl);
   const isAlisul = /alisul\.com\.br/i.test(sourceUrl) || /alisul\.com\.br/i.test(fallbackUrl);
   const isPetz = /petz\.com\.br/i.test(sourceUrl) || /petz\.com\.br/i.test(fallbackUrl);
+  const isCobasi = /cobasi\.com\.br/i.test(sourceUrl) || /cobasi\.com\.br/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -730,6 +731,10 @@ export function parseProductFromHtml(
     if (alisulImg) {
       imageUrl = alisulImg;
     }
+  }
+
+  if (isCobasi && imageUrl) {
+    imageUrl = imageUrl.replace(/-\d+-\d+\//, '-1500-1500/');
   }
 
   if (!imageUrl || imageUrl.includes('seo-default') || /specialcat\.com\.br|specialdog\.com\.br|farmina\.com/i.test(sourceUrl)) {
@@ -1020,6 +1025,10 @@ export function parseProductFromHtml(
     if (alisulImg) {
       imageUrl = alisulImg;
     }
+  }
+
+  if (isCobasi && imageUrl) {
+    imageUrl = imageUrl.replace(/-\d+-\d+\//, '-1500-1500/');
   }
 
   // Normalização de URL relativa para absoluta se necessário
@@ -1915,6 +1924,13 @@ export function parseProductFromHtml(
     capitalizeTitle(rawName.replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim())
   );
   commercialName = commercialName.replace(/Selections\s+For\s+Pet/gi, 'Selections for Pet');
+  if (isCobasi) {
+    commercialName = commercialName
+      .replace(/^Ra[cç][aã]o\s+(?:[UÚ]mida\s+)?/i, '')
+      .replace(/^Cobasi\s+/i, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
 
   let slug = '';
   if (sourceUrl && !/farmina\.com/i.test(sourceUrl)) {
@@ -1941,7 +1957,7 @@ export function parseProductFromHtml(
       }
     }
   }
-  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz) {
+  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi) {
     slug = '';
   }
   if (!slug && commercialName) {
@@ -2300,6 +2316,9 @@ export function parseProductFromHtml(
   } else if (isPetz || /selections\s*for\s*pet/i.test(commercialName)) {
     brand = 'Selections for Pets';
     manufacturerLegalName = 'Pet Center Comércio e Participações S.A.';
+  } else if (isCobasi || /\bjoy\b/i.test(commercialName)) {
+    brand = 'Joy';
+    manufacturerLegalName = 'Cobasi Comércio de Produtos Básicos e Artigos para Animais S.A.';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2316,12 +2335,14 @@ export function parseProductFromHtml(
     !isRacoesReis &&
     !isAlisul &&
     !isPetz &&
+    !isCobasi &&
     !/selections/i.test(commercialName) &&
+    !/joy/i.test(commercialName) &&
     !/baw\s*waw|beauty\s*pet|speto/i.test(commercialName) &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care|frost|atacama|funny\s*dog|funny\s*cat|astro|bravo|sapeca|nhock|trotter|tango|leroy|jazz|alix/i.test(commercialName) &&
-    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br|racoesreis\.com\.br|alisul\.com\.br|petz\.com\.br/i.test(sourceUrl)
+    !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br|racoesreis\.com\.br|alisul\.com\.br|petz\.com\.br|cobasi\.com\.br/i.test(sourceUrl)
   ) {
     commercialName = 'PremieR ' + commercialName;
   }
@@ -2404,6 +2425,43 @@ export function parseProductFromHtml(
     if (petzComp) compText = petzComp;
     const petzGar = $('dl[data-testid="product-info-níveis-de-garantia"] dd').text().trim();
     if (petzGar) garText = petzGar;
+  }
+
+  if (isCobasi) {
+    const container = $('div[class*="DetailsContainerAccordion"]').first();
+    if (container.length) {
+      container.find('td, th').each((_, el) => {
+        $(el).append(' ');
+      });
+      container.find('tr').each((_, el) => {
+        $(el).append('\n');
+      });
+
+      container.find('h2, h3').each((_, el) => {
+        const heading = $(el).text().trim();
+        if (!compText && /^(?:Ingredientes|Composi[çc][ãa]o\s*B[áa]sica)/i.test(heading)) {
+          let nextNode = el.nextSibling;
+          const textParts: string[] = [];
+          while (nextNode) {
+            if (nextNode.type === 'tag' && nextNode.name && /^(?:h2|h3)$/i.test(nextNode.name)) break;
+            if (nextNode.type === 'text') textParts.push((nextNode as any).data);
+            else if (nextNode.type === 'tag') textParts.push($(nextNode).text());
+            nextNode = nextNode.nextSibling;
+          }
+          compText = textParts.join(' ').replace(/\s+/g, ' ').trim();
+        } else if (!garText && /N[íi]veis\s+de\s+Garantia/i.test(heading)) {
+          let nextNode = el.nextSibling;
+          const textParts: string[] = [];
+          while (nextNode) {
+            if (nextNode.type === 'tag' && nextNode.name && /^(?:h2|h3)$/i.test(nextNode.name)) break;
+            if (nextNode.type === 'text') textParts.push((nextNode as any).data);
+            else if (nextNode.type === 'tag') textParts.push($(nextNode).text());
+            nextNode = nextNode.nextSibling;
+          }
+          garText = textParts.join(' ').replace(/\s+/g, ' ').trim();
+        }
+      });
+    }
   }
 
   // 5a-0. Extração de Next.js Flight Payload (Biofresh / GranPlus / BRF Pet)
@@ -2958,7 +3016,7 @@ export function parseProductFromHtml(
       (foodType === 'UMIDO' ? 86.0 : 10.0);
 
   let proteinaBrutaMinPct =
-    parseGuarantee(/Prote[íi]na(?:\s+(?:Bruta|Cruda))?t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/Prote[íi]na(?:\s+(?:Bruta|Cruda|Bruna))?t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   // Correção de erro de digitação de rótulo oficial (ex: "1000 g/kg" em ração seca com 34% de PB)
   if (umidadeMaxPct >= 90 && proteinaBrutaMinPct > 15) {
@@ -2967,7 +3025,7 @@ export function parseProductFromHtml(
   if (umidadeMaxPct > 50) foodType = 'UMIDO';
 
   let extratoEtereoMinPct =
-    parseGuarantee(/(?:Extrato\s+Et[ée]reot?|Gordura\s*(?:Bruta|Total)?|L[íi]p[ií]d[ie]?os?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
+    parseGuarantee(/(?:Extrato\s+Et[ée]r[eé]?[io]t?|Gordura\s*(?:Bruta|Total)?|L[íi]p[ií]d[ie]?os?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
 
   let materiaMineralMaxPct =
     parseGuarantee(/(?:Mat[ée]ria\s+Mineralt?|Cinzas?|Cenizas?)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) || 0;

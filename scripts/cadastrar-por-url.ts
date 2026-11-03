@@ -400,13 +400,14 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
     console.log(`✨ Novo produto identificado. Criando registro no catálogo (ID: "${productId}")...`);
   }
 
-  // Destinos em public/uploads/
+  // Destinos em public/uploads/ e public/uploads/custodia/
   const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-  if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
+  const custodiaDir = path.join(uploadsDir, 'custodia');
+  if (!fs.existsSync(custodiaDir)) {
+    fs.mkdirSync(custodiaDir, { recursive: true });
   }
 
-  const destHtmlRel = `/uploads/ficha_${productId}.html`;
+  const destHtmlRel = `/uploads/custodia/ficha_${productId}.html`;
 
   const skipImageDownload =
     options?.skipImageDownload ||
