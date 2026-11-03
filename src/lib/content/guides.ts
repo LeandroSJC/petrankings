@@ -6192,7 +6192,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-02',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/corantes-na-racao-para-caes-industria-tinge-pet-nao-enxerga-cores.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Cães possuem visão dicromática e não diferenciam tons de vermelho e verde, tornando as cores da ração irrelevantes para eles. Analisamos por que a indústria pet utiliza corantes sintéticos como Tartrazina e Caramelo IV para atrair o tutor na prateleira, além de explicar o risco de hipersensibilidade alimentar e como identificar opções naturais no rótulo.',
     relatedProductSlugs: [],
@@ -6364,6 +6364,205 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer conferir quais rações para o porte e a fase de vida do seu cão dispensam corantes artificiais e conservantes sintéticos? Consulte as fichas técnicas completas avaliadas no PetRankings.',
       buttonText: 'Explorar Catálogo para Cães',
       buttonUrl: '/catalogo?especie=Caes',
+    },
+  },
+  {
+    slug: 'granplus-menu-vs-golden-gatos-castrados',
+    title: 'GranPlus Menu vs GoldeN Gatos: O que muda na prática além do preço?',
+    subtitle:
+      'Confronto técnico entre as duas linhas Premium Especial mais populares para gatos castrados: proteínas na matéria seca, conservantes, minerais e variações por sabor.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-03',
+    updatedAt: '2026-11-03',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/granplus-menu-vs-golden-gatos-castrados.webp',
+    isFeatured: true,
+    summary:
+      'Na prateleira da categoria Premium Especial para gatos castrados, GranPlus Menu e GoldeN Gatos disputam a preferência do tutor com preços muito próximos. Avaliamos as fichas oficiais das versões Frango e Salmão/Peru para mostrar como a proteção antioxidante, o controle mineral urinário e os aditivos orais diferenciam cada pacote na rotina do felino.',
+    relatedProductSlugs: [
+      'menu-gato-adulto-castrado-sabor-frango-e-arroz',
+      'gato-adulto-castrado-sabor-peru-e-arroz',
+      'golden-gatos-castrados-frango',
+      'golden-gatos-castrados-sabor-salmao',
+    ],
+    sections: [
+      {
+        id: 'dilema-na-prateleira-premium-especial',
+        heading: '1. O duelo mais clássico do pet shop: Preço parecido, propostas diferentes',
+        paragraphs: [
+          'Quem divide a casa com um gato castrado conhece bem a cena no corredor do pet shop: lado a lado na gôndola, os pacotes de GranPlus Menu (fabricada pela BRF Pet) e de GoldeN Gatos Castrados (fabricada pela PremieRpet) ocupam o topo das vendas na categoria Premium Especial.',
+          'Ambas as marcas foram formuladas para atender à mudança metabólica que ocorre após a castração, quando o gasto energético diário do felino diminui cerca de 20% a 30% e o apetite costuma aumentar. Além disso, ambas prometem auxiliar na manutenção do trato urinário e são livres de corantes e aromatizantes artificiais.',
+          'Apesar da faixa de preço semelhante nos pacotes de 3 kg e 10,1 kg, a leitura minuciosa das fichas técnicas oficiais revela diferenças importantes na escolha dos antioxidantes, na inclusão de ativos para saúde bucal e até mesmo entre sabores distintos dentro da mesma marca.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Atenção ao sabor escolhido dentro da mesma linha',
+          text: 'Muitos tutores acreditam que mudar do sabor Frango para Peru ou Salmão altera apenas o paladar do grão. Na prática, em ambas as marcas, a troca de sabor altera a presença de cereais transgênicos e, no caso da GranPlus Menu, muda inclusive o sistema de conservação da ração.',
+        },
+      },
+      {
+        id: 'proteina-e-gordura-na-materia-seca',
+        heading: '2. Proteína e controle de peso na Matéria Seca (MS): Empate técnico no topo?',
+        paragraphs: [
+          'Para comparar as duas fórmulas com precisão, convertemos os níveis de garantia do rótulo para a base de Matéria Seca (MS), descontando os 10% de umidade declarados em ambos os produtos. Isso revela a concentração real de nutrientes em cada croquete que o gato mastiga.',
+          'No teor proteico, há um equilíbrio notável no patamar exigido para carnívoros estritos: a GoldeN Gatos Castrados entrega 36,5% de Proteína Bruta no rótulo, o que equivale a 40,55% na Matéria Seca. A GranPlus Menu declara 36,0% no pacote, atingindo 40,00% na Matéria Seca. Na rotina do gato, esse aporte elevado preserva a musculatura firme mesmo em dietas com calorias moderadas.',
+          'Na fração de gorduras (Extrato Etéreo), a GranPlus Menu adota um corte ligeiramente mais enxuto com 9,0% no rótulo (10,00% em MS), frente aos 10,5% da GoldeN (11,66% em MS). Para gatos castrados muito sedentários que ganham peso com facilidade em apartamentos, esse controle de gordura somado à presença do aminoácido L-carnitina em ambas as marcas ajuda a converter reservas adiposas em energia.',
+          'Na lista de ingredientes proteicos, a GranPlus Menu abre a composição com carne mecanicamente separada (CMS) de frango e fígado de frango, seguidos por farinha de vísceras de aves e farinha de torresmo. Já a GoldeN inicia sua fórmula diretamente com farinha de vísceras de frango e farinha de torresmo (ou farinha de salmão na versão Salmão), que são matérias-primas já desidratadas e de alta concentração proteica.',
+        ],
+        table: {
+          caption: 'Confronto nutricional: GranPlus Menu vs GoldeN Gatos Castrados (em Matéria Seca - 90% MS)',
+          headers: ['Parâmetro Analisado', 'GranPlus Menu (Frango / Peru)', 'GoldeN Gatos Castrados (Frango / Salmão)', 'Impacto Prático no Gato'],
+          rows: [
+            [
+              'Proteína Bruta (Mín. MS)',
+              '40,00% MS (36,0% MN)',
+              '40,55% MS (36,5% MN)',
+              'Manutenção da massa muscular magra e saciedade pós-castração',
+            ],
+            [
+              'Extrato Etéreo / Gordura (Mín. MS)',
+              '10,00% MS (9,0% MN)',
+              '11,66% MS (10,5% MN)',
+              'GranPlus oferece perfil calórico levemente mais restrito em lipídios',
+            ],
+            [
+              'Matéria Fibrosa (Máx. MS)',
+              '4,44% MS (4,0% MN)',
+              '5,00% MS (4,5% MN)',
+              'Auxílio no trânsito intestinal e eliminação natural de pelos ingeridos',
+            ],
+            [
+              'Matéria Mineral / Cinzas (Máx. MS)',
+              '9,11% MS (8,2% MN)',
+              '8,88% MS (8,0% MN)',
+              'Controle do resíduo mineral total para proteção do trato urinário',
+            ],
+            [
+              'Fósforo (Mín. MS)',
+              '0,77% MS (0,70% MN)',
+              '0,93% MS (0,84% MN)',
+              'Ambos dentro da faixa segura de manutenção adulta da ABINPET/FEDIAF',
+            ],
+            [
+              'Ômega 3 (Mín. MS)',
+              '0,17% MS (0,16% MN)',
+              '0,22% MS (0,20% MN)',
+              'Ação anti-inflamatória natural para pele, pelagem e articulações',
+            ],
+            [
+              'Conservantes Antioxidantes',
+              'BHA e BHT (Frango) / Naturais (Peru)',
+              '100% Naturais (Tocoferóis, Alecrim e Chá Verde)',
+              'GoldeN e GranPlus Peru evitam antioxidantes sintéticos na rotina diária',
+            ],
+            [
+              'Saúde Bucal (Hexametafosfato)',
+              'Não declarado na composição',
+              'Presente (Hexametafosfato de sódio)',
+              'GoldeN atua na captura do cálcio salivar para reduzir o cálculo dentário',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'conservantes-e-transgenicos-por-sabor',
+        heading: '3. O ponto de virada: Conservantes BHA/BHT vs antioxidantes naturais',
+        paragraphs: [
+          'A maior diferença de pontuação técnica entre os pacotes avaliados no PetRankings reside na forma como as gorduras do grão são protegidas contra o ranço oxidativo. Na versão mais vendida da GranPlus Menu (Frango e Arroz), a conservação ainda é feita com os antioxidantes sintéticos BHA (Butilhidroxianisol) e BHT (Butilhidroxitolueno).',
+          'Por outro lado, a linha GoldeN Gatos Castrados (tanto no sabor Frango quanto no sabor Salmão) já substituiu integralmente os conservantes sintéticos por um complexo de antioxidantes naturais composto por concentrado de tocoferóis (vitamina E), extrato de alecrim, extrato de chá verde e hortelã.',
+          'Existe porém um detalhe valioso para quem prefere a marca da BRF Pet: a versão GranPlus Menu Gatos Castrados Sabor Peru e Arroz passou por atualização de fórmula e já utiliza exclusivamente extrato de alecrim e tocoferóis como conservantes naturais, além de substituir o milho por quirera de arroz e sorgo.',
+          'Essa mesma variação entre sabores ocorre nos ingredientes transgênicos (OGM). Enquanto a GoldeN Castrados Frango e a GranPlus Menu Frango contêm milho e derivados geneticamente modificados, as versões GoldeN Castrados Salmão e GranPlus Menu Peru e Arroz são formuladas sem grãos transgênicos declarados.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Por que a versão Peru e Arroz da GranPlus se destaca na linha?',
+          text: 'Ao escolher a variante Sabor Peru e Arroz dentro da linha GranPlus Menu Gatos Castrados, o tutor leva para casa um produto livre de BHA/BHT e sem milho transgênico pelo mesmo patamar de preço da versão tradicional de Frango.',
+        },
+      },
+      {
+        id: 'saude-urinaria-minerais-e-aditivos-funcionais',
+        heading: '4. Proteção urinária, tártaro e ômega 3 marinho: O que vai além do básico?',
+        paragraphs: [
+          'Gatos castrados que vivem em ambientes internos bebem pouca água naturalmente, o que torna o controle de minerais (Matéria Mineral ou cinzas) e do pH da urina uma prioridade absoluta para prevenir a formação de cálculos de estruvita.',
+          'Ambas as marcas mantêm a Matéria Mineral sob controle próximo a 8,0% no rótulo (8,88% em MS na GoldeN e 9,11% em MS na GranPlus) e incluem o aminoácido DL-metionina aliado a reguladores de acidez (cloreto e sulfato de amônio na GoldeN; ácido fosfórico na GranPlus) para manter o pH urinário na faixa segura.',
+          'Nos diferenciais funcionais, a GoldeN Gatos Castrados soma dois ingredientes de destaque: o hexametafosfato de sódio, um mineral que se liga ao cálcio da saliva e dificulta a mineralização da placa bacteriana nos dentes do gato, e a biomassa de microalgas (Schizochytrium sp.), que fornece DHA marinho de pronta absorção para o cérebro e a visão.',
+          'Ambas as fabricantes merecem destaque positivo pelo uso de minerais quelatados (zinco, manganês e selênio ligados a aminoácidos ou leveduras). Para o organismo do felino, isso significa que os microminerais atravessam a parede intestinal com alta biodisponibilidade, resultando em pelagem mais macia, menor queda de pelos e fezes bem formadas com extrato de Yucca.',
+        ],
+      },
+      {
+        id: 'veredito-qual-escolher-para-seu-gato',
+        heading: '5. Veredito prático: Qual pacote colocar no carrinho?',
+        paragraphs: [
+          'Se você busca o conjunto técnico mais completo na categoria Premium Especial, a GoldeN Gatos Castrados leva vantagem direta por entregar conservação 100% natural em toda a linha, inclusão de hexametafosfato de sódio para o cuidado dental diário e microalgas marinhas como fonte de DHA, alcançando 90 pontos na nossa avaliação técnica.',
+          'Entre as opções da GoldeN, a versão Sabor Salmão oferece o benefício adicional de ser livre de ingredientes transgênicos e contar com farinha de salmão logo como segundo ingrediente da composição.',
+          'Se o seu gato se adapta melhor à palatabilidade da GranPlus Menu (que utiliza carne mecanicamente separada e fígado fresco no início da receita) ou se ela estiver com uma promoção mais atraente na sua região, dê preferência absoluta ao sabor Peru e Arroz (77 pontos), que já conta com antioxidantes naturais e dispensa o milho transgênico presente na versão de Frango (67 pontos).',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual a principal diferença entre a GranPlus Menu e a GoldeN Gatos Castrados?',
+        a: 'Ambas entregam cerca de 40% de proteína na Matéria Seca e minerais quelatados, mas a GoldeN utiliza apenas antioxidantes naturais em todos os sabores e adiciona hexametafosfato de sódio para prevenção de tártaro, enquanto a GranPlus Menu versão Frango ainda utiliza conservantes sintéticos BHA e BHT.',
+      },
+      {
+        q: 'Existe diferença técnica entre os sabores da GranPlus Menu Gatos Castrados?',
+        a: 'Sim. Enquanto a versão Frango e Arroz utiliza milho transgênico e antioxidantes sintéticos (BHA e BHT), a versão Sabor Peru e Arroz substitui os conservantes por extrato de alecrim e tocoferóis naturais e não utiliza ingredientes transgênicos.',
+      },
+      {
+        q: 'Qual das duas rações engorda menos o gato castrado?',
+        a: 'Ambas são formuladas especificamente para controle de peso pós-castração e contêm L-carnitina. A GranPlus Menu possui teor de gordura levemente menor (10,00% na Matéria Seca contra 11,66% da GoldeN), mas o fator determinante para evitar o sobrepeso é respeitar a quantidade diária em gramas indicada na tabela da embalagem.',
+      },
+      {
+        q: 'A GoldeN Gatos Castrados e a GranPlus Menu ajudam a proteger o trato urinário?',
+        a: 'Sim. As duas formulações controlam o teto de matéria mineral (cinzas), equilibram a relação entre cálcio e fósforo e incluem DL-metionina combinada a acidificantes urinários para manter o pH da urina adequado, devendo sempre ser acompanhadas de estímulo constante à ingestão de água.',
+      },
+    ],
+    conclusion:
+      'No confronto direto entre as duas líderes da categoria Premium Especial para felinos, tanto a GoldeN Gatos Castrados quanto a GranPlus Menu cumprem com rigor o aporte de 40% de proteína na Matéria Seca e o enriquecimento com minerais quelatados e L-carnitina. A GoldeN Gatos Castrados conquista a dianteira técnica por padronizar antioxidantes naturais em toda a linha e agregar proteção ativa contra o tártaro com hexametafosfato de sódio. Para os tutores fiéis à GranPlus Menu pela sua excelente aceitação no comedouro, a escolha mais inteligente na prateleira é migrar da versão Frango para a versão Peru e Arroz, garantindo conservação natural com tocoferóis e ausência de grãos transgênicos.',
+    references: [
+      {
+        title: 'Ficha Técnica Oficial: GoldeN Gatos Adultos Castrados (Frango e Salmão)',
+        institution: 'Grandfood Indústria e Comércio Ltda (PremieRpet)',
+        type: 'rotulagem',
+        url: 'https://www.premierpet.com.br/alimentos/golden-gatos-adultos-castrados-frango/',
+        details: 'Composição básica, níveis de garantia (36,5% PB, 10,5% EE), enriquecimento com minerais quelatados, hexametafosfato de sódio e antioxidantes naturais custodiados na base PetRankings',
+      },
+      {
+        title: 'Ficha Técnica Oficial: GranPlus Menu Gatos Adultos Castrados (Frango e Arroz / Peru e Arroz)',
+        institution: 'BRF Pet S.A.',
+        type: 'rotulagem',
+        url: 'https://www.granplus.com.br/produtos/gatos/menu/',
+        details: 'Composição básica, níveis de garantia (36,0% PB, 9,0% EE), aditivos nutricionais e diferenciação de sistema antioxidante entre as variantes Frango e Peru custodiados na base PetRankings',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes nutricionais para gatos adultos em manutenção, conversão para Matéria Seca e classificação mercadológica de alimentos completos',
+      },
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Parâmetros científicos de exigência proteica mínima, balanço cálcio-fósforo e manejo nutricional preventivo para felinos castrados',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-30-de-5-de-agosto-de-2009.pdf',
+        details: 'Critérios oficiais para declaração de ingredientes em ordem decrescente, níveis de garantia e rotulagem de organismos geneticamente modificados (OGM)',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Todas as Rações para Gatos Castrados no Catálogo',
+      text: 'Quer ver a nota detalhada de cada pacote, comparar níveis de garantia lado a lado e encontrar o melhor preço nas lojas parceiras? Acesse as fichas completas no nosso catálogo.',
+      buttonText: 'Ver Ranking de Gatos Castrados',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
