@@ -6622,12 +6622,12 @@ export const GUIDES: GuideItem[] = [
         heading: '3. A ciência por trás dos gramas: Peso metabólico e Energia Metabolizável',
         paragraphs: [
           'Na nutrição zootécnica, a necessidade calórica de um cão não cresce de forma linear com o seu peso. Um cão de 40 kg não precisa do dobro de calorias de um cão de 20 kg, pois cães menores possuem uma superfície corporal proporcionalmente maior e perdem calor mais rápido, tendo um metabolismo mais acelerado por quilo.',
-          'Para corrigir essa diferença biológica, os manuais da FEDIAF (Federação Europeia da Indústria de Alimentos para Animais de Estimação) e da ABINPET utilizam o Peso Metabólico, calculado elevando o peso do cão em quilos à potência de 0,75 ($Peso^{0,75}$). Esse resultado é então multiplicado por um fator de atividade diária.',
+          'Para corrigir essa diferença biológica, os manuais da FEDIAF (Federação Europeia da Indústria de Alimentos para Animais de Estimação) e da ABINPET utilizam o conceito de Peso Metabólico, uma fórmula zootécnica que ajusta o peso real do animal (elevando o peso em quilos a 0,75) para refletir a sua queima de energia em repouso. Esse valor é então multiplicado pelo nível de atividade do cão.',
           'Um cão adulto castrado ou tranquilo que vive dentro de casa e faz caminhadas leves na coleira exige cerca de 95 kcal por quilo de peso metabólico ao dia. Já um cão adulto inteiro e muito ativo, que corre diariamente em parques ou chácaras, demanda cerca de 110 kcal por quilo de peso metabólico.',
           'Depois de descobrir quantas quilocalorias (kcal) o seu cão gasta por dia, basta dividir esse número pela Energia Metabolizável (EM) declarada no rótulo da ração. Por isso, uma ração Super Premium concentrada (com 4.100 kcal/kg) exige porções em gramas muito menores para saciar e nutrir o cão do que uma ração econômica (com 3.200 kcal/kg).',
         ],
         table: {
-          caption: 'Referência prática de necessidade calórica e porção diária para cães adultos em manutenção (95 kcal × Peso^0,75)',
+          caption: 'Referência prática de necessidade calórica e porção diária para cães adultos em manutenção (95 kcal por quilo de peso metabólico)',
           headers: ['Peso Ideal do Cão', 'Necessidade Diária Estimada', 'Ração Moderada (3.500 kcal/kg)', 'Ração Alta Energia (4.000 kcal/kg)', 'Impacto de +25g Extras por Dia'],
           rows: [
             [
@@ -6711,7 +6711,7 @@ export const GUIDES: GuideItem[] = [
         institution: 'European Pet Food Industry Federation (FEDIAF)',
         type: 'literatura',
         url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
-        details: 'Equações oficiais de Necessidade Energética de Manutenção (NEM) baseadas no peso metabólico (PV^0,75) segundo idade, castração e nível de atividade física em cães',
+        details: 'Equações oficiais de Necessidade Energética de Manutenção (NEM) baseadas no peso metabólico segundo idade, castração e nível de atividade física em cães',
       },
       {
         title: 'Manual Pet Food Brasil (11ª Edição)',
