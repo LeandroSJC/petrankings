@@ -6378,7 +6378,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-03',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/granplus-menu-vs-golden-gatos-castrados.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Na prateleira da categoria Premium Especial para gatos castrados, GranPlus Menu e GoldeN Gatos disputam a preferência do tutor com preços muito próximos. Avaliamos as fichas oficiais das versões Frango e Salmão/Peru para mostrar como a proteção antioxidante, o controle mineral urinário e os aditivos orais diferenciam cada pacote na rotina do felino.',
     relatedProductSlugs: [
@@ -6569,6 +6569,184 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer ver a nota detalhada de cada pacote, comparar níveis de garantia lado a lado e encontrar o melhor preço nas lojas parceiras? Acesse as fichas completas no nosso catálogo.',
       buttonText: 'Ver Ranking de Gatos Castrados',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'quantidade-de-racao-para-caes-calcular-dose-diaria-evitar-sobrepeso',
+    title: 'Quantidade de ração para cães: Como calcular a dose diária e evitar o sobrepeso?',
+    subtitle:
+      'Entenda por que dosar a comida no copo plástico pode engordar seu cão em silêncio, como ler a tabela do pacote pelo peso ideal e como calcular a porção exata em gramas.',
+    cluster: 'Manejo & Rotina Alimentar',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-04',
+    updatedAt: '2026-11-04',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/quantidade-de-racao-para-caes-calcular-dose-diaria-evitar-sobrepeso.webp',
+    isFeatured: true,
+    summary:
+      'Medir a ração do cão com copos de requeijão ou medidores plásticos genéricos gera erros de até 40% na porção diária. Explicamos como funciona o cálculo de Energia Metabolizável pelo peso metabólico da FEDIAF e da ABINPET, por que o excesso de comida causa fezes amolecidas e como usar a tabela da embalagem sem errar.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'armadilha-do-copo-medidor-e-olhometro',
+        heading: '1. A armadilha do copo de requeijão: Por que medir no olho engorda o cão?',
+        paragraphs: [
+          'Na correria da manhã, a cena se repete na maioria dos lares brasileiros: o tutor abre o pacote de ração, mergulha um copo plástico ou pote de sorvete lá dentro e despeja no comedouro até atingir uma altura que parece justa para o tamanho do cão.',
+          'O grande problema físico desse hábito é que os fabricantes formulam a dieta em peso (gramas), enquanto o copo mede volume (mililitros). A densidade dos croquetes varia drasticamente de uma marca para outra conforme o formato do grão, o grau de expansão na extrusora e o teor de gordura.',
+          'Em testes práticos de pesagem, um mesmo copo de 250 ml pode comportar desde 85 gramas de uma ração com grãos grandes e aerados até 145 gramas de uma ração Super Premium de grãos pequenos e compactos. Quando você troca de ração e mantém a mesma marcação no copo, pode aumentar as calorias diárias em mais de 40% sem perceber.',
+          'Para um cão de pequeno ou médio porte que precisa de 100 gramas por dia, errar a mão em apenas 20 gramas extras equivale a oferecer 20% a mais de comida todos os dias. Ao final de um ano, são mais de 7 quilos de ração excedente que se transformam diretamente em tecido adiposo e sobrecarga nas articulações.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Mesmo os copos de brinde das marcas exigem cuidado',
+          text: 'Copos graduados distribuídos em pet shops possuem linhas internas para diferentes linhas da mesma fabricante. Estudos veterinários da Universidade de Guelph demonstraram que tutores erram a dose em até 48% para mais quando utilizam copos medidores em vez de uma balança digital de cozinha.',
+        },
+      },
+      {
+        id: 'como-ler-tabela-do-pacote-peso-ideal',
+        heading: '2. O segredo da tabela no verso da embalagem: Peso atual vs peso ideal',
+        paragraphs: [
+          'Todo pacote de alimento completo registrado no Ministério da Agricultura e Pecuária (MAPA) traz no verso um guia alimentar diário. O erro mais comum ao consultar essa tabela é procurar a coluna correspondente ao peso que o cão apresenta hoje na balança da clínica, mesmo quando ele já está acima do peso.',
+          'A tabela de consumo deve ser lida sempre pelo peso ideal estimado para a estrutura óssea e o porte daquele indivíduo, e não pelo peso gordo acumulado. Se um Beagle deveria pesar 12 kg em condição atlética, mas hoje está com 15 kg, alimentá-lo pela faixa de 15 kg apenas perpetuará o sobrepeso.',
+          'Outro detalhe crucial que passa despercebido é que o valor indicado na tabela representa o total para o período de 24 horas, e não a quantidade por refeição. Se a tabela indica 160 gramas por dia e o seu cão come duas vezes ao dia (manhã e noite), cada refeição no comedouro deve conter exatos 80 gramas.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'O teste prático das costelas em casa (ECC)',
+          text: 'Conforme as diretrizes da Associação Mundial de Veterinários de Pequenos Animais (WSAVA), um cão no peso ideal (Escore de Condição Corporal 4 ou 5 de 9) permite sentir facilmente as costelas ao passar as mãos nas laterais do tórax sem fazer pressão, além de exibir uma cintura visível quando olhado de cima.',
+        },
+      },
+      {
+        id: 'matematica-energia-metabolizavel-peso-metabolico',
+        heading: '3. A ciência por trás dos gramas: Peso metabólico e Energia Metabolizável',
+        paragraphs: [
+          'Na nutrição zootécnica, a necessidade calórica de um cão não cresce de forma linear com o seu peso. Um cão de 40 kg não precisa do dobro de calorias de um cão de 20 kg, pois cães menores possuem uma superfície corporal proporcionalmente maior e perdem calor mais rápido, tendo um metabolismo mais acelerado por quilo.',
+          'Para corrigir essa diferença biológica, os manuais da FEDIAF (Federação Europeia da Indústria de Alimentos para Animais de Estimação) e da ABINPET utilizam o Peso Metabólico, calculado elevando o peso do cão em quilos à potência de 0,75 ($Peso^{0,75}$). Esse resultado é então multiplicado por um fator de atividade diária.',
+          'Um cão adulto castrado ou tranquilo que vive dentro de casa e faz caminhadas leves na coleira exige cerca de 95 kcal por quilo de peso metabólico ao dia. Já um cão adulto inteiro e muito ativo, que corre diariamente em parques ou chácaras, demanda cerca de 110 kcal por quilo de peso metabólico.',
+          'Depois de descobrir quantas quilocalorias (kcal) o seu cão gasta por dia, basta dividir esse número pela Energia Metabolizável (EM) declarada no rótulo da ração. Por isso, uma ração Super Premium concentrada (com 4.100 kcal/kg) exige porções em gramas muito menores para saciar e nutrir o cão do que uma ração econômica (com 3.200 kcal/kg).',
+        ],
+        table: {
+          caption: 'Referência prática de necessidade calórica e porção diária para cães adultos em manutenção (95 kcal × Peso^0,75)',
+          headers: ['Peso Ideal do Cão', 'Necessidade Diária Estimada', 'Ração Moderada (3.500 kcal/kg)', 'Ração Alta Energia (4.000 kcal/kg)', 'Impacto de +25g Extras por Dia'],
+          rows: [
+            [
+              '4 kg (Porte Mini)',
+              '269 kcal / dia',
+              '77 g / dia (38,5 g por refeição)',
+              '67 g / dia (33,5 g por refeição)',
+              'Aumento de 32% a 37% nas calorias diárias (alto risco de obesidade)',
+            ],
+            [
+              '10 kg (Porte Pequeno)',
+              '534 kcal / dia',
+              '153 g / dia (76,5 g por refeição)',
+              '134 g / dia (67 g por refeição)',
+              'Aumento de 16% a 19% nas calorias diárias',
+            ],
+            [
+              '20 kg (Porte Médio)',
+              '898 kcal / dia',
+              '257 g / dia (128,5 g por refeição)',
+              '225 g / dia (112,5 g por refeição)',
+              'Excesso equivalente a quase 1 pacote de 10 kg a mais por ano',
+            ],
+            [
+              '35 kg (Porte Grande)',
+              '1.367 kcal / dia',
+              '391 g / dia (195,5 g por refeição)',
+              '342 g / dia (171 g por refeição)',
+              'Sobrecarga progressiva em quadris, cotovelos e coluna vertebral',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'fezes-moles-e-impacto-na-longevidade',
+        heading: '4. Fezes pastosas no fim do dia e perda de até quase 2 anos de vida',
+        paragraphs: [
+          'Muitos tutores trocam de marca de ração várias vezes acreditando que o alimento "não deu certo" porque o cão faz fezes firmes pela manhã, mas evacua fezes moles e volumosas no final da tarde. Na grande maioria dos casos clínicos, a causa não é alergia ao alimento, mas sim a superalimentação.',
+          'Quando o cão ingere mais gramas de ração do que as suas enzimas digestivas conseguem quebrar por refeição, o alimento passa rápido demais pelo intestino delgado. Esse excesso chega mal digerido ao cólon, atraindo água por efeito osmótico e sofrendo fermentação bacteriana, o que gera gases com odor forte e fezes sem formato.',
+          'No longo prazo, o impacto de pesar a ração vai muito além da estética ou da limpeza do quintal. O estudo clássico de longevidade conduzido por 14 anos pelo pesquisador Richard Kealy demonstrou que cães alimentados com porções rigorosamente controladas viveram, em média, 1,8 ano a mais do que seus irmãos de ninhada que comiam além da conta, além de demorarem muito mais para apresentar artrose.',
+        ],
+      },
+      {
+        id: 'passo-a-passo-balanca-e-desconto-petiscos',
+        heading: '5. Rotina prática: Como usar a balança digital e descontar os petiscos',
+        paragraphs: [
+          'Uma balança digital simples de cozinha custa menos que um único saco de ração pequena e resolve definitivamente a incerteza das porções. Basta apoiar o comedouro vazio sobre a balança, apertar o botão "Tara" para zerar o visor e despejar os croquetes até atingir os gramas exatos daquela refeição.',
+          'Se você tem o hábito de oferecer petiscos, frutas seguras ou alimentos úmidos ao longo do dia, lembre-se de que essas calorias extras entram na conta diária. Pela regra nutricional dos 10%, se o seu cão ganhou agrados equivalentes a 10% das calorias do dia, reduza 10% do peso da ração seca naquele dia para manter o balanço energético.',
+          'Por fim, acompanhe o peso do seu companheiro a cada 30 dias. Como cada cão tem um ritmo metabólico próprio influenciado pela idade, temperatura ambiente e nível de brincadeiras, a tabela da embalagem é um excelente ponto de partida, cabendo a você ajustar 5% a 10% para mais ou para menos na balança caso note que ele está afilando demais ou perdendo a cintura.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Quantas vezes por dia dividir a porção total?',
+          text: 'Para cães adultos saudáveis, dividir a cota diária em 2 ou 3 refeições com horários fixos melhora a digestão, evita o vômito bilioso matinal (espuma amarela causada por muitas horas de estômago vazio) e reduz a ansiedade alimentar.',
+        },
+      },
+    ],
+    faq: [
+      {
+        q: 'A quantidade indicada na tabela da ração é por refeição ou por dia?',
+        a: 'O valor em gramas impresso na tabela do pacote refere-se sempre ao total diário (24 horas). Se a embalagem recomenda 200 g para o peso do seu cão e você o alimenta duas vezes ao dia, ofereça 100 g pela manhã e 100 g à noite.',
+      },
+      {
+        q: 'Por que meu cão parece continuar com fome mesmo comendo a dose certa em gramas?',
+        a: 'Cães possuem um instinto oportunista herdado de seus ancestrais e comem rapidamente mesmo sem fome fisiológica real. Além disso, quando você troca uma ração comum por uma Super Premium mais concentrada, o volume no pote diminui porque os nutrientes estão compactados em menos gramas.',
+      },
+      {
+        q: 'Dar ração demais pode causar diarreia ou fezes moles no cão?',
+        a: 'Sim. A superalimentação sobrecarrega a capacidade enzimática do trato digestivo e acelera o trânsito intestinal. O alimento não absorvido fermenta no intestino grosso e puxa água para as fezes, sendo muito comum que o primeiro cocô do dia saia firme e os seguintes saiam pastosos.',
+      },
+      {
+        q: 'Devo olhar a tabela pelo peso atual do meu cão ou pelo peso que ele deveria ter?',
+        a: 'Sempre pelo peso ideal estimado pelo médico-veterinário para o porte dele. Se o cão está acima do peso e recebe a porção calculada para o peso atual, ele continuará ingerindo calorias suficientes para sustentar a gordura acumulada.',
+      },
+    ],
+    conclusion:
+      'Substituir o copo medidor improvisado por uma balança digital de cozinha é uma das atitudes mais simples e transformadoras que o tutor pode adotar pela saúde do seu cão. Como a densidade calórica e o peso específico dos grãos mudam drasticamente entre diferentes marcas e categorias de ração, apenas a pesagem em gramas garante que o animal receba os nutrientes exatos de que precisa sem acumular calorias silenciosas. Ao dosar a porção pelo peso ideal e fracioná-la em refeições regulares, você melhora imediatamente a qualidade das fezes, protege as articulações e adiciona anos de vida ativa ao lado do seu companheiro.',
+    references: [
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Equações oficiais de Necessidade Energética de Manutenção (NEM) baseadas no peso metabólico (PV^0,75) segundo idade, castração e nível de atividade física em cães',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Metodologia de cálculo de Energia Metabolizável (EM) pelo método de Atwater modificado e diretrizes para elaboração de guias alimentares em embalagens',
+      },
+      {
+        title: 'Effects of diet restriction on life span and age-related changes in dogs (JAVMA, 2002)',
+        institution: 'American Veterinary Medical Association (Kealy et al.)',
+        type: 'estudo',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/11991408/',
+        details: 'Estudo longitudinal clássico de 14 anos comprovando o aumento médio de 1,8 ano na expectativa de vida e o retardo de osteoartrite em cães alimentados com controle estrito de porção',
+      },
+      {
+        title: 'Precision and accuracy of measuring cups for dog food (Canadian Veterinary Journal, 2019)',
+        institution: 'Ontario Veterinary College, University of Guelph (Coe et al.)',
+        type: 'estudo',
+        url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6697131/',
+        details: 'Pesquisa experimental demonstrando variações de imprecisão de até 48% a mais no porcionamento de ração seca quando tutores utilizam copos medidores volumétricos',
+      },
+      {
+        title: 'WSAVA Global Nutrition Guidelines: Body Condition Score (BCS) Chart for Dogs',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'literatura',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Escala clínica padronizada de 1 a 9 pontos para avaliação visual e palpatória do Escore de Condição Corporal e determinação do peso ideal em cães',
+      },
+    ],
+    callToAction: {
+      title: 'Calcule a Dose Exata do Seu Cão em Segundos',
+      text: 'Quer descobrir automaticamente quantos gramas por dia o seu cão deve comer, quantos dias o saco vai durar e qual o custo diário real? Use gratuitamente a nossa calculadora nutricional.',
+      buttonText: 'Abrir Calculadora de Ração',
+      buttonUrl: '/calculadora',
     },
   },
 ];
