@@ -6399,7 +6399,7 @@ export const GUIDES: GuideItem[] = [
         callout: {
           type: 'dica',
           title: 'Atenção ao sabor escolhido dentro da mesma linha',
-          text: 'Muitos tutores acreditam que mudar do sabor Frango para Peru ou Salmão altera apenas o paladar do grão. Na prática, em ambas as marcas, a troca de sabor altera a presença de cereais transgênicos e, no caso da GranPlus Menu, muda inclusive o sistema de conservação da ração.',
+          text: 'Muitos tutores acreditam que mudar o sabor altera apenas o paladar do grão. Na prática, enquanto na GoldeN a troca de Frango por Salmão substitui o torresmo por farinha de salmão mantendo a base de milho transgênico, na GranPlus Menu a versão Peru e Arroz muda a fórmula de forma estrutural, eliminando o milho transgênico e adotando conservantes 100% naturais.',
         },
       },
       {
@@ -6458,6 +6458,12 @@ export const GUIDES: GuideItem[] = [
               'GoldeN e GranPlus Peru evitam antioxidantes sintéticos na rotina diária',
             ],
             [
+              'Ingredientes Transgênicos (OGM)',
+              'Presentes no Frango (Milho) / Ausentes no Peru (Sorgo e Arroz)',
+              'Presentes em ambos os sabores (Milho, Glúten de Milho e Soja)',
+              'GranPlus Peru é a única opção do confronto 100% livre de grãos transgênicos',
+            ],
+            [
               'Saúde Bucal (Hexametafosfato)',
               'Não declarado na composição',
               'Presente (Hexametafosfato de sódio)',
@@ -6473,7 +6479,7 @@ export const GUIDES: GuideItem[] = [
           'A maior diferença de pontuação técnica entre os pacotes avaliados no PetRankings reside na forma como as gorduras do grão são protegidas contra o ranço oxidativo. Na versão mais vendida da GranPlus Menu (Frango e Arroz), a conservação ainda é feita com os antioxidantes sintéticos BHA (Butilhidroxianisol) e BHT (Butilhidroxitolueno).',
           'Por outro lado, a linha GoldeN Gatos Castrados (tanto no sabor Frango quanto no sabor Salmão) já substituiu integralmente os conservantes sintéticos por um complexo de antioxidantes naturais composto por concentrado de tocoferóis (vitamina E), extrato de alecrim, extrato de chá verde e hortelã.',
           'Existe porém um detalhe valioso para quem prefere a marca da BRF Pet: a versão GranPlus Menu Gatos Castrados Sabor Peru e Arroz passou por atualização de fórmula e já utiliza exclusivamente extrato de alecrim e tocoferóis como conservantes naturais, além de substituir o milho por quirera de arroz e sorgo.',
-          'Essa mesma variação entre sabores ocorre nos ingredientes transgênicos (OGM). Enquanto a GoldeN Castrados Frango e a GranPlus Menu Frango contêm milho e derivados geneticamente modificados, as versões GoldeN Castrados Salmão e GranPlus Menu Peru e Arroz são formuladas sem grãos transgênicos declarados.',
+          'Já no que diz respeito aos ingredientes transgênicos (OGM), a linha GoldeN Gatos Castrados mantém o uso de milho transgênico, glúten de milho e proteína de soja tanto na versão Frango quanto na versão Salmão, ostentando o símbolo triangular com o "T". Na GranPlus Menu, por outro lado, há uma divisão nítida entre sabores: a versão Frango e Arroz utiliza milho transgênico, enquanto a versão Peru e Arroz elimina totalmente os cereais geneticamente modificados em favor do sorgo e da quirera de arroz.',
         ],
         callout: {
           type: 'atencao',
@@ -6496,7 +6502,7 @@ export const GUIDES: GuideItem[] = [
         heading: '5. Veredito prático: Qual pacote colocar no carrinho?',
         paragraphs: [
           'Se você busca o conjunto técnico mais completo na categoria Premium Especial, a GoldeN Gatos Castrados leva vantagem direta por entregar conservação 100% natural em toda a linha, inclusão de hexametafosfato de sódio para o cuidado dental diário e microalgas marinhas como fonte de DHA, alcançando 90 pontos na nossa avaliação técnica.',
-          'Entre as opções da GoldeN, a versão Sabor Salmão oferece o benefício adicional de ser livre de ingredientes transgênicos e contar com farinha de salmão logo como segundo ingrediente da composição.',
+          'Entre as opções da GoldeN, a versão Sabor Salmão se diferencia da versão Frango por trazer a farinha de salmão como segundo ingrediente da receita, conferindo maior variedade proteica, embora ambas mantenham a mesma inclusão de derivados de milho e soja transgênicos.',
           'Se o seu gato se adapta melhor à palatabilidade da GranPlus Menu (que utiliza carne mecanicamente separada e fígado fresco no início da receita) ou se ela estiver com uma promoção mais atraente na sua região, dê preferência absoluta ao sabor Peru e Arroz (77 pontos), que já conta com antioxidantes naturais e dispensa o milho transgênico presente na versão de Frango (67 pontos).',
         ],
       },
