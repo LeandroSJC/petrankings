@@ -6583,7 +6583,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-04',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/quantidade-de-racao-para-caes-calcular-dose-diaria-evitar-sobrepeso.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Medir a ração do cão com copos de requeijão ou medidores plásticos genéricos gera erros de até 40% na porção diária. Explicamos como funciona o cálculo de Energia Metabolizável pelo peso metabólico da FEDIAF e da ABINPET, por que o excesso de comida causa fezes amolecidas e como usar a tabela da embalagem sem errar.',
     relatedProductSlugs: [],
@@ -6747,6 +6747,187 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer descobrir automaticamente quantos gramas por dia o seu cão deve comer, quantos dias o saco vai durar e qual o custo diário real? Use gratuitamente a nossa calculadora nutricional.',
       buttonText: 'Abrir Calculadora de Ração',
       buttonUrl: '/calculadora',
+    },
+  },
+  {
+    slug: 'carboidratos-na-racao-de-gatos-carnivoro-estrito-consegue-digerir-amido',
+    title: 'Carboidratos na ração de gatos: O carnívoro estrito consegue digerir amido?',
+    subtitle:
+      'Entenda como funciona a digestão felina de cereais e tubérculos cozidos, como descobrir o teor oculto de carboidratos no rótulo e qual a relação real com o diabetes.',
+    cluster: 'Ingredientes & Rótulos',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-05',
+    updatedAt: '2026-11-05',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/carboidratos-na-racao-de-gatos-carnivoro-estrito-consegue-digerir-amido.webp',
+    isFeatured: true,
+    summary:
+      'Gatos são carnívoros estritos e não possuem amilase na saliva, mas digerem mais de 90% do amido quando submetido ao cozimento da extrusão. Explicamos a diferença metabólica entre arroz, ervilha, batata-doce e milho, ensinamos a calcular os carboidratos que não aparecem na tabela do pacote e esclarecemos o papel da obesidade no diabetes felino.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'dilema-carnivoro-estrito-e-graos-no-rotulo',
+        heading: '1. O susto no verso da embalagem: Por que a ração de um carnívoro leva grãos?',
+        paragraphs: [
+          'Basta virar o pacote de praticamente qualquer ração seca para gatos no pet shop para encontrar ingredientes que parecem fora de lugar na dieta de um felino: quirera de arroz, milho, sorgo, ervilha ou farinha de mandioca. Para o tutor atento, a dúvida é imediata: se o gato evoluiu caçando pequenos roedores e pássaros, ele deveria comer carboidratos?',
+          'Na natureza, a presa inteira consumida por um felino selvagem é composta por cerca de 55% a 60% de proteína, 30% a 35% de gordura e menos de 2% de carboidratos (em base de matéria seca). Por isso, a biologia classificou o gato doméstico como um carnívoro estrito ou obrigatório, dependente de nutrientes encontrados exclusivamente em tecidos animais, como a taurina, o ácido araquidônico e a vitamina A pré-formada.',
+          'Ser um carnívoro estrito significa que o gato precisa obrigatoriamente de carne para sobreviver, mas não significa que seu intestino seja incapaz de processar amido cozido. Além da função energética, o amido cumpre um papel físico indispensável na indústria: ele funciona como o "cimento" natural que dá formato, crocância e estrutura ao croquete seco durante a extrusão.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Por que até rações Grain Free (sem grãos) têm carboidratos?',
+          text: 'Mesmo os alimentos secos rotulados como "Grain Free" precisam de amido para que o grão da ração não esfarele dentro do pacote. Nessas fórmulas, o fabricante apenas substitui os cereais tradicionais (arroz e milho) por leguminosas e tubérculos, como ervilha, lentilha, batata-doce ou mandioca.',
+        },
+      },
+      {
+        id: 'fisiologia-digestiva-felina-e-extrusao',
+        heading: '2. Como o gato digere o amido se ele não tem enzimas na saliva?',
+        paragraphs: [
+          'A digestão dos gatos apresenta particularidades fascinantes quando comparada à dos cães e dos humanos. Os felinos não possuem a enzima amilase na saliva, pois seus dentes pontiagudos servem apenas para rasgar e engolir rapidamente o alimento, sem mastigação prolongada na boca.',
+          'Além disso, o fígado do gato apresenta atividade muito baixa da enzima glicoquinase, utilizando caminhos metabólicos mais lentos (via hexoquinase) para processar grandes descargas de glicose no sangue. Se um gato consumir farinha de cereal crua ou mal cozida, esse amido não será quebrado no intestino delgado e fermentará no cólon, provocando gases e diarreia ácida.',
+          'O cenário muda completamente quando o ingrediente passa pela extrusora industrial sob alta temperatura, umidade e pressão. Esse cozimento intenso provoca a gelatinização do amido, abrindo a estrutura molecular do grão para a ação da amilase produzida pelo pâncreas do gato.',
+          'Estudos clássicos conduzidos no Brasil pelo grupo de nutrição de cães e gatos da UNESP de Jaboticabal comprovaram que, após a extrusão adequada, gatos saudáveis digerem e absorvem mais de 93% do amido proveniente do arroz, do milho, do sorgo, da mandioca e da ervilha, aproveitando essa energia para poupar aminoácidos nobres.',
+        ],
+        table: {
+          caption: 'Comparativo das principais fontes de carboidratos em rações para gatos (Estudos UNESP / FEDIAF)',
+          headers: ['Fonte no Rótulo', 'Tipo de Ingrediente', 'Digestibilidade após Extrusão', 'Velocidade de Absorção (Glicemia)', 'Impacto Prático no Gato'],
+          rows: [
+            [
+              'Quirera de arroz / Arroz integral',
+              'Cereal tradicional',
+              'Alta (acima de 96%)',
+              'Rápida (alto índice glicêmico no arroz branco)',
+              'Excelente tolerância digestiva e fezes reduzidas; ideal para gatos com intestino sensível',
+            ],
+            [
+              'Grão de milho / Glúten de milho',
+              'Cereal tradicional',
+              'Alta (94% a 96% quando bem moído)',
+              'Moderada',
+              'Boa fonte de energia quando extrusado, mas eleva o teor total de carboidratos em linhas econômicas',
+            ],
+            [
+              'Sorgo e Cevada',
+              'Cereais ancestrais / baixo índice',
+              'Alta (acima de 92%)',
+              'Lenta (liberação gradual de glicose)',
+              'Evita picos bruscos de açúcar no sangue; muito usado em dietas para castrados e controle de peso',
+            ],
+            [
+              'Ervilha e Lentilha',
+              'Leguminosas (Grain Free)',
+              'Alta (93% a 95%)',
+              'Muito lenta (baixo índice glicêmico)',
+              'Proporciona saciedade prolongada e fibras solúveis que estabilizam a glicemia pós-refeição',
+            ],
+            [
+              'Batata-doce e Mandioca',
+              'Tubérculos e raízes',
+              'Muito alta (acima de 97%)',
+              'Moderada a rápida',
+              'Alternativas hipoalergênicas sem glúten e livres de transgênicos para gatos com sensibilidade cutânea',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'como-calcular-carboidratos-ocultos-no-rotulo',
+        heading: '3. O nutriente invisível: Como descobrir a porcentagem de carboidratos no pacote',
+        paragraphs: [
+          'Ao ler a tabela de Níveis de Garantia no verso da embalagem, você verá a porcentagem de proteína, gordura, fibra, minerais e umidade, mas nunca encontrará uma linha escrita "Carboidratos". Isso ocorre porque a legislação brasileira do MAPA não exige a declaração direta da fração de açúcares e amidos, chamada tecnicamente de Extrativo Não Nitrogenado (ENN).',
+          'Felizmente, você pode revelar esse número escondido na gôndola usando uma conta simples de subtração a partir de 100%. Basta somar os cinco valores principais garantidos no rótulo: Proteína Bruta, Extrato Etéreo (gordura), Matéria Fibrosa, Matéria Mineral (cinzas) e Umidade, e diminuir esse total de 100.',
+          'Imagine uma ração para gatos que declara 36% de proteína, 10% de gordura, 4% de fibra, 8% de matéria mineral e 10% de umidade. Somando esses cinco itens, chegamos a 68%. Subtraindo 68 de 100, descobrimos que 32% do pacote (ou cerca de 35,5% na Matéria Seca) são compostos por carboidratos.',
+          'Em rações Super Premium de ponta para felinos, a fração de carboidratos costuma ficar controlada entre 15% e 28% na matéria natural, priorizando a proteína animal acima de 38% a 42%. Já em rações econômicas de supermercado, com apenas 26% a 28% de proteína, os carboidratos facilmente ultrapassam 40% da receita.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Qual é o teto seguro de amido para gatos adultos?',
+          text: 'Segundo as revisões científicas da FEDIAF e do NRC, gatos adultos metabolizam com segurança dietas contendo até 30% a 35% de amido gelatinizado na Matéria Seca, desde que o piso mínimo de proteína animal e aminoácidos essenciais seja integralmente respeitado.',
+        },
+      },
+      {
+        id: 'carboidratos-causam-diabetes-em-gatos',
+        heading: '4. Carboidrato na ração causa diabetes em gatos? O que a ciência comprovou',
+        paragraphs: [
+          'Durante muitos anos, circulou na internet a ideia de que o consumo de ração seca com carboidratos seria o causador isolado do diabetes mellitus tipo 2 em gatos domésticos. Essa hipótese levou diversos estudos epidemiológicos na Europa e nos Estados Unidos a acompanharem milhares de felinos ao longo da vida.',
+          'As revisões clínicas mais abrangentes, incluindo os levantamentos publicados pela pesquisadora Adronie Verbrugghe no periódico Veterinary Sciences, demonstraram que dietas ricas em carboidratos não causam diabetes diretamente em gatos que mantêm o peso saudável e a condição corporal enxuta.',
+          'O verdadeiro gatilho comprovado para a resistência à insulina no gato é a obesidade aliada ao sedentarismo dentro de apartamentos. Quando o gato ingere mais calorias do que queima por dia (seja vindo de carboidratos ou de excesso de gordura) e acumula tecido adiposo abdominal, as células de gordura liberam substâncias inflamatórias que bloqueiam a ação da insulina.',
+          'Por outro lado, quando o gato já foi diagnosticado com diabetes ou apresenta pré-diabetes e sobrepeso severo, a redução drástica de carboidratos (para menos de 12% a 15% na Matéria Seca, frequentemente com apoio de alimentos úmidos completos) torna-se fundamental no tratamento veterinário para diminuir a necessidade de insulina e facilitar a remissão clínica.',
+        ],
+      },
+      {
+        id: 'como-escolher-melhor-racao-no-pet-shop',
+        heading: '5. Guia prático na prateleira: Como avaliar os carboidratos ao escolher a ração',
+        paragraphs: [
+          'Na hora da compra, não é preciso temer a presença de arroz, ervilha ou aveia no rótulo, mas sim vigiar a posição em que eles aparecem. Pela regra de ordem decrescente de peso do MAPA, os dois primeiros ingredientes de uma boa ração para gatos devem ser sempre fontes concentradas de proteína animal (como carne ou farinha de vísceras de frango, salmão ou torresmo).',
+          'Desconfie de formulações que estampam um cereal logo na primeira posição ou que utilizam a técnica de fracionamento de grãos, listando três ou quatro tipos diferentes de farelos vegetais entre os cinco primeiros itens para mascarar a baixa quantidade de carne.',
+          'Para gatos castrados que vivem em ambientes internos e têm tendência a ganhar peso, dê preferência a fórmulas que combinem no mínimo 36% a 40% de Proteína Bruta no rótulo com fontes de carboidrato de digestão lenta, como sorgo, cevada, ervilha ou batata-doce, mantendo a energia estável ao longo do dia.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Gatos conseguem digerir arroz, milho e batata presentes na ração?',
+        a: 'Sim. Embora não digiram bem o amido cru, o processo de cozimento por extrusão das rações secas gelatiniza as moléculas de amido, permitindo que as enzimas pancreáticas do gato aproveitem mais de 93% desses carboidratos como fonte de energia.',
+      },
+      {
+        q: 'Como calcular a porcentagem de carboidratos de uma ração de gato?',
+        a: 'Some os percentuais de Proteína Bruta, Extrato Etéreo, Matéria Fibrosa, Matéria Mineral e Umidade indicados nos Níveis de Garantia da embalagem e subtraia esse total de 100. O valor restante corresponde à estimativa de carboidratos (Extrativo Não Nitrogenado).',
+      },
+      {
+        q: 'Ração Grain Free (sem grãos) é livre de carboidratos?',
+        a: 'Não. Ração seca sem grãos substitui cereais como milho e arroz por tubérculos e leguminosas, como batata-doce, mandioca, ervilha e lentilha. Para oferecer uma dieta com teor mínimo de carboidratos (abaixo de 10%), a opção mais eficaz são os alimentos úmidos completos (sachês e latas).',
+      },
+      {
+        q: 'Comer ração seca com carboidratos deixa o gato diabético?',
+        a: 'Não em gatos com peso ideal. Estudos científicos comprovam que o principal fator causador de diabetes felino é a obesidade decorrente do excesso de calorias diárias e da falta de exercícios, e não a presença moderada de amido cozido na fórmula.',
+      },
+    ],
+    conclusion:
+      'Compreender como o organismo do gato lida com os carboidratos liberta o tutor de alarmismos e permite escolhas muito mais conscientes no pet shop. Embora o felino seja um carnívoro estrito que exige altos níveis de proteína e aminoácidos de origem animal, ele digere com excelente eficiência o amido devidamente cozido pela extrusão. O segredo para proteger a saúde metabólica do seu gato está em escolher fórmulas encabeçadas por carnes e farinhas nobres, manter a fração de carboidratos moderada e controlar rigorosamente a porção diária para evitar o sobrepeso.',
+    references: [
+      {
+        title: 'Effects of six carbohydrate sources on diet digestibility and postprandial glucose and insulin responses in cats (Journal of Animal Science, 2008)',
+        institution: 'Universidade Estadual Paulista - UNESP Jaboticabal (De-Oliveira, Carciofi et al.)',
+        type: 'estudo',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/18469063/',
+        details: 'Estudo clínico brasileiro demonstrando digestibilidade aparente do amido superior a 93% em gatos alimentados com dietas extrusadas à base de milho, arroz, sorgo, ervilha, lentilha e mandioca',
+      },
+      {
+        title: 'Cats and Carbohydrates: The Carnivore Fantasy? (Veterinary Sciences, 2017)',
+        institution: 'Ontario Veterinary College & Ghent University (Verbrugghe & Hesta)',
+        type: 'estudo',
+        url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5753635/',
+        details: 'Revisão científica sobre a adaptação metabólica de felinos ao amido gelatinizado, limites fisiológicos de enzimas digestivas e evidências de que a obesidade é o fator primário da resistência insulínica',
+      },
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Diretrizes nutricionais europeias para carnívoros estritos, exigências mínimas de proteína e aminoácidos e parâmetros de digestibilidade de extrativos não nitrogenados (ENN)',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Processamento térmico de extrusão, gelatinização de amidos e cálculo de energia metabolizável em alimentos completos para gatos',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Capítulo sobre carboidratos e fibras na nutrição felina, atividade da amilase pancreática e limites seguros de inclusão de açúcares e amidos cozidos',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte as Rações Mais Ricas em Proteína Animal para Gatos',
+      text: 'Quer descobrir quais rações secas e úmidas priorizam carnes nobres no topo da receita e mantêm o nível de carboidratos sob controle? Compare as fichas avaliadas no nosso catálogo.',
+      buttonText: 'Ver Catálogo para Gatos',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
