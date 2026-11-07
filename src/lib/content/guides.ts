@@ -6761,7 +6761,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-05',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/carboidratos-na-racao-de-gatos-carnivoro-estrito-consegue-digerir-amido.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Gatos são carnívoros estritos e não possuem amilase na saliva, mas digerem mais de 90% do amido quando submetido ao cozimento da extrusão. Explicamos a diferença metabólica entre arroz, ervilha, batata-doce e milho, ensinamos a calcular os carboidratos que não aparecem na tabela do pacote e esclarecemos o papel da obesidade no diabetes felino.',
     relatedProductSlugs: [],
@@ -6928,6 +6928,180 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer descobrir quais rações secas e úmidas priorizam carnes nobres no topo da receita e mantêm o nível de carboidratos sob controle? Compare as fichas avaliadas no nosso catálogo.',
       buttonText: 'Ver Catálogo para Gatos',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'farinha-de-visceras-vs-carne-e-ossos-por-que-frango-domina-racoes-caes',
+    title: 'Farinha de vísceras vs carne e ossos: Por que o frango domina as rações para cães?',
+    subtitle:
+      'Entenda por que a carne bovina em rações secas convencionais costuma vir acompanhada de ossos moídos e por que a farinha de vísceras de frango é o padrão das linhas Super Premium.',
+    cluster: 'Ingredientes & Rótulos',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-06',
+    updatedAt: '2026-11-06',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/farinha-de-visceras-vs-carne-e-ossos-por-que-frango-domina-racoes-caes.webp',
+    isFeatured: true,
+    summary:
+      'Para o paladar humano, um corte bovino parece muito mais nobre do que o frango, mas na indústria de rações secas a lógica se inverte. Explicamos o que a Instrução Normativa nº 34/2008 do MAPA define como farinha de vísceras de aves e farinha de carne e ossos, revelando como o excesso de cinzas minerais reduz a digestibilidade e altera as fezes do cão.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'paradoxo-do-churrasco-na-prateleira',
+        heading: '1. O paradoxo do churrasco: Por que quase toda ração Super Premium é de frango?',
+        paragraphs: [
+          'Ao escolher a comida do cão no pet shop, é muito natural projetarmos nossos próprios hábitos alimentares na prateleira. No prato do brasileiro, a carne bovina é associada a um alimento mais caro e valorizado do que o frango, o que leva muitos tutores a buscarem pacotes estampados com fotos de bifes suculentos e o rótulo "Sabor Carne".',
+          'Porém, basta caminhar até a seção das rações Super Premium e Super Premium Natural para notar um contraste curioso: as fórmulas mais avançadas do mercado são quase todas encabeçadas por frango, peru, salmão ou cordeiro, enquanto a carne bovina raramente aparece como base principal.',
+          'Essa preferência técnica da indústria não acontece por economia, mas por pura qualidade nutricional. Nas rações secas extrusadas, a matéria-prima não entra no pacote na forma de filé de açougue com 75% de água, e sim na forma de farinhas proteicas desidratadas, cujos padrões de pureza mudam drasticamente entre aves e bovinos.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Por que a palavra "vísceras" assusta o tutor, mas agrada ao nutricionista?',
+          text: 'Na linguagem cotidiana, a palavra vísceras costuma ser confundida com restos sem valor. Na regulamentação oficial do Ministério da Agricultura e Pecuária (MAPA), porém, a farinha de vísceras de aves reúne cortes musculares, pescoço, coração, moela e fígado limpos, formando uma das fontes mais ricas em aminoácidos essenciais da nutrição animal.',
+        },
+      },
+      {
+        id: 'o-que-e-farinha-de-visceras-de-aves-mapa',
+        heading: '2. O que realmente vai dentro da farinha de vísceras de aves?',
+        paragraphs: [
+          'Regulamentada pela Instrução Normativa nº 34/2008 do MAPA e detalhada no Manual de Ingredientes da ABINPET, a farinha de vísceras de aves é obtida pelo cozimento, prensagem para retirada do excesso de gordura e moagem de partes nobres e órgãos internos de frangos abatidos sob inspeção sanitária oficial.',
+          'Por determinação legal estrita, é proibido incluir penas, pés e bicos nesse ingrediente (exceto traços mínimos inevitáveis do processamento industrial). O resultado é um pó proteico altamente concentrado, que entrega entre 58% e 68% de Proteína Bruta e um perfil completo de aminoácidos essenciais, como lisina e metionina.',
+          'Nas linhas Super Premium, os fabricantes utilizam a versão classificada como Low Ash (baixo teor de cinzas minerais), que passa por peneiramento rigoroso para reter fragmentos de ossos. Na prática, o cão aproveita mais de 85% a 90% dessa proteína no intestino delgado, mantendo a musculatura firme, a pelagem sedosa e produzindo fezes pequenas e bem formadas.',
+        ],
+      },
+      {
+        id: 'farinha-de-carne-e-ossos-bovina-limite-mineral',
+        heading: '3. Farinha de carne e ossos bovina: O peso oculto do cálcio e do fósforo',
+        paragraphs: [
+          'Quando você vira a embalagem de uma ração econômica ou Standard que destaca "Carne" no painel frontal, o ingrediente listado na composição quase sempre é a Farinha de Carne e Ossos bovina (FCO). Diferente da farinha de aves, esse insumo resulta do processamento de recortes residuais do abate bovino misturados a uma grande fração de ossos moídos.',
+          'Enquanto a farinha de vísceras de frango apresenta entre 10% e 14% de matéria mineral (cinzas), a farinha de carne e ossos bovina chega a carregar de 28% a 38% do seu peso apenas em minerais ósseos, principalmente cálcio e fósforo na forma de hidroxiapatita.',
+          'Esse excesso de ossos traz duas consequências diretas para o organismo do cão. A primeira é a queda na digestibilidade: como o tecido ósseo é rico em colágeno fibroso de difícil quebra enzimática, o aproveitamento proteico cai para a faixa de 70% a 75%, fazendo com que a proteína não absorvida fermente no intestino grosso e gere fezes volumosas e com odor forte.',
+          'A segunda consequência é o teto mineral da receita. Se o fabricante tentar colocar muita farinha de carne e ossos para subir a proteína da ração para 28% ou 30%, o nível de cálcio e fósforo do pacote estoura os limites seguros estabelecidos pela ABINPET e pela FEDIAF, o que obrigaria a fábrica a completar a fórmula com farelos vegetais baratos, como glúten de milho e farelo de soja.',
+        ],
+        table: {
+          caption: 'Confronto zootécnico: Farinha de vísceras de aves vs Farinha de carne e ossos bovina (Padrões ABINPET / UNESP)',
+          headers: ['Parâmetro Técnico', 'Farinha de Vísceras de Aves (Low Ash)', 'Farinha de Carne e Ossos Bovina (FCO)', 'Impacto na Rotina do Cão'],
+          rows: [
+            [
+              'Proteína Bruta Média',
+              '60% a 68% de proteína concentrada',
+              '40% a 50% de proteína (variável)',
+              'A farinha de aves permite criar rações de alta proteína sem depender de soja',
+            ],
+            [
+              'Matéria Mineral (Cinzas / Ossos)',
+              'Baixa (10% a 14% de minerais)',
+              'Muito alta (28% a 38% de ossos moídos)',
+              'Menos cinzas protegem os rins de cães adultos e evitam excesso de cálcio em filhotes',
+            ],
+            [
+              'Digestibilidade Proteica Aparente',
+              'Alta (85% a 90% de absorção)',
+              'Moderada a baixa (70% a 76% de absorção)',
+              'Maior digestibilidade significa fezes menores, mais firmes e com menos cheiro',
+            ],
+            [
+              'Qualidade de Aminoácidos (Valor Biológico)',
+              'Excelente equilíbrio de lisina e metionina',
+              'Predomínio de colágeno (pobre em triptofano)',
+              'Pelagem mais brilhante, menor queda de pelos e melhor manutenção muscular',
+            ],
+            [
+              'Presença no Mercado Pet',
+              'Base das rações Premium Especial e Super Premium',
+              'Comum em rações Econômicas e Standard',
+              'Indicador direto do grau de pureza das matérias-primas no primeiro item do rótulo',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'excecao-carne-bovina-fresca-e-desidratada',
+        heading: '4. Quando a carne bovina na ração é realmente de alta qualidade?',
+        paragraphs: [
+          'Isso significa que toda ração com carne bovina é inferior? Não, desde que você saiba diferenciar o nome técnico do ingrediente no verso do pacote. Nos últimos anos, linhas Super Premium Natural passaram a utilizar "carne bovina fresca" (ou mecanicamente separada) combinada a proteínas isoladas e farinhas nobres de aves ou suínos (como a farinha de torresmo).',
+          'Nesses alimentos de ponta, a carne bovina entra desossada, sem carregar a sobrecarga de cálcio e fósforo da farinha de carne e ossos tradicional. Além disso, os alimentos úmidos completos (sachês e latas) utilizam cortes musculares e miúdos bovinos cozidos diretamente no vapor, preservando alta umidade e excelente valor biológico.',
+          'O segredo está na transparência da nomenclatura: se o rótulo declarar apenas "carne bovina" ou "miúdos de bovinos" junto a farinhas de vísceras e torresmo, trata-se de tecido macio de ótima digestão. Se declarar "farinha de carne e ossos", trata-se do subproduto com alta fração mineral.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Cuidado redobrado em filhotes de raças grandes e cães idosos',
+          text: 'Filhotes de porte grande (como Pastor Alemão, Golden Retriever e Labrador) não conseguem bloquear a absorção intestinal do cálcio excedente, o que torna rações ricas em farinha de carne e ossos um fator de risco para displasia e problemas osteoarticulares. Já em cães idosos (+7 anos), o excesso de fósforo ósseo sobrecarrega a filtração dos rins.',
+        },
+      },
+      {
+        id: 'como-inspecionar-o-rotulo-no-pet-shop',
+        heading: '5. Como inspecionar os 3 primeiros ingredientes antes de colocar no carrinho',
+        paragraphs: [
+          'Da próxima vez que estiver diante da prateleira, ignore a foto do bife grelhado na frente do saco e vá direto à lista de Composição Básica no verso. Pela legislação do MAPA, o primeiro ingrediente listado é aquele que está em maior peso dentro da receita.',
+          'Priorize rações que abram a composição com "farinha de vísceras de aves" (ou de frango), "carne de frango", "farinha de salmão" ou "farinha de torresmo". Esses quatro ingredientes atestam que a proteína do pacote vem de tecidos musculares e órgãos nobres com baixo resíduo mineral.',
+          'Por outro lado, se a lista começar com milho moído acompanhado de "farinha de carne e ossos" e a tabela de garantias apontar Matéria Mineral acima de 10% a 12%, saiba que uma parte expressiva do pacote é composta por ossos moídos de menor aproveitamento para o seu cão.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Farinha de vísceras de frango é feita com penas, bicos e pés?',
+        a: 'Não. A Instrução Normativa nº 34/2008 do MAPA proíbe expressamente a inclusão de penas, pés e bicos na farinha de vísceras de aves. O ingrediente é produzido a partir de partes cárneas, pescoço, coração, moela e fígado de frangos inspecionados, tendo altíssimo valor nutritivo.',
+      },
+      {
+        q: 'Por que a farinha de vísceras de frango é melhor que a farinha de carne e ossos bovina?',
+        a: 'Porque a farinha de vísceras de frango possui muito menos ossos moídos (10% a 14% de cinzas contra até 38% na farinha de carne e ossos), oferece mais de 60% de proteína pura e alcança até 90% de digestibilidade no intestino do cão, gerando fezes menores e melhor nutrição muscular.',
+      },
+      {
+        q: 'Se meu cão tem alergia a frango, qual ingrediente devo procurar no rótulo?',
+        a: 'Cães com hipersensibilidade alimentar confirmada à proteína do frango devem consumir dietas formuladas exclusivamente com fontes proteicas alternativas isentas de aves (como farinha de salmão, cordeiro ou suíno puro) ou rações coadjuvantes com proteína hidrolisada sob prescrição veterinária.',
+      },
+      {
+        q: 'Como saber se uma ração sabor carne usa carne de verdade ou farinha de ossos?',
+        a: 'Basta ler a seção Composição Básica no verso do pacote. Se o sabor vier apenas de aditivos, haverá apenas "hidrolisado de fígado" ou "aroma de carne" no fim da lista; se usar subproduto mineral, estará escrito "farinha de carne e ossos"; se usar corte nobre, constará "carne bovina" nos primeiros itens.',
+      },
+    ],
+    conclusion:
+      'Na nutrição canina, julgar a qualidade de uma ração pela lógica do prato humano é uma armadilha comum. Enquanto o termo "carne bovina" nas rações secas convencionais quase sempre esconde a presença de farinha de carne e ossos carregada de cinzas minerais e colágeno de difícil digestão, a farinha de vísceras de frango representa uma fonte proteica limpa, concentrada e rica em aminoácidos essenciais. Ao priorizar pacotes encabeçados por farinhas de vísceras de aves, peixes ou torresmo com matéria mineral controlada, você garante que o seu cão absorva proteína real para os músculos em vez de eliminar excesso de minerais pelas fezes e pelos rins.',
+    references: [
+      {
+        title: 'Instrução Normativa MAPA nº 34, de 28 de maio de 2008',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/inspeccao/produtos-animal/legislacao',
+        details: 'Regulamento Técnico da Inspeção Higiênico-Sanitária e Tecnológica do Processamento de Resíduos de Animais e padrões oficiais de identidade para farinha de vísceras e farinha de carne e ossos',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Catálogo oficial de matérias-primas de origem animal, limites máximos de matéria mineral (cinzas), cálcio e fósforo e coeficientes de digestibilidade em cães',
+      },
+      {
+        title: 'Digestibilidade aparente e verdadeira de farinhas de origem animal em cães (Revista Brasileira de Zootecnia)',
+        institution: 'Universidade Estadual Paulista - UNESP Jaboticabal (Carciofi et al.)',
+        type: 'estudo',
+        url: 'https://www.scielo.br/j/rbz/',
+        details: 'Avaliação bromatológica e ensaios de digestibilidade comparando o aproveitamento de aminoácidos e o impacto fecal da farinha de vísceras de aves frente à farinha de carne e ossos bovina',
+      },
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Exigências mínimas de aminoácidos essenciais (lisina, metionina, triptofano) e limites nutricionais seguros para cálcio e fósforo na alimentação de cães',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Biodisponibilidade de proteínas animais processadas, impacto do tratamento térmico e relação inversa entre teor de cinzas ósseas e digestibilidade ileal de aminoácidos',
+      },
+    ],
+    callToAction: {
+      title: 'Compare os Ingredientes e o Nível de Cinzas no Nosso Catálogo',
+      text: 'Quer descobrir quais rações para o porte do seu cão utilizam proteínas nobres de alta digestibilidade e mantêm os minerais sob controle? Consulte gratuitamente o nosso ranking técnico.',
+      buttonText: 'Explorar Ranking para Cães',
+      buttonUrl: '/catalogo?especie=Caes',
     },
   },
 ];
