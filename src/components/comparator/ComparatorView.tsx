@@ -21,6 +21,7 @@ import {
   Camera,
   Info,
   ArrowRight,
+  ArrowLeftRight,
   Store,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
@@ -659,17 +660,22 @@ export default function ComparatorView({
             </span>
           </div>
 
-          {/* Container Responsivo da Tabela com Scroll Horizontal Suave */}
-          <div style={{ overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
-            <table
-              style={{
-                width: '100%',
-                tableLayout: 'fixed',
-                borderCollapse: 'collapse',
-                fontSize: '0.84rem',
-                minWidth: '680px',
-              }}
-            >
+          {/* Container Responsivo da Tabela com Scroll Horizontal Suave e Indicador Móvel */}
+          <div className="table-responsive-wrapper">
+            <div className="table-scroll-hint-badge" aria-hidden="true">
+              <ArrowLeftRight size={12} />
+              <span>Deslize para comparar mais colunas</span>
+            </div>
+            <div className="table-responsive-container">
+              <table
+                style={{
+                  width: '100%',
+                  tableLayout: 'fixed',
+                  borderCollapse: 'collapse',
+                  fontSize: '0.84rem',
+                  minWidth: '680px',
+                }}
+              >
               <colgroup>
                 <col style={{ width: populatedProducts.length === 3 ? '24%' : '28%' }} />
                 {populatedProducts.map((p) => (
@@ -1152,6 +1158,7 @@ export default function ComparatorView({
             </table>
           </div>
         </div>
+      </div>
       )}
 
       {/* Modal de Busca de Produtos */}

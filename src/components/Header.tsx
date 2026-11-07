@@ -34,6 +34,29 @@ export default function Header() {
   };
 
   useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleToggle = (e: Event) => {
+      const customEvent = e as CustomEvent<{ open?: boolean }>;
+      if (customEvent.detail && typeof customEvent.detail.open === 'boolean') {
+        setMobileMenuOpen(customEvent.detail.open);
+      } else {
+        setMobileMenuOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('toggle-mobile-menu', handleToggle);
+    return () => window.removeEventListener('toggle-mobile-menu', handleToggle);
+  }, []);
+
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent('mobile-menu-state', { detail: { open: mobileMenuOpen } })
+    );
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && mobileMenuOpen) {
         setMobileMenuOpen(false);

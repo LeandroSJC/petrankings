@@ -16,6 +16,7 @@ import {
   HelpCircle,
   ExternalLink,
   Sparkles,
+  ArrowLeftRight,
 } from 'lucide-react';
 import { SITE_URL } from '@/lib/utils';
 
@@ -455,65 +456,71 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
                 {/* Tabela de Comparação do Artigo */}
                 {sec.table && (
-                  <div style={{ marginTop: '24px', marginBottom: '24px', overflowX: 'auto' }}>
+                  <div className="table-responsive-wrapper">
                     {sec.table.caption && (
                       <span style={{ display: 'block', fontSize: '0.80rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>
                         {sec.table.caption}
                       </span>
                     )}
-                    <table
-                      style={{
-                        width: '100%',
-                        borderCollapse: 'collapse',
-                        fontSize: '0.88rem',
-                        backgroundColor: '#ffffff',
-                        border: '1px solid var(--border-cream)',
-                        borderRadius: 'var(--radius-sm)',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      <thead>
-                        <tr style={{ backgroundColor: 'var(--bg-muted)', textAlign: 'left' }}>
-                          {sec.table.headers.map((h, hIdx) => (
-                            <th
-                              key={hIdx}
-                              style={{
-                                padding: '10px 14px',
-                                borderBottom: '1px solid var(--border-cream)',
-                                color: 'var(--brand-forest-900)',
-                                fontWeight: 700,
-                              }}
-                            >
-                              {h}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sec.table.rows.map((row, rIdx) => (
-                          <tr
-                            key={rIdx}
-                            style={{
-                              backgroundColor: rIdx % 2 === 0 ? '#ffffff' : 'var(--bg-subtle)',
-                              borderBottom: '1px solid var(--border-cream-light)',
-                            }}
-                          >
-                            {row.map((cell, cIdx) => (
-                              <td
-                                key={cIdx}
+                    <div className="table-scroll-hint-badge" aria-hidden="true">
+                      <ArrowLeftRight size={12} />
+                      <span>Deslize para ver todas as colunas</span>
+                    </div>
+                    <div className="table-responsive-container">
+                      <table
+                        style={{
+                          width: '100%',
+                          borderCollapse: 'collapse',
+                          fontSize: '0.88rem',
+                          backgroundColor: '#ffffff',
+                          border: '1px solid var(--border-cream)',
+                          borderRadius: 'var(--radius-sm)',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <thead>
+                          <tr style={{ backgroundColor: 'var(--bg-muted)', textAlign: 'left' }}>
+                            {sec.table.headers.map((h, hIdx) => (
+                              <th
+                                key={hIdx}
                                 style={{
                                   padding: '10px 14px',
-                                  color: cIdx === 0 ? 'var(--brand-forest-900)' : 'var(--text-body)',
-                                  fontWeight: cIdx === 0 ? 600 : 400,
+                                  borderBottom: '1px solid var(--border-cream)',
+                                  color: 'var(--brand-forest-900)',
+                                  fontWeight: 700,
                                 }}
                               >
-                                {cell}
-                              </td>
+                                {h}
+                              </th>
                             ))}
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {sec.table.rows.map((row, rIdx) => (
+                            <tr
+                              key={rIdx}
+                              style={{
+                                backgroundColor: rIdx % 2 === 0 ? '#ffffff' : 'var(--bg-subtle)',
+                                borderBottom: '1px solid var(--border-cream-light)',
+                              }}
+                            >
+                              {row.map((cell, cIdx) => (
+                                <td
+                                  key={cIdx}
+                                  style={{
+                                    padding: '10px 14px',
+                                    color: cIdx === 0 ? 'var(--brand-forest-900)' : 'var(--text-body)',
+                                    fontWeight: cIdx === 0 ? 600 : 400,
+                                  }}
+                                >
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 )}
               </section>

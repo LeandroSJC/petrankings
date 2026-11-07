@@ -1,0 +1,21 @@
+{
+  "name": "PetRankings — Observatório de Nutrição Pet",
+  "short_name": "PetRankings",
+  "description": "Avaliação nutricional independente e comparativa de alimentos para cães e gatos em Matéria Seca (MS).",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#059669",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

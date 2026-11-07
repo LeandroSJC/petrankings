@@ -4,6 +4,7 @@ import { Inter, Plus_Jakarta_Sans, Outfit } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import MobileBottomNav from '@/components/MobileBottomNav';
 import { ToastProvider } from '@/components/Toast';
 import { SITE_URL } from '@/lib/utils';
 
@@ -84,6 +85,7 @@ export const metadata: Metadata = {
   verification: {
     google: googleSiteVerification,
   },
+  manifest: '/manifest.json',
   other: {
     'google-adsense-account': 'ca-pub-2889031150261887',
   },
@@ -93,6 +95,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
+  themeColor: '#ffffff',
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({
@@ -140,6 +144,7 @@ export default function RootLayout({
           >
             {children}
           </main>
+          <MobileBottomNav />
           <Footer />
         </ToastProvider>
       </body>
