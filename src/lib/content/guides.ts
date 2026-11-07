@@ -6942,7 +6942,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-06',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/farinha-de-visceras-vs-carne-e-ossos-por-que-frango-domina-racoes-caes.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Para o paladar humano, um corte bovino parece muito mais nobre do que o frango, mas na indústria de rações secas a lógica se inverte. Explicamos o que a Instrução Normativa nº 34/2008 do MAPA define como farinha de vísceras de aves e farinha de carne e ossos, revelando como o excesso de cinzas minerais reduz a digestibilidade e altera as fezes do cão.',
     relatedProductSlugs: [],
@@ -7102,6 +7102,181 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer descobrir quais rações para o porte do seu cão utilizam proteínas nobres de alta digestibilidade e mantêm os minerais sob controle? Consulte gratuitamente o nosso ranking técnico.',
       buttonText: 'Explorar Ranking para Cães',
       buttonUrl: '/catalogo?especie=Caes',
+    },
+  },
+  {
+    slug: 'acido-araquidonico-e-omega-3-gatos-por-que-exigem-gordura-animal',
+    title: 'Ácido araquidônico e ômega-3 para gatos: Por que felinos exigem gordura animal?',
+    subtitle:
+      'Descubra por que o fígado do gato não consegue transformar óleos vegetais de soja ou linhaça nas gorduras vitais para a pele, o cérebro e os rins.',
+    cluster: 'Nutrição & Bromatologia',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-07',
+    updatedAt: '2026-11-07',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/acido-araquidonico-e-omega-3-gatos-por-que-exigem-gordura-animal.webp',
+    isFeatured: true,
+    summary:
+      'Muitos pacotes prometem pelos brilhantes com ômega-3 e ômega-6 na frente da embalagem, mas usam apenas óleos vegetais de soja ou linhaça na receita. Explicamos a ausência da enzima hepática delta-6 dessaturase nos felinos e mostramos por que o gato depende estritamente de gordura de aves e óleo de peixe marinho conforme o Manual da ABINPET.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'misterio-pelagem-opaca-oleos-vegetais',
+        heading: '1. O mistério da pelagem opaca: Por que óleos vegetais não bastam para o gato?',
+        paragraphs: [
+          'Quem tem gato em casa costuma reparar rápido quando a nutrição não vai bem: o pelo perde o brilho sedoso, começa a cair além do normal pelo sofá e surgem pequenos pontos brancos parecidos com caspa no dorso do animal. Na tentativa de resolver o problema, o tutor procura no pet shop uma ração que destaque "Rico em Ômega 3 e 6" no painel frontal.',
+          'O problema aparece quando viramos o pacote para ler a lista de ingredientes. Em muitas fórmulas econômicas ou intermediárias, toda a promessa de ômegas apoia-se apenas em insumos agrícolas, como óleo de soja refinado, óleo de milho ou semente de linhaça.',
+          'Embora esses óleos vegetais funcionem parcialmente para cães e seres humanos, no organismo do gato eles esbarram em uma barreira genética intransponível. A natureza de carnívoro estrito do felino não exige apenas carnes para fornecer proteínas e taurina, mas também gorduras de origem animal que já tragam ácidos graxos prontos para o uso celular.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'O que significa Extrato Etéreo na tabela da embalagem?',
+          text: 'Nos Níveis de Garantia do rótulo, a gordura total da ração é declarada sob o nome técnico de Extrato Etéreo (EE). Pelas diretrizes da 11ª Edição do Manual Pet Food Brasil (ABINPET), toda ração completa para gatos deve conter no mínimo 9,0% de Extrato Etéreo em Matéria Seca (sem contar a água), servindo como principal fonte concentrada de energia e transporte para as vitaminas A, D, E e K.',
+        },
+      },
+      {
+        id: 'enzima-delta-6-dessaturase-acido-araquidonico',
+        heading: '2. A enzima ausente no fígado felino e a necessidade do ácido araquidônico',
+        paragraphs: [
+          'Para entender por que o gato precisa de gordura animal, basta olhar para o funcionamento do seu fígado. Cães e humanos possuem uma enzima chamada delta-6 dessaturase (atuando em conjunto com a delta-5 dessaturase), que funciona como uma linha de montagem capaz de pegar o ácido linoleico (um ômega-6 simples presente no óleo de soja e no milho) e transformá-lo em ácido araquidônico.',
+          'Ao longo de milhões de anos caçando pequenos roedores e aves na natureza, os ancestrais dos gatos consumiam tecidos animais que já continham ácido araquidônico pronto em abundância. Para economizar energia metabólica, o fígado felino desativou quase totalmente a produção da enzima delta-6 dessaturase.',
+          'Na prática, isso significa que o gato doméstico é incapaz de fabricar ácido araquidônico a partir de óleos vegetais. Esse nutriente, que só existe em gorduras de origem animal (como a gordura de frango, o óleo de vísceras de aves e a gordura suína), é indispensável para renovar a camada impermeável da pele, garantir a coagulação das plaquetas do sangue e manter a saúde reprodutiva.',
+          'Por essa razão biológica, o Manual da ABINPET, a FEDIAF e o NRC estabelecem uma regra exclusiva para os gatos: além de exigir o mínimo de 0,50% de ácido linoleico em Matéria Seca, o alimento felino é obrigado a entregar pelo menos 0,008% de ácido araquidônico na Matéria Seca para adultos em manutenção e 0,02% para filhotes em crescimento.',
+        ],
+      },
+      {
+        id: 'linhaca-vs-oleo-de-peixe-epa-dha',
+        heading: '3. Linhaça vs óleo de peixe: A armadilha do ômega-3 vegetal para felinos',
+        paragraphs: [
+          'A mesma limitação enzimática do fígado felino se repete na família do ômega-3, criando uma confusão frequente nos rótulos das rações. Existem dois tipos muito diferentes de ômega-3 na indústria pet: o ácido alfa-linolênico (ALA), de cadeia curta e origem vegetal, e os ácidos EPA (eicosapentaenoico) e DHA (docosahexaenoico), de cadeia longa e origem marinha.',
+          'Quando uma fábrica utiliza apenas semente de linhaça ou óleo de canola na receita, ela está fornecendo ALA vegetal. Como o gato não tem atividade eficiente da enzima delta-6 dessaturase para alongar essa molécula, menos de 1% do ômega-3 da linhaça é convertido em EPA e DHA aproveitáveis pelo corpo do animal.',
+          'No dia a dia do gato, quem realmente protege os rins contra processos inflamatórios silenciosos, lubrifica as articulações de gatos idosos e forma a estrutura do cérebro e da retina dos filhotes são o EPA e o DHA prontos. Para que o felino receba esses benefícios reais, a ração precisa conter óleo de peixe marinho (como óleo de salmão, anchova ou sardinha) ou farinha de microalgas marinhas (Schizochytrium sp.).',
+        ],
+        table: {
+          caption: 'Fontes de gordura na ração de gatos: Aproveitamento biológico real (Padrões ABINPET / NRC / FEDIAF)',
+          headers: ['Fonte Lipídica no Rótulo', 'Principal Ácido Graxo Entregue', 'Aproveitamento pelo Gato', 'Impacto Visível na Rotina do Pet'],
+          rows: [
+            [
+              'Gordura de Frango / Aves',
+              'Ácido Linoleico + Ácido Araquidônico (Ômega-6)',
+              'Excelente (absorção direta sem depender de conversão hepática)',
+              'Pele íntegra sem descamação, pelos macios e alta aceitação no comedouro',
+            ],
+            [
+              'Óleo de Peixe (Salmão / Marinho)',
+              'EPA e DHA pré-formados (Ômega-3 de cadeia longa)',
+              'Máximo (biodisponibilidade imediata nos órgãos)',
+              'Proteção das células renais, efeito anti-inflamatório articular e brilho intenso',
+            ],
+            [
+              'Farinha de Algas Marinhas (Schizochytrium)',
+              'DHA e EPA concentrados de origem marinha',
+              'Alto (fonte direta de cadeia longa)',
+              'Desenvolvimento cerebral e visual em filhotes e suporte cognitivo em idosos',
+            ],
+            [
+              'Semente ou Óleo de Linhaça',
+              'Ácido Alfa-Linolênico - ALA (Ômega-3 vegetal)',
+              'Muito baixo para EPA/DHA (conversão inferior a 1%)',
+              'Auxilia como fibra no trânsito intestinal, mas não substitui o óleo de peixe',
+            ],
+            [
+              'Óleo de Soja, Milho ou Girassol',
+              'Ácido Linoleico isolado (Ômega-6 vegetal)',
+              'Incompleto (totalmente isento de ácido araquidônico)',
+              'Fornece energia calórica básica, mas exige combinação obrigatória com gordura animal',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'perigo-oxidacao-conservacao-natural',
+        heading: '4. O perigo invisível da oxidação: Por que gorduras nobres exigem proteção?',
+        paragraphs: [
+          'Incluir gordura de frango e óleo de peixe na fórmula resolve a exigência biológica do gato, mas cria um desafio tecnológico sério: quanto mais nobre e insaturado é um óleo (especialmente o EPA e o DHA marinhos), mais frágil ele se torna diante do oxigênio do ar, da luz e do calor.',
+          'Se esses ácidos graxos não forem protegidos dentro do pacote, ocorre a chamada peroxidação lipídica, que é o rançamento da gordura. Além de destruir as propriedades do ômega-3 e gerar compostos que agridem as células do gato, o ranço altera imediatamente o aroma do croquete, fazendo o felino cheirar o pote e dar meia-volta sem comer.',
+          'Nas linhas Super Premium e Super Premium Natural, essa proteção é feita com antioxidantes naturais, como o concentrado de tocoferóis (vitamina E natural) e o extrato de alecrim, evitando os conservantes sintéticos BHT e BHA. Em casa, você completa essa proteção mantendo a ração sempre dentro da embalagem original bem vedada, já que o saco metalizado bloqueia a entrada de luz e oxigênio.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Gatos castrados precisam cortar a gordura da dieta?',
+          text: 'Após a castração, o gato precisa moderar o total de calorias para evitar o sobrepeso, razão pela qual as rações para castrados reduzem o Extrato Etéreo total para a faixa de 10% a 13% (frente a 16% ou 20% das versões de manutenção). Contudo, uma boa fórmula para castrados reduz apenas o volume calórico, mantendo intacta a presença de óleo de peixe e gordura de frango para não ressecar a pele nem desproteger os rins.',
+        },
+      },
+      {
+        id: 'como-inspecionar-fontes-gordura-rotulo',
+        heading: '5. Checklist de prateleira: Como inspecionar as fontes de gordura no rótulo',
+        paragraphs: [
+          'Para não pagar caro por uma ração que entrega apenas óleo vegetal barato com rótulo de ômega, aplique três verificações rápidas na seção de Composição Básica (onde os itens aparecem em ordem decrescente de peso, conforme a Instrução Normativa nº 22/2009 do MAPA).',
+          'Primeiro, confirme a presença de "gordura de frango" (ou gordura de aves) logo na primeira metade da lista de ingredientes, garantindo o aporte natural de ácido linoleico e ácido araquidônico.',
+          'Segundo, procure expressamente por "óleo de peixe" (ou "óleo de salmão" e "farinha de algas marinhas"). Se o pacote anunciar ômega-3 na capa, mas a lista de ingredientes trouxer apenas "semente de linhaça", saiba que o seu gato quase não aproveitará EPA e DHA daquela receita.',
+          'Por fim, confira na tabela de Níveis de Garantia se o fabricante declara de forma transparente as quantidades mínimas garantidas de Ômega-6, Ômega-3 e, nas fórmulas mais completas, os miligramas exatos de EPA e DHA por quilo de alimento.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Por que o gato não pode consumir uma dieta 100% vegetariana ou apenas com óleos vegetais?',
+        a: 'Porque o fígado do gato possui baixíssima atividade da enzima delta-6 dessaturase, tornando-o incapaz de converter o ômega-6 vegetal (ácido linoleico) em ácido araquidônico. Sem gordura de origem animal na dieta, o felino desenvolve lesões graves de pele, falhas de coagulação e distúrbios metabólicos.',
+      },
+      {
+        q: 'A semente de linhaça na ração de gatos substitui o óleo de peixe?',
+        a: 'Não. A semente de linhaça fornece ácido alfa-linolênico (ALA), um ômega-3 vegetal que o organismo do gato converte em menos de 1% para EPA e DHA. Para obter ação anti-inflamatória renal, articular e suporte cerebral, o gato precisa receber EPA e DHA já prontos por meio do óleo de peixe marinho ou microalgas.',
+      },
+      {
+        q: 'Qual é a quantidade mínima de gordura exigida por lei na ração para gatos?',
+        a: 'De acordo com as tabelas da 11ª Edição do Manual Pet Food Brasil (ABINPET) e da FEDIAF, um alimento completo para gatos adultos ou filhotes deve conter no mínimo 9,0% de gordura bruta (Extrato Etéreo) em base de Matéria Seca, incluindo ao menos 0,50% de ácido linoleico e 0,008% a 0,02% de ácido araquidônico.',
+      },
+      {
+        q: 'Posso pingar azeite de oliva ou óleo de coco na ração do meu gato para dar brilho ao pelo?',
+        a: 'Não é recomendado. O azeite de oliva e o óleo de coco são fontes vegetais que não possuem ácido araquidônico nem EPA e DHA, além de desequilibrarem a relação calórica da dieta e poderem causar diarreia ou sobrecarga pancreática. O brilho da pelagem deve vir de uma ração formulada com gordura de aves e óleo de peixe nas proporções corretas.',
+      },
+    ],
+    conclusion:
+      'A pelagem macia, a integridade da pele e a proteção renal de longo prazo do gato dependem diretamente do respeito à sua fisiologia de carnívoro estrito. Como o fígado felino não converte óleos vegetais de soja ou linhaça em ácido araquidônico, EPA e DHA ativos, cabe ao tutor olhar além dos slogans da embalagem. Ao escolher rações que combinem gordura de aves e óleo de peixe marinho preservados com antioxidantes naturais (tocoferóis e alecrim), você assegura que cada refeição nutra de verdade as células do seu gato.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Tabelas de exigências nutricionais mínimas para gatos em manutenção e crescimento: Extrato Etéreo (9,0% MS), Ácido Linoleico (0,50% MS), Ácido Araquidônico (0,008% a 0,02% MS) e EPA+DHA',
+      },
+      {
+        title: 'FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Diretrizes nutricionais europeias sobre o metabolismo lipídico de carnívoros estritos, deficiência da enzima delta-6 dessaturase e exigências de ácidos graxos essenciais pré-formados',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Capítulo 4 (Fats and Fatty Acids): comprovação bioquímica da incapacidade felina de biossíntese de ácido araquidônico a partir do linoleico e baixa conversão de ALA em EPA e DHA',
+      },
+      {
+        title: 'Metabolic basis for the essential nature of fatty acids and the unique dietary fatty acid requirements of cats (JAVMA)',
+        institution: 'Journal of the American Veterinary Medical Association (Bauer, J. E.)',
+        type: 'estudo',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/17184221/',
+        details: 'Estudo clínico e metabólico demonstrando as vias enzimáticas limitadas de dessaturação hepática em felinos e a obrigatoriedade dietética de fontes animais e marinhas de ácidos graxos de cadeia longa',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 22, de 2 de junho de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Regras de rotulagem para alimentos destinados a animais de companhia, declaração obrigatória de Extrato Etéreo nos Níveis de Garantia e listagem decrescente de ingredientes na Composição Básica',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte as Melhores Rações para Gatos no Nosso Catálogo',
+      text: 'Quer descobrir quais alimentos secos e úmidos para gatos utilizam gordura de frango, óleo de peixe marinho e antioxidantes 100% naturais? Compare as fichas avaliadas gratuitamente.',
+      buttonText: 'Explorar Ranking para Gatos',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
