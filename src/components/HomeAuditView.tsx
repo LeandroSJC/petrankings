@@ -13,6 +13,8 @@ import {
   ArrowUpDown,
   Filter,
   SlidersHorizontal,
+  X,
+  ArrowRight,
 } from 'lucide-react';
 
 export interface ProductItemData {
@@ -75,6 +77,38 @@ function normalizeSearchText(str: string): string {
     .trim();
 }
 
+function getBreedSizeLabel(size: string): string {
+  if (size === 'MINI_PEQUENO') return 'Mini e Pequeno';
+  if (size === 'MEDIO_GRANDE') return 'Médio e Grande';
+  return size;
+}
+
+function getLifeStageLabel(stage: string): string {
+  if (stage === 'FILHOTE') return 'Filhote';
+  if (stage === 'ADULTO') return 'Adulto';
+  if (stage === 'SENIOR') return 'Sênior';
+  return stage;
+}
+
+function getTierLabel(tier: string): string {
+  if (tier === 'NIVEL_OURO' || tier === 'SUPER_PREMIUM') return 'Nível Ouro';
+  if (tier === 'NIVEL_PRATA' || tier === 'PREMIUM_ESPECIAL') return 'Nível Prata';
+  if (tier === 'NIVEL_BRONZE' || tier === 'ECONOMICO') return 'Nível Bronze';
+  return tier;
+}
+
+function getConditionLabel(cond: string): string {
+  const map: Record<string, string> = {
+    RENAL: 'Suporte Renal',
+    URINARIO: 'Trato Urinário',
+    OBESIDADE: 'Obesidade & Diabetes',
+    GASTRO: 'Gastrointestinal',
+    HIPOALERGENICO: 'Hipoalergênico',
+    RECUPERACAO: 'Recuperação',
+  };
+  return map[cond] || cond;
+}
+
 export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewProps) {
   // Seletor de Segmento Principal (Pílula Central: Cães | Gatos | Prescrição)
   const [activeSegment, setActiveSegment] = useState<SegmentType>('caes');
@@ -92,12 +126,38 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
   const [onlyNaturalAntioxidants, setOnlyNaturalAntioxidants] = useState<boolean>(false);
   const [onlyGmoFree, setOnlyGmoFree] = useState<boolean>(false);
 
-  // Controle da Gaveta de Filtros Secundários
+  // Controle da Gaveta de Filtros Secundários no Desktop
   const [showAdvancedFilters, setShowAdvancedFilters] = useState<boolean>(false);
+
+  // Controle do Bottom Sheet Modal no Mobile (< 768px)
+  const [mobileFilterSheetOpen, setMobileFilterSheetOpen] = useState<boolean>(false);
 
   // Filtros Prescrição Veterinária
   const [selectedPrescriptionCondition, setSelectedPrescriptionCondition] = useState<string>('TODOS');
   const [selectedPrescriptionSpecies, setSelectedPrescriptionSpecies] = useState<'TODOS' | 'CAO' | 'GATO'>('TODOS');
+
+  // Bloquear scroll do body quando o Bottom Sheet estiver aberto
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (mobileFilterSheetOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [mobileFilterSheetOpen]);
+
+  // Fechar o Bottom Sheet com a tecla ESC
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileFilterSheetOpen) {
+        setMobileFilterSheetOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileFilterSheetOpen]);
 
   // Ordenação
   const [sortBy, setSortBy] = useState<SortOption>('SCORE_DESC');
@@ -588,41 +648,43 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
     <div id="catalogo-produtos" style={{ display: 'flex', flexDirection: 'column', scrollMarginTop: '80px' }}>
       {/* SEÇÃO CENTRAL OMNI — PESQUISA & FILTROS AVANÇADOS */}
       <div className="omni-search-section">
-        {/* Seletor Central em Pílula (Dogs | Cats | Veterinary Diet) */}
-        <div className="omni-segment-bar" role="tablist" aria-label="Segmento de Alimento">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeSegment === 'caes'}
-            onClick={() => handleSegmentChange('caes')}
-            className={`omni-segment-pill ${activeSegment === 'caes' ? 'active' : ''}`}
-          >
-            <span>🐶 Cães</span>
-            <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({dogCount})</span>
-          </button>
+        {/* Seletor Central em Pílula (Dogs | Cats | Veterinary Diet) com Scroll Touch Suave */}
+        <div className="omni-segment-scroll-wrapper">
+          <div className="omni-segment-bar" role="tablist" aria-label="Segmento de Alimento">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeSegment === 'caes'}
+              onClick={() => handleSegmentChange('caes')}
+              className={`omni-segment-pill ${activeSegment === 'caes' ? 'active' : ''}`}
+            >
+              <span>🐶 Cães</span>
+              <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({dogCount})</span>
+            </button>
 
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeSegment === 'gatos'}
-            onClick={() => handleSegmentChange('gatos')}
-            className={`omni-segment-pill ${activeSegment === 'gatos' ? 'active' : ''}`}
-          >
-            <span>🐱 Gatos</span>
-            <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({catCount})</span>
-          </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeSegment === 'gatos'}
+              onClick={() => handleSegmentChange('gatos')}
+              className={`omni-segment-pill ${activeSegment === 'gatos' ? 'active' : ''}`}
+            >
+              <span>🐱 Gatos</span>
+              <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({catCount})</span>
+            </button>
 
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeSegment === 'prescricao'}
-            onClick={() => handleSegmentChange('prescricao')}
-            className={`omni-segment-pill ${activeSegment === 'prescricao' ? 'active vet' : ''}`}
-          >
-            <Stethoscope size={15} />
-            <span>Prescrição Veterinária</span>
-            <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({prescricaoCount})</span>
-          </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeSegment === 'prescricao'}
+              onClick={() => handleSegmentChange('prescricao')}
+              className={`omni-segment-pill ${activeSegment === 'prescricao' ? 'active vet' : ''}`}
+            >
+              <Stethoscope size={15} />
+              <span>Prescrição Veterinária</span>
+              <span style={{ fontSize: '0.74rem', opacity: 0.85 }}>({prescricaoCount})</span>
+            </button>
+          </div>
         </div>
 
         {/* Único Campo de Busca Omni da Tela */}
@@ -662,273 +724,796 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
 
         {/* PAINEL ESTRUTURADO DE FILTROS & SELETORES */}
         <div className="omni-filters-panel">
-          {/* Linha Principal Enxuta: Apenas os Controles Essenciais */}
-          <div className="omni-chips-row">
-            {/* Dropdown de Marca Comercial */}
-            <select
-              value={selectedBrand}
-              onChange={(e) => {
-                setSelectedBrand(e.target.value);
-                setCurrentPage(1);
-              }}
-              className={`omni-filter-dropdown ${selectedBrand !== 'TODOS' ? 'active' : ''}`}
-              aria-label="Filtrar por marca comercial"
-            >
-              <option value="TODOS">
-                🏷️ Todas as Marcas ({availableBrands.length})
-              </option>
-              {availableBrands.map((b) => (
-                <option key={b.name} value={b.name}>
-                  {b.name} ({b.count})
-                </option>
-              ))}
-            </select>
-
-            {/* Porte (apenas para Cães) */}
-            {activeSegment === 'caes' && (
+          {/* CONTROLES PARA TELAS GRANDES (DESKTOP E TABLET ≥ 768px) */}
+          <div className="omni-desktop-controls">
+            <div className="omni-chips-row">
+              {/* Dropdown de Marca Comercial */}
               <select
-                value={selectedBreedSize}
+                value={selectedBrand}
                 onChange={(e) => {
-                  setSelectedBreedSize(e.target.value);
+                  setSelectedBrand(e.target.value);
                   setCurrentPage(1);
                 }}
-                className={`omni-filter-dropdown ${selectedBreedSize !== 'TODOS' ? 'active' : ''}`}
-                aria-label="Filtrar por porte do cão"
-                style={{ maxWidth: '175px' }}
+                className={`omni-filter-dropdown ${selectedBrand !== 'TODOS' ? 'active' : ''}`}
+                aria-label="Filtrar por marca comercial"
               >
-                <option value="TODOS">🐾 Todos os Portes</option>
-                <option value="MINI_PEQUENO">Mini e Pequeno</option>
-                <option value="MEDIO_GRANDE">Médio e Grande</option>
+                <option value="TODOS">
+                  🏷️ Todas as Marcas ({availableBrands.length})
+                </option>
+                {availableBrands.map((b) => (
+                  <option key={b.name} value={b.name}>
+                    {b.name} ({b.count})
+                  </option>
+                ))}
               </select>
-            )}
 
-            {/* Especialidade: Castrados (Cães e Gatos) */}
-            {activeSegment !== 'prescricao' && (
+              {/* Porte (apenas para Cães) */}
+              {activeSegment === 'caes' && (
+                <select
+                  value={selectedBreedSize}
+                  onChange={(e) => {
+                    setSelectedBreedSize(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className={`omni-filter-dropdown ${selectedBreedSize !== 'TODOS' ? 'active' : ''}`}
+                  aria-label="Filtrar por porte do cão"
+                  style={{ maxWidth: '175px' }}
+                >
+                  <option value="TODOS">🐾 Todos os Portes</option>
+                  <option value="MINI_PEQUENO">Mini e Pequeno</option>
+                  <option value="MEDIO_GRANDE">Médio e Grande</option>
+                </select>
+              )}
+
+              {/* Especialidade: Castrados (Cães e Gatos) */}
+              {activeSegment !== 'prescricao' && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOnlyCastrados(!onlyCastrados);
+                    setCurrentPage(1);
+                  }}
+                  className={`omni-chip-btn ${onlyCastrados ? 'active' : ''}`}
+                >
+                  ✂️ Castrados
+                </button>
+              )}
+
+              {/* Prescrição: Seleção de Espécie */}
+              {activeSegment === 'prescricao' && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'CAO' ? 'TODOS' : 'CAO');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedPrescriptionSpecies === 'CAO' ? 'active' : ''}`}
+                  >
+                    🐶 Cães
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'GATO' ? 'TODOS' : 'GATO');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedPrescriptionSpecies === 'GATO' ? 'active' : ''}`}
+                  >
+                    🐱 Gatos
+                  </button>
+                </>
+              )}
+
+              {/* Botão Sanfona: Mais Filtros (Drawer Desktop/Tablet) */}
               <button
                 type="button"
-                onClick={() => {
-                  setOnlyCastrados(!onlyCastrados);
-                  setCurrentPage(1);
-                }}
-                className={`omni-chip-btn ${onlyCastrados ? 'active' : ''}`}
+                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                className={`omni-chip-btn ${showAdvancedFilters || advancedFiltersCount > 0 ? 'active' : ''}`}
+                aria-expanded={showAdvancedFilters}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
               >
-                ✂️ Castrados
-              </button>
-            )}
-
-            {/* Prescrição: Seleção de Espécie */}
-            {activeSegment === 'prescricao' && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'CAO' ? 'TODOS' : 'CAO');
-                    setCurrentPage(1);
-                  }}
-                  className={`omni-chip-btn ${selectedPrescriptionSpecies === 'CAO' ? 'active' : ''}`}
-                >
-                  🐶 Cães
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'GATO' ? 'TODOS' : 'GATO');
-                    setCurrentPage(1);
-                  }}
-                  className={`omni-chip-btn ${selectedPrescriptionSpecies === 'GATO' ? 'active' : ''}`}
-                >
-                  🐱 Gatos
-                </button>
-              </>
-            )}
-
-            {/* Botão Sanfona: Mais Filtros */}
-            <button
-              type="button"
-              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-              className={`omni-chip-btn ${showAdvancedFilters || advancedFiltersCount > 0 ? 'active' : ''}`}
-              aria-expanded={showAdvancedFilters}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-            >
-              <SlidersHorizontal size={13} />
-              <span>Mais Filtros</span>
-              {advancedFiltersCount > 0 && (
-                <span
+                <SlidersHorizontal size={13} />
+                <span>Mais Filtros</span>
+                {advancedFiltersCount > 0 && (
+                  <span
+                    style={{
+                      backgroundColor: 'var(--brand-forest-700)',
+                      color: '#ffffff',
+                      borderRadius: 'var(--radius-full)',
+                      padding: '0 6px',
+                      fontSize: '0.68rem',
+                      fontWeight: 700,
+                      lineHeight: '16px',
+                    }}
+                  >
+                    {advancedFiltersCount}
+                  </span>
+                )}
+                <ChevronDown
+                  size={13}
                   style={{
-                    backgroundColor: 'var(--brand-forest-700)',
-                    color: '#ffffff',
-                    borderRadius: 'var(--radius-full)',
-                    padding: '0 6px',
-                    fontSize: '0.68rem',
-                    fontWeight: 700,
-                    lineHeight: '16px',
+                    transform: showAdvancedFilters ? 'rotate(180deg)' : 'none',
+                    transition: 'transform 0.2s ease',
                   }}
-                >
-                  {advancedFiltersCount}
-                </span>
-              )}
-              <ChevronDown
-                size={13}
-                style={{
-                  transform: showAdvancedFilters ? 'rotate(180deg)' : 'none',
-                  transition: 'transform 0.2s ease',
-                }}
-              />
-            </button>
+                />
+              </button>
+            </div>
+
+            {/* Gaveta Expansível de Filtros Secundários Desktop em Grid Arejado */}
+            {showAdvancedFilters && (
+              <div className="omni-advanced-drawer">
+                {activeSegment === 'prescricao' ? (
+                  <div className="advanced-filter-group">
+                    <span className="advanced-group-title">Indicação Clínica:</span>
+                    <div className="advanced-group-chips">
+                      {[
+                        { id: 'RENAL', label: 'Suporte Renal' },
+                        { id: 'URINARIO', label: 'Trato Urinário' },
+                        { id: 'OBESIDADE', label: 'Obesidade & Diabetes' },
+                        { id: 'GASTRO', label: 'Gastrointestinal' },
+                        { id: 'HIPOALERGENICO', label: 'Hipoalergênico' },
+                        { id: 'RECUPERACAO', label: 'Recuperação & Convalescença' },
+                      ].map((cond) => (
+                        <button
+                          key={cond.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedPrescriptionCondition(
+                              selectedPrescriptionCondition === cond.id ? 'TODOS' : cond.id
+                            );
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedPrescriptionCondition === cond.id ? 'active' : ''}`}
+                        >
+                          {cond.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="omni-advanced-drawer-grid">
+                    <div className="advanced-filter-group" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+                      <span className="advanced-group-title">Formato:</span>
+                      <div className="advanced-group-chips">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedFoodType(selectedFoodType === 'SECO' ? 'TODOS' : 'SECO');
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedFoodType === 'SECO' ? 'active' : ''}`}
+                        >
+                          🥣 Ração Seca
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedFoodType(selectedFoodType === 'UMIDO' ? 'TODOS' : 'UMIDO');
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedFoodType === 'UMIDO' ? 'active' : ''}`}
+                        >
+                          🥫 Sachê / Úmida
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="advanced-filter-group" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+                      <span className="advanced-group-title">Fase da Vida:</span>
+                      <div className="advanced-group-chips">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedLifeStage(selectedLifeStage === 'FILHOTE' ? 'TODOS' : 'FILHOTE');
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedLifeStage === 'FILHOTE' ? 'active' : ''}`}
+                        >
+                          🍼 Filhote
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedLifeStage(selectedLifeStage === 'ADULTO' ? 'TODOS' : 'ADULTO');
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedLifeStage === 'ADULTO' ? 'active' : ''}`}
+                        >
+                          Adulto
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedLifeStage(selectedLifeStage === 'SENIOR' ? 'TODOS' : 'SENIOR');
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedLifeStage === 'SENIOR' ? 'active' : ''}`}
+                        >
+                          🧓 Sênior
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="advanced-filter-group" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+                      <span className="advanced-group-title">Padrão Técnico:</span>
+                      <div className="advanced-group-chips">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedTier(selectedTier === 'NIVEL_OURO' ? 'TODOS' : 'NIVEL_OURO');
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedTier === 'NIVEL_OURO' ? 'active' : ''}`}
+                        >
+                          🥇 Nível Ouro
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedTier(selectedTier === 'NIVEL_PRATA' ? 'TODOS' : 'NIVEL_PRATA');
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${selectedTier === 'NIVEL_PRATA' ? 'active' : ''}`}
+                        >
+                          🥈 Nível Prata
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="advanced-filter-group" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+                      <span className="advanced-group-title">Fórmula:</span>
+                      <div className="advanced-group-chips">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOnlyNaturalAntioxidants(!onlyNaturalAntioxidants);
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${onlyNaturalAntioxidants ? 'active' : ''}`}
+                        >
+                          🌿 Conservação Natural
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOnlyGmoFree(!onlyGmoFree);
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-chip-btn ${onlyGmoFree ? 'active' : ''}`}
+                        >
+                          Sem Transgênicos
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Gaveta Expansível de Filtros Secundários */}
-          {showAdvancedFilters && (
-            <div className="omni-advanced-drawer">
-              {activeSegment === 'prescricao' ? (
-                <div className="advanced-filter-group">
-                  <span className="advanced-group-title">Indicação:</span>
-                  <div className="advanced-group-chips">
-                    {[
-                      { id: 'RENAL', label: 'Suporte Renal' },
-                      { id: 'URINARIO', label: 'Trato Urinário' },
-                      { id: 'OBESIDADE', label: 'Obesidade & Diabetes' },
-                      { id: 'GASTRO', label: 'Gastrointestinal' },
-                      { id: 'HIPOALERGENICO', label: 'Hipoalergênico' },
-                      { id: 'RECUPERACAO', label: 'Recuperação & Convalescença' },
-                    ].map((cond) => (
-                      <button
-                        key={cond.id}
-                        type="button"
-                        onClick={() => {
-                          setSelectedPrescriptionCondition(
-                            selectedPrescriptionCondition === cond.id ? 'TODOS' : cond.id
-                          );
-                          setCurrentPage(1);
-                        }}
-                        className={`omni-chip-btn ${selectedPrescriptionCondition === cond.id ? 'active' : ''}`}
-                      >
-                        {cond.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+          {/* CONTROLES PARA TELAS PEQUENAS (MOBILE < 768px): CARROSSEL RÁPIDO & BOTÃO DE FILTROS */}
+          <div className="omni-mobile-controls">
+            <div className="omni-mobile-quick-scroll">
+              {/* Botão Principal que abre o Bottom Sheet Modal */}
+              <button
+                type="button"
+                onClick={() => setMobileFilterSheetOpen(true)}
+                className={`omni-mobile-filter-trigger ${activeFiltersCount > 0 ? 'active' : ''}`}
+                aria-label="Abrir modal de filtros do catálogo"
+              >
+                <SlidersHorizontal size={15} />
+                <span>Filtros</span>
+                {activeFiltersCount > 0 && (
+                  <span className="omni-filter-count-badge">{activeFiltersCount}</span>
+                )}
+              </button>
+
+              {/* Chips Rápidos 1-Toque para Telas Pequenas */}
+              {activeSegment !== 'prescricao' ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOnlyCastrados(!onlyCastrados);
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${onlyCastrados ? 'active' : ''}`}
+                  >
+                    ✂️ Castrados
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedFoodType(selectedFoodType === 'SECO' ? 'TODOS' : 'SECO');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedFoodType === 'SECO' ? 'active' : ''}`}
+                  >
+                    🥣 Seca
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedFoodType(selectedFoodType === 'UMIDO' ? 'TODOS' : 'UMIDO');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedFoodType === 'UMIDO' ? 'active' : ''}`}
+                  >
+                    🥫 Sachê
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedLifeStage(selectedLifeStage === 'FILHOTE' ? 'TODOS' : 'FILHOTE');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedLifeStage === 'FILHOTE' ? 'active' : ''}`}
+                  >
+                    🍼 Filhote
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedLifeStage(selectedLifeStage === 'SENIOR' ? 'TODOS' : 'SENIOR');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedLifeStage === 'SENIOR' ? 'active' : ''}`}
+                  >
+                    🧓 Sênior
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedTier(selectedTier === 'NIVEL_OURO' ? 'TODOS' : 'NIVEL_OURO');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedTier === 'NIVEL_OURO' ? 'active' : ''}`}
+                  >
+                    🥇 Ouro
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOnlyNaturalAntioxidants(!onlyNaturalAntioxidants);
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${onlyNaturalAntioxidants ? 'active' : ''}`}
+                  >
+                    🌿 Natural
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOnlyGmoFree(!onlyGmoFree);
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${onlyGmoFree ? 'active' : ''}`}
+                  >
+                    Sem Transgênicos
+                  </button>
+                </>
               ) : (
                 <>
-                  <div className="advanced-filter-group">
-                    <span className="advanced-group-title">Formato:</span>
-                    <div className="advanced-group-chips">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'CAO' ? 'TODOS' : 'CAO');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedPrescriptionSpecies === 'CAO' ? 'active' : ''}`}
+                  >
+                    🐶 Cães
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPrescriptionSpecies(selectedPrescriptionSpecies === 'GATO' ? 'TODOS' : 'GATO');
+                      setCurrentPage(1);
+                    }}
+                    className={`omni-chip-btn ${selectedPrescriptionSpecies === 'GATO' ? 'active' : ''}`}
+                  >
+                    🐱 Gatos
+                  </button>
+
+                  {[
+                    { id: 'RENAL', label: 'Renal' },
+                    { id: 'URINARIO', label: 'Urinário' },
+                    { id: 'OBESIDADE', label: 'Obesidade' },
+                    { id: 'GASTRO', label: 'Gastro' },
+                    { id: 'HIPOALERGENICO', label: 'Hipoalergênico' },
+                  ].map((cond) => (
+                    <button
+                      key={cond.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedPrescriptionCondition(
+                          selectedPrescriptionCondition === cond.id ? 'TODOS' : cond.id
+                        );
+                        setCurrentPage(1);
+                      }}
+                      className={`omni-chip-btn ${selectedPrescriptionCondition === cond.id ? 'active' : ''}`}
+                    >
+                      {cond.label}
+                    </button>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* BOTTOM SHEET MODAL PARA CELULARES (< 768px) */}
+      {mobileFilterSheetOpen && (
+        <div
+          className="omni-sheet-backdrop"
+          onClick={() => setMobileFilterSheetOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Filtros do Catálogo"
+        >
+          <div
+            className="omni-sheet-panel"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Grabber Indicador de Arraste */}
+            <div className="omni-sheet-grabber-wrapper">
+              <div className="omni-sheet-grabber" />
+            </div>
+
+            {/* Cabeçalho do Bottom Sheet */}
+            <div className="omni-sheet-header">
+              <div className="omni-sheet-title-group">
+                <SlidersHorizontal size={18} color="var(--brand-forest-700)" />
+                <h2 className="omni-sheet-title">Filtros</h2>
+                {activeFiltersCount > 0 && (
+                  <span className="omni-filter-count-badge">{activeFiltersCount}</span>
+                )}
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {hasActiveFilters && (
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="omni-sheet-reset-btn"
+                  >
+                    Limpar tudo
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setMobileFilterSheetOpen(false)}
+                  className="omni-sheet-close-btn"
+                  aria-label="Fechar filtros"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+
+            {/* Corpo Rolável do Bottom Sheet com Grandes Áreas de Toque */}
+            <div className="omni-sheet-body">
+              {/* 1. Marca Comercial */}
+              <div className="omni-sheet-section">
+                <label className="omni-sheet-label">Marca Comercial</label>
+                <select
+                  value={selectedBrand}
+                  onChange={(e) => {
+                    setSelectedBrand(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="omni-sheet-select"
+                  aria-label="Marca comercial do alimento"
+                >
+                  <option value="TODOS">🏷️ Todas as Marcas ({availableBrands.length})</option>
+                  {availableBrands.map((b) => (
+                    <option key={b.name} value={b.name}>
+                      {b.name} ({b.count})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* 2. Porte do Cão (apenas segmento Cães) */}
+              {activeSegment === 'caes' && (
+                <div className="omni-sheet-section">
+                  <label className="omni-sheet-label">Porte do Cão</label>
+                  <div className="omni-sheet-segmented-grid">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedBreedSize('TODOS');
+                        setCurrentPage(1);
+                      }}
+                      className={`omni-sheet-pill-btn ${selectedBreedSize === 'TODOS' ? 'active' : ''}`}
+                    >
+                      Todos
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedBreedSize('MINI_PEQUENO');
+                        setCurrentPage(1);
+                      }}
+                      className={`omni-sheet-pill-btn ${selectedBreedSize === 'MINI_PEQUENO' ? 'active' : ''}`}
+                    >
+                      Mini e Pequeno
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedBreedSize('MEDIO_GRANDE');
+                        setCurrentPage(1);
+                      }}
+                      className={`omni-sheet-pill-btn ${selectedBreedSize === 'MEDIO_GRANDE' ? 'active' : ''}`}
+                    >
+                      Médio e Grande
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Segmento Normal (Cães e Gatos): Formato, Fase, Padrão, Fórmula */}
+              {activeSegment !== 'prescricao' ? (
+                <>
+                  <div className="omni-sheet-section">
+                    <label className="omni-sheet-label">Formato do Alimento</label>
+                    <div className="omni-sheet-segmented-grid">
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedFoodType(selectedFoodType === 'SECO' ? 'TODOS' : 'SECO');
+                          setSelectedFoodType('TODOS');
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${selectedFoodType === 'SECO' ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${selectedFoodType === 'TODOS' ? 'active' : ''}`}
                       >
-                        🥣 Ração Seca
+                        Todos
                       </button>
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedFoodType(selectedFoodType === 'UMIDO' ? 'TODOS' : 'UMIDO');
+                          setSelectedFoodType('SECO');
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${selectedFoodType === 'UMIDO' ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${selectedFoodType === 'SECO' ? 'active' : ''}`}
+                      >
+                        🥣 Seca
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedFoodType('UMIDO');
+                          setCurrentPage(1);
+                        }}
+                        className={`omni-sheet-pill-btn ${selectedFoodType === 'UMIDO' ? 'active' : ''}`}
                       >
                         🥫 Sachê / Úmida
                       </button>
                     </div>
                   </div>
 
-                  <div className="advanced-filter-group">
-                    <span className="advanced-group-title">Fase:</span>
-                    <div className="advanced-group-chips">
+                  <div className="omni-sheet-section">
+                    <label className="omni-sheet-label">Fase da Vida</label>
+                    <div className="omni-sheet-segmented-grid">
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedLifeStage(selectedLifeStage === 'FILHOTE' ? 'TODOS' : 'FILHOTE');
+                          setSelectedLifeStage('TODOS');
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${selectedLifeStage === 'FILHOTE' ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${selectedLifeStage === 'TODOS' ? 'active' : ''}`}
+                      >
+                        Todas
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedLifeStage('FILHOTE');
+                          setCurrentPage(1);
+                        }}
+                        className={`omni-sheet-pill-btn ${selectedLifeStage === 'FILHOTE' ? 'active' : ''}`}
                       >
                         🍼 Filhote
                       </button>
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedLifeStage(selectedLifeStage === 'ADULTO' ? 'TODOS' : 'ADULTO');
+                          setSelectedLifeStage('ADULTO');
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${selectedLifeStage === 'ADULTO' ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${selectedLifeStage === 'ADULTO' ? 'active' : ''}`}
                       >
                         Adulto
                       </button>
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedLifeStage(selectedLifeStage === 'SENIOR' ? 'TODOS' : 'SENIOR');
+                          setSelectedLifeStage('SENIOR');
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${selectedLifeStage === 'SENIOR' ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${selectedLifeStage === 'SENIOR' ? 'active' : ''}`}
                       >
                         🧓 Sênior
                       </button>
                     </div>
                   </div>
 
-                  <div className="advanced-filter-group">
-                    <span className="advanced-group-title">Padrão:</span>
-                    <div className="advanced-group-chips">
+                  <div className="omni-sheet-section">
+                    <label className="omni-sheet-label">Padrão Técnico de Avaliação</label>
+                    <div className="omni-sheet-segmented-grid">
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedTier(selectedTier === 'NIVEL_OURO' ? 'TODOS' : 'NIVEL_OURO');
+                          setSelectedTier('TODOS');
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${selectedTier === 'NIVEL_OURO' ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${selectedTier === 'TODOS' ? 'active' : ''}`}
+                      >
+                        Todos
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedTier('NIVEL_OURO');
+                          setCurrentPage(1);
+                        }}
+                        className={`omni-sheet-pill-btn ${selectedTier === 'NIVEL_OURO' ? 'active' : ''}`}
                       >
                         🥇 Nível Ouro
                       </button>
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedTier(selectedTier === 'NIVEL_PRATA' ? 'TODOS' : 'NIVEL_PRATA');
+                          setSelectedTier('NIVEL_PRATA');
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${selectedTier === 'NIVEL_PRATA' ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${selectedTier === 'NIVEL_PRATA' ? 'active' : ''}`}
                       >
                         🥈 Nível Prata
                       </button>
                     </div>
                   </div>
 
-                  <div className="advanced-filter-group">
-                    <span className="advanced-group-title">Fórmula:</span>
-                    <div className="advanced-group-chips">
+                  <div className="omni-sheet-section">
+                    <label className="omni-sheet-label">Fórmula e Características Especiais</label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setOnlyCastrados(!onlyCastrados);
+                          setCurrentPage(1);
+                        }}
+                        className={`omni-sheet-pill-btn ${onlyCastrados ? 'active' : ''}`}
+                        style={{ justifyContent: 'flex-start', padding: '10px 14px' }}
+                      >
+                        <span>✂️ Alimento Específico para Castrados</span>
+                      </button>
+
                       <button
                         type="button"
                         onClick={() => {
                           setOnlyNaturalAntioxidants(!onlyNaturalAntioxidants);
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${onlyNaturalAntioxidants ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${onlyNaturalAntioxidants ? 'active' : ''}`}
+                        style={{ justifyContent: 'flex-start', padding: '10px 14px' }}
                       >
-                        🌿 Conservação Natural
+                        <span>🌿 Conservação 100% Natural (sem BHT/BHA)</span>
                       </button>
+
                       <button
                         type="button"
                         onClick={() => {
                           setOnlyGmoFree(!onlyGmoFree);
                           setCurrentPage(1);
                         }}
-                        className={`omni-chip-btn ${onlyGmoFree ? 'active' : ''}`}
+                        className={`omni-sheet-pill-btn ${onlyGmoFree ? 'active' : ''}`}
+                        style={{ justifyContent: 'flex-start', padding: '10px 14px' }}
                       >
-                        Sem Transgênicos
+                        <span>Sem Transgênicos (Livre de OGM)</span>
                       </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                /* Prescrição Veterinária: Espécie e Condição Clínica */
+                <>
+                  <div className="omni-sheet-section">
+                    <label className="omni-sheet-label">Espécie Atendida</label>
+                    <div className="omni-sheet-segmented-grid">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedPrescriptionSpecies('TODOS');
+                          setCurrentPage(1);
+                        }}
+                        className={`omni-sheet-pill-btn ${selectedPrescriptionSpecies === 'TODOS' ? 'active' : ''}`}
+                      >
+                        Todas
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedPrescriptionSpecies('CAO');
+                          setCurrentPage(1);
+                        }}
+                        className={`omni-sheet-pill-btn ${selectedPrescriptionSpecies === 'CAO' ? 'active' : ''}`}
+                      >
+                        🐶 Cães
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedPrescriptionSpecies('GATO');
+                          setCurrentPage(1);
+                        }}
+                        className={`omni-sheet-pill-btn ${selectedPrescriptionSpecies === 'GATO' ? 'active' : ''}`}
+                      >
+                        🐱 Gatos
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="omni-sheet-section">
+                    <label className="omni-sheet-label">Indicação Clínica</label>
+                    <div className="omni-sheet-segmented-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))' }}>
+                      {[
+                        { id: 'RENAL', label: 'Suporte Renal' },
+                        { id: 'URINARIO', label: 'Trato Urinário' },
+                        { id: 'OBESIDADE', label: 'Obesidade' },
+                        { id: 'GASTRO', label: 'Gastrointestinal' },
+                        { id: 'HIPOALERGENICO', label: 'Hipoalergênico' },
+                        { id: 'RECUPERACAO', label: 'Recuperação' },
+                      ].map((cond) => (
+                        <button
+                          key={cond.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedPrescriptionCondition(
+                              selectedPrescriptionCondition === cond.id ? 'TODOS' : cond.id
+                            );
+                            setCurrentPage(1);
+                          }}
+                          className={`omni-sheet-pill-btn ${selectedPrescriptionCondition === cond.id ? 'active' : ''}`}
+                        >
+                          {cond.label}
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </>
               )}
             </div>
-          )}
+
+            {/* Rodapé Fixo com Botão de Ação "Ver X Alimentos" */}
+            <div className="omni-sheet-footer">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileFilterSheetOpen(false);
+                  const el = document.getElementById('catalogo-produtos');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+                className="omni-sheet-apply-btn"
+              >
+                <span>Ver {filteredProducts.length} alimentos avaliados</span>
+                <ArrowRight size={17} />
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Alerta Contextual Suave para Dietas Coadjuvantes */}
       {activeSegment === 'prescricao' && (
@@ -957,6 +1542,221 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
         </div>
       )}
 
+      {/* BARRA DE TAGS DE FILTROS ATIVOS (DESKTOP, TABLET E MOBILE) */}
+      {hasActiveFilters && (
+        <div className="omni-active-tags-container">
+          <span className="omni-active-tags-label">Filtros aplicados:</span>
+          <div className="omni-active-tags-list">
+            {searchQuery.trim() && (
+              <span className="omni-active-tag">
+                <span>Busca: &ldquo;{searchQuery}&rdquo;</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery('');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de busca"
+                  aria-label="Remover busca"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {selectedBrand !== 'TODOS' && (
+              <span className="omni-active-tag">
+                <span>Marca: {selectedBrand}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedBrand('TODOS');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de marca"
+                  aria-label="Remover marca"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {selectedBreedSize !== 'TODOS' && (
+              <span className="omni-active-tag">
+                <span>Porte: {getBreedSizeLabel(selectedBreedSize)}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedBreedSize('TODOS');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de porte"
+                  aria-label="Remover porte"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {onlyCastrados && (
+              <span className="omni-active-tag">
+                <span>✂️ Castrados</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOnlyCastrados(false);
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de castrados"
+                  aria-label="Remover castrados"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {selectedFoodType !== 'TODOS' && (
+              <span className="omni-active-tag">
+                <span>Formato: {selectedFoodType === 'SECO' ? 'Ração Seca' : 'Sachê / Úmida'}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedFoodType('TODOS');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de formato"
+                  aria-label="Remover formato"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {selectedLifeStage !== 'TODOS' && (
+              <span className="omni-active-tag">
+                <span>Fase: {getLifeStageLabel(selectedLifeStage)}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedLifeStage('TODOS');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de fase"
+                  aria-label="Remover fase"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {selectedTier !== 'TODOS' && (
+              <span className="omni-active-tag">
+                <span>Padrão: {getTierLabel(selectedTier)}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedTier('TODOS');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de padrão"
+                  aria-label="Remover padrão"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {onlyNaturalAntioxidants && (
+              <span className="omni-active-tag">
+                <span>🌿 Natural</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOnlyNaturalAntioxidants(false);
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de conservação natural"
+                  aria-label="Remover conservação natural"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {onlyGmoFree && (
+              <span className="omni-active-tag">
+                <span>Sem Transgênicos</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOnlyGmoFree(false);
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de transgênicos"
+                  aria-label="Remover transgênicos"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {activeSegment === 'prescricao' && selectedPrescriptionSpecies !== 'TODOS' && (
+              <span className="omni-active-tag">
+                <span>Espécie: {selectedPrescriptionSpecies === 'CAO' ? 'Cães' : 'Gatos'}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPrescriptionSpecies('TODOS');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de espécie"
+                  aria-label="Remover espécie"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+
+            {activeSegment === 'prescricao' && selectedPrescriptionCondition !== 'TODOS' && (
+              <span className="omni-active-tag">
+                <span>Indicação: {getConditionLabel(selectedPrescriptionCondition)}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPrescriptionCondition('TODOS');
+                    setCurrentPage(1);
+                  }}
+                  className="omni-active-tag-btn"
+                  title="Remover filtro de indicação"
+                  aria-label="Remover indicação"
+                >
+                  <X size={11} />
+                </button>
+              </span>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={handleResetFilters}
+            className="omni-active-tags-clear-all"
+            title="Redefinir todos os filtros aplicados"
+          >
+            Limpar todos
+          </button>
+        </div>
+      )}
+
       {/* Barra de Status, Ordenação e Contagem */}
       <div className="omni-status-bar">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -971,7 +1771,7 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
           )}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           {/* Seletor de Ordenação */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <ArrowUpDown size={14} color="var(--text-muted)" />
@@ -991,29 +1791,16 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
                 backgroundColor: '#ffffff',
                 color: 'var(--text-body)',
                 cursor: 'pointer',
+                maxWidth: '190px',
               }}
               aria-label="Critério de ordenação dos produtos"
             >
               <option value="SCORE_DESC">Maior Avaliação Técnica</option>
-              <option value="PROTEIN_DESC">Maior Proteína (% Matéria Seca)</option>
-              <option value="FAT_ASC">Menor Gordura (% Matéria Seca)</option>
+              <option value="PROTEIN_DESC">Maior Proteína (% MS)</option>
+              <option value="FAT_ASC">Menor Gordura (% MS)</option>
               <option value="NAME_ASC">Nome Comercial (A–Z)</option>
             </select>
           </div>
-
-          {/* Botão de Limpar Filtros com Contador */}
-          {hasActiveFilters && (
-            <button
-              type="button"
-              onClick={handleResetFilters}
-              className="toolbar-reset-btn"
-              title="Redefinir todos os filtros aplicados"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}
-            >
-              <RotateCcw size={12} />
-              <span>Limpar filtros ({activeFiltersCount})</span>
-            </button>
-          )}
 
           {/* Quantidade por Página */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>

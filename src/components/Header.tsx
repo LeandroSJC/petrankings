@@ -136,18 +136,7 @@ export default function Header() {
             >
               Pet<span style={{ color: 'var(--brand-forest-600)' }}>Rankings</span>
             </span>
-            <span
-              style={{
-                fontSize: '0.64rem',
-                color: 'var(--text-muted)',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.8px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-              }}
-            >
+            <span className="header-logo-tagline">
               Avaliação Nutricional de Pet Food
             </span>
           </div>
