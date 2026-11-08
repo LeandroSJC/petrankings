@@ -7116,7 +7116,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-07',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/acido-araquidonico-e-omega-3-gatos-por-que-exigem-gordura-animal.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Muitos pacotes prometem pelos brilhantes com ômega-3 e ômega-6 na frente da embalagem, mas usam apenas óleos vegetais de soja ou linhaça na receita. Explicamos a ausência da enzima hepática delta-6 dessaturase nos felinos e mostramos por que o gato depende estritamente de gordura de aves e óleo de peixe marinho conforme o Manual da ABINPET.',
     relatedProductSlugs: [],
@@ -7277,6 +7277,187 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer descobrir quais alimentos secos e úmidos para gatos utilizam gordura de frango, óleo de peixe marinho e antioxidantes 100% naturais? Compare as fichas avaliadas gratuitamente.',
       buttonText: 'Explorar Ranking para Gatos',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'racao-premium-especial-vs-super-premium-caes-formula-fixa-substitutivos',
+    title: 'Ração Premium Especial vs Super Premium: O que muda na fórmula fixa e no MAPA?',
+    subtitle:
+      'Entenda por que a lei federal não regula esses termos na embalagem, como os eventuais substitutivos afetam o intestino do cão e o que a ABINPET exige de cada categoria.',
+    cluster: 'Ingredientes & Rótulos',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-08',
+    updatedAt: '2026-11-08',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-premium-especial-vs-super-premium-caes-formula-fixa-substitutivos.webp',
+    isFeatured: true,
+    summary:
+      'Quase todo pacote no pet shop estampa os selos Premium Especial ou Super Premium na capa, mas poucos tutores sabem que o MAPA não fiscaliza essas nomenclaturas. Explicamos a diferença real entre receita de fórmula fixa e lista de eventuais substitutivos na IN MAPA nº 22/2009 e mostramos como checar se o alimento do seu cão entrega o padrão técnico da ABINPET.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'vacuo-legal-mapa-in-30-2009',
+        heading: '1. O vácuo na lei: Por que o MAPA não fiscaliza os nomes Premium e Super Premium?',
+        paragraphs: [
+          'Ao caminhar pelos corredores do pet shop, o tutor encontra prateleiras divididas em quatro degraus comerciais: Standard (econômica), Premium, Premium Especial e Super Premium. A impressão imediata de quem olha o painel frontal da embalagem é que cada uma dessas faixas passou por uma aprovação governamental específica antes de chegar à loja.',
+          'Na legislação brasileira, porém, essa divisão comercial não existe. A Instrução Normativa nº 30/2009 do Ministério da Agricultura e Pecuária (MAPA), que estabelece os critérios oficiais de identidade e qualidade para cães e gatos, classifica todas as rações diárias de manutenção sob um único título legal: "Alimento Completo para Cães".',
+          'Do ponto de vista estritamente jurídico, desde que a fábrica cumpra os patamares mínimos de sobrevivência nutricional (como entregar ao menos 18% de proteína bruta em Matéria Seca para um cão adulto), qualquer empresa poderia imprimir o termo "Super Premium" na fachada do pacote sem infringir uma norma específica do MAPA.',
+          'Para organizar o mercado e estabelecer critérios científicos verificáveis, a Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET) consolidou, no Manual Pet Food Brasil (11ª Edição), os requisitos técnicos que separam uma categoria da outra na prática industrial.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'As 3 únicas categorias oficiais da IN MAPA nº 30/2009',
+          text: 'Perante o Ministério da Agricultura, todo produto destinado a cães e gatos pertence exclusivamente a uma de três classes legais: Alimento Completo (capaz de suprir 100% das exigências diárias), Alimento Específico (petiscos, biscoitos e agrados) ou Alimento Coadjuvante (dietas clínicas sob prescrição veterinária, regidas também pela IN nº 39/2014).',
+        },
+      },
+      {
+        id: 'formula-fixa-vs-eventuais-substitutivos',
+        heading: '2. Fórmula fixa vs eventuais substitutivos: O segredo que evita a diarreia entre pacotes',
+        paragraphs: [
+          'Você já viveu a situação de comprar um saco novo da mesma ração que o seu cão come há meses e, de repente, notar que os grãos vieram com cor diferente, cheiro alterado e causaram fezes moles no animal? Na maioria das vezes, a explicação não está em um defeito de fabricação, mas em um campo do rótulo chamado "Eventuais Substitutivos".',
+          'Pela Instrução Normativa MAPA nº 22/2009, os fabricantes têm permissão legal para trabalhar com fórmulas abertas (variáveis). Se o preço do arroz quebrado ou da gordura de frango disparar na safra agrícola daquele mês, a fábrica pode substituí-los na linha de produção por insumos cadastrados na lista de eventuais substitutivos, como sorgo, trigo, cevada, farelo de glúten de milho ou óleo de soja, sem precisar avisar na capa do pacote.',
+          'No sistema gastrointestinal do cão, cuja microbiota bacteriana se adapta aos tipos específicos de amido e fibra que ele recebe diariamente, essa troca abrupta de cereais de um lote para outro funciona como uma mudança repentina de ração, provocando gases, fezes pastosas ou recusa no comedouro.',
+          'É exatamente aqui que nasce a primeira fronteira técnica da ABINPET: enquanto alimentos Standard, Premium e parte dos Premium Especiais recorrem a eventuais substitutivos para controlar custos de safra, uma ração Super Premium autêntica adota compulsoriamente a Fórmula Fixa (com o campo de eventuais substitutivos vazio ou inexistente no rótulo), assegurando que todo pacote comprado de janeiro a dezembro tenha a mesma composição.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Como checar se a ração do seu cão tem Fórmula Fixa?',
+          text: 'Vire o pacote e localize o parágrafo final da Composição Básica. Se logo abaixo da lista de ingredientes houver o título "Eventuais Substitutivos:" seguido por uma relação de grãos, farelos ou gorduras alternativas, a receita é variável. Se não houver essa seção no rótulo oficial, trata-se de um produto de Fórmula Fixa.',
+        },
+      },
+      {
+        id: 'criterios-abinpet-digestibilidade-proteinas',
+        heading: '3. O que a ABINPET exige de cada categoria: Da proteína ao aproveitamento digestivo',
+        paragraphs: [
+          'Além da estabilidade da receita entre lotes, o Manual da ABINPET diferencia os segmentos pelo coeficiente de digestibilidade (a fração do alimento que o intestino do cão realmente absorve para o sangue) e pela nobreza biológica das matérias-primas empregadas.',
+          'Nas linhas Premium Especial, a indústria já dá um salto importante frente às rações básicas: substitui-se boa parte da proteína vegetal de baixa absorção por farinha de vísceras de aves, utiliza-se quirera de arroz para melhorar a digestão do amido e atinge-se um aproveitamento nutricional médio entre 80% e 84%.',
+          'Nas fórmulas Super Premium, a exigência zootécnica sobe para o topo da escala industrial (digestibilidade igual ou superior a 85%). A proteína passa a vir majoritariamente de tecidos animais de alto valor biológico e baixo resíduo de ossos (farinhas Low Ash, ovos desidratados, carnes mecanicamente separadas e proteínas hidrolisadas), mantendo a matéria mineral (cinzas) sob controle para poupar o trabalho de filtração dos rins.',
+        ],
+        table: {
+          caption: 'Comparativo Técnico de Segmentação Mercadológica (Diretrizes ABINPET 11ª Edição e Rotulagem MAPA)',
+          headers: ['Critério Zootécnico e Regulatório', 'Ração Standard / Premium Comum', 'Ração Premium Especial', 'Ração Super Premium / Natural'],
+          rows: [
+            [
+              'Estabilidade da Receita (IN 22/2009)',
+              'Fórmula variável (ampla lista de eventuais substitutivos sazonais)',
+              'Fórmula mista ou fixa (substitutivos reduzidos ou ausentes conforme a marca)',
+              'Fórmula Fixa obrigatória (zero eventuais substitutivos entre lotes)',
+            ],
+            [
+              'Fontes Proteicas Predominantes',
+              'Farelo de soja, glúten de milho 60 e farinha de carne e ossos bovina',
+              'Farinha de vísceras de aves combinada a farelo de soja ou glúten de milho',
+              'Farinha de vísceras de aves Low Ash, carnes frescas/CMS, ovo em pó e peixe',
+            ],
+            [
+              'Fontes de Gordura e Ômegas',
+              'Gordura animal mista ou óleo de soja refinado (foco apenas em calorias)',
+              'Gordura de frango e semente de linhaça (ômega-3 de origem vegetal)',
+              'Gordura de frango combinada a óleo de peixe marinho (EPA e DHA prontos)',
+            ],
+            [
+              'Controle de Matéria Mineral (Cinzas)',
+              'Elevado (frequentemente entre 9,5% e 12,0% em Matéria Seca)',
+              'Intermediário (geralmente entre 8,0% e 9,5% em Matéria Seca)',
+              'Rigoroso / Low Ash (habitualmente abaixo de 8,0% a 8,5% em Matéria Seca)',
+            ],
+            [
+              'Impacto Direto na Rotina do Cão',
+              'Maior volume fecal diário, odor acentuado e pelagem com brilho moderado',
+              'Bom equilíbrio muscular, fezes bem formadas e boa aceitação no prato',
+              'Fezes reduzidas e firmes, alta retenção de massa magra e pelagem espelhada',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'aditivos-funcionais-conservantes-in-110-2020',
+        heading: '4. Aditivos funcionais e conservantes: Onde a receita realmente sobe de patamar',
+        paragraphs: [
+          'Outro divisor de águas entre uma ração intermediária e uma fórmula de ponta está nos ingredientes que entram em pequenas doses no final da receita, homologados pela Instrução Normativa MAPA nº 110/2020 (Catálogo Oficial de Aditivos e Matérias-Primas).',
+          'Enquanto diversas opções de entrada ainda preservam suas gorduras com antioxidantes sintéticos derivados de síntese química (BHT e BHA) e utilizam corantes artificiais apenas para agradar aos olhos do comprador, o segmento Super Premium migrou de forma consistente para sistemas naturais à base de concentrado de tocoferóis (vitamina E) e extrato de alecrim.',
+          'Além da conservação limpa, as linhas Super Premium e as melhores Premium Especiais incorporam pacotes funcionais direcionados à prevenção clínica: prebióticos MOS e FOS (que alimentam as bactérias benéficas do intestino), extrato de Yucca schidigera e zeólita (que reduzem o cheiro das fezes), hexametafosfato de sódio (que impede a mineralização do tártaro nos dentes) e sulfatos de condroitina e glicosamina para suporte articular.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'O Código de Defesa do Consumidor contra o marketing de fachada',
+          text: 'Os artigos 6º (inciso III) e 31 do CDC (Lei nº 8.078/1990) determinam que a oferta deve assegurar informações claras e precisas sobre a qualidade e a composição do produto. Se uma embalagem se autodenomina Super Premium no painel frontal, mas entrega farinha de carne e ossos, corantes artificiais e longa lista de substitutivos no verso, a tabela técnica desmascara o apelo publicitário.',
+        },
+      },
+      {
+        id: 'checklist-prateleira-inspecao-rotulo',
+        heading: '5. Checklist de prateleira: Como identificar uma Super Premium autêntica no rótulo',
+        paragraphs: [
+          'Para nunca pagar preço de categoria superior por uma fórmula básica fantasiada, ignore os adjetivos impressos na frente do saco e aplique quatro conferências objetivas no verso da embalagem.',
+          'Primeiro, leia os três primeiros itens da Composição Básica (listados em ordem decrescente de peso): em uma Super Premium legítima para cães, o topo deve ser ocupado por fontes animais nobres (como farinha de vísceras de aves ou carne mecanicamente separada de frango), sem farelo de soja ou milho integral moído na primeira posição.',
+          'Segundo, confirme a ausência do bloco de "Eventuais Substitutivos" ao final dos ingredientes, garantindo que a fábrica opera com Fórmula Fixa e não trocará os cereais da dieta do seu cão no próximo lote.',
+          'Terceiro, verifique nos Níveis de Garantia e nos aditivos a presença de óleo de peixe marinho (fonte de EPA e DHA), antioxidantes naturais (tocoferóis) e um teto de Matéria Mineral que não ultrapasse 8,5% quando convertido para Matéria Seca.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Por que uma ração pode escrever "Super Premium" na embalagem mesmo tendo ingredientes simples?',
+        a: 'Porque a Instrução Normativa nº 30/2009 do MAPA classifica todas as rações diárias apenas como "Alimento Completo", sem regulamentar em lei os termos comerciais Standard, Premium, Premium Especial ou Super Premium. Essas categorias são convenções técnicas da ABINPET, razão pela qual o tutor deve sempre conferir a lista de ingredientes e os níveis de garantia no verso.',
+      },
+      {
+        q: 'O que são os "Eventuais Substitutivos" que aparecem no rótulo de algumas rações?',
+        a: 'Previstos na IN MAPA nº 22/2009, os eventuais substitutivos são ingredientes alternativos que a fábrica pode usar para substituir matérias-primas da receita original conforme a variação de preço das safras agrícolas. Rações com muitos substitutivos mudam de composição entre lotes, o que pode causar fezes moles ou rejeição em cães de intestino sensível.',
+      },
+      {
+        q: 'Qual é a principal diferença entre uma ração Premium Especial e uma Super Premium para cães?',
+        a: 'A ração Super Premium trabalha obrigatoriamente com Fórmula Fixa (sem eventuais substitutivos), apresenta maior concentração de proteínas animais de baixo teor de cinzas (digestibilidade acima de 85%), utiliza antioxidantes naturais e inclui óleo de peixe marinho (EPA/DHA). A Premium Especial oferece ótimo custo-benefício (digestibilidade entre 80% e 84%), mas ainda combina proteínas animais com frações vegetais como farelo de soja ou glúten de milho.',
+      },
+      {
+        q: 'Um cão saudável pode viver bem comendo uma boa ração Premium Especial?',
+        a: 'Sim. Uma ração Premium Especial idônea supre 100% das exigências nutricionais estabelecidas pela ABINPET e pelo NRC para cães sadios. A migração para uma linha Super Premium traz ganhos adicionais em estabilidade intestinal (pela fórmula fixa), menor volume de fezes, conservação natural sem BHT/BHA e maior aporte de ômega-3 marinho para pele, rins e articulações.',
+      },
+    ],
+    conclusion:
+      'Compreender que os títulos "Premium Especial" e "Super Premium" são convenções de mercado e não selos oficiais do MAPA devolve o poder de decisão ao tutor. Ao virar o pacote para checar se a receita possui Fórmula Fixa (livre de eventuais substitutivos), carnes nobres no topo da composição, baixo teor de cinzas e conservação natural com tocoferóis, você protege o intestino do seu cão contra variações de lote e investe o seu orçamento em nutrição comprovada.',
+    references: [
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Regulamento Técnico sobre Padrões de Identidade e Qualidade de Alimentos para Cães e Gatos: definição exclusiva das categorias legais Alimento Completo, Específico e Coadjuvante',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 22, de 2 de junho de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Regulamentação da rotulagem de alimentação animal: declaração da Composição Básica em ordem decrescente de participação ponderal e normas de registro de Eventuais Substitutivos',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes de segmentação mercadológica e zootécnica (Standard, Premium, Premium Especial e Super Premium), coeficientes de digestibilidade e requisito de Fórmula Fixa',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Parâmetros de biodisponibilidade de aminoácidos, digestibilidade ileal de fontes proteicas animais vs vegetais e impacto dos carboidratos na fermentação colônica canina',
+      },
+      {
+        title: 'Lei Federal nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor)',
+        institution: 'Presidência da República / Casa Civil',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+        details: 'Artigos 6º (Inciso III), 30, 31 e 37: direito básico à informação clara sobre composição e qualidade, vinculação da oferta e vedação à publicidade que induza o consumidor a erro',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Rações Premium Especial e Super Premium no Catálogo',
+      text: 'Quer ver lado a lado quais rações para cães têm Fórmula Fixa, antioxidantes naturais e proteínas nobres no topo do rótulo? Explore gratuitamente o nosso ranking técnico.',
+      buttonText: 'Explorar Ranking para Cães',
+      buttonUrl: '/catalogo?especie=Caes',
     },
   },
 ];
