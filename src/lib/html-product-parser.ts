@@ -680,6 +680,7 @@ export function parseProductFromHtml(
   const isAlisul = /alisul\.com\.br/i.test(sourceUrl) || /alisul\.com\.br/i.test(fallbackUrl);
   const isPetz = /petz\.com\.br/i.test(sourceUrl) || /petz\.com\.br/i.test(fallbackUrl);
   const isCobasi = /cobasi\.com\.br/i.test(sourceUrl) || /cobasi\.com\.br/i.test(fallbackUrl);
+  const isNutrimais = /nutrimais\.ind\.br/i.test(sourceUrl) || /nutrimais/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -709,8 +710,16 @@ export function parseProductFromHtml(
     $('img.wp-post-image, .woocommerce-product-gallery__image img').first().attr('src') ||
     null;
 
-  if (imageUrl && (imageUrl.startsWith('data:image/svg') || /hills-logo/i.test(imageUrl) || imageUrl.includes('seo-default') || (isSpecialNutri && imageUrl.includes('og-image')))) {
+  if (imageUrl && (imageUrl.startsWith('data:image/svg') || /hills-logo/i.test(imageUrl) || imageUrl.includes('seo-default') || (isSpecialNutri && imageUrl.includes('og-image')) || (isNutrimais && imageUrl.includes('og-image')))) {
     imageUrl = null;
+  }
+
+  if (isNutrimais) {
+    let bImg = $('img[src*="/upload/produto/imagem/b_"]').first().attr('src');
+    if (!bImg) bImg = $('img[src*="/upload/produto/imagem/"]').first().attr('src');
+    if (bImg) {
+      imageUrl = bImg.startsWith('http') ? bImg : `https://nutrimais.ind.br${bImg.startsWith('/') ? '' : '/'}${bImg}`;
+    }
   }
 
   if (!imageUrl && isSpecialNutri) {
@@ -1911,6 +1920,25 @@ export function parseProductFromHtml(
     ].filter(Boolean);
 
     rawName = parts.join(' ').replace(/\s+/g, ' ').trim();
+  } else if (isNutrimais) {
+    const cleanSlug = (sourceUrl.split('/').pop() || '').toLowerCase();
+    if (cleanSlug.includes('caes-grandes')) {
+      rawName = 'Nutrimais Cães Adultos Raças Médias e Grandes Pele Sensível Salmão';
+    } else if (cleanSlug.includes('caes-pequenos')) {
+      rawName = 'Nutrimais Cães Adultos Raças Pequenas Pele Sensível Salmão';
+    } else if (cleanSlug.includes('gatos')) {
+      rawName = 'Nutrimais Gatos Castrados Adultos Pele Sensível Salmão';
+    } else {
+      const rawH1 = $('h1').first().text().replace(/\s+/g, ' ').trim();
+      let name = rawH1
+        .replace(/[\d,.]+\s*k?g\b/gi, '')
+        .replace(/\bra[çc][ãa]o\b/gi, '')
+        .replace(/\bsuper\s*premium\s*natural\b/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (!name.startsWith('Nutrimais')) name = 'Nutrimais ' + name;
+      rawName = name;
+    }
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -1957,7 +1985,7 @@ export function parseProductFromHtml(
       }
     }
   }
-  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi) {
+  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi || isNutrimais) {
     slug = '';
   }
   if (!slug && commercialName) {
@@ -2319,6 +2347,9 @@ export function parseProductFromHtml(
   } else if (isCobasi || /\bjoy\b/i.test(commercialName)) {
     brand = 'Joy';
     manufacturerLegalName = 'Cobasi Comércio de Produtos Básicos e Artigos para Animais S.A.';
+  } else if (isNutrimais || /nutrimais\.ind\.br/i.test(sourceUrl) || /nutrimais/i.test(commercialName)) {
+    brand = 'Nutrimais';
+    manufacturerLegalName = 'Nutrimais Brasil Indústria e Comércio de Rações Ltda';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2336,6 +2367,9 @@ export function parseProductFromHtml(
     !isAlisul &&
     !isPetz &&
     !isCobasi &&
+    !isNutrimais &&
+    !/nutrimais/i.test(commercialName) &&
+    !/nutrimais\.ind\.br/i.test(sourceUrl) &&
     !/selections/i.test(commercialName) &&
     !/joy/i.test(commercialName) &&
     !/baw\s*waw|beauty\s*pet|speto/i.test(commercialName) &&
@@ -2461,6 +2495,26 @@ export function parseProductFromHtml(
           garText = textParts.join(' ').replace(/\s+/g, ' ').trim();
         }
       });
+    }
+  }
+
+  if (isNutrimais) {
+    const compP = $('p.composicao-basica__texto').text().trim();
+    if (compP) {
+      compText = compP;
+    }
+    const tableFormula = $('table.tabela-formula__table');
+    if (tableFormula.length) {
+      const rows: string[] = [];
+      tableFormula.find('tr').each((_, tr) => {
+        const tds = $(tr).find('td').map((_, td) => $(td).text().trim()).get();
+        if (tds.length >= 2) {
+          rows.push(tds.join(' '));
+        }
+      });
+      if (rows.length) {
+        garText = rows.join('\n');
+      }
     }
   }
 
