@@ -126,9 +126,10 @@ export function stripFootnotesFromIngredient(text: string): string {
     if (/^(?:b12|b1|b2|b6|d3|k3)$/i.test(match)) return match;
     return word;
   });
-  // Remove nota de rodapé numérica isolada no final do ingrediente (ex: "Farelo de trigo 2" -> "Farelo de trigo")
-  // Preserva percentuais como "(mín. 5%)", "(0,04%)" e medidas
-  s = s.replace(/\s+[1-9]\b(?!\s*[%a-zA-Z])/g, '');
+  // Remove nota de rodapé numérica isolada no final do ingrediente ou antes de parêntese (ex: "Farelo de trigo 2" -> "Farelo de trigo", "Milho moído 1 (OGM)" -> "Milho moído (OGM)")
+  // Preserva estritamente números que fazem parte de porcentagens, frações, intervalos, decimais, medidas ou vitaminas
+  // (ex: "mín. 1,00%", "mín. 2,00%", "1,5%", "1,3 e 1,6 beta-glucanas", "0,08%")
+  s = s.replace(/(?<!(?:m[íi]n|m[áa]x|vitamina|vit|[oô]mega|beta)\.?\s*)\s+[1-9](?!\s*[,.\/\-0-9%a-zA-Z])(?=\s*(?:\(|$))/gi, '');
   // Restaura ômega 3 e 6
   s = s.replace(/__OMEGA_([36])__/g, '$1');
   return s.trim();
