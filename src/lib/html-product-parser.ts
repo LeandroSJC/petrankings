@@ -350,7 +350,7 @@ export function parseNutritionNumber(str: string): number {
  */
 export function extractStructuredText($el: cheerio.Cheerio<any>, $: cheerio.CheerioAPI): string {
   if (!$el || $el.length === 0) return '';
-  
+
   if ($el.find('table tr').length > 0) {
     const rows: string[] = [];
     $el.find('table tr').each((_, tr) => {
@@ -681,30 +681,31 @@ export function parseProductFromHtml(
   const isPetz = /petz\.com\.br/i.test(sourceUrl) || /petz\.com\.br/i.test(fallbackUrl);
   const isCobasi = /cobasi\.com\.br/i.test(sourceUrl) || /cobasi\.com\.br/i.test(fallbackUrl);
   const isNutrimais = /nutrimais\.ind\.br/i.test(sourceUrl) || /nutrimais/i.test(fallbackUrl);
+  const isAlinutri = /alinutri\.ind\.br/i.test(sourceUrl) || /alinutri/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
     ? $('.post-img.gallery img.big-img[alt="3"]').attr('data-src') ||
-      $('.post-img.gallery img.big-img[alt="3"]').attr('src') ||
-      $('.post-img.gallery .thumbs img[id="3"]').attr('data-src') ||
-      $('.post-img.gallery .thumbs img[id="3"]').attr('src') ||
-      $('.post-img.gallery img[data-src*="COMPOSICAO"], .post-img.gallery img[src*="COMPOSICAO"]').first().attr('data-src') ||
-      $('.post-img.gallery img[data-src*="COMPOSICAO"], .post-img.gallery img[src*="COMPOSICAO"]').first().attr('src') ||
-      ''
+    $('.post-img.gallery img.big-img[alt="3"]').attr('src') ||
+    $('.post-img.gallery .thumbs img[id="3"]').attr('data-src') ||
+    $('.post-img.gallery .thumbs img[id="3"]').attr('src') ||
+    $('.post-img.gallery img[data-src*="COMPOSICAO"], .post-img.gallery img[src*="COMPOSICAO"]').first().attr('data-src') ||
+    $('.post-img.gallery img[data-src*="COMPOSICAO"], .post-img.gallery img[src*="COMPOSICAO"]').first().attr('src') ||
+    ''
     : '';
 
   let imageUrl =
     (isRacoesReis
       ? $('img.big-img.active').attr('data-src') ||
-        $('img.big-img').first().attr('data-src') ||
-        $('.post-img img.big-img, article img.big-img').first().attr('data-src') ||
-        $('.post-img.gallery img.big-img[alt="1"]').attr('data-src') ||
-        $('.post-img.gallery img.big-img[alt="1"]').attr('src') ||
-        $('.post-img.gallery .thumbs img[id="1"]').attr('data-src') ||
-        $('.post-img.gallery .thumbs img[id="1"]').attr('src') ||
-        $('.post-img.gallery img.big-img').first().attr('data-src') ||
-        $('.post-img.gallery img.big-img').first().attr('src') ||
-        $('.post-img img.big-img, article img.big-img').first().attr('src')
+      $('img.big-img').first().attr('data-src') ||
+      $('.post-img img.big-img, article img.big-img').first().attr('data-src') ||
+      $('.post-img.gallery img.big-img[alt="1"]').attr('data-src') ||
+      $('.post-img.gallery img.big-img[alt="1"]').attr('src') ||
+      $('.post-img.gallery .thumbs img[id="1"]').attr('data-src') ||
+      $('.post-img.gallery .thumbs img[id="1"]').attr('src') ||
+      $('.post-img.gallery img.big-img').first().attr('data-src') ||
+      $('.post-img.gallery img.big-img').first().attr('src') ||
+      $('.post-img img.big-img, article img.big-img').first().attr('src')
       : null) ||
     $('meta[property="og:image"]').attr('content') ||
     $('img.wp-post-image, .woocommerce-product-gallery__image img').first().attr('src') ||
@@ -719,6 +720,22 @@ export function parseProductFromHtml(
     if (!bImg) bImg = $('img[src*="/upload/produto/imagem/"]').first().attr('src');
     if (bImg) {
       imageUrl = bImg.startsWith('http') ? bImg : `https://nutrimais.ind.br${bImg.startsWith('/') ? '' : '/'}${bImg}`;
+    }
+  }
+
+  if (isAlinutri) {
+    let aliImg: string | null = null;
+    $('img').each((_, el) => {
+      const src = $(el).attr('src') || '';
+      if (
+        src.includes('wp-content/uploads') &&
+        !/logo|icon|tabela|proteinas|ambientes|carnitina|vitaminac|fibras|bandeira|whatsapp|selo|bg-|footer|header/i.test(src)
+      ) {
+        if (!aliImg) aliImg = src;
+      }
+    });
+    if (aliImg) {
+      imageUrl = aliImg.startsWith('http') ? aliImg : `https://alinutri.ind.br${aliImg.startsWith('/') ? '' : '/'}${aliImg}`;
     }
   }
 
@@ -800,7 +817,7 @@ export function parseProductFromHtml(
         if (nextUrlMatch) {
           let decoded = decodeURIComponent(nextUrlMatch[1]);
           if (decoded.includes('%')) {
-            try { decoded = decodeURIComponent(decoded); } catch {}
+            try { decoded = decodeURIComponent(decoded); } catch { }
           }
           imageUrl = decoded;
         } else {
@@ -819,9 +836,9 @@ export function parseProductFromHtml(
           rawImg = granBlobMatches[1];
         }
         if (rawImg.includes('%3A')) {
-          try { rawImg = decodeURIComponent(rawImg); } catch {}
+          try { rawImg = decodeURIComponent(rawImg); } catch { }
           if (rawImg.includes('%3A')) {
-            try { rawImg = decodeURIComponent(rawImg); } catch {}
+            try { rawImg = decodeURIComponent(rawImg); } catch { }
           }
         }
         imageUrl = rawImg;
@@ -915,7 +932,7 @@ export function parseProductFromHtml(
             }
           }
         }
-      } catch {}
+      } catch { }
     });
     if (!imageUrl) {
       const pedImg = $('img[src*="Frente"], img[src*="frente"], .productDetail img, .product-card-inner img').first().attr('src');
@@ -1045,7 +1062,7 @@ export function parseProductFromHtml(
     try {
       const urlObj = new URL(sourceUrl);
       imageUrl = `${urlObj.origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
-    } catch {}
+    } catch { }
   }
 
   // 1b. Extração Wix Warmup Data (Quatree Pet / Granvita)
@@ -1105,7 +1122,7 @@ export function parseProductFromHtml(
           }
           if (quatreeCompText && quatreeGarText) break;
         }
-      } catch (e) {}
+      } catch (e) { }
     }
 
     if (!quatreeCompText) {
@@ -1569,10 +1586,10 @@ export function parseProductFromHtml(
     let lifeStageLabel = /castrad/i.test(fullText)
       ? 'Castrados'
       : /filhote|em crescimento/i.test(fullText)
-      ? 'Filhotes'
-      : /s[êe]nior/i.test(fullText)
-      ? 'Sênior'
-      : 'Adultos';
+        ? 'Filhotes'
+        : /s[êe]nior/i.test(fullText)
+          ? 'Sênior'
+          : 'Adultos';
 
     let breedSizeLabel = '';
     if (speciesLabel === 'Cães' && !isWet) {
@@ -1939,6 +1956,36 @@ export function parseProductFromHtml(
       if (!name.startsWith('Nutrimais')) name = 'Nutrimais ' + name;
       rawName = name;
     }
+  } else if (isAlinutri) {
+    let raw = $('h1').first().text().replace(/\s+/g, ' ').trim();
+    if (!raw) {
+      raw = $('title').text().replace(/\s*-\s*Alinutri.*$/i, '').trim();
+    }
+    raw = raw.replace(/^SACH[ÊE]\s+[ÚU]MIDO\s+/i, '');
+    const isWet = /sache|ao-molho|ao\s+molho/i.test(raw + ' ' + sourceUrl);
+    if (isWet) {
+      raw = raw.replace(/\s*sach[êe]\s*(?:ao\s*molho)?/gi, '').replace(/\s*ao\s*molho/gi, '').trim();
+      raw = raw + ' Sachê ao Molho';
+    }
+    const isSnack = /snack|petisco/i.test(raw + ' ' + sourceUrl);
+    if (isSnack) {
+      raw = raw.replace(/^snack\s+/i, '').trim() + ' Snack';
+    }
+    if (/^alinutri\s+/i.test(raw)) {
+      raw = raw.replace(/^alinutri\s+/i, '');
+    }
+    raw = raw.replace(/\bdocat\b/gi, 'DoCat');
+    raw = raw.replace(/\bray\s*cat\b/gi, 'Raycat');
+    raw = raw.replace(/\bammy\s*cat\b/gi, 'Ammy Cat');
+    raw = raw.replace(/\bammy\s*dog\b/gi, 'Ammy Dog');
+
+    const isCat = /gato|gatos|cat|docat|raycat/i.test(raw + ' ' + sourceUrl);
+    if (!isCat && !/c[ãa]o|c[ãa]es|filhote|adulto|senior/i.test(raw)) {
+      if (/xerife|bidog|ammy-dog|k-dengo|denguinho|evolute/i.test(raw + ' ' + sourceUrl)) {
+        raw = raw + ' Cães Adultos';
+      }
+    }
+    rawName = raw;
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -1952,6 +1999,7 @@ export function parseProductFromHtml(
     capitalizeTitle(rawName.replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim())
   );
   commercialName = commercialName.replace(/Selections\s+For\s+Pet/gi, 'Selections for Pet');
+  commercialName = commercialName.replace(/\bDocat\b/g, 'DoCat');
   if (isCobasi) {
     commercialName = commercialName
       .replace(/^Ra[cç][aã]o\s+(?:[UÚ]mida\s+)?/i, '')
@@ -1985,7 +2033,7 @@ export function parseProductFromHtml(
       }
     }
   }
-  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi || isNutrimais) {
+  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi || isNutrimais || isAlinutri) {
     slug = '';
   }
   if (!slug && commercialName) {
@@ -2350,6 +2398,38 @@ export function parseProductFromHtml(
   } else if (isNutrimais || /nutrimais\.ind\.br/i.test(sourceUrl) || /nutrimais/i.test(commercialName)) {
     brand = 'Nutrimais';
     manufacturerLegalName = 'Nutrimais Brasil Indústria e Comércio de Rações Ltda';
+  } else if (isAlinutri || /alinutri\.ind\.br/i.test(sourceUrl)) {
+    manufacturerLegalName = 'Nutriave Alimentos Ltda.';
+    const fullText = (commercialName + ' ' + sourceUrl).toLowerCase();
+    if (/nature\s*f[óo]rmula\s*pro|nature-formula-pro/i.test(fullText)) {
+      brand = 'Nature Fórmula Pro';
+    } else if (/nature\s*f[óo]rmula|nature-formula/i.test(fullText)) {
+      brand = 'Nature Fórmula';
+    } else if (/receita\s*especial|receita-especial/i.test(fullText)) {
+      brand = 'Receita Especial';
+    } else if (/docat/i.test(fullText)) {
+      brand = 'DoCat';
+    } else if (/ray\s*cat|raycat/i.test(fullText)) {
+      brand = 'Raycat';
+    } else if (/ammy\s*cat/i.test(fullText)) {
+      brand = 'Ammy Cat';
+    } else if (/ammy\s*dog/i.test(fullText)) {
+      brand = 'Ammy Dog';
+    } else if (/ammy/i.test(fullText)) {
+      brand = 'Ammy';
+    } else if (/evolute/i.test(fullText)) {
+      brand = 'Evolute';
+    } else if (/k-?dengo|kdengo/i.test(fullText)) {
+      brand = 'Kdengo';
+    } else if (/denguinho/i.test(fullText)) {
+      brand = 'Denguinho';
+    } else if (/xerife/i.test(fullText)) {
+      brand = 'Xerife';
+    } else if (/bidog/i.test(fullText)) {
+      brand = 'Bidog';
+    } else {
+      brand = 'Alinutri';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2368,6 +2448,9 @@ export function parseProductFromHtml(
     !isPetz &&
     !isCobasi &&
     !isNutrimais &&
+    !isAlinutri &&
+    !/alinutri\.ind\.br/i.test(sourceUrl) &&
+    !/nature\s*f[óo]rmula|receita\s*especial|docat|raycat|ammy|evolute|kdengo|denguinho|xerife|bidog/i.test(commercialName) &&
     !/nutrimais/i.test(commercialName) &&
     !/nutrimais\.ind\.br/i.test(sourceUrl) &&
     !/selections/i.test(commercialName) &&
@@ -2435,11 +2518,11 @@ export function parseProductFromHtml(
   } else if (
     !/(?:oral[-\s]*care|cuidado\s*dental)/i.test(commercialName + ' ' + sourceUrl) &&
     (/(?:cookie|cookies|biscuit|biscuits|biscoito|biscoitos|snack|snacks|petisco|petiscos|party\s*mix|party-mix|bifinho|bifinhos|creminho|mastig[áa]vel|\bosso\b|\bossos\b|casco|orelha|traqueia|chifre|(?<!small[_\s-]|mini[_\s-]|medium[_\s-]|maxi[_\s-]|large[_\s-])\bbites\b|nugget|miaow|dentastix|dental\s*(?:clean|bar|stick|bites|snack|petisco|mastig[áa]vel)|biscrok|filezitos|marrobone|\bmolho\s+especial\b|molho-especial|(?<!ao[-\s]+)\bmolho\b)/i.test(commercialName + ' ' + sourceUrl) ||
-    /n[ãa]o\s+substitui\s+(?:o\s+)?alimento\s+completo/i.test(html) ||
-    (/alimento\s+espec[íi]fico/i.test(html) && !/alimento\s+completo/i.test(html)) ||
-    /n&d-natural/i.test(sourceUrl) ||
-    /premier.*gourmet/i.test(commercialName) ||
-    (!/alimento\s+completo/i.test(html) && /gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast|granplus|special\s*care|specialnutri|astro/i.test(commercialName + ' ' + sourceUrl)))
+      /n[ãa]o\s+substitui\s+(?:o\s+)?alimento\s+completo/i.test(html) ||
+      (/alimento\s+espec[íi]fico/i.test(html) && !/alimento\s+completo/i.test(html)) ||
+      /n&d-natural/i.test(sourceUrl) ||
+      /premier.*gourmet/i.test(commercialName) ||
+      (!/alimento\s+completo/i.test(html) && /gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast|granplus|special\s*care|specialnutri|astro/i.test(commercialName + ' ' + sourceUrl)))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
@@ -2515,6 +2598,17 @@ export function parseProductFromHtml(
       if (rows.length) {
         garText = rows.join('\n');
       }
+    }
+  }
+
+  if (isAlinutri) {
+    const compPanel = $('#garantia').text().trim();
+    if (compPanel) {
+      compText = compPanel;
+    }
+    const garPanel = $('#niveis_nutricionais').text().trim();
+    if (garPanel) {
+      garText = garPanel;
     }
   }
 
@@ -2607,7 +2701,7 @@ export function parseProductFromHtml(
   if (/purina\.com\.br/i.test(sourceUrl) || $('#ingredientBody').length > 0 || $('[id*="ingredient"]').length > 0) {
     const candidates: string[] = [];
     $('#ingredientBody p, #ingredientBody div, .accordion-collapse p, .accordion-body p, [id*="ingredient"] p, div.composicao-basica p, p, div').each((_, el) => {
-      const text = $(el).clone().children().remove().end().text().trim().replace(/\s+/g, ' ') 
+      const text = $(el).clone().children().remove().end().text().trim().replace(/\s+/g, ' ')
         || $(el).text().trim().replace(/\s+/g, ' ');
       if (text.length > 50 && (text.match(/,/g) || []).length >= 4) {
         if (/farinha|carne|gr[ãa]o\s+de\s+milho|milho|trigo|quirera|arroz|f[íi]gado|gl[úu]ten/i.test(text)) {
@@ -2886,7 +2980,7 @@ export function parseProductFromHtml(
   if (!compText && (/purina\.com\.br/i.test(sourceUrl) || $('#ingredientBody').length > 0 || $('[id*="ingredient"]').length > 0)) {
     const candidates: string[] = [];
     $('#ingredientBody p, #ingredientBody div, .accordion-collapse p, .accordion-body p, [id*="ingredient"] p, div.composicao-basica p, p, div').each((_, el) => {
-      const text = $(el).clone().children().remove().end().text().trim().replace(/\s+/g, ' ') 
+      const text = $(el).clone().children().remove().end().text().trim().replace(/\s+/g, ' ')
         || $(el).text().trim().replace(/\s+/g, ' ');
       if (text.length > 50 && (text.match(/,/g) || []).length >= 4) {
         if (/farinha|carne|gr[ãa]o\s+de\s+milho|milho|trigo|quirera|arroz|f[íi]gado|gl[úu]ten/i.test(text)) {
@@ -3067,7 +3161,7 @@ export function parseProductFromHtml(
   let umidadeMaxPct = isHills
     ? 0
     : parseGuarantee(/(?:Umidade|Humedad)[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i) ||
-      (foodType === 'UMIDO' ? 86.0 : 10.0);
+    (foodType === 'UMIDO' ? 86.0 : 10.0);
 
   let proteinaBrutaMinPct =
     parseGuarantee(/Prote[íi]na(?:\s+(?:Bruta|Cruda|Bruna))?t?[^\d]*?(\d+(?:[\.,]\d+)?)\s*(%|g\/kg|mg\/kg|g)?/i);
