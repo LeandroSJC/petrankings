@@ -74,25 +74,54 @@ async function processAll() {
         const isStarred = line.startsWith('*');
         const u = line.replace(/^\*\s*/, '').trim();
         console.log(`\n👉 Ingestão [${i + 1}/${lines.length}]: ${u}${isStarred ? ' (🌟 2ª Imagem Solicitada)' : ''}${skipImages ? ' (🖼️ Modo Sem Download de Imagem - Placeholder)' : ''}`);
+        let success = false;
         try {
-          await processUrl(u, { preferSecondImage: isStarred, skipImageDownload: skipImages });
+          const res = await processUrl(u, { preferSecondImage: isStarred, skipImageDownload: skipImages });
+          success = res !== false;
         } catch (err: any) {
           console.error(`❌ Erro no processamento da URL ${u}:`, err.message);
         }
+
+        if (success) {
+          // Remove a URL processada com sucesso do arquivo para persistência contínua de progresso
+          try {
+            const currentRaw = fs.readFileSync(batchUrlFile, 'utf-8');
+            const filteredLines = currentRaw
+              .split('\n')
+              .filter((l) => l.trim() !== line && l.trim() !== u && l.trim() !== `* ${u}`)
+              .join('\n');
+            fs.writeFileSync(batchUrlFile, filteredLines, 'utf-8');
+          } catch (writeErr: any) {
+            console.warn(`⚠️ Não foi possível atualizar urls_cadastro.txt:`, writeErr.message);
+          }
+        }
+
         if (i < lines.length - 1) {
           // Pausa preventiva de 2s para respeitar limites de taxa da API Gemini
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
       }
-      // Mantém o arquivo com o template explicativo para novos cadastros
-      const template = `# ==============================================================================
+
+      // Verifica se restou alguma URL pendente
+      const remainingRaw = fs.existsSync(batchUrlFile) ? fs.readFileSync(batchUrlFile, 'utf-8') : '';
+      const remainingUrls = remainingRaw
+        .split('\n')
+        .map((l) => l.trim())
+        .filter((l) => l.startsWith('http') || (l.startsWith('*') && l.includes('http')));
+
+      if (remainingUrls.length === 0) {
+        // Mantém o arquivo com o template explicativo para novos cadastros
+        const template = `# ==============================================================================
 # PetRankings — Cadastro em Lote por URL
 # ==============================================================================
 # Cole aqui as URLs oficiais das páginas de produtos que deseja cadastrar.
 # Uma URL por linha (linhas iniciadas com # são ignoradas).
 `;
-      fs.writeFileSync(batchUrlFile, template, 'utf-8');
-      console.log(`\n✅ URLs processadas com sucesso! Arquivo produtos_cadastro/urls_cadastro.txt limpo para novas inserções.\n`);
+        fs.writeFileSync(batchUrlFile, template, 'utf-8');
+        console.log(`\n✅ URLs processadas com sucesso! Arquivo produtos_cadastro/urls_cadastro.txt limpo para novas inserções.\n`);
+      } else {
+        console.warn(`\n⚠️ Restaram ${remainingUrls.length} URLs pendentes ou com falha em produtos_cadastro/urls_cadastro.txt.\n`);
+      }
     }
   }
 
