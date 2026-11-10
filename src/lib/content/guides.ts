@@ -21,6 +21,9 @@
  * - PARIDADE E EQUILÍBRIO DE ESPÉCIES (INVARIANTE 14): Manter proporção equilibrada (1:1)
  *   entre publicações dedicadas a Cães e Gatos, alternando a esteira editorial e utilizando
  *   "Cães e Gatos" em estudos metodológicos transversais com exemplos de ambas as espécies.
+ * - DESTAQUE EDITORIAL EXCLUSIVO (INVARIANTE 18.8): Sempre que um novo estudo/guia for publicado,
+ *   ele DEVE receber `isFeatured: true`, e o estudo anteriormente marcado como destaque DEVE ser
+ *   atualizado para `isFeatured: false`, mantendo exclusivamente a publicação mais recente em destaque.
  */
 
 export interface GuideSection {
@@ -7472,7 +7475,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-09',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/comedouro-livre-vs-porcoes-fracionadas-gatos.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Muitos tutores acreditam que gatos regulam naturalmente o apetite e mantêm o pote sempre transbordando. Analisamos a fisiologia digestiva do felino como carnívoro de pequenas presas, a oxidação dos lipídios na tigela aberta e como organizar o fracionamento prático da cota diária com base nas diretrizes da ABINPET e da WSAVA.',
     relatedProductSlugs: [],
@@ -7611,6 +7614,149 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer descobrir os teores de Extrato Etéreo, proteínas e carboidratos dos alimentos cadastrados no PetRankings? Acesse nossa análise independente de rótulos.',
       buttonText: 'Ver Ranking de Alimentos para Gatos',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'racao-para-caes-castrados-obrigatorio-trocar-ou-dar-menos-comida',
+    title: 'Ração para cães castrados: É obrigatório trocar ou basta dar menos comida?',
+    subtitle:
+      'Entenda o impacto da queda de 20% a 30% no gasto energético pós-cirúrgico, o risco de desnutrição oculta ao cortar a porção pela metade e como funcionam as fórmulas específicas.',
+    cluster: 'Saúde & Fases de Vida',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-11-10',
+    updatedAt: '2026-11-10',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/racao-para-caes-castrados-obrigatorio-trocar-ou-dar-menos-comida.webp',
+    isFeatured: true,
+    summary:
+      'Após a castração, o metabolismo do cão desacelera enquanto o apetite aumenta. Analisamos à luz do NRC e do Manual ABINPET quando é possível manter a ração de adulto tradicional com ajuste na balança e por que cortes drásticos na tigela causam deficiência de proteínas e vitaminas.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-choque-metabolico-pos-castracao',
+        heading: '1. O choque metabólico pós-castração: Menos gasto de energia e mais fome no comedouro',
+        paragraphs: [
+          'Assim que o cão retira os pontos da cirurgia de castração, uma dúvida prática surge na rotina da família: é realmente necessário comprar uma ração específica para cães castrados ou basta colocar um pouco menos do alimento de adulto que ele já come? Na prateleira do pet shop, a variedade de pacotes específicos pode parecer apenas uma estratégia comercial, mas a mudança fisiológica dentro do organismo do animal é profunda.',
+          'A retirada das gônadas (testículos nos machos e ovários nas fêmeas) interrompe a produção de hormônios sexuais como a testosterona e o estrogênio. Na biologia canina, esses hormônios atuam diretamente na manutenção da massa muscular ativa e na regulação neuroendócrina da saciedade no hipotálamo.',
+          'Segundo diretrizes do National Research Council (NRC, 2006) e do WALTHAM Petcare Science Institute, a castração reduz a Taxa Metabólica Basal (a energia que o corpo gasta em repouso para manter órgãos vitais funcionando) entre 20% e 30%. Na prática do dia a dia, o cão passa a precisar de quase um terço a menos de calorias para manter exatamente o mesmo peso corporal que tinha antes do procedimento.',
+          'O desafio se agrava porque a queda dos hormônios sexuais também diminui o freio natural do apetite. Estudos demonstram que, nas primeiras semanas após a cirurgia, cães castrados aumentam voluntariamente a procura por comida. Se o tutor mantiver a mesma medida de ração que servia antes, o excedente calórico diário será inevitavelmente estocado como gordura visceral e subcutânea.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'A janela crítica dos primeiros 6 meses pós-cirurgia',
+          text: 'O ganho de peso mais acentuado ocorre nos primeiros 6 meses após a castração. Ajustar o manejo alimentar imediatamente após a alta cirúrgica é muito mais simples e seguro para as articulações do cão do que tentar reverter um quadro de obesidade instalado um ano depois.',
+        },
+      },
+      {
+        id: 'a-armadilha-de-dar-menos-comida',
+        heading: '2. A armadilha de "dar menos comida": O risco da desnutrição de micronutrientes',
+        paragraphs: [
+          'Diante da queda no gasto calórico, a solução mais intuitiva adotada em casa é cortar 25% ou 30% da porção diária da ração tradicional de manutenção. Embora essa redução matemática funcione para segurar os ponteiros da balança a curto prazo, ela esconde uma armadilha nutricional documentada pelo Manual Pet Food Brasil da ABINPET e pela WSAVA.',
+          'Todo Alimento Completo registrado no MAPA é formulado como um sistema fechado: o fabricante calcula a concentração de proteínas, aminoácidos essenciais, vitaminas, cálcio, fósforo e ácidos graxos partindo do princípio de que o cão comerá a porção inteira indicada no verso da embalagem para atingir sua cota de energia.',
+          'Quando o tutor reduz a quantidade de uma ração comum em 30% para evitar que o cão engorde, ele corta na mesma proporção de 30% a entrega diária de proteína bruta, selênio, zinco, vitaminas do complexo B e ômega-3. A longo prazo, o cão mantém o peso na balança, mas desenvolve perda progressiva de musculatura (sarcopenia), pelagem opaca e queda de imunidade.',
+          'Além do prejuízo nutricional, servir uma tigela com volume muito reduzido deixa o estômago fisicamente vazio. Um cão com fome crônica desenvolve ansiedade alimentar, passa o dia implorando por petiscos na cozinha, revira lixeiras e engole a refeição em poucos segundos.',
+        ],
+        table: {
+          caption: 'Confronto bromatológico médio em Matéria Seca (MS): Ração Adulto Manutenção vs Ração Cães Castrados (Referência ABINPET / FEDIAF)',
+          headers: ['Parâmetro Nutricional', 'Ração Adulto Manutenção', 'Ração Específica Cães Castrados'],
+          rows: [
+            ['Energia Metabolizável (densidade calórica)', '3.800 a 4.150 kcal/kg (alta concentração)', '3.150 a 3.550 kcal/kg (calorias reduzidas)'],
+            ['Extrato Etéreo (gorduras totais em MS)', '14% a 20% (foco em energia rápida)', '9% a 13% (restrição lipídica controlada)'],
+            ['Proteína Bruta (em Matéria Seca)', '24% a 28% (manutenção padrão)', '28% a 35% (elevada para proteger os músculos)'],
+            ['Matéria Fibrosa (fibras totais em MS)', '2,5% a 3,5% (trânsito digestivo padrão)', '5,0% a 8,5% (alto volume para saciedade gástrica)'],
+            ['Suplementação de L-carnitina', 'Ausente ou residual na maioria das linhas', '200 a 300 mg/kg (estímulo à queima de gordura)'],
+          ],
+        },
+      },
+      {
+        id: 'engenharia-da-racao-para-castrados',
+        heading: '3. O que muda na fórmula de castrados: Menos gordura, mais fibra e L-carnitina',
+        paragraphs: [
+          'Para permitir que o cão continue comendo uma porção satisfatória em gramas sem extrapolar o teto calórico, a indústria zootécnica altera três pilares na engenharia das rações para cães castrados: a relação proteína:caloria, o perfil de fibras e o teor de Extrato Etéreo (as gorduras que fornecem energia e sabor ao alimento).',
+          'Como um grama de gordura fornece cerca de 8,5 kcal de Energia Metabolizável (mais que o dobro das 3,5 kcal fornecidas por proteínas e carboidratos), o primeiro ajuste é reduzir o Extrato Etéreo para a faixa de 9% a 12% na rotulagem. Em paralelo, eleva-se a Proteína Bruta para garantir que, mesmo ingerindo menos calorias totais, o cão receba todos os aminoácidos necessários para preservar a musculatura firme.',
+          'Para compensar o corte de calorias sem diminuir o tamanho da porção no prato, entram em cena as fibras dietéticas funcionais, como a polpa de beterraba, a fibra de cana-de-açúcar, a celulose purificada e o psyllium. Essas fibras absorvem água no estômago, retardam o esvaziamento gástrico e ativam os receptores mecânicos de saciedade, fazendo o cão se sentir satisfeito por muito mais horas.',
+          'Outro diferencial técnico presente nas fórmulas Super Premium e Premium Especial para castrados é a inclusão declarada de L-carnitina nos níveis de garantia. A L-carnitina funciona como um transportador biológico que carrega os ácidos graxos de cadeia longa para dentro das mitocôndrias celulares, onde a gordura é efetivamente transformada em energia em vez de ficar acumulada no tecido adiposo.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Equação de energia para cães castrados (FEDIAF / NRC)',
+          text: 'Enquanto um cão adulto inteiro moderadamente ativo exige cerca de 110 kcal por quilo de peso metabólico (Peso elevado a 0,75), a diretriz nutricional para cães castrados ou domiciliados reduz esse fator para 90 a 95 kcal por quilo de peso metabólico.',
+        },
+      },
+      {
+        id: 'quando-e-obrigatorio-trocar-a-racao',
+        heading: '4. Veredito prático: Quando a troca é obrigatória e quando a ração comum ainda serve?',
+        paragraphs: [
+          'Responder se a troca de pacote é obrigatória depende diretamente da margem de ajuste necessária e do perfil físico de cada cão. Segundo os protocolos de avaliação nutricional da WSAVA, um corte seguro na porção de uma ração convencional de adulto nunca deve ultrapassar 10% a 15% da recomendação da tabela do fabricante.',
+          'Portanto, se o seu cão foi castrado, mas mantém uma rotina intensa de caminhadas diárias, brincadeiras ativas e pertence a uma raça de metabolismo acelerado, um pequeno ajuste de 10% na balança dentro da própria ração de adulto tradicional pode ser suficiente para manter o Escore de Condição Corporal (ECC) ideal, sem risco de carência vitamínica.',
+          'Por outro lado, a transição para uma fórmula específica de cães castrados (ou linha Light de manutenção) torna-se indispensável em três cenários clássicos: cães que vivem em apartamentos com baixo gasto calórico diário, raças com forte predisposição genética ao sobrepeso e à voracidade alimentar (como Labrador, Beagle, Buldogue Francês, Pug, Dachshund e Cocker Spaniel) e animais que já demonstram ganho de peso mesmo com a porção controlada.',
+          'Independentemente da escolha, a ferramenta mais importante após a cirurgia é a balança digital de cozinha. Pese a cota diária em gramas, divida em duas ou três refeições ao longo do dia e monitore a cintura do cão mensalmente: as costelas devem ser facilmente sentidas ao toque leve das mãos, sem necessidade de apertar uma camada espessa de gordura.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Devo mudar para a ração de cães castrados antes ou depois da cirurgia?',
+        a: 'O ideal é iniciar a transição gradual de 7 dias cerca de uma semana após a cirurgia, quando o cão já recuperou o apetite normal e finalizou o uso de anti-inflamatórios e antibióticos do pós-operatório. Fazer trocas bruscas de dieta no dia da cirurgia não é recomendado, pois eventuais fezes amolecidas da adaptação alimentar podem ser confundidas com reações aos medicamentos.',
+      },
+      {
+        q: 'Filhote castrado precocemente aos 6 meses já deve comer ração de adulto castrado?',
+        a: 'Depende do porte e da indicação na embalagem. Filhotes em fase de crescimento ósseo possuem exigências específicas de cálcio, fósforo e proteína que uma ração comum de adulto castrado não atende. Verifique se a linha escolhida possui versão específica para filhotes castrados ou aguarde o fechamento das placas de crescimento (cerca de 10 a 12 meses em portes pequenos e médios, e 15 a 18 meses em portes grandes) controlando rigorosamente a porção da ração de filhote na balança.',
+      },
+      {
+        q: 'Qual a diferença entre uma ração para "Cães Castrados" e uma ração "Light"?',
+        a: 'Na prática bromatológica brasileira, ambas compartilham a mesma arquitetura nutricional: redução de Extrato Etéreo (gorduras), elevação de fibras para saciedade, reforço proteico e adição de L-carnitina. A nomenclatura "Castrados" foca na prevenção do ganho de peso logo após a queda hormonal da cirurgia, enquanto a denominação "Light" é voltada para cães adultos em geral (castrados ou inteiros) que possuem tendência ao sobrepeso.',
+      },
+      {
+        q: 'Posso misturar metade de ração normal e metade de ração para castrados?',
+        a: 'Embora não cause intoxicação, misturar duas rações secas diferentes de forma contínua descaracteriza o balanceamento planejado pelo fabricante, diluindo o teor de fibras sacietógenas e de L-carnitina da fórmula de castrados. Se o objetivo for aumentar a saciedade sem elevar as calorias, é muito mais eficiente usar 100% da ração de castrados ou combiná-la com sachês completos (alimentação mista) calculados dentro da cota calórica diária.',
+      },
+    ],
+    conclusion:
+      'A castração transforma de maneira permanente o equilíbrio energético do cão, reduzindo sua necessidade calórica diária enquanto estimula o apetite. Embora pequenos ajustes de até 10% na ração tradicional possam funcionar para cães muito ativos, cortar drasticamente a comida na tigela para evitar o ganho de peso expõe o animal à fome constante e à deficiência silenciosa de proteínas e micronutrientes. Migrar para uma fórmula dedicada a cães castrados devolve o volume de prato que sacia o pet, protege a massa muscular magra e preserva a saúde articular por toda a vida.',
+    references: [
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Equações de Necessidade Energética de Manutenção (NEM) em cães adultos inteiros vs castrados, redução da taxa metabólica basal pós-gonadectomia e exigências mínimas de proteína e micronutrientes por megacaloria',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes de formulação nutricional para alimentos completos de manutenção, cálculos de Energia Metabolizável (EM) e adequação de nutrientes em dietas de restrição calórica',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Tabelas de densidade mínima de aminoácidos, vitaminas e minerais ajustadas para cães com menor ingestão energética diária (95 kcal/kg^0,75)',
+      },
+      {
+        title: 'Global Nutrition Guidelines & Body Condition Score (BCS) Charts',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'estudo',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Protocolos clínicos de prevenção de sobrepeso pós-castração, limite seguro de redução de porção em dietas convencionais e avaliação do Escore de Condição Corporal (1 a 9) e Escore de Massa Muscular',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Regulamento Técnico sobre Padrões de Identidade e Qualidade de Alimentos para Cães e Gatos: critérios legais para Alimentos Completos e declaração de aditivos nutricionais nos níveis de garantia',
+      },
+    ],
+    callToAction: {
+      title: 'Compare os Níveis de Garantia de Alimentos para Cães',
+      text: 'Quer conferir os teores de Proteína Bruta, Extrato Etéreo e Matéria Fibrosa convertidos para Matéria Seca? Consulte nossas fichas técnicas avaliadas.',
+      buttonText: 'Ver Catálogo de Alimentos para Cães',
+      buttonUrl: '/catalogo?especie=Caes',
     },
   },
 ];

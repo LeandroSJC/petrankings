@@ -112,7 +112,7 @@
       - *Gatos:* Siamês, Azul Russo, British Shorthair, Maine Coon, Frajola (tuxedo), Gato Laranja (Ginger/Red Tabby), Persa, Angorá, Bengal, Ragdoll, Sphynx e SRD tricolor/rajado.
       - *Janela de Não Repetição (Obrigatória):* Antes de gerar a imagem de capa de qualquer estudo, o agente DEVE verificar as últimas capas publicadas daquela espécie em `public/uploads/guias/` e em `src/lib/content/guides.ts`. É expressamente proibido repetir a mesma raça ou pelagem em uma janela mínima de 5 publicações da mesma espécie.
 18. **Checklist Pré-Publicação Inegociável (Gatekeeper de Qualidade Editorial):**
-    - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 7 pontos:
+    - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 8 pontos:
       1. *Ineditismo & Não Repetição:* O tema proposto foi expressamente auditado contra todos os estudos já cadastrados em `src/lib/content/guides.ts` para garantir ineditismo absoluto (proibido repetir tema, dilema ou nutriente já coberto)?
       2. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados? Se for foto de estúdio, foi garantida a ausência total de textos/inscrições em comedouros e objetos, além da diversidade e rotatividade de raças/portes (evitando a repetição de Golden Retriever/Labrador)?
       3. *Anti-Slop & Humanizer:* O texto foi submetido aos filtros do Humanizer (sem contrastes falsos "not X but Y", sem frases de efeito de encerramento, sem travessões "—", sem aberturas teatrais e sem termos fabris como "sacaria")?
@@ -120,6 +120,7 @@
       5. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
       6. *Fidelidade de Citações (`relatedProductSlugs`) & Fontes:* Apenas produtos realmente analisados no texto constam na lista? Se a lista for vazia (`[]`), foi verificado que NÃO há referências do tipo 'rotulagem' (Ficha Oficial/Fabricante) nas fontes?
       7. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA, WALTHAM e fichas oficiais) estão discriminadas?
+      8. *Destaque Editorial Exclusivo (`isFeatured: true`):* O novo estudo publicado foi configurado com `isFeatured: true` e o estudo anteriormente em destaque foi atualizado para `isFeatured: false` (garantindo que sempre e apenas a publicação mais recente ocupe o destaque principal)?
 19. **Pragmatismo de Código e Princípio do Menor Diff Viável (Anti-Bloat & YAGNI):**
     - **Menor Diff Viável:** Privilegie a menor alteração no código que resolva 100% da causa raiz do problema. Nunca refatore arquivos alheios, altere estilos não solicitados ou reescreva módulos funcionais sem demanda expressa.
     - **Proibição de Abstrações Prematuras e Wrappers Inúteis:** Não crie arquivos de utilitários para funções de uso único, classes intermediárias supérfluas, camadas de abstração desnecessárias ou código "para o futuro" (YAGNI). Use as APIs nativas do TypeScript, Next.js e Node.js.

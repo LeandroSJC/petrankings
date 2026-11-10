@@ -240,5 +240,7 @@ Before proposing, outlining, or drafting any new article, study, brand duel, or 
 - **Mandatory Pre-Proposal Audit**: The agent must inspect all existing published entries in `src/lib/content/guides.ts`.
 - **Zero Topic Duplication**: Never propose or author a study covering a topic, nutrient, ingredient dilemma, or angle that has already been published (e.g. joint supplements/glucosamine, sodium in cat diets, cost per serving calculations).
 - **Novelty Guarantee**: All candidate topics proposed to the user must be verified as completely unpublished in the project's historical archive.
+- **Exclusive Featured Status (`isFeatured: true`)**: Every newly published guide in `src/lib/content/guides.ts` must be set to `isFeatured: true`, while simultaneously changing the previously featured guide to `isFeatured: false` so that only the latest publication holds the featured spotlight.
+
 
 
