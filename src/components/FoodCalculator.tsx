@@ -12,24 +12,72 @@ import {
   AlertCircle, 
   ArrowRight, 
   CheckCircle2, 
-  HelpCircle,
-  Sparkles
+  Sparkles,
+  Info,
+  HeartPulse
 } from 'lucide-react';
 
 type Species = 'CAO' | 'GATO';
+
+export type BodyConditionScore = 'ABAIXO' | 'IDEAL' | 'SOBREPESO' | 'OBESO';
+
+interface BCSOption {
+  id: BodyConditionScore;
+  label: string;
+  sublabel: string;
+  bcsRange: string;
+  description: string;
+  multiplier: number;
+}
+
+const BCS_OPTIONS: BCSOption[] = [
+  {
+    id: 'ABAIXO',
+    label: 'Abaixo do peso',
+    sublabel: 'ECC 1 a 3 (Magro)',
+    bcsRange: '1 a 3 de 9',
+    description: 'Costelas, coluna e ossos do quadril muito evidentes, sem gordura palpável.',
+    multiplier: 1.15,
+  },
+  {
+    id: 'IDEAL',
+    label: 'Peso ideal',
+    sublabel: 'ECC 4 a 5 (Equilibrado)',
+    bcsRange: '4 a 5 de 9',
+    description: 'Costelas facilmente palpáveis com leve cobertura de gordura, cintura visível atrás das costelas.',
+    multiplier: 1.0,
+  },
+  {
+    id: 'SOBREPESO',
+    label: 'Sobrepeso',
+    sublabel: 'ECC 6 a 7 (Gordinho)',
+    bcsRange: '6 a 7 de 9',
+    description: 'Costelas difíceis de apalpar com camada de gordura notável, cintura pouco evidente.',
+    multiplier: 0.85,
+  },
+  {
+    id: 'OBESO',
+    label: 'Obesidade',
+    sublabel: 'ECC 8 a 9 (Excessivo)',
+    bcsRange: '8 a 9 de 9',
+    description: 'Depósitos pesados de gordura sobre tórax e base da cauda, abdômen abaulado e ausência de cintura.',
+    multiplier: 0.70,
+  },
+];
 
 interface ActivityOption {
   id: string;
   label: string;
   description: string;
   factor: number;
+  isReproductive?: boolean;
 }
 
 const DOG_ACTIVITIES: ActivityOption[] = [
   {
     id: 'castrado_baixa',
     label: 'Adulto Castrado / Pouco Ativo',
-    description: 'Rotina de apartamento, caminhadas leves de até 30 min por dia',
+    description: 'Rotina em ambiente fechado, caminhadas curtas de até 30 min por dia',
     factor: 95,
   },
   {
@@ -47,14 +95,28 @@ const DOG_ACTIVITIES: ActivityOption[] = [
   {
     id: 'senior',
     label: 'Sênior / Idoso (7+ anos)',
-    description: 'Metabolismo basal reduzido e ritmo mais calmo',
+    description: 'Metabolismo basal reduzido e ritmo de atividade calmo',
     factor: 80,
   },
   {
     id: 'filhote',
     label: 'Filhote em Crescimento (2 a 12 meses)',
-    description: 'Fase de alta demanda proteica e formação esquelética',
+    description: 'Fase de alta demanda proteica e formação ósseo-muscular',
     factor: 140,
+  },
+  {
+    id: 'femea_gestacao',
+    label: 'Fêmea em Gestação (últimas 5 semanas)',
+    description: 'Aporte energético ampliado para formação dos fetos (FEDIAF/NRC)',
+    factor: 135,
+    isReproductive: true,
+  },
+  {
+    id: 'femea_lactacao',
+    label: 'Fêmea em Lactação (amamentação)',
+    description: 'Pico de demanda calórica para produção e secreção de leite materno',
+    factor: 200,
+    isReproductive: true,
   },
 ];
 
@@ -83,6 +145,20 @@ const CAT_ACTIVITIES: ActivityOption[] = [
     description: 'Intensa proliferação celular e desenvolvimento muscular',
     factor: 100,
   },
+  {
+    id: 'gata_gestacao',
+    label: 'Fêmea em Gestação (prenhez)',
+    description: 'Crescimento ponderal linear desde o início da gestação (FEDIAF)',
+    factor: 140,
+    isReproductive: true,
+  },
+  {
+    id: 'gata_lactacao',
+    label: 'Fêmea em Lactação (amamentação)',
+    description: 'Pico nutricional para produção láctea conforme o tamanho da ninhada',
+    factor: 180,
+    isReproductive: true,
+  },
 ];
 
 const COMMON_PACKAGE_SIZES = [
@@ -95,10 +171,17 @@ const COMMON_PACKAGE_SIZES = [
   { label: '15 kg', value: 15 },
 ];
 
+const CALORIC_PRESETS = [
+  { label: 'Light / Obesidade', value: 3200 },
+  { label: 'Manutenção Padrão', value: 3700 },
+  { label: 'Filhote / Alta Energia', value: 4100 },
+];
+
 export default function FoodCalculator() {
   const [species, setSpecies] = useState<Species>('CAO');
   const [weight, setWeight] = useState<number>(10);
   const [activityId, setActivityId] = useState<string>('castrado_baixa');
+  const [bcs, setBcs] = useState<BodyConditionScore>('IDEAL');
   const [caloricDensity, setCaloricDensity] = useState<number>(3700); // kcal/kg
   const [packageWeight, setPackageWeight] = useState<number>(15); // kg
   const [packagePrice, setPackagePrice] = useState<number>(289.9); // R$
@@ -124,8 +207,9 @@ export default function FoodCalculator() {
 
   const currentActivities = species === 'CAO' ? DOG_ACTIVITIES : CAT_ACTIVITIES;
   const currentActivity = currentActivities.find((a) => a.id === activityId) || currentActivities[0];
+  const currentBCS = BCS_OPTIONS.find((b) => b.id === bcs) || BCS_OPTIONS[1];
 
-  // Cálculo zootécnico determinístico (FEDIAF / NRC)
+  // Cálculo zootécnico determinístico (FEDIAF 2025 / NRC 2006 / WSAVA)
   const calculation = useMemo(() => {
     const validWeight = Math.max(0.5, Math.min(weight, 100));
     
@@ -134,8 +218,10 @@ export default function FoodCalculator() {
       ? Math.pow(validWeight, 0.75)
       : Math.pow(validWeight, 0.67);
 
-    // Necessidade Energética de Manutenção (NEM / MER) em kcal/dia
-    const dailyKcal = Math.round(currentActivity.factor * metabolicWeight);
+    // Necessidade Energética de Manutenção (NEM / MER) em kcal/dia:
+    // Fator de atividade * Peso metabólico * Multiplicador do Escore de Condição Corporal
+    const baseKcal = currentActivity.factor * metabolicWeight;
+    const dailyKcal = Math.round(baseKcal * currentBCS.multiplier);
 
     // Gramas por dia = (kcal/dia / (kcal/kg)) * 1000
     const safeCaloricDensity = Math.max(2500, Math.min(caloricDensity, 5000));
@@ -150,6 +236,16 @@ export default function FoodCalculator() {
     const costPerDay = daysDuration > 0 ? packagePrice / daysDuration : 0;
     const costPerMonth = costPerDay * 30;
 
+    // Estimativa de Peso Ideal para animais fora do ECC 4-5
+    let estimatedIdealWeight: number | null = null;
+    if (bcs === 'SOBREPESO') {
+      estimatedIdealWeight = Number((validWeight / 1.15).toFixed(1));
+    } else if (bcs === 'OBESO') {
+      estimatedIdealWeight = Number((validWeight / 1.30).toFixed(1));
+    } else if (bcs === 'ABAIXO') {
+      estimatedIdealWeight = Number((validWeight / 0.90).toFixed(1));
+    }
+
     return {
       dailyKcal,
       dailyGrams,
@@ -157,8 +253,9 @@ export default function FoodCalculator() {
       daysDuration,
       costPerDay,
       costPerMonth,
+      estimatedIdealWeight,
     };
-  }, [species, weight, currentActivity, caloricDensity, packageWeight, packagePrice, mealsPerDay]);
+  }, [species, weight, currentActivity, currentBCS, caloricDensity, packageWeight, packagePrice, mealsPerDay, bcs]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
@@ -205,7 +302,7 @@ export default function FoodCalculator() {
                 color: 'var(--brand-forest-900)',
               }}
             >
-              Dados do seu animal de companhia
+              Dados zootécnicos do pet
             </h2>
           </div>
 
@@ -220,7 +317,7 @@ export default function FoodCalculator() {
                 marginBottom: '8px',
               }}
             >
-              Espécie do Pet
+              Espécie
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
               <button
@@ -281,7 +378,7 @@ export default function FoodCalculator() {
                   color: 'var(--brand-forest-900)',
                 }}
               >
-                Peso Corporal do Pet
+                Peso Corporal Atual
               </label>
               <span
                 style={{
@@ -315,7 +412,67 @@ export default function FoodCalculator() {
             </div>
           </div>
 
-          {/* Nível de Atividade / Fase de Vida */}
+          {/* Escore de Condição Corporal (ECC / BCS 1 a 9) */}
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <label
+                style={{
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  color: 'var(--brand-forest-900)',
+                }}
+              >
+                Condição Corporal (ECC / WSAVA)
+              </label>
+              <span
+                style={{
+                  fontSize: '0.70rem',
+                  fontWeight: 700,
+                  color: 'var(--brand-forest-700)',
+                  backgroundColor: 'var(--brand-forest-50)',
+                  padding: '2px 8px',
+                  borderRadius: '6px',
+                  border: '1px solid var(--border-cream)',
+                }}
+              >
+                {currentBCS.bcsRange}
+              </span>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px', marginBottom: '8px' }}>
+              {BCS_OPTIONS.map((opt) => {
+                const isSelected = bcs === opt.id;
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setBcs(opt.id)}
+                    style={{
+                      textAlign: 'left',
+                      padding: '10px 12px',
+                      borderRadius: '10px',
+                      border: isSelected ? '2px solid var(--brand-forest-700)' : '1px solid var(--border-cream)',
+                      backgroundColor: isSelected ? 'var(--brand-forest-50)' : '#ffffff',
+                      cursor: 'pointer',
+                      transition: 'var(--transition-fast)',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: isSelected ? 'var(--brand-forest-900)' : 'var(--text-body)' }}>
+                      {opt.label}
+                    </div>
+                    <div style={{ fontSize: '0.70rem', color: 'var(--text-muted)' }}>
+                      {opt.sublabel}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+            <p style={{ margin: '4px 0 0', fontSize: '0.74rem', color: 'var(--text-muted)', lineHeight: 1.4 }}>
+              {currentBCS.description}
+            </p>
+          </div>
+
+          {/* Nível de Atividade / Fase de Vida / Reprodução */}
           <div>
             <label
               htmlFor="activity-select"
@@ -380,6 +537,78 @@ export default function FoodCalculator() {
             >
               Dados da ração e embalagem
             </h2>
+          </div>
+
+          {/* Densidade Calórica Editável */}
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
+              <label
+                htmlFor="caloric-density-input"
+                style={{
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  color: 'var(--brand-forest-900)',
+                }}
+              >
+                Densidade Calórica (kcal/kg)
+              </label>
+              <span
+                style={{
+                  fontSize: '0.90rem',
+                  fontWeight: 800,
+                  color: 'var(--brand-forest-700)',
+                  fontFamily: 'var(--font-heading)',
+                }}
+              >
+                {caloricDensity} <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>kcal/kg</span>
+              </span>
+            </div>
+
+            {/* Presets de Densidade */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '8px' }}>
+              {CALORIC_PRESETS.map((preset) => (
+                <button
+                  key={preset.value}
+                  type="button"
+                  onClick={() => setCaloricDensity(preset.value)}
+                  style={{
+                    padding: '5px 10px',
+                    borderRadius: '8px',
+                    border: caloricDensity === preset.value ? '2px solid var(--brand-forest-700)' : '1px solid var(--border-cream)',
+                    backgroundColor: caloricDensity === preset.value ? 'var(--brand-forest-50)' : '#ffffff',
+                    color: caloricDensity === preset.value ? 'var(--brand-forest-900)' : 'var(--text-body)',
+                    fontWeight: 700,
+                    fontSize: '0.74rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+
+            <input
+              id="caloric-density-input"
+              type="number"
+              min={2500}
+              max={5000}
+              step={50}
+              value={caloricDensity}
+              onChange={(e) => setCaloricDensity(parseInt(e.target.value) || 3700)}
+              style={{
+                width: '100%',
+                padding: '9px 12px',
+                borderRadius: '10px',
+                border: '1px solid var(--border-cream)',
+                fontSize: '0.88rem',
+                fontWeight: 600,
+                color: 'var(--brand-forest-900)',
+                outline: 'none',
+              }}
+            />
+            <p style={{ margin: '4px 0 0', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+              Consulte o verso da embalagem no item <em>Energia Metabolizável</em>. O padrão comum é ~3.700 kcal/kg.
+            </p>
           </div>
 
           {/* Tamanho da Embalagem */}
@@ -530,21 +759,37 @@ export default function FoodCalculator() {
               }}
             />
 
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.8px',
-                color: 'var(--brand-forest-300)',
-                marginBottom: '8px',
-              }}
-            >
-              <Sparkles size={14} /> Recomendação Zootécnica Estimada
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '0.74rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.8px',
+                  color: 'var(--brand-forest-300)',
+                }}
+              >
+                <Sparkles size={14} /> Recomendação Zootécnica Estimada
+              </span>
+              {bcs !== 'IDEAL' && (
+                <span
+                  style={{
+                    fontSize: '0.70rem',
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: '6px',
+                    backgroundColor: bcs === 'ABAIXO' ? 'rgba(59, 130, 246, 0.2)' : 'rgba(234, 179, 8, 0.2)',
+                    color: bcs === 'ABAIXO' ? '#93c5fd' : '#fef08a',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                  }}
+                >
+                  {bcs === 'ABAIXO' ? 'Ajustado para ganho' : 'Ajustado para déficit'}
+                </span>
+              )}
+            </div>
 
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '8px' }}>
               <span
@@ -563,9 +808,30 @@ export default function FoodCalculator() {
               </span>
             </div>
 
-            <p style={{ margin: '0 0 20px', fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.85)' }}>
+            <p style={{ margin: '0 0 16px', fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.85)' }}>
               Para o peso de <strong>{weight} kg</strong>, forneça <strong>{calculation.gramsPerMeal}g</strong> em cada uma das <strong>{mealsPerDay} refeições diárias</strong>.
             </p>
+
+            {calculation.estimatedIdealWeight && (
+              <div
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  borderRadius: '10px',
+                  padding: '10px 14px',
+                  marginBottom: '18px',
+                  fontSize: '0.80rem',
+                  color: 'rgba(255, 255, 255, 0.90)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <HeartPulse size={16} style={{ color: 'var(--brand-forest-300)', flexShrink: 0 }} />
+                <span>
+                  Peso ideal estimado: <strong>~{calculation.estimatedIdealWeight} kg</strong>. A porção diária já contempla o ajuste calórico gradual conforme diretrizes da WSAVA e FEDIAF.
+                </span>
+              </div>
+            )}
 
             <div
               style={{
@@ -586,7 +852,7 @@ export default function FoodCalculator() {
               </div>
               <div>
                 <span style={{ display: 'block', fontSize: '0.70rem', color: 'rgba(255, 255, 255, 0.65)', fontWeight: 600 }}>
-                  Densidade de Referência
+                  Densidade da Ração
                 </span>
                 <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff' }}>
                   {caloricDensity} <span style={{ fontSize: '0.72rem', fontWeight: 500 }}>kcal/kg</span>
@@ -667,7 +933,7 @@ export default function FoodCalculator() {
           >
             <AlertCircle size={20} style={{ color: 'var(--brand-forest-700)', flexShrink: 0, marginTop: '2px' }} />
             <div style={{ fontSize: '0.80rem', color: 'var(--text-body)', lineHeight: 1.5 }}>
-              <strong>Dica de Manejo (ABINPET / FEDIAF):</strong> Utilize sempre uma <strong>balança de cozinha digital</strong> em vez de copos medidores de plástico. O tamanho e a densidade dos croquetes variam entre marcas, gerando variações de até 25% na quantidade real oferecida.
+              <strong>Dica de Manejo (ABINPET / FEDIAF):</strong> Utilize sempre uma <strong>balança de cozinha digital</strong> em vez de copos medidores plásticos. O tamanho e a densidade dos croquetes variam entre marcas, gerando variações de até 25% na porção real fornecida.
             </div>
           </div>
 

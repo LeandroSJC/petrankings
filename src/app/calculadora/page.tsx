@@ -5,11 +5,11 @@ import FoodCalculator from '@/components/FoodCalculator';
 import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Calculadora de Porção de Ração: Quantidade Diária e Custo por Dia',
-  description: 'Calcule a quantidade diária recomendada de ração (g/dia) para cães e gatos, o rendimento do pacote e o custo diário com base nas fórmulas oficiais da FEDIAF e NRC.',
+  title: 'Calculadora de Porção de Ração: Quantidade Diária, Escore Corporal e Custo',
+  description: 'Calcule a quantidade diária recomendada de ração (g/dia) para cães e gatos com base no peso metabólico, escore de condição corporal (WSAVA) e diretrizes oficiais da FEDIAF e NRC.',
   openGraph: {
-    title: 'Calculadora de Porção de Ração: Quantidade Diária e Custo por Dia | PetRankings',
-    description: 'Descubra exatamente quantos gramas de ração seu cão ou gato deve comer por dia, quantos dias o pacote dura e o custo diário de alimentação.',
+    title: 'Calculadora de Porção de Ração: Quantidade Diária, Escore Corporal e Custo | PetRankings',
+    description: 'Descubra exatamente quantos gramas de ração seu cão ou gato deve comer por dia com ajuste para peso ideal, rendimento do pacote e custo diário de alimentação.',
     url: `${SITE_URL}/calculadora`,
   },
   alternates: {
@@ -23,7 +23,7 @@ export default function CalculatorPage() {
     '@type': 'WebApplication',
     name: 'Calculadora de Porção Diária de Ração e Custo Pet',
     url: `${SITE_URL}/calculadora`,
-    description: 'Ferramenta zootécnica para estimar a quantidade diária de alimento seco para cães e gatos com base no peso metabólico (FEDIAF/NRC).',
+    description: 'Ferramenta zootécnica para estimar a quantidade diária de alimento seco para cães e gatos com base no peso metabólico (FEDIAF/NRC) e escore de condição corporal (WSAVA).',
     applicationCategory: 'HealthApplication',
     operatingSystem: 'All',
     offers: {
@@ -42,7 +42,23 @@ export default function CalculatorPage() {
         name: 'Como é calculada a quantidade de ração diária que o pet deve comer?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'O cálculo baseia-se na Necessidade Energética de Manutenção (NEM), calculada a partir do peso metabólico do animal (Peso^0.75 para cães e Peso^0.67 para gatos) multiplicado pelo fator de atividade e castração, conforme as diretrizes da FEDIAF e NRC. A energia resultante (kcal/dia) é dividida pela densidade calórica da ração.',
+          text: 'O cálculo baseia-se na Necessidade Energética de Manutenção (NEM), calculada a partir do peso metabólico do animal (Peso^0.75 para cães e Peso^0.67 para gatos) multiplicado pelo fator de atividade, fase reprodutiva e escore de condição corporal (WSAVA), conforme as diretrizes da FEDIAF e NRC. A energia resultante (kcal/dia) é dividida pela densidade calórica real da ração.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'O sexo do pet (macho ou fêmea) altera a quantidade de comida diária?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Para cães e gatos adultos em manutenção, o sexo biológico isolado não altera o cálculo de calorias segundo os compêndios do NRC e da FEDIAF. O dimorfismo de porte entre machos e fêmeas já é contemplado diretamente no peso corporal do animal. A única variação comprovada ocorre em fêmeas reprodutoras nas últimas semanas de gestação e durante a fase de amamentação (lactação), quando a demanda calórica cresce fortemente.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Por que o escore de condição corporal (ECC) ajusta a porção?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Animais com sobrepeso ou obesidade possuem excesso de tecido adiposo, que tem gasto metabólico menor que a massa muscular. Alimentar um pet com sobrepeso com base apenas no peso da balança perpetua o acúmulo de gordura. O ajuste por ECC aplica déficit gradual seguro para aproximar o animal do seu peso ideal de forma progressiva.',
         },
       },
       {
@@ -51,14 +67,6 @@ export default function CalculatorPage() {
         acceptedAnswer: {
           '@type': 'Answer',
           text: 'Copos medidores de plástico geram erros de 15% a 25% na porção diária devido à variação no formato e na densidade dos croquetes entre diferentes marcas. Pequenas sobras acumuladas ao longo de meses são a principal causa oculta de sobrepeso e obesidade em cães e gatos.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Quantas vezes ao dia devo oferecer a comida?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Para cães adultos saudáveis, recomenda-se dividir a porção diária em 2 a 3 refeições para evitar torção gástrica e picos de glicemia. Para gatos, recomenda-se fracionar em múltiplas pequenas porções ou utilizar comedouros interativos que estimulem o comportamento natural de caça.',
         },
       },
     ],
@@ -149,7 +157,7 @@ export default function CalculatorPage() {
                   marginBottom: '8px',
                 }}
               >
-                Calculadora de ração: quantidade diária recomendada e custo por dia para cães e gatos
+                Calculadora de ração: quantidade diária recomendada, escore corporal e custo para cães e gatos
               </h1>
 
               {/* Camada 3: Lead Técnico */}
@@ -161,7 +169,7 @@ export default function CalculatorPage() {
                   margin: 0,
                 }}
               >
-                Estime a necessidade calórica diária em kcal, a porção exata em gramas por refeição, o tempo de rendimento do pacote e o custo diário real de alimentação com base no peso metabólico e padrões de referência da FEDIAF e NRC.
+                Estime a necessidade calórica diária em kcal, a porção em gramas por refeição, o tempo de rendimento do pacote e o custo diário real de alimentação com base no peso metabólico, escore corporal (WSAVA) e padrões da FEDIAF e NRC.
               </p>
             </div>
           </div>
@@ -213,13 +221,14 @@ export default function CalculatorPage() {
               </h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-              <div style={{ display: 'flex', gap: '14px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+              {/* Pilar 1 */}
+              <div style={{ display: 'flex', gap: '12px' }}>
                 <div
                   style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '10px',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
                     backgroundColor: 'var(--brand-forest-50)',
                     color: 'var(--brand-forest-800)',
                     display: 'flex',
@@ -227,45 +236,43 @@ export default function CalculatorPage() {
                     justifyContent: 'center',
                     flexShrink: 0,
                     fontWeight: 800,
+                    fontSize: '0.90rem',
                   }}
                 >
                   1
                 </div>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
-                    <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                    <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
                       Peso metabólico
                     </h3>
                     <span
                       style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        padding: '2px 8px',
-                        borderRadius: '6px',
+                        padding: '1px 6px',
+                        borderRadius: '4px',
                         backgroundColor: 'var(--brand-forest-50)',
                         border: '1px solid var(--border-cream)',
-                        fontSize: '0.75rem',
+                        fontSize: '0.70rem',
                         fontWeight: 700,
                         color: 'var(--brand-forest-800)',
-                        fontFamily: 'var(--font-inter)',
                       }}
                     >
-                      PV<sup>0,75</sup> (cães) &bull; PV<sup>0,67</sup> (gatos)
+                      PV<sup>0,75</sup> / PV<sup>0,67</sup>
                     </span>
                   </div>
-                  <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-body)', lineHeight: 1.55 }}>
-                    O consumo calórico de um animal não cresce de forma linear com o peso. Um cão de 40 kg não come quatro vezes o que um cão de 10 kg come. Por isso, a zootecnia moderna calcula a energia a partir do peso metabólico (onde o peso vivo é elevado à potência de 0,75 para cães e 0,67 para gatos), respeitando a dissipação de calor e o metabolismo real.
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-body)', lineHeight: 1.5 }}>
+                    O consumo calórico não cresce de forma linear com o peso. Um cão de 40 kg não consome quatro vezes o que um cão de 10 kg consome. A energia é calculada pela superfície corporal e dissipação térmica real.
                   </p>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '14px' }}>
+              {/* Pilar 2 */}
+              <div style={{ display: 'flex', gap: '12px' }}>
                 <div
                   style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '10px',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
                     backgroundColor: 'var(--brand-forest-50)',
                     color: 'var(--brand-forest-800)',
                     display: 'flex',
@@ -273,26 +280,28 @@ export default function CalculatorPage() {
                     justifyContent: 'center',
                     flexShrink: 0,
                     fontWeight: 800,
+                    fontSize: '0.90rem',
                   }}
                 >
                   2
                 </div>
                 <div>
-                  <h3 style={{ margin: '0 0 6px', fontSize: '1rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
-                    Fator fisiológico e castração
+                  <h3 style={{ margin: '0 0 6px', fontSize: '0.95rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
+                    Fase de vida e rotina
                   </h3>
-                  <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-body)', lineHeight: 1.55 }}>
-                    A castração reduz a taxa metabólica de cães e gatos em 20% a 30%. Ao mesmo tempo, filhotes em crescimento e cães atletas exigem aporte proteico e calórico superior para sustentar o desenvolvimento e a recuperação tecidual.
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-body)', lineHeight: 1.5 }}>
+                    A castração e a vida em apartamento reduzem o gasto calórico diário, enquanto filhotes em crescimento e fêmeas em gestação ou lactação demandam aportes ampliados para sustentação tecidual.
                   </p>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '14px' }}>
+              {/* Pilar 3 */}
+              <div style={{ display: 'flex', gap: '12px' }}>
                 <div
                   style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '10px',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
                     backgroundColor: 'var(--brand-forest-50)',
                     color: 'var(--brand-forest-800)',
                     display: 'flex',
@@ -300,16 +309,46 @@ export default function CalculatorPage() {
                     justifyContent: 'center',
                     flexShrink: 0,
                     fontWeight: 800,
+                    fontSize: '0.90rem',
                   }}
                 >
                   3
                 </div>
                 <div>
-                  <h3 style={{ margin: '0 0 6px', fontSize: '1rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
-                    Densidade calórica da ração (kcal/kg)
+                  <h3 style={{ margin: '0 0 6px', fontSize: '0.95rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
+                    Escore corporal (ECC)
                   </h3>
-                  <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-body)', lineHeight: 1.55 }}>
-                    Alimentos Super Premium possuem maior digestibilidade e teor de gorduras nobres, exigindo porções menores em gramas quando comparados a alimentos com alta concentração de carboidratos e cinzas minerais.
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-body)', lineHeight: 1.5 }}>
+                    Conforme o padrão global da WSAVA (1 a 9 pontos), animais com sobrepeso recebem déficit calórico moderado para atingir o peso ideal com segurança, sem perda abrupta de massa magra.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pilar 4 */}
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
+                    backgroundColor: 'var(--brand-forest-50)',
+                    color: 'var(--brand-forest-800)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    fontWeight: 800,
+                    fontSize: '0.90rem',
+                  }}
+                >
+                  4
+                </div>
+                <div>
+                  <h3 style={{ margin: '0 0 6px', fontSize: '0.95rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
+                    Densidade da ração
+                  </h3>
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-body)', lineHeight: 1.5 }}>
+                    Alimentos com maior energia metabolizável (ex: 4.100 kcal/kg) demandam porções menores em gramas que alimentos leves ou de emagrecimento (ex: 3.200 kcal/kg) para a mesma meta energética.
                   </p>
                 </div>
               </div>
@@ -322,6 +361,15 @@ export default function CalculatorPage() {
               </h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div style={{ padding: '16px', borderRadius: '12px', backgroundColor: 'var(--bg-muted)' }}>
+                  <h4 style={{ margin: '0 0 6px', fontSize: '0.94rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
+                    O sexo do animal (macho ou fêmea) altera a porção de ração diária?
+                  </h4>
+                  <p style={{ margin: 0, fontSize: '0.84rem', color: 'var(--text-body)', lineHeight: 1.5 }}>
+                    Para cães e gatos adultos saudáveis em manutenção, o sexo biológico isolado não altera o cálculo de energia de acordo com o National Research Council (NRC 2006) e a FEDIAF. O dimorfismo de tamanho entre machos e fêmeas já é considerado automaticamente pelo peso corporal em quilos. A única alteração ocorre em fêmeas reprodutoras nas semanas finais de gestação e durante a fase de amamentação (lactação).
+                  </p>
+                </div>
+
                 <div style={{ padding: '16px', borderRadius: '12px', backgroundColor: 'var(--bg-muted)' }}>
                   <h4 style={{ margin: '0 0 6px', fontSize: '0.94rem', fontWeight: 700, color: 'var(--brand-forest-900)' }}>
                     Posso confiar na tabela impressa no verso do pacote?
@@ -353,7 +401,7 @@ export default function CalculatorPage() {
               }}
             >
               <p style={{ margin: '0 0 8px' }}>
-                <strong>Fontes científicas consultadas:</strong> FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2024); National Research Council (NRC) — Nutrient Requirements of Dogs and Cats (2006); Manual Pet Food Brasil (ABINPET, 11ª Edição).
+                <strong>Fontes científicas consultadas:</strong> FEDIAF Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025); National Research Council (NRC): Nutrient Requirements of Dogs and Cats (2006); Manual Pet Food Brasil (ABINPET, 11ª Edição); Diretrizes de Avaliação Nutricional da WSAVA (World Small Animal Veterinary Association).
               </p>
               <p style={{ margin: 0 }}>
                 <em>Aviso editorial: Os valores calculados são estimativas teóricas de referência para animais saudáveis. Fatores individuais como temperatura ambiente, genética, castração e escore de condição corporal (ECC) influenciam a demanda real. Consulte sempre o médico veterinário de confiança do seu animal.</em>
