@@ -725,15 +725,16 @@ export function parseProductFromHtml(
 
   if (isAlinutri) {
     let aliImg: string | null = null;
-    $('img').each((_, el) => {
+    for (const el of $('img').toArray()) {
       const src = $(el).attr('src') || '';
       if (
         src.includes('wp-content/uploads') &&
         !/logo|icon|tabela|proteinas|ambientes|carnitina|vitaminac|fibras|bandeira|whatsapp|selo|bg-|footer|header/i.test(src)
       ) {
-        if (!aliImg) aliImg = src;
+        aliImg = src;
+        break;
       }
-    });
+    }
     if (aliImg) {
       imageUrl = aliImg.startsWith('http') ? aliImg : `https://alinutri.ind.br${aliImg.startsWith('/') ? '' : '/'}${aliImg}`;
     }

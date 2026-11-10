@@ -7291,7 +7291,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-08',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-premium-especial-vs-super-premium-caes-formula-fixa-substitutivos.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Quase todo pacote no pet shop estampa os selos Premium Especial ou Super Premium na capa, mas poucos tutores sabem que o MAPA não fiscaliza essas nomenclaturas. Explicamos a diferença real entre receita de fórmula fixa e lista de eventuais substitutivos na IN MAPA nº 22/2009 e mostramos como checar se o alimento do seu cão entrega o padrão técnico da ABINPET.',
     relatedProductSlugs: [],
@@ -7458,6 +7458,159 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer ver lado a lado quais rações para cães têm Fórmula Fixa, antioxidantes naturais e proteínas nobres no topo do rótulo? Explore gratuitamente o nosso ranking técnico.',
       buttonText: 'Explorar Ranking para Cães',
       buttonUrl: '/catalogo?especie=Caes',
+    },
+  },
+  {
+    slug: 'comedouro-livre-vs-porcoes-fracionadas-gatos-biologia-rotina',
+    title: 'Comedouro livre ou porções fracionadas: O que a biologia felina dita na rotina?',
+    subtitle:
+      'Entenda por que deixar a tigela cheia 24 horas por dia favorece a obesidade e o tédio em felinos domésticos e como respeitar o ritmo natural de 10 a 20 pequenas refeições diárias.',
+    cluster: 'Manejo & Rotina Alimentar',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-11-09',
+    updatedAt: '2026-11-09',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/comedouro-livre-vs-porcoes-fracionadas-gatos.webp',
+    isFeatured: true,
+    summary:
+      'Muitos tutores acreditam que gatos regulam naturalmente o apetite e mantêm o pote sempre transbordando. Analisamos a fisiologia digestiva do felino como carnívoro de pequenas presas, a oxidação dos lipídios na tigela aberta e como organizar o fracionamento prático da cota diária com base nas diretrizes da ABINPET e da WSAVA.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-mito-do-gato-que-se-regula-sozinho',
+        heading: '1. O mito do "gato que se regula sozinho": Por que o comedouro cheio virou armadilha',
+        paragraphs: [
+          'A crença de que o gato doméstico sabe exatamente quanto precisa comer e nunca ultrapassa seu limite calórico é uma das ideias mais difundidas nos lares brasileiros. Por décadas, a recomendação informal foi manter a tigela sempre abastecida para que o animal beliscasse quando tivesse vontade. No entanto, as estatísticas clínicas veterinárias mostram um cenário preocupante: mais de 40% dos felinos atendidos em clínicas urbanas apresentam sobrepeso ou obesidade evidente.',
+          'Na natureza, os ancestrais dos gatos caçavam pequenas presas como roedores, aves e insetos. Cada caçada exigia intenso gasto energético em perseguição e emboscada, com uma taxa de insucesso de aproximadamente 80%. Para obter as 200 a 250 calorias diárias necessárias à sobrevivência, o felino silvestre precisava realizar dezenas de investidas ao longo do dia e da noite, alternando esforço físico e descanso.',
+          'Dentro de um apartamento ou casa contemporânea, a dinâmica biológica foi completamente subvertida. O alimento industrializado moderno, formulado com alta densidade calórica e palatabilizantes para garantir aceitação imediata, fica disponível a poucos passos da área de descanso. Sem a necessidade de caçar e sem estímulos ambientais dinâmicos, o ato de comer passa a cumprir uma função recreativa, preenchendo momentos de tédio ou estresse.',
+          'Quando a tigela fica cheia 24 horas por dia (prática denominada tecnicamente na zootecnia como alimentação *ad libitum* ou de livre escolha), o felino perde a sinalização fisiológica de saciedade. O consumo calórico diário ultrapassa rotineiramente o gasto metabólico basal em 15% a 30%, desencadeando o acúmulo lento e contínuo de tecido adiposo visceral.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'Alerta sobre a perda de peso em gatos',
+          text: 'Nunca submeta um gato com sobrepeso a um jejum severo ou a um corte brusco de ração. Felinos que ficam sem se alimentar por 48 a 72 horas mobilizam gordura periférica em massa para o fígado, desencadeando lipidose hepática, uma complicação metabólica grave e potencialmente letal. Qualquer readequação calórica deve ser gradual e orientada por balança.',
+        },
+      },
+      {
+        id: 'a-biologia-do-predador-pequenas-refeicoes',
+        heading: '2. A biologia do predador: O padrão natural de 10 a 20 pequenas refeições por dia',
+        paragraphs: [
+          'Do ponto de vista anatômico, o estômago de um gato adulto de 4 kg é relativamente pequeno, com capacidade similar ao volume de uma noz. Ao contrário dos cães, que possuem estômagos expansíveis capazes de acomodar refeições volumosas e esparsas (herança de canídeos que comiam carcaças em bando), o gato é um comedor fracionado obrigatório. Sua fisiologia foi desenhada para receber micro-porções de 20 a 40 kcal por vez.',
+          'Estudos de comportamento alimentar conduzidos pelo WALTHAM Petcare Science Institute demonstraram que, quando gatos têm livre acesso e precisam despender um mínimo de esforço para conseguir comida, eles dividem naturalmente a ingestão diária entre 10 e 20 pequenas refeições espalhadas por todo o ciclo circadiano, com picos de atividade alimentar ao amanhecer e ao entardecer (comportamento crepuscular).',
+          'O grande equívoco da rotina moderna decorre do contraste entre dois extremos prejudiciais: deixar o comedouro transbordando o dia inteiro (que anula o forrageamento e promove o consumo excessivo) ou servir apenas duas refeições gigantescas de manhã e à noite. Ao receber 30 gramas de croquetes de uma só vez após horas em jejum, o felino tende a ingerir o alimento de forma voraz, engolindo ar e croquetes inteiros, o que frequentemente culmina em regurgitação logo após a refeição.',
+        ],
+        table: {
+          caption: 'Comparativo zootécnico: Comedouro de livre acesso (*Ad Libitum*) vs Refeições fracionadas programadas (Diretrizes WSAVA / ABINPET)',
+          headers: ['Parâmetro Avaliado', 'Comedouro de Livre Acesso (*Ad Libitum*)', 'Refeições Fracionadas Programadas'],
+          rows: [
+            ['Controle de ingestão calórica', 'Nulo; o gato consome por impulso, tédio ou palatabilidade', 'Preciso; a dose diária é pesada e dividida matematicamente'],
+            ['Risco de sobrepeso e obesidade', 'Elevado (especialmente para gatos castrados e sedentários)', 'Baixo a controlado; mantém o escore corporal ideal (ECC 5/9)'],
+            ['Frescor e palatabilidade da gordura', 'Baixo; os croquetes sofrem oxidação e perda de aroma no pote', 'Máximo; o alimento sai da embalagem vedada direto para o consumo'],
+            ['Estímulo cognitivo e ambiental', 'Inexistente; a comida está passivamente disponível a todo momento', 'Alto; permite o uso de comedouros-quebra-cabeça e forrageamento'],
+            ['Prevenção de regurgitação pós-refeição', 'Irregular; o gato pode passar o dia beliscando ou comer por tédio', 'Excelente; porções pequenas de 10g a 15g evitam dilatação gástrica'],
+          ],
+        },
+      },
+      {
+        id: 'oxidação-dos-lipidios-no-comedouro-aberto',
+        heading: '3. O ar e o calor: O que acontece com a ração deixada o dia todo na tigela',
+        paragraphs: [
+          'Além das repercussões metabólicas sobre o peso, manter a comida exposta por longos períodos altera profundamente as propriedades físicas e bromatológicas do alimento. Rações de categoria Super Premium para gatos contêm teores elevados de Extrato Etéreo (entre 12% e 20% de gordura bruta), incluindo ingredientes nobres como gordura de frango, óleo de peixe marinho e tocoferóis naturais.',
+          'Ao entrar em contato contínuo com o oxigênio atmosférico, a poeira doméstica e a temperatura ambiente, as gorduras depositadas na superfície dos croquetes iniciam um processo de peroxidação lipídica superficial. Essa reação química degrada os compostos aromáticos voláteis que atraem o gato e gera subprodutos com odor rançoso perceptível para o sensível sistema olfativo felino.',
+          'Muitos tutores interpretam de forma equivocada o comportamento típico do gato que se aproxima de uma tigela ainda com ração pela metade, cheira o conteúdo, mia solicitando atenção e devora imediatamente os grãos assim que uma nova colherada é retirada do pacote e jogada por cima. Não se trata de arrogância ou mania: o animal está apenas recusando croquetes que perderam o perfil aromático original e oxidaram ao longo das horas.',
+          'Em dias quentes ou em cidades com alta umidade relativa do ar, o croquete exposto absorve água do ambiente, perdendo a crocância mecânica característica e criando um meio favorável à proliferação de ácaros de estocagem e bactérias ambientais. Ração fresca deve ir para o comedouro apenas nos momentos programados de alimentação.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Higienização diária do comedouro',
+          text: 'Mesmo fracionando as refeições, lave a tigela de cerâmica ou inox diariamente com água morna e detergente neutro. Os resquícios de gordura animal deixados pelos croquetes formam uma fina película na superfície do prato que se oxida rapidamente e repele o gato pelo cheiro na refeição seguinte.',
+        },
+      },
+      {
+        id: 'como-colocar-o-fracionamento-em-pratica',
+        heading: '4. Como colocar o fracionamento em prática sem sobrecarregar a rotina do tutor',
+        paragraphs: [
+          'A principal barreira apontada por quem convive com gatos para não fracionar a comida é a rotina profissional de trabalho fora de casa. Dividir a alimentação em 4 ou 5 momentos parece, à primeira vista, uma tarefa incompatível com quem passa o dia no escritório. No entanto, o manejo pode ser estruturado com eficiência através de combinações simples de rotina e tecnologia.',
+          'O ponto de partida inegociável é estabelecer a dose diária exata em gramas. Utilize uma balança digital de precisão de cozinha para pesar a quantidade indicada na tabela do fabricante para o peso-alvo do seu gato, ajustando para o nível de atividade e condição de castração. Abandonar os copos medidores plásticos, que acumulam margens de erro de até 25% para mais, é o primeiro passo para controlar a ingestão energética.',
+          'Para distribuir essa cota ao longo do dia, o tutor pode servir a primeira porção logo ao acordar e a segunda pouco antes de sair de casa. As refeições intermediárias do período em que o imóvel fica vazio podem ser gerenciadas por comedouros automáticos programáveis com temporizador digital, que liberam porções calibradas de 10 a 15 gramas nos horários agendados.',
+          'Outra ferramenta zootécnica de imenso valor são os quebra-cabeças alimentares (conhecidos internacionalmente como *puzzle feeders*). Labirintos de acrílico, torres de croquetes e bolas recheáveis com aberturas reguláveis obrigam o felino a utilizar as patas e o raciocínio para capturar os grãos. Esse recurso transforma uma refeição engolida em 40 segundos em uma atividade motora e cognitiva de 15 minutos, simulando o forrageamento natural e combatendo o estresse do confinamento.',
+        ],
+      },
+      {
+        id: 'checklist-de-transicao-do-comedouro-livre',
+        heading: '5. Checklist do Observatório: 4 passos para transição do comedouro livre para o fracionado',
+        paragraphs: [
+          'Mudar a rotina de um animal habituado a encontrar comida abundante a qualquer hora exige cautela e paciência. Interromper o livre acesso de maneira abrupta pode gerar picos de cortisol, frustração e miados insistentes na porta do armário. O Observatório PetRankings estruturou um protocolo de transição gradual em quatro etapas:',
+          '1. Pese a cota diária na balança e estabeleça horários de ancoragem: Determine a quantidade total de gramas recomendada para 24 horas e separe-a em um recipiente fechado toda manhã. Comece dividindo essa cota em 3 ou 4 momentos regulares do dia (manhã cedo, meio da tarde via alimentador ou brinquedo, início da noite e antes de dormir).',
+          '2. Retire as sobras após 30 a 40 minutos: Ao oferecer a refeição na tigela, permita que o gato se alimente tranquilamente. Caso ele se afaste deixando grãos remanescentes, recolha a sobra e guarde-a em recipiente vedado até o próximo horário programado, ensinando o animal a associar a presença da comida ao momento de comer.',
+          '3. Associe uma das porções ao alimento úmido (*mix feeding*): O uso de sachês ou latas completas de qualidade na primeira ou última refeição do dia aumenta a ingestão hídrica, promove saciedade imediata pelo volume de água e torna o ritual da refeição programada altamente recompensador para o felino.',
+          '4. Acompanhe a curva de peso quinzenalmente: Pese o gato a cada 15 dias na mesma balança (pesando o tutor com o gato no colo e subtraindo o peso do tutor). Em planos de manutenção, o peso deve permanecer estável. Em planos de redução de peso, a perda nunca deve ultrapassar 1% a 2% do peso vivo por semana, garantindo emagrecimento seguro da massa gorda sem comprometer a integridade hepática e muscular.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Meu gato mia sem parar quando o comedouro esvazia. Como lidar com essa ansiedade inicial?',
+        a: 'Gatos habituados ao comedouro cheio encaram a tigela vazia como um sinal de escassez e insegurança territorial. Para quebrar essa ansiedade, nunca coloque comida imediatamente após uma sessão de miados, pois isso reforça o comportamento por recompensa. Introduza quebra-cabeças alimentares com pequenas quantidades de croquetes espalhados pela casa e mantenha horários previsíveis para as refeições, demonstrando ao felino que o alimento sempre chegará no momento certo.',
+      },
+      {
+        q: 'Quantas vezes por dia, no mínimo, um gato adulto deve ser alimentado?',
+        a: 'O consenso entre nutricionistas veterinários e entidades como a WSAVA recomenda que gatos adultos recebam sua cota diária dividida em no mínimo 3 a 4 refeições ao longo de 24 horas. Para gatos com histórico de regurgitação por voracidade ou tendência marcante ao sobrepeso, fracionar em 5 ou 6 micro-porções utilizando comedouros automáticos ou brinquedos dispensadores produz resultados metabólicos ainda mais consistentes.',
+      },
+      {
+        q: 'Deixar uma pequena porção de ração na tigela durante a madrugada faz mal?',
+        a: 'Não faz mal, desde que essa porção faça parte da cota calórica diária previamente pesada na balança. Como os felinos são naturalmente crepusculares e mantêm atividade durante a madrugada, deixar uma pequena porção (cerca de 10g a 15g) ou abastecer um quebra-cabeça alimentar antes de deitar é uma excelente estratégia para evitar que o gato acorde os tutores às 5 horas da manhã solicitando comida.',
+      },
+      {
+        q: 'Comedouros automáticos de gravidade (que reabastecem sozinhos) são recomendados para gatos?',
+        a: 'Não são recomendados para a maioria dos gatos domésticos de interior. Os comedouros por gravidade funcionam exatamente como o comedouro livre tradicional, mantendo um estoque aberto e contínuo que estimula a ingestão por impulso e favorece a oxidação da gordura no reservatório inferior. A melhor opção tecnológica são os alimentadores automáticos com controle eletrônico de porções e vedação hermética no silo superior.',
+      },
+    ],
+    conclusion:
+      'Adequar a rotina alimentar do gato doméstico ao seu perfil biológico ancestral de carnívoro de pequenas presas é uma das intervenções preventivas mais impactantes para a saúde e longevidade do animal. Ao substituir o comodismo do comedouro cheio 24 horas por dia por refeições fracionadas, pesadas na balança e associadas a estímulos cognitivos de forrageamento, o tutor previne a obesidade, protege a integridade das gorduras nobres da ração e devolve ao felino o prazer ativo da conquista do seu próprio alimento.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Parâmetros de exigências nutricionais para gatos, cálculo de Energia Metabolizável (EM) e recomendações para manejo de manutenção e prevenção de sobrepeso em animais castrados',
+      },
+      {
+        title: 'Global Nutrition Guidelines & Nutritional Assessment Guidelines for Dogs and Cats',
+        institution: 'World Small Animal Veterinary Association (WSAVA)',
+        type: 'estudo',
+        url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+        details: 'Diretrizes mundiais de avaliação nutricional clínica, escala de 9 pontos para Escore de Condição Corporal (ECC) e riscos do método de alimentação ad libitum em felinos confinados',
+      },
+      {
+        title: 'Pocket Book of Healthy Weight Maintenance in Cats',
+        institution: 'WALTHAM Petcare Science Institute',
+        type: 'literatura',
+        url: 'https://www.waltham.com/resources/waltham-resources',
+        details: 'Estudos comportamentais sobre o padrão natural de ingestão alimentar em felinos (10 a 20 refeições diárias), regulação neuroendócrina do apetite e enriquecimento alimentar com puzzle feeders',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Fundamentos da fisiologia digestiva e metabolismo intermediário de carnívoros estritos, regulação do balanço energético e impacto da taxa metabólica basal pós-castração',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Regulamento Técnico sobre Padrões de Identidade e Qualidade de Alimentos para Cães e Gatos: definição das categorias legais de Alimento Completo e diretrizes de orientação de consumo no rótulo',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte os Níveis de Garantia de Alimentos para Gatos',
+      text: 'Quer descobrir os teores de Extrato Etéreo, proteínas e carboidratos dos alimentos cadastrados no PetRankings? Acesse nossa análise independente de rótulos.',
+      buttonText: 'Ver Ranking de Alimentos para Gatos',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
