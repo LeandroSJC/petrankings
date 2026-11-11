@@ -7628,7 +7628,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-10',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/racao-para-caes-castrados-obrigatorio-trocar-ou-dar-menos-comida.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Após a castração, o metabolismo do cão desacelera enquanto o apetite aumenta. Analisamos à luz do NRC e do Manual ABINPET quando é possível manter a ração de adulto tradicional com ajuste na balança e por que cortes drásticos na tigela causam deficiência de proteínas e vitaminas.',
     relatedProductSlugs: [],
@@ -7757,6 +7757,147 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer conferir os teores de Proteína Bruta, Extrato Etéreo e Matéria Fibrosa convertidos para Matéria Seca? Consulte nossas fichas técnicas avaliadas.',
       buttonText: 'Ver Catálogo de Alimentos para Cães',
       buttonUrl: '/catalogo?especie=Caes',
+    },
+  },
+  {
+    slug: 'sache-diario-para-gatos-calcular-custo-real-por-dia-rins',
+    title: 'Sachê diário para gatos: Como calcular o custo real por dia sem comprometer os rins?',
+    subtitle:
+      'Descomplique a matemática financeira entre a água biológica do sachê de 85g e a concentração calórica da ração seca para montar uma rotina de hidratação que caiba no orçamento mensal.',
+    cluster: 'Custo por Dia & Economia',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-11-11',
+    updatedAt: '2026-11-11',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/sache-diario-para-gatos-calcular-custo-real-por-dia-rins.webp',
+    isFeatured: true,
+    summary:
+      'Oferecer alimento úmido todos os dias protege o trato urinário felino, mas alimentar o gato apenas com sachês multiplica a conta do mês. Ensinamos como converter o preço da embalagem em custo por grama de Matéria Seca (MS) e estruturar o manejo diário combinando economia e proteção renal.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'o-choque-na-calculadora-do-pet-shop',
+        heading: '1. O choque na calculadora do pet shop: Por que a dieta 100% úmida pesa tanto no bolso?',
+        paragraphs: [
+          'Quem tem gato em casa já ouviu a recomendação de incluir sachês na rotina diária para proteger os rins e a bexiga do animal. Porém, ao parar diante da prateleira do pet shop e multiplicar o preço unitário de um sachê de 85g por 30 dias, muitos tutores levam um susto na calculadora do celular.',
+          'A dúvida financeira piora quando o tutor lê o verso do pacotinho e descobre que, para alimentar um gato adulto castrado de 4 kg exclusivamente com sachês, o fabricante indica entre 3 e 4 unidades inteiras por dia. Ao final do mês, uma dieta 100% úmida exige de 90 a 120 sachês para um único felino.',
+          'A explicação para esse custo elevado está na física da umidade declarada nos níveis de garantia. Enquanto um pacote de ração seca contém apenas 8% a 12% de água e entrega cerca de 90% de Matéria Seca (a fração sólida real de proteínas, gorduras, vitaminas e minerais que nutre o corpo), um sachê tradicional possui entre 78% e 84% de água.',
+          'Em termos práticos, quando você abre um sachê de 85g na tigela, cerca de 68g a 71g daquele conteúdo são pura água incorporada ao alimento, restando apenas 14g a 17g de Matéria Seca nutritiva. Por isso, alimentar o gato exclusivamente com sachês significa pagar o custo industrial de embalagem individual, cozimento em autoclave e transporte de pequenos pacotes compostos majoritariamente por água.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Água biológica não é desperdício de dinheiro',
+          text: 'Embora reduza a densidade calórica do pacote, os 80% de umidade do sachê cumprem uma função fisiológica insubstituível: como gatos descendem de felinos do deserto e sentem pouca sede espontânea no bebedouro, ingerir água junto com a carne dilui a urina na bexiga e afasta o risco de cálculos urinários.',
+        },
+      },
+      {
+        id: 'matematica-do-custo-por-materia-seca',
+        heading: '2. A matemática da Matéria Seca (MS): Quanto custa cada grama de nutriente e cada caloria?',
+        paragraphs: [
+          'Para planejar o orçamento doméstico sem abrir mão da saúde urinária, o primeiro passo é abandonar a comparação direta do preço por quilo bruto e calcular o custo por grama de Matéria Seca (MS) e por 100 kcal de Energia Metabolizável (as calorias que o organismo do gato realmente aproveita para viver).',
+          'Conforme os parâmetros da 11ª Edição do Manual Pet Food Brasil (ABINPET) e da FEDIAF, um alimento seco Super Premium ou Premium Especial para gatos castrados entrega em média 3.600 a 3.900 kcal por quilo (cerca de 3,8 kcal por grama de croquete). Já um sachê completo de 85g com 82% de umidade fornece entre 60 e 75 kcal na embalagem inteira.',
+          'Isso significa que um sachê inteiro de 85g equivale, em energia e massa sólida de nutrientes, a apenas 16g a 20g de ração seca (cerca de duas colheres de sopa rasas de croquetes). Na tabela abaixo, simulamos três cenários reais de custo mensal para um gato adulto castrado de 4 kg que necessita de aproximadamente 210 kcal diárias.',
+        ],
+        table: {
+          caption: 'Simulação econômica e hídrica para um gato castrado de 4 kg (Meta diária: ~210 kcal / Valores médios de mercado)',
+          headers: ['Modalidade de Manejo', 'Consumo Diário Real', 'Água Ingerida via Alimento', 'Custo Diário Estimado', 'Custo Mensal (30 dias)'],
+          rows: [
+            ['100% Ração Seca (Ex: pacote de R$ 45/kg)', '55g de ração seca por dia', '~5,5 ml de água/dia', 'R$ 2,48 por dia', 'R$ 74,25 por mês'],
+            ['Dieta Mista: 1 Sachê + Ração Seca', '1 sachê (85g) + 38g de ração seca', '~73,8 ml de água/dia', 'R$ 5,21 por dia', 'R$ 156,30 por mês'],
+            ['Dieta Mista Econômica: Meio Sachê + Seca', 'Meio sachê (42,5g) + 46g de seca', '~39,6 ml de água/dia', 'R$ 3,82 por dia', 'R$ 114,60 por mês'],
+            ['100% Alimento Úmido (Ex: R$ 3,50/sachê)', '3 sachês e meio (300g) por dia', '~246,0 ml de água/dia', 'R$ 12,25 por dia', 'R$ 367,50 por mês'],
+          ],
+        },
+      },
+      {
+        id: 'ponto-de-equilibrio-entre-bolso-e-rins',
+        heading: '3. O ponto de equilíbrio: Como 1 sachê (ou meio sachê) por dia já transforma a saúde urinária',
+        paragraphs: [
+          'Ao observar os números da simulação, fica claro por que a alimentação mista planejada é recomendada por instituições como o WALTHAM Petcare Science Institute e a WSAVA. O tutor não precisa desembolsar quase R$ 400 mensais em uma dieta 100% úmida para proteger os rins e a bexiga do seu companheiro.',
+          'Na estratégia de 1 sachê diário combinado com a base de ração seca, a ingestão de água vinda diretamente do prato salta de irrisórios 5,5 ml para quase 74 ml todos os dias. Esse aporte extra de líquido reduz a Supersaturação Relativa da Urina (RSS), que na prática significa deixar o xixi muito mais claro, diluído e incapaz de agrupar minerais para formar pedras de estruvita ou oxalato.',
+          'Se o orçamento familiar estiver mais apertado ou a casa tiver dois ou três gatos, a modalidade de meio sachê por dia (42,5g servidos em uma refeição úmida, guardando a outra metade fechada na geladeira por até 24 horas) já multiplica por sete a água ingerida via alimento em comparação à ração seca pura, mantendo o custo mensal perto de R$ 114 por gato.',
+          'Outro benefício econômico pouco comentado é a compensação na própria ração seca: cada sachê de 85g servido permite economizar cerca de 17g a 20g de ração seca por dia. Ao longo de um mês, essa substituição poupa mais de meio quilo (510g a 600g) do pacote de ração seca, abatendo parte do valor investido nos sachês.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Atenção à classificação legal no rótulo (IN MAPA nº 30/2009)',
+          text: 'Ao substituir parte da ração seca pelo sachê, verifique obrigatoriamente se a embalagem traz os dizeres "Alimento Completo para Gatos". Sachês classificados como "Alimento Específico" são apenas petiscos sem vitaminas e minerais balanceados, devendo limitar-se a no máximo 10% das calorias diárias.',
+        },
+      },
+      {
+        id: 'taticas-praticas-para-reduzir-o-custo-diario',
+        heading: '4. Quatro táticas práticas para baratear o alimento úmido sem cair em armadilhas',
+        paragraphs: [
+          '1. Compare latas maiores (280g a 340g) com sachês individuais de 85g: Em casas com dois ou mais gatos, comprar latas de patê completo de 290g ou 340g costuma reduzir o preço por quilo em 25% a 40% em relação aos sachês avulsos. Basta transferir o conteúdo aberto para um pote de vidro com tampa hermética na geladeira e consumir em até 48 horas.',
+          '2. Adicione duas colheres de sopa de água filtrada morna ao sachê: Os felinos adoram lamber o caldo aromático do alimento úmido. Misturar 20 ml a 30 ml de água morna (nunca fervente) ao conteúdo do sachê ou amassar o patê formando uma sopa cremosa dobra o volume de hidratação biológica a custo zero e libera os aromas naturais da carne.',
+          '3. Priorize o orçamento na ração seca de base e use sachês completos de entrada: Como a ração seca representará de 65% a 80% das calorias e dos nutrientes diários do gato na dieta mista, concentre o investimento em uma ração seca de alta qualidade (com baixo teor de cinzas minerais e boas fontes proteicas) e combine-a com sachês completos de linhas intermediárias confiáveis, cuja função primordial na rotina será entregar água e saciedade.',
+          '4. Compre caixas fechadas (packs de 12 a 24 unidades) apenas após testar a textura: Gatos possuem forte preferência sensorial pelo corte do alimento (pedaços ao molho, patê homogêneo ou desfiado). Compre duas unidades avulsas para validar a aceitação no comedouro e, uma vez aprovado o sabor, adquira caixas fechadas ou kits mensais, que oferecem descontos de 15% a 25% por unidade.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Um sachê mais acessível faz mal para os rins do gato por causa do sódio?',
+        a: 'Esse é um dos mitos mais comuns entre tutores. Todo Alimento Completo úmido registrado no MAPA segue os tetos seguros de sódio estabelecidos pela ABINPET e pela FEDIAF. Na conversão para Matéria Seca, um sachê contém 80% de água livre, o que significa que o saldo hídrico líquido no organismo do gato é amplamente positivo, ajudando a lavar a bexiga e diluir a urina com total segurança para animais saudáveis.',
+      },
+      {
+        q: 'Posso guardar metade do sachê na geladeira para dar no dia seguinte?',
+        a: 'Sim, desde que armazenado corretamente. Após servir metade do sachê (cerca de 42g), dobre bem a embalagem original prendendo com um clipe de vedação ou transfira o restante para um pequeno pote de vidro fechado na geladeira (nunca na porta, onde a temperatura oscila). Antes de servir no dia seguinte, retire 15 minutos antes ou misture uma colher de sopa de água morna para tirar o gelo, pois gatos costumam rejeitar alimentos gelados.',
+      },
+      {
+        q: 'Substituir o sachê comercial por frango cozido na água sem sal sai mais barato e funciona igual?',
+        a: 'Embora o peito de frango cozido com caldo caseiro ajude na hidratação como um agrado eventual, ele não é um Alimento Completo: falta taurina suplementada, cálcio (o músculo puro tem muito fósforo e quase zero cálcio), vitaminas e ácidos graxos essenciais. Se usado diariamente para substituir uma refeição da ração seca, o frango puro causará deficiência nutricional e desbalanço mineral grave a médio prazo.',
+      },
+      {
+        q: 'Qual o melhor horário do dia para servir a porção de sachê na rotina mista?',
+        a: 'O horário mais estratégico é à noite, pouco antes de os tutores dormirem, ou logo pela manhã. Como o alimento úmido promove alto volume gástrico com poucas calorias e exige digestão tranquila, servi-lo como refeição noturna hidrata o trato urinário durante a madrugada (período em que a urina costuma ficar mais concentrada na bexiga) e reduz os miados matinais por fome.',
+      },
+    ],
+    conclusion:
+      'Proteger os rins e o trato urinário do seu gato não exige um orçamento incompatível com a realidade financeira da família. Ao compreender que o sachê entrega cerca de 80% de água biológica e que a ração seca concentra a base sólida de nutrientes, o tutor pode combinar ambos os formatos com inteligência matemática. Incluir apenas um sachê completo (ou mesmo meio sachê enriquecido com água morna) por dia já transforma o balanço hídrico do felino, reduzindo drasticamente a concentração da urina enquanto mantém o custo mensal sob total controle.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Fórmulas oficiais de conversão para Matéria Seca (MS), cálculo de Energia Metabolizável (EM) em alimentos secos e úmidos e tabelas nutricionais para felinos em manutenção',
+      },
+      {
+        title: 'Effects of Dietary Moisture on Urine Volume and Urinary Relative Supersaturation (RSS) in Cats',
+        institution: 'WALTHAM Petcare Science Institute',
+        type: 'estudo',
+        url: 'https://www.waltham.com/resources/waltham-resources',
+        details: 'Evidências científicas sobre o impacto da umidade dietética (> 75%) e do manejo de mix feeding na diluição urinária, redução da densidade específica da urina e prevenção de urólitos em gatos',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Parâmetros de exigência energética diária para gatos adultos castrados/confinados (75 kcal por kg de peso metabólico) e diretrizes de balanceamento entre alimentos completos secos e úmidos',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Fisiologia do balanço hídrico em carnívoros estritos de origem desértica, regulação do mecanismo de sede e relação entre ingestão de matéria seca e necessidade de água total',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Regulamento Técnico sobre Padrões de Identidade e Qualidade de Alimentos para Cães e Gatos: distinção normativa obrigatória entre Alimento Completo Úmido e Alimento Específico',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Ração Seca e Sachês na Base Seca (MS)',
+      text: 'Quer descobrir quanta proteína e gordura cada sachê e ração seca realmente entregam após descontar a água? Consulte nossas fichas avaliadas.',
+      buttonText: 'Ver Alimentos para Gatos Avaliados',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
