@@ -7771,7 +7771,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-11',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/sache-diario-para-gatos-calcular-custo-real-por-dia-rins.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Oferecer alimento úmido todos os dias protege o trato urinário felino, mas alimentar o gato apenas com sachês multiplica a conta do mês. Ensinamos como converter o preço da embalagem em custo por grama de Matéria Seca (MS) e estruturar o manejo diário combinando economia e proteção renal.',
     relatedProductSlugs: [],
@@ -7898,6 +7898,148 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer descobrir quanta proteína e gordura cada sachê e ração seca realmente entregam após descontar a água? Consulte nossas fichas avaliadas.',
       buttonText: 'Ver Alimentos para Gatos Avaliados',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'mos-fos-e-extrato-de-yucca-na-racao-odor-fezes-caes',
+    title: 'MOS, FOS e extrato de Yucca na ração: Como reduzem o odor das fezes em cães?',
+    subtitle:
+      'Entenda a bioquímica intestinal por trás das rações "Ambientes Internos" e descubra como saponinas vegetais, zeólita e prebióticos agem no cólon para deixar as fezes firmes e com menos cheiro.',
+    cluster: 'Nutrição & Bromatologia',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 7,
+    publishedAt: '2026-11-12',
+    updatedAt: '2026-11-12',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/mos-fos-e-extrato-de-yucca-na-racao-odor-fezes-caes.webp',
+    isFeatured: true,
+    summary:
+      'Quase toda embalagem voltada para cães de apartamento destaca a presença de extrato de Yucca schidigera, zeólita e prebióticos MOS e FOS para diminuir o volume e o mau cheiro no tapete higiênico. Avaliamos como esses aditivos funcionam na prática segundo a literatura zootécnica da ABINPET e as normas do MAPA.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'de-onde-vem-o-mau-cheiro-das-fezes',
+        heading: '1. De onde vem o mau cheiro no tapete higiênico: A diferença entre proteínas nobres e sobras mal digeridas',
+        paragraphs: [
+          'Quem cria um cão dentro de apartamento conhece bem o dilema na prateleira do pet shop: diversas embalagens estampam o selo "Ambientes Internos" prometendo fezes pequenas, firmes e com odor reduzido. Ao virar o pacote para ler os níveis de garantia, surgem nomes técnicos como mananoligossacarídeos (MOS), frutooligossacarídeos (FOS), zeólita e extrato de Yucca schidigera.',
+          'Antes de entender o papel de cada um desses aditivos, é preciso compreender como o mau cheiro se forma no intestino do cão. Conforme documentado pelo National Research Council (NRC) e pelo Manual Pet Food Brasil da ABINPET, o odor intenso das fezes resulta diretamente da fermentação de proteínas que escaparam da digestão no estômago e no intestino delgado.',
+          'Quando o cão consome uma ração formulada com matérias-primas de baixa digestibilidade (como excesso de farinha de carne e ossos rica em colágeno fibroso ou farelos vegetais grosseiros), grande parte dessa proteína não é absorvida pela corrente sanguínea e desce intacta até o intestino grosso (cólon).',
+          'Ao chegar ao cólon, essa sobra proteica serve de banquete para bactérias putrefativas, que quebram os aminoácidos sulfurados e aromáticos liberando compostos voláteis de odor muito forte: amônia, sulfeto de hidrogênio (o gás com cheiro de ovo podre), indol, escatol e mercaptanas. Portanto, a primeira barreira contra o mau cheiro e o volume excessivo de fezes é sempre a alta digestibilidade das proteínas da fórmula.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Por que o volume das fezes diminui em rações Super Premium?',
+          text: 'Uma ração com aproveitamento digestivo acima de 85% gera muito menos resíduo sólido descartado pelo organismo. Na prática, o cão absorve quase tudo o que come para nutrir os músculos e elimina bolos fecais compactos, fáceis de recolher no tapete higiênico.',
+        },
+      },
+      {
+        id: 'como-o-extrato-de-yucca-e-a-zeolita-agem',
+        heading: '2. Extrato de Yucca schidigera e zeólita: O bloqueio químico da amônia e a esponja mineral',
+        paragraphs: [
+          'Mesmo em dietas de alta digestibilidade, o metabolismo natural do cão produz resíduos nitrogenados e gases no final do trato digestivo. É exatamente nessa etapa final que atuam dois aditivos clássicos autorizados pelo MAPA na alimentação animal: o extrato de Yucca schidigera e a zeólita natural.',
+          'A Yucca schidigera é uma planta originária dos desertos da América do Norte rica em compostos bioativos chamados saponinas esteroidais e polifenóis. No intestino grosso do cão, essas saponinas atuam por duas vias simultâneas: inibem a enzima urease bacteriana (freando a transformação da ureia em gás amônia) e ligam-se quimicamente às moléculas de amônia e sulfeto de hidrogênio já formadas, mantendo-as presas na massa fecal para que não evaporem no ar da sala.',
+          'Para que o efeito da Yucca seja percebido pelo tutor no dia a dia, a literatura científica aponta que a dosagem declarada nos níveis de garantia deve situar-se tipicamente entre 125 mg/kg e 250 mg/kg de alimento seco, reduzindo em até 40% a emanação de odores voláteis nas fezes frescas.',
+          'Já a zeólita (especialmente o mineral aluminossilicato clinoptilolita) funciona por um mecanismo puramente físico. Sua estrutura cristalina é repleta de microporos que agem como uma esponja microscópica no lúmen intestinal: ela retém o excesso de água livre, adsorve íons de amônio e toxinas bacterianas, entregando fezes bem moldadas que não grudam no piso nem nos pelos ao redor da cauda.',
+        ],
+        table: {
+          caption: 'Mecanismo de ação e impacto prático dos aditivos intestinais na ração de cães (Referência ABINPET / IN MAPA nº 110/2020)',
+          headers: ['Componente no Rótulo', 'Classificação Técnica', 'Como Age no Intestino do Cão', 'Resultado Prático em Casa'],
+          rows: [
+            ['Extrato de Yucca schidigera', 'Aditivo aromatizante / adsorvente vegetal', 'Saponinas inibem a enzima urease e aprisionam moléculas de amônia e enxofre', 'Reduz drasticamente o cheiro forte das fezes recém-eliminadas'],
+            ['Zeólita (Clinoptilolita)', 'Aditivo tecnológico adsorvente mineral', 'Rede de microporos absorve água livre excedente e íons de amônio no cólon', 'Fezes firmes, secas por fora e fáceis de pegar sem sujar o chão'],
+            ['MOS (Mananoligossacarídeos)', 'Prebiótico da parede celular de leveduras', 'Bloqueia a fixação de bactérias patogênicas (E. coli e Salmonella) na mucosa', 'Previne oscilações digestivas, gases fétidos e diarreias ocasionais'],
+            ['FOS (Frutooligossacarídeos)', 'Fibra prebiótica fermentável (inulina)', 'Nutre seletivamente lactobacilos e bifidobactérias, gerando ácidos graxos protetores', 'Equilibra a flora intestinal e renova as células de absorção do cólon'],
+          ],
+        },
+      },
+      {
+        id: 'papel-dos-prebioticos-mos-e-fos',
+        heading: '3. O que são os prebióticos MOS e FOS: A engenharia invisível da microbiota canina',
+        paragraphs: [
+          'Enquanto a Yucca e a zeólita agem diretamente sobre o cheiro e a umidade do bolo fecal, as siglas MOS e FOS cumprem um papel biológico mais profundo: modular quais famílias de bactérias vão habitar o intestino do seu cão. Ambos são prebióticos, ou seja, fibras especiais que o estômago do animal não digere, mas que servem de alimento estratégico para a microbiota.',
+          'O FOS (frutooligossacarídeo, muitas vezes extraído da raiz de chicória sob o nome de inulina) funciona como um fertilizante seletivo para as bactérias benéficas, como Bifidobacterium e Lactobacillus. Ao fermentarem o FOS, essas bactérias boas produzem Ácidos Graxos de Cadeia Curta (especialmente o butirato), que acidificam levemente o pH do cólon, fornecem energia direta para regenerar a parede intestinal e impedem a proliferação das bactérias causadoras do mau cheiro.',
+          'Por sua vez, o MOS (mananoligossacarídeo, extraído da parede celular da levedura Saccharomyces cerevisiae) atua como um escudo mecânico de defesa. Bactérias nocivas como Escherichia coli e Salmonella possuem pequenas estruturas chamadas fímbrias que buscam se agarrar aos açúcares da mucosa intestinal para causar inflamação e fezes moles.',
+          'Como o MOS possui exatamente o formato químico que essas bactérias procuram, os microrganismos ruins se prendem às partículas de MOS soltas no trânsito digestivo e são carregados para fora do corpo junto com as fezes, sem conseguir agredir o intestino do cão.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Declaração obrigatória nos Níveis de Garantia (IN MAPA nº 30/2009)',
+          text: 'Segundo as normas de rotulagem do Ministério da Agricultura, sempre que um fabricante destacar benefícios de prebióticos (MOS/FOS), zeólita ou extrato de Yucca no painel frontal da embalagem, a concentração mínima garantida (em mg/kg ou g/kg) deve constar obrigatoriamente na tabela de Níveis de Garantia.',
+        },
+      },
+      {
+        id: 'como-avaliar-no-rotulo-antes-de-comprar',
+        heading: '4. Como ler o rótulo na prática: Quando o pacote realmente entrega o que promete?',
+        paragraphs: [
+          'Para não pagar mais caro apenas por um rótulo bonito com a palavra "Indoor" ou "Ambientes Internos", o tutor deve aplicar um roteiro simples de três etapas ao inspecionar o verso do pacote. O primeiro passo é olhar os três primeiros itens da composição básica: priorize fórmulas encabeçadas por farinha de vísceras de aves, carnes mecanicamente separadas ou proteínas isoladas, evitando produtos cujo primeiro ingrediente seja milho ou farelo de soja.',
+          'O segundo passo é checar o teto de Matéria Fibrosa Máxima e de Matéria Mineral (cinzas) nos níveis de garantia. Rações de manutenção com excesso de fibras insolúveis baratas (acima de 4,5% a 5,0% em fórmulas que não sejam Light ou para castrados) aumentam o trânsito intestinal e multiplicam a quantidade de vezes que o cão faz cocô por dia.',
+          'O terceiro passo é confirmar a presença combinada do trio funcional na tabela de garantias: a associação de MOS + FOS (geralmente entre 1.000 mg/kg e 3.000 mg/kg somados) junto ao extrato de Yucca schidigera e à polpa de beterraba branca garante tanto a nutrição das bactérias protetoras quanto a neutralização química da amônia.',
+          'Vale lembrar que o efeito completo desses ingredientes leva de 10 a 14 dias após a conclusão da troca gradual da ração, tempo necessário para que a microbiota intestinal do cão se adapte ao novo substrato prebiótico e estabilize a fermentação no cólon.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual a diferença entre prebióticos (MOS e FOS) e probióticos na ração?',
+        a: 'Os probióticos são os próprios microrganismos vivos (bactérias benéficas e leveduras ativas) adicionados ao alimento ou suplemento para colonizar o intestino. Já os prebióticos (como MOS, FOS e inulina) são fibras não digeríveis que não têm vida própria, mas servem de alimento seletivo e escudo protetor para estimular o crescimento das bactérias boas que já vivem no trato digestivo do cão. Como os prebióticos são fibras resistentes ao calor da extrusão industrial, eles mantêm 100% da sua eficácia durante toda a validade do pacote.',
+      },
+      {
+        q: 'O extrato de Yucca faz mal se o cão consumir todos os dias por muitos anos?',
+        a: 'Não. Nas concentrações nutricionais utilizadas em alimentos completos para cães e gatos (tipicamente de 125 a 500 mg/kg), o extrato de Yucca schidigera é reconhecido como seguro pelas autoridades regulatórias internacionais (FDA/GRAS, EFSA e MAPA). Suas saponinas atuam localmente no lúmen intestinal sem causar toxicidade sistêmica, podendo ser consumido continuamente ao longo de toda a vida do animal.',
+      },
+      {
+        q: 'Por que meu cão começou a ter gases nos primeiros dias de uma ração rica em FOS?',
+        a: 'Quando um cão que comia uma ração simples passa a receber uma fórmula rica em fibras fermentáveis (como FOS, inulina e polpa de beterraba), as bactérias benéficas do cólon multiplicam sua atividade fermentativa rapidamente. Se a transição de ração for feita de forma brusca em vez de respeitar os 7 a 10 dias graduais, essa mudança repentina na flora pode gerar gases temporários ou fezes levemente mais macias nos primeiros dias, estabilizando assim que a microbiota atinge o novo equilíbrio.',
+      },
+      {
+        q: 'Posso comprar extrato de Yucca ou zeólita avulsos para misturar na ração comum?',
+        a: 'O uso de suplementos avulsos sem prescrição veterinária não é recomendado. O excesso de zeólita ou outros adsorventes minerais fora da proporção calculada na fábrica pode sequestrar vitaminas e minerais essenciais da dieta, prejudicando a absorção de nutrientes pelo cão. Além disso, se a ração de base tiver proteínas de baixa digestibilidade, nenhum aditivo isolado conseguirá corrigir o volume excessivo de resíduos no intestino.',
+      },
+    ],
+    conclusion:
+      'A redução efetiva do volume e do odor das fezes em cães que vivem dentro de casa depende diretamente da soma entre matérias-primas de alta digestibilidade e aditivos funcionais bem dosados no rótulo. Enquanto proteínas nobres garantem que quase todo o alimento seja absorvido pelo corpo, os prebióticos MOS e FOS cultivam uma flora intestinal saudável, a zeólita modela a umidade do bolo fecal e o extrato de Yucca schidigera neutraliza quimicamente a amônia antes que o mau cheiro se espalhe pelo ambiente.',
+    references: [
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Classificação técnica de ingredientes funcionais, prebióticos (MOS, FOS, inulina), adsorventes minerais (zeólita) e extrato de Yucca schidigera na modulação da microbiota e qualidade fecal',
+      },
+      {
+        title: 'Nutrient Requirements of Dogs and Cats (NRC, 2006)',
+        institution: 'National Research Council of the National Academies',
+        type: 'literatura',
+        url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+        details: 'Fisiologia da fermentação colônica em cães, produção de ácidos graxos de cadeia curta (AGCC) vs metabólitos da putrefação proteica (amônia, indol, escatol e compostos sulfurados voláteis)',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Parâmetros de digestibilidade aparente de proteína bruta, fibras fermentáveis e segurança de aditivos zootécnicos e tecnológicos na alimentação de cães domiciliados',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Regulamento Técnico sobre Padrões de Identidade e Qualidade de Alimentos para Cães e Gatos: exigência de declaração quantitativa nos Níveis de Garantia para nutrientes e aditivos destacados no rótulo',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 110, de 24 de novembro de 2020',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Catálogo oficial de matérias-primas, parede celular de levedura (fonte de mananoligossacarídeos), inulina/frutooligossacarídeos e aditivos autorizados na alimentação animal',
+      },
+    ],
+    callToAction: {
+      title: 'Compare a Composição e os Ingredientes das Rações para Cães',
+      text: 'Quer verificar quais fórmulas oferecem proteínas de alta digestibilidade e prebióticos declarados no rótulo? Consulte nosso catálogo avaliado.',
+      buttonText: 'Ver Catálogo de Alimentos para Cães',
+      buttonUrl: '/catalogo?especie=Caes',
     },
   },
 ];
