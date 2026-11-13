@@ -7912,7 +7912,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-12',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/mos-fos-e-extrato-de-yucca-na-racao-odor-fezes-caes.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Quase toda embalagem voltada para cães de apartamento destaca a presença de extrato de Yucca schidigera, zeólita e prebióticos MOS e FOS para diminuir o volume e o mau cheiro no tapete higiênico. Avaliamos como esses aditivos funcionam na prática segundo a literatura zootécnica da ABINPET e as normas do MAPA.',
     relatedProductSlugs: [],
@@ -8040,6 +8040,217 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer verificar quais fórmulas oferecem proteínas de alta digestibilidade e prebióticos declarados no rótulo? Consulte nosso catálogo avaliado.',
       buttonText: 'Ver Catálogo de Alimentos para Cães',
       buttonUrl: '/catalogo?especie=Caes',
+    },
+  },
+  {
+    slug: 'guabi-natural-vs-premier-nattu-gatos-castrados',
+    title: 'Guabi Natural vs PremieR Nattu Gatos: O que muda na prática além do preço?',
+    subtitle:
+      'Confronto técnico em Matéria Seca (MS) entre duas das linhas Super Premium Natural mais procuradas para gatos castrados: proteínas cárneas, cereais integrais, relação cálcio-fósforo e aditivos funcionais.',
+    cluster: 'Duelo de Marcas',
+    speciesTarget: 'Gatos',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-13',
+    updatedAt: '2026-11-13',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/guabi-natural-vs-premier-nattu-gatos-castrados.webp',
+    isFeatured: true,
+    summary:
+      'Para o tutor que deseja alimentar seu gato castrado sem ingredientes transgênicos e longe de conservantes artificiais como BHA e BHT, Guabi Natural e PremieR Nattu costumam encabeçar a lista de compras. Colocamos lado a lado as fichas oficiais das duas marcas para mostrar como a umidade declarada, o perfil de proteínas animais e o controle mineral diferenciam cada pacote no comedouro.',
+    relatedProductSlugs: [
+      'gato-adulto-castrado-sabor-frango-e-arroz-integral',
+      'gato-adulto-castrado-cordeiro-e-aveia',
+      'premier-nattu-gatos-castrados-frango-mandioca-e-cranberry',
+      'nattu-selecao-natural-para-gatos-castrados-no-sabor-frango',
+    ],
+    sections: [
+      {
+        id: 'proposta-super-premium-natural-gatos-castrados',
+        heading: '1. O encontro no corredor Super Premium Natural: O que ambas têm em comum?',
+        paragraphs: [
+          'Quando o tutor decide subir um degrau na alimentação do seu gato castrado e procura um pacote livre de grãos transgênicos (sem o triângulo amarelo com a letra "T" no rótulo), duas marcas nacionais dividem o protagonismo nas prateleiras: a Guabi Natural (fabricada pela BRF Pet) e a PremieR Nattu (fabricada pela PremieRpet).',
+          'Ambas pertencem ao segmento comercial Super Premium Natural com grãos nobres e tubérculos. Na rotina do felino, isso significa que nenhuma das duas utiliza corantes, aromatizantes artificiais ou antioxidantes sintéticos derivados de petróleo (como BHA e BHT), protegendo os óleos da ração exclusivamente com concentrado de tocoferóis (vitamina E) e extrato de alecrim.',
+          'Além da conservação limpa, as duas linhas foram desenhadas especificamente para a fisiologia pós-castração: incluem o aminoácido L-carnitina para favorecer a queima de gordura, controlam o pH urinário com DL-metionina e utilizam minerais quelatados (ligados a moléculas orgânicas para facilitar a absorção intestinal e nutrir a pelagem).',
+          'Quando viramos os pacotes para ler a tabela de níveis de garantia e a ordem decrescente dos ingredientes, surgem diferenças estruturais importantes: inclusive entre as próprias embalagens de papel kraft e de saco verde-escuro dentro da família PremieR Nattu.',
+        ],
+        callout: {
+          type: 'dica',
+          title: 'Duas versões distintas dentro da família PremieR Nattu',
+          text: 'Na prateleira, a PremieR Nattu para gatos castrados possui duas formulações com perfis proteicos diferentes: a linha tradicional em embalagem kraft (como a versão Frango, Mandioca, Beterraba, Linhaça & Cranberry, com 33,3% de proteína no rótulo) e a linha PremieR Nattu Seleção Natural Frango Korin em embalagem verde (que eleva a proteína para 37,0% no rótulo e inclui farinha de torresmo como segundo ingrediente).',
+        },
+      },
+      {
+        id: 'confronto-em-materia-seca-proteina-e-umidade',
+        heading: '2. Proteína Bruta e Extrato Etéreo na Matéria Seca (MS): O detalhe dos 9% vs 10% de umidade',
+        paragraphs: [
+          'Comparar dois rótulos olhando apenas a porcentagem impressa na embalagem pode enganar o consumidor porque cada fabricante trabalha com um teto diferente de água no grão. Enquanto a PremieR Nattu declara 10% de umidade máxima (90% de Matéria Seca), a Guabi Natural opera com grãos mais secos, declarando 9% de umidade máxima (91% de Matéria Seca).',
+          'Fazendo a conversão matemática para a Matéria Seca (MS), a Guabi Natural Castrados (tanto no sabor Frango e Arroz Integral quanto em Cordeiro e Aveia) entrega 39,56% de Proteína Bruta real (36,0% no rótulo). Já a PremieR Nattu tradicional de Mandioca e Cranberry fornece 37,00% na Matéria Seca (33,3% no rótulo), enquanto a versão PremieR Nattu Seleção Natural Frango Korin alcança 41,11% na Matéria Seca (37,0% no rótulo).',
+          'Para o gato castrado que vive em apartamento, um patamar proteico entre 37% e 41% na base seca cumpre com folga a recomendação do Manual ABINPET (mínimo de 26% a 30% MS para manutenção adulta), ajudando o animal a manter a musculatura firme sem depender de excesso de calorias vindas de carboidratos.',
+          'No teor de gorduras (Extrato Etéreo), o equilíbrio é praticamente cirúrgico: ambas declaram 12,0% no rótulo, o que representa 13,18% na Matéria Seca para a Guabi Natural e 13,33% para a PremieR Nattu. Trata-se de um corte moderado de lipídios, ideal para saciar o gato castrado sem favorecer o ganho de peso.',
+        ],
+        table: {
+          caption: 'Confronto nutricional em Matéria Seca (MS): Guabi Natural vs PremieR Nattu Gatos Castrados',
+          headers: [
+            'Parâmetro Analisado',
+            'Guabi Natural Castrados (Frango / Cordeiro)',
+            'PremieR Nattu Mandioca & Cranberry',
+            'PremieR Nattu Seleção Natural (Frango Korin)',
+          ],
+          rows: [
+            [
+              'Umidade Máxima / Base Seca',
+              '9,0% (91,0% de Matéria Seca)',
+              '10,0% (90,0% de Matéria Seca)',
+              '10,0% (90,0% de Matéria Seca)',
+            ],
+            [
+              'Proteína Bruta (Mín. MS)',
+              '39,56% MS (36,0% MN)',
+              '37,00% MS (33,3% MN)',
+              '41,11% MS (37,0% MN)',
+            ],
+            [
+              'Extrato Etéreo / Gordura (Mín. MS)',
+              '13,18% MS (12,0% MN)',
+              '13,33% MS (12,0% MN)',
+              '13,33% MS (12,0% MN)',
+            ],
+            [
+              'Matéria Fibrosa (Máx. MS)',
+              '5,49% MS (5,0% MN)',
+              '5,00% MS (4,5% MN)',
+              '5,00% MS (4,5% MN)',
+            ],
+            [
+              'Matéria Mineral / Cinzas (Máx. MS)',
+              '8,79% MS (8,0% MN)',
+              '9,44% MS (8,5% MN)',
+              '9,44% MS (8,5% MN)',
+            ],
+            [
+              'Fósforo (Mín. MS)',
+              '0,88% MS (0,80% MN)',
+              '0,93% MS (0,84% MN)',
+              '0,93% MS (0,84% MN)',
+            ],
+            [
+              'Relação Cálcio:Fósforo (Ca:P Mín.)',
+              '1,00:1 (Ca mín. 0,80% / máx. 1,60%)',
+              '1,19:1 (Ca mín. 1,00% / máx. 1,40%)',
+              '1,19:1 (Ca mín. 1,00% / máx. 1,45%)',
+            ],
+            [
+              'Ômega 3 (Mín. MS)',
+              '0,22% MS (0,20% MN)',
+              '0,22% MS (0,20% MN)',
+              '0,22% MS (0,20% MN)',
+            ],
+            [
+              'Nota Técnica PetRankings',
+              '80 pts (Frango) / 82 pts (Cordeiro)',
+              '82 pts (Nível Prata)',
+              '95 pts (Nível Ouro)',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'ingredientes-fontes-proteicas-e-carboidratos',
+        heading: '3. Raio-X dos ingredientes: Carnes, farinha de torresmo e o papel das proteínas vegetais',
+        paragraphs: [
+          'A leitura dos cinco primeiros ingredientes explica por que as notas técnicas variam dentro de cada linha. Na Guabi Natural, o painel frontal declara com transparência a divisão da receita: 62% de ingredientes de origem animal, 28% de cereais integrais (arroz integral, aveia, cevada e sorgo) e até 10% de vegetais, frutas, vitaminas e minerais.',
+          'Dentro da Guabi Natural, a escolha do sabor faz diferença direta na proteína principal: enquanto a versão Frango e Arroz Integral (80 pontos) inicia a lista com carne mecanicamente separada (CMS) de frango e fígado seguida por farinha de vísceras de aves e farinha de torresmo, a versão Cordeiro e Aveia (82 pontos) coloca a carne de ovino no primeiro lugar absoluto da receita, acompanhada por ovo em pó e zero proteínas concentradas de soja ou glúten de milho.',
+          'Na PremieR Nattu em embalagem kraft (Frango, Mandioca & Cranberry, com 82 pontos), o primeiro ingrediente é a farinha de vísceras de frango, uma matéria-prima desidratada de alta densidade proteica. Em seguida, porém, a fórmula recorre ao glúten de milho não transgênico e às proteínas concentrada e isolada de soja entre os cinco primeiros itens antes de chegar à quirera de arroz, aveia e farinha de mandioca.',
+          'Já a versão PremieR Nattu Seleção Natural Frango Korin (95 pontos) corrige esse ponto com maestria: abre a composição com farinha de vísceras de frango certificado Korin (criado sem antibióticos) seguida imediatamente por farinha de torresmo (proteína suína purificada de altíssima digestibilidade), reduzindo a dependência de frações vegetais e garantindo maior valor biológico para o carnívoro estrito.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'Por que nenhuma das duas leva o símbolo "T" de transgênicos?',
+          text: 'Pelo Decreto Federal nº 4.680/2003, alimentos com mais de 1% de ingredientes geneticamente modificados devem estampar o triângulo amarelo com a letra "T". Tanto a Guabi Natural (que substitui o milho e a soja por arroz integral, aveia, cevada e sorgo) quanto a PremieR Nattu (que utiliza exclusivamente linhagens de milho e soja não transgênicas certificadas) são 100% livres de OGM.',
+        },
+      },
+      {
+        id: 'minerais-trato-urinario-e-diferenciais-funcionais',
+        heading: '4. Trato urinário, relação cálcio-fósforo e cuidado dental: Onde cada marca ganha pontos?',
+        paragraphs: [
+          'No cuidado preventivo com os rins e a bexiga do gato castrado, o equilíbrio mineral merece atenção especial. A Guabi Natural apresenta um teto de Matéria Mineral (cinzas) ligeiramente mais enxuto na base seca (8,79% MS contra 9,44% MS da PremieR Nattu) e trabalha com fósforo mínimo um pouco menor (0,88% MS frente a 0,93% MS da concorrente).',
+          'Por outro lado, a PremieR Nattu conquista pontuação máxima no balanço entre Cálcio e Fósforo (Pilar 2 do PetRankings): ao fixar o cálcio entre 1,00% e 1,40% (ou 1,45% na versão Korin) para 0,84% de fósforo, mantém uma relação Ca:P muito estável de 1,19:1. Na Guabi Natural, a faixa declarada de cálcio é mais aberta (0,80% a 1,60%), gerando uma relação mínima de 1,00:1.',
+          'Nos aditivos funcionais, cada fabricante aposta em armas diferentes. A PremieR Nattu inclui hexametafosfato de sódio em todas as versões para gatos castrados, um ingrediente que captura o cálcio da saliva e ajuda a frear a formação de tártaro nos dentes do felino, além de extrato de Yucca (0,06%) para reduzir o cheiro das fezes na caixa de areia.',
+          'A Guabi Natural não declara hexametafosfato nem extrato de Yucca, mas compensa no pacote digestivo e de ácidos graxos: adiciona semente de Psyllium (fibra solúvel excelente para ajudar o gato a expelir bolas de pelo sem constipação), inulina associada a MOS e farinha da microalga marinha Schizochytrium sp., fonte direta de DHA para o cérebro e a retina.',
+        ],
+      },
+      {
+        id: 'veredito-qual-escolher',
+        heading: '5. Veredito prático: Qual pacote vale mais o investimento para o seu gato?',
+        paragraphs: [
+          'Se o seu objetivo é levar para casa a fórmula com a maior pontuação técnica do confronto, a PremieR Nattu Seleção Natural Gatos Castrados Frango Korin (95 pontos, Nível Ouro) é a grande vencedora: entrega 41,11% de proteína na Matéria Seca, combina farinha de vísceras de frango Korin e farinha de torresmo nos dois primeiros lugares do rótulo, traz relação Ca:P ideal de 1,19:1 e inclui hexametafosfato de sódio para proteger os dentes.',
+          'Se a dúvida na prateleira for entre a Guabi Natural Castrados tradicional (80 a 82 pontos) e a PremieR Nattu em embalagem kraft de Mandioca ou Abóbora (82 pontos), há um empate técnico em pontuação com vantagens específicas para cada perfil de gato.',
+          'A Guabi Natural (especialmente na versão Cordeiro e Aveia, com 82 pontos) é a melhor escolha para quem prefere uma receita 100% livre de soja e de glúten de milho, com mais proteína na base seca (39,56% MS), menor teor de cinzas minerais (8,79% MS) e adição de Psyllium e microalgas marinhas. Já a PremieR Nattu kraft leva vantagem para gatos que precisam de prevenção ativa contra o tártaro (graças ao hexametafosfato de sódio) e redução de odor fecal com extrato de Yucca.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual a diferença entre a PremieR Nattu de saco kraft e a PremieR Nattu Seleção Natural verde?',
+        a: 'Ambas são livres de transgênicos e conservadas naturalmente, mas a versão PremieR Nattu Seleção Natural Frango Korin (embalagem verde-escura) possui mais proteína na Matéria Seca (41,11% MS contra 37,00% MS das versões kraft de Mandioca ou Abóbora) e utiliza farinha de torresmo como segundo ingrediente logo após a farinha de frango certificado Korin, alcançando 95 pontos (Nível Ouro) frente aos 82 pontos das versões kraft.',
+      },
+      {
+        q: 'A Guabi Natural para gatos castrados contém soja ou milho?',
+        a: 'Não. As fórmulas de manutenção para gatos castrados da Guabi Natural (como Frango e Arroz Integral e Cordeiro e Aveia) não utilizam milho nem soja em nenhuma forma. A fração de carboidratos é composta exclusivamente por cereais integrais nobres (arroz integral, aveia, cevada e sorgo) combinados a ervilha, frutas e fibras.',
+      },
+      {
+        q: 'Qual das duas marcas tem menos minerais (cinzas) para poupar o trato urinário?',
+        a: 'Nas versões com cereais integrais (Frango e Arroz Integral e Cordeiro e Aveia), a Guabi Natural apresenta um teto de Matéria Mineral ligeiramente menor quando convertido para a Matéria Seca: 8,79% MS (8,0% no rótulo) contra 9,44% MS (8,5% no rótulo) da PremieR Nattu. Ambas contam com DL-metionina e reguladores de acidez para manter o pH urinário seguro.',
+      },
+      {
+        q: 'A versão Guabi Natural Salmão e Lentilha (Grain Free) é melhor que a de Frango ou Cordeiro?',
+        a: 'Embora a versão Salmão e Lentilha seja livre de grãos (Grain Free) e entregue ótima proteína (40,66% MS), ela registra Matéria Mineral um pouco mais alta (9,01% MS) e teto de cálcio mais elevado (1,87% MS), ficando com 72 pontos na nossa avaliação. Para gatos castrados, as versões Cordeiro e Aveia (82 pontos) e Frango e Arroz Integral (80 pontos) oferecem um perfil mineral mais equilibrado.',
+      },
+    ],
+    conclusion:
+      'Tanto a Guabi Natural quanto a PremieR Nattu cumprem com excelência a proposta de oferecer nutrição limpa, 100% livre de transgênicos e sem antioxidantes sintéticos BHA ou BHT para gatos castrados. Se o orçamento permitir escolher a linha PremieR Nattu Seleção Natural Frango Korin (95 pontos), o tutor leva o pacote mais completo em proteínas animais nobres e balanço mineral. Já no duelo direto da faixa de 80 a 82 pontos, a Guabi Natural Cordeiro e Aveia se destaca pela receita isenta de soja e glúten de milho com menor taxa de cinzas e adição de Psyllium, enquanto a PremieR Nattu Mandioca & Cranberry ganha pontos pelo cuidado dental com hexametafosfato de sódio e controle de odor com extrato de Yucca.',
+    references: [
+      {
+        title: 'Ficha Técnica Oficial: Guabi Natural Gato Adulto Castrado (Frango e Arroz Integral / Cordeiro e Aveia)',
+        institution: 'BRF Pet S.A.',
+        type: 'rotulagem',
+        url: 'https://www.guabinatural.com.br/pt/gatos/gato-adulto-castrado-sabor-frango-e-arroz-integral',
+        details: 'Composição básica (62% origem animal, 28% cereais integrais), níveis de garantia em 9% de umidade (36,0% PB, 12,0% EE, 8,0% MM) e aditivos funcionais custodiados na base PetRankings',
+      },
+      {
+        title: 'Ficha Técnica Oficial: PremieR Nattu Gatos Castrados (Mandioca & Cranberry / Seleção Natural Frango Korin)',
+        institution: 'Grandfood Indústria e Comércio Ltda (PremieRpet)',
+        type: 'rotulagem',
+        url: 'https://premierpet.com.br/produto/premier-nattu-gatos-castrados-frango-mandioca-e-cranberry/',
+        details: 'Composição básica, níveis de garantia em 10% de umidade (33,3% e 37,0% PB, 12,0% EE, 8,5% MM), hexametafosfato de sódio e sistema antioxidante natural custodiados na base PetRankings',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Parâmetros nutricionais para gatos adultos em manutenção, cálculo de conversão para Matéria Seca (MS) e diretrizes de balanço cálcio-fósforo',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Exigências de proteína bruta, aminoácidos essenciais (taurina, arginina) e limites seguros de macrominerais para felinos castrados domiciliados',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30/2009 e Decreto Federal nº 4.680/2003',
+        institution: 'Ministério da Agricultura e Pecuária (MAPA) / Presidência da República',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/decreto/2003/d4680.htm',
+        details: 'Regras oficiais de declaração de ingredientes em ordem decrescente e rotulagem obrigatória de organismos geneticamente modificados (OGM)',
+      },
+    ],
+    callToAction: {
+      title: 'Compare Todas as Rações Super Premium para Gatos no Catálogo',
+      text: 'Quer consultar a ficha completa, o extrato de pontuação de 0 a 100 e onde encontrar cada pacote nas lojas parceiras? Acesse nosso catálogo interativo.',
+      buttonText: 'Ver Ranking de Rações para Gatos',
+      buttonUrl: '/catalogo?especie=Gatos',
     },
   },
 ];
