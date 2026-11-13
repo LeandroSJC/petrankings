@@ -682,6 +682,10 @@ export function parseProductFromHtml(
   const isCobasi = /cobasi\.com\.br/i.test(sourceUrl) || /cobasi\.com\.br/i.test(fallbackUrl);
   const isNutrimais = /nutrimais\.ind\.br/i.test(sourceUrl) || /nutrimais/i.test(fallbackUrl);
   const isAlinutri = /alinutri\.ind\.br/i.test(sourceUrl) || /alinutri/i.test(fallbackUrl);
+  const isEquilibrio = /equilibrio-petfood\.com/i.test(sourceUrl) || /equilibrio/i.test(fallbackUrl);
+  const isMatsuda = /matsudapet\.com\.br/i.test(sourceUrl) || /matsudapet/i.test(fallbackUrl);
+  const isGuabi = /guabinatural\.com\.br/i.test(sourceUrl) || /guabinatural/i.test(fallbackUrl);
+  const isThree = /threepetfood\.com\.br/i.test(sourceUrl) || /threepetfood/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -737,6 +741,46 @@ export function parseProductFromHtml(
     }
     if (aliImg) {
       imageUrl = aliImg.startsWith('http') ? aliImg : `https://alinutri.ind.br${aliImg.startsWith('/') ? '' : '/'}${aliImg}`;
+    }
+  }
+
+  if (isEquilibrio) {
+    const eqImg = $('.product-details img, .content-product img, .elementor-widget-image img, img[src*="/wp-content/uploads/"]')
+      .filter((_, el) => {
+        const s = $(el).attr('src') || $(el).attr('data-src') || '';
+        return !s.endsWith('.svg') && !s.includes('flag') && !s.includes('logo') && !s.includes('icon') && !s.includes('sitepress');
+      })
+      .first()
+      .attr('src');
+    if (eqImg) {
+      imageUrl = eqImg.replace(/-\d+x\d+(\.[a-zA-Z0-9]+)$/, '$1');
+    }
+  }
+
+  if (isMatsuda) {
+    const matImg = $('img[src*="/uploads/produtos/"]').first().attr('src');
+    if (matImg) {
+      imageUrl = matImg.startsWith('http') ? matImg : `https://matsudapet.com.br${matImg.startsWith('/') ? '' : '/'}${matImg}`;
+    }
+  }
+
+  if (isGuabi) {
+    // Guabi Natural: As embalagens oficiais residem no Azure Blob Storage da BRF Pet
+    // NÃO usar img[alt="imagem-racao"] ou /produto/*.png, pois correspondem à foto isolada do grão (kibble-box)
+    const rawMatches = html.match(/(?:url=)?(https%3A%2F%2Fbrfsawebsitespet\.blob\.core\.windows\.net%2Fguabi-natural%2F[^&"'\s)]+|https:\/\/brfsawebsitespet\.blob\.core\.windows\.net\/guabi-natural\/[^"'\s)]+)/i);
+    if (rawMatches) {
+      let rawImg = rawMatches[1] || rawMatches[0];
+      try { rawImg = decodeURIComponent(rawImg); } catch {}
+      imageUrl = rawImg.replace(/\\u0026/g, '&').replace(/&amp;/g, '&').replace(/[\\"'`\s]+$/, '');
+    }
+  }
+
+  if (isThree) {
+    const rawMatches = html.match(/(?:url=)?(https%3A%2F%2Fbrfsawebsitespet\.blob\.core\.windows\.net%2Fthree%2F[^&"'\s)]+|https:\/\/brfsawebsitespet\.blob\.core\.windows\.net\/three\/[^"'\s)]+)/i);
+    if (rawMatches) {
+      let rawImg = rawMatches[1] || rawMatches[0];
+      try { rawImg = decodeURIComponent(rawImg); } catch {}
+      imageUrl = rawImg.replace(/\\u0026/g, '&').replace(/&amp;/g, '&').replace(/[\\"'`\s]+$/, '');
     }
   }
 
@@ -1987,6 +2031,22 @@ export function parseProductFromHtml(
       }
     }
     rawName = raw;
+  } else if (isEquilibrio) {
+    const isVet = /veterinary/i.test(sourceUrl);
+    const isBlack = /equilibrio-black/i.test(sourceUrl);
+    const prefix = isVet ? 'Equilíbrio Veterinary' : (isBlack ? 'Equilíbrio Black' : 'Equilíbrio');
+    const h1 = $('h1').first().text().trim();
+    rawName = `${prefix} ${h1.replace(/^Equil[íi]brio(?:\s+(?:Veterinary|Black))?\s*/i, '')}`.trim();
+  } else if (isMatsuda) {
+    const h1 = $('h1').first().text().trim();
+    const h2 = $('h2').first().text().trim();
+    rawName = `${h1} ${h2}`.replace(/\s+/g, ' ').trim();
+  } else if (isGuabi) {
+    const h1 = $('h1').first().text().trim();
+    rawName = `Guabi Natural ${h1.replace(/^Guabi\s+Natural\s*/i, '')}`.trim();
+  } else if (isThree) {
+    const h1 = $('h1').first().text().replace(/Benef[íi]cios.*$/i, '').trim();
+    rawName = h1;
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -2431,6 +2491,38 @@ export function parseProductFromHtml(
     } else {
       brand = 'Alinutri';
     }
+  } else if (isEquilibrio) {
+    manufacturerLegalName = 'ADM do Brasil Ltda.';
+    if (/veterinary/i.test(sourceUrl)) {
+      brand = 'Equilíbrio Veterinary';
+    } else if (/equilibrio-black/i.test(sourceUrl)) {
+      brand = 'Equilíbrio Black';
+    } else {
+      brand = 'Equilíbrio';
+    }
+  } else if (isMatsuda) {
+    manufacturerLegalName = 'Matsuda Minas Alimentos Ltda.';
+    if (/m-line/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'M-Line';
+    } else if (/vittamax/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'VittaMax';
+    } else if (/smack/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Smack';
+    } else if (/thor/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Thor';
+    } else {
+      brand = 'Matsuda Pet';
+    }
+  } else if (isGuabi) {
+    brand = 'Guabi Natural';
+    manufacturerLegalName = 'BRF Pet S.A.';
+  } else if (isThree) {
+    manufacturerLegalName = 'BRF Pet S.A.';
+    if (/three\s*cats|cat/i.test(commercialName + ' ' + sourceUrl)) {
+      brand = 'Three Cats';
+    } else {
+      brand = 'Three Dogs';
+    }
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2450,6 +2542,10 @@ export function parseProductFromHtml(
     !isCobasi &&
     !isNutrimais &&
     !isAlinutri &&
+    !isEquilibrio &&
+    !isMatsuda &&
+    !isGuabi &&
+    !isThree &&
     !/alinutri\.ind\.br/i.test(sourceUrl) &&
     !/nature\s*f[óo]rmula|receita\s*especial|docat|raycat|ammy|evolute|kdengo|denguinho|xerife|bidog/i.test(commercialName) &&
     !/nutrimais/i.test(commercialName) &&
@@ -2459,6 +2555,8 @@ export function parseProductFromHtml(
     !/baw\s*waw|beauty\s*pet|speto/i.test(commercialName) &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
+    !/equilibrio|matsuda|vittamax|m-line|smack|thor|guabi|three\s*dogs|three\s*cats/i.test(commercialName) &&
+    !/equilibrio-petfood\.com|matsudapet\.com\.br|guabinatural\.com\.br|threepetfood\.com\.br/i.test(sourceUrl) &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care|frost|atacama|funny\s*dog|funny\s*cat|astro|bravo|sapeca|nhock|trotter|tango|leroy|jazz|alix/i.test(commercialName) &&
     !/specialcat|specialdog|adimax\.com\.br|farmina\.com|quatreepet\.com\.br|royalcanin\.com|purina\.com\.br|petfoodsolution\.com\.br|hillspet\.com\.br|fortbrain\.com\.br|fvoalimentos\.com\.br|nutrire\.ind\.br|specialnutri\.com\.br|racoesreis\.com\.br|alisul\.com\.br|petz\.com\.br|cobasi\.com\.br/i.test(sourceUrl)
   ) {
@@ -2613,8 +2711,66 @@ export function parseProductFromHtml(
     }
   }
 
-  // 5a-0. Extração de Next.js Flight Payload (Biofresh / GranPlus / BRF Pet)
-  if (/biofreshpet\.com\.br|granplus\.com\.br/i.test(sourceUrl) || isGranPlus || html.includes('categoria-composicao-basica')) {
+  if (isEquilibrio) {
+    if (!compText) {
+      compText = $('#detalhamento-target-0, .mobile-item:contains("Composição Básica") p').first().text().trim();
+      if (!compText) {
+        compText = $('.tab-pane:contains("Farinha"), .tab-pane:contains("Carne"), .tab-pane:contains("Quirera")').first().text().trim();
+      }
+    }
+    if (!garText) {
+      const eqRows: string[] = [];
+      $('#detalhamento-target-1 table tr, .mobile-item:contains("Níveis de Garantia") table tr').each((_, tr) => {
+        const cells = $(tr).find('td, th').map((_, c) => $(c).text().trim()).get();
+        if (cells.length >= 2) eqRows.push(cells.join(' : '));
+      });
+      if (eqRows.length) garText = eqRows.join('\n');
+    }
+  }
+
+  if (isMatsuda) {
+    if (!compText) {
+      $('p, div').each((_, el) => {
+        const t = $(el).text().trim();
+        if (!compText && /Composi[çc][ãa]o\s+b[áa]sica/i.test(t)) {
+          const m = t.match(/Composi[çc][ãa]o\s+b[áa]sica[^\n:]*:\s*([\s\S]+)/i);
+          if (m) compText = m[1].trim();
+        }
+      });
+      if (!compText) {
+        $('p, div').each((_, el) => {
+          const t = $(el).text().trim();
+          if (!compText && /Farinha de vísceras|Farinha de carne|Milho integral/i.test(t) && t.length > 50) {
+            const m = t.match(/(?:Composi[çc][ãa]o\s+b[áa]sica[^\n:]*:\s*)?([\s\S]+)/i);
+            compText = m ? m[1].trim() : t;
+          }
+        });
+      }
+    }
+    if (!garText) {
+      const mRows: string[] = [];
+      $('table tr').each((_, tr) => {
+        const row = $(tr).find('th, td').map((_, cell) => $(cell).text().trim()).get().join(' : ');
+        if (row.length > 2) mRows.push(row);
+      });
+      if (mRows.length) garText = mRows.join('\n');
+    }
+  }
+
+  if ((isGuabi || isThree) && !garText) {
+    const gRows: string[] = [];
+    $('h2').each((_, el) => {
+      const h = $(el).text().trim();
+      if (/Prote[íi]na|Extrato|Umidade|Mat[ée]ria|C[áa]lcio|F[óo]sforo|S[óo]dio|[Ôo]mega|EPA|DHA|Taurina|Energia/i.test(h)) {
+        const val = $(el).next('p').text().trim() || $(el).parent().find('p').text().trim();
+        if (val) gRows.push(`${h} ${val}`);
+      }
+    });
+    if (gRows.length > 0) garText = gRows.join('\n');
+  }
+
+  // 5a-0. Extração de Next.js Flight Payload (Biofresh / GranPlus / Guabi / Three / BRF Pet)
+  if (/biofreshpet\.com\.br|granplus\.com\.br|guabinatural\.com\.br|threepetfood\.com\.br/i.test(sourceUrl) || isGranPlus || isGuabi || isThree || html.includes('categoria-composicao-basica')) {
     const pushRegex = /self\.__next_f\.push\(\[1,\s*\"([\s\S]*?)\"\]\)/g;
     let chunk;
     let flightText = '';
@@ -2626,8 +2782,8 @@ export function parseProductFromHtml(
       }
     }
 
-    // Se for GranPlus, extrai níveis de garantia diretamente do DOM estruturado
-    if (isGranPlus && !garText) {
+    // Se for GranPlus / Guabi / Three, extrai níveis de garantia diretamente do DOM estruturado
+    if ((isGranPlus || isGuabi || isThree) && !garText) {
       const granRows: string[] = [];
       $('h2').each((_, el) => {
         const t = $(el).text().trim();
@@ -2646,7 +2802,10 @@ export function parseProductFromHtml(
       if (compDefMatch) {
         if (compDefMatch[1]) {
           const compId = compDefMatch[1];
-          const compContentMatch = flightText.match(new RegExp(`(?:^|\\n)${compId}:(?:T[0-9a-f]+,)?\"?([\\s\\S]*?)(?:\"?\\n[0-9a-f]+:|$)`));
+          let compContentMatch = flightText.match(new RegExp(`(?:^|\\n)${compId}:(?:T[0-9a-f]+,)?\"?([\\s\\S]*?)(?:\"?\\n[0-9a-f]+:|$)`));
+          if (!compContentMatch) {
+            compContentMatch = flightText.match(new RegExp(`(?:^|\\n)${compId}:(?:T[0-9a-f]+,)?([\\s\\S]*?)(?:\\n[0-9a-f]+:|$)`));
+          }
           if (compContentMatch) {
             compText = compContentMatch[1].trim();
           }
@@ -2656,9 +2815,16 @@ export function parseProductFromHtml(
       }
       if (!compText) {
         const compRaw =
-          flightText.match(/categoria-composicao-basica[\s\S]*?(Seleção de carnes frescas|Farinha de vísceras[^\"]+)/i) ||
+          flightText.match(/categoria-composicao-basica[\s\S]*?(Seleção de carnes frescas|Seleção de Ingredientes|Farinha de vísceras[^\"]+)/i) ||
           flightText.match(/(?:Farinha de [vV][íi]sceras|Carne mecanicamente separada|Carne de [bB]ovino|Mi[úu]dos de [oO]vinos|Quirera de [aA]rroz)[^\"\\]+/i);
         if (compRaw) compText = compRaw[1] ? compRaw[1].trim() : compRaw[0].trim();
+      }
+    }
+
+    if (compText && /Sele[çc][ãa]o\s+de\s+Ingredientes/i.test(compText)) {
+      const colonIdx = compText.indexOf(':');
+      if (colonIdx !== -1) {
+        compText = compText.slice(colonIdx + 1).trim();
       }
     }
 
@@ -3294,7 +3460,7 @@ export function parseProductFromHtml(
     if (c === '(' || c === '[' || c === '{') parenDepth++;
     else if (c === ')' || c === ']' || c === '}') parenDepth = Math.max(0, parenDepth - 1);
 
-    if (c === ',' && parenDepth === 0) {
+    if ((c === ',' || c === ';') && parenDepth === 0) {
       const prevIsDigit = i > 0 && /\d/.test(cleanComp[i - 1]);
       const nextIsDigit = i < cleanComp.length - 1 && /\d/.test(cleanComp[i + 1]);
       if (prevIsDigit && nextIsDigit) {

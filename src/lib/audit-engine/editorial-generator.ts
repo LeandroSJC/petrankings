@@ -406,7 +406,7 @@ ${pointsSummary}`;
       const currentModel = modelsToTry[attempt];
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        const timeoutId = setTimeout(() => controller.abort(), 35000);
 
         res = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${apiKey}`,
