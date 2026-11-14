@@ -8054,7 +8054,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-13',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/guabi-natural-vs-premier-nattu-gatos-castrados.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Para o tutor que deseja alimentar seu gato castrado sem ingredientes transgênicos e longe de conservantes artificiais como BHA e BHT, Guabi Natural e PremieR Nattu costumam encabeçar a lista de compras. Colocamos lado a lado as fichas oficiais das duas marcas para mostrar como a umidade declarada, o perfil de proteínas animais e o controle mineral diferenciam cada pacote no comedouro.',
     relatedProductSlugs: [
@@ -8251,6 +8251,189 @@ export const GUIDES: GuideItem[] = [
       text: 'Quer consultar a ficha completa, o extrato de pontuação de 0 a 100 e onde encontrar cada pacote nas lojas parceiras? Acesse nosso catálogo interativo.',
       buttonText: 'Ver Ranking de Rações para Gatos',
       buttonUrl: '/catalogo?especie=Gatos',
+    },
+  },
+  {
+    slug: 'validade-da-racao-apos-aberta-cdc-mapa-mofo-garantia',
+    title: 'Validade da ração após aberta: O que dizem o CDC e o MAPA sobre mofo e garantia?',
+    subtitle:
+      'Entenda por que a data impressa no pacote deixa de valer após o rompimento do lacre, como diferenciar oxidação doméstica de vício oculto de lote (mofo e carunchos) e quais são os prazos legais de troca no Código de Defesa do Consumidor.',
+    cluster: 'Direito do Consumidor & Mercado',
+    speciesTarget: 'Cães',
+    readingTimeMinutes: 8,
+    publishedAt: '2026-11-14',
+    updatedAt: '2026-11-14',
+    author: DEFAULT_GUIDE_AUTHOR,
+    coverImageUrl: '/uploads/guias/validade-da-racao-apos-aberta-cdc-mapa-mofo-garantia.webp',
+    isFeatured: true,
+    summary:
+      'Comprar um saco de 15 kg ou 20 kg para um cão de porte pequeno parece um ótimo negócio na calculadora do pet shop, mas esconde uma armadilha físico-química e jurídica. Explicamos o que acontece com as gorduras e vitaminas dos grãos após o primeiro contato com o oxigênio, qual é o prazo real de consumo seguro segundo o MAPA e a ABINPET, e quando o tutor tem direito legal à substituição gratuita ou ao reembolso integral pelo CDC em casos de mofo, cheiro de ranço ou infestação por insetos.',
+    relatedProductSlugs: [],
+    sections: [
+      {
+        id: 'dupla-validade-lacre-fechado-vs-pacote-aberto',
+        heading: '1. O mito da data impressa: Por que a validade muda assim que você corta o pacote?',
+        paragraphs: [
+          'Quando o tutor olha o carimbo de validade no verso da embalagem e vê que faltam doze ou dezoito meses para o vencimento, é natural imaginar que aquele alimento permanecerá intacto na despensa até o último dia. Na legislação de rotulagem do Ministério da Agricultura e Pecuária (IN MAPA nº 30/2009 e Decreto nº 12.031/2024), porém, aquela data refere-se exclusivamente ao produto mantido fechado em sua barreira original de fábrica.',
+          'Assim que a tesoura rompe o lacre plástico ou o fecho zip é aberto pela primeira vez, entra em vigor o que a ciência de alimentos chama de validade pós-abertura (ou vida de prateleira secundária). A partir desse instante, os grãos secos entram em contato diário com o oxigênio do ar, a umidade do ambiente e as oscilações de temperatura da residência.',
+          'Segundo os manuais técnicos de conservação dos fabricantes e as diretrizes da ABINPET, uma ração seca extrusada deve ser consumida no prazo médio de 30 a 45 dias após a abertura da embalagem. Passado esse intervalo, mesmo que o carimbo externo indique mais um ano de validade, o fabricante deixa de garantir a estabilidade das vitaminas, a crocância e a segurança microbiológica do alimento.',
+          'Isso explica por que comprar um saco de 15 kg para um cão de 5 kg (que consome cerca de 80 gramas por dia e levaria mais de seis meses para esvaziar o pacote) acaba saindo caro na prática: na metade final do saco, o animal já estará ingerindo lipídios oxidados e vitaminas degradadas.',
+        ],
+        callout: {
+          type: 'norma',
+          title: 'O dever legal de informar as condições de conservação (MAPA e CDC)',
+          text: 'Pelo Art. 30 do Regulamento da Lei nº 6.198/1974 (atualizado pelo Decreto nº 12.031/2024) e pelo Art. 31 do Código de Defesa do Consumidor (Lei nº 8.078/1990), todo rótulo de alimento para animais deve declarar de forma clara as condições de conservação antes e depois de aberto. Seguir essas instruções impressas no pacote é o requisito técnico que separa o mau uso doméstico do defeito de fabricação.',
+        },
+      },
+      {
+        id: 'oxidacao-lipidica-e-atividade-de-agua',
+        heading: '2. O relógio invisível no comedouro: Oxidação de gorduras, atividade de água e micotoxinas',
+        paragraphs: [
+          'Dizer que a ração "perde a validade" após 30 ou 45 dias aberta não é uma convenção comercial para vender pacotes menores, mas o resultado de dois processos físico-químicos inevitáveis: a peroxidação lipídica (rancificação das gorduras) e a absorção de umidade atmosférica.',
+          'Durante a fabricação, os grãos recebem um banho externo de gordura animal (óleo de aves ou suíno) e óleos ricos em ômega 3 e 6 para garantir energia e sabor. Quando o oxigênio entra no pacote aberto a cada refeição, ele reage com esses ácidos graxos insaturados e forma peróxidos e aldeídos: na rotina do cão, isso altera o cheiro do alimento (odor de tinta velha ou óleo rançoso), faz o pet recusar o comedouro e pode provocar vômitos biliosos e diarreia.',
+          'Nas fórmulas Super Premium Naturais (que substituem antioxidantes sintéticos como BHA e BHT por concentrado de tocoferóis e extrato de alecrim), esse cuidado precisa ser ainda mais rigoroso. Como a vitamina E natural se consome mais rápido para proteger a gordura do ar, deixar o saco entreaberto no calor acelera a perda de palatabilidade.',
+          'O segundo inimigo é a umidade do ar, medida na bromatologia pela atividade de água (aw). A ração seca sai da fábrica com no máximo 10% a 12% de umidade (atividade de água abaixo de 0,60), um deserto onde fungos e bactérias não conseguem se multiplicar. Se o pacote fica aberto em áreas úmidas como lavanderias ou cozinhas, o grão absorve vapor de água, ultrapassa o limite crítico de 0,65 a 0,70 de atividade de água e abre caminho para fungos produtores de micotoxinas (como as aflatoxinas, que causam lesões graves no fígado do cão).',
+        ],
+      },
+      {
+        id: 'vicio-oculto-vs-mau-armazenamento-cdc',
+        heading: '3. Mofo, carunchos ou ranço logo ao abrir: Quando é direito de troca pelo CDC?',
+        paragraphs: [
+          'Situação completamente diferente ocorre quando o tutor acaba de comprar um pacote dentro do prazo de validade, abre o saco em casa (ou está nas primeiras semanas de uso adequado) e se depara com grãos embolorados, teias de traças, pequenos besouros (carunchos), cheiro azedo ou textura borrachenta.',
+          'Nesses casos, não estamos diante de envelhecimento natural pós-abertura, mas de um vício de qualidade que torna o produto impróprio ao consumo, previsto no Art. 18, § 6º, incisos I e II do Código de Defesa do Consumidor (Lei nº 8.078/1990). Microfuros no transporte, falhas na selagem térmica da fábrica ou estocagem sob sol e umidade no depósito do distribuidor rompem a barreira protetora antes mesmo de o pacote chegar à sua casa.',
+          'Como o saco de ração é opaco e lacrado, o tutor só descobre o problema ao abrir a embalagem ou quando o cão passa mal. Juridicamente, isso configura um vício oculto: pelo Art. 26, § 3º e Art. 26, inciso I do CDC, o prazo legal de 30 dias para reclamar de produtos não duráveis (como alimentos) começa a contar somente a partir do momento em que o defeito fica evidente para o consumidor, e não da data da compra na nota fiscal.',
+          'Além disso, a responsabilidade pelo produto impróprio é solidária entre o fabricante e o lojista (pet shop físico ou marketplace online), conforme o Art. 18, caput do CDC. Tratando-se de alimento deteriorado ou contaminado, o tutor não é obrigado a esperar 30 dias para que a empresa "conserte" o produto (Art. 18, § 3º): a lei garante o direito de exigir imediatamente a substituição por outro pacote perfeito, a restituição integral do valor pago ou o abatimento proporcional do preço.',
+        ],
+        table: {
+          caption: 'Diagnóstico prático e enquadramento legal no CDC: Vício oculto de lote vs degradação doméstica',
+          headers: [
+            'Situação Encontrada no Pacote',
+            'Causa Técnica Provável',
+            'Enquadramento no CDC (Lei nº 8.078/1990)',
+            'Direito do Tutor na Prática',
+          ],
+          rows: [
+            [
+              'Mofo visível, grãos grudentos ou cheiro forte de ranço ao abrir o pacote',
+              'Falha de selagem na fábrica, excesso de umidade no lote ou microfuro no transporte',
+              'Produto impróprio ao consumo (Art. 18, § 6º, II) / Vício oculto (Art. 26, § 3º)',
+              'Troca imediata por pacote novo ou reembolso integral (solidariedade entre loja e fabricante)',
+            ],
+            [
+              'Larvas, teias ou carunchos (besouros) nos primeiros dias após a abertura',
+              'Infestação cruzada no centro de distribuição, pet shop ou furo na barreira plástica',
+              'Vício de qualidade por inadequação e risco à saúde animal (Art. 8º e Art. 18)',
+              'Substituição gratuita imediata ou devolução do dinheiro (prazo de 30 dias após notar o defeito)',
+            ],
+            [
+              'Ração comprada a granel (vendida solta em sacos plásticos transparentes)',
+              'Exposição prolongada ao ar, luz, umidade, poeira e perda de rastreabilidade do lote',
+              'Infração às normas sanitárias de rotulagem e rastreabilidade (IN MAPA nº 30/2009 e Decreto nº 12.031/2024)',
+              'Venda irregular: risco sanitário elevado e perda da garantia original do fabricante',
+            ],
+            [
+              'Cão adoece (intoxicação/gastroenterite) após comer lote com mofo ou toxina',
+              'Contaminação microbiológica ou micotoxinas (fato do produto / acidente de consumo)',
+              'Responsabilidade objetiva por danos materiais e morais (Art. 12 e Art. 14 do CDC)',
+              'Ressarcimento de despesas veterinárias (exames, internação, medicamentos) mediante laudo clínico',
+            ],
+            [
+              'Grãos murchos e sem cheiro após 60+ dias de pacote aberto na área de serviço',
+              'Oxidação lipídica natural e absorção de umidade por tempo excessivo pós-abertura',
+              'Culpa exclusiva do consumidor por descumprir orientação de conservação (Art. 12, § 3º, III)',
+              'Sem direito legal a troca obrigatória (fora da janela técnica de 30 a 45 dias pós-abertura)',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'perigo-racao-a-granel-mapa',
+        heading: '4. O perigo oculto da ração a granel: Por que o MAPA e o CDC reprovam a venda avulsa?',
+        paragraphs: [
+          'Em muitos bairros, ainda é comum encontrar comércios que abrem sacos grandes de 15 kg ou 25 kg e revendem a ração fracionada em sacos plásticos transparentes ("a granel") para quem quer comprar apenas um ou dois quilos. Do ponto de vista bromatológico e legal, essa prática retira toda a proteção do consumidor e expõe o cão a riscos severos.',
+          'Pelo Decreto Federal nº 12.031/2024 e pela Instrução Normativa MAPA nº 30/2009, todo alimento para animais comercializado no varejo deve estar acondicionado em embalagem inviolável que preserve sua inocuidade e traga impressos o número do lote, a data de fabricação, a tabela de garantia e o registro do estabelecimento.',
+          'Quando o lojista rompe o pacote original e despeja os grãos em caixas abertas ou tonéis, ninguém sabe há quantas semanas aquela ração está oxidando, se houve mistura de uma sobra antiga no fundo do recipiente com um saco novo ou se roedores e insetos tiveram acesso ao depósito durante a noite.',
+          'Além do risco de gastroenterite e intoxicação por fungos, o tutor que compra ração a granel perde o lastro probatório para acionar o Serviço de Atendimento ao Consumidor (SAC) da marca: sem a embalagem original e sem o código de rastreabilidade do lote, o fabricante fica desobrigado de conceder garantias.',
+        ],
+        callout: {
+          type: 'atencao',
+          title: 'O erro mais comum em casa: Despejar a ração direto no pote plástico',
+          text: 'Muitos tutores compram um porta-ração plástico grande e despejam os grãos soltos lá dentro, jogando o saco original no lixo. Esse hábito traz dois problemas: o plástico poroso absorve óleos que ficam rançosos nas paredes do balde (contaminando a ração nova) e você perde o número do lote caso precise acionar a garantia do CDC. A regra de ouro da nutrição clínica é colocar o saco original inteiro dentro do pote hermético.',
+        },
+      },
+      {
+        id: 'protocolo-armazenamento-e-provas-para-troca',
+        heading: '5. Como blindar a ração em casa e o passo a passo para acionar a garantia legal',
+        paragraphs: [
+          'Para garantir que o último grão do pacote tenha o mesmo valor nutricional e o mesmo aroma do primeiro dia, o dimensionamento da compra é o primeiro passo. Calcule o consumo diário do seu cão na tabela do rótulo e escolha um tamanho de embalagem (1 kg, 2,5 kg, 7,5 kg ou 15 kg) que seja totalmente consumido em até 30 ou 40 dias.',
+          'No manejo diário em casa, mantenha a ração dentro do saco metalizado original (que possui barreira contra luz e oxigênio), retire todo o ar antes de fechar com um pregador de vedação ou fecho zip e guarde esse pacote dentro de um recipiente hermético em local fresco, longe do chão e fora da cozinha ou lavanderia.',
+          'Se você comprou um pacote fechado e identificou mofo, cheiro de ranço, grãos úmidos ou insetos dentro do prazo regular de uso, aja imediatamente: suspenda o fornecimento ao cão, fotografe e filme os grãos afetados junto ao código de lote e data de validade impressos no pacote, e guarde a nota fiscal de compra.',
+          'Entre em contato com o SAC do fabricante ou diretamente com a loja onde adquiriu o produto, citando o vício de qualidade do Art. 18, § 6º do CDC. As indústrias sérias recolhem o pacote defeituoso em domicílio para análise de retenção do lote na fábrica e realizam a substituição sem custos; caso o cão tenha apresentado sintomas digestivos, guarde também o receituário e os comprovantes da clínica veterinária para solicitar o reembolso integral das despesas médicas.',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Qual é o prazo de validade real de uma ração seca depois que o pacote é aberto?',
+        a: 'Após o rompimento do lacre original, o prazo seguro de consumo recomendado pelos fabricantes e pela literatura técnica (ABINPET/FEDIAF) varia de 30 a 45 dias, desde que o alimento seja mantido na embalagem original bem vedada, ao abrigo do calor, da luz solar e da umidade. A data impressa no pacote vale apenas enquanto o saco estiver lacrado de fábrica.',
+      },
+      {
+        q: 'Comprei a ração há mais de 30 dias, mas só abri o saco agora e estava com mofo. Perdi a garantia?',
+        a: 'Não. Desde que o pacote esteja dentro da data de validade impressa pelo fabricante, o mofo ou infestação interna encontrados ao abrir a embalagem caracterizam vício oculto em produto não durável. Pelo Art. 26, inciso I e § 3º do Código de Defesa do Consumidor (CDC), o prazo legal de 30 dias para exigir a troca ou o reembolso começa a contar da data em que você abriu o saco e constatou o defeito, e não da data da emissão da nota fiscal.',
+      },
+      {
+        q: 'Posso exigir a troca direto no pet shop ou sou obrigado a ligar para o fabricante?',
+        a: 'Você pode escolher o caminho mais prático. O Art. 18 do CDC estabelece a responsabilidade solidária entre todos os integrantes da cadeia de fornecimento (fabricante, distribuidor e comerciante). Como se trata de alimento impróprio para consumo (Art. 18, § 3º e § 6º), tanto a loja onde você comprou quanto o SAC da marca têm o dever legal de substituir o produto imediatamente ou devolver o valor pago.',
+      },
+      {
+        q: 'Por que não devo despejar a ração solta dentro de baldes ou potes plásticos?',
+        a: 'A embalagem original das rações Premium Especial e Super Premium é construída com camadas de polímeros de baixa permeabilidade ou filme metalizado que bloqueiam a luz e retardam a oxidação das gorduras. Quando você despeja os grãos direto no pote plástico, a gordura impregna nos microporos do recipiente, oxida com o tempo e contamina as remessas seguintes, além de fazer você perder o código do lote e a data de fabricação exigidos em caso de reclamação pelo CDC.',
+      },
+    ],
+    conclusion:
+      'Respeitar a janela de 30 a 45 dias de consumo após a abertura do pacote e conservar a ração dentro do saco original bem vedado é a maneira mais segura de proteger o fígado e o intestino do seu cão contra a oxidação de gorduras e as micotoxinas. Por outro lado, se o alimento apresentar mofo, cheiro de ranço ou insetos logo ao ser aberto ou dentro do uso regular, a lei está integralmente ao lado do tutor: o Código de Defesa do Consumidor classifica o problema como vício oculto de qualidade e garante a substituição imediata do pacote ou a devolução do dinheiro, além do ressarcimento de eventuais gastos veterinários.',
+    references: [
+      {
+        title: 'Lei Federal nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor - CDC)',
+        institution: 'Presidência da República / Casa Civil',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+        details: 'Artigos 6º (direito à saúde e segurança), 12 (fato do produto), 18 (§ 3º e § 6º, I e II sobre produtos deteriorados ou impróprios), 26 (prazo de 30 dias a partir da ciência do vício oculto) e 31 (informação de conservação)',
+      },
+      {
+        title: 'Decreto Federal nº 12.031, de 28 de maio de 2024',
+        institution: 'Presidência da República / Ministério da Agricultura e Pecuária (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+        details: 'Regulamenta a Lei nº 6.198/1974 sobre inspeção, fiscalização, rastreabilidade de lotes, integridade de embalagens e obrigatoriedade das indicações de conservação nos produtos destinados à alimentação animal',
+      },
+      {
+        title: 'Instrução Normativa MAPA nº 30, de 5 de agosto de 2009',
+        institution: 'Ministério da Agricultura, Pecuária e Abastecimento (MAPA)',
+        type: 'regulamento',
+        url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+        details: 'Critérios e procedimentos para rotulagem de alimentos para animais de companhia, declaração obrigatória de condições de conservação, prazo de validade e proibição de venda sem rotulagem íntegra',
+      },
+      {
+        title: 'Manual Pet Food Brasil (11ª Edição)',
+        institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+        type: 'literatura',
+        url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+        details: 'Diretrizes de estabilidade oxidativa de lipídios, controle de atividade de água (aw), prevenção de micotoxinas e boas práticas de estocagem e conservação pós-abertura',
+      },
+      {
+        title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+        institution: 'European Pet Food Industry Federation (FEDIAF)',
+        type: 'literatura',
+        url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+        details: 'Parâmetros de conservação de vitaminas lipossolúveis, proteção antioxidante de ácidos graxos essenciais e segurança bromatológica em alimentos secos extrusados',
+      },
+    ],
+    callToAction: {
+      title: 'Consulte o Catálogo de Rações para Cães Avaliadas pelo PetRankings',
+      text: 'Quer verificar quais marcas utilizam antioxidantes naturais ou sintéticos e comparar a nota técnica de cada fórmula? Acesse nosso ranking completo.',
+      buttonText: 'Ver Ranking de Rações para Cães',
+      buttonUrl: '/catalogo?especie=Caes',
     },
   },
 ];
