@@ -2621,6 +2621,8 @@ export function parseProductFromHtml(
       (/alimento\s+espec[íi]fico/i.test(html) && !/alimento\s+completo/i.test(html)) ||
       /n&d-natural/i.test(sourceUrl) ||
       /premier.*gourmet/i.test(commercialName) ||
+      (/guabi.*natural/i.test(commercialName + ' ' + sourceUrl) && /sach[êe]|sache/i.test(commercialName + ' ' + sourceUrl)) ||
+      /complementar\s+a\s+alimenta[çc][ãa]o/i.test(html) ||
       (!/alimento\s+completo/i.test(html) && /gourmet/i.test(commercialName) && !/golden.*gourmet.*gato|quatree|purina|proplan|fancy\s*feast|granplus|special\s*care|specialnutri|astro/i.test(commercialName + ' ' + sourceUrl)))
   ) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
