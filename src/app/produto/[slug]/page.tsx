@@ -19,6 +19,9 @@ import {
   ChevronRight,
   Scale,
   Info,
+  BookOpen,
+  Clock,
+  ArrowRight,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import BackButton from '@/components/BackButton';
@@ -28,6 +31,7 @@ import { ExtratoPilarItem } from '@/lib/audit-engine/types';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
 import { normalizeIngredientsList, SITE_URL } from '@/lib/utils';
 import { findProductRedirect } from '@/lib/redirects';
+import { getGuidesForProduct } from '@/lib/content/guides';
 
 function getSafeUrl(url?: string | null): string | null {
   if (!url) return null;
@@ -483,6 +487,10 @@ export default async function ProductDetailPage({
     '@context': 'https://schema.org',
     '@graph': [breadcrumbSchema, productOrPageSchema],
   };
+
+  const productGuides = getGuidesForProduct(product.slug, product.species, 2);
+  const hasAffiliateLinks = Boolean(product.affiliateLinks && product.affiliateLinks.length > 0);
+  const studiesSectionNumber = hasAffiliateLinks ? 6 : 5;
 
   return (
     <>
@@ -1261,6 +1269,7 @@ export default async function ProductDetailPage({
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--border-cream)',
                 padding: '24px 28px',
+                marginBottom: '32px',
                 boxShadow: 'var(--shadow-xs)',
               }}
             >
@@ -1300,6 +1309,213 @@ export default async function ProductDetailPage({
                       <span>Ver na {link.store}</span>
                       <ExternalLink size={14} />
                     </a>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* ESTUDOS E CONFRONTOS TÉCNICOS RELACIONADOS */}
+          {productGuides.allGuides.length > 0 && (
+            <section
+              id="estudos-relacionados"
+              style={{
+                scrollMarginTop: '100px',
+                backgroundColor: '#ffffff',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--border-cream)',
+                padding: '24px 28px',
+                boxShadow: 'var(--shadow-xs)',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '12px',
+                  marginBottom: '8px',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <BookOpen size={20} color="var(--brand-forest-700)" />
+                  <h2
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '1.15rem',
+                      fontWeight: 800,
+                      color: 'var(--brand-forest-900)',
+                      margin: 0,
+                    }}
+                  >
+                    {studiesSectionNumber}. {productGuides.hasDirect ? 'Estudos e confrontos técnicos com este produto' : `Estudos bromatológicos recomendados para ${product.species === 'GATO' ? 'gatos' : 'cães'}`}
+                  </h2>
+                </div>
+                <Link
+                  href="/guias"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    color: 'var(--brand-forest-700)',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <span>Ver todos os estudos</span>
+                  <ChevronRight size={14} />
+                </Link>
+              </div>
+
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '20px' }}>
+                {productGuides.hasDirect
+                  ? 'Este produto foi analisado em confrontos comparativos independentes e estudos de rotulagem do Observatório PetRankings:'
+                  : `Confira os estudos bromatológicos e análises de rotulagem mais recentes para ${product.species === 'GATO' ? 'gatos' : 'cães'} com base nas normas da ABINPET e MAPA:`}
+              </p>
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '16px',
+                }}
+              >
+                {productGuides.allGuides.map((guide) => {
+                  const isDirectStudy = productGuides.directGuides.some((dg) => dg.slug === guide.slug);
+                  return (
+                    <Link
+                      key={guide.slug}
+                      href={`/guias/${guide.slug}`}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        textDecoration: 'none',
+                        backgroundColor: 'var(--bg-cream-main)',
+                        borderRadius: 'var(--radius-sm)',
+                        border: '1px solid var(--border-cream-light)',
+                        overflow: 'hidden',
+                        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                      }}
+                    >
+                      <div style={{ position: 'relative', width: '100%', height: '145px', backgroundColor: '#e2e8f0' }}>
+                        <Image
+                          src={guide.coverImageUrl}
+                          alt={guide.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 400px"
+                          style={{ objectFit: 'cover' }}
+                        />
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: '10px',
+                            left: '10px',
+                            display: 'flex',
+                            gap: '6px',
+                            flexWrap: 'wrap',
+                          }}
+                        >
+                          <span
+                            style={{
+                              padding: '3px 8px',
+                              borderRadius: '4px',
+                              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                              backdropFilter: 'blur(4px)',
+                              fontSize: '0.68rem',
+                              fontWeight: 800,
+                              color: 'var(--brand-forest-900)',
+                              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.03em',
+                            }}
+                          >
+                            {guide.cluster}
+                          </span>
+                          {isDirectStudy && (
+                            <span
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '3px',
+                                padding: '3px 8px',
+                                borderRadius: '4px',
+                                backgroundColor: '#15803d',
+                                color: '#ffffff',
+                                fontSize: '0.68rem',
+                                fontWeight: 800,
+                                boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
+                              }}
+                            >
+                              <CheckCircle2 size={11} color="#ffffff" />
+                              <span>Produto Analisado</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                        <h3
+                          style={{
+                            fontFamily: 'var(--font-heading)',
+                            fontSize: '0.94rem',
+                            fontWeight: 800,
+                            color: 'var(--brand-forest-900)',
+                            lineHeight: 1.35,
+                            margin: '0 0 8px 0',
+                          }}
+                        >
+                          {guide.title}
+                        </h3>
+
+                        <p
+                          style={{
+                            fontSize: '0.80rem',
+                            color: 'var(--text-body)',
+                            lineHeight: 1.5,
+                            margin: '0 0 14px 0',
+                            flexGrow: 1,
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                          }}
+                        >
+                          {guide.summary}
+                        </p>
+
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            paddingTop: '10px',
+                            borderTop: '1px solid var(--border-cream-light)',
+                            fontSize: '0.75rem',
+                            color: 'var(--text-muted)',
+                          }}
+                        >
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                            <Clock size={12} />
+                            <span>{guide.readingTimeMinutes} min de leitura</span>
+                          </span>
+
+                          <span
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              fontWeight: 700,
+                              color: 'var(--brand-forest-700)',
+                            }}
+                          >
+                            <span>Ler estudo</span>
+                            <ArrowRight size={13} />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
                   );
                 })}
               </div>

@@ -8459,3 +8459,43 @@ export function getGuideBySlug(slug: string): GuideItem | undefined {
 export function getRelatedGuides(currentSlug: string, limit = 2): GuideItem[] {
   return getAllGuides().filter((g) => g.slug !== currentSlug).slice(0, limit);
 }
+
+export interface ProductGuidesResult {
+  directGuides: GuideItem[];
+  fallbackGuides: GuideItem[];
+  allGuides: GuideItem[];
+  hasDirect: boolean;
+}
+
+export function getGuidesForProduct(
+  productSlug: string,
+  species?: 'CAO' | 'GATO' | string | null,
+  limit = 2
+): ProductGuidesResult {
+  const all = getAllGuides();
+  const directGuides = all.filter(
+    (g) => Array.isArray(g.relatedProductSlugs) && g.relatedProductSlugs.includes(productSlug)
+  );
+
+  const directSlugs = new Set(directGuides.map((g) => g.slug));
+
+  let fallbackGuides: GuideItem[] = [];
+  if (directGuides.length < limit) {
+    const targetSpecies = species === 'GATO' ? 'Gatos' : species === 'CAO' ? 'Cães' : null;
+    fallbackGuides = all
+      .filter((g) => {
+        if (directSlugs.has(g.slug)) return false;
+        if (!targetSpecies) return true;
+        return g.speciesTarget === targetSpecies || g.speciesTarget === 'Cães e Gatos';
+      })
+      .slice(0, limit - directGuides.length);
+  }
+
+  const selectedDirect = directGuides.slice(0, limit);
+  return {
+    directGuides: selectedDirect,
+    fallbackGuides,
+    allGuides: [...selectedDirect, ...fallbackGuides],
+    hasDirect: directGuides.length > 0,
+  };
+}
