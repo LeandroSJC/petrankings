@@ -716,6 +716,8 @@ export function parseProductFromHtml(
   const isPetlove = /petlove\.com\.br/i.test(sourceUrl) || /petlove/i.test(fallbackUrl);
   const isVbAlimentos = /vbalimentos\.com\.br/i.test(sourceUrl) || /vbalimentos\.com\.br/i.test(fallbackUrl);
   const isTutano = /tutanopet\.com\.br/i.test(sourceUrl) || /tutanopet\.com\.br/i.test(fallbackUrl) || /tutano/i.test(sourceUrl + ' ' + fallbackUrl);
+  const isFoster = /fosterpet\.com\.br/i.test(sourceUrl) || /fosterpet\.com\.br/i.test(fallbackUrl) || /foster/i.test(sourceUrl + ' ' + fallbackUrl);
+  const isDalpet = /dalpet\.com\.br/i.test(sourceUrl) || /dalpet\.com\.br/i.test(fallbackUrl) || /dalpet/i.test(sourceUrl + ' ' + fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -871,6 +873,24 @@ export function parseProductFromHtml(
 
     if (tutanoImg) {
       imageUrl = tutanoImg.replace(/-\d+x\d+(\.[a-zA-Z]+)$/, '$1');
+    }
+  }
+
+  if (isFoster) {
+    let fosterImg = $('.woocommerce-product-gallery__image img, img.wp-post-image, .elementor-widget-woocommerce-product-images img')
+      .first()
+      .attr('src');
+    if (!fosterImg) {
+      fosterImg = $('img[src*="/wp-content/uploads/"]')
+        .filter((_, el) => {
+          const s = $(el).attr('src') || '';
+          return !s.includes('logo') && !s.includes('selo') && !s.includes('icon') && !s.includes('cropped-') && !s.includes('about') && !s.includes('cat-looking');
+        })
+        .first()
+        .attr('src');
+    }
+    if (fosterImg) {
+      imageUrl = fosterImg.replace(/-scaled(-\d+x\d+)?\./i, '.').replace(/-\d+x\d+\./i, '.');
     }
   }
 
@@ -2182,6 +2202,11 @@ export function parseProductFromHtml(
       t = 'Tutano Gatos Sabor Frango';
     }
     rawName = t;
+  } else if (isFoster) {
+    let t = $('meta[property="og:title"]').attr('content')?.replace(/\s*-\s*Foster.*$/i, '').trim() ||
+      $('title').text().replace(/\s*-\s*Foster.*$/i, '').trim();
+    t = t.replace(/castradaos/gi, 'Castrados');
+    rawName = t;
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -2207,6 +2232,35 @@ export function parseProductFromHtml(
     commercialName = commercialName
       .replace(/^Ra[cç][aã]o\s+(?:Seca\s+|[UÚ]mida\s+)?/i, '')
       .replace(/\s*&\s*/g, ' e ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  if (isFoster || /fosterpet\.com\.br/i.test(sourceUrl)) {
+    if (!/gatos?/i.test(commercialName)) {
+      if (/filhotes/i.test(commercialName) && !/c[ãa]es/i.test(commercialName)) {
+        commercialName = commercialName.replace(/\bfilhotes\b/i, 'Cães Filhotes');
+      } else if (/adultos/i.test(commercialName) && !/c[ãa]es/i.test(commercialName)) {
+        commercialName = commercialName.replace(/\badultos\b/i, 'Cães Adultos');
+      } else if (/s[êe]nior/i.test(commercialName) && !/c[ãa]es/i.test(commercialName)) {
+        commercialName = commercialName.replace(/\bs[êe]nior\b/i, 'Cães Sênior');
+      } else if (/snack|bifinho/i.test(commercialName) && !/c[ãa]es/i.test(commercialName)) {
+        commercialName = commercialName.replace(/\bbifinho\b/i, 'Bifinho Cães');
+      } else if (/ra[çc]as\s+m[ée]dias\s+e\s+grandes/i.test(commercialName) && !/c[ãa]es/i.test(commercialName)) {
+        commercialName = commercialName.replace(/ra[çc]as\s+m[ée]dias\s+e\s+grandes/i, 'Cães Adultos Raças Médias e Grandes');
+      } else if (/ra[çc]as\s+pequenas/i.test(commercialName) && !/c[ãa]es/i.test(commercialName)) {
+        commercialName = commercialName.replace(/ra[çc]as\s+pequenas/i, 'Cães Adultos Raças Pequenas');
+      }
+    }
+    commercialName = commercialName
+      .replace(/\s*&\s*/g, ' e ')
+      .replace(/\s*\+7\b/g, ' 7+')
+      .replace(/\bfrango\s+e\s+batata\s+doce\b/i, 'Sabor Frango e Batata Doce')
+      .replace(/\bsalm[ãa]o\s+e\s+batata\s+doce\b/i, 'Sabor Salmão e Batata Doce')
+      .replace(/\bsalm[ãa]o\s+e\s+arroz\b/i, 'Sabor Salmão e Arroz')
+      .replace(/\bblend\s+de\s+carnes\b/i, 'Sabor Blend de Carnes')
+      .replace(/\bcarne\s+e\s+leite\b/i, 'Sabor Carne e Leite')
+      .replace(/\bcarne\s+e\s+arroz\b/i, 'Sabor Carne e Arroz')
+      .replace(/\bsabor\s+sabor\b/gi, 'Sabor')
       .replace(/\s+/g, ' ')
       .trim();
   }
@@ -2236,7 +2290,7 @@ export function parseProductFromHtml(
       }
     }
   }
-  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi || isNutrimais || isAlinutri || isPetlove) {
+  if (isDalpet || isFoster || isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi || isNutrimais || isAlinutri || isPetlove) {
     slug = '';
   }
   if (!slug && commercialName) {
@@ -2283,7 +2337,7 @@ export function parseProductFromHtml(
   } else if (/pedigree/i.test(commercialName) || /pedigree\.com\.br/i.test(sourceUrl)) {
     brand = 'Pedigree';
     manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
-  } else if (/purina\.com\.br/i.test(sourceUrl) || /\bpurina\b|\bpro\s*plan\b|\bdog\s*chow\b|\bcat\s*chow\b|\bfriskies\b|\bfancy\s*feast\b|\bone\b/i.test(commercialName)) {
+  } else if (!isFoster && !/foster/i.test(commercialName) && (/purina\.com\.br/i.test(sourceUrl) || /\bpurina\b|\bpro\s*plan\b|\bdog\s*chow\b|\bcat\s*chow\b|\bfriskies\b|\bfancy\s*feast\b|\bone\b/i.test(commercialName))) {
     manufacturerLegalName = 'Nestlé Brasil Ltda';
     if (/veterinary-diet|veterinary-diets|veterin[áa]ria|vet\s*diet|clinical/i.test(sourceUrl + ' ' + commercialName)) {
       brand = 'Purina Pro Plan Veterinary Diets';
@@ -2724,6 +2778,20 @@ export function parseProductFromHtml(
   } else if (isTutano || /tutanopet\.com\.br/i.test(sourceUrl) || /\btutano\b/i.test(commercialName)) {
     brand = 'Tutano';
     manufacturerLegalName = 'Cargill Agrícola S.A.';
+  } else if (isFoster || /fosterpet\.com\.br/i.test(sourceUrl) || /\bfoster\b/i.test(commercialName)) {
+    brand = 'Foster';
+    manufacturerLegalName = 'Super Foods Nutrição Animal Ltda.';
+  } else if (isDalpet || /dalpet\.com\.br/i.test(sourceUrl) || /\b(?:pro\s*omega|daldog|dalcat)\b/i.test(commercialName)) {
+    if (/pro[-_\s]*[oôó]mega/i.test(commercialName)) {
+      brand = 'Pro Ômega';
+    } else if (/dalcat/i.test(commercialName)) {
+      brand = 'DalCat';
+    } else if (/daldog/i.test(commercialName)) {
+      brand = 'DalDog';
+    } else {
+      brand = 'DalPet';
+    }
+    manufacturerLegalName = 'Dalpet Alimentos Ltda.';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2750,6 +2818,12 @@ export function parseProductFromHtml(
     !isThree &&
     !isVbAlimentos &&
     !isTutano &&
+    !isFoster &&
+    !isDalpet &&
+    !/dalpet\.com\.br/i.test(sourceUrl) &&
+    !/\b(?:pro\s*omega|daldog|dalcat)\b/i.test(commercialName) &&
+    !/fosterpet\.com\.br/i.test(sourceUrl) &&
+    !/\bfoster\b/i.test(commercialName) &&
     !/tutanopet\.com\.br/i.test(sourceUrl) &&
     !/\btutano\b/i.test(commercialName) &&
     !/vbalimentos\.com\.br/i.test(sourceUrl) &&
@@ -2850,6 +2924,9 @@ export function parseProductFromHtml(
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
   if (isVbAlimentos && /bifinho|biscoito|stix|nugget|snack/i.test(commercialName + ' ' + sourceUrl)) {
+    legalCategory = 'ALIMENTO_COMPLEMENTAR';
+  }
+  if (isFoster && /snack|bifinho/i.test(commercialName + ' ' + sourceUrl)) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
 
@@ -3353,6 +3430,40 @@ export function parseProductFromHtml(
       if (rows.length > 0 && (!garText || garText.length < 20)) {
         garText = rows.join('\n');
       }
+    }
+  }
+
+  // 5-foster. Foster Pet (Lupus Alimentos / Super Foods Nutrição Animal Ltda.)
+  if (isFoster) {
+    if (!compText || compText.length < 20) {
+      $('h1, h2, h3, h4').each((_, el) => {
+        if (/composi[çc][ãa]o/i.test($(el).text())) {
+          const nextWidget = $(el).closest('.elementor-widget').next('.elementor-widget');
+          if (nextWidget.length > 0 && !compText) {
+            compText = nextWidget.text().trim().replace(/\s+/g, ' ');
+          }
+        }
+      });
+    }
+
+    if (!garText || garText.length < 20) {
+      $('table').each((_, tbl) => {
+        const headerText = $(tbl).text();
+        if (headerText.includes('Umidade') && headerText.includes('Proteína')) {
+          const rows: string[] = [];
+          $(tbl).find('tr').each((_, tr) => {
+            const tds = $(tr).find('td, th');
+            if (tds.length >= 2) {
+              const k = $(tds[0]).text().trim().replace(/\s+/g, ' ');
+              const v = $(tds[1]).text().trim().replace(/\s+/g, ' ');
+              if (k && v && !k.toLowerCase().includes('atributo')) {
+                rows.push(`${k} : ${v}`);
+              }
+            }
+          });
+          if (rows.length > 0 && !garText) garText = rows.join('\n');
+        }
+      });
     }
   }
 
