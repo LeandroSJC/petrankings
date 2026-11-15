@@ -36,7 +36,7 @@ import { getGuidesForProduct } from '@/lib/content/guides';
 function getSafeUrl(url?: string | null): string | null {
   if (!url) return null;
   const trimmed = url.trim();
-  if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith('/uploads/') || trimmed.startsWith('/')) {
+  if (/^https?:\/\//i.test(trimmed)) {
     return trimmed;
   }
   return null;

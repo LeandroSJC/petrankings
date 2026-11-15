@@ -661,15 +661,33 @@ export function parseProductFromHtml(
   const $ = cheerio.load(html);
 
   // 1. URL e Imagem Oficial
+  const ogUrl = $('meta[property="og:url"]').attr('content') || '';
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
   let sourceUrl =
-    $('meta[property="og:url"]').attr('content') ||
-    $('link[rel="canonical"]').attr('href') ||
-    fallbackUrl ||
-    '';
+    (canonical && canonical.startsWith('http'))
+      ? canonical
+      : (ogUrl && ogUrl.startsWith('http'))
+        ? ogUrl
+        : (fallbackUrl && fallbackUrl.startsWith('http'))
+          ? fallbackUrl
+          : ogUrl || canonical || fallbackUrl || '';
 
   // Se o canonical for a raiz do site mas o fallbackUrl tiver o caminho específico do produto
   if (fallbackUrl && (sourceUrl.endsWith('nutrire.ind.br/') || sourceUrl.endsWith('nutrire.ind.br') || (fallbackUrl.includes('/produto/') && !sourceUrl.includes('/produto/')))) {
     sourceUrl = fallbackUrl;
+  }
+
+  // Se a URL for relativa, normaliza com o domínio do fallbackUrl ou do fabricante
+  if (sourceUrl && !sourceUrl.startsWith('http')) {
+    if (fallbackUrl && fallbackUrl.startsWith('http')) {
+      try {
+        sourceUrl = new URL(sourceUrl, fallbackUrl).href;
+      } catch {
+        sourceUrl = fallbackUrl;
+      }
+    } else if (/petlove/i.test(sourceUrl + ' ' + html)) {
+      sourceUrl = `https://www.petlove.com.br${sourceUrl.startsWith('/') ? '' : '/'}${sourceUrl}`;
+    }
   }
 
   const isGranPlus = /granplus\.com\.br/i.test(sourceUrl) || /granplus/i.test(fallbackUrl);
