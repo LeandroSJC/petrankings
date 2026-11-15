@@ -3616,6 +3616,26 @@ export function parseProductFromHtml(
     }
 
     const grainsLabel = detectedGrains.length > 0 ? detectedGrains.join(' e ') : 'Derivados de grãos';
+    let suffix = 'geneticamente modificados';
+    if (detectedGrains.length === 1) {
+      suffix = detectedGrains[0] === 'Soja' ? 'geneticamente modificada' : 'geneticamente modificado';
+    }
+
+    let agroDonors: string | null = null;
+    if (!doadorasMatch) {
+      const agroMatches = compText.match(/(?:\*{1,2}|espécies\s+doadoras[^\n:]*[:\s]*)\s*([A-Z][a-z]+\s+[a-z]+(?:,\s*[A-Z][a-z]+\s+[a-z]+)+)/gi);
+      if (agroMatches) {
+        const speciesSet = new Set<string>();
+        for (const m of agroMatches) {
+          const cleaned = m.replace(/^[\*\s]+|^(?:espécies\s+doadoras[^\n:]*[:\s]*)/gi, '').trim();
+          cleaned.split(',').forEach(s => {
+            const sp = s.replace(/[\.\*]/g, '').trim();
+            if (sp && sp.length > 3 && !/alimento|produto|enriquecimento/i.test(sp)) speciesSet.add(sp);
+          });
+        }
+        if (speciesSet.size > 0) agroDonors = Array.from(speciesSet).join(', ');
+      }
+    }
 
     if (doadorasMatch) {
       let cleanDoadoras = doadorasMatch[1]
@@ -3633,13 +3653,15 @@ export function parseProductFromHtml(
         .replace(/\s+/g, ' ')
         .trim();
       const termoEspecies = /modificadoras/i.test(doadorasMatch[0]) ? 'espécies modificadoras de genes' : 'espécies doadoras de gene';
-      gmoIngredients = `${grainsLabel} geneticamente modificados (${termoEspecies}: ${cleanDoadoras})`;
+      gmoIngredients = `${grainsLabel} ${suffix} (${termoEspecies}: ${cleanDoadoras})`;
+    } else if (agroDonors) {
+      gmoIngredients = `${grainsLabel} ${suffix} (espécies doadoras de gene: ${agroDonors})`;
     } else if (gmoMatch) {
       gmoIngredients = gmoMatch[1]
         .replace(/^[,\s]*(?:na\s+composi[çc][ãa]o,?\s*)?(?:alimento\s+geneticamente\s+modificado\s*[:\s]*)?/i, '')
         .trim();
     } else if (detectedGrains.length > 0) {
-      gmoIngredients = `${detectedGrains.join(' e ')} geneticamente modificados`;
+      gmoIngredients = `${grainsLabel} ${suffix}`;
     }
   }
 
