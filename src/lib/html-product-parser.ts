@@ -718,6 +718,7 @@ export function parseProductFromHtml(
   const isTutano = /tutanopet\.com\.br/i.test(sourceUrl) || /tutanopet\.com\.br/i.test(fallbackUrl) || /tutano/i.test(sourceUrl + ' ' + fallbackUrl);
   const isFoster = /fosterpet\.com\.br/i.test(sourceUrl) || /fosterpet\.com\.br/i.test(fallbackUrl) || /foster/i.test(sourceUrl + ' ' + fallbackUrl);
   const isDalpet = /dalpet\.com\.br/i.test(sourceUrl) || /dalpet\.com\.br/i.test(fallbackUrl) || /dalpet/i.test(sourceUrl + ' ' + fallbackUrl);
+  const isOptimum = /optimumpet\.com\.br/i.test(sourceUrl) || /optimumpet/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -2341,6 +2342,9 @@ export function parseProductFromHtml(
       brand = 'Fórmula Natural';
     }
     manufacturerLegalName = 'Adimax Indústria e Comércio de Alimentos Ltda';
+  } else if (/optimum/i.test(commercialName) || isOptimum || /optimumpet\.com\.br/i.test(sourceUrl)) {
+    brand = 'Optimum';
+    manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
   } else if (/whiskas/i.test(commercialName) || /whiskas\.com\.br/i.test(sourceUrl)) {
     brand = 'Whiskas';
     manufacturerLegalName = 'Mars Brasil Alimentos Ltda';
@@ -2849,6 +2853,8 @@ export function parseProductFromHtml(
     !/granplus\.com\.br/i.test(sourceUrl) &&
     !/nutrilus/i.test(commercialName) &&
     !/petlove\.com\.br/i.test(sourceUrl) &&
+    !/optimum/i.test(commercialName) &&
+    !/optimumpet\.com\.br/i.test(sourceUrl) &&
     !/equilibrio|matsuda|vittamax|m-line|smack|thor|guabi|three\s*dogs|three\s*cats/i.test(commercialName) &&
     !/equilibrio-petfood\.com|matsudapet\.com\.br|guabinatural\.com\.br|threepetfood\.com\.br/i.test(sourceUrl) &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care|frost|atacama|funny\s*dog|funny\s*cat|astro|bravo|sapeca|nhock|trotter|tango|leroy|jazz|alix/i.test(commercialName) &&
@@ -3568,7 +3574,19 @@ export function parseProductFromHtml(
   }
   if (!garText) {
     const nutritionTableText = $('.nutrition-table').text().trim();
-    if (nutritionTableText) garText = nutritionTableText;
+    if (nutritionTableText && /prote[íi]na|umidade|extrato\s*et[ée]reo|mat[ée]ria\s*fibrosa/i.test(nutritionTableText)) {
+      garText = nutritionTableText;
+    }
+  }
+
+  // 5d-1. Elementos Semânticos Genéricos / Dossiê Sintético (.composicao-basica e .niveis-garantia)
+  if (!compText) {
+    const elComp = $('.composicao-basica, [class*="composicao-basica"]');
+    if (elComp.length > 0) compText = extractStructuredText(elComp, $);
+  }
+  if (!garText) {
+    const elGar = $('.niveis-garantia, [class*="niveis-garantia"]');
+    if (elGar.length > 0) garText = extractStructuredText(elGar, $);
   }
 
   // 5d-2. Pedigree / Mars Petcare
