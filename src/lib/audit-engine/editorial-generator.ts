@@ -92,9 +92,15 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
     ? ` e densidade calórica de ${energiaMetabolizavelKcalKg.toLocaleString('pt-BR')} kcal/kg`
     : '';
 
+  const VEICULO_LIQUIDO_REGEX = /^(água|agua|caldo)\b/i;
+  const ingredientesNutritivos =
+    foodType === 'UMIDO'
+      ? (topIngredients || []).filter((ing) => !VEICULO_LIQUIDO_REGEX.test(ing.trim()))
+      : topIngredients || [];
+
   const primeiroIngrediente =
-    topIngredients && topIngredients.length > 0 && topIngredients[0].trim().length > 2
-      ? topIngredients[0].trim().replace(/\.$/, '')
+    ingredientesNutritivos && ingredientesNutritivos.length > 0 && ingredientesNutritivos[0].trim().length > 2
+      ? ingredientesNutritivos[0].trim().replace(/\.$/, '')
       : null;
 
   // Cálculos de Matéria Seca (MS)
@@ -167,8 +173,11 @@ export function generateTechnicalEditorialOpinion(params: EditorialGenerationPar
   let ingredienteStr = '';
   if (primeiroIngrediente) {
     const ingLower = primeiroIngrediente.toLowerCase();
+    const isCms = /mecanicamente separada|cms|carca[çc]a/i.test(ingLower);
     const isProteinaNobre = /farinha de|carne|frango|salm[aã]o|peixe|cordeiro|peru|pat[oô]|su[íi]n/i.test(ingLower);
-    if (isProteinaNobre) {
+    if (isCms) {
+      ingredienteStr = ` Sua formulação tem como principal fonte proteica ${ingLower}.`;
+    } else if (isProteinaNobre) {
       ingredienteStr = ` Sua formulação destaca-se pela inclusão de ${ingLower} como principal fonte proteica nobre.`;
     } else {
       ingredienteStr = ` Apresenta ${ingLower} no topo da composição declarada.`;
@@ -379,6 +388,12 @@ DIRETRIZES INEGOCIÁVEIS:
    - Escreva em texto corrido (1 parágrafo fluido, 3 a 5 frases bem estruturadas, entre 50 e 90 palavras).
    - NÃO use marcadores (bullets), NÃO use negrito (**texto**), NÃO use títulos. Retorne APENAS o texto puro do parecer.`;
 
+    const VEICULO_LIQUIDO_REGEX = /^(água|agua|caldo)\b/i;
+    const ingredientesNutritivos =
+      foodType === 'UMIDO'
+        ? (topIngredients || []).filter((ing) => !VEICULO_LIQUIDO_REGEX.test(ing.trim()))
+        : topIngredients || [];
+
     const userPrompt = `Redija o parecer editorial para o seguinte produto avaliado:
 - Nome Comercial: ${commercialName}
 - Marca: ${brand}
@@ -394,7 +409,7 @@ ${eeMS !== null ? `- Extrato Etéreo (Gordura): ${extratoEtereoMinPct}% (calcula
 - Fósforo Mínimo: ${fosforoMinPct ?? 'N/D'}% (${relCaP ? `Relação Ca:P calculada ${relCaP}:1` : ''})
 - Conservantes: ${antioxidantType === 'NATURAL' ? 'Conservantes 100% Naturais' : 'Conservantes Sintéticos (BHA/BHT)'}
 - Transgênicos: ${containsGmo ? 'Contém ingredientes transgênicos' : 'Livre de transgênicos'}
-- Principais Ingredientes do Rótulo: ${topIngredients.slice(0, 5).join(', ') || 'Não informados'}
+- Principais Ingredientes Nutritivos: ${ingredientesNutritivos.slice(0, 5).join(', ') || 'Não informados'}${foodType === 'UMIDO' ? ' (desconsiderando a água/caldo físico de cocção exigido pelo MAPA)' : ''}
 - Extrato dos Pilares da Avaliação:
 ${pointsSummary}`;
 

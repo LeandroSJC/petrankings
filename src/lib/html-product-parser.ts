@@ -715,7 +715,7 @@ export function parseProductFromHtml(
   const isThree = /threepetfood\.com\.br/i.test(sourceUrl) || /threepetfood/i.test(fallbackUrl);
   const isPetlove = /petlove\.com\.br/i.test(sourceUrl) || /petlove/i.test(fallbackUrl);
   const isVbAlimentos = /vbalimentos\.com\.br/i.test(sourceUrl) || /vbalimentos\.com\.br/i.test(fallbackUrl);
-  const isTutano = /tutanopet\.com\.br/i.test(sourceUrl) || /tutanopet\.com\.br/i.test(fallbackUrl) || /tutano/i.test(commercialName);
+  const isTutano = /tutanopet\.com\.br/i.test(sourceUrl) || /tutanopet\.com\.br/i.test(fallbackUrl) || /tutano/i.test(sourceUrl + ' ' + fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
