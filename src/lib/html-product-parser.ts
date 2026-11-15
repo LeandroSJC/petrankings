@@ -2599,7 +2599,7 @@ export function parseProductFromHtml(
   let legalCategory: 'ALIMENTO_COMPLETO' | 'ALIMENTO_COADJUVANTE' | 'ALIMENTO_COMPLEMENTAR' = 'ALIMENTO_COMPLETO';
   let coadjuvanteCondition: string | null = null;
 
-  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|veterinary-diet|prescription-diet|\/pd-|coadjuvante/i.test(commercialName + ' ' + sourceUrl)) {
+  if (/nutri[çc][ãa]o cl[íi]nica|vet\s*care|vet\s*life|veterinary-diet|prescription-diet|\/pd-|coadjuvante|\/veterinary\/|equilibrio\s*veterinary/i.test(commercialName + ' ' + sourceUrl)) {
     legalCategory = 'ALIMENTO_COADJUVANTE';
     const t = (commercialName + ' ' + sourceUrl).toLowerCase();
     if (/renal|\bre\b|\bk-?d\b|kidney/i.test(t)) coadjuvanteCondition = 'RENAL';
@@ -2607,7 +2607,7 @@ export function parseProductFromHtml(
     else if (/recupera|convalescence|\ba-?d\b|urgent/i.test(t)) coadjuvanteCondition = 'RECUPERACAO';
     else if (/obesidade|obesity|overweight|perda de peso|controle de peso|\bod\b|\br-?d\b|\bw-?d\b|metabolic|glucose/i.test(t)) coadjuvanteCondition = 'OBESIDADE';
     else if (/diabet/i.test(t)) coadjuvanteCondition = 'DIABETES';
-    else if (/gastro|gastrointestinal|\bgi\b|\bi-?d\b|biome/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
+    else if (/gastro|gastrointestinal|\bgi\b|\bi-?d\b|biome|intestinal/i.test(t)) coadjuvanteCondition = 'GASTROINTESTINAL';
     else if (/hipoalerg|hypoallergenic|hydroli|ultrahypo|pele sens[íi]vel|fish & potato|pork & potato|\bz-?d\b|\bd-?d\b|derm/i.test(t)) coadjuvanteCondition = 'HIPOALERGENICO';
     else if (/hep[áa]t|hepatic|\bl-?d\b/i.test(t)) coadjuvanteCondition = 'HEPATICO';
     else if (/card[ií]ac/i.test(t)) coadjuvanteCondition = 'CARDIACO';
@@ -2715,9 +2715,24 @@ export function parseProductFromHtml(
 
   if (isEquilibrio) {
     if (!compText) {
-      compText = $('#detalhamento-target-0, .mobile-item:contains("Composição Básica") p').first().text().trim();
+      $('*').each((_, el) => {
+        const fullText = $(el).text().trim().replace(/\s+/g, ' ');
+        if (
+          !compText &&
+          /Composi[çc][ãa]o\s+[Bb][áa]sica/i.test(fullText) &&
+          fullText.length > 50 &&
+          fullText.length < 3000 &&
+          !fullText.includes('Umidade (máx.)') &&
+          !fullText.includes('Proteína Bruta (mín.)')
+        ) {
+          compText = fullText.replace(/^.*?Composi[çc][ãa]o\s+[Bb][áa]sica\s*/i, '').trim();
+        }
+      });
       if (!compText) {
-        compText = $('.tab-pane:contains("Farinha"), .tab-pane:contains("Carne"), .tab-pane:contains("Quirera")').first().text().trim();
+        compText = $('#detalhamento-target-0, #detalhamento-target-1, .mobile-item:contains("Composição Básica") p').first().text().trim();
+      }
+      if (!compText) {
+        compText = $('.tab-pane:contains("Farinha"), .tab-pane:contains("Carne"), .tab-pane:contains("Quirera"), .tab-pane:contains("Cevada"), .tab-pane:contains("Arroz")').first().text().trim();
       }
     }
     if (!garText) {
@@ -2747,6 +2762,9 @@ export function parseProductFromHtml(
             compText = m ? m[1].trim() : t;
           }
         });
+      }
+      if (compText) {
+        compText = compText.replace(/^[\s\S]*?Composi[çc][ãa]o\s+b[áa]sica(?:\s+do\s+produto)?[:\s]*/i, '').trim();
       }
     }
     if (!garText) {
