@@ -8,6 +8,7 @@ async function main() {
   console.log('================================================================\n');
 
   const sshTarget = process.env.SSH_TARGET || 'petrankings-vps';
+  const syncModified = process.argv.includes('--modified') || process.argv.includes('--force');
 
   // 1. Sincronizar imagens de public/uploads/
   console.log('📦 [1/2] Verificando imagens em public/uploads/...');
@@ -27,7 +28,29 @@ async function main() {
   console.log(`   Remotos: ${remoteUploadSet.size} arquivos.`);
 
   const missingUploads = localUploadFiles.filter((f) => !remoteUploadSet.has(f));
-  console.log(`   Pendentes de envio: ${missingUploads.length} arquivos.`);
+
+  // Detecta também arquivos modificados no Git para não deixar passar alterações de imagens existentes
+  try {
+    const gitModifiedRaw = execSync('git status --porcelain public/uploads/', { encoding: 'utf-8' });
+    const modifiedInGit = gitModifiedRaw
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.startsWith('M ') || l.startsWith('A '))
+      .map((l) => path.basename(l.slice(2).trim()))
+      .filter(Boolean);
+
+    const uploadSet = new Set(missingUploads);
+    for (const m of modifiedInGit) {
+      if (!uploadSet.has(m) && fs.existsSync(path.join(localUploadsDir, m))) {
+        missingUploads.push(m);
+        uploadSet.add(m);
+      }
+    }
+  } catch {
+    // Git status opcional
+  }
+
+  console.log(`   Pendentes de envio (novos ou modificados): ${missingUploads.length} arquivos.`);
 
   if (missingUploads.length > 0) {
     console.log(`\n🚀 Enviando ${missingUploads.length} imagens para /home/ubuntu/petrankings/public/uploads/...`);

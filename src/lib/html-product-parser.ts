@@ -816,26 +816,44 @@ export function parseProductFromHtml(
   }
 
   if (isVbAlimentos) {
-    let vbImg = $('img[src*="/uploads/thumbs/"][src*="/produtos/"]')
-      .filter((_, el) => {
-        const s = $(el).attr('src') || '';
-        return !s.includes('/claims/') && !s.includes('/icone') && !s.includes('grao-') && !s.includes('tabelas');
-      })
-      .first()
-      .attr('src');
+    const isExcluded = (s: string) => {
+      if (!s || s.startsWith('data:')) return true;
+      if (s.includes('/70x70/')) return true;
+      if (s.includes('/claims/')) return true;
+      if (s.includes('icone') || s.includes('/icones/')) return true;
+      if (s.includes('grao') || s.includes('/graos/')) return true;
+      if (s.includes('pellet') || s.includes('pellets')) return true;
+      if (s.includes('mais-ou-nenos')) return true;
+      if (s.includes('tabelas') || s.includes('as-tabelas')) return true;
+      if (s.includes('logo') || s.includes('flags') || s.includes('selos') || s.includes('modal_') || s.includes('/marcas/') || s.includes('/banners-')) return true;
+      return false;
+    };
 
-    if (!vbImg) {
-      vbImg = $('img[src*="/uploads/produtos/"]')
-        .filter((_, el) => {
-          const s = $(el).attr('src') || '';
-          return !s.includes('/claims/') && !s.includes('/icone') && !s.includes('grao-') && !s.includes('tabelas');
-        })
-        .first()
-        .attr('src');
+    const sliderImgs: string[] = [];
+    $('.slider img, .owl-carousel img, .slider-for img, [class*="slider"] img, .produto-detalhes img').each((_, el) => {
+      const s = $(el).attr('src');
+      if (s) sliderImgs.push(s);
+    });
+
+    const allImgs: string[] = [];
+    $('img').each((_, el) => {
+      const s = $(el).attr('src');
+      if (s) allImgs.push(s);
+    });
+
+    let candidate = sliderImgs.find(s => !isExcluded(s) && (s.includes('/570x500/') || s.includes('3d') || s.includes('/produtos/')));
+    if (!candidate) {
+      candidate = sliderImgs.find(s => !isExcluded(s));
+    }
+    if (!candidate) {
+      candidate = allImgs.find(s => !isExcluded(s) && s.includes('/570x500/'));
+    }
+    if (!candidate) {
+      candidate = allImgs.find(s => !isExcluded(s) && s.includes('/uploads/'));
     }
 
-    if (vbImg) {
-      imageUrl = vbImg.replace(/\/uploads\/thumbs\/\d+x\d+\//, '/uploads/');
+    if (candidate) {
+      imageUrl = candidate.replace(/\/uploads\/thumbs\/\d+x\d+\//, '/uploads/');
       if (!imageUrl.startsWith('http')) {
         imageUrl = `https://www.vbalimentos.com.br${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
       }
@@ -2229,6 +2247,9 @@ export function parseProductFromHtml(
       .replace(/&/g, 'e')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+  }
+  if (isVbAlimentos && slug) {
+    slug = slug.replace(/-\d+$/, '');
   }
 
   // 3. Marca e Fabricante
