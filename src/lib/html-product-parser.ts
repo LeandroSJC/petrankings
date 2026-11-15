@@ -2235,6 +2235,16 @@ export function parseProductFromHtml(
       .replace(/\s+/g, ' ')
       .trim();
   }
+  if (/specialcat\.com\.br|specialdog\.com\.br/i.test(sourceUrl)) {
+    if (/^sach[êe]\s+/i.test(commercialName)) {
+      const isDog = /special\s*dog|produtos-caes/i.test(commercialName + ' ' + sourceUrl);
+      const specieTerm = isDog ? 'Cães' : 'Gatos';
+      commercialName = commercialName
+        .replace(/^sach[êe]\s+/i, '')
+        .replace(/\b(adultos|filhotes|castrados|senior|sênior)\b/i, `${specieTerm} $1`)
+        .trim() + ' (Sachê)';
+    }
+  }
   if (isFoster || /fosterpet\.com\.br/i.test(sourceUrl)) {
     if (!/gatos?/i.test(commercialName)) {
       if (/filhotes/i.test(commercialName) && !/c[ãa]es/i.test(commercialName)) {
@@ -3881,7 +3891,7 @@ export function parseProductFromHtml(
   cleanComp = cleanComp.replace(/\b(?:FORTALECE|STRENGTHENS|Selecci[oó]n|Selection|Composici[oó]n|Guia alimentar|N[íi]veis de garantia)\b[\s\S]*$/i, '');
 
   // Remove prefixos residuais no início do texto limpo
-  cleanComp = cleanComp.replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s*(?:b[áa]sica|qualitativa)?[^:]*:\s*|do\s+produto\s*:\s*|do\s+alimento\s*:\s*)/i, '').trim();
+  cleanComp = cleanComp.replace(/^(?:LISTA\s+DE\s+INGREDIENTES\s*)?(?:Composi[çc][ãa]o\s*(?:b[áa]sica|qualitativa)?(?::\s*|\s+)|do\s+produto\s*:\s*|do\s+alimento\s*:\s*)/i, '').trim();
 
   // Correção de erro de digitação de fabricante: parênteses desbalanceados ao declarar sub-cortes de carne
   // Ex: "Cordeiro (carne de ovino, farinha de carne e ossos de ovino (mín. 6%), farinha de vísceras..."
