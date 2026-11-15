@@ -2036,7 +2036,10 @@ export function parseProductFromHtml(
     const isBlack = /equilibrio-black/i.test(sourceUrl);
     const prefix = isVet ? 'Equilíbrio Veterinary' : (isBlack ? 'Equilíbrio Black' : 'Equilíbrio');
     const h1 = $('h1').first().text().trim();
-    rawName = `${prefix} ${h1.replace(/^Equil[íi]brio(?:\s+(?:Veterinary|Black))?\s*/i, '')}`.trim();
+    const isGato = /produtos-para-gatos/i.test(sourceUrl);
+    const cleanH1 = h1.replace(/^(?:Equil[íi]brio\s+)?(?:Veterinary|Black)?\s*/i, '').trim();
+    const speciesPart = isVet && isGato && !/gato/i.test(cleanH1) ? 'Gatos ' : '';
+    rawName = `${prefix} ${speciesPart}${cleanH1}`.trim();
   } else if (isMatsuda) {
     const h1 = $('h1').first().text().trim();
     const h2 = $('h2').first().text().trim();
@@ -2714,6 +2717,25 @@ export function parseProductFromHtml(
   }
 
   if (isEquilibrio) {
+    let compTarget = '';
+    let garTarget = '';
+    $('button, a').each((_, el) => {
+      const t = $(el).text().trim();
+      if (/Composi[çc][ãa]o\s+B[áa]sica/i.test(t)) {
+        const target = $(el).attr('data-target') || $(el).attr('href');
+        if (target && target.startsWith('#')) compTarget = target;
+      } else if (/N[íi]veis\s+de\s+Garantia/i.test(t)) {
+        const target = $(el).attr('data-target') || $(el).attr('href');
+        if (target && target.startsWith('#')) garTarget = target;
+      }
+    });
+
+    if (compTarget && $(compTarget).length) {
+      compText = $(compTarget).text().trim().replace(/\s+/g, ' ');
+    }
+    if (!compText && $('#detalhamento-target-1, #mobile-detalhamento-target-1').length) {
+      compText = $('#detalhamento-target-1, #mobile-detalhamento-target-1').first().text().trim().replace(/\s+/g, ' ');
+    }
     if (!compText) {
       $('*').each((_, el) => {
         const fullText = $(el).text().trim().replace(/\s+/g, ' ');
@@ -2728,20 +2750,25 @@ export function parseProductFromHtml(
           compText = fullText.replace(/^.*?Composi[çc][ãa]o\s+[Bb][áa]sica\s*/i, '').trim();
         }
       });
-      if (!compText) {
-        compText = $('#detalhamento-target-0, #detalhamento-target-1, .mobile-item:contains("Composição Básica") p').first().text().trim();
-      }
-      if (!compText) {
-        compText = $('.tab-pane:contains("Farinha"), .tab-pane:contains("Carne"), .tab-pane:contains("Quirera"), .tab-pane:contains("Cevada"), .tab-pane:contains("Arroz")').first().text().trim();
-      }
     }
-    if (!garText) {
+
+    if (garTarget && $(garTarget).length) {
       const eqRows: string[] = [];
-      $('#detalhamento-target-1 table tr, .mobile-item:contains("Níveis de Garantia") table tr').each((_, tr) => {
+      $(`${garTarget} table tr`).each((_, tr) => {
         const cells = $(tr).find('td, th').map((_, c) => $(c).text().trim()).get();
         if (cells.length >= 2) eqRows.push(cells.join(' : '));
       });
       if (eqRows.length) garText = eqRows.join('\n');
+      if (!garText) garText = $(garTarget).text().trim();
+    }
+    if (!garText && $('#detalhamento-target-0, #mobile-detalhamento-target-0').length) {
+      const eqRows: string[] = [];
+      $('#detalhamento-target-0 table tr, #mobile-detalhamento-target-0 table tr').each((_, tr) => {
+        const cells = $(tr).find('td, th').map((_, c) => $(c).text().trim()).get();
+        if (cells.length >= 2) eqRows.push(cells.join(' : '));
+      });
+      if (eqRows.length) garText = eqRows.join('\n');
+      if (!garText) garText = $('#detalhamento-target-0, #mobile-detalhamento-target-0').first().text().trim();
     }
   }
 
