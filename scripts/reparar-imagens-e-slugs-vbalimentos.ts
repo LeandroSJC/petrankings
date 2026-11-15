@@ -6,7 +6,7 @@ import * as cheerio from 'cheerio';
 import prisma from '../src/lib/prisma';
 import { ensureTunnelOpen, closeTunnel } from './cadastrar-por-url';
 
-function getVbMasterImage($: cheerio.CheerioAPI): string | null {
+function getVbMasterImage($: cheerio.CheerioAPI): { masterUrl: string; candidateUrl: string } | null {
   const isExcluded = (s: string) => {
     if (!s || s.startsWith('data:')) return true;
     if (s.includes('/70x70/')) return true;
@@ -63,7 +63,11 @@ function getVbMasterImage($: cheerio.CheerioAPI): string | null {
   if (!master.startsWith('http')) {
     master = `https://www.vbalimentos.com.br${master.startsWith('/') ? '' : '/'}${master}`;
   }
-  return master;
+  let candidateFull = candidate.startsWith('http')
+    ? candidate
+    : `https://www.vbalimentos.com.br${candidate.startsWith('/') ? '' : '/'}${candidate}`;
+
+  return { masterUrl: master, candidateUrl: candidateFull };
 }
 
 async function main() {
@@ -102,38 +106,30 @@ async function main() {
       if (fs.existsSync(custodyPath)) {
         const html = fs.readFileSync(custodyPath, 'utf-8');
         const $ = cheerio.load(html);
-        const masterUrl = getVbMasterImage($);
+        const imgInfo = getVbMasterImage($);
 
-        const currentLocalPath = p.frontLabelImageUrl
-          ? path.join(process.cwd(), 'public', p.frontLabelImageUrl)
-          : null;
-
-        let needsNewImage = false;
-        if (!currentLocalPath || !fs.existsSync(currentLocalPath)) {
-          needsNewImage = true;
-        } else {
+        if (imgInfo) {
+          const { masterUrl, candidateUrl } = imgInfo;
           try {
-            const existingBytes = fs.readFileSync(currentLocalPath);
-            const meta = await sharp(existingBytes).metadata();
-            if ((meta.width || 0) < 300 || (meta.height || 0) < 300) {
-              console.log(`   ⚠️ Imagem atual é ícone/baixa resolução: ${meta.width}x${meta.height}px.`);
-              needsNewImage = true;
-            }
-          } catch {
-            needsNewImage = true;
-          }
-        }
-
-        if (needsNewImage && masterUrl) {
-          try {
-            console.log(`   ⬇️ Baixando packshot master: ${masterUrl}`);
-            const res = await fetch(masterUrl, {
+            console.log(`   ⬇️ Baixando packshot: ${masterUrl}`);
+            let res = await fetch(masterUrl, {
               headers: {
                 'User-Agent':
                   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
                 Referer: 'https://www.vbalimentos.com.br/',
               },
             });
+
+            if (!res.ok && candidateUrl !== masterUrl) {
+              console.log(`   ⚠️ Master retornou ${res.status}. Tentando candidateUrl: ${candidateUrl}`);
+              res = await fetch(candidateUrl, {
+                headers: {
+                  'User-Agent':
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                  Referer: 'https://www.vbalimentos.com.br/',
+                },
+              });
+            }
 
             if (res.ok) {
               const arrayBuffer = await res.arrayBuffer();
@@ -147,7 +143,7 @@ async function main() {
               fs.writeFileSync(targetPath, webpBuffer);
 
               const newMeta = await sharp(webpBuffer).metadata();
-              console.log(`   ✅ Novo WebP salvo com sucesso: ${newMeta.width}x${newMeta.height}px`);
+              console.log(`   ✅ Packshot WebP salvo com sucesso: ${newMeta.width}x${newMeta.height}px`);
 
               const relativeUrl = `/uploads/produto_${p.id}.webp`;
               if (p.frontLabelImageUrl !== relativeUrl) {
