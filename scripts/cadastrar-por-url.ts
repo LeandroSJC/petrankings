@@ -221,6 +221,21 @@ export async function fetchWithBrowserHeaders(url: string, retries = 3): Promise
         Pragma: 'no-cache',
       };
 
+  if (/petlove\.com\.br/i.test(url)) {
+    try {
+      console.log(`🛡️ [Petlove / Cloudflare] Carregando página via Chromium do Playwright...`);
+      const page = await getPlaywrightPage();
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35000 });
+      await page.waitForTimeout(600);
+      const pwHtml = await page.content();
+      if (pwHtml && pwHtml.length > 5000) {
+        return { status: 200, html: pwHtml };
+      }
+    } catch (pwErr: any) {
+      console.warn(`⚠️ Playwright falhou na URL Petlove ${url}: ${pwErr.message}`);
+    }
+  }
+
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const res = await fetch(url, {
@@ -281,6 +296,44 @@ async function downloadImage(imgUrl: string, destPath: string, retries = 3): Pro
     }
   };
   const encoded = imgUrl.startsWith('http') ? formatUrl(imgUrl) : imgUrl;
+
+  if (encoded.includes('petlove.com.br')) {
+    try {
+      const page = await getPlaywrightPage();
+      const base64Data = await page.evaluate(async (url) => {
+        const r = await fetch(url);
+        if (!r.ok) return null;
+        const blob = await r.blob();
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      }, encoded);
+
+      if (typeof base64Data === 'string' && base64Data.startsWith('data:image')) {
+        const base64Part = base64Data.split(',')[1];
+        const buf = Buffer.from(base64Part, 'base64');
+        if (buf.length > 0) {
+          const dir = path.dirname(destPath);
+          if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+          if (destPath.endsWith('.webp')) {
+            try {
+              await sharp(buf).trim().webp({ quality: 90 }).toFile(destPath);
+            } catch {
+              fs.writeFileSync(destPath, buf);
+            }
+          } else {
+            fs.writeFileSync(destPath, buf);
+          }
+          return true;
+        }
+      }
+    } catch (pwErr: any) {
+      console.warn(`⚠️ Falha ao baixar imagem Petlove via Playwright: ${pwErr.message}`);
+    }
+  }
 
   let referer: string | undefined;
   try {

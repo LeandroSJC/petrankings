@@ -686,6 +686,7 @@ export function parseProductFromHtml(
   const isMatsuda = /matsudapet\.com\.br/i.test(sourceUrl) || /matsudapet/i.test(fallbackUrl);
   const isGuabi = /guabinatural\.com\.br/i.test(sourceUrl) || /guabinatural/i.test(fallbackUrl);
   const isThree = /threepetfood\.com\.br/i.test(sourceUrl) || /threepetfood/i.test(fallbackUrl);
+  const isPetlove = /petlove\.com\.br/i.test(sourceUrl) || /petlove/i.test(fallbackUrl);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -1100,6 +1101,15 @@ export function parseProductFromHtml(
 
   if (isCobasi && imageUrl) {
     imageUrl = imageUrl.replace(/-\d+-\d+\//, '-1500-1500/');
+  }
+
+  if (isPetlove) {
+    let pImg = $('img[src*="/images/products/"][src*="/product/"]').first().attr('src') ||
+      $('meta[property="og:image"]').attr('content') ||
+      $('img[src*="/images/products/"]').first().attr('src');
+    if (pImg) {
+      imageUrl = pImg.replace(/\/product\/|\/mini\//, '/original/');
+    }
   }
 
   // Normalização de URL relativa para absoluta se necessário
@@ -1928,6 +1938,17 @@ export function parseProductFromHtml(
     }
 
     rawName = cleanName.replace(/\s+/g, ' ').trim();
+  } else if (isPetlove) {
+    let h1 = $('h1').first().text().replace(/[®™©]/g, '').replace(/\s+/g, ' ').trim();
+    h1 = h1.replace(/^ra[cç][aã]o\s+(?:seca\s+|[uú]mida\s+)?/i, '');
+    h1 = h1.replace(/\s*&\s*/g, ' e ');
+    if (!/^nutrilus/i.test(h1)) {
+      h1 = h1.replace(/^(bifinho|biscoito|petisco)\s+nutrilus/i, 'Nutrilus $1');
+      if (!/^nutrilus/i.test(h1)) {
+        h1 = `Nutrilus ${h1}`;
+      }
+    }
+    rawName = h1;
   } else if (isPetz) {
     const rawH1 = $('h1').first().text().replace(/\s+/g, ' ').trim();
     const pet = $('dl[data-testid="product-info-pet"] dd').text().trim();
@@ -2071,6 +2092,13 @@ export function parseProductFromHtml(
       .replace(/\s+/g, ' ')
       .trim();
   }
+  if (isPetlove) {
+    commercialName = commercialName
+      .replace(/^Ra[cç][aã]o\s+(?:Seca\s+|[UÚ]mida\s+)?/i, '')
+      .replace(/\s*&\s*/g, ' e ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
 
   let slug = '';
   if (sourceUrl && !/farmina\.com/i.test(sourceUrl)) {
@@ -2097,7 +2125,7 @@ export function parseProductFromHtml(
       }
     }
   }
-  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi || isNutrimais || isAlinutri) {
+  if (isFortbrain || isSpecialNutri || isRacoesReis || isPetz || isCobasi || isNutrimais || isAlinutri || isPetlove) {
     slug = '';
   }
   if (!slug && commercialName) {
@@ -2526,6 +2554,9 @@ export function parseProductFromHtml(
     } else {
       brand = 'Three Dogs';
     }
+  } else if (isPetlove || /nutrilus/i.test(commercialName)) {
+    brand = 'Nutrilus';
+    manufacturerLegalName = 'Petsupermarket Comércio de Produtos para Animais S.A.';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2543,6 +2574,7 @@ export function parseProductFromHtml(
     !isAlisul &&
     !isPetz &&
     !isCobasi &&
+    !isPetlove &&
     !isNutrimais &&
     !isAlinutri &&
     !isEquilibrio &&
@@ -2558,6 +2590,8 @@ export function parseProductFromHtml(
     !/baw\s*waw|beauty\s*pet|speto/i.test(commercialName) &&
     !/granplus/i.test(commercialName) &&
     !/granplus\.com\.br/i.test(sourceUrl) &&
+    !/nutrilus/i.test(commercialName) &&
+    !/petlove\.com\.br/i.test(sourceUrl) &&
     !/equilibrio|matsuda|vittamax|m-line|smack|thor|guabi|three\s*dogs|three\s*cats/i.test(commercialName) &&
     !/equilibrio-petfood\.com|matsudapet\.com\.br|guabinatural\.com\.br|threepetfood\.com\.br/i.test(sourceUrl) &&
     !/f[óo]rmula\s*natural|adimax|origens|magnus|qualidy|whiskas|pedigree|royal|purina|biofresh|guabi|special|bionatural|farmina|n&d|cibau|matisse|ecopet|quatree|prohealth|allcats|qualiday|qualyday|croc|hill|brain|lux\s*brain|f[ãa]mil|famil|kiara|dodi|mimo|fortbrain|fvo|bomguy|coldog|dominium|dudogs|ducats|zuppy|plus\s*pet|fanny|folks|puruca|katita|wolfen|chanin|colcat|ghatum|nutrire|monello|birbo|bolt|bandit|bancat|specialnutri|quidog|quicats|super\s*dog|super\s*cat|special\s*care|frost|atacama|funny\s*dog|funny\s*cat|astro|bravo|sapeca|nhock|trotter|tango|leroy|jazz|alix/i.test(commercialName) &&
@@ -2683,6 +2717,33 @@ export function parseProductFromHtml(
         }
       });
     }
+  }
+
+  if (isPetlove) {
+    $('.properties__list').each((_, el) => {
+      const propName = $(el).find('.properties__list__name').text().trim();
+      if (/composi/i.test(propName)) {
+        compText = $(el).find('.properties__list__value').text().trim();
+      }
+    });
+
+    $('.long-specification table, table').each((_, table) => {
+      const prevHeading = $(table).parent().find('h2, h3, h4, .font-heading').text() ||
+        $(table).prev('h2, h3, h4').text();
+      const tableText = $(table).text();
+      if (/n[íi]veis\s+de\s+garantia/i.test(prevHeading) || /umidade|prote[íi]na\s+bruta|extrato\s+et[ée]reo/i.test(tableText)) {
+        const rows: string[] = [];
+        $(table).find('tr').each((_, tr) => {
+          const cells = $(tr).find('td, th').map((_, c) => $(c).text().trim()).get();
+          if (cells.length >= 2) {
+            rows.push(cells.join(' : '));
+          }
+        });
+        if (rows.length > 0 && !garText) {
+          garText = rows.join('\n');
+        }
+      }
+    });
   }
 
   if (isNutrimais) {
