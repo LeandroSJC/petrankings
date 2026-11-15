@@ -2920,6 +2920,9 @@ export function parseProductFromHtml(
   if (isSpecialNutri) {
     legalCategory = 'ALIMENTO_COMPLETO';
   }
+  if ((isGuabi || isThree) && foodType === 'SECO') {
+    legalCategory = 'ALIMENTO_COMPLETO';
+  }
   if (isRacoesReis && /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + commercialName)) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
