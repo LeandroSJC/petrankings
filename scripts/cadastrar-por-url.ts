@@ -246,7 +246,7 @@ export async function fetchWithBrowserHeaders(url: string, retries = 3): Promise
       const html = await res.text();
 
       // Se for barrado por 403, 406 (Mod_Security) ou Cloudflare Challenge, aciona o Chromium do Playwright
-      if (status === 403 || status === 406 || /challenges\.cloudflare\.com|cloudflare-static|not acceptable/i.test(html)) {
+      if (status === 403 || status === 406 || /challenges\.cloudflare\.com|not acceptable/i.test(html) || (status !== 200 && /cloudflare/i.test(html))) {
         console.log(`🛡️ Desafio de segurança detectado (Status ${status}). Acionando navegador headless Playwright...`);
         try {
           const page = await getPlaywrightPage();
@@ -399,7 +399,7 @@ export async function processUrl(url: string, options?: { preferSecondImage?: bo
   }
 
   // Detecta bloqueios de WAF / Cloudflare
-  if (status === 403 || /challenges\.cloudflare\.com|cloudflare-static/i.test(html)) {
+  if (status === 403 || /challenges\.cloudflare\.com|cf-turnstile/i.test(html) || (status !== 200 && /cloudflare/i.test(html))) {
     console.warn(`\n⚠️ BLOQUEIO DE ROBÔ DETECTADO (Status HTTP ${status} - Cloudflare Challenge)`);
     console.warn(`O site do fabricante possui proteção de firewall que barra requisições automatizadas.`);
     console.log(`\n💡 SOLUÇÃO SIMPLES E INFALÍVEL EM 1 PASSO:`);

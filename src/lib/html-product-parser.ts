@@ -672,8 +672,17 @@ export function parseProductFromHtml(
           ? fallbackUrl
           : ogUrl || canonical || fallbackUrl || '';
 
-  // Se o canonical for a raiz do site mas o fallbackUrl tiver o caminho específico do produto
-  if (fallbackUrl && (sourceUrl.endsWith('nutrire.ind.br/') || sourceUrl.endsWith('nutrire.ind.br') || (fallbackUrl.includes('/produto/') && !sourceUrl.includes('/produto/')))) {
+  // Se o canonical ou og:url for a raiz do site mas o fallbackUrl tiver o caminho específico do produto
+  if (
+    fallbackUrl &&
+    (sourceUrl.endsWith('nutrire.ind.br/') ||
+      sourceUrl.endsWith('nutrire.ind.br') ||
+      sourceUrl.endsWith('vbalimentos.com.br/') ||
+      sourceUrl.endsWith('vbalimentos.com.br') ||
+      ((fallbackUrl.includes('/produto/') || fallbackUrl.includes('/produtos/')) &&
+        !sourceUrl.includes('/produto/') &&
+        !sourceUrl.includes('/produtos/')))
+  ) {
     sourceUrl = fallbackUrl;
   }
 
@@ -705,6 +714,8 @@ export function parseProductFromHtml(
   const isGuabi = /guabinatural\.com\.br/i.test(sourceUrl) || /guabinatural/i.test(fallbackUrl);
   const isThree = /threepetfood\.com\.br/i.test(sourceUrl) || /threepetfood/i.test(fallbackUrl);
   const isPetlove = /petlove\.com\.br/i.test(sourceUrl) || /petlove/i.test(fallbackUrl);
+  const isVbAlimentos = /vbalimentos\.com\.br/i.test(sourceUrl) || /vbalimentos\.com\.br/i.test(fallbackUrl);
+  const isTutano = /tutanopet\.com\.br/i.test(sourceUrl) || /tutanopet\.com\.br/i.test(fallbackUrl) || /tutano/i.test(commercialName);
   const isSnackOrTreat = /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + fallbackUrl);
 
   const racoesReisCompImg = isRacoesReis
@@ -794,12 +805,54 @@ export function parseProductFromHtml(
     }
   }
 
+
   if (isThree) {
     const rawMatches = html.match(/(?:url=)?(https%3A%2F%2Fbrfsawebsitespet\.blob\.core\.windows\.net%2Fthree%2F[^&"'\s)]+|https:\/\/brfsawebsitespet\.blob\.core\.windows\.net\/three\/[^"'\s)]+)/i);
     if (rawMatches) {
       let rawImg = rawMatches[1] || rawMatches[0];
       try { rawImg = decodeURIComponent(rawImg); } catch {}
       imageUrl = rawImg.replace(/\\u0026/g, '&').replace(/&amp;/g, '&').replace(/[\\"'`\s]+$/, '');
+    }
+  }
+
+  if (isVbAlimentos) {
+    let vbImg = $('img[src*="/uploads/thumbs/"][src*="/produtos/"]')
+      .filter((_, el) => {
+        const s = $(el).attr('src') || '';
+        return !s.includes('/claims/') && !s.includes('/icone') && !s.includes('grao-') && !s.includes('tabelas');
+      })
+      .first()
+      .attr('src');
+
+    if (!vbImg) {
+      vbImg = $('img[src*="/uploads/produtos/"]')
+        .filter((_, el) => {
+          const s = $(el).attr('src') || '';
+          return !s.includes('/claims/') && !s.includes('/icone') && !s.includes('grao-') && !s.includes('tabelas');
+        })
+        .first()
+        .attr('src');
+    }
+
+    if (vbImg) {
+      imageUrl = vbImg.replace(/\/uploads\/thumbs\/\d+x\d+\//, '/uploads/');
+      if (!imageUrl.startsWith('http')) {
+        imageUrl = `https://www.vbalimentos.com.br${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+      }
+    }
+  }
+
+  if (isTutano) {
+    const tutanoImg = $('img[src*="/wp-content/uploads/"]')
+      .filter((_, el) => {
+        const s = $(el).attr('src') || '';
+        return !s.includes('logo') && !s.includes('selo') && !s.includes('icon') && !s.includes('pack-tutano') && !s.includes('cropped-') && !s.includes('emoji');
+      })
+      .first()
+      .attr('src');
+
+    if (tutanoImg) {
+      imageUrl = tutanoImg.replace(/-\d+x\d+(\.[a-zA-Z]+)$/, '$1');
     }
   }
 
@@ -2089,6 +2142,28 @@ export function parseProductFromHtml(
   } else if (isThree) {
     const h1 = $('h1').first().text().replace(/Benef[íi]cios.*$/i, '').trim();
     rawName = h1;
+  } else if (isVbAlimentos) {
+    let t = $('.titulo-modal h3, .titulo-produto h3, .titulo-produto h1, h1').first().text().trim();
+    if (!t) {
+      t = $('meta[name="title"]').attr('content') || $('meta[property="og:title"]').attr('content') || '';
+    }
+    if (!t) {
+      t = $('title').text().replace(/\s*-\s*VB\s*Alimentos.*$/i, '').trim();
+    }
+    rawName = t;
+  } else if (isTutano) {
+    let t = $('title').text().replace(/–\s*Tutano.*$/i, '').replace(/\|\s*Tutano.*$/i, '').trim();
+    if (!t) {
+      t = $('h2:contains("Tutano")').first().text().trim();
+    }
+    t = t.replace(/\s*–\s*/g, ' ').replace(/\s*\|\s*/g, ' ').replace(/\s+/g, ' ').trim();
+    if (/^tutano\s+filhotes/i.test(t)) {
+      t = t.replace(/^tutano\s+filhotes/i, 'Tutano Cães Filhotes');
+    }
+    if (/^tutano\s+gatos$/i.test(t)) {
+      t = 'Tutano Gatos Sabor Frango';
+    }
+    rawName = t;
   } else {
     rawName =
       $('h1.product_title, h1.elementor-heading-title').first().text().trim() ||
@@ -2575,6 +2650,59 @@ export function parseProductFromHtml(
   } else if (isPetlove || /nutrilus/i.test(commercialName)) {
     brand = 'Nutrilus';
     manufacturerLegalName = 'Petsupermarket Comércio de Produtos para Animais S.A.';
+  } else if (isVbAlimentos || /vbalimentos\.com\.br/i.test(sourceUrl) || /finotrato|besser|japi|prestige|dogfit|catfit|benvo|pleno/i.test(commercialName)) {
+    manufacturerLegalName = 'VB Alimentos Indústria e Comércio Ltda.';
+    const t = (commercialName + ' ' + sourceUrl).toLowerCase();
+    if (/finotrato\s*nature/i.test(t)) {
+      brand = 'Finotrato Nature';
+    } else if (/finotrato\s*prime/i.test(t)) {
+      brand = 'Finotrato Prime';
+    } else if (/finotrato\s*gold/i.test(t)) {
+      brand = 'Finotrato Gold';
+    } else if (/finotrato\s*select/i.test(t)) {
+      brand = 'Finotrato Select';
+    } else if (/finotrato\s*sach[êe]|sache/i.test(t)) {
+      brand = 'Finotrato Sachê';
+    } else if (/finotrato\s*pat[êe]|pate/i.test(t)) {
+      brand = 'Finotrato Patê';
+    } else if (/finotrato\s*biscoito/i.test(t)) {
+      brand = 'Finotrato Biscoito';
+    } else if (/finotrato\s*bifinho/i.test(t)) {
+      brand = 'Finotrato Bifinho';
+    } else if (/finotrato\s*cat\s*nuggets|nuggets/i.test(t)) {
+      brand = 'Finotrato Cat Nuggets';
+    } else if (/finotrato\s*cat\s*stix|cat\s*stix/i.test(t)) {
+      brand = 'Finotrato Cat Stix';
+    } else if (/finotrato\s*dog\s*stix|dog\s*stix/i.test(t)) {
+      brand = 'Finotrato Dog Stix';
+    } else if (/besser\s*natural/i.test(t)) {
+      brand = 'Besser Natural';
+    } else if (/besser\s*gourmet/i.test(t)) {
+      brand = 'Besser Gourmet';
+    } else if (/besser/i.test(t)) {
+      brand = 'Besser';
+    } else if (/japi\s*plus/i.test(t)) {
+      brand = 'Japi Plus';
+    } else if (/japi\s*tradicional/i.test(t)) {
+      brand = 'Japi Tradicional';
+    } else if (/japi/i.test(t)) {
+      brand = 'Japi';
+    } else if (/prestige/i.test(t)) {
+      brand = 'Prestige';
+    } else if (/dogfit/i.test(t)) {
+      brand = 'Dogfit Natural';
+    } else if (/catfit/i.test(t)) {
+      brand = 'Catfit Natural';
+    } else if (/pleno/i.test(t)) {
+      brand = 'Pleno';
+    } else if (/benvo/i.test(t)) {
+      brand = 'Benvo';
+    } else {
+      brand = 'Finotrato';
+    }
+  } else if (isTutano || /tutanopet\.com\.br/i.test(sourceUrl) || /\btutano\b/i.test(commercialName)) {
+    brand = 'Tutano';
+    manufacturerLegalName = 'Cargill Agrícola S.A.';
   }
 
   // Se não foi identificado pelo nome nem URL, mas o breadcrumb indicar PremieR
@@ -2599,6 +2727,12 @@ export function parseProductFromHtml(
     !isMatsuda &&
     !isGuabi &&
     !isThree &&
+    !isVbAlimentos &&
+    !isTutano &&
+    !/tutanopet\.com\.br/i.test(sourceUrl) &&
+    !/\btutano\b/i.test(commercialName) &&
+    !/vbalimentos\.com\.br/i.test(sourceUrl) &&
+    !/finotrato|besser|japi|prestige|dogfit|catfit|benvo|pleno/i.test(commercialName) &&
     !/alinutri\.ind\.br/i.test(sourceUrl) &&
     !/nature\s*f[óo]rmula|receita\s*especial|docat|raycat|ammy|evolute|kdengo|denguinho|xerife|bidog/i.test(commercialName) &&
     !/nutrimais/i.test(commercialName) &&
@@ -2631,12 +2765,12 @@ export function parseProductFromHtml(
 
   let lifeStage: 'ADULTO' | 'CRESCIMENTO_INICIAL' | 'CRESCIMENTO_FINAL' | 'SENIOR' = 'ADULTO';
   if (/filhote|junior|j[úu]nior|puppy|kitten|crescimento/i.test(commercialName + ' ' + sourceUrl)) lifeStage = 'CRESCIMENTO_INICIAL';
-  else if (/7 a 11 anos|acima de 12 anos|senior|sênior|7\s*\+|10\s*\+/i.test(commercialName) || /10\+|senior-7/i.test(sourceUrl)) lifeStage = 'SENIOR';
+  else if (/7 a 11 anos|acima de 12 anos|senior|sênior|melhor\s*idade|idoso|mature|maduro|7\s*\+|10\s*\+/i.test(commercialName) || /10\+|senior-7/i.test(sourceUrl)) lifeStage = 'SENIOR';
 
   let breedSize: 'TODOS' | 'MINI_PEQUENO' | 'MEDIO_GRANDE' = 'TODOS';
   if (/porte\s*pequeno|pequeno\s*porte|mini|ra[çc]as?\s*pequenas?|small\s*bites/i.test(commercialName + ' ' + sourceUrl)) {
     breedSize = 'MINI_PEQUENO';
-  } else if (/porte\s*grande|grande\s*porte|m[ée]dio|medium|maxi|giant|ra[çc]as?\s*(?:m[ée]dias|grandes|gigantes)/i.test(commercialName + ' ' + sourceUrl)) {
+  } else if (/porte\s*grande|grande\s*porte|grandes\s*e\s*gigantes|m[ée]dio|medium|maxi|giant|ra[çc]as?\s*(?:m[ée]dias|grandes|gigantes)/i.test(commercialName + ' ' + sourceUrl)) {
     breedSize = 'MEDIO_GRANDE';
   }
 
@@ -2648,6 +2782,12 @@ export function parseProductFromHtml(
     foodType = 'SECO';
   } else if (isSpecialNutri) {
     foodType = 'SECO';
+  } else if (isVbAlimentos) {
+    if (/sach[êe]|sache|pat[êe]|pate/i.test(commercialName + ' ' + sourceUrl)) {
+      foodType = 'UMIDO';
+    } else {
+      foodType = 'SECO';
+    }
   }
 
   // 4.1 Categoria Legal e Condição Coadjuvante
@@ -2686,6 +2826,9 @@ export function parseProductFromHtml(
     legalCategory = 'ALIMENTO_COMPLETO';
   }
   if (isRacoesReis && /dental-care|snack|bifinho|biscoito|osso/i.test(sourceUrl + ' ' + commercialName)) {
+    legalCategory = 'ALIMENTO_COMPLEMENTAR';
+  }
+  if (isVbAlimentos && /bifinho|biscoito|stix|nugget|snack/i.test(commercialName + ' ' + sourceUrl)) {
     legalCategory = 'ALIMENTO_COMPLEMENTAR';
   }
 
@@ -3157,6 +3300,41 @@ export function parseProductFromHtml(
     }
   }
 
+  // 5-vbalimentos. VB Alimentos (Finotrato, Besser, Japi, Prestige, Dogfit, Catfit, Pleno, Benvo)
+  if (isVbAlimentos) {
+    const vbComp = $('#composicao-basica, div[id*="composicao"]').find('.entry-text').text().trim();
+    if (vbComp && (!compText || compText.length < 20)) {
+      compText = vbComp;
+    }
+    const vbGar = $('#niveis-de-garantia, div[id*="garantia"]').find('.entry-text').text().trim();
+    if (vbGar && (!garText || garText.length < 20)) {
+      garText = vbGar;
+    }
+  }
+
+  // 5-tutano. Tutano Pet (Cargill Agrícola S.A. / Nutron Pet)
+  if (isTutano) {
+    const tutanoComp = $('.accordion:contains("Composição")').next('.panel').text().trim();
+    if (tutanoComp && (!compText || compText.length < 20)) {
+      compText = tutanoComp;
+    }
+    const garTable = $('.table-content').first();
+    if (garTable.length > 0) {
+      const rows: string[] = [];
+      garTable.find('tr').each((_, tr) => {
+        const tds = $(tr).find('td');
+        if (tds.length >= 2) {
+          const k = $(tds[0]).text().trim();
+          const v = $(tds[1]).text().trim();
+          if (k && v) rows.push(`${k} : ${v}`);
+        }
+      });
+      if (rows.length > 0 && (!garText || garText.length < 20)) {
+        garText = rows.join('\n');
+      }
+    }
+  }
+
   // 5a. JetTabs / Accordions / Elementor Nested Tabs (.e-n-tab-title)
   $('.e-n-tab-title').each((_, el) => {
     const title = $(el).text().trim();
@@ -3515,8 +3693,8 @@ export function parseProductFromHtml(
   // Energia Metabolizável
   let energiaMetabolizavelKcalKg: number | null = null;
   const emMatch =
-    garText.match(/(\d{3,4}(?:[\.,]\d+)?|\d{1,2}(?:[\.,]\d{3}))\s*kcal\/kg/i) ||
-    bodyText.match(/(\d{3,4}(?:[\.,]\d+)?|\d{1,2}(?:[\.,]\d{3}))\s*kcal\/kg/i) ||
+    garText.match(/(\d{3,4}(?:[\.,]\d+)?|\d{1,2}(?:[\.,]\d{3}))\s*kcal(?:\/kg)?\b/i) ||
+    bodyText.match(/(\d{3,4}(?:[\.,]\d+)?|\d{1,2}(?:[\.,]\d{3}))\s*kcal(?:\/kg)?\b/i) ||
     bodyText.match(/EM\s+Kcal\/Kg\s+(\d+(?:[\.,]\d+)?)/i);
   if (emMatch) {
     const raw = emMatch[1].trim();
