@@ -8265,7 +8265,7 @@ export const GUIDES: GuideItem[] = [
     updatedAt: '2026-11-14',
     author: DEFAULT_GUIDE_AUTHOR,
     coverImageUrl: '/uploads/guias/validade-da-racao-apos-aberta-cdc-mapa-mofo-garantia.webp',
-    isFeatured: true,
+    isFeatured: false,
     summary:
       'Comprar um saco de 15 kg ou 20 kg para um cão de porte pequeno parece um ótimo negócio na calculadora do pet shop, mas esconde uma armadilha físico-química e jurídica. Explicamos o que acontece com as gorduras e vitaminas dos grãos após o primeiro contato com o oxigênio, qual é o prazo real de consumo seguro segundo o MAPA e a ABINPET, e quando o tutor tem direito legal à substituição gratuita ou ao reembolso integral pelo CDC em casos de mofo, cheiro de ranço ou infestação por insetos.',
     relatedProductSlugs: [],
@@ -8436,7 +8436,177 @@ export const GUIDES: GuideItem[] = [
       buttonUrl: '/catalogo?especie=Caes',
     },
   },
-];
+    {
+      slug: 'racao-urinaria-para-gatos-in-mapa-39-2014-dissolucao-calculos',
+      title: 'Ração urinária para gatos: O que a IN MAPA 39/2014 alerta sobre uso sem prescrição?',
+      subtitle:
+        'Entenda a diferença técnica entre a prevenção em rações comuns e a dissolução clínica de cálculos pela IN MAPA nº 39/2014, além dos perigos de alterar o pH da urina sem acompanhamento veterinário.',
+      cluster: 'Dietas Coadjuvantes & Clínica',
+      speciesTarget: 'Gatos',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-15',
+      updatedAt: '2026-11-15',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl: '/uploads/guias/racao-urinaria-para-gatos-in-mapa-39-2014-dissolucao-calculos.webp',
+      isFeatured: true,
+      summary:
+        'Ver o gato com dor ao urinar ou sangue na caixa de areia assusta qualquer tutor, mas correr ao pet shop para comprar uma ração urinária por conta própria pode agravar o quadro. Explicamos o que diz a Instrução Normativa MAPA nº 39/2014 sobre alimentos coadjuvantes, como funciona a supersaturação relativa (RSS) entre cristais de estruvita e oxalato de cálcio, e por que a acidificação inadequada da urina traz riscos severos para rins e ossos.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'o-susto-na-caixa-de-areia',
+          heading: '1. O susto na caixa de areia: A tentação de comprar a ração urinária por conta própria',
+          paragraphs: [
+            'Ver o gato entrar e sair da caixa de areia várias vezes seguidas, miar com postura encurvada, lamber a região genital sem parar ou eliminar urina com pequenas gotas de sangue é uma cena que desespera qualquer tutor. Esses são os sinais clássicos da Doença do Trato Urinário Inferior Felino (DTUIF), um quadro que exige socorro imediato, especialmente em machos, cujo canal da uretra é estreito e pode obstruir em poucas horas.',
+            'Diante dessa angústia, o reflexo mais comum de muitos tutores é correr até a loja de produtos para animais ou aplicativo de entrega e comprar o primeiro pacote que estampe a palavra "Urinária" na frente da embalagem. Afinal, parece intuitivo que uma ração com essa promessa seja o remédio mais rápido para aliviar o sofrimento do felino.',
+            'Essa decisão por impulso, porém, esconde uma armadilha biológica perigosa. Problemas urinários em felinos não têm uma causa única: eles podem decorrer de cálculos de estruvita, pedras de oxalato de cálcio, tampões de muco ou de cistite idiopática felina, uma inflamação estéril da bexiga disparada por estresse ambiental e sem a presença de cristais.',
+            'Como cada um desses quadros exige um manejo completamente diferente, mudar a alimentação sem um exame de urina e ultrassonografia prévios pode agravar o problema em vez de curá-lo, transformando uma inflamação tratável em uma crise metabólica grave.',
+          ],
+        },
+        {
+          id: 'prevencao-comercial-vs-alimento-coadjuvante',
+          heading: '2. Ração preventiva vs alimento coadjuvante: O que diz a IN MAPA nº 39/2014',
+          paragraphs: [
+            'A primeira grande distinção que o tutor precisa compreender está na diferença legal e nutricional entre um alimento convencional com alegação de controle urinário e um alimento coadjuvante de uso terapêutico.',
+            'Nas prateleiras comuns, a maioria das rações Super Premium e Premium Especial para gatos castrados traz frases como "auxilia no trato urinário" ou "controle de minerais". Esses produtos são classificados pelo Ministério da Agricultura e Pecuária (MAPA) como alimentos completos de manutenção. Eles são balanceados para manter o pH da urina de gatos saudáveis em uma faixa segura de neutralidade (entre 6,2 e 6,5) e podem ser consumidos todos os dias durante toda a vida adulta do pet.',
+            'Já as linhas urinárias clínicas (identificadas nos rótulos por termos como Urinary, C/D ou S/O) são regidas pela Instrução Normativa MAPA nº 39/2014, que padroniza os alimentos coadjuvantes no Brasil. Por determinação legal, essas rações são incondicionalmente privadas de medicamentos ativos, como antibióticos ou analgésicos, atuando exclusivamente pela modulação profunda dos nutrientes.',
+            'Para dissolver cálculos ou impedir sua agregação, o fabricante modifica radicalmente os níveis de sódio, potássio, magnésio e fósforo, além de adicionar substâncias que acidificam fortemente o pH urinário. Por causa dessa alteração metabólica intensa, a norma do MAPA exige que o rótulo alerte expressamente a necessidade de uso sob orientação e acompanhamento de médico veterinário.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'Marco legal da IN MAPA nº 39/2014',
+            text: 'A norma estabelece que alimentos coadjuvantes só devem ser utilizados sob orientação e acompanhamento de médico veterinário. Suas modificações nutricionais atendem a distúrbios específicos e não se destinam à manutenção contínua de animais sem a patologia diagnosticada.',
+          },
+        },
+        {
+          id: 'supersaturacao-relativa-e-balanco-minerais',
+          heading: '3. Supersaturação Relativa (RSS) e o balanço delicado entre estruvita e oxalato',
+          paragraphs: [
+            'Para entender por que uma ração urinária terapêutica não pode ser dada sem diagnóstico, é preciso conhecer a física da urina felina através do conceito de Supersaturação Relativa (conhecido na literatura científica pela sigla RSS).',
+            'A Supersaturação Relativa mede o grau de concentração de minerais dissolvidos na urina antes que eles comecem a se juntar e formar cristais sólidos, exatamente como acontece quando colocamos sal demais em um copo com água. O grande desafio biológico é que os dois principais cálculos que atingem os gatos se comportam de maneiras opostas conforme a acidez da urina.',
+            'Os cálculos de estruvita (compostos por magnésio, amônio e fosfato) formam-se em urina alcalina, com pH acima de 6,8. Para dissolver essas pedras na bexiga sem cirurgia, a ração urinária coadjuvante reduz drasticamente o magnésio e força o pH da urina para níveis ácidos (entre 6,0 e 6,4), dissolvendo a estruvita em poucas semanas.',
+            'Por outro lado, os cálculos de oxalato de cálcio formam-se preferencialmente em meio neutro a ácido (pH abaixo de 6,2) e não se dissolvem com mudança de dieta. Se o tutor compra uma ração urinária acidificante para um gato que tem microcristais de oxalato, a acidez extrema acelera a precipitação do oxalato, transformando cristais microscópicos em pedras volumosas que exigem intervenção cirúrgica de emergência.',
+          ],
+          table: {
+            caption: 'Comparativo bromatológico e clínico: Estruvita vs Oxalato de Cálcio em felinos',
+            headers: [
+              'Tipo de Urólito',
+              'pH Urinário de Formação',
+              'Possibilidade de Dissolução pela Dieta',
+              'Estratégia Nutricional da Ração',
+            ],
+            rows: [
+              [
+                'Estruvita (Fosfato de magnésio amoníaco)',
+                'Alcalino (acima de 6,8)',
+                'Sim, totalmente dissolvível com manejo alimentar',
+                'Acidificação urinária controlada (pH 6,0 a 6,4) e restrição de magnésio e fósforo',
+              ],
+              [
+                'Oxalato de Cálcio',
+                'Ácido a Neutro (abaixo de 6,2)',
+                'Não se dissolve (remoção mecânica ou cirúrgica)',
+                'Prevenção de recidivas por diluição da urina, controle de cálcio e pH próximo a 6,6',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'riscos-do-uso-indiscriminado-e-prolongado',
+          heading: '4. Os riscos reais de dar ração urinária clínica para gatos sadios ou por tempo indeterminado',
+          paragraphs: [
+            'Outro erro frequente nas casas com mais de um pet é deixar o pacote de ração urinária coadjuvante acessível para todos os animais, ou continuar oferecendo o produto por anos após o animal já ter se recuperado da crise.',
+            'Manter um gato saudável sob dieta acidificante traz consequências metabólicas severas. A acidificação contínua do sangue e da urina obriga o organismo a retirar carbonato de cálcio dos próprios ossos para neutralizar os ácidos, favorecendo perda de densidade óssea ao longo do tempo.',
+            'Em animais idosos, que frequentemente apresentam perda silenciosa de função renal, a acidose metabólica acelera o declínio dos néfrons nos rins e agrava a perda de massa muscular magra. Já em filhotes em fase de crescimento rápido, a restrição de minerais indispensáveis como magnésio e fósforo compromete o desenvolvimento esquelético de forma irreversível.',
+            'Por essa razão, o protocolo veterinário preconiza que rações coadjuvantes de dissolução sejam utilizadas por períodos delimitados (geralmente entre 4 a 12 semanas), com exames seriados de urina tipo 1 e densidade para monitorar o desaparecimento dos cristais e orientar a transição segura de volta para um alimento de manutenção.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Atenção em lares com múltiplos gatos',
+            text: 'Se apenas um felino tem indicação para dieta coadjuvante urinária, os comedouros devem ser estritamente separados. Alimentos acidificantes para dissolução de cálculos não podem ser consumidos por filhotes, fêmeas gestantes ou gatos saudáveis da casa.',
+          },
+        },
+        {
+          id: 'agua-biologica-e-manejo-hidrico',
+          heading: '5. Água biológica e manejo hídrico: O remédio preventivo mais seguro e acessível',
+          paragraphs: [
+            'Independentemente do tipo de cristal, existe um fator fisiológico unânime na literatura científica mundial da WSAVA e da Sociedade Internacional de Medicina Felina (ISFM): a ingestão de água é o pilar mais decisivo para a saúde urinária dos gatos.',
+            'Descendentes de felinos do deserto, os gatos têm baixa percepção de sede e produzem uma urina naturalmente concentrada. Quando o animal bebe pouca água e consome apenas ração seca, a urina passa muito tempo parada na bexiga em alta concentração, criando o ambiente perfeito para minerais se agregarem.',
+            'A maneira mais eficiente e biologicamente natural de proteger o trato urinário sem alterar quimicamente o pH corporal é diluir a urina. Uma densidade urinária abaixo de 1.035 reduz drasticamente o contato entre íons minerais, impedindo a formação de novos cristais.',
+            'Na rotina doméstica, a melhor estratégia consiste em oferecer sachês de alimento úmido completo todos os dias (que entregam cerca de 80% de água biológica incorporada aos nutrientes) e espalhar recipientes largos de cerâmica ou vidro com água fresca pela casa, sempre distantes da caixa de areia e do comedouro de ração seca.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'O poder da diluição urinária',
+            text: 'Uma urina abundante e diluída é a barreira física mais eficiente contra qualquer tipo de cálculo. Incluir sachês completos diariamente e espalhar fontes de água limpa pela casa reduz a concentração de minerais sem forçar o equilíbrio ácido-base do organismo.',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'Posso dar ração urinária coadjuvante para o meu gato saudável como forma de prevenção?',
+          a: 'Não. As rações coadjuvantes regidas pela IN MAPA nº 39/2014 possuem alterações profundas no balanço de minerais e agentes acidificantes potentes. O uso em animais saudáveis pode induzir acidose metabólica crônica, sobrecarga renal e precipitação de cálculos de oxalato de cálcio. Para prevenção em gatos saudáveis, o indicado são rações de manutenção para gatos castrados combinadas com hidratação úmida diária.',
+        },
+        {
+          q: 'Quanto tempo o gato deve comer a ração urinária para dissolver cálculos?',
+          a: 'O intervalo varia de acordo com o tamanho do urólito de estruvita e a resposta clínica, ficando normalmente entre 4 e 12 semanas. O acompanhamento veterinário com exames periódicos de urina e ultrassonografia é indispensável para confirmar a dissolução completa e orientar a transição segura para um alimento de manutenção.',
+        },
+        {
+          q: 'A ração urinária consegue dissolver qualquer tipo de pedra na bexiga?',
+          a: 'Não. As rações coadjuvantes dissolvem exclusivamente cálculos de estruvita (fosfato de magnésio amoníaco). Cálculos de oxalato de cálcio, urato ou cistina não se dissolvem com alterações de pH e demandam intervenção clínica mecânica ou cirúrgica.',
+        },
+        {
+          q: 'Se um filhote comer a ração urinária do gato adulto, existe algum risco?',
+          a: 'Sim. Filhotes em crescimento rápido necessitam de níveis equilibrados de cálcio, magnésio e fósforo para a formação óssea. A restrição de minerais e o meio ácido de uma ração urinária clínica podem comprometer o desenvolvimento esquelético do filhote.',
+        },
+      ],
+      conclusion:
+        'A saúde urinária dos felinos depende de um diagnóstico veterinário preciso antes de qualquer intervenção alimentar. As rações coadjuvantes regulamentadas pela IN MAPA nº 39/2014 são recursos terapêuticos eficazes para dissolver urólitos de estruvita, mas suas modificações intensas de acidez e minerais trazem riscos graves quando utilizadas de forma empírica ou contínua em animais sadios. Na rotina doméstica, a melhor prevenção para a bexiga não está na compra de pacotes clínicos sem receita, mas na oferta diária de água biológica por meio de alimentos úmidos e no estímulo constante à ingestão hídrica.',
+      references: [
+        {
+          title: 'Instrução Normativa MAPA nº 39, de 27 de novembro de 2014',
+          institution: 'Ministério da Agricultura, Pecuária e Abastecimento (MAPA)',
+          type: 'regulamento',
+          url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/legislacao',
+          details: 'Aprova o regulamento técnico para registro, controle e rotulagem de alimentos coadjuvantes destinados a animais de companhia',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'regulamento',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Parâmetros de exigência mineral, controle de magnésio, fósforo e faixas de pH urinário de segurança para felinos',
+        },
+        {
+          title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+          institution: 'European Pet Food Industry Federation (FEDIAF)',
+          type: 'literatura',
+          url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+          details: 'Diretrizes nutricionais sobre balanço ácido-base, supersaturação relativa e prevenção de urólitos em gatos',
+        },
+        {
+          title: 'ISFM Consensus Guidelines on the Diagnosis and Management of Feline Lower Urinary Tract Disease',
+          institution: 'International Society of Feline Medicine (ISFM)',
+          type: 'literatura',
+          url: 'https://icatcare.org/advice/feline-lower-urinary-tract-disease-flutd/',
+          details: 'Consenso clínico sobre diagnóstico diferencial de FLUTD, cistite idiopática e riscos do manejo empírico',
+        },
+        {
+          title: 'Global Nutrition Guidelines: Feline Lower Urinary Tract Disease Management',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'estudo',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Recomendações globais sobre o papel da hidratação úmida, Supersaturação Relativa (RSS) e monitoramento dietético',
+        },
+      ],
+      callToAction: {
+        title: 'Consulte o Catálogo de Rações para Gatos Avaliadas pelo PetRankings',
+        text: 'Quer verificar os níveis de minerais, fósforo, magnésio e sódio declarados nos rótulos oficiais de rações secas e sachês para felinos? Acesse nosso catálogo técnico completo.',
+        buttonText: 'Ver Catálogo de Alimentos para Gatos',
+        buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+  ];
 
 export function getAllGuides(): GuideItem[] {
   return [...GUIDES].sort((a, b) => {
