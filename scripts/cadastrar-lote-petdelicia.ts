@@ -713,11 +713,24 @@ async function main() {
       const officialHtml = await respOfficial.text();
       const $ = cheerio.load(officialHtml);
 
-      // Extrai imagem oficial de alta definição
-      let rawImg = $('.woocommerce-product-gallery__image img').first().attr('src') ||
-                   $('meta[property="og:image"]').attr('content') ||
-                   $('img.wp-post-image').first().attr('src') || '';
-      rawImg = rawImg.split('?')[0];
+      // Extrai imagem oficial de alta definição ignorando placeholders lazyload
+      let rawImg = '';
+      const candidateImages = [
+        $('.woocommerce-product-gallery__image img').first().attr('data-large_image'),
+        $('.woocommerce-product-gallery__image img').first().attr('data-src'),
+        $('img.wp-post-image').first().attr('data-large_image'),
+        $('img.wp-post-image').first().attr('data-src'),
+        $('meta[property="og:image"]').attr('content'),
+        $('.woocommerce-product-gallery__image img').first().attr('src'),
+        $('img.wp-post-image').first().attr('src'),
+      ];
+
+      for (const cand of candidateImages) {
+        if (cand && !cand.startsWith('data:') && (cand.endsWith('.jpg') || cand.endsWith('.png') || cand.endsWith('.webp') || cand.includes('/wp-content/uploads/'))) {
+          rawImg = cand.split('?')[0];
+          break;
+        }
+      }
 
       // 3. ID único do produto no Prisma
       const newId = 'cmtz' + crypto.randomBytes(10).toString('hex');
