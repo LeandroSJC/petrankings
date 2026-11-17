@@ -8618,7 +8618,7 @@ export const GUIDES: GuideItem[] = [
       updatedAt: '2026-11-16',
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl: '/uploads/guias/biofresh-vs-farmina-nd-caes-duel-cover.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Para o tutor que busca uma ração Super Premium Natural para o seu cão, livre de grãos transgênicos e sem conservantes sintéticos como BHA e BHT, Biofresh e Farmina N&D Ancestral Grain lideram as recomendações nas clínicas e pet shops. Colocamos lado a lado as fichas técnicas oficiais das linhas de Frango para portes Mini e Médio para mostrar o que muda na concentração de proteínas, na digestão dos carboidratos, no controle de tártaro e nas calorias por quilo.',
       relatedProductSlugs: [
@@ -8821,6 +8821,173 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer consultar a ficha técnica completa, o extrato de pontuação pilar a pilar e onde encontrar cada embalagem nas lojas parceiras? Acesse nosso catálogo interativo.',
         buttonText: 'Ver Ranking de Rações para Cães',
         buttonUrl: '/catalogo?especie=Caes',
+      },
+    },
+    {
+      slug: 'catnip-e-matatabi-para-gatos-estimulo-seguro-ou-estresse',
+      title: 'Catnip e Matatabi para gatos: Estímulo seguro ou estresse olfativo?',
+      subtitle:
+        'Como a nepetalactona e os iridoides vegetais agem no sistema límbico felino, por que alguns gatos não reagem e o protocolo semanal seguro para enriquecimento ambiental.',
+      cluster: 'Petiscos & Enriquecimento',
+      speciesTarget: 'Gatos',
+      readingTimeMinutes: 7,
+      publishedAt: '2026-11-17',
+      updatedAt: '2026-11-17',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl: '/uploads/guias/catnip-e-matatabi-para-gatos-estimulo-seguro.webp',
+      isFeatured: true,
+      summary:
+        'Muitos tutores compram erva-do-gato desidratada, sprays ou gravetos de Matatabi para entreter o felino em apartamento, mas ficam em dúvida quando o animal rola pelo chão em euforia ou simplesmente ignora o produto. Analisamos a neurobiologia do estímulo olfativo, a segurança gástrica caso o gato engula as folhas e a frequência ideal de oferta para evitar a saturação dos receptores.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'mecanismo-nepetalactona-e-orgao-vomeronasal',
+          heading: '1. O que acontece no cérebro do gato ao cheirar Catnip ou Matatabi?',
+          paragraphs: [
+            'Quando você esfrega uma pitada de Catnip (a erva-do-gato, de nome botânico Nepeta cataria) no arranhador e o felino começa a esfregar o rosto, rolar de barriga para cima e ronronar, o efeito parece quase hipnótico. Na prática, essa reação não passa pelo estômago, mas sim pelo nariz.',
+            'Tanto o Catnip quanto o Matatabi (planta asiática Actinidia polygama, também chamada de silvervine) produzem óleos essenciais voláteis conhecidos como iridoides: a nepetalactona no Catnip e o nepetalactol associado à actinidina no Matatabi. Na natureza, as plantas fabricam esses compostos aromáticos para afastar mosquitos e pragas.',
+            'Ao cheirar a erva ou o graveto, essas moléculas se ligam aos sensores do epitélio olfativo e do órgão vomeronasal (localizado no céu da boca do felino), enviando sinais diretos para a amígdala e o hipotálamo no cérebro. Pesquisas em neurobiologia felina demonstram que esse estímulo libera beta-endorfinas naturais, gerando de 5 a 15 minutos de bem-estar, alívio do tédio e redução da ansiedade em gatos que vivem dentro de casa.',
+            'Como o processo aciona apenas a produção interna de endorfinas pelo olfato e se desliga sozinho após alguns minutos, o uso não causa dependência química, ressaca ou síndrome de abstinência no animal.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'Enquadramento Regulatório (IN MAPA nº 30/2009)',
+            text: 'No mercado brasileiro, ervas desidratadas em potes, sprays aromáticos e gravetos puros de madeira de Matatabi são classificados como artigos de enriquecimento ambiental e atrativos olfativos, não sendo registrados como Alimento Completo. Quando incorporados dentro de biscoitos ou petiscos mastigáveis, o produto final passa a seguir as regras de Alimento Específico do MAPA e o teto de 10% das calorias diárias.',
+          },
+        },
+        {
+          id: 'diferenca-catnip-vs-matatabi-e-genetica',
+          heading: '2. Catnip vs Matatabi: Por que o seu gato ignora a erva tradicional?',
+          paragraphs: [
+            'Uma frustração muito comum nas compras de pet shop ocorre quando o tutor traz um brinquedo recheado de Catnip e o gato sequer chega perto. Essa indiferença não significa que a erva esteja estragada, mas sim que a sensibilidade a essas plantas depende da herança genética do animal.',
+            'Estudos clínicos publicados na literatura veterinária internacional (como o levantamento de Bol et al. na revista BMC Veterinary Research) revelam que cerca de 1 em cada 3 gatos adultos (aproximadamente 32% da população felina) não possui o gene dominante que ativa a resposta à nepetalactona do Catnip.',
+            'Além do fator genético, filhotes com menos de 3 a 6 meses de idade ainda não têm o sistema neuroendócrino maduro para responder ao cheiro, passando a demonstrar interesse apenas perto da puberdade.',
+            'É justamente nos gatos "imunes" ao Catnip que o Matatabi ganha destaque: por reunir seis compostos bioativos diferentes (incluindo o nepetalactol, a di-hidroactinidiolida e a actinidina), o Matatabi estimula cerca de 80% de todos os felinos, funcionando em aproximadamente 75% dos gatos que ignoram a erva-do-gato comum.',
+          ],
+          table: {
+            caption: 'Comparativo técnico e comportamental: Catnip (Nepeta cataria) vs Matatabi (Actinidia polygama)',
+            headers: [
+              'Parâmetro Analisado',
+              'Catnip (Erva-do-Gato)',
+              'Matatabi (Silvervine)',
+            ],
+            rows: [
+              [
+                'Composto Bioativo Principal',
+                'Nepetalactona (óleo volátil nas folhas e flores)',
+                'Nepetalactol, actinidina e iridoides na madeira e galhas',
+              ],
+              [
+                'Taxa Média de Gatos que Reagem',
+                'Cerca de 65% a 68% dos gatos adultos',
+                'Cerca de 79% a 80% dos gatos adultos',
+              ],
+              [
+                'Formato Mais Comum de Uso',
+                'Folhas secas trituradas, erva fresca ou spray líquido',
+                'Gravetos de madeira natural, frutos secos ou pó fino',
+              ],
+              [
+                'Benefício Mecânico Adicional',
+                'Estímulo olfativo, rolamento e incentivo a arranhadores',
+                'Atrito dental leve ao roer a casca macia do graveto',
+              ],
+              [
+                'Duração Típica do Efeito Agudo',
+                'Entre 5 e 15 minutos por sessão',
+                'Entre 5 e 20 minutos por sessão',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'engolir-catnip-faz-mal-ou-raspa-tartaro',
+          heading: '3. O gato pode engolir as folhas ou roer o graveto? Segurança gástrica e dentes',
+          paragraphs: [
+            'Durante a brincadeira, é normal que o gato lamba e acabe engolindo parte das folhas secas de Catnip ou pequenas lascas da casca externa do Matatabi. Em quantidades moderadas (uma pitada de café das folhas desidratadas), a Nepeta cataria é segura e atóxica para o trato digestivo felino.',
+            'Curiosamente, enquanto o cheiro do Catnip desperta euforia e vontade de brincar, a ingestão das folhas pelo estômago costuma produzir o efeito oposto: age como um calmante suave, levando muitos gatos a tirarem uma soneca tranquila logo após a sessão.',
+            'O cuidado prático na rotina está na quantidade. Se o tutor despejar um montinho grande de erva seca no chão e o gato comer tudo de uma vez, o excesso de fibra vegetal seca pode irritar a mucosa do estômago e provocar episódios leves de vômito ou fezes amolecidas.',
+            'No caso dos gravetos de Matatabi, o hábito de morder a madeira macia traz uma vantagem extra para a boca: o atrito mecânico dos dentes contra as fibras vegetais ajuda a raspar a película inicial de placa bacteriana (biofilme) nos pré-molares e molares, embora o tutor deva sempre supervisionar a sessão para retirar o palito caso o gato tente engolir pedaços grandes.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Quando o estímulo vira estresse ou disputa em casas com vários gatos?',
+            text: 'Em lares com dois ou mais gatos, o efeito desinibidor do Catnip e do Matatabi pode gerar superestimulação: um gato muito excitado pode tentar pular sobre outro mais tímido, iniciando brigas por disputa do recurso. Se você tem múltiplos felinos, espalhe as porções em cômodos ou cantos afastados para que cada um interaja no seu próprio espaço.',
+          },
+        },
+        {
+          id: 'protocolo-frequencia-e-armazenamento',
+          heading: '4. Frequência ideal de uso: Por que deixar a erva exposta todo dia anula o efeito?',
+          paragraphs: [
+            'O erro mais frequente de quem compra brinquedos com Catnip ou palitos de Matatabi é deixá-los espalhados pela sala 24 horas por dia. Após os primeiros 15 minutos de interação, os receptores olfativos do gato entram em um período refratário (fadiga sensorial temporária) e o cérebro deixa de responder ao aroma por pelo menos duas horas.',
+            'Se o cheiro continuar presente no ambiente todos os dias, ocorre a habituação olfativa: o felino se acostuma com a substância e passa a tratar o brinquedo ou o arranhador como um objeto comum sem graça.',
+            'Além da fadiga do nariz do gato, os óleos essenciais (nepetalactona e nepetalactol) evaporam rapidamente em contato com o ar e com o calor. Um brinquedo exposto no tapete perde quase toda a sua potência aromática em poucas semanas.',
+            'Para manter o interesse sempre alto e proteger o bem-estar do seu gato, o protocolo recomendado pelas diretrizes internacionais de medicina felina (ISFM/AAFP) é oferecer o estímulo de 1 a 2 vezes por semana, recolhendo os brinquedos e gravetos após 20 minutos e guardando-os em um pote fechado no armário ou no congelador para preservar os óleos voláteis.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: 'Com quantos meses de idade o filhote de gato já pode usar Catnip ou Matatabi?',
+          a: 'Não há risco de toxicidade para filhotes, mas gatos com menos de 3 a 6 meses geralmente não demonstram nenhuma reação ao Catnip ou ao Matatabi porque o sistema neuroendócrino e a sensibilidade olfativa aos iridoides vegetais só amadurecem próximo aos 6 meses de idade.',
+        },
+        {
+          q: 'Como reativar o cheiro do palito de Matatabi quando o gato perde o interesse?',
+          a: 'Como os compostos aromáticos ficam concentrados no interior da madeira e da casca, basta usar uma faca pequena ou lixa limpa para descascar uma fina camada superficial do graveto (onde a saliva antiga secou) e guardá-lo em um saquinho vedado quando não estiver em uso.',
+        },
+        {
+          q: 'Gatas gestantes ou gatos com problemas renais podem cheirar Catnip?',
+          a: 'Para gatos renais ou cardiopatas estáveis, o estímulo olfativo moderado em ambiente calmo é seguro porque não adiciona sódio, fósforo ou calorias à dieta. Já em gatas gestantes, recomenda-se evitar o uso, pois a excitação intensa e os rolamentos bruscos não são indicados durante a gravidez.',
+        },
+        {
+          q: 'Qual a quantidade certa de Catnip desidratado para colocar por vez?',
+          a: 'Menos é mais: uma pequena pitada entre os dedos (cerca de meia colher de café ou 0,5 grama) esfregada entre as palmas das mãos para liberar os óleos essenciais já é suficiente para perfumar o arranhador ou a caminha sem risco de irritação gástrica caso o gato lamba a superfície.',
+        },
+      ],
+      conclusion:
+        'Tanto o Catnip (Nepeta cataria) quanto o Matatabi (Actinidia polygama) são ferramentas seguras, naturais e comprovadas pela ciência veterinária para enriquecer a rotina de gatos que vivem em ambientes internos, aliviando o tédio sem adicionar calorias ou minerais à dieta. Para aproveitar o benefício sem causar estresse ou perda de efeito, ofereça uma pequena porção sob supervisão apenas 1 a 2 vezes por semana, separe os locais de oferta se tiver mais de um gato em casa e guarde sempre as ervas e gravetos em embalagens bem vedadas após 20 minutos de brincadeira.',
+      references: [
+        {
+          title: 'AAFP and ISFM Feline Environmental Needs Guidelines',
+          institution: 'International Society of Feline Medicine (ISFM) / Journal of Feline Medicine and Surgery',
+          type: 'literatura',
+          url: 'https://journals.sagepub.com/doi/10.1177/1098612X13477537',
+          details: 'Diretrizes clínicas globais sobre os 5 pilares do ambiente saudável felino, enriquecimento sensorial olfativo e prevenção de estresse em gatos domiciliados',
+        },
+        {
+          title: 'Responsiveness of cats (Felis catus) to silver vine (Actinidia polygama), Tatarian honeysuckle, valerian and catnip',
+          institution: 'BMC Veterinary Research (Bol et al., 2017)',
+          type: 'estudo',
+          url: 'https://bmcvetres.biomedcentral.com/articles/10.1186/s12917-017-0987-6',
+          details: 'Estudo clínico comparativo demonstrando taxa de resposta de ~80% ao Matatabi contra ~68% ao Catnip e eficácia do Matatabi em gatos não responsivos à Nepeta cataria',
+        },
+        {
+          title: 'The characteristic response of domestic cats to plant iridoids allows them to gain chemical defense against mosquitoes',
+          institution: 'Science Advances / Iwate University (Uenoyama et al., 2021)',
+          type: 'estudo',
+          url: 'https://www.science.org/doi/10.1126/sciadv.abd9135',
+          details: 'Pesquisa neurobiológica demonstrando a ativação do sistema μ-opioide via liberação de beta-endorfinas pelo nepetalactol e a ausência de potencial de adicção ou toxicidade',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Classificação técnica de alimentos específicos, petiscos funcionais e diretrizes de segurança de ingredientes botânicos para felinos',
+        },
+        {
+          title: 'Instrução Normativa MAPA nº 30/2009 e Decreto Federal nº 12.031/2024',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA) / Presidência da República',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+          details: 'Marco normativo brasileiro sobre registro, classificação e distinção legal entre Alimentos Completos, Alimentos Específicos e artigos de enriquecimento/agrado para animais de companhia',
+        },
+      ],
+      callToAction: {
+        title: 'Consulte o Ranking Completo de Alimentos para Gatos no PetRankings',
+        text: 'Além de cuidar do enriquecimento ambiental do seu felino, quer descobrir quais rações secas e sachês entregam o melhor controle mineral e proteico? Explore nosso catálogo técnico.',
+        buttonText: 'Ver Catálogo de Rações e Sachês para Gatos',
+        buttonUrl: '/catalogo?especie=Gatos',
       },
     },
   ];
