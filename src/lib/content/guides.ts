@@ -8448,7 +8448,7 @@ export const GUIDES: GuideItem[] = [
       updatedAt: '2026-11-15',
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl: '/uploads/guias/racao-urinaria-para-gatos-in-mapa-39-2014-dissolucao-calculos.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Ver o gato com dor ao urinar ou sangue na caixa de areia assusta qualquer tutor, mas correr ao pet shop para comprar uma ração urinária por conta própria pode agravar o quadro. Explicamos o que diz a Instrução Normativa MAPA nº 39/2014 sobre alimentos coadjuvantes, como funciona a supersaturação relativa (RSS) entre cristais de estruvita e oxalato de cálcio, e por que a acidificação inadequada da urina traz riscos severos para rins e ossos.',
       relatedProductSlugs: [],
@@ -8604,6 +8604,223 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer verificar os níveis de minerais, fósforo, magnésio e sódio declarados nos rótulos oficiais de rações secas e sachês para felinos? Acesse nosso catálogo técnico completo.',
         buttonText: 'Ver Catálogo de Alimentos para Gatos',
         buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+    {
+      slug: 'biofresh-vs-farmina-nd-caes-adultos',
+      title: 'Biofresh vs Farmina N&D para cães: O que muda na prática além dos grãos ancestrais?',
+      subtitle:
+        'Confronto técnico e bromatológico em Matéria Seca (MS), ordem dos ingredientes, energia metabolizável, saúde dental e perfil de carboidratos entre duas referências Super Premium Natural no Brasil.',
+      cluster: 'Duelo de Marcas',
+      speciesTarget: 'Cães',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-16',
+      updatedAt: '2026-11-16',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl: '/uploads/guias/biofresh-vs-farmina-nd-caes-duel-cover.webp',
+      isFeatured: true,
+      summary:
+        'Para o tutor que busca uma ração Super Premium Natural para o seu cão, livre de grãos transgênicos e sem conservantes sintéticos como BHA e BHT, Biofresh e Farmina N&D Ancestral Grain lideram as recomendações nas clínicas e pet shops. Colocamos lado a lado as fichas técnicas oficiais das linhas de Frango para portes Mini e Médio para mostrar o que muda na concentração de proteínas, na digestão dos carboidratos, no controle de tártaro e nas calorias por quilo.',
+      relatedProductSlugs: [
+        'cao-adulto-medio-sabor-frango',
+        'cao-adulto-pequena-e-mini-sabor-frango',
+        'ned-ancestral-grain-canine-frango-e-roma-adult-medium',
+        'ned-ancestral-grain-canine-frango-e-roma-adult-mini',
+      ],
+      sections: [
+        {
+          id: 'encontro-super-premium-natural-sem-transgenicos',
+          heading: '1. O topo da prateleira Super Premium Natural: O que une Biofresh e Farmina N&D?',
+          paragraphs: [
+            'Quando o tutor decide investir no segmento Super Premium Natural para cães adultos, duas linhas com cereais nobres disputam a preferência no carrinho de compras: a Biofresh (fabricada no Brasil pela BRF Pet) e a Farmina N&D Ancestral Grain (produzida pela Farmina Pet Foods).',
+            'O primeiro ponto em comum entre os dois pacotes é a limpeza da fórmula. Nenhuma das duas utiliza milho ou soja geneticamente modificados, dispensando o triângulo amarelo com a letra "T" exigido pelo Decreto Federal nº 4.680/2003.',
+            'Além disso, ambas aboliram corantes artificiais e antioxidantes sintéticos derivados de petróleo (como BHA e BHT). Para impedir que as gorduras nobres oxidem dentro da embalagem, as duas fabricantes utilizam exclusivamente antioxidantes naturais à base de concentrado de tocoferóis (vitamina E) e extrato de alecrim.',
+            'Apesar de compartilharem essa base natural e o teto idêntico de 9,0% de umidade máxima nos grãos (o que resulta em 91,0% de Matéria Seca útil), a engenharia nutricional de cada marca segue caminhos bem distintos na escolha das carnes, dos carboidratos e dos aditivos para dentes e articulações.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'O que significa ausência de transgênicos (OGM) na prática?',
+            text: 'Pelo Decreto nº 4.680/2003 e pelas normas do MAPA, alimentos com mais de 1% de ingredientes geneticamente modificados devem estampar o símbolo "T". Ao substituírem o milho e a soja por aveia, cevada, sorgo ou arroz integral, tanto a Biofresh quanto a Farmina N&D entregam receitas 100% isentas de transgênicos.',
+          },
+        },
+        {
+          id: 'proteina-gordura-e-cinzas-em-materia-seca',
+          heading: '2. Proteína Bruta, gordura e cinzas em Matéria Seca (MS): A vantagem de densidade da N&D',
+          paragraphs: [
+            'Como ambas as marcas trabalham com exatamente 9,0% de umidade máxima declarada (90 g/kg), a conversão matemática para a Matéria Seca (MS) permite comparar os nutrientes sem distorções. Na prática, retirar a água do cálculo mostra quanto de proteína e gordura reais o cão absorve a cada porção.',
+            'Na linha Farmina N&D Ancestral Grain Frango & Romã (tanto na versão Adult Mini quanto na Adult Medium), a Proteína Bruta atinge 32,97% na Matéria Seca (30,0% no rótulo), acompanhada por 19,78% de Extrato Etéreo na base seca (18,0% de gordura no rótulo).',
+            'Já a Biofresh Frango, Maçã e Arroz Integral ajusta a concentração conforme o porte do animal: entrega 29,67% de Proteína Bruta na Matéria Seca (27,0% no rótulo) para Raças Médias e sobe para 30,77% na Matéria Seca (28,0% no rótulo) para Raças Minis e Pequenas, com gorduras em 17,58% MS (16,0% MN) e 18,13% MS (16,5% MN), respectivamente.',
+            'No controle de Matéria Mineral (cinzas), a Farmina N&D também leva vantagem técnica: fixa o teto em 7,47% na Matéria Seca (6,8% no rótulo), contra 8,57% na Matéria Seca (7,8% no rótulo) da Biofresh. Na rotina do cão, um teor menor de cinzas indica matérias-primas animais com menos resíduo de ossos moídos, o que melhora a digestão e poupa os rins no longo prazo.',
+          ],
+          table: {
+            caption: 'Confronto nutricional em Matéria Seca (MS): Biofresh vs Farmina N&D Ancestral Grain (Sabor Frango)',
+            headers: [
+              'Parâmetro Analisado',
+              'Biofresh Adulto Raças Médias',
+              'Biofresh Adulto Minis e Pequenas',
+              'Farmina N&D Ancestral Grain (Mini e Medium)',
+            ],
+            rows: [
+              [
+                'Umidade Máxima / Base Seca',
+                '9,0% (91,0% de Matéria Seca)',
+                '9,0% (91,0% de Matéria Seca)',
+                '9,0% (91,0% de Matéria Seca)',
+              ],
+              [
+                'Proteína Bruta (Mín. MS)',
+                '29,67% MS (27,0% MN)',
+                '30,77% MS (28,0% MN)',
+                '32,97% MS (30,0% MN)',
+              ],
+              [
+                'Extrato Etéreo / Gordura (Mín. MS)',
+                '17,58% MS (16,0% MN)',
+                '18,13% MS (16,5% MN)',
+                '19,78% MS (18,0% MN)',
+              ],
+              [
+                'Matéria Fibrosa (Máx. MS)',
+                '3,52% MS (3,2% MN)',
+                '3,30% MS (3,0% MN)',
+                '3,19% MS (2,9% MN)',
+              ],
+              [
+                'Matéria Mineral / Cinzas (Máx. MS)',
+                '8,57% MS (7,8% MN)',
+                '8,57% MS (7,8% MN)',
+                '7,47% MS (6,8% MN)',
+              ],
+              [
+                'Relação Cálcio:Fósforo (Ca:P Piso)',
+                '1,00:1 (Ca mín. 0,70% / P 0,70%)',
+                '1,14:1 (Ca mín. 0,80% / P 0,70%)',
+                '1,14:1 (Ca mín. 0,80% / P 0,70%)',
+              ],
+              [
+                'Ômega-3 Total (Mín. MS)',
+                '0,55% MS (5.000 mg/kg MN)',
+                '0,55% MS (5.000 mg/kg MN)',
+                '0,27% MS (2.500 mg/kg MN)',
+              ],
+              [
+                'Hexametafosfato de Sódio (Tártaro)',
+                '3.000 mg/kg (0,3%)',
+                '3.000 mg/kg (0,3%)',
+                'Não contém',
+              ],
+              [
+                'Energia Metabolizável Declarada',
+                '3.980 kcal/kg',
+                '3.990 kcal/kg',
+                '3.840 kcal/kg',
+              ],
+              [
+                'Nota Técnica PetRankings',
+                '80 pts (Alta Conformidade)',
+                '90 pts (Referência Nutricional)',
+                '90 pts (Referência Nutricional)',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'ordem-dos-ingredientes-e-paradoxo-calorico',
+          heading: '3. Ordem dos ingredientes e o paradoxo das calorias: Grãos ancestrais vs arroz',
+          paragraphs: [
+            'Pela Instrução Normativa MAPA nº 22/2009, os ingredientes devem ser listados em ordem decrescente de peso na receita. Na Farmina N&D Ancestral Grain, a declaração é direta e individualizada: o 1º item é a carne de frango mecanicamente separada, seguida por farinha de vísceras de aves (mínimo de 10%), ovo desidratado, aveia, sorgo, cevada e farinha de peixe.',
+            'A Biofresh adota o agrupamento descritivo na lista de ingredientes: abre em 1º lugar com a "seleção de ingredientes nobres de origem animal (peito de frango, carne mecanicamente separada de frango e fígado de frango)", seguida em 2º lugar por farinha de vísceras de aves, farinha de vísceras low ash (baixo teor de cinzas) e óleo de aves, além de garantir mínimo de 5% de frutas, legumes e ervas frescas (maçã, mamão, cenoura, beterraba e orégano).',
+            'Um ponto curioso chama a atenção ao cruzar as duas tabelas: embora a Farmina N&D tenha mais proteína (30% vs 27% a 28%) e mais gordura (18% vs 16% a 16,5%), a Biofresh entrega maior Energia Metabolizável por quilo (3.980 a 3.990 kcal/kg contra 3.840 kcal/kg da N&D).',
+            'A explicação está na física dos carboidratos. Enquanto a Biofresh combina aveia com arroz integral e quirera de arroz (amidos de rápida gelatinização e altíssimo aproveitamento calórico imediato), a Farmina N&D substitui o arroz por sorgo, cevada e aveia associados a fibras como casca de ervilha, lignocelulose e semente de psyllium, gerando uma digestão mais lenta e de menor índice glicêmico.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'O que o baixo índice glicêmico muda na rotina do cão?',
+            text: 'Cereais ancestrais como aveia, cevada e sorgo liberam glicose aos poucos no sangue após a refeição. Na prática, isso prolonga a sensação de saciedade entre as porções e ajuda a evitar picos de insulina em cães com tendência ao ganho de peso.',
+          },
+        },
+        {
+          id: 'saude-dental-articulacoes-e-omega-3',
+          heading: '4. Tártaro nos dentes, articulações e pelagem: Onde a Biofresh vira o jogo?',
+          paragraphs: [
+            'Se a Farmina N&D domina na concentração de proteína bruta e no baixo teor de cinzas minerais, a Biofresh contra-ataca com um pacote funcional muito forte para a rotina preventiva, especialmente em cães de pequeno porte.',
+            'O diferencial mais visível está na saúde bucal: a Biofresh inclui 3.000 mg/kg (0,3%) de hexametafosfato de sódio garantido em tabela tanto para raças pequenas quanto médias. Esse mineral age na saliva capturando o cálcio livre antes que ele calcifique a placa bacteriana nos dentes. A Farmina N&D não possui hexametafosfato de sódio na fórmula.',
+            'No suporte às articulações, ambas trazem condroprotetores, mas a Biofresh entrega doses mais elevadas no rótulo: são 500 mg/kg de sulfato de glicosamina e 300 mg/kg de sulfato de condroitina, superando os 300 mg/kg de glicosamina e 200 mg/kg de condroitina garantidos pela Farmina N&D.',
+            'Na proteção da pele e brilho dos pelos, a Biofresh declara o dobro de Ômega-3 total (5.000 mg/kg contra 2.500 mg/kg da N&D). Em contrapartida, a Farmina N&D é mais transparente ao discriminar no rótulo as frações marinhas ativas (mínimo de 500 mg/kg de DHA e 400 mg/kg de EPA), além de garantir 100 mg/kg de L-carnitina e 1.000 mg/kg de taurina para o músculo cardíaco em todos os portes.',
+          ],
+        },
+        {
+          id: 'veredito-qual-escolher-para-seu-cao',
+          heading: '5. Veredito prático: Qual pacote escolher para o porte e estilo de vida do seu cão?',
+          paragraphs: [
+            'Para cães adultos de porte médio ou grande, a Farmina N&D Ancestral Grain Frango & Romã Adult Medium (90 pontos, Referência Nutricional) leva vantagem técnica sobre a Biofresh Raças Médias (80 pontos): entrega mais proteína na Matéria Seca (32,97% vs 29,67%), menor taxa de cinzas minerais (7,47% vs 8,57%), relação cálcio-fósforo mais favorável no piso (1,14:1 vs 1,00:1) e carboidratos de liberação lenta (aveia, cevada e sorgo) com L-carnitina e taurina garantidas.',
+            'Já no segmento de cães de porte mini e pequeno, ocorre um empate técnico no topo do catálogo (ambas alcançam 90 pontos, Referência Nutricional), pois a Biofresh Minis e Pequenas eleva sua proteína para 30,77% MS, corrige o cálcio mínimo para 0,80% (relação Ca:P ideal de 1,14:1) e adiciona 1.000 mg/kg de taurina.',
+            'Assim, a escolha final depende da prioridade clínica do seu cão: se ele pertence a raças pequenas propensas a acumular tártaro rapidamente (como Shih Tzu, Spitz Alemão, Yorkshire, Maltês ou Poodle) ou precisa de maior aporte de condroitina, glicosamina e ômega-3 para a pelagem, a Biofresh é a compra mais funcional. Se o objetivo for máxima densidade de proteína muscular, baixo teor de cinzas e saciedade prolongada sem arroz na receita, a Farmina N&D Ancestral Grain é a escolha ideal.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: 'Por que a Biofresh de Raças Médias tem 80 pontos e a de Raças Minis e Pequenas tem 90 pontos?',
+          a: 'Na nossa avaliação técnica determinística, a versão Biofresh Minis e Pequenas conquista 10 pontos a mais no Pilar 2 (Balanço Cálcio:Fósforo) por declarar 0,80% de cálcio mínimo para 0,70% de fósforo, atingindo a relação fisiológica ideal de 1,14:1, além de entregar mais proteína (30,77% MS) e 1.000 mg/kg de taurina. Já a versão Raças Médias declara 0,70% de cálcio mínimo para 0,70% de fósforo (relação limítrofe de 1,00:1), ficando com 80 pontos.',
+        },
+        {
+          q: 'Qual das duas rações ajuda mais a prevenir o tártaro nos dentes do cão?',
+          a: 'A Biofresh leva vantagem direta na saúde oral porque inclui 3.000 mg/kg (0,3%) de hexametafosfato de sódio garantido nos níveis de garantia. Esse ativo reduz a calcificação da placa bacteriana nos dentes. A linha Farmina N&D Ancestral Grain não contém hexametafosfato de sódio.',
+        },
+        {
+          q: 'A Farmina N&D Ancestral Grain é livre de grãos (Grain Free)?',
+          a: 'Não. A linha N&D Ancestral Grain não é Grain Free, mas sim formulada com uma baixa inclusão de cereais ancestrais não transgênicos (aveia, cevada e sorgo), sem o uso de milho, trigo, soja ou arroz. Para tutores que buscam fórmulas totalmente sem cereais da mesma fabricante, as linhas correspondentes são a N&D Prime e a N&D Pumpkin.',
+        },
+        {
+          q: 'Por que a Biofresh tem mais calorias por quilo mesmo tendo menos gordura que a Farmina N&D?',
+          a: 'Embora a Biofresh declare 16,0% a 16,5% de gordura contra 18,0% da Farmina N&D, ela atinge 3.980 a 3.990 kcal/kg (frente a 3.840 kcal/kg da N&D) porque utiliza arroz integral e quirera de arroz, cujos amidos possuem digestibilidade imediata muito alta. Já a Farmina N&D utiliza sorgo, cevada e fibras insolúveis (casca de ervilha e lignocelulose), que reduzem a densidade calórica final do croquete.',
+        },
+      ],
+      conclusion:
+        'Biofresh e Farmina N&D Ancestral Grain representam o mais alto padrão de alimentos Super Premium Naturais com cereais nobres no mercado brasileiro, livres de transgênicos e sem conservantes BHA ou BHT. Para cães de porte médio e grande, a Farmina N&D Ancestral Grain (90 pontos) se destaca pela maior entrega de proteína na Matéria Seca (32,97% MS), menor resíduo de cinzas minerais (7,47% MS) e cereais de baixo índice glicêmico. Para cães de porte mini e pequeno, há um empate em 90 pontos: a Farmina N&D é imbatível em densidade proteica e pureza mineral, enquanto a Biofresh se consolida como a opção mais completa para prevenção ativa do tártaro (com 3.000 mg/kg de hexametafosfato de sódio), reforço articular e alto teor de ômega-3.',
+      references: [
+        {
+          title: 'Ficha Técnica Oficial: Biofresh Cão Adulto (Raças Médias / Raças Minis e Pequenas) Frango, Maçã e Arroz Integral',
+          institution: 'BRF Pet S.A.',
+          type: 'rotulagem',
+          url: 'https://www.biofreshpet.com.br/pt/caes/cao-adulto-medio-sabor-frango',
+          details: 'Composição básica, níveis de garantia em 9% de umidade (27% e 28% PB, 16% e 16,5% EE, 7,8% MM, 3.000 mg/kg de hexametafosfato de sódio e 3.980-3.990 kcal/kg) sob custódia SHA-256 na base PetRankings',
+        },
+        {
+          title: 'Ficha Técnica Oficial: N&D Ancestral Grain Canine Frango & Romã (Adult Medium / Adult Mini)',
+          institution: 'Farmina Pet Foods Brasil Ltda',
+          type: 'rotulagem',
+          url: 'https://www.farmina.com/br/eshop/alimentos-para-c%C3%A3es/n&d-ancestral-grain-canine/285-frango-&-rom%C3%A3-adult-medium-.html',
+          details: 'Composição básica com aveia, sorgo e cevada, níveis de garantia em 9% de umidade (30% PB, 18% EE, 6,8% MM, EPA/DHA, taurina e 3.840 kcal/kg) sob custódia SHA-256 na base PetRankings',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Diretrizes nutricionais para cães adultos em manutenção, conversão para Matéria Seca (MS) e parâmetros de balanço cálcio-fósforo',
+        },
+        {
+          title: 'Nutritional Guidelines for Complete and Complementary Pet Food for Cats and Dogs (2025)',
+          institution: 'European Pet Food Industry Federation (FEDIAF)',
+          type: 'literatura',
+          url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+          details: 'Recomendações científicas sobre digestibilidade proteica, perfil de ácidos graxos essenciais e limites de matéria mineral em alimentos extrusados',
+        },
+        {
+          title: 'Instrução Normativa MAPA nº 22/2009 e Decreto Federal nº 4.680/2003',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA) / Presidência da República',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/decreto/2003/d4680.htm',
+          details: 'Normas oficiais de declaração de ingredientes em ordem decrescente de peso e critérios de rotulagem para ingredientes livres de organismos geneticamente modificados (OGM)',
+        },
+      ],
+      callToAction: {
+        title: 'Compare Todas as Rações Super Premium para Cães no Catálogo',
+        text: 'Quer consultar a ficha técnica completa, o extrato de pontuação pilar a pilar e onde encontrar cada embalagem nas lojas parceiras? Acesse nosso catálogo interativo.',
+        buttonText: 'Ver Ranking de Rações para Cães',
+        buttonUrl: '/catalogo?especie=Caes',
       },
     },
   ];
