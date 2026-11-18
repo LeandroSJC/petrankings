@@ -26,6 +26,11 @@ import {
   Droplets,
   Bone,
   Flame,
+  Beef,
+  Droplet,
+  Wheat,
+  Layers,
+  Shield,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import BackButton from '@/components/BackButton';
@@ -931,7 +936,7 @@ export default async function ProductDetailPage({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-              <Droplets size={20} color="var(--brand-forest-700)" />
+              <FlaskConical size={20} color="var(--brand-forest-700)" />
               <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
                 3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)
               </h2>
@@ -974,7 +979,12 @@ export default async function ProductDetailPage({
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>Umidade (Máx.)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Droplets size={14} color="#0284c7" aria-hidden="true" />
+                        <strong>Umidade (Máx.)</strong>
+                      </span>
+                    </td>
                     <td>
                       {isNativamenteMS ? (
                         'Não declarada na página oficial'
@@ -989,7 +999,12 @@ export default async function ProductDetailPage({
                     <td>{product.foodType === 'UMIDO' ? 'Padrão sachê/lata úmido: 80-88%' : 'Padrão industrial: até 10-12%'}</td>
                   </tr>
                   <tr>
-                    <td><strong>Proteína Bruta (Mín.)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Beef size={14} color="var(--brand-forest-700)" aria-hidden="true" />
+                        <strong>Proteína Bruta (Mín.)</strong>
+                      </span>
+                    </td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.crudeProteinMinPct.toFixed(1)}%`}</td>
                     <td>
                       <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
@@ -1000,7 +1015,12 @@ export default async function ProductDetailPage({
                     <td>Piso ABINPET: {abinpetPadrao.proteinaBrutaMinMS.toFixed(1)}% MS ({isFilhote ? 'Crescimento / Filhotes' : 'Manutenção'})</td>
                   </tr>
                   <tr>
-                    <td><strong>Extrato Etéreo / Gordura (Mín.)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Droplet size={14} color="#d97706" aria-hidden="true" />
+                        <strong>Extrato Etéreo / Gordura (Mín.)</strong>
+                      </span>
+                    </td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.etherExtractMinPct.toFixed(1)}%`}</td>
                     <td>
                       <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
@@ -1011,7 +1031,12 @@ export default async function ProductDetailPage({
                     <td>Piso ABINPET: {abinpetPadrao.extratoEtereoMinMS.toFixed(1)}% MS</td>
                   </tr>
                   <tr>
-                    <td><strong>Matéria Fibrosa (Máx.)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Wheat size={14} color="#b45309" aria-hidden="true" />
+                        <strong>Matéria Fibrosa (Máx.)</strong>
+                      </span>
+                    </td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.crudeFiberMaxPct.toFixed(1)}%`}</td>
                     <td>
                       <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
@@ -1022,7 +1047,12 @@ export default async function ProductDetailPage({
                     <td>Controle de digestibilidade (Recomendado: até 4.5% MS)</td>
                   </tr>
                   <tr>
-                    <td><strong>Matéria Mineral (Máx.)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Layers size={14} color="var(--brand-forest-700)" aria-hidden="true" />
+                        <strong>Matéria Mineral (Máx.)</strong>
+                      </span>
+                    </td>
                     <td>
                       {product.mineralMatterMaxPct <= 0
                         ? 'Não informado pelo fabricante'
@@ -1082,7 +1112,12 @@ export default async function ProductDetailPage({
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Fósforo (Mín.)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Shield size={14} color="var(--brand-forest-700)" aria-hidden="true" />
+                        <strong>Fósforo (Mín.)</strong>
+                      </span>
+                    </td>
                     <td>{isNativamenteMS ? '— (Declarado em MS)' : `${product.phosphorusMinPct.toFixed(2)}%`}</td>
                     <td>
                       <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
@@ -1095,7 +1130,7 @@ export default async function ProductDetailPage({
                   <tr style={{ backgroundColor: 'var(--bg-cream-main)' }}>
                     <td>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                        <Bone size={14} color="var(--brand-forest-700)" aria-hidden="true" />
+                        <Scale size={14} color="var(--brand-forest-700)" aria-hidden="true" />
                         <strong>Relação Cálcio : Fósforo (Ca:P)</strong>
                       </span>
                     </td>
