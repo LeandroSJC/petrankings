@@ -22,6 +22,10 @@ import {
   BookOpen,
   Clock,
   ArrowRight,
+  ScanBarcode,
+  Droplets,
+  Bone,
+  Flame,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import BackButton from '@/components/BackButton';
@@ -807,7 +811,7 @@ export default async function ProductDetailPage({
             {/* PAINEL DE CUSTÓDIA DIGITAL E EVIDÊNCIA DO FABRICANTE */}
             <section className="custodia-panel">
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Globe size={20} color="var(--brand-forest-700)" />
+                <ScanBarcode size={20} color="var(--brand-forest-700)" />
                 <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
                   1. Custódia documental e evidência oficial
                 </h2>
@@ -927,7 +931,7 @@ export default async function ProductDetailPage({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-              <FileText size={20} color="var(--brand-forest-700)" />
+              <Droplets size={20} color="var(--brand-forest-700)" />
               <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
                 3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)
               </h2>
@@ -1046,7 +1050,12 @@ export default async function ProductDetailPage({
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Cálcio (Mín. / Máx.)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Bone size={14} color="var(--brand-forest-700)" aria-hidden="true" />
+                        <strong>Cálcio (Mín. / Máx.)</strong>
+                      </span>
+                    </td>
                     <td>
                       {isNativamenteMS ? (
                         '— (Declarado em MS)'
@@ -1084,7 +1093,12 @@ export default async function ProductDetailPage({
                     <td>Piso seguro: {abinpetPadrao.fosforoMinMS.toFixed(2)}% MS</td>
                   </tr>
                   <tr style={{ backgroundColor: 'var(--bg-cream-main)' }}>
-                    <td><strong>Relação Cálcio : Fósforo (Ca:P)</strong></td>
+                    <td>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Bone size={14} color="var(--brand-forest-700)" aria-hidden="true" />
+                        <strong>Relação Cálcio : Fósforo (Ca:P)</strong>
+                      </span>
+                    </td>
                     <td colSpan={2}>
                       <div style={{ display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
                         <strong style={{ fontSize: '0.98rem', color: badgeCaP.color }}>
@@ -1097,7 +1111,12 @@ export default async function ProductDetailPage({
                   </tr>
                   {!isNativamenteMS && (
                     <tr style={{ backgroundColor: 'var(--brand-forest-50)' }}>
-                      <td><strong>Energia Metabolizável Estimada (EM)</strong></td>
+                      <td>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                          <Flame size={14} color="var(--gold-600)" aria-hidden="true" />
+                          <strong>Energia Metabolizável Estimada (EM)</strong>
+                        </span>
+                      </td>
                       <td colSpan={2}>
                         <strong style={{ fontSize: '0.98rem', color: 'var(--brand-forest-900)' }}>
                           {em.emKcalKg.toLocaleString('pt-BR')} kcal/kg

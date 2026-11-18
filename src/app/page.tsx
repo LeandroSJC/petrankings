@@ -9,6 +9,10 @@ import {
   Award,
   ChevronRight,
   TrendingUp,
+  FileScan,
+  Leaf,
+  DnaOff,
+  Droplets,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { getAllGuides, getFeaturedGuide } from '@/lib/content/guides';
@@ -458,6 +462,9 @@ export default async function HomePage() {
                 textAlign: 'center',
               }}
             >
+              <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'var(--brand-forest-300)', marginBottom: '10px' }}>
+                <FileScan size={20} aria-hidden="true" />
+              </div>
               <span
                 style={{
                   display: 'block',
@@ -488,6 +495,9 @@ export default async function HomePage() {
                 textAlign: 'center',
               }}
             >
+              <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'var(--brand-forest-300)', marginBottom: '10px' }}>
+                <Leaf size={20} aria-hidden="true" />
+              </div>
               <span
                 style={{
                   display: 'block',
@@ -518,6 +528,9 @@ export default async function HomePage() {
                 textAlign: 'center',
               }}
             >
+              <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'var(--brand-forest-300)', marginBottom: '10px' }}>
+                <DnaOff size={20} aria-hidden="true" />
+              </div>
               <span
                 style={{
                   display: 'block',
@@ -548,6 +561,9 @@ export default async function HomePage() {
                 textAlign: 'center',
               }}
             >
+              <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', backgroundColor: 'rgba(255, 255, 255, 0.08)', color: 'var(--brand-forest-300)', marginBottom: '10px' }}>
+                <Droplets size={20} aria-hidden="true" />
+              </div>
               <span
                 style={{
                   display: 'block',

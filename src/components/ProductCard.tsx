@@ -13,6 +13,8 @@ import {
   ArrowRight,
   ShoppingCart,
   Scale,
+  Dog,
+  Cat,
 } from 'lucide-react';
 import TransgenicIcon from '@/components/TransgenicIcon';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
@@ -146,9 +148,16 @@ export default function ProductCard({
               {product.brand}
             </span>
             <span style={{ color: 'var(--border-cream-dark)' }}>•</span>
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-              {formatarTermo(product.species)} • {formatarTermo(product.lifeStage)}
-              {product.breedSize && product.breedSize !== 'TODOS' && ` • ${formatarTermo(product.breedSize)}`}
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+              {product.species === 'GATO' ? (
+                <Cat size={13} aria-hidden="true" color="var(--brand-forest-600)" />
+              ) : (
+                <Dog size={13} aria-hidden="true" color="var(--brand-forest-600)" />
+              )}
+              <span>
+                {formatarTermo(product.species)} • {formatarTermo(product.lifeStage)}
+                {product.breedSize && product.breedSize !== 'TODOS' && ` • ${formatarTermo(product.breedSize)}`}
+              </span>
             </span>
           </div>
 
