@@ -8835,7 +8835,7 @@ export const GUIDES: GuideItem[] = [
       updatedAt: '2026-11-17',
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl: '/uploads/guias/catnip-e-matatabi-para-gatos-estimulo-seguro.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Muitos tutores compram erva-do-gato desidratada, sprays ou gravetos de Matatabi para entreter o felino em apartamento, mas ficam em dúvida quando o animal rola pelo chão em euforia ou simplesmente ignora o produto. Analisamos a neurobiologia do estímulo olfativo, a segurança gástrica caso o gato engula as folhas e a frequência ideal de oferta para evitar a saturação dos receptores.',
       relatedProductSlugs: [],
@@ -8988,6 +8988,192 @@ export const GUIDES: GuideItem[] = [
         text: 'Além de cuidar do enriquecimento ambiental do seu felino, quer descobrir quais rações secas e sachês entregam o melhor controle mineral e proteico? Explore nosso catálogo técnico.',
         buttonText: 'Ver Catálogo de Rações e Sachês para Gatos',
         buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+    {
+      slug: 'misturar-arroz-ou-frango-na-racao-de-caes-economia-desbalanco-mineral',
+      title: 'Misturar arroz ou frango na ração de cães: Economia real ou desbalanço mineral?',
+      subtitle:
+        'A matemática financeira da água da panela, o impacto na diluição de vitaminas da porção diária e por que a carne pura inverte a relação entre cálcio e fósforo.',
+      cluster: 'Custo por Dia & Economia',
+      speciesTarget: 'Cães',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-18',
+      updatedAt: '2026-11-18',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/misturar-arroz-ou-frango-na-racao-de-caes-economia-desbalanco-mineral.webp',
+      isFeatured: true,
+      summary:
+        'Para fazer o pacote de ração render até o fim do mês ou estimular o apetite do cão, muitos tutores substituem metade da porção seca por arroz branco ou peito de frango cozido. Confrontamos os dados oficiais da tabela TACO (UNICAMP) com as exigências da ABINPET e do MAPA para mostrar quanto custam as calorias reais da panela e o que acontece com o esqueleto do animal quando o premix mineral da ração é diluído.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'ilusao-financeira-agua-da-panela-materia-seca',
+          heading: '1. A ilusão da economia na panela: Quanto você paga por 70% de água?',
+          paragraphs: [
+            'Quando o preço da ração pesa no orçamento doméstico ou o cão começa a enjoar do grão seco, a solução caseira mais tradicional no Brasil é cozinhar arroz branco com peito de frango sem sal e substituir metade do comedouro.',
+            'No visual do prato, a impressão é de fartura e economia imediata: uma colherada generosa de arroz e frango ocupa metade da vasilha e faz o saco de ração durar quase o dobro de dias na despensa.',
+            'O erro financeiro invisível nessa conta está na umidade. Enquanto uma ração seca extrusada contém apenas 10% de água e 90% de nutrientes concentrados (Matéria Seca), tanto o arroz branco cozido quanto o peito de frango cozido são compostos por aproximadamente 69% a 70% de água pura absorvida ou retida na panela, segundo a Tabela Brasileira de Composição de Alimentos (TACO/UNICAMP).',
+            'Na ponta do lápis, para entregar as mesmas 380 quilocalorias presentes em apenas 100 gramas de uma ração seca Super Premium (que custam cerca de R$ 2,40 na porção), você precisaria colocar no prato 238 gramas de peito de frango já cozido (o que exige comprar cerca de 320 gramas de frango cru no açougue antes de encolher no fogo, ao custo médio de R$ 7,04) ou quase 300 gramas de arroz cozido, pagando mais caro ou trocando nutrição completa por amido pobre.',
+          ],
+          table: {
+            caption:
+              'Confronto financeiro e bromatológico para entregar 380 kcal no comedouro (Base: TACO/UNICAMP e ABINPET 11ª Ed.)',
+            headers: [
+              'Parâmetro Analisado',
+              'Ração Seca Super Premium (100 g)',
+              'Peito de Frango Cozido sem Sal (238 g)',
+              'Arroz Branco Cozido Puro (297 g)',
+            ],
+            rows: [
+              [
+                'Teor de Água (Umidade)',
+                '10% de água (90% Matéria Seca)',
+                '~64% a 70% de água (perde 25% do peso cru)',
+                '~69% de água da panela (31% Matéria Seca)',
+              ],
+              [
+                'Densidade Calórica Real',
+                '~3.800 kcal por kg',
+                '~1.590 kcal por kg cozido',
+                '~1.280 kcal por kg cozido',
+              ],
+              [
+                'Quantidade para Entregar 380 kcal',
+                '100 g no comedouro',
+                '238 g cozido (~320 g de filé cru)',
+                '297 g cozido (~110 g de arroz cru)',
+              ],
+              [
+                'Custo Médio da Porção (380 kcal)',
+                '~R$ 2,40 (base R$ 24,00/kg)',
+                '~R$ 7,04 (base R$ 22,00/kg cru) + gás',
+                '~R$ 0,75 + gás (mas com déficit proteico)',
+              ],
+              [
+                'Proteína Bruta em Matéria Seca (MS)',
+                '28% a 33% em MS (completa)',
+                '~86% em MS (sem fibras e sem cálcio)',
+                '~8,1% em MS (abaixo do mínimo de 18% da ABINPET)',
+              ],
+              [
+                'Relação Cálcio : Fósforo (Ca:P)',
+                '1,2 : 1 (equilibrada pela ABINPET)',
+                '1 : 18 (excesso crítico de fósforo)',
+                '1 : 26 (cálcio virtualmente ausente)',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'diluicao-do-premix-alimento-completo-mapa',
+          heading: '2. O efeito do corte pela metade: Como a mistura dilui as vitaminas da ração?',
+          paragraphs: [
+            'Para compreender o risco biológico de esticar a ração com comida de panela, é preciso entender o que significa a classificação Alimento Completo gravada na embalagem por exigência da Instrução Normativa MAPA nº 30/2009.',
+            'Os nutricionistas formulam a ração seca adicionando um premix micromineral e vitamínico calibrado exatamente para a dose diária recomendada no rótulo. Isso significa que um cão de 10 kg que precisa comer 150 gramas de ração por dia só recebe 100% do cálcio, zinco, selênio, cobre, iodo e vitaminas A, D e E se ingerir aqueles 150 gramas integrais.',
+            'Quando o tutor corta a ração pela metade (oferecendo apenas 75 gramas) e preenche o resto do prato com arroz branco e frango cozido sem suplemento específico para alimentação natural, o cão passa a receber apenas metade das vitaminas e microminerais essenciais todos os dias.',
+            'Na rotina do animal, essa carência silenciosa demora de dois a quatro meses para dar sinais visíveis: a pelagem perde o brilho e começa a cair em excesso pela falta de zinco e biotina, a pele descama, a imunidade cai e o cão desenvolve fome ansiosa porque suas células continuam buscando os micronutrientes que faltaram na refeição.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'O que define um Alimento Completo segundo a IN MAPA nº 30/2009?',
+            text: 'Pela legislação brasileira, um Alimento Completo para cães deve suprir integralmente todas as exigências nutricionais diárias da espécie apenas com a sua ingestão exclusiva e água fresca. Ingredientes culinários isolados (como arroz, batata, carne bovina ou peito de frango sem suplementação mineral calculada por veterinário nutrólogo) não possuem perfil completo e quebram o equilíbrio da fórmula original quando ultrapassam 10% das calorias do dia.',
+          },
+        },
+        {
+          id: 'inversao-calcio-fosforo-frango-ossos-dentes',
+          heading: '3. O perigo oculto do peito de frango puro: A inversão entre cálcio e fósforo',
+          paragraphs: [
+            'Muitos tutores acreditam que adicionar bastante peito de frango ou músculo bovino cozido melhora a saúde do cão por aumentar a proteína do prato. Embora a carne seja uma excelente fonte de aminoácidos, ela possui uma característica mineral crítica na natureza: carnes musculares sem osso são riquíssimas em fósforo e quase desprovidas de cálcio.',
+            'Conforme a 11ª Edição do Manual Pet Food Brasil (ABINPET) e o NRC (2006), o esqueleto e os rins do cão exigem que a dieta mantenha sempre mais cálcio do que fósforo, respeitando a proporção segura entre 1,0 : 1 e 2,0 : 1 (idealmente cerca de 1,2 parte de cálcio para cada 1 parte de fósforo).',
+            'De acordo com os laudos laboratoriais da tabela TACO (UNICAMP), 100 gramas de peito de frango cozido entregam 210 mg de fósforo contra apenas 12 mg de cálcio. Isso representa uma relação invertida de 1 para 18, ou seja, dezoito vezes mais fósforo do que cálcio.',
+            'Quando o excesso de fósforo do frango entra na corrente sanguínea sem cálcio suficiente para acompanhá-lo, a glândula paratireoide do cão aciona um mecanismo de emergência: retira cálcio dos próprios ossos e da mandíbula do animal para devolver ao sangue. Em filhotes ou cães idosos alimentados diariamente com misturas pesadas de carne e ração, esse processo enfraquece a estrutura óssea e acelera o afrouxamento dos dentes.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Por que o arroz branco agrava o ganho de peso e o tártaro?',
+            text: 'Substituir parte da ração por arroz branco cozido reduz drasticamente o teor de proteína da dieta (o arroz possui apenas 8,1% de proteína em Matéria Seca, menos da metade do mínimo de 18% exigido pela ABINPET para cães adultos). Além de elevar os picos de glicose e favorecer o acúmulo de gordura abdominal, a massa úmida de arroz adere aos sulcos dos dentes molares, anulando o atrito mecânico do grão seco e acelerando a formação de placa bacteriana e mau hálito.',
+          },
+        },
+        {
+          id: 'seletividade-alimentar-e-regra-dos-10-por-cento',
+          heading: '4. Como agradar o paladar do cão sem estragar a nutrição nem o bolso?',
+          paragraphs: [
+            'Além do desbalanço mineral, misturar arroz e frango todos os dias cria um problema comportamental rápido: a seletividade alimentar. Com o olfato apurado, o cão aprende em poucos dias a catar apenas os fiapos de frango com a ponta da língua, espalhando os grãos de ração pelo chão da cozinha ou fazendo greve de fome até que o tutor adicione mais carne.',
+            'Se o seu objetivo é dar um agrado saboroso ou estimular um cão idoso a comer sua porção de ração seca, a diretriz mundial da WSAVA (Associação Mundial de Veterinários de Pequenos Animais) é aplicar a regra estrita dos 10% calóricos.',
+            'Na prática, isso significa que você nunca deve cortar a ração pela metade. Mantenha 90% a 95% da dose diária normal da ração seca completa e utilize no máximo 10% das calorias do dia como cobertura palatável (topper).',
+            'Para um cão de 10 kg que consome cerca de 550 kcal por dia, 10% equivalem a cerca de 55 kcal, o que corresponde a apenas 35 gramas de peito de frango cozido sem sal (uma colher de sopa cheia) bem picadinho e misturado à água morna do cozimento para envolver todos os grãos de ração, garantindo que ele coma o prato inteiro sem deixar os minerais da ração para trás.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Truque econômico do caldo morno de frango sem sal',
+            text: 'Em vez de gastar caro substituindo a ração por grandes quantidades de filé de frango, cozinhe um pedaço pequeno de peito de frango apenas em água pura (sem sal, sem cebola e sem alho, que são tóxicos para cães). Use duas colheres de sopa dessa água morna aromática para umedecer a porção completa de ração seca imediatamente antes de servir: o vapor libera os aromas naturais do croquete a custo quase zero e preserva 100% do equilíbrio mineral da fórmula.',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'Dar arroz com frango quando o cão está com diarreia faz mal?',
+          a: 'Por períodos curtos de 2 a 3 dias sob orientação do médico veterinário durante crises agudas de gastroenterite, a dieta branda de arroz bem cozido com peito de frango magro sem sal é segura e ajuda a descansar o intestino. O perigo do desbalanço de cálcio, fósforo e vitaminas ocorre quando essa mistura vira rotina por semanas ou meses sem suplementação específica.',
+        },
+        {
+          q: 'Posso usar o caldo do frango cozido da família para molhar a ração?',
+          a: 'Nunca utilize caldos temperados para humanos. A cebola e o alho (mesmo em pó ou cozidos apenas na água) contêm tiossulfatos que destroem os glóbulos vermelhos do sangue do cão, causando anemia hemolítica, enquanto o sal de cozinha sobrecarrega a pressão arterial e os rins. O caldo para o cão deve ser feito exclusivamente com água e carne limpa.',
+        },
+        {
+          q: 'Se eu quiser dar Alimentação Natural (AN) cozida todo dia, o que muda?',
+          a: 'A Alimentação Natural balanceada é muito diferente de misturar sobras ou arroz com frango na ração. Uma dieta caseira completa exige receita formulada por médico veterinário nutrólogo, pesagem exata de vísceras, carnes, vegetais e a adição diária obrigatória de um suplemento vitamínico-mineral (com carbonato de cálcio, zinco, iodo e vitaminas) após o resfriamento da comida.',
+        },
+        {
+          q: 'O que fazer se o meu cão já viciou no frango e não quer mais comer a ração pura?',
+          a: 'Faça o desmame gradual em 7 a 10 dias: triture uma pequena quantidade de frango cozido (apenas 1 colher de sopa) em fiapos minúsculos ou bata com duas colheres de água morna para formar um caldo que envolva todos os grãos de ração, impedindo que ele separe a carne do grão. A cada dois dias, reduza a quantidade de frango até restar apenas a ração seca completa.',
+        },
+      ],
+      conclusion:
+        'Misturar grandes porções de arroz branco ou peito de frango cozido para fazer o saco de ração durar mais é uma falsa economia que dilui as vitaminas essenciais do alimento completo e inverte perigosamente a proporção entre cálcio e fósforo da dieta. Como quase 70% do peso do frango e do arroz cozidos é composto apenas por água da panela, o custo por caloria real do frango chega a custar quase o triplo de uma ração Super Premium. Para agradar o paladar do seu cão com saúde e economia, preserve a dose diária da ração completa, respeite o limite máximo de 10% para complementos sem sal e utilize o aroma da água morna do cozimento para valorizar o comedouro.',
+      references: [
+        {
+          title: 'Tabela Brasileira de Composição de Alimentos (TACO - 4ª Edição Revisada e Ampliada)',
+          institution: 'Núcleo de Estudos e Pesquisas em Alimentação (NEPA) / UNICAMP',
+          type: 'literatura',
+          url: 'https://www.cfn.org.br/wp-content/uploads/2017/03/taco_4_edicao_ampliada_e_revisada.pdf',
+          details: 'Dados laboratoriais oficiais de umidade (69,1% no arroz tipo 1 cozido e 63,9% a 70% no peito de frango cozido sem pele), densidade energética e teores de cálcio (12 mg/100g) e fósforo (210 mg/100g)',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Tabelas de exigência nutricional mínima para cães em manutenção (mínimo de 18% de Proteína Bruta em Matéria Seca e razão Cálcio:Fósforo obrigatória entre 1,0:1 e 2,0:1)',
+        },
+        {
+          title: 'WSAVA Global Nutrition Guidelines: Calorie and Treat Allowance (10% Rule)',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Diretrizes clínicas globais determinando que alimentos complementares e ingredientes não balanceados não devem exceder 10% da ingestão calórica diária total para evitar diluição de micronutrientes',
+        },
+        {
+          title: 'Nutrient Requirements of Dogs and Cats (2006)',
+          institution: 'National Research Council (NRC / The National Academies)',
+          type: 'literatura',
+          url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+          details: 'Fisiopatologia da homeostase osteomineral, regulação do paratormônio (PTH) diante de dietas cárneas com excesso de fósforo e biodisponibilidade de vitaminas e microminerais',
+        },
+        {
+          title: 'Instrução Normativa MAPA nº 30/2009 e Decreto Federal nº 12.031/2024',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA) / Presidência da República',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+          details: 'Definição normativa e requisitos bromatológicos de Alimento Completo para animais de companhia em contraste com alimentos específicos e ingredientes isolados',
+        },
+      ],
+      callToAction: {
+        title: 'Compare a Densidade Nutricional das Rações para Cães no PetRankings',
+        text: 'Quer descobrir quais alimentos completos entregam o melhor equilíbrio entre proteína real em Matéria Seca (MS), balanço mineral de cálcio e fósforo e custo-benefício? Acesse nosso catálogo técnico.',
+        buttonText: 'Explorar Ranking de Rações para Cães',
+        buttonUrl: '/catalogo?especie=Caes',
       },
     },
   ];
