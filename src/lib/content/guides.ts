@@ -9003,7 +9003,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/misturar-arroz-ou-frango-na-racao-de-caes-economia-desbalanco-mineral.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Para fazer o pacote de ração render até o fim do mês ou estimular o apetite do cão, muitos tutores substituem metade da porção seca por arroz branco ou peito de frango cozido. Confrontamos os dados oficiais da tabela TACO (UNICAMP) com as exigências da ABINPET e do MAPA para mostrar quanto custam as calorias reais da panela e o que acontece com o esqueleto do animal quando o premix mineral da ração é diluído.',
       relatedProductSlugs: [],
@@ -9174,6 +9174,192 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer descobrir quais alimentos completos entregam o melhor equilíbrio entre proteína real em Matéria Seca (MS), balanço mineral de cálcio e fósforo e custo-benefício? Acesse nosso catálogo técnico.',
         buttonText: 'Explorar Ranking de Rações para Cães',
         buttonUrl: '/catalogo?especie=Caes',
+      },
+    },
+    {
+      slug: 'reducao-de-peso-em-saches-para-gatos-cdc-mjsp-embalagem',
+      title: 'Redução de peso em sachês para gatos: O que o CDC e o MJSP exigem na embalagem?',
+      subtitle:
+        'As regras da Portaria MJSP nº 392/2021 contra a reduflação no mercado pet, como o encolhimento de 85 g para 70 g encarece o quilo e o impacto silencioso na hidratação renal felina.',
+      cluster: 'Direito do Consumidor & Mercado',
+      speciesTarget: 'Gatos',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-19',
+      updatedAt: '2026-11-19',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/reducao-de-peso-em-saches-para-gatos-cdc-mjsp-embalagem.webp',
+      isFeatured: true,
+      summary:
+        'Ao comprar a mesma caixa de sachês ou o pacote habitual de ração seca para gatos, muitos tutores não percebem que o peso líquido encolheu de 85 g para 70 g ou de 3 kg para 2,7 kg pelo mesmo valor na prateleira. Analisamos as exigências legais do Código de Defesa do Consumidor e da Portaria MJSP nº 392/2021 sobre o aviso frontal obrigatório de redução quantitativa e calculamos o déficit hídrico que essa mudança provoca nos rins do felino.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'fenomeno-reduflacao-saches-pacotes-gatos',
+          heading: '1. O encolhimento invisível na gôndola: De 85 g para 70 g pelo mesmo preço',
+          paragraphs: [
+            'Quem compra alimentos úmidos para gatos toda semana costuma agir no piloto automático: pega o mesmo número de sachês na prateleira, confere se o preço unitário continua na faixa de R$ 3,20 a R$ 4,50 e leva para casa.',
+            'O que passa despercebido para grande parte dos tutores é que, mantendo exatamente a mesma largura e altura da embalagem laminada, diversas linhas do mercado reduziram o conteúdo interno de 100 g para 85 g e, mais recentemente, de 85 g para 70 g (ou pacotes secos que passaram de 3,0 kg para 2,7 kg e de 1,5 kg para 1,3 kg).',
+            'Na economia de consumo, essa prática é chamada de reduflação (ou maquiagem quantitativa de produto): em vez de reajustar o valor na etiqueta e correr o risco de perder a venda, o fabricante diminui a gramatura entregue pelo mesmo preço.',
+            'Na matemática do bolso do tutor, quando um sachê vendido a R$ 3,50 encolhe de 85 g para 70 g, o produto sofre uma redução física de 17,6% no conteúdo, o que equivale a um aumento oculto de 21,4% no preço real do quilo (que salta de R$ 41,17/kg para R$ 50,00/kg sem alterar um centavo no caixa do pet shop).',
+          ],
+          table: {
+            caption:
+              'Impacto financeiro e biológico da redução de gramatura em alimentos para gatos (Simulação com preços constantes)',
+            headers: [
+              'Parâmetro Analisado',
+              'Sachê Úmido: De 85 g para 70 g (a R$ 3,50)',
+              'Sachê Úmido: De 100 g para 85 g (a R$ 4,20)',
+              'Ração Seca: De 3,0 kg para 2,7 kg (a R$ 120,00)',
+            ],
+            rows: [
+              [
+                'Perda Física por Embalagem',
+                'Menos 15 g por sachê (-17,6%)',
+                'Menos 15 g por sachê (-15,0%)',
+                'Menos 300 g por pacote (-10,0%)',
+              ],
+              [
+                'Preço Aparente na Etiqueta',
+                'Permanece R$ 3,50 / unidade',
+                'Permanece R$ 4,20 / unidade',
+                'Permanece R$ 120,00 / pacote',
+              ],
+              [
+                'Preço Real do Quilo Antes vs Depois',
+                'De R$ 41,17/kg para R$ 50,00/kg',
+                'De R$ 42,00/kg para R$ 49,41/kg',
+                'De R$ 40,00/kg para R$ 44,44/kg',
+              ],
+              [
+                'Inflação Oculta no Quilo (R$/kg)',
+                '+21,4% de aumento real por quilo',
+                '+17,6% de aumento real por quilo',
+                '+11,1% de aumento real por quilo',
+              ],
+              [
+                'Perda Mensal (Consumo de 1 sachê/dia ou 50 g/dia)',
+                '450 g a menos no mês (equivale a 6,4 sachês perdidos)',
+                '450 g a menos no mês (equivale a 5,3 sachês perdidos)',
+                'O pacote acaba 6 dias antes no comedouro',
+              ],
+              [
+                'Água Biológica Retirada do Gato no Mês',
+                'Menos 360 ml de água ingerida por mês',
+                'Menos 360 ml de água ingerida por mês',
+                'Sem impacto hídrico direto (10% umidade)',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'regras-portaria-mjsp-392-2021-e-cdc',
+          heading: '2. O que dizem a Portaria MJSP nº 392/2021 e o CDC: Quando a redução é ilegal?',
+          paragraphs: [
+            'No Brasil, a indústria tem liberdade econômica para alterar o tamanho e o peso de suas embalagens, desde que cumpra o dever estrito de transparência previsto no Artigo 31 do Código de Defesa do Consumidor (Lei Federal nº 8.078/1990) e na Portaria nº 392/2021 do Ministério da Justiça e Segurança Pública (MJSP).',
+            'A Portaria MJSP nº 392/2021 determina que, sempre que houver redução de peso ou volume de um produto embalado já comercializado no mercado, o fabricante é obrigado a estampar um aviso claro, ostensivo e em cores contrastantes no painel principal (a frente da embalagem).',
+            'Esse alerta frontal não pode ser escondido em letras miúdas no verso do pacote. A norma exige que o texto seja gravado em letras maiúsculas, em negrito, informando expressamente o peso anterior, o peso atual e a diferença exata em gramas e em porcentagem, como no exemplo oficial: "REDUÇÃO DE PESO DE 85 g PARA 70 g (-15 g OU -17,6%)".',
+            'Além disso, a legislação obriga a marca a manter esse selo de alerta na frente do sachê ou do pacote de ração durante o prazo mínimo ininterrupto de 6 meses (180 dias) a contar da data da mudança, garantindo que o tutor perceba a alteração antes de passar no caixa.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'Fiscalização do Procon e Publicidade Enganosa por Omissão',
+            text: 'Quando uma fabricante reduz a gramatura do sachê ou do saco de ração mantendo o mesmo formato visual da embalagem sem estampar o aviso frontal exigido pela Portaria MJSP nº 392/2021 durante os 6 meses regulamentares, configura-se infração ao Art. 6º, Inciso III, e ao Art. 37, § 1º e § 3º do CDC (publicidade enganosa por omissão). O consumidor pode denunciar o lote ao Procon estadual ou pela plataforma consumidor.gov.br informando o código de barras (EAN) e o lote do produto.',
+          },
+        },
+        {
+          id: 'impacto-zootecnico-hidratacao-rins-e-calorias',
+          heading: '3. O perigo para os rins e o peso do gato: O que 15 gramas a menos mudam na biologia?',
+          paragraphs: [
+            'Mais grave do que o prejuízo financeiro no supermercado é o efeito biológico silencioso que o encolhimento do sachê provoca na rotina alimentar do felino. Isso acontece porque a maioria dos tutores mede a refeição úmida por unidade ("um sachê por dia"), e não por gramas pesadas na balança.',
+            'Como o alimento úmido completo ou complementar possui cerca de 80% a 82% de umidade, um sachê tradicional de 85 g fornece aproximadamente 68 ml de água biológica diretamente na refeição. Quando a embalagem cai para 70 g, o gato passa a receber apenas 56 ml de água por sachê.',
+            'Para um animal de origem desértica que possui reflexo de sede naturalmente baixo, perder 12 ml de água todos os dias representa deixar de ingerir 360 ml de água ao final de um mês (o equivalente a quase dois copos americanos cheios de água a menos circulando pelos rins e pela bexiga).',
+            'Conforme as diretrizes clínicas da WSAVA e do Waltham Petcare Science Institute, essa queda na ingestão hídrica diária aumenta a concentração da urina (densidade urinária elevada), favorecendo a precipitação de cristais de estruvita e oxalato de cálcio no trato urinário inferior, além de cortar cerca de 18% das calorias úmidas que mantinham a saciedade do gato.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Cuidado redobrado no Mix Feeding (Ração Seca + Sachê)',
+            text: 'Se você pratica a alimentação mista (Mix Feeding) calculada pelo veterinário, verifique imediatamente o peso líquido impresso no canto inferior do sachê. Se o protocolo do seu gato previa 85 g ou 100 g de alimento úmido diário e a marca reduziu o pacote para 70 g, o seu felino estará em déficit calórico e hídrico caso a porção não seja reajustada.',
+          },
+        },
+        {
+          id: 'como-conferir-preco-por-quilo-e-adaptar-porcao',
+          heading: '4. Como proteger o orçamento e a hidratação do seu gato nas compras?',
+          paragraphs: [
+            'Para não cair na armadilha visual das embalagens do mesmo tamanho, a primeira regra prática no corredor do pet shop ou nas lojas online é ignorar o preço por unidade do sachê e comparar exclusivamente o preço por quilo (R$/kg).',
+            'Pela Lei Federal nº 10.962/2004 (Lei de Precificação), supermercados e varejistas são obrigados a exibir nas etiquetas de gôndola tanto o preço da unidade quanto o preço proporcional por quilo de cada alimento pet.',
+            'Muitas vezes, uma lata de alimento úmido de 156 g, 280 g ou 340 g (ou um sachê Super Premium que manteve a gramatura original de 85 g ou 100 g) aparenta custar alguns centavos a mais na etiqueta individual, mas entrega um custo por quilo até 25% menor do que o sachê de 70 g que sofreu reduflação.',
+            'Caso você decida continuar comprando um sachê que encolheu para 70 g porque o seu gato adora o sabor, compense os 15 ml de água perdidos adicionando uma colher de sopa rasa (15 ml) de água filtrada morna diretamente sobre o molho do sachê no prato raso antes de servir, mantendo a proteção renal do felino intacta.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Fórmula rápida para comparar sachês de pesos diferentes no celular',
+            text: 'Divida o preço do sachê pelo peso em gramas e multiplique por 1.000 para descobrir o preço real do quilo. Exemplo: um sachê de 70 g vendido a R$ 3,50 custa (3,50 ÷ 70) × 1.000 = R$ 50,00/kg. Já um sachê de 85 g vendido a R$ 3,90 custa (3,90 ÷ 85) × 1.000 = R$ 45,88/kg, sendo financeiramente mais vantajoso apesar do preço unitário maior.',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'Por quanto tempo a marca é obrigada a avisar na embalagem que o peso diminuiu?',
+          a: 'Pelo Artigo 2º da Portaria MJSP nº 392/2021, o fabricante deve informar a redução quantitativa no painel frontal da embalagem durante o prazo mínimo de 6 meses (180 dias) consecutivos a partir da distribuição do novo lote no mercado, indicando o peso antigo, o peso novo e o percentual exato de redução.',
+        },
+        {
+          q: 'O MAPA proíbe a venda de sachês de 70 gramas ou pacotes de 2,7 quilos?',
+          a: 'Não. O Ministério da Agricultura e Pecuária (MAPA) regulamenta a composição bromatológica, a higiene e os níveis de garantia da fórmula (IN MAPA nº 30/2009 e IN nº 22/2009), permitindo que a indústria registre apresentações comerciais de qualquer peso líquido, desde que a indicação quantitativa respeite as normas metrológicas do Inmetro e o dever de informação do Ministério da Justiça.',
+        },
+        {
+          q: 'Como compensar a água perdida quando o sachê encolhe de 85 g para 70 g?',
+          a: 'A maneira mais simples e econômica de repor os 12 ml a 15 ml de água biológica retirados na redução do sachê é misturar 1 colher de sopa (15 ml) de água filtrada em temperatura ambiente ou levemente morna ao conteúdo do sachê no prato do gato, formando um caldo aromático que ele lamberá por completo.',
+        },
+        {
+          q: 'Vale a pena trocar o sachê de 70 g por latas maiores de patê úmido para gatos?',
+          a: 'Sim, especialmente em lares com dois ou mais gatos. Latas de 156 g a 280 g costumam apresentar preço por quilo substancialmente menor do que sachês individuais. Após aberta, a sobra da lata deve ser transferida para um pote de vidro com tampa hermética, conservada na geladeira por até 48 horas e amornada em banho-maria rápido antes de servir para recuperar o aroma.',
+        },
+      ],
+      conclusion:
+        'A redução de peso em sachês (de 100 g ou 85 g para 70 g) e em pacotes de ração seca para gatos exige atenção redobrada do tutor tanto no bolso quanto no comedouro. Pela Portaria MJSP nº 392/2021 e pelo Código de Defesa do Consumidor, toda diminuição quantitativa deve ser estampada em destaque na frente da embalagem por no mínimo 6 meses. Para proteger suas finanças e a saúde urinária do seu felino, compare sempre os produtos pelo preço por quilo (R$/kg) e reponha o volume hídrico com uma colher de sopa de água filtrada no prato sempre que utilizar embalagens reduzidas.',
+      references: [
+        {
+          title: 'Portaria MJSP nº 392, de 29 de setembro de 2021',
+          institution: 'Ministério da Justiça e Segurança Pública (MJSP / SENACON)',
+          type: 'regulamento',
+          url: 'https://www.in.gov.br/en/web/dou/-/portaria-mjsp-n-392-de-29-de-setembro-de-2021-349975680',
+          details: 'Regulamenta o dever de informação ostensiva no painel principal de produtos embalados que sofram alteração quantitativa (redução de peso ou volume), exigindo destaque por no mínimo 6 meses com indicação de valores absolutos e percentuais',
+        },
+        {
+          title: 'Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor) e Lei Federal nº 10.962/2004',
+          institution: 'Presidência da República / Casa Civil',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+          details: 'Art. 6º (Inciso III), Art. 31 e Art. 37 do CDC sobre transparência quantitativa e vedação à publicidade enganosa por omissão, combinados com a obrigatoriedade de exibição do preço por unidade de medida (R$/kg) no varejo',
+        },
+        {
+          title: 'WSAVA Global Nutrition Guidelines & Feline Hydration Management',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Diretrizes clínicas sobre o cálculo de ingestão calórica e hídrica em gramas reais de alimento úmido (e não por unidade de embalagem) para prevenção de doenças do trato urinário inferior felino (DTUIF)',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Parâmetros bromatológicos de teor de umidade em alimentos úmidos para gatos (75% a 85% de água) e diretrizes de rotulagem nutricional',
+        },
+        {
+          title: 'Instrução Normativa MAPA nº 22/2009 e Decreto Federal nº 12.031/2024',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA) / Presidência da República',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+          details: 'Normas federais de rotulagem, indicação de peso líquido e guia de fornecimento diário em alimentos completos e específicos para animais de companhia',
+        },
+      ],
+      callToAction: {
+        title: 'Compare os Sachês e Rações para Gatos Analisados no PetRankings',
+        text: 'Quer consultar a conversão completa para Matéria Seca (MS), o equilíbrio mineral de cálcio e fósforo e a avaliação técnica das principais marcas de alimentos secos e úmidos para gatos? Acesse nosso catálogo.',
+        buttonText: 'Explorar Catálogo de Alimentos para Gatos',
+        buttonUrl: '/catalogo?especie=Gatos',
       },
     },
   ];
