@@ -9189,7 +9189,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/reducao-de-peso-em-saches-para-gatos-cdc-mjsp-embalagem.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Ao comprar a mesma caixa de sachês ou o pacote habitual de ração seca para gatos, muitos tutores não percebem que o peso líquido encolheu de 85 g para 70 g ou de 3 kg para 2,7 kg pelo mesmo valor na prateleira. Analisamos as exigências legais do Código de Defesa do Consumidor e da Portaria MJSP nº 392/2021 sobre o aviso frontal obrigatório de redução quantitativa e calculamos o déficit hídrico que essa mudança provoca nos rins do felino.',
       relatedProductSlugs: [],
@@ -9360,6 +9360,186 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer consultar a conversão completa para Matéria Seca (MS), o equilíbrio mineral de cálcio e fósforo e a avaliação técnica das principais marcas de alimentos secos e úmidos para gatos? Acesse nosso catálogo.',
         buttonText: 'Explorar Catálogo de Alimentos para Gatos',
         buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+    {
+      slug: 'racao-gastrointestinal-para-caes-baixa-gordura-pancreatite-in-mapa-39-2014',
+      title: 'Ração gastrointestinal para cães: Quando a baixa gordura é vital pelo MAPA?',
+      subtitle:
+        'A diferença bromatológica entre fórmulas gastrointestinais de alta energia e versões Low Fat segundo a IN MAPA nº 39/2014, o papel da gordura na pancreatite e a reposição de eletrólitos.',
+      cluster: 'Dietas Coadjuvantes & Clínica',
+      speciesTarget: 'Cães',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-20',
+      updatedAt: '2026-11-20',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/racao-gastrointestinal-para-caes-baixa-gordura-pancreatite-in-mapa-39-2014.webp',
+      isFeatured: true,
+      summary:
+        'Diante de crises de vômito, diarreia com muco, gastrite ou pancreatite, o tutor encontra nas prateleiras clínicas duas versões bem distintas de alimento coadjuvante: a ração Gastrointestinal tradicional (rica em calorias) e a versão Gastrointestinal Low Fat (baixa gordura). Explicamos como a Instrução Normativa MAPA nº 39/2014 classifica essas dietas, por que errar no teor de Extrato Etéreo pode agravar uma inflamação no pâncreas e como as fibras solúveis estancam a diarreia.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'diferenca-gastrointestinal-tradicional-vs-low-fat',
+          heading: '1. O dilema na prateleira da clínica: Gastrointestinal comum ou Low Fat (baixa gordura)?',
+          paragraphs: [
+            'Quando o cão apresenta um quadro agudo de diarreia líquida, vômitos amarelados ou dor abdominal, a prescrição nutricional ocupa o centro do tratamento. Ao chegar ao pet shop para comprar a dieta recomendada, porém, muitos tutores se confundem ao ver duas embalagens quase idênticas da mesma marca: a versão Gastrointestinal padrão e a versão Gastrointestinal Low Fat.',
+            'Essa divisão existe porque problemas digestivos diferentes exigem estratégias opostas de energia. Um cão magro que se recupera de uma parvovirose, cirurgia intestinal ou diarreia infecciosa passageira precisa de uma ração Gastrointestinal tradicional, que concentra bastante gordura nobre (18% a 22% de Extrato Etéreo em Matéria Seca) para entregar muitas calorias em pequenas bocadas.',
+            'Por outro lado, se a origem do vômito e da diarreia for uma pancreatite (inflamação do pâncreas), linfangiectasia intestinal, refluxo severo ou excesso de triglicerídeos no sangue (comum em Schnauzers Miniatura, Cocker Spaniels e Poodles), uma ração rica em gordura funciona como combustível para a inflamação.',
+            'Nesses quadros sensíveis à gordura, a versão Gastrointestinal Low Fat reduz drasticamente o Extrato Etéreo para a faixa restrita de 6% a 9% em Matéria Seca, permitindo que o estômago esvazie depressa e que o pâncreas descanse sem ser forçado a liberar enzimas em excesso.',
+          ],
+          table: {
+            caption:
+              'Confronto bromatológico em Matéria Seca (MS): Ração Adulto Comum vs Gastrointestinal Padrão vs Gastrointestinal Low Fat (Base: IN MAPA nº 39/2014 e FEDIAF)',
+            headers: [
+              'Parâmetro Bromatológico',
+              'Ração Adulto Manutenção (Super Premium)',
+              'Coadjuvante Gastrointestinal Padrão (Alta Energia)',
+              'Coadjuvante Gastrointestinal Low Fat (Baixa Gordura)',
+            ],
+            rows: [
+              [
+                'Extrato Etéreo (Gordura em MS)',
+                '14% a 18% em MS',
+                '18% a 22% em MS (alta densidade calórica)',
+                '6% a 9% em MS (restrição lipídica estrita)',
+              ],
+              [
+                'Energia Metabolizável Estimada',
+                '3.800 a 4.050 kcal/kg',
+                '4.100 a 4.350 kcal/kg (pequenas porções)',
+                '3.350 a 3.550 kcal/kg (foco em carboidrato digerível)',
+              ],
+              [
+                'Digestibilidade da Proteína e Amido',
+                '82% a 88%',
+                'Acima de 90% (ingredientes hiperdigeríveis)',
+                'Acima de 90% (proteínas isoladas ou hidrolisadas)',
+              ],
+              [
+                'Teor de Eletrólitos (Potássio e Sódio)',
+                'Níveis basais de manutenção',
+                'Reforçados (reposição de perdas por diarreia)',
+                'Reforçados (compensação hidroeletrolítica)',
+              ],
+              [
+                'Indicação Clínica Principal',
+                'Cães saudáveis sem distúrbios digestivos',
+                'Gastrite aguda, colite, convalescença e ganho de peso',
+                'Pancreatite, hiperlipidemia, linfangiectasia e IPE',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'fisiopatologia-pancreatite-colecistoquinina-gordura',
+          heading: '2. Por que a gordura dispara crises de pancreatite e vômito em cães sensíveis?',
+          paragraphs: [
+            'Para entender por que um simples pedaço de queijo, churrasco ou uma ração gordurosa desencadeia vômitos seguidos e posição de prece (quando o cão estica as patas dianteiras no chão e mantém o quadril levantado por dor na barriga), basta acompanhar o caminho da gordura no tubo digestivo.',
+            'Assim que uma refeição rica em lipídios sai do estômago e entra no duodeno (a primeira porção do intestino delgado), as células da parede intestinal liberam no sangue um hormônio chamado colecistoquinina (CCK).',
+            'A função da colecistoquinina é dar duas ordens imediatas: contrair a vesícula biliar para despejar bile e comandar o pâncreas para secretar enzimas digestivas potentes (como a lipase e a tripsina).',
+            'Quando o pâncreas do cão está inflamado (pancreatite aguda ou crônica), esse estímulo hormonal faz com que as enzimas sejam ativadas dentro do próprio órgão antes mesmo de chegarem ao intestino. Na prática, o pâncreas passa a digerir o seu próprio tecido, gerando dor intensa, febre, náusea e risco de vida se a gordura da dieta não for imediatamente cortada.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'O que a IN MAPA nº 39/2014 exige das rações gastrointestinais?',
+            text: 'Pelo Anexo I da Instrução Normativa MAPA nº 39/2014, alimentos coadjuvantes registrados para suporte a distúrbios gastrointestinais, má digestão e insuficiência pancreática exócrina (IPE) devem comprovar obrigatoriamente o uso de ingredientes de alta digestibilidade, níveis elevados de eletrólitos (sódio e potássio) e, nas versões voltadas a distúrbios pancreáticos e linfáticos, baixo teor de extrato etéreo. Esses produtos não contêm medicamentos na fórmula e devem ser utilizados sob supervisão médico-veterinária.',
+          },
+        },
+        {
+          id: 'papel-fibras-soluveis-psyllium-zeolita-eletrolitos',
+          heading: '3. Como a ração gastrointestinal estanca a diarreia sem usar remédio?',
+          paragraphs: [
+            'Uma dúvida frequente do tutor é como uma ração seca consegue firmar as fezes do cão em apenas 24 a 48 horas se a legislação do MAPA proíbe a adição de fármacos antidiarreicos dentro do croquete. O segredo está na engenharia física das fibras e dos minerais adsorventes da fórmula.',
+            'Diferentemente das rações para perda de peso (que usam fibras insolúveis duras para dar volume), as dietas gastrointestinais combinam fibras solúveis mucilaginosas, com destaque para a casca de Psyllium (Plantago ovata) e a polpa de beterraba, associadas ao mineral vulcânico zeólita.',
+            'Ao entrar em contato com a água livre que sobra no intestino inflamado durante a diarreia, o Psyllium age como uma esponja biológica: absorve o excesso de líquido e forma um gel viscoso que reveste as feridas microscópicas da mucosa intestinal, desacelerando o trânsito das fezes.',
+            'Enquanto a zeólita adsorve toxinas bacterianas e gases da fermentação, os prebióticos (MOS e FOS) alimentam as bactérias benéficas do cólon, que produzem butirato (um ácido graxo de cadeia curta que serve de combustível direto para cicatrizar e renovar as células da parede do intestino).',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Por que a reposição de potássio e sódio evita a fraqueza muscular?',
+            text: 'A cada episódio de vômito ou diarreia líquida, o cão perde grandes quantidades de potássio, sódio e cloretos. A queda do potássio no sangue (hipocalemia) causa apatia profunda, tremores e fraqueza nas patas traseiras. Por exigência da IN MAPA nº 39/2014, as rações gastrointestinais funcionam como um repositor eletrolítico sólido, entregando teores reforçados desses minerais para restaurar a hidratação celular.',
+          },
+        },
+        {
+          id: 'tempo-de-uso-e-manejo-fracionado-refeicoes',
+          heading: '4. Por quanto tempo usar a dieta coadjuvante e como servir na crise?',
+          paragraphs: [
+            'O tempo de permanência na ração gastrointestinal depende diretamente do diagnóstico firmado pelo veterinário. Em gastrites agudas, indiscrições alimentares (quando o cão comeu algo estragado no lixo) ou pós-operatórios, a recomendação oficial da IN MAPA nº 39/2014 e da FEDIAF é de 1 a 2 semanas para compensação aguda, podendo estender-se de 3 a 12 semanas até a recuperação completa das vilosidades intestinais.',
+            'Já nos cães diagnosticados com insuficiência pancreática exócrina (IPE), pancreatite crônica recidivante, linfangiectasia ou hiperlipidemia genética (muito frequente em Schnauzers Miniatura com triglicerídeos altos), a versão Gastrointestinal Low Fat pode ser prescrita pelo veterinário para uso contínuo ao longo de toda a vida, pois possui premix completo de vitaminas e minerais.',
+            'Durante a fase aguda de recuperação em casa, o manejo da vasilha é tão importante quanto a fórmula: em vez de servir a cota diária em uma ou duas refeições grandes, divida a quantidade total do dia em 3 a 4 pequenas porções.',
+            'Refeições menores evitam a distensão mecânica das paredes do estômago (que aciona o reflexo de vômito), facilitam o trabalho das enzimas digestivas e garantem que quase 100% dos nutrientes sejam absorvidos antes de chegarem ao intestino grosso.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Zero petiscos fora da dieta durante o tratamento gastrointestinal',
+            text: 'Durante o período em que o cão estiver comendo ração gastrointestinal (especialmente a versão Low Fat), suspenda totalmente bifinhos, queijos, ossinhos, pão ou sobras de mesa. Um único cubinho de queijo amarelo ou pedaço de carne gordurosa contém lipídios suficientes para disparar a colecistoquinina e anular uma semana inteira de repouso pancreático. Se precisar dar um medicamento, esconda o comprimido dentro de uma bolinha feita com a própria versão úmida (lata) da ração gastrointestinal.',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'Qual a diferença entre uma ração Super Premium "Sensitive" e uma Coadjuvante Gastrointestinal?',
+          a: 'As rações Super Premium com apelo "Sensitive" ou "Ambientes Internos" são alimentos de manutenção para cães saudáveis que possuem digestão levemente sensível, mantendo teores normais de gordura (14% a 18%) e eletrólitos padrão. Já a ração Coadjuvante Gastrointestinal (regulada pela IN MAPA nº 39/2014) é uma dieta clínica formulada para animais doentes, com digestibilidade superior a 90%, reposição reforçada de potássio e sódio e, na versão Low Fat, restrição severa de gordura (6% a 9% em MS).',
+        },
+        {
+          q: 'Posso amolecer a ração gastrointestinal seca com água morna para o cão comer melhor?',
+          a: 'Sim, e essa prática é excelente para cães convalescentes ou com gastrite. Adicione água filtrada morna (nunca fervente, para não destruir as vitaminas do complexo B) na proporção de meia xícara de água para uma xícara de ração e aguarde 10 minutos. O grão hidratado libera aroma que combate a náusea, acelera a digestão gástrica e já repõe parte da água perdida na diarreia.',
+        },
+        {
+          q: 'Cão com diarreia precisa ficar 24 horas em jejum total de comida?',
+          a: 'As diretrizes atuais de gastroenterologia veterinária (ACVIM e WSAVA) abandonaram os jejuns prolongados de 24 a 48 horas na maioria dos quadros, pois as células da mucosa intestinal (enterócitos) dependem do contato direto com nutrientes no lúmen para cicatrizar e evitar a translocação de bactérias. Assim que os vômitos estiverem controlados pelo veterinário, a introdução precoce de micro-porções de dieta gastrointestinal acelera a recuperação.',
+        },
+        {
+          q: 'Como fazer o retorno da ração gastrointestinal para a ração normal após a alta?',
+          a: 'Quando o médico veterinário autorizar o retorno à ração de manutenção, nunca faça a troca brusca de um dia para o outro, pois a mucosa recém-cicatrizada ainda está sensível. Realize uma transição lenta de 7 a 10 dias: misture 25% da ração normal com 75% da gastrointestinal nos primeiros 3 dias, passe para 50%/50% nos 3 dias seguintes, 75%/25% nos últimos 3 dias e só então sirva 100% da ração habitual.',
+        },
+      ],
+      conclusion:
+        'A ração coadjuvante gastrointestinal é uma ferramenta nutricional de precisão regulamentada pela IN MAPA nº 39/2014 que atua diretamente na recuperação da mucosa digestiva, na reposição de eletrólitos vitais e no controle da diarreia por meio de fibras solúveis e proteínas hiperdigeríveis. A distinção mais importante para a segurança do cão está no perfil de gordura: enquanto a versão Gastrointestinal tradicional fornece alta energia para animais debilitados, a versão Gastrointestinal Low Fat (6% a 9% de gordura em Matéria Seca) é insubstituível nos quadros de pancreatite, linfangiectasia e hipertrigliceridemia. Consulte sempre o médico veterinário para definir a versão exata, divida a porção diária em pequenas refeições e elimine petiscos gordurosos para garantir a proteção plena do pâncreas e do intestino.',
+      references: [
+        {
+          title: 'Instrução Normativa MAPA nº 39, de 21 de novembro de 2014',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA)',
+          type: 'regulamento',
+          url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal/arquivos-alimentacao-animal/legislacao/instrucao-normativa-no-39-de-21-de-novembro-de-2014.pdf',
+          details: 'Regulamento técnico para registro e rotulagem de Alimentos Coadjuvantes para animais de companhia (Anexo I: requisitos bromatológicos de alta digestibilidade, níveis elevados de sódio e potássio, baixa gordura para suporte pancreático e prazos recomendados de utilização)',
+        },
+        {
+          title: 'ACVIM Consensus Statement on Pancreatitis in Dogs: Nutritional Management',
+          institution: 'American College of Veterinary Internal Medicine (ACVIM) / Journal of Veterinary Internal Medicine',
+          type: 'literatura',
+          url: 'https://onlinelibrary.wiley.com/journal/19391676',
+          details: 'Consenso clínico veterinário sobre fisiopatologia da estimulação pancreática mediada pela colecistoquinina (CCK), benefícios da nutrição enteral precoce e indicação de dietas com restrição lipídica (<10% de gordura em Matéria Seca) em cães com pancreatite e hipertrigliceridemia',
+        },
+        {
+          title: 'FEDIAF Nutritional Guidelines & PARNUTs (Particular Nutritional Purposes)',
+          institution: 'European Pet Food Industry Federation (FEDIAF)',
+          type: 'literatura',
+          url: 'https://europeanpetfood.org/self-regulation/nutritional-guidelines/',
+          details: 'Parâmetros nutricionais europeus e internacionais para alimentos dietéticos destinados à compensação da má digestão, redução de distúrbios agudos de absorção intestinal e insuficiência pancreática exócrina',
+        },
+        {
+          title: 'WSAVA Global Nutrition Guidelines: Nutritional Assessment in Gastrointestinal Disease',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Diretrizes clínicas sobre o manejo de enteropatias responsivas à dieta, ação das fibras solúveis (Psyllium) e produção de ácidos graxos de cadeia curta (butirato) a partir de prebióticos MOS e FOS',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Classificação técnica de alimentos coadjuvantes no mercado brasileiro, metodologia de cálculo de Extrato Etéreo em Matéria Seca (MS) e coeficientes de digestibilidade aparente',
+        },
+      ],
+      callToAction: {
+        title: 'Consulte o Catálogo de Dietas Coadjuvantes e Rações para Cães no PetRankings',
+        text: 'Quer comparar os níveis de garantia convertidos para Matéria Seca (MS), o teor exato de gordura (Extrato Etéreo) e a composição declarada das linhas clínicas e de manutenção? Explore nosso portal.',
+        buttonText: 'Explorar Catálogo de Alimentos para Cães',
+        buttonUrl: '/catalogo?especie=Caes',
       },
     },
   ];
