@@ -38,3 +38,8 @@ When rendering store buttons (`StoreButton.tsx`):
 - [ ] Affiliate tag or campaign parameter is active and correctly formatted.
 - [ ] Outbound links open in a new tab without security vulnerabilities (`target="_blank"` with `rel="noopener noreferrer"`).
 - [ ] Store logo displays correctly with high-contrast badge text.
+
+## 5. E-Commerce Regulatory Compliance (Decreto nº 7.962/2013 & CDC)
+
+- **Transparência e Fidelidade de Oferta:** Em conformidade com o Decreto Federal nº 7.962/2013 (Regulamento do Comércio Eletrônico) e Arts. 30 e 31 do CDC, links de lojas parceiras devem direcionar estritamente à oferta correspondente exata (mesma marca, linha, espécie e formulação), vedando redirecionamentos genéricos ou desvios de produto.
+- **Transparência de Parcerias:** Links monetizados utilizam compulsoriamente os atributos `rel="sponsored noopener noreferrer"` e aviso institucional de independência editorial.

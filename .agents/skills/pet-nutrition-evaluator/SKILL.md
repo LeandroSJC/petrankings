@@ -20,10 +20,12 @@ Toda e qualquer pontuação, parâmetro ou análise deve estar ancorada nos atos
 * **Manual Pet Food Brasil — ABINPET (11ª Edição):** Padrões de exigência nutricional mínima e tetos toxicológicos máximos para cães e gatos em todas as fases de vida.
 * **Waltham Petcare Science Institute (WALTHAM):** Literatura e diretrizes científicas internacionais de referência para densidade energética, saciedade, saúde urinária (RSS) e exigências de micronutrientes.
 * **FEDIAF (2025) & NRC (2006):** Diretrizes zootécnicas e perfis nutricionais consolidados para nutrição canina e felina.
-* **Decreto Presidencial nº 12.031/2024:** Novo Regulamento de Fiscalização de Produtos Destinados à Alimentação Animal.
-* **IN MAPA nº 30/2009 & IN MAPA nº 39/2014:** Classificação oficial de alimentos (Completos, Coadjuvantes e Específicos/Complementares).
+* **Decreto Presidencial nº 12.031/2024 & Lei Federal nº 14.515/2022:** Novo Regulamento de Fiscalização de Produtos Destinados à Alimentação Animal e Marco do Autocontrole Agropecuário.
+* **Portaria SDA/MAPA nº 1.412/2025:** Limites máximos oficiais de micotoxinas (Aflatoxina B1 e Total) específicos para alimentos de cães e gatos.
+* **IN MAPA nº 30/2009, IN MAPA nº 42/2010 & IN MAPA nº 39/2014:** Classificação oficial de alimentos (Completos, Coadjuvantes e Específicos/Complementares) e isenção de registro.
 * **IN MAPA nº 22/2009:** Obrigatoriedade da ordem decrescente de quantidade dos ingredientes na rotulagem.
-* **IN MAPA nº 110/2020:** Regulamento de aditivos tecnológicos, conservantes e antioxidantes.
+* **IN MAPA nº 110/2020 & Portaria SDA nº 359/2021:** Regulamento de aditivos tecnológicos, conservantes e matérias-primas.
+* **Portarias INMETRO nº 249/2021 e nº 248/2008:** Regulamento Técnico Metrológico de indicação do peso líquido na rotulagem frontal (tamanho de fonte em mm) e tolerâncias de lote.
 * **Código de Defesa do Consumidor (Lei nº 8.078/1990, Arts. 30 e 31):** Princípio da vinculação da oferta e dever de veracidade das informações ao tutor.
 
 ---
@@ -88,7 +90,7 @@ Com base na pontuação ponderada (0 a 100), o produto é enquadrado exclusivame
 
 1. **Proibição Estrita do Termo "Auditoria" (Regra Mandatória 3):**
    * É **terminantemente vedado** utilizar termos como "auditoria", "auditado", "auditar", "extrato auditável".
-   * **Substitutos obrigatórios:** "Avaliação Técnica", "Análise de Rótulo", "Confronto Documental", "Laudo Técnico", "Produtos Analisados".
+   * **Substitutos obrigatórios:** "Avaliação Técnica", "Análise de Rótulo", "Confronto Documental", "Dossiê Técnico", "Produtos Analisados".
 2. **Fidelidade Estrita à Ficha Técnica Oficial (HTML/SHA-256):**
    * Toda informação deve ter origem comprovável na página oficial do produto custodiada em HTML com hash SHA-256.
    * Tolerância zero a alucinações, deduções ou valores estimados. Se uma garantia não foi informada pelo fabricante, o dado permanece nulo (`null` / *"Não informado"*).
