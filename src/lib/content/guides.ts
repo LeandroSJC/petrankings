@@ -9375,7 +9375,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/racao-gastrointestinal-para-caes-baixa-gordura-pancreatite-in-mapa-39-2014.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Diante de crises de vômito, diarreia com muco, gastrite ou pancreatite, o tutor encontra nas prateleiras clínicas duas versões bem distintas de alimento coadjuvante: a ração Gastrointestinal tradicional (rica em calorias) e a versão Gastrointestinal Low Fat (baixa gordura). Explicamos como a Instrução Normativa MAPA nº 39/2014 classifica essas dietas, por que errar no teor de Extrato Etéreo pode agravar uma inflamação no pâncreas e como as fibras solúveis estancam a diarreia.',
       relatedProductSlugs: [],
@@ -9540,6 +9540,175 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer comparar os níveis de garantia convertidos para Matéria Seca (MS), o teor exato de gordura (Extrato Etéreo) e a composição declarada das linhas clínicas e de manutenção? Explore nosso portal.',
         buttonText: 'Explorar Catálogo de Alimentos para Cães',
         buttonUrl: '/catalogo?especie=Caes',
+      },
+    },
+    {
+      slug: 'fonte-de-agua-para-gatos-custo-energia-filtros-prevencao-renal',
+      title: 'Fonte de água para gatos: O custo de energia e filtros compensa para os rins?',
+      subtitle:
+        'A conta exata em kWh na tarifa de luz, o gasto anual com refis de carvão ativado e por que a hidratação contínua evita despesas emergenciais de até R$ 3.000 em clínicas.',
+      cluster: 'Custo por Dia & Economia',
+      speciesTarget: 'Gatos',
+      readingTimeMinutes: 7,
+      publishedAt: '2026-11-21',
+      updatedAt: '2026-11-21',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/fonte-de-agua-para-gatos-custo-energia-filtros-prevencao-renal.webp',
+      isFeatured: true,
+      summary:
+        'Muitos tutores deixam de comprar uma fonte elétrica de água para gatos por receio do gasto na conta de energia ligada 24 horas por dia e da compra frequente de filtros de carvão ativado. Calculamos na ponta do lápis o consumo real em kWh de uma bomba submersa de 2 watts, o custo diário de manutenção e o retorno financeiro direto na prevenção de obstruções uretrais e cálculos urinários.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'calculo-conta-de-luz-bomba-submersa-24-horas',
+          heading: '1. Quanto uma fonte elétrica de gatos realmente gasta na conta de luz?',
+          paragraphs: [
+            'Ao olhar para uma fonte elétrica de água na prateleira do pet shop, a primeira dúvida financeira de quase todo tutor é imediata: deixar um motor ligado na tomada 24 horas por dia, 30 dias por mês, não vai disparar a conta de energia elétrica?',
+            'A resposta matemática desmonta esse medo. As minibombas submersas utilizadas em fontes modernas para gatos trabalham com potência elétrica baixíssima, variando geralmente entre 1,5 W e 2,5 W (menos energia do que uma única lâmpada de LED doméstica ou um roteador de internet).',
+            'Aplicando a fórmula física oficial de consumo (Potência em watts × 720 horas por mês ÷ 1.000), uma fonte padrão de 2 W ligada ininterruptamente o mês inteiro consome apenas 1,44 kWh por mês.',
+            'Considerando a tarifa residencial média brasileira na faixa de R$ 0,95 por kWh (já incluindo impostos estaduais), manter a fonte ligada 24 horas custa cerca de R$ 1,37 por mês na conta de luz, o que soma pouco mais de R$ 16,40 ao longo de um ano inteiro.',
+          ],
+          table: {
+            caption:
+              'Orçamento anual real: Manutenção da Fonte Elétrica (Energia + Filtros) vs Custo de uma Emergência Urinária Felina',
+            headers: [
+              'Item Financeiro Analisado',
+              'Custo Mensal Estimado',
+              'Custo Anual (12 Meses)',
+              'Custo Equivalente por Dia',
+            ],
+            rows: [
+              [
+                'Energia Elétrica (Bomba 2 W ligada 24h / 1,44 kWh)',
+                '~R$ 1,37 / mês',
+                '~R$ 16,44 / ano',
+                '~R$ 0,04 / dia',
+              ],
+              [
+                'Filtros de Carvão Ativado (10 refis/ano a R$ 10)',
+                '~R$ 8,33 / mês',
+                '~R$ 100,00 / ano',
+                '~R$ 0,27 / dia',
+              ],
+              [
+                'Custo Total de Operação da Fonte (Luz + Filtros)',
+                '~R$ 9,70 / mês',
+                '~R$ 116,44 / ano',
+                '~R$ 0,32 / dia',
+              ],
+              [
+                'Emergência Clínica: Desobstrução Uretral + 48h Internação',
+                'Evento agudo único',
+                'R$ 1.500 a R$ 3.500 por crise',
+                'Equivale a 13 a 30 anos de uso da fonte',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'biologia-felina-sede-hipoativa-densidade-urinaria',
+          heading: '2. Por que o gato bebe pouca água parada e como a fonte protege os rins?',
+          paragraphs: [
+            'Para entender por que investir R$ 0,32 por dia na fonte de água gera uma economia tão expressiva em despesas veterinárias, é preciso observar a biologia evolutiva do felino doméstico (Felis catus).',
+            'Descendente direto do gato selvagem do deserto africano, o gato possui baixa sensibilidade à sede leve e rins adaptados para reter líquido, produzindo uma urina naturalmente muito concentrada (densidade urinária frequentemente acima de 1.035).',
+            'Quando o animal se alimenta apenas de ração seca (que tem apenas 10% de umidade) e depende de uma tigela comum de água parada, ele costuma ingerir menos líquido do que o ideal. A urina fica retida e concentrada por longas horas na bexiga, elevando a concentração de minerais como magnésio, fosfato e oxalato de cálcio até que eles se cristalizem em pedras (urólitos) ou causem inflamações dolorosas na bexiga.',
+            'Na natureza, felinos evitam poças de água estagnada por instinto sanitário (pois água parada acumula bactérias) e preferem fluxos correntes oxigenados. O som suave, o brilho na superfície e o frescor constante da fonte despertam a curiosidade do gato e aumentam o número de visitas diárias para beber água, diluindo a urina e lavando a bexiga de forma mecânica.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'A regra da distância da comida e da caixa de areia (ISFM / AAFP)',
+            text: 'Mesmo a melhor fonte elétrica pode ser ignorada se ficar encostada no prato de ração ou perto da caixa de areia. Na natureza, gatos não bebem água próxima ao local onde caçam para evitar contaminação por restos de presas. Posicione a fonte em outro canto do cômodo ou no corredor de passagem da casa, longe da ração e do banheiro felino, e observe o aumento imediato no consumo.',
+          },
+        },
+        {
+          id: 'filtros-carvao-ativado-ceramica-vs-plastico',
+          heading: '3. Filtros de carvão ativado e material da fonte: Onde o barato sai caro?',
+          paragraphs: [
+            'O maior custo recorrente da fonte não é a eletricidade, mas os refis de filtro com carvão ativado e manta filtrante, que custam em média R$ 8,00 a R$ 12,00 cada unidade e precisam ser trocados a cada 30 a 45 dias.',
+            'A função do carvão ativado vai muito além de segurar pelos soltos: ele remove o gosto de cloro e odores metálicos da água encanada que o olfato aguçado do gato rejeita. Se o filtro passar de 45 dias sem troca, ele satura e vira um reservatório de bactérias, fazendo o felino abandonar a fonte.',
+            'Outro detalhe que define a durabilidade do seu dinheiro é o material do reservatório. Fontes de plástico barato custam menos na compra inicial, mas sofrem microarranhões na esponja de cozinha que abrigam biofilme viscoso (aquela limosidade transparente) e desencadeiam acne felina (cravos pretos inflamados no queixo do gato).',
+            'Optar por fontes de cerâmica esmaltada ou aço inoxidável exige um investimento inicial um pouco maior, mas mantém a água naturalmente mais fresca, resiste à higienização semanal sem riscar e evita gastos com pomadas dermatológicas para tratar o queixo do animal.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'O erro de apenas completar o nível sem lavar a bomba',
+            text: 'A fonte elétrica filtra partículas e odores, mas não dispensa a higiene semanal. Se você apenas completar a água evaporada por várias semanas, os minerais da torneira concentram no fundo e o rotor interno da minibomba trava por excesso de pelos e lodo, queimando o motor. Desmonte a fonte e lave o reservatório e a hélice da bomba com água e detergente neutro (bem enxaguado) uma vez por semana.',
+          },
+        },
+        {
+          id: 'fonte-nao-substitui-sache-estrategia-combinada',
+          heading: '4. A fonte elétrica substitui o sachê úmido na proteção renal?',
+          paragraphs: [
+            'Uma dúvida comum de quem compra uma fonte de água é se ela permite economizar cortando totalmente os sachês úmidos da rotina do gato. A ciência nutricional (WALTHAM e WSAVA) mostra que as duas estratégias se somam, mas não se anulam.',
+            'A fonte elétrica incentiva a hidratação espontânea ao longo das 24 horas do dia a um custo operacional mínimo de cerca de R$ 0,32 por dia. Já o alimento úmido (sachê ou lata com cerca de 80% de água) entrega água biológica diretamente misturada ao alimento, garantindo um volume hídrico fixo mesmo nos dias mais frios em que o gato sente menos vontade de beber água na fonte.',
+            'Além da fonte principal, as diretrizes internacionais de medicina felina recomendam espalhar pelo menos mais um ou dois potes largos e rasos de vidro ou cerâmica em cômodos diferentes da casa, garantindo que o gato tenha acesso fácil à água mesmo em caso de queda de energia elétrica.',
+            'Para o orçamento doméstico, combinar uma fonte cerâmica ou de inox bem higienizada com potes extras de água fresca e uma porção diária de sachê representa o seguro de saúde mais acessível contra a doença renal crônica e a obstrução urinária felina.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: 'Se acabar a energia elétrica em casa, o gato fica sem água na fonte?',
+          a: 'Depende do modelo escolhido. Prefira fontes de cerâmica ou inox que possuam um prato superior côncavo capaz de reter uma reserva de água parada mesmo quando a bomba desliga. Ainda assim, mantenha sempre pelo menos um pote tradicional largo com água fresca em outro cômodo da casa como garantia.',
+        },
+        {
+          q: 'Preciso usar água filtrada na fonte se ela já tem filtro de carvão ativado?',
+          a: 'Sim, usar água filtrada (do filtro de barro ou purificador doméstico) para abastecer a fonte é altamente recomendado. Isso reduz drasticamente a carga de cloro, sedimentos e excesso de minerais calcários, fazendo com que o filtro interno da fonte dure mais tempo limpo e protegendo a minibomba contra incrustações.',
+        },
+        {
+          q: 'Quanto tempo dura a minibomba elétrica de uma fonte para gatos?',
+          a: 'Com limpeza quinzenal da hélice (rotor magnético) para remover pelos enrolados e cuidado para nunca deixar o motor funcionar seco sem água no reservatório, uma minibomba submersa padrão dura facilmente entre 2 e 4 anos. Caso pare de funcionar, a peça de reposição costuma ser vendida separadamente por valores entre R$ 35 e R$ 60.',
+        },
+        {
+          q: 'Posso usar fonte de água para gatos que já têm Doença Renal Crônica (DRC)?',
+          a: 'Sim, o incentivo à hidratação é um dos pilares fundamentais no manejo de gatos renais crônicos, pois ajuda a compensar a perda excessiva de líquidos na urina e evita a desidratação subclínica. Mantenha a higienização semanal rigorosa para impedir qualquer contaminação bacteriana na água.',
+        },
+      ],
+      conclusion:
+        'Com um consumo elétrico médio de apenas 1,44 kWh por mês (cerca de R$ 1,37 na conta de luz) e um gasto mensal somado aos refis de filtro em torno de R$ 9,70 (R$ 0,32 por dia), a fonte elétrica de água para gatos apresenta um dos melhores retornos financeiros preventivos do universo pet. Ao estimular o consumo espontâneo de água limpa longe do comedouro e da caixa de areia, ela dilui a urina, reduz o risco de cálculos urinários e ajuda a evitar emergências hospitalares de desobstrução uretral que facilmente ultrapassam R$ 1.500 a R$ 3.500. Escolha modelos de cerâmica ou aço inoxidável, lave a bomba semanalmente e combine a fonte com sachês úmidos para máxima proteção renal.',
+      references: [
+        {
+          title: 'AAFP and ISFM Feline Environmental Needs Guidelines',
+          institution: 'International Society of Feline Medicine (ISFM) / Journal of Feline Medicine and Surgery',
+          type: 'literatura',
+          url: 'https://journals.sagepub.com/doi/10.1177/1098612X13477537',
+          details: 'Diretrizes clínicas internacionais sobre os 5 pilares do ambiente saudável felino, separação espacial obrigatória entre estações de água, comida e caixa de areia e estímulo à hidratação voluntária',
+        },
+        {
+          title: 'Waltham Petcare Science Institute: Feline Hydration and Urinary Tract Health',
+          institution: 'Waltham Petcare Science Institute (WALTHAM)',
+          type: 'literatura',
+          url: 'https://www.waltham.com/',
+          details: 'Estudos científicos sobre o impacto do volume de ingestão hídrica na diluição da densidade urinária e na redução da supersaturação relativa (RSS) para prevenção de urólitos de estruvita e oxalato de cálcio',
+        },
+        {
+          title: 'WSAVA Global Nutrition Guidelines & Feline Lower Urinary Tract Health',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Recomendações clínicas sobre a associação de múltiplas fontes de água fresca e alimentos úmidos na rotina preventiva de gatos domiciliados',
+        },
+        {
+          title: 'Ranking de Tarifas Residenciais de Energia Elétrica (Grupo B1)',
+          institution: 'Agência Nacional de Energia Elétrica (ANEEL)',
+          type: 'regulamento',
+          url: 'https://portalrelatorios.aneel.gov.br/luznatarifa/rankingtarifas',
+          details: 'Referência oficial de tarifa média residencial brasileira utilizada no cálculo de consumo contínuo (kWh/mês = W × 720 ÷ 1.000) de bombas submersas de baixa potência (1,5 W a 3 W)',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Exigências hídricas basais de felinos domésticos conforme o consumo de Energia Metabolizável e a umidade dos alimentos secos e úmidos',
+        },
+      ],
+      callToAction: {
+        title: 'Combine a Fonte de Água com os Melhores Sachês e Rações para Gatos',
+        text: 'Quer descobrir quais sachês úmidos e rações secas entregam o melhor controle de fósforo, magnésio e sódio na Matéria Seca (MS) para proteger os rins do seu felino? Acesse nosso catálogo técnico.',
+        buttonText: 'Explorar Catálogo de Alimentos para Gatos',
+        buttonUrl: '/catalogo?especie=Gatos',
       },
     },
   ];
