@@ -9555,7 +9555,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/fonte-de-agua-para-gatos-custo-energia-filtros-prevencao-renal.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Muitos tutores deixam de comprar uma fonte elétrica de água para gatos por receio do gasto na conta de energia ligada 24 horas por dia e da compra frequente de filtros de carvão ativado. Calculamos na ponta do lápis o consumo real em kWh de uma bomba submersa de 2 watts, o custo diário de manutenção e o retorno financeiro direto na prevenção de obstruções uretrais e cálculos urinários.',
       relatedProductSlugs: [],
@@ -9709,6 +9709,186 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer descobrir quais sachês úmidos e rações secas entregam o melhor controle de fósforo, magnésio e sódio na Matéria Seca (MS) para proteger os rins do seu felino? Acesse nosso catálogo técnico.',
         buttonText: 'Explorar Catálogo de Alimentos para Gatos',
         buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+    {
+      slug: 'mordedores-naturais-para-caes-orelha-casco-chifre-dente-mapa',
+      title: 'Mordedores naturais para cães: Orelha, casco e chifre são seguros para o dente?',
+      subtitle:
+        'A escala de dureza da odontologia veterinária contra fraturas do dente carnassial, o risco microbiológico de itens sem registro e o que exige a Portaria SDA/MAPA nº 871/2023.',
+      cluster: 'Petiscos & Enriquecimento',
+      speciesTarget: 'Cães',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-22',
+      updatedAt: '2026-11-22',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/mordedores-naturais-para-caes-orelha-casco-chifre-dente-mapa.webp',
+      isFeatured: true,
+      summary:
+        'Para fugir dos ossinhos brancos de couro industrializado e aliviar o estresse do cão, muitos tutores oferecem orelha bovina, traqueia, casco ou chifre desidratado. Explicamos a regra do Teste da Unha da odontologia veterinária para evitar a fratura do 4º pré-molar superior, os requisitos de segurança da Portaria SDA/MAPA nº 871/2023 contra Salmonella e como contabilizar esses mastigáveis na cota diária de calorias.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'regra-do-teste-da-unha-e-fratura-dentaria',
+          heading: '1. Orelha, traqueia, casco ou chifre: Por que a dureza define o risco de quebrar o dente?',
+          paragraphs: [
+            'Ao trocar os antigos ossos brancos de couro bovino (muitas vezes processados com alvejantes) por mordedores naturais desidratados, o tutor busca entretenimento seguro e limpeza natural dos dentes. No entanto, a palavra "natural" na embalagem não significa que o objeto tenha a dureza segura para a boca do cão.',
+            'O esmalte dentário dos cães é significativamente mais fino do que o dos humanos, e a força de mordida nos dentes posteriores (especialmente no 4º pré-molar superior, chamado de dente carnassial) ultrapassa facilmente centenas de quilos de pressão por centímetro quadrado.',
+            'Por isso, o Colégio Americano de Odontologia Veterinária (AVDC) adota uma regra prática simples chamada Teste da Unha: se você tentar pressionar a unha do polegar contra o mordedor e não conseguir deixar uma pequena marca na superfície, o objeto é duro demais para o dente do seu cão.',
+            'Cascos bovinos secos, chifres maciços e ossos cozidos ou defumados de fêmur falham completamente nesse teste. Quando o cão morde esses itens com força, o esmalte cede antes do objeto e sofre a chamada fratura em lasca (slab fracture), expondo o nervo do dente, causando dor silenciosa e exigindo tratamento de canal ou extração cirúrgica.',
+          ],
+          table: {
+            caption:
+              'Escala prática de segurança dental e digestiva dos principais mordedores naturais para cães (Base: AVDC e Portaria SDA/MAPA nº 871/2023)',
+            headers: [
+              'Mordedor Natural',
+              'Teste da Unha (Dureza)',
+              'Risco de Fratura Dental',
+              'Benefício e Cuidado Principal na Rotina',
+            ],
+            rows: [
+              [
+                'Traqueia Bovina Desidratada',
+                'Cede com facilidade (flexível)',
+                'Muito baixo',
+                'Rica em cartilagem (condroitina natural); pode ser recheada e congelada para enriquecimento',
+              ],
+              [
+                'Orelha Bovina ou Suína Desidratada',
+                'Amolece com a saliva',
+                'Muito baixo',
+                'Excelente atrito contra placa bacteriana; alto teor calórico (~120 a 150 kcal por orelha inteira)',
+              ],
+              [
+                'Vergalho (Bully Stick) e Esôfago',
+                'Fibroso e elástico ao umedecer',
+                'Baixo',
+                'Alta digestibilidade proteica; exige supervisão para recolher a ponta final contra engasgo',
+              ],
+              [
+                'Casco Bovino Seco',
+                'Rigidez extrema (não cede)',
+                'Alto (causa comum de fratura)',
+                'Risco elevado de lascar o 4º pré-molar superior e soltar lascas pontiagudas no estômago',
+              ],
+              [
+                'Chifre Bovino ou Galhada (Antler)',
+                'Rigidez extrema (não cede)',
+                'Muito alto',
+                'Dureza superior à do esmalte canino; desaconselhado pela odontologia veterinária para roedores ávidos',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'portaria-sda-mapa-871-2023-controle-sanitario',
+          heading: '2. O que a Portaria SDA/MAPA nº 871/2023 exige dos mordedores vendidos no Brasil?',
+          paragraphs: [
+            'Com a popularização dos petiscos naturais, multiplicaram-se ofertas de orelhas, cascos e traqueias vendidos soltos em feiras, a granel em potes abertos ou embalados artesanalmente em saquinhos plásticos sem nenhum dado técnico no rótulo.',
+            'Para proteger os animais e os tutores dentro de casa, o Ministério da Agricultura e Pecuária publicou a Portaria SDA/MAPA nº 871, de 10 de agosto de 2023, estabelecendo regras sanitárias rígidas para a fabricação de produtos mastigáveis de origem animal.',
+            'Pelo Artigo 2º dessa Portaria, o fabricante é obrigado a utilizar exclusivamente matérias-primas oriundas de abatedouros sob inspeção oficial (SIF, SIE ou SIM). Já o Artigo 3º proíbe expressamente o uso de peles ou subprodutos que tenham entrado em contato com substâncias químicas não autorizadas ou resíduos de curtume ao cromo sem tratamento sanitário comprovado.',
+            'Outro ponto decisivo está no Artigo 4º: todo mordedor natural comercializado legalmente precisa passar por um processo térmico de desidratação validado capaz de destruir bactérias patogênicas como Salmonella spp. e Enterobactérias, evitando que o cão contraia infecções intestinais ou transmita a bactéria pela saliva para crianças e idosos da família.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'Como checar se o mordedor natural é regularizado no MAPA?',
+            text: 'Antes de comprar, verifique se a embalagem original lacrada exibe o nome do estabelecimento fabricante, o número de registro no MAPA, a data de fabricação, o prazo de validade e o número do lote (exigido pelo Art. 5º da Portaria SDA/MAPA nº 871/2023 para rastreabilidade). Evite sempre mastigáveis vendidos a granel em balcões abertos, onde há contaminação por poeira, insetos e umidade.',
+          },
+        },
+        {
+          id: 'calorias-proteina-e-regra-dos-10-por-cento',
+          heading: '3. Mordedor natural engorda ou substitui a ração? A conta da regra dos 10%',
+          paragraphs: [
+            'Como o mordedor é seco, leve e tem aparência de brinquedo mastigável, muitos tutores oferecem uma orelha bovina ou um pedaço grande de traqueia todos os dias sem descontar nada do comedouro de ração.',
+            'Na bromatologia, porém, esses itens são concentrados de proteína colagenosa e gordura animal. Uma única orelha bovina inteira de tamanho médio pesa cerca de 35 a 45 gramas e entrega entre 120 e 150 quilocalorias, enquanto uma orelha suína desidratada pode ultrapassar 200 quilocalorias devido ao maior teor lipídico.',
+            'Para um cão de pequeno porte de 8 kg que precisa de cerca de 460 kcal por dia, comer uma orelha inteira representa mais de 25% a 30% de toda a sua necessidade energética diária, quebrando a regra máxima de 10% para alimentos complementares estabelecida pela WSAVA.',
+            'Além do ganho de peso rápido, o excesso de gordura presente em orelhas suínas e traqueias sem remoção do tecido adiposo pode desencadear fezes amolecidas ou crises de pancreatite em cães sensíveis. Para cães pequenos, prefira tiras menores (como esôfago ou metade de uma traqueia) oferecidas 2 a 3 vezes por semana.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Mordedores naturais não são Alimento Completo',
+            text: 'Pela IN MAPA nº 30/2009 e pelo Decreto Federal nº 12.031/2024, mastigáveis desidratados são enquadrados como produtos específicos de entretenimento e agrado, não possuindo premix balanceado de vitaminas e cálcio. Eles nunca devem substituir refeições de ração completa.',
+          },
+        },
+        {
+          id: 'protocolo-seguro-supervisao-e-ponta-final',
+          heading: '4. Protocolo seguro em casa: Como evitar engasgos e aproveitar o alívio do estresse?',
+          paragraphs: [
+            'Roer um mordedor flexível durante 15 a 20 minutos libera endorfinas naturais no cérebro do cão, reduz o tédio em apartamentos, diminui latidos por ansiedade e promove o atrito mecânico que raspa o biofilme inicial dos dentes antes que ele mineralize em tártaro.',
+            'O único momento de risco físico em mordedores seguros (como traqueia, orelha bovina ou vergalho) ocorre nos últimos minutos da sessão, quando o item fica reduzido a um pedaço pequeno de 3 a 5 centímetros amolecido pela saliva.',
+            'Cães ansiosos tendem a tentar engolir essa ponta final inteira de uma só vez, o que pode provocar engasgo na garganta ou obstrução temporária do esôfago. Por isso, a regra de ouro é oferecer o mordedor apenas sob supervisão visual direta, nunca deixando o item com o cão sozinho em casa.',
+            'Quando o pedaço estiver pequeno o suficiente para caber inteiro na boca do animal, nunca tente arrancar à força da mandíbula (o que incentiva o cão a engolir correndo por medo de perder o recurso). Troque calmamente a ponta restante por um petisco macio ou alguns grãos de ração, descartando o pedaço final no lixo com tranquilidade.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Higiene após a sessão de roedura',
+            text: 'Se o cão não terminar a orelha ou a traqueia no mesmo dia, enxugue o excesso de saliva com papel-toalha limpo e guarde o mordedor em um pote aberto na geladeira (ou em local seco e ventilado fora de sacos plásticos abafados), evitando o surgimento de mofo e mau cheiro para a próxima sessão em até 48 horas.',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'Filhotes de cães com dentes de leite podem roer mordedores naturais?',
+          a: 'Sim, desde que o mordedor seja extra macio e flexível, como tiras finas de esôfago desidratado, pele de peixe desidratada ou pulmão bovino crocante. Evite totalmente cascos, chifres e vergalhos muito grossos enquanto o filhote estiver na fase de troca dentária (entre 3 e 6 meses), pois os dentes de leite são frágeis e quebram facilmente.',
+        },
+        {
+          q: 'A orelha bovina desidratada substitui a escovação de dentes do cão?',
+          a: 'Não substitui completamente, mas atua como um excelente aliado complementar. O atrito mecânico de roer a orelha ou a traqueia ajuda a limpar os dentes pré-molares e molares onde o tártaro mais se acumula, porém apenas a escovação regular com pasta enzimática veterinária alcança a linha da gengiva e os dentes incisivos.',
+        },
+        {
+          q: 'Por que o meu cão teve diarreia depois de comer uma orelha suína desidratada?',
+          a: 'A orelha suína contém naturalmente uma camada de gordura subcutânea muito maior do que a orelha bovina ou o esôfago. Em cães não acostumados ou com estômago sensível, esse pico súbito de gordura acelera o trânsito intestinal e amolece as fezes. Para esses animais, prefira opções mais magras como pulmão bovino, traqueia limpa ou esôfago desidratado.',
+        },
+        {
+          q: 'Os ossos brancos de couro tradicional (rawhide) são proibidos no Brasil?',
+          a: 'Não são proibidos se fabricados sob registro oficial, mas a Portaria SDA/MAPA nº 871/2023 passou a vetar o uso de aparas de couro tratadas com produtos químicos não autorizados ou resíduos de curtume ao cromo sem tratamento comprovado. Além disso, muitos ossos de couro prensado amolecem em tiras elásticas pouco digeríveis, razão pela qual os mastigáveis anatômicos desidratados com registro no MAPA ganharam preferência veterinária.',
+        },
+      ],
+      conclusion:
+        'Mordedores naturais desidratados são ferramentas valiosas de enriquecimento ambiental e apoio à saúde bucal quando escolhidos com critério técnico. Aplique sempre o Teste da Unha da odontologia veterinária (preferindo traqueia, orelha bovina, esôfago ou vergalho flexíveis em vez de cascos e chifres rígidos que fraturam o dente carnassial), exija embalagem lacrada com registro no MAPA e lote rastreável conforme a Portaria SDA/MAPA nº 871/2023, respeite o limite calórico de 10% da WSAVA e recolha sempre a ponta final sob supervisão para garantir uma mastigação segura.',
+      references: [
+        {
+          title: 'Portaria SDA/MAPA nº 871, de 10 de agosto de 2023',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA / Secretaria de Defesa Agropecuária)',
+          type: 'regulamento',
+          url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal',
+          details: 'Estabelece procedimentos de trânsito, controle sanitário e rastreabilidade para subprodutos animais destinados a mastigáveis para cães e gatos: matérias-primas de estabelecimentos SIF/SIE/SIM (Art. 2º), vedação a resíduos químicos e curtume ao cromo sem tratamento comprovado (Art. 3º) e tratamento térmico obrigatório contra Salmonella spp. (Art. 4º)',
+        },
+        {
+          title: 'AVDC Position Statements: Safe Chewing Objects and Tooth Fractures in Dogs',
+          institution: 'American Veterinary Dental College (AVDC)',
+          type: 'literatura',
+          url: 'https://avdc.org/animal-owner-resources/',
+          details: 'Diretrizes clínicas de odontologia veterinária sobre o Teste da Unha (thumbnail test), dureza excessiva de cascos, chifres e ossos de fêmur e prevenção de fraturas em lasca (slab fractures) do 4º pré-molar superior',
+        },
+        {
+          title: 'WSAVA Global Dental Guidelines & Global Nutrition Guidelines',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-dental-guidelines/',
+          details: 'Recomendações internacionais sobre controle mecânico do biofilme dental com mastigáveis seguros e limite máximo de 10% das calorias diárias para alimentos complementares e petiscos',
+        },
+        {
+          title: 'Decreto Federal nº 12.031/2024 e Instrução Normativa MAPA nº 30/2009',
+          institution: 'Presidência da República / Ministério da Agricultura e Pecuária (MAPA)',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+          details: 'Marco normativo federal de fiscalização, registro e distinção entre Alimentos Completos e produtos mastigáveis específicos para animais de companhia',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Critérios zootécnicos de qualidade de subprodutos de origem animal, controle de umidade e segurança microbiológica em petiscos desidratados',
+        },
+      ],
+      callToAction: {
+        title: 'Consulte o Ranking Completo de Alimentos para Cães no PetRankings',
+        text: 'Além de escolher mastigáveis seguros para o entretenimento do seu cão, quer conferir quais rações completas entregam os melhores níveis de proteína em Matéria Seca (MS) e balanço mineral? Acesse nosso catálogo.',
+        buttonText: 'Explorar Catálogo de Rações para Cães',
+        buttonUrl: '/catalogo?especie=Caes',
       },
     },
   ];
