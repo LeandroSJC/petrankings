@@ -9724,7 +9724,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/mordedores-naturais-para-caes-orelha-casco-chifre-dente-mapa.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Para fugir dos ossinhos brancos de couro industrializado e aliviar o estresse do cão, muitos tutores oferecem orelha bovina, traqueia, casco ou chifre desidratado. Explicamos a regra do Teste da Unha da odontologia veterinária para evitar a fratura do 4º pré-molar superior, os requisitos de segurança da Portaria SDA/MAPA nº 871/2023 contra Salmonella e como contabilizar esses mastigáveis na cota diária de calorias.',
       relatedProductSlugs: [],
@@ -9889,6 +9889,168 @@ export const GUIDES: GuideItem[] = [
         text: 'Além de escolher mastigáveis seguros para o entretenimento do seu cão, quer conferir quais rações completas entregam os melhores níveis de proteína em Matéria Seca (MS) e balanço mineral? Acesse nosso catálogo.',
         buttonText: 'Explorar Catálogo de Rações para Cães',
         buttonUrl: '/catalogo?especie=Caes',
+      },
+    },
+    {
+      slug: 'estresse-dos-bigodes-em-gatos-pote-raso-vibrissas-biologia',
+      title: 'Estresse dos bigodes em gatos: Pote raso é frescura ou necessidade biológica?',
+      subtitle:
+        'A neuroanatomia das vibrissas ligadas ao nervo trigêmeo, o que comprovam os estudos veterinários sobre comedouros rasos e como o material do prato previne a acne felina.',
+      cluster: 'Manejo & Rotina Alimentar',
+      speciesTarget: 'Gatos',
+      readingTimeMinutes: 7,
+      publishedAt: '2026-11-23',
+      updatedAt: '2026-11-23',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/estresse-dos-bigodes-em-gatos-pote-raso-vibrissas-biologia.webp',
+      isFeatured: true,
+      summary:
+        'Se o seu gato mia pedindo comida mesmo com ração sobrando nas bordas do pote, ou pesca os grãos com a pata para comer no chão, o formato da tigela pode ser a causa. Explicamos como funcionam as vibrissas felinas, o que a literatura veterinária realmente constatou sobre a fadiga dos bigodes e quais medidas de diâmetro, altura e material garantem conforto e higiene no comedouro.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'sinais-na-rotina-e-anatomia-das-vibrissas',
+          heading: '1. Por que o gato mia com ração nos cantos do pote? A biologia dos bigodes',
+          paragraphs: [
+            'A cena intriga quase todo tutor de felinos: o gato corre até a cozinha miando com insistência, olha para a tigela e se recusa a comer. Quando você se aproxima, descobre que o centro do pote está vazio, mas ainda há bastante ração acumulada ao redor das bordas.',
+            'Em outros casos, o animal enfia a patinha na vasilha para puxar alguns croquetes até o piso da cozinha e só então começa a mastigar. Esse comportamento está ligado diretamente à anatomia sensorial do focinho felino.',
+            'Os bigodes do gato (chamados tecnicamente de vibrissas mistaciais) são pelos táteis especializados implantados até três vezes mais fundo na pele do que a pelagem comum. Na base de cada bigode existe um seio sanguíneo cercado por centenas de terminações nervosas conectadas ao nervo trigêmeo.',
+            'Na prática, as vibrissas funcionam como um radar tátil de altíssima sensibilidade: como o gato tem dificuldade natural para focar objetos a menos de 25 centímetros dos olhos, ele usa os bigodes para medir espaços no escuro, perceber correntes de ar e sentir a posição exata do alimento no prato.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Nunca apare ou corte os bigodes do seu gato',
+            text: 'Diferentemente do pelo corporal, as vibrissas fazem parte do sistema de orientação espacial do felino. Cortar ou aparar os bigodes (mesmo acidentalmente em banhos ou tosas) provoca desorientação motora, insegurança para saltar móveis e estresse agudo até que os fios cresçam novamente.',
+          },
+        },
+        {
+          id: 'o-que-a-ciencia-diz-sobre-whisker-fatigue',
+          heading: '2. Estresse dos bigodes: O que os estudos clínicos veterinários comprovaram?',
+          paragraphs: [
+            'Nos últimos anos, o termo "estresse dos bigodes" (ou fadiga das vibrissas) popularizou-se nas redes sociais e no marketing de pet shops. A ciência veterinária, porém, analisa o tema com equilíbrio e critérios objetivos.',
+            'Um estudo clínico publicado no Journal of Feline Medicine and Surgery (Slovak & Foster, 2020) acompanhou gatos domésticos alternando comedouros fundos tradicionais e pratos largos desenvolvidos para não tocar as vibrissas. Os pesquisadores observaram que, embora o atrito dos bigodes não gere um quadro de dor clínica em todos os indivíduos, a preferência espontânea da maioria dos gatos ao escolher o prato foi claramente direcionada ao comedouro raso e largo.',
+            'O desconforto em tigelas estreitas e fundas soma dois fatores biológicos simultâneos. O primeiro é a hiperestimulação mecânica repetitiva dos bigodes contra as paredes altas do pote a cada mordida quando o nível de ração baixa.',
+            'O segundo fator, igualmente decisivo na etologia felina (ISFM / AAFP), é a perda da visão periférica: para comer no fundo de um pote estreito, o gato precisa baixar a cabeça dentro de um cilindro fechado, deixando de vigiar o ambiente ao redor. Em casas com outros animais ou movimentação constante, isso dispara ansiedade e faz o gato abandonar o prato antes de terminar a refeição.',
+          ],
+          table: {
+            caption:
+              'Comparativo ergonômico e sanitário de comedouros para gatos (Base: Diretrizes ISFM / AAFP e Odontologia/Dermatologia Felina)',
+            headers: [
+              'Característica do Comedouro',
+              'Tigela Estreita e Funda de Plástico',
+              'Prato Raso e Largo de Cerâmica ou Inox',
+              'Impacto Prático na Rotina do Gato',
+            ],
+            rows: [
+              [
+                'Diâmetro Recomendado',
+                'Estreito (menor que 11 cm)',
+                'Largo (15 cm a 18 cm de diâmetro)',
+                'Permite que os bigodes fiquem livres fora da borda',
+              ],
+              [
+                'Altura da Borda Interna',
+                'Alta (5 cm a 8 cm de profundidade)',
+                'Baixa e aberta (1,5 cm a 3 cm)',
+                'Elimina o "efeito buraco" no centro do pote e mantém a visão periférica',
+              ],
+              [
+                'Higiene e Risco de Acne Felina',
+                'Plástico risca e retém biofilme bacteriano',
+                'Superfície lisa não porosa e fácil de esterilizar',
+                'Previne cravos pretos e inflamação no queixo (acne felina)',
+              ],
+              [
+                'Conforto para Alimentos Úmidos (Sachê)',
+                'Gato suja os bigodes de molho e rejeita sobras',
+                'Fácil de lamber até o último pedaço',
+                'Reduz desperdício de sachê e aumenta a ingestão hídrica',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'acne-felina-ceramica-inox-vs-plastico',
+          heading: '3. O perigo invisível do pote de plástico: Acne felina e odores residuais',
+          paragraphs: [
+            'Além da largura e da profundidade do prato, o material escolhido define diretamente a saúde da pele do queixo do seu gato. Muitos tutores notam pontinhos pretos parecidos com "sujeira de terra" ou pequenas espinhas avermelhadas sob o lábio inferior do animal sem imaginar que a causa está na vasilha de ração.',
+            'Comedouros de plástico (mesmo os novos) sofrem microarranhões já nas primeiras semanas de lavagem com esponja. Dentro dessas ranhuras invisíveis a olho nu, acumulam-se gordura dos croquetes, restos de molho de sachê e bactérias da boca do gato.',
+            'Toda vez que o felino encosta o queixo na borda contaminada para comer, essas bactérias obstruem os folículos pilosos e as glândulas sebáceas do mento, desencadeando a acne felina (que pode evoluir para feridas inflamadas e crostas dolorosas).',
+            'Substituir o plástico por pratos rasos de cerâmica esmaltada, porcelana ou aço inoxidável resolve o problema na raiz: esses materiais não absorvem odores de gordura oxidada, resistem à lavagem diária com água morna e detergente neutro e mantêm a superfície livre de biofilme.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Você não precisa comprar um pote caro para testar hoje',
+            text: 'Antes de investir em comedouros de design, faça um teste simples em casa hoje mesmo: sirva a porção de ração seca ou o sachê em um pires de porcelana ou prato raso de sobremesa (de vidro ou cerâmica, com cerca de 16 cm de largura). Se o gato comer tudo até o fim sem usar a pata para tirar os grãos, a mudança de ergonomia já se pagou.',
+          },
+        },
+        {
+          id: 'altura-ergonomica-gatos-idosos-e-agua',
+          heading: '4. Comedouro elevado e tigela de água: Como ajustar a altura sem errar?',
+          paragraphs: [
+            'Outra dúvida frequente nas compras de acessórios é se vale a pena usar suportes elevados (de 8 cm a 12 cm de altura) sob o prato raso. Para gatos adultos jovens e saudáveis, comer no nível do piso ou levemente elevado funciona bem, desde que o prato seja largo e raso.',
+            'Já para gatos sêniores acima de 7 a 10 anos (muitos dos quais desenvolvem artrose silenciosa na coluna cervical, ombros e cotovelos) ou felinos com tendência a regurgitação logo após comer, elevar o prato em cerca de 8 a 10 centímetros (na altura aproximada do peito/cotovelo do gato sentado) reduz o esforço no pescoço e facilita o trajeto do alimento pelo esôfago até o estômago.',
+            'O mesmo princípio das vibrissas vale para a água. Tigelas de água estreitas e mantidas apenas pela metade obrigam o gato a encostar os bigodes nas laterais molhadas, o que faz muitos felinos beberem menos água do que precisam para proteger os rins.',
+            'Mantenha os potes de água largos (acima de 15 cm de diâmetro), sempre cheios até próximo da borda, higienizados diariamente e posicionados em locais tranquilos longe da ração e da caixa de areia.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: 'Por que o meu gato coloca a pata na água antes de beber?',
+          a: 'Gatos costumam tocar a superfície da água com a pata por dois motivos principais: para enxergar exatamente onde está o nível do líquido transparente (pois o movimento gera ondulações visíveis) ou para testar se o pote fundo vai encostar nos bigodes. Usar potes largos de cerâmica colorida ou fontes com água em movimento reduz bastante esse comportamento.',
+        },
+        {
+          q: 'Com que frequência devo lavar o prato de ração seca e o de sachê?',
+          a: 'O prato usado para alimento úmido (sachê ou patê) deve ser lavado imediatamente após cada refeição com água e detergente neutro sem perfume forte. Já o prato de ração seca deve ser lavado pelo menos uma vez ao dia para remover a película de gordura animal que fica aderida à superfície e que oxida rapidamente no ar.',
+        },
+        {
+          q: 'Pratos muito rasos não fazem o gato empurrar a ração para fora no chão?',
+          a: 'Se o prato for totalmente plano como uma tábua, alguns gatos acabam deslizando os grãos pela borda ao lamber. O formato ideal é um prato raso largo (15 a 18 cm) com uma leve curvatura elevada de 1,5 cm a 2,5 cm nas extremidades (semelhante a um pires fundo ou prato de sobremesa), que segura os grãos sem tocar os bigodes.',
+        },
+        {
+          q: 'Comedouros de vidro temperado também são seguros contra acne felina?',
+          a: 'Sim. O vidro temperado (como pratos de sobremesa ou tigelas rasas de cozinha) é um material liso, não poroso, inodoro e tão higiênico quanto a cerâmica esmaltada e o aço inoxidável. Apenas certifique-se de que não haja lascas nas bordas e use um tapetinho antiderrapante por baixo para o prato não deslizar no piso.',
+        },
+      ],
+      conclusion:
+        'Oferecer a refeição do gato em um prato largo e raso (15 a 18 cm de diâmetro, com bordas baixas de até 3 cm) é um ajuste ergonômico simples que respeita a sensibilidade tátil das vibrissas e preserva o campo de visão periférica do felino durante a alimentação. Quando aliado a materiais lisos e não porosos como cerâmica esmaltada, vidro ou aço inoxidável, esse cuidado elimina o desperdício de ração nos cantos do pote, previne a acne felina no queixo e torna o horário do comedouro muito mais tranquilo e prazeroso.',
+      references: [
+        {
+          title: 'Whisker stress in cats: fact or fiction? (Journal of Feline Medicine and Surgery)',
+          institution: 'Slovak, J. E. & Foster, T. E. / International Society of Feline Medicine (ISFM)',
+          type: 'estudo',
+          url: 'https://journals.sagepub.com/doi/10.1177/1098612X20930190',
+          details: 'Estudo clínico controlado avaliando a preferência alimentar de gatos domésticos entre tigelas tradicionais fundas e pratos rasos largos desenvolvidos para reduzir o contato das vibrissas',
+        },
+        {
+          title: 'AAFP and ISFM Feline Environmental Needs Guidelines',
+          institution: 'International Society of Feline Medicine (ISFM) / American Association of Feline Practitioners (AAFP)',
+          type: 'literatura',
+          url: 'https://journals.sagepub.com/doi/10.1177/1098612X13477537',
+          details: 'Diretrizes internacionais de manejo ambiental felino: formato de comedouros e bebedouros, campo de visão periférica durante a alimentação e separação entre comida, água e caixa de areia',
+        },
+        {
+          title: 'Feline Acne: Pathogenesis, Clinical Presentation and Environmental Management',
+          institution: 'Veterinary Dermatology / WSAVA Dermatology Guidelines',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/',
+          details: 'Associação clínica entre comedouros plásticos porosos (acúmulo de biofilme bacteriano e gordura oxidada) e a ocorrência de acne felina no mento, recomendando cerâmica, vidro ou aço inoxidável',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Boas práticas de manejo alimentar, higiene de utensílios e preservação da palatabilidade de alimentos secos e úmidos para felinos',
+        },
+      ],
+      callToAction: {
+        title: 'Explore os Melhores Alimentos Secos e Úmidos para Gatos no PetRankings',
+        text: 'Agora que o comedouro do seu gato está ajustado para o máximo conforto, quer conferir quais rações e sachês entregam a melhor nutrição em Matéria Seca (MS) e equilíbrio mineral? Acesse nosso catálogo técnico.',
+        buttonText: 'Ver Catálogo de Alimentos para Gatos',
+        buttonUrl: '/catalogo?especie=Gatos',
       },
     },
   ];
