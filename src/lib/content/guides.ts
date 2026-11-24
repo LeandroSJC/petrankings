@@ -9904,7 +9904,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/estresse-dos-bigodes-em-gatos-pote-raso-vibrissas-biologia.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Se o seu gato mia pedindo comida mesmo com ração sobrando nas bordas do pote, ou pesca os grãos com a pata para comer no chão, o formato da tigela pode ser a causa. Explicamos como funcionam as vibrissas felinas, o que a literatura veterinária realmente constatou sobre a fadiga dos bigodes e quais medidas de diâmetro, altura e material garantem conforto e higiene no comedouro.',
       relatedProductSlugs: [],
@@ -10051,6 +10051,180 @@ export const GUIDES: GuideItem[] = [
         text: 'Agora que o comedouro do seu gato está ajustado para o máximo conforto, quer conferir quais rações e sachês entregam a melhor nutrição em Matéria Seca (MS) e equilíbrio mineral? Acesse nosso catálogo técnico.',
         buttonText: 'Ver Catálogo de Alimentos para Gatos',
         buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+    {
+      slug: 'racao-a-granel-para-caes-proibicao-mapa-cdc-micotoxinas',
+      title: 'Ração a granel para cães: O que o MAPA e o CDC proíbem na venda fracionada?',
+      subtitle:
+        'As regras do Decreto nº 12.031/2024 e do Código de Defesa do Consumidor contra a venda em tambores abertos, os limites de aflatoxinas da Portaria MAPA nº 1.412/2025 e os riscos de ácaros.',
+      cluster: 'Direito do Consumidor & Mercado',
+      speciesTarget: 'Cães',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-24',
+      updatedAt: '2026-11-24',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/racao-a-granel-para-caes-proibicao-mapa-cdc-micotoxinas.webp',
+      isFeatured: true,
+      summary:
+        'Comprar um ou dois quilos de ração pesada na hora em tambores plásticos ou pacotes abertos na loja de bairro parece uma saída prática para economizar. Analisamos o que determina a legislação federal do MAPA e o Código de Defesa do Consumidor sobre o fracionamento irregular, os novos limites obrigatórios de aflatoxinas da Portaria SDA/MAPA nº 1.412/2025 e os riscos invisíveis de oxidação e ácaros de estocagem para a saúde do cão.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'marco-legal-mapa-cdc-venda-fracionada',
+          heading: '1. Vender ração a granel é proibido? O que dizem o MAPA e o CDC',
+          paragraphs: [
+            'Em muitas casas de ração, agropecuárias e pet shops de bairro pelo Brasil, é comum ver fileiras de tambores plásticos ou pacotes grandes de 20 kg rasgados no topo, de onde o atendente retira a ração com uma concha e pesa em saquinhos transparentes sem nenhum rótulo.',
+            'Para o tutor que quer testar um sabor novo ou gastar menos naquela semana, a compra avulsa parece vantajosa. Na legislação sanitária e de consumo vigente, porém, o fracionamento artesanal de ração no balcão do varejo descumpre frontalmente tanto as normas do Ministério da Agricultura e Pecuária (MAPA) quanto o Código de Defesa do Consumidor (CDC).',
+            'Pelo Decreto Federal nº 12.031/2024 e pela Instrução Normativa MAPA nº 30/2009, a comercialização de alimentos para cães e gatos exige embalagem fechada, inviolada e rotulada de origem. O fracionamento só é permitido a estabelecimentos formalmente registrados no MAPA na categoria de fracionadores, sob controle sanitário e com rotulagem completa de cada nova embalagem.',
+            'Do lado do consumidor, o Artigo 31 do CDC (Lei nº 8.078/1990) obriga que todo produto oferecido apresente informações claras e ostensivas sobre composição, peso líquido, data de fabricação, prazo de validade e número de lote. Um saquinho plástico transparente amarrado com nó suprime todos esses dados e impede qualquer rastreabilidade caso o cão passe mal.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'Produto impróprio para consumo segundo o Art. 18 do CDC',
+            text: 'Pelo Art. 18, § 6º, do Código de Defesa do Consumidor, alimentos comercializados em desacordo com as normas regulamentares de fabricação, distribuição ou apresentação (como ração exposta sem lacre, sem data de validade e sem identificação de lote) são considerados legalmente impróprios ao consumo. Além da perda de garantia de fábrica, o tutor fica sem proteção contra a mistura fraudulenta de rações baratas dentro do tambor de uma marca Super Premium.',
+          },
+        },
+        {
+          id: 'micotoxinas-aflatoxinas-portaria-1412-2025',
+          heading: '2. O perigo invisível das aflatoxinas e os limites da Portaria MAPA nº 1.412/2025',
+          paragraphs: [
+            'Muitos tutores acreditam que basta cheirar a ração do tambor ou olhar se há bolor verde visível para saber se o alimento está seguro. O maior risco microbiológico da ração a granel, porém, é invisível a olho nu e não altera o cheiro dos croquetes: as micotoxinas.',
+            'Quando o saco original com barreira metálica é rasgado e a ração fica exposta à umidade do ar e ao calor do comércio por semanas, fungos filamentosos (como Aspergillus flavus) proliferam no farelo acumulado no fundo dos tambores plásticos que raramente são lavados entre uma reposição e outra.',
+            'Esses fungos liberam metabólitos altamente tóxicos chamados aflatoxinas. Em vigor desde 1º de julho de 2026, a Portaria SDA/MAPA nº 1.412/2025 estabeleceu os Limites Máximos Permitidos (LMP) obrigatórios no Brasil: no máximo 10 microgramas por quilo (10 ppb) para Aflatoxina B1 e 20 microgramas por quilo (20 ppb) para Aflatoxina Total em alimentos para cães e gatos.',
+            'O Artigo 6º da mesma Portaria classifica qualquer alimento acima desses limites como legalmente impróprio para consumo animal. Na rotina clínica do cão, a ingestão contínua de aflatoxinas ataca diretamente o fígado, provocando perda de apetite, vômitos, letargia, icterícia (mucosas e olhos amarelados) e insuficiência hepática grave.',
+          ],
+          table: {
+            caption:
+              'Confronto sanitário e legal: Pacote Original Lacrado de Fábrica vs Ração Vendida a Granel (Base: Decreto nº 12.031/2024, Portaria SDA/MAPA nº 1.412/2025 e CDC)',
+            headers: [
+              'Critério de Segurança',
+              'Embalagem Original Lacrada de Fábrica',
+              'Venda a Granel (Tambor ou Saco Aberto)',
+            ],
+            rows: [
+              [
+                'Barreira contra Oxigênio e Luz',
+                'Filme multicamadas selado termicamente (preserva gorduras e vitaminas)',
+                'Exposição diária ao ar e calor (ranço oxidativo acelerado)',
+              ],
+              [
+                'Rastreabilidade de Lote e Validade',
+                'Impressos na fábrica com garantia total do SAC e direito a recall',
+                'Ausentes ou ilegíveis (impede acionar o fabricante em caso de problema)',
+              ],
+              [
+                'Controle de Aflatoxinas (Portaria 1.412/2025)',
+                'Monitorado no Programa de Autocontrole (LMP máx. 10 ppb B1 / 20 ppb Total)',
+                'Risco elevado de fungos no farelo residual no fundo dos tambores',
+              ],
+              [
+                'Risco de Ácaros de Estocagem',
+                'Protegido enquanto o lacre original permanece intacto',
+                'Proliferação rápida de Tyrophagus putrescentiae (causa alergia de pele)',
+              ],
+              [
+                'Segurança contra Fraude de Marca',
+                'Fórmula autêntica garantida pelo lacre inviolado',
+                'Possibilidade de mistura de ração econômica em tambor de marca cara',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'oxidacao-lipidia-e-acaros-de-estocagem',
+          heading: '3. Gordura rançosa, perda de vitaminas e coceira crônica por ácaros',
+          paragraphs: [
+            'Mesmo quando não há contaminação por fungos, o simples ato de abrir o tambor dezenas de vezes por dia inicia uma reação química irreversível chamada oxidação lipídica. As gorduras nobres pulverizadas sobre o croquete (como ômega-3 e ômega-6) reagem com o oxigênio do ambiente e ficam rançosas.',
+            'Para o cão, ingerir gordura oxidada todos os dias gera radicais livres que irritam a mucosa do estômago (causando fezes moles e gases) e destrói rapidamente vitaminas lipossolúveis sensíveis como a Vitamina A e a Vitamina E, deixando a pelagem opaca e quebradiça.',
+            'Outro inimigo invisível dos tambores de ração a granel são os ácaros de armazenamento, especialmente a espécie Tyrophagus putrescentiae. Esses organismos microscópicos se multiplicam em poucas semanas em ambientes quentes e úmidos onde há farelo de ração exposto.',
+            'De acordo com a dermatologia veterinária e as diretrizes da WSAVA, muitos cães diagnosticados com coceira intensa nas patas, orelhas inflamadas (otite recorrente) e lambedura compulsiva não são alérgicos à proteína da ração em si, mas sim aos ácaros microscópicos presentes na ração mal armazenada ou comprada a granel.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Atenção aos sinais de ração oxidada ou contaminada',
+            text: 'Desconfie imediatamente se a ração apresentar cheiro ácido parecido com tinta ou óleo velho, textura engordurada demais nas mãos, excesso de farelo úmido ou grãos grudados uns nos outros. Esses são indícios diretos de perda da barreira de conservação e proliferação fúngica.',
+          },
+        },
+        {
+          id: 'como-economizar-com-seguranca-e-denunciar',
+          heading: '4. Como economizar comprando pacotes lacrados do tamanho certo para o seu cão?',
+          paragraphs: [
+            'A motivação principal de quem recorre à ração a granel é legítima: gastar menos por vez ou evitar que um pacote enorme fique velho em casa. Felizmente, existem formas legais e seguras de alcançar o mesmo objetivo sem colocar a saúde do cão em risco.',
+            'A regra prática da conservação alimentar é escolher a embalagem original lacrada cujo peso seja integralmente consumido pelo seu cão em no máximo 30 a 45 dias após aberta. Para cães pequenos (até 8 kg), pacotes originais de 1 kg, 2,5 kg ou 3 kg mantêm o alimento fresco até o último dia, frequentemente equipados com fecho zip-lock de fábrica.',
+            'Se você quer testar uma marca nova antes de investir em um pacote maior, compre a menor embalagem lacrada disponível (geralmente de 800 g a 1 kg) ou utilize a garantia de satisfação 100% oferecida pela maioria das grandes fabricantes brasileiras em caso de rejeição pelo pet.',
+            'Em casa, preserve sempre a ração dentro do próprio saco original fechado (que possui barreira metálica contra luz e oxigênio) colocado inteiro dentro de um pote hermético limpo. Caso presencie venda irregular a granel com sinais de sujeira ou mofo, o consumidor pode registrar denúncia junto à Vigilância Sanitária municipal, ao Procon ou à ouvidoria do MAPA (Fala.BR).',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Nunca despeje a ração solta direto no balde plástico em casa',
+            text: 'Em casa, o mesmo problema dos tambores de loja acontece se você despejar o saco novo por cima dos farelos antigos no fundo de um porta-ração plástico. Coloque o saco original aberto (com a boca bem dobrada e presa por um grampo) inteiro dentro do recipiente hermético: assim você preserva o código do lote, a validade e evita o acúmulo de gordura rançosa nas paredes do pote.',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'Se a loja colocar uma etiqueta impressa com a validade no saquinho a granel, passa a ser legal?',
+          a: 'Não. Para fracionar e reembalar ração legalmente no Brasil, o estabelecimento precisa ter registro oficial como fracionador no MAPA (Decreto nº 12.031/2024), cumprir Boas Práticas de Fabricação e manter o Programa de Autocontrole previsto inclusive na Portaria SDA/MAPA nº 1.412/2025. Colar uma etiqueta de balança em um saquinho plástico no varejo não regulariza a prática nem impede a oxidação.',
+        },
+        {
+          q: 'Comprar pacotes grandes e dividir com o vizinho no mesmo dia funciona?',
+          a: 'Dividir um pacote lacrado recém-aberto com um amigo ou familiar no exato momento da abertura pode ser uma alternativa econômica segura, desde que cada metade seja armazenada imediatamente em recipiente hermético opaco (protegido da luz e umidade), consumida em até 30 a 45 dias e que ambos guardem uma foto nítida do lote e da data de validade da embalagem original.',
+        },
+        {
+          q: 'Qual é o limite máximo de aflatoxinas permitido na ração de cães no Brasil?',
+          a: 'Desde 1º de julho de 2026, com a entrada em vigor da Portaria SDA/MAPA nº 1.412/2025, os Limites Máximos Permitidos (LMP) para alimentos destinados a cães e gatos são de no máximo 10 µg/kg (10 ppb) para Aflatoxina B1 e 20 µg/kg (20 ppb) para o somatório de Aflatoxina Total (B1 + B2 + G1 + G2).',
+        },
+        {
+          q: 'A ração a granel pode causar alergia de pele no meu cão mesmo sendo da marca que ele sempre comeu?',
+          a: 'Sim. Mesmo que a fórmula seja idêntica, a exposição prolongada ao ar no tambor favorece a proliferação de ácaros de estocagem (como Tyrophagus putrescentiae) nos farelos. Cães atópicos ou sensíveis reagem fortemente às proteínas desses ácaros, desenvolvendo coceira nas patas, vermelhidão na barriga e infecções de ouvido.',
+        },
+      ],
+      conclusion:
+        'A venda de ração a granel em tambores abertos ou saquinhos sem rótulo fere o Decreto Federal nº 12.031/2024, a IN MAPA nº 30/2009 e o Artigo 31 do Código de Defesa do Consumidor, retirando do tutor o acesso ao lote, à validade e à garantia de autenticidade da marca. Além do risco legal, a exposição constante ao ar acelera a oxidação das gorduras, favorece a proliferação de ácaros causadores de dermatite e abre espaço para a formação de aflatoxinas acima dos limites de segurança da Portaria SDA/MAPA nº 1.412/2025. Para proteger o orçamento e o fígado do seu cão, compre sempre pacotes originais lacrados em tamanho proporcional a 30 ou 45 dias de consumo.',
+      references: [
+        {
+          title: 'Portaria SDA/MAPA nº 1.412, de 3 de outubro de 2025',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA / Secretaria de Defesa Agropecuária)',
+          type: 'regulamento',
+          url: 'https://www.gov.br/agricultura/pt-br/assuntos/insumos-agropecuarios/insumos-pecuarios/alimentacao-animal',
+          details: 'Estabelece os Limites Máximos Permitidos (LMP) de micotoxinas para cães e gatos (em vigor desde 1º de julho de 2026): Aflatoxina B1 máx. 10 µg/kg e Aflatoxina Total máx. 20 µg/kg (Art. 5º), classificando produtos acima do limite como impróprios para consumo animal (Art. 6º)',
+        },
+        {
+          title: 'Decreto Federal nº 12.031/2024 e Instrução Normativa MAPA nº 30/2009',
+          institution: 'Presidência da República / Ministério da Agricultura e Pecuária (MAPA)',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+          details: 'Regulamento de inspeção e fiscalização de produtos destinados à alimentação animal: exigência de registro específico para estabelecimentos fracionadores e obrigatoriedade de embalagem fechada e rotulada',
+        },
+        {
+          title: 'Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor)',
+          institution: 'Presidência da República / Casa Civil',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+          details: 'Art. 6º (Inciso III), Art. 18 (§ 6º, produtos impróprios por desacordo normativo) e Art. 31 (dever de informação clara e ostensiva de composição, peso, lote e validade)',
+        },
+        {
+          title: 'WSAVA Global Nutrition Guidelines: Safe Pet Food Storage & Handling',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Diretrizes internacionais de conservação de alimentos secos na embalagem original lacrada para prevenção de oxidação lipídica, contaminação por ácaros de estocagem (Tyrophagus putrescentiae) e preservação da rastreabilidade de lote',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Boas práticas de armazenamento, propriedades de barreira contra oxigênio de embalagens multicamadas e prevenção de micotoxinas e degradação vitamínica pós-extrusão',
+        },
+      ],
+      callToAction: {
+        title: 'Escolha a Melhor Ração Lacrada para o Seu Cão no Catálogo PetRankings',
+        text: 'Quer comparar os níveis de garantia na Matéria Seca (MS), a qualidade dos conservantes naturais e a avaliação técnica das principais marcas registradas no Brasil? Acesse nosso catálogo.',
+        buttonText: 'Explorar Catálogo de Rações para Cães',
+        buttonUrl: '/catalogo?especie=Caes',
       },
     },
   ];
