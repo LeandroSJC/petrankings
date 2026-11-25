@@ -5,6 +5,7 @@ import { getSession } from '@/lib/auth';
 import { calcularScoreAnaliseRotulo } from '@/lib/audit-engine';
 import { productInputSchema } from '@/lib/schemas/product';
 import { stripWeightFromTitle, normalizeIngredientsList, slugify, generateCanonicalProductSlug } from '@/lib/utils';
+import { getProductVisitsBySlug, parseAnalyticsPeriod } from '@/lib/services/product-analytics';
 
 export async function GET(req: NextRequest) {
   try {
@@ -13,6 +14,8 @@ export async function GET(req: NextRequest) {
     const legalCategory = searchParams.get('legalCategory');
     const classificationTier = searchParams.get('tier');
     const q = searchParams.get('q')?.trim();
+    const period = parseAnalyticsPeriod(searchParams.get('period'));
+    const sort = searchParams.get('sort') || 'recent';
 
     const where: any = {};
 
@@ -37,15 +40,56 @@ export async function GET(req: NextRequest) {
       ];
     }
 
-    const products = await prisma.product.findMany({
-      where,
-      orderBy: [{ createdAt: 'desc' }],
-      include: {
-        affiliateLinks: true,
-      },
+    const session = await getSession();
+    const canReadAnalytics = Boolean(
+      session && (session.role === 'admin' || session.role === 'curador')
+    );
+
+    const [products, analytics] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        orderBy: [{ createdAt: 'desc' }],
+        include: {
+          affiliateLinks: true,
+        },
+      }),
+      canReadAnalytics
+        ? getProductVisitsBySlug(period)
+        : Promise.resolve({
+            available: false,
+            period,
+            metricsBySlug: {} as Record<string, { views: number; visitors: number }>,
+            totalViews: 0,
+          }),
+    ]);
+
+    const enrichedProducts = products.map((product) => {
+      const metrics = analytics.metricsBySlug[product.slug];
+      return {
+        ...product,
+        views: metrics?.views ?? 0,
+        visitors: metrics?.visitors ?? 0,
+      };
     });
 
-    return NextResponse.json({ products });
+    if (sort === 'visits_desc') {
+      enrichedProducts.sort((a, b) => b.views - a.views || b.visitors - a.visitors);
+    } else if (sort === 'visits_asc') {
+      enrichedProducts.sort((a, b) => a.views - b.views || a.visitors - b.visitors);
+    } else if (sort === 'score_desc') {
+      enrichedProducts.sort((a, b) => (b.scoreTotal ?? -1) - (a.scoreTotal ?? -1));
+    } else if (sort === 'name_asc') {
+      enrichedProducts.sort((a, b) => a.commercialName.localeCompare(b.commercialName, 'pt-BR'));
+    }
+
+    return NextResponse.json({
+      products: enrichedProducts,
+      analytics: {
+        available: analytics.available,
+        period: analytics.period,
+        totalViews: analytics.totalViews,
+      },
+    });
   } catch (error) {
     console.error('Erro ao listar produtos no admin:', error);
     return NextResponse.json({ error: 'Erro ao listar produtos' }, { status: 500 });

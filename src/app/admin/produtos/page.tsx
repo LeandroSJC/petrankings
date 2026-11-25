@@ -10,9 +10,14 @@ import {
   ExternalLink,
   Stethoscope,
   Loader2,
+  Eye,
+  ArrowUpDown,
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 import { getFaixaVisual, formatarTermo } from '@/lib/formatters';
+
+type AnalyticsPeriod = '7d' | '30d' | '90d' | 'all';
+type SortOption = 'recent' | 'visits_desc' | 'visits_asc' | 'score_desc' | 'name_asc';
 
 interface ProductItem {
   id: string;
@@ -33,26 +38,79 @@ interface ProductItem {
   classificationTier: string;
   isPublished: boolean;
   curatorResponsible?: string | null;
+  views?: number;
+  visitors?: number;
 }
+
+interface AnalyticsMeta {
+  available: boolean;
+  period: AnalyticsPeriod;
+  totalViews: number;
+}
+
+const PERIOD_LABELS: Record<AnalyticsPeriod, string> = {
+  '7d': '7 dias',
+  '30d': '30 dias',
+  '90d': '90 dias',
+  all: 'Todo o período',
+};
 
 export default function AdminProductsPage() {
   const { showToast } = useToast();
   const [products, setProducts] = useState<ProductItem[]>([]);
+  const [analytics, setAnalytics] = useState<AnalyticsMeta>({
+    available: false,
+    period: '30d',
+    totalViews: 0,
+  });
   const [loading, setLoading] = useState(true);
+  const [initialized, setInitialized] = useState(false);
   const [search, setSearch] = useState('');
   const [speciesFilter, setSpeciesFilter] = useState('todos');
   const [tierFilter, setTierFilter] = useState('todos');
   const [categoryFilter, setCategoryFilter] = useState('todos');
+  const [period, setPeriod] = useState<AnalyticsPeriod>('30d');
+  const [sortBy, setSortBy] = useState<SortOption>('recent');
 
-  const fetchProducts = async () => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const initialSort = params.get('sort');
+    const initialPeriod = params.get('period');
+
+    if (
+      initialSort === 'recent' ||
+      initialSort === 'visits_desc' ||
+      initialSort === 'visits_asc' ||
+      initialSort === 'score_desc' ||
+      initialSort === 'name_asc'
+    ) {
+      setSortBy(initialSort);
+    }
+
+    if (
+      initialPeriod === '7d' ||
+      initialPeriod === '30d' ||
+      initialPeriod === '90d' ||
+      initialPeriod === 'all'
+    ) {
+      setPeriod(initialPeriod);
+    }
+
+    setInitialized(true);
+  }, []);
+
+  const fetchProducts = async (selectedPeriod: AnalyticsPeriod) => {
     try {
       setLoading(true);
-      const res = await fetch('/api/products');
+      const res = await fetch(`/api/products?period=${selectedPeriod}`);
       if (res.ok) {
         const data = await res.json();
         setProducts(data.products || []);
+        if (data.analytics) {
+          setAnalytics(data.analytics);
+        }
       }
-    } catch (err) {
+    } catch {
       showToast('Erro ao carregar catálogo de produtos', 'error');
     } finally {
       setLoading(false);
@@ -60,8 +118,9 @@ export default function AdminProductsPage() {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (!initialized) return;
+    fetchProducts(period);
+  }, [initialized, period]);
 
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`Tem certeza que deseja remover o produto analisado "${name}"?`)) {
@@ -81,28 +140,49 @@ export default function AdminProductsPage() {
     }
   };
 
-  const filteredProducts = products.filter((p) => {
-    if (speciesFilter !== 'todos' && p.species !== speciesFilter) return false;
-    if (tierFilter !== 'todos') {
-      const t = p.classificationTier;
-      if (tierFilter === 'NIVEL_OURO' && t !== 'NIVEL_OURO' && t !== 'SUPER_PREMIUM') return false;
-      if (tierFilter === 'NIVEL_PRATA' && t !== 'NIVEL_PRATA' && t !== 'PREMIUM_ESPECIAL') return false;
-      if (tierFilter === 'NIVEL_BRONZE' && t !== 'NIVEL_BRONZE' && t !== 'ECONOMICO') return false;
-      if (tierFilter === 'SOB_OBSERVACAO' && t !== 'SOB_OBSERVACAO' && t !== 'NAO_CONFORME' && t !== 'PARAMETRO_LIMITROFE') return false;
-    }
+  const filteredProducts = products
+    .filter((p) => {
+      if (speciesFilter !== 'todos' && p.species !== speciesFilter) return false;
+      if (categoryFilter !== 'todos' && p.legalCategory !== categoryFilter) return false;
+      if (tierFilter !== 'todos') {
+        const t = p.classificationTier;
+        if (tierFilter === 'NIVEL_OURO' && t !== 'NIVEL_OURO' && t !== 'SUPER_PREMIUM') return false;
+        if (tierFilter === 'NIVEL_PRATA' && t !== 'NIVEL_PRATA' && t !== 'PREMIUM_ESPECIAL') return false;
+        if (tierFilter === 'NIVEL_BRONZE' && t !== 'NIVEL_BRONZE' && t !== 'ECONOMICO') return false;
+        if (tierFilter === 'SOB_OBSERVACAO' && t !== 'SOB_OBSERVACAO' && t !== 'NAO_CONFORME' && t !== 'PARAMETRO_LIMITROFE') return false;
+      }
 
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      return (
-        p.commercialName.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        (p.sourceUrl && p.sourceUrl.toLowerCase().includes(q)) ||
-        (p.analyzedBatch && p.analyzedBatch.toLowerCase().includes(q))
-      );
-    }
+      if (search.trim()) {
+        const q = search.toLowerCase();
+        return (
+          p.commercialName.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q) ||
+          (p.sourceUrl && p.sourceUrl.toLowerCase().includes(q)) ||
+          (p.analyzedBatch && p.analyzedBatch.toLowerCase().includes(q))
+        );
+      }
 
-    return true;
-  });
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'visits_desc') {
+        return (b.views ?? 0) - (a.views ?? 0) || (b.visitors ?? 0) - (a.visitors ?? 0);
+      }
+      if (sortBy === 'visits_asc') {
+        return (a.views ?? 0) - (b.views ?? 0) || (a.visitors ?? 0) - (b.visitors ?? 0);
+      }
+      if (sortBy === 'score_desc') {
+        return (b.scoreTotal ?? -1) - (a.scoreTotal ?? -1);
+      }
+      if (sortBy === 'name_asc') {
+        return a.commercialName.localeCompare(b.commercialName, 'pt-BR');
+      }
+      return 0;
+    });
+
+  const handleToggleVisitsSort = () => {
+    setSortBy((prev) => (prev === 'visits_desc' ? 'visits_asc' : 'visits_desc'));
+  };
 
   return (
     <div style={{ padding: '32px 0 64px 0' }}>
@@ -230,7 +310,77 @@ export default function AdminProductsPage() {
               <option value="NIVEL_BRONZE">Nível Bronze (60 a 74)</option>
               <option value="SOB_OBSERVACAO">Sob Observação (&lt; 60)</option>
             </select>
+
+            <select
+              value={period}
+              onChange={(e) => setPeriod(e.target.value as AnalyticsPeriod)}
+              aria-label="Período das visitas no Umami"
+              style={{
+                padding: '9px 12px',
+                borderRadius: 'var(--radius-xs)',
+                border: '1.5px solid var(--border-cream)',
+                fontSize: '0.85rem',
+                backgroundColor: '#ffffff',
+              }}
+            >
+              <option value="7d">Umami: Últimos 7 dias</option>
+              <option value="30d">Umami: Últimos 30 dias</option>
+              <option value="90d">Umami: Últimos 90 dias</option>
+              <option value="all">Umami: Todo o período</option>
+            </select>
+
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              aria-label="Ordenar produtos"
+              style={{
+                padding: '9px 12px',
+                borderRadius: 'var(--radius-xs)',
+                border: '1.5px solid var(--border-cream)',
+                fontSize: '0.85rem',
+                backgroundColor: '#ffffff',
+                fontWeight: sortBy.startsWith('visits_') ? 700 : 400,
+              }}
+            >
+              <option value="recent">Ordenar: Mais recentes</option>
+              <option value="visits_desc">Ordenar: Mais visitados (Umami)</option>
+              <option value="visits_asc">Ordenar: Menos visitados (Umami)</option>
+              <option value="score_desc">Ordenar: Maior pontuação</option>
+              <option value="name_asc">Ordenar: Nome (A–Z)</option>
+            </select>
           </div>
+        </div>
+
+        {/* Barra de resumo de telemetria */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '8px',
+            marginBottom: '12px',
+            fontSize: '0.82rem',
+            color: 'var(--text-muted)',
+          }}
+        >
+          <span>
+            Exibindo <strong>{filteredProducts.length}</strong> de {products.length} produtos
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <Eye size={14} />
+            {analytics.available ? (
+              <>
+                Umami ({PERIOD_LABELS[period]}):{' '}
+                <strong style={{ color: 'var(--brand-forest-900)' }}>
+                  {analytics.totalViews.toLocaleString('pt-BR')} visitas
+                </strong>{' '}
+                em fichas de produtos
+              </>
+            ) : (
+              <span>Dados do Umami indisponíveis neste ambiente</span>
+            )}
+          </span>
         </div>
 
         {/* Tabela de Produtos */}
@@ -238,7 +388,7 @@ export default function AdminProductsPage() {
           {loading ? (
             <div style={{ padding: '60px', textAlign: 'center', color: 'var(--text-muted)' }}>
               <Loader2 size={32} className="animate-spin" style={{ margin: '0 auto 12px' }} />
-              <span>Carregando catálogo de produtos e laudos...</span>
+              <span>Carregando catálogo de produtos e métricas...</span>
             </div>
           ) : (
             <table className="table-nutri">
@@ -246,6 +396,29 @@ export default function AdminProductsPage() {
                 <tr>
                   <th>Score / Faixa</th>
                   <th>Produto & Marca</th>
+                  <th>
+                    <button
+                      type="button"
+                      onClick={handleToggleVisitsSort}
+                      title="Ordenar por número de visitas (Umami)"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        font: 'inherit',
+                        fontWeight: 700,
+                        color: sortBy.startsWith('visits_') ? 'var(--brand-forest-900)' : 'inherit',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <Eye size={13} />
+                      <span>Visitas ({PERIOD_LABELS[period]})</span>
+                      <ArrowUpDown size={12} />
+                    </button>
+                  </th>
                   <th>Classificação</th>
                   <th>Lote & Registro MAPA</th>
                   <th>Coleta / Curador</th>
@@ -298,6 +471,26 @@ export default function AdminProductsPage() {
                         <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                           {p.brand}
                         </span>
+                      </td>
+
+                      <td style={{ whiteSpace: 'nowrap', fontSize: '0.84rem' }}>
+                        {analytics.available ? (
+                          <div>
+                            <strong
+                              style={{
+                                color: (p.views ?? 0) > 0 ? 'var(--brand-forest-900)' : 'var(--text-muted)',
+                                fontSize: '0.92rem',
+                              }}
+                            >
+                              {(p.views ?? 0).toLocaleString('pt-BR')}
+                            </strong>
+                            <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+                              {(p.visitors ?? 0).toLocaleString('pt-BR')} únicos
+                            </div>
+                          </div>
+                        ) : (
+                          <span style={{ color: 'var(--text-muted)' }}>—</span>
+                        )}
                       </td>
 
                       <td style={{ fontSize: '0.82rem' }}>
@@ -390,7 +583,7 @@ export default function AdminProductsPage() {
 
                 {filteredProducts.length === 0 && (
                   <tr>
-                    <td colSpan={6} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
+                    <td colSpan={7} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
                       Nenhum produto encontrado com os filtros selecionados.
                     </td>
                   </tr>

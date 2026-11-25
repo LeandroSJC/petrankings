@@ -6,9 +6,12 @@ import {
   Plus,
   Clock,
   PawPrint,
+  Eye,
+  ExternalLink,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { getTopVisitedProducts } from '@/lib/services/product-analytics';
 
 export default async function AdminDashboardPage() {
   const session = await getSession();
@@ -28,6 +31,7 @@ export default async function AdminDashboardPage() {
     unreadMessagesCount,
     recentProducts,
     urgentTickets,
+    topVisited,
   ] = await Promise.all([
     prisma.product.count(),
     prisma.product.count({ where: { classificationTier: { in: ['NIVEL_OURO', 'SUPER_PREMIUM'] } } }),
@@ -66,6 +70,7 @@ export default async function AdminDashboardPage() {
         createdAt: true,
       },
     }),
+    getTopVisitedProducts('30d', 6),
   ]);
 
   return (
@@ -321,6 +326,119 @@ export default async function AdminDashboardPage() {
             )}
           </section>
         </div>
+
+        {/* Ranking de Produtos Mais Visitados (Umami Analytics) */}
+        <section
+          style={{
+            marginTop: '24px',
+            backgroundColor: '#ffffff',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border-cream)',
+            padding: '24px',
+            boxShadow: 'var(--shadow-xs)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 800, color: 'var(--brand-forest-900)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Eye size={18} />
+                <span>Produtos Mais Visitados (últimos 30 dias)</span>
+              </h2>
+              <p style={{ fontSize: '0.80rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                {topVisited.available
+                  ? `${topVisited.totalViews.toLocaleString('pt-BR')} visitas totais em fichas de produtos registradas no Umami.`
+                  : 'Integração direta com o Umami ativa automaticamente no ambiente de produção.'}
+              </p>
+            </div>
+            <Link
+              href="/admin/produtos?sort=visits_desc"
+              style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--brand-forest-700)', textDecoration: 'none' }}
+            >
+              Ver ranking completo →
+            </Link>
+          </div>
+
+          {topVisited.items.length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {topVisited.items.map((p, index) => (
+                <div
+                  key={p.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '12px',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-xs)',
+                    backgroundColor: 'var(--bg-cream-main)',
+                    border: '1px solid var(--border-cream-light)',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
+                    <span
+                      style={{
+                        width: '28px',
+                        height: '28px',
+                        borderRadius: '999px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '0.78rem',
+                        fontWeight: 800,
+                        flexShrink: 0,
+                        backgroundColor: index < 3 ? 'var(--brand-forest-900)' : '#e2e8f0',
+                        color: index < 3 ? '#ffffff' : '#334155',
+                      }}
+                    >
+                      #{index + 1}
+                    </span>
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                      <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {p.commercialName}
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                        {p.brand} • {p.species === 'CAO' ? 'Cão' : 'Gato'} • {p.scoreTotal !== null ? `${p.scoreTotal} pts` : 'Clínico'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--brand-forest-900)' }}>
+                        {p.views.toLocaleString('pt-BR')} visitas
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                        {p.visitors.toLocaleString('pt-BR')} únicos
+                      </div>
+                    </div>
+
+                    <Link
+                      href={`/admin/produtos/${p.id}/editar`}
+                      style={{ fontSize: '0.78rem', color: 'var(--brand-forest-700)', fontWeight: 700, textDecoration: 'none' }}
+                    >
+                      Editar
+                    </Link>
+
+                    <Link
+                      href={`/produto/${p.slug}`}
+                      target="_blank"
+                      title="Ver ficha pública"
+                      style={{ color: 'var(--text-muted)', display: 'inline-flex', alignItems: 'center' }}
+                    >
+                      <ExternalLink size={14} />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ padding: '24px 10px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              {topVisited.available
+                ? 'Nenhuma visita registrada em fichas de produtos nos últimos 30 dias.'
+                : 'Tabela de telemetria do Umami não disponível neste ambiente local.'}
+            </div>
+          )}
+        </section>
       </div>
     </div>
   );
