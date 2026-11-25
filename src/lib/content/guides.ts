@@ -10066,7 +10066,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/racao-a-granel-para-caes-proibicao-mapa-cdc-micotoxinas.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Comprar um ou dois quilos de ração pesada na hora em tambores plásticos ou pacotes abertos na loja de bairro parece uma saída prática para economizar. Analisamos o que determina a legislação federal do MAPA e o Código de Defesa do Consumidor sobre o fracionamento irregular, os novos limites obrigatórios de aflatoxinas da Portaria SDA/MAPA nº 1.412/2025 e os riscos invisíveis de oxidação e ácaros de estocagem para a saúde do cão.',
       relatedProductSlugs: [],
@@ -10225,6 +10225,168 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer comparar os níveis de garantia na Matéria Seca (MS), a qualidade dos conservantes naturais e a avaliação técnica das principais marcas registradas no Brasil? Acesse nosso catálogo.',
         buttonText: 'Explorar Catálogo de Rações para Cães',
         buttonUrl: '/catalogo?especie=Caes',
+      },
+    },
+    {
+      slug: 'graminha-para-gatos-por-que-comem-folhas-vomito-alerta',
+      title: 'Graminha para gatos: Por que eles comem folhas e quando o vômito é um alerta?',
+      subtitle:
+        'O que a pesquisa da UC Davis comprovou sobre o instinto felino de mastigar plantas, quais gramíneas são seguras no apartamento e os sinais de que o vômito deixou de ser normal.',
+      cluster: 'Petiscos & Enriquecimento',
+      speciesTarget: 'Gatos',
+      readingTimeMinutes: 7,
+      publishedAt: '2026-11-25',
+      updatedAt: '2026-11-25',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/graminha-para-gatos-por-que-comem-folhas-vomito-alerta.webp',
+      isFeatured: true,
+      summary:
+        'Ver um carnívoro estrito mastigando folhinhas verdes e, às vezes, vomitando logo em seguida intriga a maioria dos tutores. Explicamos por que gatos saudáveis buscam gramíneas por instinto evolutivo segundo a pesquisa da UC Davis, como a graminha de trigo ou aveia protege o felino contra plantas ornamentais tóxicas e quando a frequência de vômitos exige avaliação veterinária.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'instinto-evolutivo-pesquisa-uc-davis',
+          heading: '1. Se gatos são carnívoros estritos, por que eles comem grama?',
+          paragraphs: [
+            'Por décadas, circulou o mito popular de que cães e gatos só mastigam grama quando estão com dor de estômago ou precisando provocar vômito. Um dos maiores levantamentos comportamentais já feitos sobre o tema, conduzido por pesquisadores da Universidade da Califórnia (UC Davis) com mais de mil tutores de felinos, mostrou um cenário bem diferente.',
+            'No estudo publicado na revista científica Animals (Hart et al., 2021), 71% dos gatos domésticos foram observados comendo plantas com regularidade, mas 91% deles estavam completamente saudáveis e sem nenhum sinal prévio de enjoo antes de procurar as folhas.',
+            'A explicação está na biologia evolutiva. Felinos selvagens consomem pequenas quantidades de folhas fibrosas de forma inata para estimular o peristaltismo (os movimentos naturais do intestino), ajudando a empurrar pelos ingeridos na limpeza diária e resíduos indigestíveis para fora do organismo pelas fezes.',
+            'Como o organismo do gato não produz enzimas para digerir a celulose vegetal, as folhas verdes agem como uma fibra insolúvel mecânica fresca. Além de satisfazer o instinto de mastigação em apartamentos, a graminha fresca fornece umidade e traços naturais de ácido fólico (vitamina B9).',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'A maioria dos gatos não vomita depois de comer graminha',
+            text: 'No levantamento da UC Davis, apenas cerca de 27% dos gatos costumam vomitar com frequência após ingerir folhas. Na grande maioria dos felinos, a fibra vegetal atravessa o trato digestivo normalmente e sai misturada às fezes sem causar nenhum desconforto gástrico.',
+          },
+        },
+        {
+          id: 'gramineas-seguras-vs-plantas-toxicas-apartamento',
+          heading: '2. Graminha segura vs plantas ornamentais: Como proteger o gato dentro de casa?',
+          paragraphs: [
+            'Em apartamentos e casas fechadas, oferecer um vasinho de graminha segura tem uma função preventiva vital: desviar a atenção do gato das plantas ornamentais decorativas, muitas das quais são altamente tóxicas ou até fatais para felinos.',
+            'As sementes mais seguras e indicadas para cultivar a chamada "grama de gato" são cereais jovens sem nenhum tratamento químico: trigo (Triticum aestivum), aveia (Avena sativa), cevada (Hordeum vulgare), alpiste (Phalaris canariensis) e brotos tenros de milho de pipoca.',
+            'Em contrapartida, plantas muito comuns em salas e varandas brasileiras representam risco grave. Lírios verdadeiros (gêneros Lilium e Hemerocallis) são extremamente tóxicos para os rins dos gatos: basta o animal morder uma pétala, lamber o pólen que caiu no pelo ou beber a água do vaso para desenvolver insuficiência renal aguda em 24 a 72 horas.',
+            'Outras espécies populares, como comigo-ninguém-pode, jiboia, costela-de-adão e copo-de-leite, contêm cristais microscópicos de oxalato de cálcio insolúvel que ferem a língua e a garganta ao serem mastigadas, provocando dor intensa, salivação espessa e inchaço.',
+          ],
+          table: {
+            caption:
+              'Guia rápido de segurança botânica para lares com gatos (Base: ASPCA Animal Poison Control e Diretrizes ISFM)',
+            headers: [
+              'Espécie / Planta',
+              'Nível de Segurança',
+              'Efeito no Organismo do Gato',
+              'Recomendação Prática',
+            ],
+            rows: [
+              [
+                'Trigo, Aveia, Cevada e Alpiste (brotos jovens)',
+                'Segura (atóxica)',
+                'Fibra insolúvel fresca, enriquecimento sensorial e apoio ao trânsito fecal',
+                'Cultivar sem adubos químicos e servir com 8 a 12 cm de altura',
+              ],
+              [
+                'Lírios (Lilium spp. e Hemerocallis spp.)',
+                'Fatal (emergência máxima)',
+                'Lesão renal aguda severa mesmo com mínimo contato com pólen ou água do vaso',
+                'Proibida em qualquer ambiente frequentado por gatos',
+              ],
+              [
+                'Jiboia, Costela-de-Adão e Comigo-ninguém-pode',
+                'Tóxica (irritante oral)',
+                'Cristais de oxalato causam queimadura na boca, salivação intensa e vômitos',
+                'Manter fora do alcance total ou substituir por espécies seguras',
+              ],
+              [
+                'Espada-de-São-Jorge e Azaleia',
+                'Tóxica (gastrointestinal / sistêmica)',
+                'Náusea, vômitos, diarreia e alterações cardíacas/neurológicas (azaleia)',
+                'Evitar em apartamentos com felinos curiosos',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'quando-o-vomito-deixa-de-ser-normal',
+          heading: '3. Quando o vômito com graminha deixa de ser normal e vira sinal de alerta?',
+          paragraphs: [
+            'Um dos erros mais frequentes na rotina com felinos é achar normal que o gato vomite líquido claro, espuma branca ou bolas de pelo com folhas toda semana. Segundo as diretrizes da Sociedade Internacional de Medicina Felina (ISFM), vômitos recorrentes (mais de uma ou duas vezes por mês) merecem investigação clínica.',
+            'Quando o gato passa a devorar grandes tufos de grama compulsivamente todos os dias e vomita logo em seguida, esse comportamento pode ser um sinal de gastrite crônica, doença inflamatória intestinal (DII), hipersensibilidade alimentar ou excesso de pelos retidos no estômago por falta de escovação.',
+            'Outro risco mecânico pouco conhecido ocorre quando a graminha cresce demais e fica comprida e dura: durante o reflexo de vômito, uma folha longa pode deslizar para trás do palato mole e ficar presa na região entre a garganta e o nariz (nasofaringe).',
+            'Se após comer folhas o seu gato começar a espirrar sem parar, fazer barulhos de engasgo seco (como se tentasse limpar a garganta) ou apresentar secreção em apenas uma das narinas, leve-o ao médico veterinário para examinar a garganta com segurança.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Graminha não substitui a ração completa nem a escovação',
+            text: 'Embora a graminha traga benefícios de enriquecimento ambiental e fibra fresca, ela não possui premix de vitaminas nem substitui o controle de bolas de pelo feito pela escovação frequente e por alimentos completos balanceados segundo as normas do MAPA (IN nº 30/2009) e da ABINPET.',
+          },
+        },
+        {
+          id: 'como-plantar-e-oferecer-com-seguranca',
+          heading: '4. Como cultivar e oferecer a graminha sem risco de mofo ou agrotóxicos?',
+          paragraphs: [
+            'Para oferecer a graminha de forma segura em casa, compre sementes de trigo, aveia ou kits prontos específicos para pets (livres de fungicidas usados em sementes agrícolas de lavoura) e plante em um vasinho raso e pesado que não tombe quando o gato puxar as folhas.',
+            'Utilize apenas terra vegetal limpa ou fibra de coco umedecida, mantendo distância total de fertilizantes químicos (NPK), adubos orgânicos com farinha de osso ou pesticidas domésticos. Regue com borrifador sem encharcar o fundo para evitar o aparecimento de mofo branco na superfície da terra.',
+            'O ponto ideal para liberar o vasinho ao gato ocorre quando os brotos atingem entre 8 e 12 centímetros de altura, ainda bem macios e suculentos. Deixe o acesso controlado durante 10 a 15 minutos por dia caso o seu gato seja muito afoito e tente devorar o vaso inteiro de uma vez.',
+            'Assim que as pontas das folhas começarem a amarelar, ressecar ou ficarem fibrosas demais (geralmente após 10 a 15 dias da germinação), descarte o vaso antigo e inicie um novo plantio para manter o alimento fresco e seguro para o esôfago do felino.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: 'Posso dar grama colhida da rua ou do jardim do condomínio para o meu gato?',
+          a: 'Nunca ofereça grama de ruas, praças ou jardins coletivos. Essas áreas costumam receber herbicidas, venenos contra formigas e carrapatos, além de poderem conter ovos de vermes (como Toxocara e Ancylostoma) e bactérias provenientes das fezes de outros animais. Cultive sempre em vasinho próprio dentro de casa.',
+        },
+        {
+          q: 'Filhotes de gato podem comer graminha de trigo ou aveia?',
+          a: 'Sim, filhotes acima de 3 meses já desmamados podem cheirar e mastigar pequenas pontinhas de graminha macia sob supervisão. O contato precoce ajuda a direcionar a curiosidade do filhote para uma planta segura e evita que ele crie o hábito de morder plantas ornamentais da casa.',
+        },
+        {
+          q: 'Qual é a diferença entre graminha de gato e Catnip (erva-do-gato)?',
+          a: 'São plantas com funções completamente diferentes. A graminha (trigo, aveia ou cevada) é um cereal macio consumido como fibra fresca para o trânsito intestinal e enriquecimento alimentar. Já o Catnip (Nepeta cataria) é uma erva aromática da família da hortelã que age pelo olfato liberando beta-endorfinas de bem-estar, sem função principal de fibra digestiva.',
+        },
+        {
+          q: 'O gato pode comer a terra do vasinho junto com a graminha?',
+          a: 'Alguns gatos tentam cavar ou lamber o substrato úmido. Para evitar a ingestão de terra, prefira cultivar a graminha em fibra de coco lavada, vermiculita grossa ou coloque pedrinhas de rio grandes (maiores que a boca do gato) cobrindo a superfície do vaso ao redor dos brotos.',
+        },
+      ],
+      conclusion:
+        'Oferecer graminha fresca de trigo, aveia ou cevada cultivada sem químicos dentro de casa atende a um instinto evolutivo comprovado pela ciência (UC Davis), fornece fibra vegetal macia para o trânsito intestinal e protege o felino contra o risco de mastigar plantas ornamentais tóxicas como lírios e comigo-ninguém-pode. Mantenha os brotos macios entre 8 e 12 centímetros, descarte o vaso assim que as folhas amarelarem e consulte o médico veterinário sempre que notar vômitos semanais recorrentes ou espirros persistentes após a ingestão.',
+      references: [
+        {
+          title: 'Characteristics of Plant Eating in Domestic Cats (Animals, 2021)',
+          institution: 'Hart, B. L. et al. / University of California, Davis (UC Davis)',
+          type: 'estudo',
+          url: 'https://www.mdpi.com/2076-2615/11/7/1853',
+          details: 'Estudo comportamental com mais de 1.000 tutores demonstrando que 71% dos gatos domésticos ingerem plantas, 91% não apresentam sinais prévios de enjoo e apenas 27% vomitam frequentemente após a ingestão',
+        },
+        {
+          title: 'ASPCA Animal Poison Control Center: Toxic and Non-Toxic Plants List for Cats',
+          institution: 'American Society for the Prevention of Cruelty to Animals (ASPCA)',
+          type: 'literatura',
+          url: 'https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list',
+          details: 'Classificação toxicológica oficial de gramíneas seguras (trigo, aveia, cevada) em contraste com plantas ornamentais letais (Lilium spp., Hemerocallis spp.) e irritantes por oxalato de cálcio (Dieffenbachia, Epipremnum)',
+        },
+        {
+          title: 'AAFP and ISFM Feline Environmental Needs Guidelines & Chronic Vomiting Alerts',
+          institution: 'International Society of Feline Medicine (ISFM) / American Association of Feline Practitioners (AAFP)',
+          type: 'literatura',
+          url: 'https://journals.sagepub.com/doi/10.1177/1098612X13477537',
+          details: 'Diretrizes clínicas internacionais sobre enriquecimento ambiental seguro para felinos domiciliados e critérios clínicos para diferenciar episódios isolados de vômito crônico patológico',
+        },
+        {
+          title: 'Instrução Normativa MAPA nº 30/2009 e Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Ministério da Agricultura e Pecuária (MAPA) / ABINPET',
+          type: 'regulamento',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Distinção normativa entre Alimentos Completos balanceados e itens complementares de enriquecimento vegetal para felinos domésticos',
+        },
+      ],
+      callToAction: {
+        title: 'Consulte o Catálogo Completo de Rações e Sachês para Gatos no PetRankings',
+        text: 'Quer complementar o enriquecimento ambiental do seu felino com alimentos completos de alta digestibilidade, fibras funcionais e controle mineral? Acesse nosso catálogo técnico.',
+        buttonText: 'Explorar Catálogo de Alimentos para Gatos',
+        buttonUrl: '/catalogo?especie=Gatos',
       },
     },
   ];
