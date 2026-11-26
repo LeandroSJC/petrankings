@@ -10240,7 +10240,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/graminha-para-gatos-por-que-comem-folhas-vomito-alerta.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Ver um carnívoro estrito mastigando folhinhas verdes e, às vezes, vomitando logo em seguida intriga a maioria dos tutores. Explicamos por que gatos saudáveis buscam gramíneas por instinto evolutivo segundo a pesquisa da UC Davis, como a graminha de trigo ou aveia protege o felino contra plantas ornamentais tóxicas e quando a frequência de vômitos exige avaliação veterinária.',
       relatedProductSlugs: [],
@@ -10387,6 +10387,168 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer complementar o enriquecimento ambiental do seu felino com alimentos completos de alta digestibilidade, fibras funcionais e controle mineral? Acesse nosso catálogo técnico.',
         buttonText: 'Explorar Catálogo de Alimentos para Gatos',
         buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+    {
+      slug: 'cachorro-que-come-rapido-demais-manejo-torcao-gastrica',
+      title: 'Cachorro que come rápido demais: Como o manejo previne a torção gástrica?',
+      subtitle:
+        'Os fatores de risco comprovados pela Universidade de Purdue (JAVMA), por que o comedouro elevado pode piorar o quadro em raças grandes e o protocolo prático de 4 passos.',
+      cluster: 'Manejo & Rotina Alimentar',
+      speciesTarget: 'Cães',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-26',
+      updatedAt: '2026-11-26',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/cachorro-que-come-rapido-demais-manejo-torcao-gastrica.webp',
+      isFeatured: true,
+      summary:
+        'Ver o cão devorar toda a vasilha de ração em menos de 40 segundos, engasgar ou regurgitar grãos inteiros costuma ser encarado apenas como gula. Explicamos como a ingestão voraz e a aerofagia desencadeiam a Dilatação-Torção Vólvulo Gástrica (DTVG), o que o clássico estudo da Universidade de Purdue comprovou sobre comedouros elevados e como os comedouros lentos e o fracionamento protegem o estômago do seu cão.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'aerofagia-regurgitacao-e-fisiopatologia-dtvg',
+          heading: '1. Por que engolir ração em 30 segundos é perigoso? Da aerofagia à torção gástrica',
+          paragraphs: [
+            'Em muitas casas, o tutor mal termina de despejar a ração no comedouro e o cão já limpou a tigela inteira em menos de 40 segundos, quase sem mastigar. Logo em seguida, o animal arrota, tosse ou coloca para fora um montinho de croquetes praticamente inteiros.',
+            'Quando o cão come nessa velocidade, ele engole grandes volumes de ar junto com o alimento (um fenômeno chamado aerofagia). Nos cães pequenos, isso costuma resultar em gases, soluços e regurgitação logo após a refeição.',
+            'Nos cães de porte médio, grande e gigante, especialmente aqueles com tórax profundo e estreito (como Pastor Alemão, Dogue Alemão, Weimaraner, Boxer, Dobermann, Setter Irlandês e São Bernardo), a combinação de estômago lotado de comida, água e ar pode desencadear uma das emergências mais graves da medicina veterinária: a Dilatação-Torção Vólvulo Gástrica (DTVG).',
+            'Nesse quadro, o estômago primeiro dilata como um balão cheio de gás e, pelo peso do conteúdo, gira sobre o próprio eixo. A torção fecha tanto a entrada quanto a saída do estômago e comprime veias vitais do abdômen, interrompendo o retorno de sangue ao coração e exigindo cirurgia imediata em questão de horas.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Sinais de emergência máxima: Quando correr para o hospital 24h',
+            text: 'Os sinais clássicos da torção gástrica são tentativas repetidas e improdutivas de vomitar (ânsia seca saindo apenas espuma branca), barriga subitamente inchada e dura atrás das costelas, salivação intensa, inquietação e gengivas pálidas. Diante desses sintomas, leve o cão imediatamente a um hospital veterinário de emergência sem tentar oferecer água ou remédios caseiros.',
+          },
+        },
+        {
+          id: 'estudo-purdue-javma-mito-comedouro-elevado',
+          heading: '2. O que a ciência comprovou: O mito do comedouro elevado em raças grandes',
+          paragraphs: [
+            'Durante anos, espalhou-se em pet shops a recomendação de colocar o pote de ração em suportes altos para prevenir a torção gástrica em cães grandes. Um dos maiores estudos epidemiológicos já realizados sobre o tema desmontou exatamente essa crença.',
+            'Pesquisadores da Universidade de Purdue, nos Estados Unidos (Glickman et al., publicado no Journal of the American Veterinary Medical Association - JAVMA), acompanharam mais de 1.600 cães de raças grandes e gigantes durante cinco anos para mapear os fatores de risco reais da DTVG.',
+            'O levantamento revelou que cães de grande porte alimentados em comedouros elevados apresentaram um risco cerca de 110% maior (mais que o dobro) de desenvolver torção gástrica em comparação aos que se alimentavam no nível do chão.',
+            'Além do suporte elevado, o estudo confirmou outros três gatilhos diretos: comer em alta velocidade, receber toda a ração do dia em uma única refeição volumosa e comer em estado de ansiedade ou competição com outros cães da casa.',
+          ],
+          table: {
+            caption:
+              'Fatores de risco vs estratégias protetivas contra a Dilatação-Torção Gástrica (Base: Glickman et al., JAVMA / Purdue University)',
+            headers: [
+              'Hábito de Manejo Alimentar',
+              'Efeito no Estômago do Cão',
+              'Conduta Preventiva Recomendada',
+            ],
+            rows: [
+              [
+                'Refeição única volumosa (1x ao dia)',
+                'Distensão mecânica máxima e fermentação prolongada',
+                'Fracionar a cota diária em 2 a 3 refeições menores',
+              ],
+              [
+                'Tigela lisa comum (ingestão em < 40 s)',
+                'Aerofagia intensa (engole muito ar) e regurgitação',
+                'Usar comedouro lento tipo labirinto (5 a 8 minutos de duração)',
+              ],
+              [
+                'Comedouro elevado em raças grandes sadias',
+                'Associado a maior risco de DTVG no estudo da Purdue',
+                'Servir no nível do chão (salvo prescrição para megaesôfago)',
+              ],
+              [
+                'Corrida ou passeio logo após comer',
+                'Agitamento mecânico do estômago pesado favorece a rotação',
+                'Respeitar janela de 60 minutos de repouso antes e após comer',
+              ],
+              [
+                'Alimentar cães competitivos lado a lado',
+                'Ansiedade de disputa acelera a velocidade de deglutição',
+                'Alimentar cada cão em cômodos ou áreas visuais separadas',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'comedouro-lento-labirinto-e-enriquecimento',
+          heading: '3. Comedouro lento e tapete de lamber: Como desacelerar a refeição na prática?',
+          paragraphs: [
+            'Para cães que engolem a ração sem mastigar, a ferramenta mais eficaz e acessível do dia a dia é o comedouro lento (também chamado de tigela labirinto ou puzzle feeder). Ele possui relevos internos arredondados que obrigam o cão a contornar os obstáculos com a língua e o focinho para alcançar cada grão.',
+            'Na prática, essa simples barreira física multiplica o tempo da refeição: um cão que limpava a tigela lisa em 35 segundos passa a levar entre 5 e 8 minutos para terminar a mesma porção, mastigando melhor os croquetes e engolindo muito menos ar.',
+            'Além de proteger o estômago, o esforço mental de procurar os grãos no labirinto funciona como enriquecimento cognitivo, reduzindo a ansiedade e deixando o cão mais satisfeito ao final da refeição.',
+            'Ao escolher o modelo, dê preferência a comedouros lentos de cerâmica esmaltada, aço inoxidável ou silicone de grau alimentar livres de BPA, com cantos arredondados que não machuquem a gengiva nem o focinho (especialmente importante para raças braquicefálicas de focinho curto, como Buldogue Francês e Pug, que exigem labirintos bem rasos).',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Teste caseiro gratuito antes de comprar o comedouro lento',
+            text: 'Se você quiser testar o efeito hoje mesmo, espalhe a porção de ração seca em uma assadeira grande e limpa (ou sobre um tapete higiênico de tecido dobrado em ondas) para que o cão precise pegar um grão de cada vez. Outra opção simples é colocar uma tigelinha menor virada de cabeça para baixo no centro de um prato largo, criando um anel que impede abocanhadas grandes.',
+          },
+        },
+        {
+          id: 'fracionamento-hidratacao-e-repouso-pos-prandial',
+          heading: '4. Protocolo completo de 4 passos: Fracionamento, água e repouso pós-refeição',
+          paragraphs: [
+            'Desacelerar o comedouro é o primeiro passo, mas a proteção real do estômago depende de uma rotina previsível ao redor do horário da comida. A primeira medida é nunca concentrar a dose inteira do dia em uma única refeição: divida o total diário em pelo menos duas porções (manhã e noite), ou três porções para cães gigantes acima de 35 kg.',
+            'A segunda medida é controlar a ansiedade ambiental. Se você tem mais de um cão em casa, alimente cada animal em um cômodo diferente ou com uma porta entre eles. Muitos cães só comem depressa porque temem que o companheiro termine antes e venha roubar sua tigela.',
+            'A terceira medida é respeitar rigorosamente o repouso pós-prandial: evite passeios agitados, corridas atrás de bolinha ou brincadeiras de rolar no chão por pelo menos 60 minutos antes e 60 minutos depois das refeições.',
+            'Por fim, ofereça água fresca à vontade durante todo o dia, mas evite que o cão chegue ofegante de uma corrida no parque e beba meio litro de água de uma vez imediatamente antes de comer ração seca. Aguarde 15 a 20 minutos até a respiração normalizar antes de liberar o comedouro.',
+          ],
+        },
+      ],
+      faq: [
+        {
+          q: 'Hidratar a ração seca com água morna ajuda ou aumenta o risco de torção gástrica?',
+          a: 'Umedecer os croquetes com um pouco de água morna antes de servir pode ajudar cães que engasgam com grãos secos e facilita a mastigação. Porém, no estudo da Universidade de Purdue, rações que continham ácido cítrico como conservante e eram deixadas de molho por muito tempo apresentaram maior formação de gás em cães predispostos; por isso, se for umedecer, use pequena quantidade de água e sirva imediatamente, sem deixar a ração fermentando na tigela.',
+        },
+        {
+          q: 'Cães de porte pequeno também podem ter torção gástrica?',
+          a: 'Embora a DTVG seja muito mais frequente em raças grandes e gigantes de peito profundo, casos isolados podem ocorrer em cães médios e pequenos (como Dachshunds e Basset Hounds). Além disso, em qualquer porte, comer rápido demais provoca engasgos, gastrite por aerofagia e vômitos frequentes, fazendo do comedouro lento um ótimo aliado para todos os tamanhos.',
+        },
+        {
+          q: 'Quando o comedouro elevado é realmente indicado pelo veterinário?',
+          a: 'O comedouro elevado tem indicação médica específica em casos de megaesôfago (quando o esôfago perde a força de empurrar o alimento e depende da gravidade) ou em cães idosos com artrose cervical grave sob acompanhamento veterinário. Para cães grandes saudáveis sem essas condições, a literatura epidemiológica recomenda manter o pote no chão.',
+        },
+        {
+          q: 'O tamanho do grão (croquete) da ração influencia na velocidade com que o cão come?',
+          a: 'Sim. Dar ração de grãos minúsculos (formulada para raças pequenas) a um cão de porte médio ou grande incentiva que ele aspire a comida sem mastigar. Escolher uma fórmula com croquete compatível com a mandíbula do animal (Raças Médias ou Raças Grandes) obriga o cão a quebrar o grão com os dentes molares antes de engolir.',
+        },
+      ],
+      conclusion:
+        'Comer rápido demais expõe o cão a engasgos, regurgitação por aerofagia e, nas raças médias, grandes e gigantes de peito profundo, aumenta o risco da Dilatação-Torção Vólvulo Gástrica (DTVG). Com base nas evidências epidemiológicas da Universidade de Purdue (JAVMA), a prevenção eficaz combina quatro ajustes simples na rotina: dividir a dose diária em 2 a 3 refeições, usar comedouros lentos tipo labirinto, manter o prato no nível do chão para cães grandes sadios (em ambiente calmo sem disputa) e respeitar 60 minutos de repouso antes e depois de comer.',
+      references: [
+        {
+          title: 'Non-dietary risk factors for gastric dilatation-volvulus in large and giant breed dogs (JAVMA, 2000)',
+          institution: 'Glickman, L. T. et al. / Purdue University (Journal of the American Veterinary Medical Association)',
+          type: 'estudo',
+          url: 'https://pubmed.ncbi.nlm.nih.gov/11128539/',
+          details: 'Estudo prospectivo de 5 anos com 1.637 cães demonstrando associação estatística entre velocidade elevada de ingestão, refeição única diária, uso de comedouros elevados (+110% de risco em raças grandes) e a incidência de DTVG',
+        },
+        {
+          title: 'Dietary risk factors for gastric dilatation-volvulus in dogs (JAVMA / Purdue Canine Bloat Study)',
+          institution: 'Raghavan, M., Glickman, N. & Glickman, L. T. / Purdue University',
+          type: 'estudo',
+          url: 'https://pubmed.ncbi.nlm.nih.gov/16536368/',
+          details: 'Análise dos fatores dietéticos e de manejo alimentar (volume da porção, tamanho do croquete, velocidade de deglutição e hidratação prévia) na prevenção da dilatação-torção gástrica canina',
+        },
+        {
+          title: 'WSAVA Global Nutrition Guidelines: Feeding Management & Environmental Enrichment',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Diretrizes clínicas sobre fracionamento de refeições, redução de competição alimentar em lares com múltiplos cães e uso de comedouros interativos para controle da velocidade de ingestão',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Adaptação morfológica do tamanho do croquete ao porte canino e boas práticas de manejo alimentar diário',
+        },
+      ],
+      callToAction: {
+        title: 'Encontre Rações com Croquete Ideal para o Porte do Seu Cão no PetRankings',
+        text: 'Quer comparar fórmulas específicas para Raças Médias, Grandes e Gigantes com avaliação nutricional completa na Matéria Seca (MS) e suporte articular? Acesse nosso catálogo técnico.',
+        buttonText: 'Explorar Catálogo de Rações para Cães',
+        buttonUrl: '/catalogo?especie=Caes',
       },
     },
   ];
