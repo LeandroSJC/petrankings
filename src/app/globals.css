@@ -72,7 +72,7 @@
   /* Tipografia Editorial Nítida */
   --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: var(--font-plus-jakarta), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: var(--font-outfit), 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --font-display: var(--font-plus-jakarta), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-serif: var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif;
 
   /* Sombras Modernas, Naturais e Leves (Sem peso visual de template) */
@@ -2307,3 +2307,234 @@ h3 {
   to { opacity: 1; }
 }
 
+
+
+/* ==========================================================================
+   OTIMIZAÇÕES MOBILE-FIRST (CATÁLOGO -> COMPARADOR, STICKY & ERGONOMIA iOS)
+   ========================================================================== */
+
+/* Evita zoom automático do iOS Safari ao tocar em campos de busca/formulário */
+@media (max-width: 767px) {
+  input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Barra Flutuante de Comparação Rápida no Catálogo */
+.compare-floating-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: min(680px, calc(100vw - 24px));
+  z-index: 950;
+  background-color: var(--brand-forest-900);
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 10px 14px;
+}
+
+.compare-floating-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.compare-floating-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.compare-floating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: var(--radius-xs);
+  background-color: rgba(255, 255, 255, 0.14);
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.compare-floating-names {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.compare-floating-names::-webkit-scrollbar {
+  display: none;
+}
+
+.compare-floating-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.compare-floating-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.compare-floating-clear {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.compare-floating-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background-color: var(--brand-emerald-500, #10b981);
+  color: #ffffff;
+  font-size: 0.80rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .compare-floating-bar {
+    bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 10px;
+  }
+
+  .compare-floating-clear {
+    display: none;
+  }
+
+  .compare-floating-cta {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+}
+
+/* Carrossel Horizontal de Duelos Frequentes no Comparador */
+.comparator-presets-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  .comparator-presets-strip {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    padding-bottom: 4px;
+  }
+
+  .comparator-presets-strip::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Cabeçalho Fixo de Referência dos Produtos no Comparador */
+.comparator-sticky-bar {
+  position: sticky;
+  top: 64px;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-cream);
+}
+
+.comparator-sticky-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 6px 8px;
+  border-radius: var(--radius-xs);
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-cream);
+}
+
+.comparator-sticky-letter {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--brand-forest-700);
+  color: #ffffff;
+  font-size: 0.70rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.comparator-sticky-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.comparator-sticky-brand {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-forest-700);
+  line-height: 1.1;
+}
+
+.comparator-sticky-name {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comparator-sticky-score {
+  font-size: 0.76rem;
+  font-weight: 900;
+  color: var(--brand-forest-900);
+  background-color: #ffffff;
+  border: 1px solid var(--border-cream);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+}

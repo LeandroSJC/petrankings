@@ -1,170 +1,47 @@
 ---
 name: schema-org-structured-data-expert
 description: >-
-  Architects and implements schema.org JSON-LD structured data, Rich Snippets, Google Discover
-  optimization, and search engine SERP enhancements across PetRankings. Specializes in ItemList,
-  Product, AggregateRating, FAQPage, BreadcrumbList, and Organization schemas. Use this skill when
-  implementing or auditing JSON-LD markup, configuring structured data for ranking lists, fixing Google
-  Search Console schema warnings, or enhancing organic search CTR.
+  Architects and implements Schema.org JSON-LD structured data, Rich Snippets, and Google Discover
+  enhancements across PetRankings (/produto/[slug], /indice/[categoria], /guias/[slug], /coadjuvantes).
+  Specializes in Product, ItemList, Article/TechArticle, FAQPage, BreadcrumbList, and Organization schemas.
+  Use this skill when implementing or checking JSON-LD markup or fixing Search Console structured data warnings.
 ---
 
 # Schema.org Structured Data & Rich Snippets Expert
 
-This skill guides the design, generation, and validation of Schema.org JSON-LD structured data across the PetRankings platform, maximizing organic visibility and triggering Google Rich Results (stars, review counts, paged ranking carousels, FAQ accordions, and breadcrumbs).
+This skill governs Schema.org JSON-LD markup across **PetRankings**, strictly aligned with the current V5 routes and editorial policies (no fabricated store ratings or `AggregateRating`).
 
-## 1. Structured Data Blueprint by Page Type
+## 1. Structured Data Blueprint by Route
 
-### A. Ranking Pages (`/ranking/[slug]`)
-Ranking pages represent editorial curated lists. The primary schema must be an **`ItemList`** where each element is a **`Product`** with position metadata and aggregated reviews:
+### A. Product Dossier (`/produto/[slug]`)
+Emit `Product` + `BreadcrumbList`. Include `name` (canonical commercial name without `"Ração"` prefix), `brand`, `image`, `category`, `description`, and factual `additionalProperty` entries for guaranteed analysis (e.g., Proteína Bruta MS, Razão Ca:P, Conservantes).
+- **Important:** Do **not** fabricate `AggregateRating` or consumer review counts. If referencing the PetRankings technical score, model it explicitly as an editorial `Review` (`author: Organization PetRankings`, `reviewRating: { ratingValue, bestRating: 100, worstRating: 0 }`) and omit competitive rating on `ALIMENTO_COADJUVANTE`.
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Melhores Rações Secas para Cães Adultos",
-  "description": "Comparativo carinhoso e transparente das rações secas mais recomendadas para cães adultos...",
-  "numberOfItems": 10,
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "item": {
-        "@type": "Product",
-        "name": "Ração PremieR Formula Cães Adultos Frango",
-        "image": "https://petrankings.com.br/images/products/premier.jpg",
-        "description": "Alimento super premium completo e balanceado...",
-        "brand": {
-          "@type": "Brand",
-          "name": "PremieR Pet"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.85",
-          "bestRating": "5",
-          "worstRating": "1",
-          "ratingCount": "1420"
-        }
-      }
-    }
-  ]
-}
-```
+### B. Index & Category Pages (`/indice/[categoria]`, `/catalogo`)
+Emit `ItemList` with ordered `ListItem` entries (`position`, `url`, `name`) pointing to canonical `/produto/[slug]` URLs, plus `BreadcrumbList`.
 
-### B. Breadcrumb Schema (`BreadcrumbList`)
-Present on all internal ranking and institutional pages to structure search results URL hierarchy:
+### C. Studies & Technical Guides (`/guias/[slug]`)
+Emit `Article` (or `TechArticle`) + `BreadcrumbList`:
+- `headline`: Sentence Case bimember title (Invariante 12).
+- `author`: `{ "@type": "Organization", "name": "Equipe de Curadoria Técnica — PetRankings" }` (Invariante 10 — never invent individual authors).
+- `publisher`: `Organization` (`PetRankings`, logo URL, `https://petrankings.com.br`).
+- `datePublished` and `dateModified` in ISO 8601.
+- `image`: Absolute URL (`1200x630` cover image, `>= 1200px` wide for Google Discover eligibility).
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Início",
-      "item": "https://petrankings.com.br"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Cães",
-      "item": "https://petrankings.com.br/?species=caes"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Melhores Rações Secas para Cães Adultos",
-      "item": "https://petrankings.com.br/ranking/melhores-racoes-secas-para-caes-adultos"
-    }
-  ]
-}
-```
+### D. Institutional & FAQ Pages (`/`, `/sobre`)
+Emit `Organization` / `WebSite` (with `SearchAction` pointing to `/catalogo?q={search_term_string}`) and `FAQPage` strictly matching visible Q&A content on the page.
 
-### C. Home Page FAQ Accordion (`FAQPage`)
-Mirrors the interactive FAQ accordion on the home page so Google can render expandable Q&A directly in SERP:
+## 2. Implementation & Validation Rules
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Como o PetRankings calcula as notas de cada produto?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Nossa equipe pesquisa com carinho as avaliações reais deixadas por compradores nas 5 maiores lojas online do Brasil..."
-      }
-    }
-  ]
-}
-```
+- Always serialize JSON-LD safely (escape `</script>` or `<` as `\u003c`).
+- Every URL in JSON-LD must be absolute (`https://petrankings.com.br/...`) with no trailing slash inconsistency.
+- Never include properties that are not visibly represented on the rendered page (Google Spam Policy compliance).
+- Never use prohibited terms ("Auditoria", "Perícia") in JSON-LD `description` or `headline` fields.
 
-### D. Global Organization & Website (`Organization` & `WebSite`)
-Included on the root layout to establish brand authority and internal search actions:
+## 3. Verification Checklist
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "PetRankings",
-  "url": "https://petrankings.com.br",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://petrankings.com.br/?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-```
-
-## 2. Next.js Implementation Standard
-
-Inject schemas safely within React components via `<script type="application/ld+json">`:
-
-```tsx
-export default function RankingSchema({ ranking, products }: Props) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: ranking.title,
-    description: ranking.description,
-    numberOfItems: products.length,
-    itemListElement: products.map((prod, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'Product',
-        name: prod.title,
-        ...(prod.brand ? { brand: { '@type': 'Brand', name: prod.brand } } : {}),
-        ...(prod.imageUrl ? { image: prod.imageUrl } : {}),
-        ...(prod.averageRating
-          ? {
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: prod.averageRating.toFixed(2),
-                bestRating: '5',
-                worstRating: '1',
-                ratingCount: prod.stores.reduce((acc, s) => acc + (s.reviewCount || 1), 0),
-              },
-            }
-          : {}),
-      },
-    })),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
-```
-
-## 3. Schema Quality Checklist
-
-- [ ] All numeric ratings are formatted as strings with 2 decimal places (e.g. `"4.85"`).
-- [ ] `bestRating` is explicitly set to `"5"` and `worstRating` to `"1"`.
-- [ ] Empty/null fields are omitted from JSON-LD to prevent Google Rich Results test warnings.
-- [ ] Breadcrumb hierarchy strictly mirrors the URL routing structure.
-- [ ] Ranking `ItemList` items contain valid `ListItem` sequential positions starting at 1.
+- [ ] JSON-LD parses cleanly with zero syntax errors.
+- [ ] All URLs are absolute and match the page's `<link rel="canonical">`.
+- [ ] `Article` covers are `1200x630` for Google Discover eligibility.
+- [ ] No fabricated `AggregateRating`, `Offer` prices, or fictional individual authors.
+- [ ] Product names follow Invariante 13 (no `"Ração"` prefix, no weights).

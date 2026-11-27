@@ -224,23 +224,26 @@ export interface GuideReference {
 - **No Hallucinated Citations**: Never invent author names, paper titles or non-existent laws.
 - **End-of-Page Listing**: All references declared in `references` are automatically rendered in the public interface before the veterinary disclaimer, giving tutors full transparency to verify the facts independently.
 
-## 9. Breed & Visual Diversity Standards for Study Covers (Invariante 17)
+## 9. Cover Assets & Breed Diversity Standards (Invariante 17)
 
-When generating, selecting, or updating cover images for guides and bromatological studies:
-- **Mandatory Breed Diversity**: Strictly avoid repeating default AI breeds (Golden Retriever, Labrador, generic brown tabby cat).
-- **Proactive Rotation Across Brazilian Beloved Breeds**:
-  - *Dogs*: Border Collie, Beagle, Dachshund (Salsicha), Schnauzer, Spitz Alemão (Lulu), Corgi, Cocker Spaniel, German Shepherd, Boxer, and charismatic SRD (vira-lata caramelo/brasileiro).
-  - *Cats*: Siamese, Russian Blue, British Shorthair, Maine Coon, Tuxedo (Frajola), Ginger/Orange Tabby, and Persian.
-- **Visual Staging**: Photorealistic studio lighting, clean compositions, dogs and cats coexisting peacefully or interacting with kibble/bowls naturally.
-- **Dimensions & Format**: Strictly 1.91:1 (1200 × 630 px WebP), compressed with sharp to maintain page speed and Core Web Vitals.
+- **Cluster "Duelo de Marcas":** Cover MUST be generated via `scripts/gerar-capas-duelo.js` (isolated official packshots at 490px height, studio background `#ffffff -> #f8fafc -> #e2e8f0`, elliptical floor shadows, central `VS` badge, `1200 × 630 px`). Never use generic AI illustrations for brand duels.
+- **Zero Text in Images:** Strictly prohibit words, fake labels, engraved bowls, or logos inside generated cover photos (except the programmatic `VS` badge or technical charts with data axes).
+- **Mandatory Breed Diversity & 5-Post Non-Repetition Window:** Before generating any cover, inspect the last 5 covers of that species in `public/uploads/guias/` and `src/lib/content/guides.ts`. Never repeat the same breed/coat within 5 consecutive posts of the same species, and avoid default AI breeds (Golden Retriever, Labrador, generic brown tabby).
+  - *Dogs:* Border Collie, Beagle, Dachshund, Schnauzer, Spitz Alemão, Corgi, Cocker Spaniel, Pastor Alemão, Buldogue Francês, Poodle, Shih Tzu, Yorkshire Terrier, Boxer, Jack Russell Terrier, Husky Siberiano, SRD (vira-lata caramelo ou preto com peito branco).
+  - *Cats:* Siamês, Azul Russo, British Shorthair, Maine Coon, Frajola, Gato Laranja, Persa, Angorá, Bengal, Ragdoll, Sphynx, SRD tricolor/rajado.
+- **Dimensions & Format:** Strictly 1.91:1 (`1200 × 630 px` WebP), compressed with `sharp`.
 
-## 10. Mandatory Topic Novelty & Anti-Repetition Audit (Invariante 20)
+## 10. Pre-Publication Gatekeeper Checklist (Invariantes 18 & 20)
 
-Before proposing, outlining, or drafting any new article, study, brand duel, or guide for the user:
-- **Mandatory Pre-Proposal Audit**: The agent must inspect all existing published entries in `src/lib/content/guides.ts`.
-- **Zero Topic Duplication**: Never propose or author a study covering a topic, nutrient, ingredient dilemma, or angle that has already been published (e.g. joint supplements/glucosamine, sodium in cat diets, cost per serving calculations).
-- **Novelty Guarantee**: All candidate topics proposed to the user must be verified as completely unpublished in the project's historical archive.
-- **Exclusive Featured Status (`isFeatured: true`)**: Every newly published guide in `src/lib/content/guides.ts` must be set to `isFeatured: true`, while simultaneously changing the previously featured guide to `isFeatured: false` so that only the latest publication holds the featured spotlight.
+Before proposing or publishing any study/guide in `src/lib/content/guides.ts`, verify all 8 gates:
+1. **Ineditismo:** Checked against all existing entries in `src/lib/content/guides.ts` (zero topic/nutrient repetition).
+2. **Capa:** `scripts/gerar-capas-duelo.js` for duels; zero text in photos; 5-post breed rotation respected.
+3. **Anti-Slop & Humanizer:** Zero *not X but Y*, zero one-line closers, zero em-dashes (`—`), zero staged run-ups, zero industrial jargon (*"sacaria"*).
+4. **Humanização:** Opens from a real tutor dilemma; paragraphs max 2–4 lines.
+5. **Tradução Prática Imediata:** Every technical term translated into daily pet impact.
+6. **Fidelidade de Citações (`relatedProductSlugs`):** Only products explicitly analyzed in the text; if `[]`, zero `rotulagem` entries in `references`.
+7. **Fontes Primárias (`references`):** Authentic ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA, WALTHAM, and official HTML/SHA-256 custody sheets listed.
+8. **Destaque Exclusivo (`isFeatured: true`):** New guide set to `isFeatured: true` and previous featured guide updated to `isFeatured: false`.
 
 
 

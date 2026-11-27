@@ -3,7 +3,7 @@ name: pet-nutrition-evaluator
 description: >-
   Deterministic nutritional evaluation, bromatological calculations (Dry Matter / Matéria Seca MS conversion,
   Calcium-to-Phosphorus Ca:P ratio balancing, metabolizable energy estimation), ingredient order inspection
-  (IN MAPA 22/2009), additive classification (BHT/BHA vs natural tocopherols), and regulatory compliance audits
+  (IN MAPA 22/2009), additive classification (BHT/BHA vs natural tocopherols), and regulatory compliance checks
   based strictly on official manufacturer HTML labeling and the ABINPET 11th Edition Pet Food Manual.
 ---
 
@@ -35,6 +35,7 @@ Toda e qualquer pontuação, parâmetro ou análise deve estar ancorada nos atos
 A pontuação global de um produto (escala de 0 a 100) é determinada por um motor matemático objetivo, sem viés ou parecer subjetivo:
 
 ### Pilar 1: Adequação Nutricional em Matéria Seca — MS (35 Pontos)
+
 A água dilui as porcentagens dos nutrientes informadas nas embalagens. Para confrontar com a literatura científica, **é obrigatório converter todos os níveis de garantia para a base seca**:
 
 $$\text{Nutriente}_{\text{MS}} = \frac{\text{Nutriente}_{\text{MN}}}{100 - \text{Umidade}_{\text{máx}}} \times 100$$
@@ -48,6 +49,7 @@ $$\text{Nutriente}_{\text{MS}} = \frac{\text{Nutriente}_{\text{MN}}}{100 - \text
 * **Fibra Bruta (FB) e Matéria Mineral (Cinzas):** Monitoramento contra excesso de cinzas ósseas ($> 10\%$ MS acende alerta de subprodutos de baixa digestibilidade).
 
 ### Pilar 2: Balanço Mineral Cálcio : Fósforo — Ca:P (25 Pontos)
+
 Proporção crítica para a integridade esquelética, crescimento seguro de filhotes e proteção do trato urinário e renal de gatos:
 
 $$\text{Razão Ca:P} = \frac{\text{Cálcio (\% MS)}}{\text{Fósforo (\% MS)}}$$
@@ -60,12 +62,15 @@ $$\text{Razão Ca:P} = \frac{\text{Cálcio (\% MS)}}{\text{Fósforo (\% MS)}}$$
   * Conforme as diretrizes internacionais **FEDIAF (2025)** e **NRC (2006)**, alimentos úmidos completos com carnes e cartilagens naturais toleram teores de cálcio de até **3,00% em Matéria Seca** de forma fisiologicamente segura.
 
 ### Pilar 3: Nobreza dos Ingredientes — Ordem Decrescente (25 Pontos)
+
 Inspeção forense dos **primeiros 5 ingredientes declarados** (IN MAPA nº 22/2009):
+
 1. **Proteína Animal Nobre:** Bonifica produtos onde carnes frescas desossadas ou farinhas nobres (ex: *Farinha de Vísceras de Frango Low Ash*, *Salmão*, *Cordeiro*) encabeçam o 1º e 2º lugares da batelada.
 2. **Filtragem de Água em Úmidos:** Como caldo/água é veículo físico obrigatório de cocção e aparece em 1º lugar, o motor ignora a água inerte e pontua os dois primeiros ingredientes nutritivos reais.
 3. **Detecção do "Splitting de Grãos":** Alerta quando milho ou trigo são fracionados intencionalmente (*milho integral*, *glúten de milho*, *quirera de arroz*) para que a proteína animal aparente estar em 1º lugar.
 
 ### Pilar 4: Transparência, Conservantes e Atributos Funcionais (15 Pontos)
+
 * **Conservação 100% Natural (+5 pts):** Uso de tocoferóis mistos (vitamina E), extrato de alecrim e ácido cítrico.
 * **Eliminação de BHT e BHA (+5 pts):** Ausência total de antioxidantes sintéticos fenólicos.
 * **Livre de Transgênicos (+5 pts):** Ausência de milho e soja geneticamente modificados (sem o símbolo triangular "T" do Decreto nº 4.680/2003).

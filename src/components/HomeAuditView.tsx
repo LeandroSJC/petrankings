@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import {
   Stethoscope,
@@ -15,6 +16,7 @@ import {
   SlidersHorizontal,
   X,
   ArrowRight,
+  Scale,
 } from 'lucide-react';
 
 export interface ProductItemData {
@@ -33,7 +35,7 @@ export interface ProductItemData {
   sourceArchiveUrl?: string | null;
   sourceDocumentUrl?: string | null;
   analyzedBatch?: string | null;
-  labelCollectionDate: string | Date;
+  labelCollectionDate?: string | Date;
   frontLabelImageUrl?: string | null;
   backLabelImageUrl?: string | null;
   moistureMaxPct: number;
@@ -131,6 +133,24 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
 
   // Controle do Bottom Sheet Modal no Mobile (< 768px)
   const [mobileFilterSheetOpen, setMobileFilterSheetOpen] = useState<boolean>(false);
+
+  // Seleção rápida de até 3 produtos para comparação direta
+  const [compareItems, setCompareItems] = useState<Array<{ slug: string; commercialName: string; brand: string }>>([]);
+
+  const handleToggleCompare = (item: { slug: string; commercialName: string; brand: string }) => {
+    setCompareItems((prev) => {
+      const exists = prev.some((p) => p.slug === item.slug);
+      if (exists) return prev.filter((p) => p.slug !== item.slug);
+      if (prev.length >= 3) return prev;
+      return [...prev, item];
+    });
+  };
+
+  const compareHref = useMemo(() => {
+    const params = new URLSearchParams();
+    compareItems.forEach((item, idx) => params.set(`p${idx + 1}`, item.slug));
+    return `/comparar?${params.toString()}`;
+  }, [compareItems]);
 
   // Filtros Prescrição Veterinária
   const [selectedPrescriptionCondition, setSelectedPrescriptionCondition] = useState<string>('TODOS');
@@ -1837,6 +1857,9 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
               key={product.id}
               product={product}
               priority={index === 0}
+              isCompareSelected={compareItems.some((c) => c.slug === product.slug)}
+              compareDisabled={compareItems.length >= 3}
+              onToggleCompare={handleToggleCompare}
             />
           ))}
         </div>
@@ -1924,6 +1947,51 @@ export default function HomeAuditView({ initialProducts = [] }: HomeAuditViewPro
             </button>
           </nav>
         </div>
+      )}
+
+      {/* Barra Flutuante de Comparação Rápida (Ponte Catálogo -> Comparador) */}
+      {compareItems.length > 0 && (
+        <aside
+          aria-label="Produtos selecionados para comparação"
+          className="compare-floating-bar"
+        >
+          <div className="compare-floating-inner">
+            <div className="compare-floating-info">
+              <span className="compare-floating-badge">
+                <Scale size={14} aria-hidden="true" />
+                <span>{compareItems.length}/3</span>
+              </span>
+              <div className="compare-floating-names">
+                {compareItems.map((item) => (
+                  <button
+                    key={item.slug}
+                    type="button"
+                    onClick={() => handleToggleCompare(item)}
+                    className="compare-floating-chip"
+                    title={`Remover ${item.commercialName}`}
+                  >
+                    <span>{item.brand}</span>
+                    <X size={12} aria-hidden="true" />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="compare-floating-actions">
+              <button
+                type="button"
+                onClick={() => setCompareItems([])}
+                className="compare-floating-clear"
+                aria-label="Limpar seleção de comparação"
+              >
+                Limpar
+              </button>
+              <Link href={compareHref} className="compare-floating-cta">
+                <span>{compareItems.length >= 2 ? `Comparar (${compareItems.length})` : 'Abrir comparador'}</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        </aside>
       )}
     </div>
   );

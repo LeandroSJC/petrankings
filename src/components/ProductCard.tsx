@@ -37,7 +37,7 @@ export interface ProductCardProps {
     sourceArchiveUrl?: string | null;
     sourceDocumentUrl?: string | null;
     analyzedBatch?: string | null;
-    labelCollectionDate: string | Date;
+    labelCollectionDate?: string | Date;
     frontLabelImageUrl?: string | null;
     backLabelImageUrl?: string | null;
 
@@ -71,11 +71,17 @@ export interface ProductCardProps {
   };
   rankPosition?: number;
   priority?: boolean;
+  isCompareSelected?: boolean;
+  compareDisabled?: boolean;
+  onToggleCompare?: (item: { slug: string; commercialName: string; brand: string }) => void;
 }
 
 export default function ProductCard({
   product,
   priority = false,
+  isCompareSelected = false,
+  compareDisabled = false,
+  onToggleCompare,
 }: ProductCardProps) {
   // Parse dos ingredientes
   let parsedIngredients: string[] = [];
@@ -350,28 +356,64 @@ export default function ProductCard({
               <ArrowRight size={14} />
             </Link>
 
-            <Link
-              href={`/comparar?p1=${product.slug}`}
-              className="editorial-btn-secondary"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                padding: '8px 12px',
-                minHeight: '38px',
-                borderRadius: 'var(--radius-xs)',
-                backgroundColor: 'var(--bg-subtle)',
-                border: '1px solid var(--border-cream-dark)',
-                color: 'var(--brand-forest-900)',
-                fontSize: '0.80rem',
-                fontWeight: 600,
-                textDecoration: 'none',
-              }}
-            >
-              <Scale size={14} />
-              <span>Comparar</span>
-            </Link>
+            {onToggleCompare ? (
+              <button
+                type="button"
+                onClick={() =>
+                  onToggleCompare({
+                    slug: product.slug,
+                    commercialName: product.commercialName,
+                    brand: product.brand,
+                  })
+                }
+                disabled={compareDisabled && !isCompareSelected}
+                aria-pressed={isCompareSelected}
+                className="editorial-btn-secondary"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  padding: '8px 12px',
+                  minHeight: '38px',
+                  borderRadius: 'var(--radius-xs)',
+                  backgroundColor: isCompareSelected ? 'var(--brand-forest-50)' : 'var(--bg-subtle)',
+                  border: '1px solid',
+                  borderColor: isCompareSelected ? 'var(--brand-forest-600)' : 'var(--border-cream-dark)',
+                  color: isCompareSelected ? 'var(--brand-forest-700)' : 'var(--brand-forest-900)',
+                  fontSize: '0.80rem',
+                  fontWeight: isCompareSelected ? 700 : 600,
+                  cursor: compareDisabled && !isCompareSelected ? 'not-allowed' : 'pointer',
+                  opacity: compareDisabled && !isCompareSelected ? 0.5 : 1,
+                }}
+              >
+                {isCompareSelected ? <CheckCircle2 size={14} color="var(--brand-forest-600)" /> : <Scale size={14} />}
+                <span>{isCompareSelected ? 'Na comparação' : 'Comparar'}</span>
+              </button>
+            ) : (
+              <Link
+                href={`/comparar?p1=${product.slug}`}
+                className="editorial-btn-secondary"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  padding: '8px 12px',
+                  minHeight: '38px',
+                  borderRadius: 'var(--radius-xs)',
+                  backgroundColor: 'var(--bg-subtle)',
+                  border: '1px solid var(--border-cream-dark)',
+                  color: 'var(--brand-forest-900)',
+                  fontSize: '0.80rem',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                }}
+              >
+                <Scale size={14} />
+                <span>Comparar</span>
+              </Link>
+            )}
 
             {hasAffiliates && (
               <Link

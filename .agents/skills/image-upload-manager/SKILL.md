@@ -14,7 +14,7 @@ This skill guides the full lifecycle of product image uploads in PetRankings, fr
 
 ## 1. Accepted Formats & Storage Strategy
 
-* **Accepted Formats:** JPEG (`.jpg`, `.jpeg`), PNG (`.png`), WebP (`.webp`), AVIF (`.avif`), PDF (`.pdf` para fichas de custódia).
+* **Accepted Formats:** JPEG (`.jpg`, `.jpeg`), PNG (`.png`), WebP (`.webp`), AVIF (`.avif`). *(Custody evidence uses official HTML + SHA-256 per ADR 0001; PDF custody was eliminated.)*
 * **Maximum File Size:** **15 MB** (enforced in `src/app/api/upload/route.ts`).
 * **Storage Engine:** Local filesystem at `/public/uploads/` mounted persistently via Docker Volume (`./public/uploads:/app/public/uploads` e `./public/uploads:/var/www/uploads:ro` no Caddy).
 * **Serving:** Caddy acts as reverse proxy and static asset server, bridging Cloudflare directly to disk.

@@ -100,9 +100,30 @@ export default function ComparatorView({
     updateUrlWithSlugs([preset.p1, preset.p2]);
   };
 
-  const handleCopyLink = () => {
-    if (typeof window !== 'undefined') {
-      navigator.clipboard.writeText(window.location.href);
+  const handleCopyLink = async () => {
+    if (typeof window === 'undefined') return;
+    const shareUrl = window.location.href;
+    const shareTitle =
+      populatedProducts.length >= 2
+        ? `${populatedProducts.map((p) => p.commercialName).join(' vs ')} — PetRankings`
+        : 'Comparador Nutricional de Rações — PetRankings';
+
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: 'Veja o confronto nutricional em Matéria Seca (MS) no PetRankings:',
+          url: shareUrl,
+        });
+        return;
+      } catch (err: any) {
+        // Usuário cancelou o sheet nativo ou navegador bloqueou — faz fallback apenas se não for AbortError
+        if (err?.name === 'AbortError') return;
+      }
+    }
+
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(shareUrl);
       setCopiedToast(true);
       setTimeout(() => setCopiedToast(false), 2500);
     }
@@ -138,8 +159,8 @@ export default function ComparatorView({
           boxShadow: 'var(--shadow-xs)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+        <div className="comparator-presets-strip">
+          <span style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', flexShrink: 0 }}>
             Duelos Frequentes:
           </span>
           {popularPresets.map((preset) => (
@@ -150,7 +171,7 @@ export default function ComparatorView({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                padding: '4px 10px',
+                padding: '6px 12px',
                 borderRadius: 'var(--radius-full)',
                 backgroundColor: 'var(--bg-subtle)',
                 border: '1px solid var(--border-cream)',
@@ -159,6 +180,8 @@ export default function ComparatorView({
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
               }}
             >
               <span>{preset.species === 'CAO' ? '🐕' : '🐈'}</span>
@@ -659,6 +682,24 @@ export default function ComparatorView({
               Base: Manual ABINPET 11ª Edição & Rótulos Oficiais
             </span>
           </div>
+
+          {/* Barra Fixa de Referência dos Produtos durante a Rolagem */}
+          {populatedProducts.length >= 2 && (
+            <div className="comparator-sticky-bar" aria-label="Referência dos alimentos comparados">
+              {populatedProducts.map((p, idx) => (
+                <div key={`sticky-${p.id}`} className="comparator-sticky-item">
+                  <span className="comparator-sticky-letter">{String.fromCharCode(65 + idx)}</span>
+                  <div className="comparator-sticky-meta">
+                    <span className="comparator-sticky-brand">{p.brand}</span>
+                    <span className="comparator-sticky-name">{p.commercialName}</span>
+                  </div>
+                  {p.scoreTotal !== null && (
+                    <span className="comparator-sticky-score">{p.scoreTotal}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Container Responsivo da Tabela com Scroll Horizontal Suave e Indicador Móvel */}
           <div className="table-responsive-wrapper">

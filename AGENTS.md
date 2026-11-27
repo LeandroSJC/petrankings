@@ -1,164 +1,65 @@
 # PetRankings — Diretrizes de Engenharia e Orquestração de Agentes
 
-> Este documento estabelece as regras arquiteturais, convenções inegociáveis de código e a matriz de orquestração de skills para o desenvolvimento do **PetRankings**.
+> Regras arquiteturais, invariantes inegociáveis e matriz de skills do **PetRankings**.
 
 ---
 
-## 🛠️ 1. Stack Tecnológica e Versões Oficiais
+## 1. Stack Tecnológica Oficial
 
-* **Framework:** Next.js 15 (App Router, Server Components & Route Handlers)
-* **Linguagem & Runtime:** TypeScript 5.8, Node.js 20+
-* **Frontend Core:** React 19 (Server Functions, Server Actions, `useActionState`)
-* **Estilização:** **Vanilla CSS puro com Design Tokens (Variáveis CSS)**.
-  > ⚠️ **REGRA CRÍTICA:** **NÃO use Tailwind CSS.** O projeto utiliza variáveis CSS globais e classes semânticas. Nunca injete utilitários do Tailwind (`bg-slate-900`, `flex-col`, etc.).
-* **Banco de Dados & ORM:** PostgreSQL padronizado para todos os ambientes com **Prisma ORM 6.4**.
-* **Autenticação:** JWT stateless com `jose` (`HS256`), cookies `httpOnly`, `bcryptjs` (salt 10) e middleware em duas camadas.
-* **Ícones:** `lucide-react`.
+* **Framework & Runtime:** Next.js 15 (App Router), React 19, TypeScript 5.8, Node.js 20+.
+* **Estilização:** **Vanilla CSS puro com Design Tokens (Variáveis CSS).** **PROIBIDO usar Tailwind CSS.**
+* **Banco de Dados & ORM:** PostgreSQL 16 (Oracle Cloud VPS / Docker) com **Prisma ORM 6.4**.
+* **Autenticação:** Stealth Gatekeeper (`petrankings_admin_gate`) + Email OTP (`AdminOtp` via Resend) + JWT stateless (`jose` `HS256`, `petrankings_admin_token`, `httpOnly`) + `bcryptjs`.
+* **Ícones & Mídia:** `lucide-react`, `sharp`, Playwright/Cheerio (ingestão).
 
 ---
 
-## 📌 2. Invariantes Arquiteturais Inegociáveis
+## 2. Invariantes Arquiteturais Inegociáveis
 
-1. **APIs Assíncronas do Next.js 15:**
-   - Em componentes de página (`page.tsx`), layouts (`layout.tsx`) e Route Handlers (`route.ts`), as props `params` e `searchParams` são **Promises**.
-   - Sempre declare `{ params }: { params: Promise<{ id: string }> }` e faça `const { id } = await params;`.
-2. **Design Tokens & Identidade Visual:**
-   - Nunca utilize valores hexadecimais soltos nos componentes. Utilize os tokens de cores, sombras e raios definidos em CSS (`var(--color-primary)`, `var(--bg-surface)`, etc.).
-   - Mantenha alta densidade de dados e legibilidade nas tabelas comparativas de produtos e catálogos.
-3. **Páginas Dedicadas para CRUD Administrativo (Sem Modais):**
-   - Criação e edição de produtos e rankings devem residir em rotas dedicadas (`/admin/produtos/novo`, `/admin/produtos/[id]/editar`), com guardião `beforeunload` contra perda acidental de dados. Nunca use modais suspensos para formulários longos.
-4. **Cálculo Aritmético de Avaliações:**
-   - A nota média de um produto é a média aritmética simples das notas válidas (0.0 a 5.0) cadastradas manualmente nas lojas vinculadas.
-   - É estritamente proibido inventar avaliações falsas ou criar dados simulados.
-5. **Segurança e Proteção de Dados (AppSec & Stealth Gatekeeper):**
-   - **Camuflagem do Painel Administrativo:** As rotas `/admin`, `/admin/*` e `/api/auth/login` retornam estritamente 404 (Not Found) para qualquer acesso direto ou scanner. O acesso é destravado apenas através do Portão Secreto (`ADMIN_SECRET_GATE_PATH` com `ADMIN_GATE_KEY`), gerando o cookie assinado `petrankings_admin_gate`. Em produção, `ALLOW_ADMIN_IN_PRODUCTION="true"` atua como disjuntor mestre.
-   - Todas as mutações administrativas exigem verificação de JWT de sessão (`petrankings_admin_token`).
-   - Rotas públicas com formulários (contato) devem ter proteção tripla: campo invisível honeypot (`website_hp`), trava temporal mínima (2,5s) e rate limit por IP/e-mail.
-   - Nunca exponha variáveis confidenciais (`DATABASE_URL`, `JWT_SECRET`, `ADMIN_GATE_KEY`) com o prefixo `NEXT_PUBLIC_`.
-6. **Fidelidade Estrita à Ficha Técnica Oficial (HTML/Rotulagem) e Proibição Absoluta de Invenção de Dados:**
-   - Toda e qualquer informação cadastrada no sistema (níveis de garantia, ingredientes na ordem decrescente, conservantes, transgênicos e notas) deve seguir estrita e fielmente o conteúdo da **página oficial do produto (HTML/rotulagem do fabricante)**.
-   - O projeto eliminou a dependência de PDFs, padronizando a ingestão e custódia em HTML oficial com hash SHA-256.
-   - É terminantemente proibido inventar, simular, deduzir ou estimar dados não verificáveis.
-   - Se algo não for possível de ser verificado na documentação oficial com certeza probatória, a impossibilidade deve ser informada ao usuário/curador e o dado **não deve ser inventado**, permanecendo nulo ou não declarado.
-7. **Biblioteca Regulatória e Marco Normativo Oficial (`biblioteca_regulatoria/`):**
-   - A pasta `biblioteca_regulatoria/` é o repositório mestre de consulta obrigatória para qualquer questão relativa a limites nutricionais (Manual Pet Food Brasil - ABINPET 11ª Edição), atos regulatórios do MAPA (Decreto nº 12.031/2024, IN 30/2009, IN 22/2009), legislação de rotulagem e normas de defesa do consumidor (CDC - Lei nº 8.078/1990).
-   - Quaisquer novas regras, faixas de nutrientes ou parâmetros do motor de avaliação nutricional devem obrigatoriamente estar fundamentados nos documentos e legislações arquivados nesta biblioteca.
-8. **Proibição Estrita dos Termos "Auditoria" e "Perícia" / "Laudo Pericial":**
-   - É estritamente proibido o uso dos termos "Auditoria", "Perícia", "Laudo Pericial" ou de qualquer de seus derivados gramaticais ("auditar", "auditado", "pericial", "laudo pericial", "extrato auditável", "sistema de auditoria") em qualquer elemento visível de interface pública, institucional, administrativa, metadados ou parecer editorial (`editorialOpinion`).
-   - O PetRankings é um portal independente de jornalismo de dados e curadoria nutricional, não sendo órgão fiscalizador de Estado (MAPA) nem órgão judiciário pericial. Portanto, realiza **análise de rótulo**, **avaliação nutricional**, **confronto documental** e **avaliação técnica de conformidade** com base na literatura científica (ABINPET/MAPA).
-   - **Termos obrigatórios de substituição:** "Avaliação Técnica", "Análise de Rótulo", "Confronto Documental", "Dossiê Técnico", "Produtos Analisados", "Fichas Avaliadas", "Analisar Produto".
-9. **Fidelidade Estrita de Citações em Artigos, Estudos e Guias (Proibição de Produtos Aleatórios):**
-   - Nos artigos, estudos bromatológicos e guias técnicos (`/guias`), a seção **"Produtos analisados neste estudo"** destina-se estritamente aos produtos que tenham sido expressamente citados, analisados ou confrontados no corpo do texto da publicação.
-   - É terminantemente proibido vincular produtos aleatórios, preencher `relatedProductSlugs` por conveniência visual/estética ou associar itens que não façam parte do escopo editorial da matéria.
-   - Caso um estudo ou guia seja de natureza puramente didática, conceitual, metodológica ou regulatória (ex: explicação matemática de conversão para Matéria Seca ou panorama geral sobre aditivos e conservantes) sem menção formal a produtos específicos do banco de dados, o campo `relatedProductSlugs` deve ser obrigatoriamente um array vazio (`[]`), e a seção de produtos citados não deve ser renderizada.
-   - **Regra Mandatória para a Seção de Fontes (`references`):** Quando nenhum produto for citado no estudo (`relatedProductSlugs: []`), é expressamente proibido incluir referências do tipo `rotulagem` ("Ficha Oficial / Fabricante"). A bibliografia de publicações conceituais e didáticas deve limitar-se estritamente às fontes primárias normativas, regulatórias e científicas (`regulamento`, `literatura`, `estudo`). Fichas técnicas de fabricantes são reservadas exclusivamente para estudos e duelos que efetivamente analisem produtos concretos.
-10. **Assinatura e Autoria Institucional Padronizada em Estudos e Guias:**
-    - Todos os artigos, duelos, estudos bromatológicos e guias técnicos possuem autoria estritamente institucional, assinados compulsoriamente como **"Equipe de Curadoria Técnica"** (com papel *"Observatório PetRankings"*).
-    - É terminantemente proibido inventar autores individuais fictícios, pseudônimos médicos ou caricaturas acadêmicas (ex.: "Dr. Zootecnia"). O PetRankings opera como veículo coletivo e independente de jornalismo de dados e curadoria técnica.
-11. **Rigor Probatório e Tolerância Zero a Alucinações ou Informações Fictícias:**
-    - Na elaboração, revisão e manutenção de artigos, estudos bromatológicos, duelos comparativos e guias técnicos (`/guias`), é expressamente vedada qualquer alucinação, extrapolação hipotética ou invenção de dados e afirmações.
-    - **Fontes Primárias Obrigatórias:**
-      1. Níveis de garantia, ingredientes na ordem decrescente, conservantes e transgênicos devem originar-se estritamente das fichas técnicas oficiais dos fabricantes custodiadas em HTML com hash SHA-256 no banco de dados.
-      2. Padrões de exigência nutricional e tetos toxicológicos devem estar fundamentados na 11ª Edição do Manual Pet Food Brasil (ABINPET), FEDIAF e NRC arquivados na pasta `biblioteca_regulatoria/`.
-      3. Atos regulatórios e leis citados devem ser estritamente autênticos e vigentes (MAPA, Decretos Federais, CDC), sendo proibido inventar artigos de lei ou resoluções inexistentes.
-    - **Incerteza Probatória:** Se uma informação não for comprovável com certeza probatória nos documentos oficiais, ela jamais deve ser estimada ou simulada; o texto deve declarar expressamente a ausência da informação pelo fabricante ou omiti-la.
-    - **Seção Obrigatória de Fontes Oficiais & Bibliografia Técnica (`references`):**
-      - Toda e qualquer publicação, estudo ou guia em `/guias` deve conter compulsoriamente a lista de fontes reais, institucionais e regulatórias no campo `references`.
-      - Cada referência deve discriminar: título do documento, instituição/órgão emissor (MAPA, ABINPET, FEDIAF, WSAVA, WALTHAM, Fabricante), tipo de fonte (`regulamento`, `literatura`, `rotulagem`, `estudo`) e detalhamento de suporte (artigo de lei, tabela nutricional ou link oficial).
-      - É terminantemente vedado publicar estudos sem discriminar expressamente as fontes consultadas ao final da página.
-12. **Padrão Ortotipográfico e Visual para Títulos de Estudos e Guias (`/guias`):**
-    - Todos os títulos de artigos, estudos bromatológicos e guias técnicos devem adotar a **Fórmula Bimembre** (`[Gatilho de Busca / Objeto do Confronto] : [Dilema do Tutor + Ancoragem Técnica/Regulatória]`).
-    - **Capitalização Oficial (Sentence Case):** Seguir estritamente a norma culta da língua portuguesa (Sentence Case), com inicial maiúscula apenas na primeira palavra da oração e maiúscula após os dois-pontos (`:`). É expressamente proibido o *Title Case* em inglês (maiúscula em cada palavra solta).
-    - **Nomes Próprios, Marcas e Siglas:** Preservar a grafia comercial oficial das marcas (`PremieR Formula`, `GoldeN Formula`, `Purina Pro Plan`, `Farmina N&D`) e siglas em maiúsculas (`MAPA`, `ABINPET`, `WSAVA`, `FEDIAF`, `WALTHAM`, `CDC`, `OGM`, `CTNBio`, `BHT`, `BHA`, `MS`).
-    - **Aspas em Termos Literais:** Expressões literais de rotulagem ou claims regulatórios devem ser grafados entre aspas duplas retas (`"Com Carne"`, `"Sabor Carne"`, símbolo `"T"`).
-    - **Pontuação:** Perguntas diretas encerram obrigatoriamente com ponto de interrogação (`?`); frases declarativas nunca levam ponto final.
-    - **Extensão:** Entre 65 e 85 caracteres no total, com o gatilho primário (antes dos `:`) contendo até 45 caracteres para evitar truncamento em dispositivos móveis no Google Discover/SERP.
-13. **Padronização Taxonômica e Visual de Títulos (Produtos, Páginas e Seções):**
-    - **Títulos de Produtos (`commercialName`):** Seguem a fórmula canônica `[Marca Comercial] [Linha] [Espécie / Porte] [Fase de Vida / Especialidade] [Sabor / Claim Principal] [Formato se Úmido]`. É terminantemente proibido o uso da palavra genérica "Ração" no início de nomes comerciais, a inclusão de gramaturas/pesos (`15kg`, `85g`), símbolos de registro (`®`, `™`) ou duplicações da marca. Preservar o plural técnico (`Cães Adultos`, `Gatos Castrados`) e a acentuação oficial (`Raças Médias`, `Sênior`).
-    - **Títulos de Páginas (`<title>` e `<h1>`):**
-      - `<title>` (Navegador/SERP): Segue a estrutura de autoridade com separador padronizado (`[Assunto / Nome do Produto] — [Complemento / Análise de Rótulo] | PetRankings`).
-      - `<h1>` (Interface Visual): Sempre implementado no padrão "Hero Kit" em três camadas: Kicker/Eyebrow superior (`text-transform: uppercase`, `letter-spacing: 0.04em` a `0.06em`, `font-size: 0.72rem` com ícone Lucide temático), `<h1>` em fonte `var(--font-heading)` com peso 800, cor `var(--brand-forest-900)` em Sentence Case (ou Nome Comercial em produtos) e Lead/Subtítulo explicativo em fonte `0.90rem` a `1.0rem`.
-    - **Títulos de Seções Internas (`<h2>` e `<h3>`):**
-      - **Sentence Case Mandatório:** É expressamente proibido o uso de `<h2>` em caixa alta total (ALL CAPS). A caixa alta é restrita exclusivamente a kickers/badges de apoio com até 3 palavras.
-      - **Hierarquia Visual:** `font-weight: 800`, cor `var(--brand-forest-900)` (ou `#ffffff` em seções escuras), entrelinha compacta (`line-height: 1.25`).
-      - **Dossiê Técnico nas Fichas de Produto (`/produto/[slug]`):** As seções da ficha técnica adotam ordenação lógica e numeração técnica (`1. Custódia documental e evidência oficial`, `2. Extrato da avaliação nutricional (0 a 100)`, `3. Níveis de garantia: Matéria Natural (MN) vs. Matéria Seca (MS)`, `4. Composição básica e ingredientes declarados`, `5. Onde encontrar este produto`).
-14. **Paridade e Equilíbrio Editorial entre Espécies (Cães vs. Gatos):**
-    - A linha editorial do PetRankings deve manter paridade e alternância equilibrada entre conteúdos dedicados a cães e gatos na trilha de estudos, duelos e guias técnicos (`/guias`).
-    - Estudos com foco exclusivo em uma espécie devem ser alternados de modo a evitar sobrepeso de uma categoria sobre a outra (proporção equilibrada na esteira de publicações específicas, complementada por estudos transversais de metodologia bromatológica com foco "Cães e Gatos").
-    - Ao planejar novas pautas, o curador deve verificar a distribuição corrente de publicações específicas e priorizar a espécie com menor densidade de estudos exclusivos publicados.
-15. **Linguagem Ubíqua e Registros de Decisão Arquitetural (`GLOSSARY.md` e ADRs):**
-    - O projeto mantém um glossário canônico na raiz ([`GLOSSARY.md`](file:///d:/Projetos/PetRankings/GLOSSARY.md)) que estabelece a terminologia oficial (Bromatologia, MAPA, Segurança e Taxonomia) e lista termos mandatórios a serem evitados (`_Evitar_`).
-    - Decisões estruturais de alto impacto, de difícil reversão ou que demandem contexto histórico são registradas na pasta `.agents/adr/` no formato enxuto de ADR (Architecture Decision Record). Todo agente deve consultar o glossário e os ADRs pertinentes antes de propor alterações conceituais ou refatorações de arquitetura.
-16. **Humanização Textual, Empatia com o Tutor e Combate ao "AI Slop" (Filtros Humanizer / Wikipédia):**
-    - **Tom Conversacional e Empático:** O texto deve comunicar-se com clareza, empatia e calor humano, partindo da dúvida prática do tutor na prateleira ou no pet shop. O rigor técnico deve servir para empoderar o tutor, nunca para intimidá-lo com pedantismo ou linguagem burocrática estatal.
-    - **Combate Ativo ao "AI Slop" e Filtros Canônicos Anti-IA (Padrão Wikipédia / Humanizer):**
-      - **Sem contrastes falsos (*Not X but Y*):** É expressamente proibido o uso de fórmulas artificiais como *"Não é apenas uma ração, mas uma revolução"*, *"Não se trata de marketing, mas de respeito à biologia"*. Declare o fato de forma direta e objetiva.
-      - **Sem fechamentos dramáticos (*One-line closers*):** Proibido arrematar parágrafos com frases teatrais de efeito (*"E essa é a grande lição"*, *"Deixe isso assentar"*, *"Pense bem nisso na próxima compra"*). Deixe os dados e conclusões técnicas encerrarem o raciocínio.
-      - **Sem aberturas teatrais (*Staged run-up*):** Proibido iniciar seções com encenações de conversa (*"Vamos mergulhar a fundo nisso"*, *"A verdade seja dita:"*, *"Honestamente?"*, *"Aqui está o que você precisa saber:"*). Entre diretamente no ponto factual da análise.
-      - **Sem tríades forçadas (*Forced triads*):** Evite agrupar compulsoriamente qualidades em trios para soar poético (*"vitalidade, energia e bem-estar"*). Use benefícios zootécnicos comprovados pela fórmula.
-      - **Sem debate com ninguém (*Arguing with no one*):** Não gaste linhas se defendendo de objeções ou acusando concorrentes hipotéticos que o leitor não mencionou (*"Isso não significa que marcas comuns sejam veneno..."*).
-      - **Proibição Estrita de Clichês de IA:** Proibido o uso de expressões como *"É imperativo salientar"*, *"No cenário atual"*, *"Mergulhando mais a fundo"*, *"Um verdadeiro divisor de águas"*, *"Desvendar os segredos"*, *"Em suma"*, *"Com isso em mente"*, *"Em um mundo onde"*.
-      - **Proibição Estrita de Travessões (`—` / em-dash):** É terminantemente vedado o uso de travessões (`—`) no meio de frases em textos editoriais, estudos e artigos (marca registrada de redação artificial de IA). Utilize vírgulas, parênteses ou divida a oração em frases curtas e naturais.
-      - **Linguagem Natural do Tutor vs Jargões Industriais:** Evite termos fabris ou jargões da cadeia agroindustrial que soem estranhos ao tutor comum, como *"sacaria"* (utilize sempre *"saco"*, *"pacote"* ou *"embalagem"*).
-      - **Preservação Estrita dos Fatos:** A humanização aperfeiçoa o ritmo, a escaneabilidade e a naturalidade da prosa, sendo terminantemente proibido inventar, deduzir ou alterar qualquer número ou dado zootécnico.
-    - **Regra da Tradução Prática Imediata:** Todo conceito técnico ou bromatológico (Matéria Seca, Low Ash, Extrato Etéreo, balanço Ca:P, prebióticos MOS/FOS) deve ser imediatamente acompanhado de uma explicação simples do que aquilo representa na rotina do cão ou do gato (ex: fezes menores, proteção dos rins, saciedade, pelos brilhantes).
-    - **Cadência e Dinamismo de Leitura:** Alternar frases curtas com frases de tamanho médio. Parágrafos devem conter entre 2 e 4 linhas no máximo, garantindo leitura agradável e escaneável tanto no mobile quanto no desktop.
-17. **Padronização Mandatória de Capas e Ativos Visuais por Cluster:**
-    - **Cluster "Duelo de Marcas":** A capa deve ser **compulsoriamente** gerada através do script canônico do projeto (`scripts/gerar-capas-duelo.js`), que extrai as embalagens transparentes oficiais dos produtos analisados (490px de altura), posiciona-as sobre o fundo de estúdio fotográfico (`#ffffff -> #f8fafc -> #e2e8f0`) com sombras elípticas no piso e insere o badge central estilizado `VS` em 1200 × 630 px. É **expressamente proibido** utilizar ilustrações conceituais genéricas ou ferramentas de geração de imagem avulsas para cobrir duelos de marcas.
-    - **Demais Clusters (Ingredientes, Bromatologia, Fases de Vida, Direito do Consumidor, Custo, Petiscos, Manejo):** Fotografias reais de alta resolução ou gráficos técnicos vetorizados em proporção 1.91:1 (1200 × 630 px).
-    - **Proibição de Textos em Imagens:** É expressamente vedada a presença de textos, palavras, logotipos, inscrições ou marcas fictícias nas imagens geradas para capas de estudos e artigos (como comedouros gravados com nomes, rótulos simulados por IA ou letreiros ao fundo), exceto quando o texto for estritamente indispensável (ex.: o badge oficial 'VS' gerado por código nos duelos de marcas ou gráficos técnicos vetorizados com eixos e dados). A estética deve ser fotográfica, límpida e editorial.
-    - **Diversidade Mandatória de Raças e Portes nas Capas:** É estritamente proibido repetir constantemente as mesmas raças padrão de IA (como Golden Retriever ou Labrador e gatos tigrados genéricos). A linha visual do PetRankings deve alternar propositalmente raças e portes populares com forte conexão afetiva com o tutor brasileiro:
-      - *Cães:* Border Collie, Beagle, Dachshund (Salsicha), Schnauzer, Spitz Alemão (Lulu da Pomerânia), Corgi, Cocker Spaniel, Pastor Alemão, Buldogue Francês, Poodle, Shih Tzu, Yorkshire Terrier, Boxer, Jack Russell Terrier, Husky Siberiano e o clássico SRD (vira-lata caramelo carismático ou preto com peito branco).
-      - *Gatos:* Siamês, Azul Russo, British Shorthair, Maine Coon, Frajola (tuxedo), Gato Laranja (Ginger/Red Tabby), Persa, Angorá, Bengal, Ragdoll, Sphynx e SRD tricolor/rajado.
-      - *Janela de Não Repetição (Obrigatória):* Antes de gerar a imagem de capa de qualquer estudo, o agente DEVE verificar as últimas capas publicadas daquela espécie em `public/uploads/guias/` e em `src/lib/content/guides.ts`. É expressamente proibido repetir a mesma raça ou pelagem em uma janela mínima de 5 publicações da mesma espécie.
-18. **Checklist Pré-Publicação Inegociável (Gatekeeper de Qualidade Editorial):**
-    - Nenhum estudo, duelo ou guia técnico pode ser commitado ou deployado sem passar pela validação explícita dos 8 pontos:
-      1. *Ineditismo & Não Repetição:* O tema proposto foi expressamente auditado contra todos os estudos já cadastrados em `src/lib/content/guides.ts` para garantir ineditismo absoluto (proibido repetir tema, dilema ou nutriente já coberto)?
-      2. *Capa:* Se for Duelo de Marcas, foi rodado o script oficial `scripts/gerar-capas-duelo.js` com os pacotes oficiais isolados? Se for foto de estúdio, foi garantida a ausência total de textos/inscrições em comedouros e objetos, além da diversidade e rotatividade de raças/portes (evitando a repetição de Golden Retriever/Labrador)?
-      3. *Anti-Slop & Humanizer:* O texto foi submetido aos filtros do Humanizer (sem contrastes falsos "not X but Y", sem frases de efeito de encerramento, sem travessões "—", sem aberturas teatrais e sem termos fabris como "sacaria")?
-      4. *Humanização:* A narrativa começa a partir da dúvida prática do tutor na gôndola? Os parágrafos têm no máximo 4 linhas?
-      5. *Tradução Prática Imediata:* Todo conceito zootécnico (MS, Low Ash, Extrato Etéreo, prebióticos, etc.) foi imediatamente traduzido para o seu impacto real na rotina do pet (fezes menores, proteção dos rins, dentes sem tártaro, saciedade)?
-      6. *Fidelidade de Citações (`relatedProductSlugs`) & Fontes:* Apenas produtos realmente analisados no texto constam na lista? Se a lista for vazia (`[]`), foi verificado que NÃO há referências do tipo 'rotulagem' (Ficha Oficial/Fabricante) nas fontes?
-      7. *Fontes Primárias (`references`):* As fontes autênticas (ABINPET 11ª Ed., MAPA, FEDIAF, WSAVA, WALTHAM e fichas oficiais) estão discriminadas?
-      8. *Destaque Editorial Exclusivo (`isFeatured: true`):* O novo estudo publicado foi configurado com `isFeatured: true` e o estudo anteriormente em destaque foi atualizado para `isFeatured: false` (garantindo que sempre e apenas a publicação mais recente ocupe o destaque principal)?
-19. **Pragmatismo de Código e Princípio do Menor Diff Viável (Anti-Bloat & YAGNI):**
-    - **Menor Diff Viável:** Privilegie a menor alteração no código que resolva 100% da causa raiz do problema. Nunca refatore arquivos alheios, altere estilos não solicitados ou reescreva módulos funcionais sem demanda expressa.
-    - **Proibição de Abstrações Prematuras e Wrappers Inúteis:** Não crie arquivos de utilitários para funções de uso único, classes intermediárias supérfluas, camadas de abstração desnecessárias ou código "para o futuro" (YAGNI). Use as APIs nativas do TypeScript, Next.js e Node.js.
-    - **Aproveitamento Estrito das Dependências Existentes:** É expressamente proibido instalar pacotes npm adicionais para tarefas que possam ser resolvidas com poucas linhas nativas ou com as bibliotecas já instaladas no repositório.
-    - **Auditoria Obrigatória de Todos os Chamadores:** Ao modificar qualquer função de cálculo, utilitário central, rota de API ou campo de modelo Prisma, faça uma busca em todos os arquivos chamadores para garantir que a mudança não gere quebras, divergências de regras de negócio ou dessincronizações entre catálogo, APIs e páginas de detalhe.
-    - **Inviolabilidade de Segurança e Tratamento de Erros:** O foco em código enxuto nunca autoriza cortar validações de entrada, sanitizações, proteção de segredos, tratamento de erros ou acessibilidade.
-20. **Auditoria Obrigatória de Pautas Pré-Proposta contra `src/lib/content/guides.ts` (Tolerância Zero a Repetições):**
-    - Antes de propor qualquer nova pauta, tema de estudo, duelo ou guia ao usuário, o agente DEVE compulsoriamente realizar uma leitura e conferência de todas as publicações já existentes em `src/lib/content/guides.ts`.
-    - É terminantemente proibido sugerir temas, nutrientes, aditivos ou dilemas que já tenham sido objeto de publicação anterior (ex.: condroprotetores, sódio para gatos, cálculo de custo por porção, etc.).
-    - Ao submeter opções de pauta, todas as alternativas devem ser rigorosamente inéditas, atestando no raciocínio prévio que foram confrontadas com o acervo de publicações já realizadas.
+1. **APIs Assíncronas do Next.js 15:** `params` e `searchParams` são `Promise` em `page.tsx`, `layout.tsx` e `route.ts` — sempre usar `await params` / `await searchParams`.
+2. **Design Tokens & Identidade Visual:** Nunca usar cores hex soltas em componentes; usar tokens CSS (`var(--brand-forest-900)`, `var(--bg-surface)`, etc.) com alta legibilidade em tabelas comparativas.
+3. **CRUD Administrativo em Rotas Dedicadas (Sem Modais):** Criação e edição de produtos residem em `/admin/produtos/novo` e `/admin/produtos/[id]/editar`, com guardião `beforeunload` contra perda de dados. Gestão de fabricantes reside em `/admin/chamados` e mensagens em `/admin/mensagens`.
+4. **Pontuação Determinística (Motor V5 — 0 a 100):** A nota de um alimento completo (`scoreTotal`) é calculada exclusivamente pelo Motor Determinístico V5 (4 pilares em Matéria Seca, Ca:P, Ingredientes e Transparência). `ALIMENTO_COADJUVANTE` nunca recebe nota competitiva (`scoreTotal: null`). Proibido inventar notas de lojas ou avaliações simuladas.
+5. **Segurança, Camuflagem & Anti-Spam:**
+   - `/admin`, `/admin/*` e rotas de auth (`/api/auth/otp/*`) retornam 404 sem o cookie assinado `petrankings_admin_gate` (destravado via `ADMIN_SECRET_GATE_PATH?key=ADMIN_GATE_KEY`). Em produção, `ALLOW_ADMIN_IN_PRODUCTION="true"` é o disjuntor mestre.
+   - Todas as mutações administrativas validam `petrankings_admin_token` no servidor.
+   - Formulários públicos (`/contato`, `/fabricante`) exigem proteção tripla: honeypot (`website_hp`), trava temporal (`>= 2,5s`) e rate limit em banco (`ContactRateLimit`).
+   - Nunca expor segredos (`DATABASE_URL`, `JWT_SECRET`, `ADMIN_GATE_KEY`, `RESEND_API_KEY`) com `NEXT_PUBLIC_`.
+6. **Custódia Oficial em HTML/SHA-256 & Zero Invenção de Dados:** Todo dado técnico (níveis de garantia, ingredientes, conservantes, transgênicos) deve originar-se estritamente da página oficial do fabricante custodiada em HTML com hash SHA-256 (sem dependência de PDFs). Dados não declarados permanecem `null` / *"Não informado"* — tolerância zero a alucinações ou estimativas.
+7. **Biblioteca Regulatória (`biblioteca_regulatoria/`):** Toda regra nutricional ou normativa deve fundamentar-se no Manual Pet Food Brasil (ABINPET 11ª Ed.), FEDIAF, NRC, atos do MAPA (Decreto nº 12.031/2024, IN 30/2009, IN 22/2009, IN 39/2014, IN 110/2020) e CDC (Lei nº 8.078/1990).
+8. **Proibição Estrita de "Auditoria" e "Perícia" (ADR 0004):** É terminantemente proibido usar *"Auditoria"*, *"Perícia"*, *"Laudo Pericial"* ou derivados em qualquer interface pública/admin, metadado, título ou `editorialOpinion`. Usar: *"Avaliação Técnica"*, *"Análise de Rótulo"*, *"Confronto Documental"*, *"Dossiê Técnico"*, *"Produtos Analisados"*.
+9. **Glossário & ADRs:** Consultar [`GLOSSARY.md`](file:///d:/Projetos/PetRankings/GLOSSARY.md) e `.agents/adr/` antes de alterações conceituais ou arquiteturais.
+10. **Editorial, Estudos & Guias (`/guias`) — Regras Inegociáveis** *(runbook completo em `pet-editorial-copywriter`)*:
+    - **Autoria institucional obrigatória:** *"Equipe de Curadoria Técnica"* (*"Observatório PetRankings"*); proibido inventar autores individuais.
+    - **Fidelidade de citações e fontes:** `relatedProductSlugs` contém apenas produtos analisados no texto; se `[]`, proibido incluir fontes tipo `rotulagem` em `references`. Toda publicação exige `references` reais e autênticas.
+    - **Ineditismo & Destaque Exclusivo:** Conferir todo o acervo de `src/lib/content/guides.ts` antes de propor pautas (zero repetição). Novo guia recebe `isFeatured: true` e o anterior muda para `false`. Manter paridade editorial Cães vs. Gatos.
+    - **Títulos & Hierarquia:** Guias em Fórmula Bimembre (`Gatilho : Dilema + Ancoragem`, Sentence Case, 65–85 chars, sem ponto final em declarativas). Produtos (`commercialName`) sem prefixo *"Ração"*, sem pesos (`15kg`/`85g`), sem `®`/`™`. Nunca usar ALL CAPS em `<h2>`/`<h3>`.
+    - **Humanização & Anti-Slop:** Sem contrastes falsos (*not X but Y*), sem frases de efeito finais, sem travessões (`—`) no meio de frases, sem aberturas teatrais, sem jargões fabris (*"sacaria"*); parágrafos de 2–4 linhas com tradução prática imediata de cada termo técnico.
+    - **Capas:** Duelos obrigatoriamente via `scripts/gerar-capas-duelo.js`; demais clusters em 1200×630 WebP sem textos nas imagens e sem repetir raça/pelagem nas últimas 5 publicações da espécie.
+11. **Pragmatismo & Menor Diff Viável (YAGNI):** Resolver 100% da causa raiz com a menor alteração possível; não criar abstrações prematuras nem instalar pacotes npm desnecessários; verificar todos os chamadores ao alterar funções centrais ou campos Prisma; nunca cortar validações, segurança ou acessibilidade.
 
 ---
 
-## 🧭 3. Matriz de Especialistas (Skills Disponíveis)
-
-Sempre que atuar em uma área específica do projeto, ative e siga o runbook do respectivo skill em `.agents/skills/`:
+## 3. Matriz de Especialistas (Skills em `.agents/skills/`)
 
 | Domínio / Tarefa | Skill Especialista | Diretrizes Principais |
 | :--- | :--- | :--- |
-| **Backoffice & CRUD Admin** | `admin-dashboard-engineer` | Formulários em rotas dedicadas, guardião `beforeunload`, tabelas de dados. |
-| **Monetização & AdSense** | `adsense-monetization-architect` | Conformidade Google 2026 (Consent Mode v2, TCF v2.3, slots anti-CLS). |
-| **Busca por IA & GEO (LLMs)** | `ai-search-geo-optimizer` | Otimização para IAs (Perplexity, ChatGPT, AI Overviews), `/llms.txt` e densidade factual. |
-| **Lojas & Afiliados** | `affiliate-store-engine` | Links de grandes varejistas e lojas parceiras com `rel="sponsored"`. |
-| **Segurança & Headers** | `appsec-data-shield` | Cabeçalhos HTTP (`next.config.mjs`), OWASP Top 10, sanitização. |
-| **Autenticação & Sessões** | `auth-security-guardian` | JWT com `jose`, middleware em duas camadas, proteção contra brute-force. |
-| **Cache & Performance ISR** | `content-caching-strategy` | `unstable_cache` no Prisma, `revalidatePath`, invalidação por tags. |
-| **Aparência & Anti-Slop** | `design-taste-frontend` | Heurísticas visuais anti-slop, ausência de templates genéricos, tokens puros. |
-| **Diagnóstico Científico de Bugs** | `scientific-bug-diagnostics` | Isolamento em `scratch/`, loop mínimo de reprodução (Vermelho -> Verde) e redaction de segredos. |
-| **Acessibilidade Web** | `frontend-a11y-auditor` | WCAG 2.1 AA, navegação completa por teclado, contraste 4.5:1, ARIA. |
-| **Componentes & Micro-interações** | `frontend-ui-ux-design` | Estados completos (loading, hover, empty, error), CSS Grid responsivo. |
-| **Uploads de Imagens** | `image-upload-manager` | Validação de magic bytes, pipeline Sharp e persistência em volume Docker. |
-| **Auditoria de Links** | `link-health-watchdog` | Verificação assíncrona de status HTTP, timeouts e degradação suave. |
-| **SEO & Core Web Vitals** | `nextjs-performance-seo` | Metadados dinâmicos, OpenGraph, sitemap/robots, otimização LCP/CLS/INP. |
-| **Servidor Oracle & Infra VPS** | `oracle-vps-sysadmin` | Gestão da VM Oracle Cloud ARM 12GB, Docker Compose, backups 3-2-1 e fail2ban. |
-| **Redação & Taxonomia Pet** | `pet-editorial-copywriter` | Taxonomia cães/gatos, aviso veterinário obrigatório, tom imparcial. |
-| **Motor Bromatológico & Rótulos** | `pet-nutrition-evaluator` | Fórmulas em Matéria Seca (MS), balanço Ca:P, 4 pilares e normas MAPA/ABINPET 11ª Ed. |
-| **Modelagem & Migrações** | `prisma-database-architect` | Estrutura de dados relacional, migrações PostgreSQL, integridade referencial. |
-| **Consultas & Índices Prisma** | `prisma-query-patterns` | Índices de chaves estrangeiras, transações `$transaction`, paginação. |
-| **Rich Snippets & JSON-LD** | `schema-org-structured-data-expert` | Schemas `ItemList`, `Product`, `AggregateRating`, `FAQPage`, `BreadcrumbList`. |
-| **Indexação & Search Console** | `search-console-indexing-watchdog` | Resolução de erros no GSC, canônicas, crawl budget e requisição de indexação. |
-
+| **Backoffice, Chamados & CRUD** | `admin-dashboard-engineer` | Rotas dedicadas, `beforeunload`, `/admin/produtos`, `/admin/chamados` (`ManufacturerTicket`), `ProductRedirect`. |
+| **Monetização & AdSense** | `adsense-monetization-architect` | Consent Mode v2, slots anti-CLS, `ads.txt` e políticas Google Publisher. |
+| **Lojas, Afiliados & Links** | `affiliate-store-engine` | `AffiliateLink`, fallback `productUrl`, `rel="sponsored"`, CDC e script `check-links.ts`. |
+| **Busca por IA & GEO (LLMs)** | `ai-search-geo-optimizer` | `/llms.txt`, densidade factual e citações em AI Overviews, Perplexity e ChatGPT. |
+| **Segurança, Auth & Headers** | `appsec-data-shield` | Stealth Gatekeeper 404, OTP (`AdminOtp`), JWT `jose`, Zod, headers CSP/HSTS e rate limit. |
+| **Cache & Performance ISR** | `content-caching-strategy` | `unstable_cache`, `revalidatePath`, invalidação por tags e headers CDN. |
+| **Aparência & Anti-Slop** | `design-taste-frontend` | Heurísticas anti-slop, tokens CSS puros, Hero Kit e hierarquia Sentence Case. |
+| **Acessibilidade Web** | `frontend-a11y-auditor` | WCAG 2.1 AA, teclado, contraste 4.5:1 e semântica ARIA. |
+| **Componentes & UI/UX** | `frontend-ui-ux-design` | Estados completos (loading, hover, empty, error), CSS Grid responsivo e micro-interações. |
+| **Uploads & Imagens** | `image-upload-manager` | Magic bytes, pipeline `sharp`/WebP, volume Docker `/public/uploads` e `auditar:imagens`. |
+| **SEO & Core Web Vitals** | `nextjs-performance-seo` | Metadados dinâmicos, OpenGraph, sitemap/canônicas (`validate-sitemap-canonicals.ts`) e CWV. |
+| **Oracle VPS, Docker & Deploy** | `oracle-vps-sysadmin` | ARM 12GB, Docker Compose, checklist pré-deploy, túnel SSH, backups 3-2-1 e fail2ban. |
+| **Editorial, Guias & Humanizer** | `pet-editorial-copywriter` | Taxonomia pet food, Humanizer anti-slop, títulos bimembres, capas e checklist de 8 pontos. |
+| **Motor Bromatológico V5** | `pet-nutrition-evaluator` | Matéria Seca (MS), Ca:P, 4 pilares (0–100), faixas de conformidade e normas ABINPET/MAPA. |
+| **Prisma & PostgreSQL 16** | `prisma-database-architect` | Modelagem, migrações, índices compostos, paginação, `$transaction` e `ProductRedirect`. |
+| **Ingestão & Custódia HTML** | `product-ingestion-custody` | Playwright/Cheerio, custódia HTML + SHA-256, Wayback Machine, `cadastrar:url` e `cadastrar-produtos`. |
+| **Rich Snippets & JSON-LD** | `schema-org-structured-data-expert` | `Product`, `ItemList`, `Article`/`TechArticle`, `FAQPage`, `BreadcrumbList` e `Organization`. |
+| **Diagnóstico de Bugs** | `scientific-bug-diagnostics` | Isolamento em `scratch/`, reprodução mínima (Vermelho → Verde) e redaction de segredos. |
+| **Indexação & Search Console** | `search-console-indexing-watchdog` | Cobertura GSC, canônicas, crawl budget e solicitação de indexação. |

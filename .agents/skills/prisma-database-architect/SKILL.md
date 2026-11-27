@@ -1,63 +1,48 @@
 ---
 name: prisma-database-architect
 description: >-
-  Expert guidance for Prisma ORM data modeling, database schema migrations, query optimization,
-  referential integrity, transactional consistency, and SQLite/PostgreSQL transitions.
-  Use this skill whenever editing prisma/schema.prisma, running migrations, writing seed scripts,
-  optimizing database queries, or preparing database production deployment.
+  Expert guidance for Prisma ORM 6.4 and PostgreSQL 16 data modeling, schema migrations, query
+  optimization, indexes, pagination, referential integrity, and transactional consistency across
+  PetRankings. Use this skill whenever editing prisma/schema.prisma, running migrations, writing
+  seed scripts, optimizing Prisma queries, or preparing database production changes.
 ---
 
-# Prisma & Database Architecture Specialist
+# Prisma & PostgreSQL Architecture Specialist
 
-This skill guides the database lifecycle, data modeling, performance tuning, and schema evolution for the PetRankings project using Prisma ORM.
+This skill unifies data modeling, schema evolution, query performance, and transaction safety for **PetRankings** on **PostgreSQL 16 + Prisma ORM 6.4**.
 
-## 1. Data Modeling & Schema Conventions (`prisma/schema.prisma`)
+## 1. Current Data Model (`prisma/schema.prisma`)
 
-- **Primary Keys & Identifiers**: Use standard `cuid()` identifiers (`@id @default(cuid())`) for scalability and URL stability.
-- **Timestamps**: Always include `createdAt DateTime @default(now())` and `updatedAt DateTime @updatedAt` on all primary entities.
-- **Referential Actions**:
-  - Use `onDelete: Cascade` for dependent leaf nodes (e.g. `ProductStore` when a `Product` is deleted).
-  - Use `onDelete: Restrict` on critical associations (e.g. `RankingProduct` to prevent accidental product deletion while actively referenced in a published ranking).
-- **Indexing & Uniqueness**: Define composite unique indexes with `@@unique([fieldA, fieldB])` for relation join tables and store credentials.
+Primary models in production:
+- **`User`**: Admin/curador accounts (`id`, `email`, `passwordHash`, `role`, `lastLoginAt`).
+- **`Product`**: Core catalog entity with taxonomy (`legalCategory`, `species`, `lifeStage`, `breedSize`, `foodType`, `coadjuvanteCondition`), HTML/SHA-256 custody (`sourceUrl`, `sourceArchiveUrl`, `sourceDocumentUrl`, `frontLabelImageUrl`, `labelCollectionDate`), guaranteed analysis levels (MN), labeling flags (`meatClaimType`, `containsGmo`, `antioxidantType`, `topIngredients`), and Motor V5 evaluation fields (`scoreTotal`, `classificationTier`, `scoreBreakdown`, `calculatedAt`).
+- **`AffiliateLink`**: Partner store offers linked to `Product` (`onDelete: Cascade`, `@@unique([productId, store])`).
+- **`ManufacturerTicket`**: Canal do Fabricante governance tickets (`ticketNumber`, `productId`, `cnpj`, `mapaRegistration`, `requestType`, `status`, `slaDeadline`), `onDelete: SetNull`.
+- **`ProductRedirect`**: Canonical 301 slug redirects (`sourceSlug` -> `targetSlug`) to preserve SEO when product slugs change.
+- **`ContactMessage` & `ContactRateLimit`**: Public contact inbox and DB-backed anti-spam rate limiting.
+- **`AdminOtp`**: Time-limited email OTP codes for admin authentication.
 
-## 2. Calculation & Rating Propagation Engine
+## 2. Schema & Migration Conventions
 
-When modifying product ratings or linked store reviews:
-1. Filter out invalid/null ratings (keep strictly ratings between `0.0` and `5.0`).
-2. Calculate the arithmetic average, rounded to 2 decimal places.
-3. Update `averageRating` and `ratingUpdatedAt` on the `Product`.
-4. Propagate `dataUpdatedAt: new Date()` to all `Ranking` records containing this product.
+- **Primary Keys:** Always `String @id @default(cuid())`.
+- **Timestamps:** Include `createdAt DateTime @default(now())` and `updatedAt DateTime @updatedAt`.
+- **PostgreSQL Only:** Standardized across local tunnel (`npm run tunel` on port `5433`) and Oracle Cloud VPS Docker container (`petrankings-postgres`).
+- **Migrations & Sync:**
+  - `npx prisma generate` after any schema edit.
+  - `npx prisma migrate dev --name <migration_name>` for versioned schema evolution.
+  - `npx prisma migrate deploy` in production (never run destructive `db push --force-reset` against prod).
 
-## 3. Database Migration Workflow
+## 3. Query Patterns & Performance
 
-The project standardizes on **PostgreSQL** in all environments (local development via Docker/Neon/Supabase and production). The schema is natively configured with `provider = "postgresql"`.
+- **Use Existing Indexes:** Leverage composite indexes on `Product` (`[isPublished, species, legalCategory]`, `[isPublished, species, lifeStage]`, `[scoreTotal]`, `[classificationTier]`) and `ManufacturerTicket` (`[status, slaDeadline]`, `[cnpj]`).
+- **Avoid Overfetching:** Always use `select` on catalog lists and index pages; reserve full `scoreBreakdown` / `editorialOpinion` fetches for `/produto/[slug]` and `/comparar`.
+- **Pagination:** Always paginate admin tables (`/admin/produtos`, `/admin/chamados`, `/admin/mensagens`) with `take` / `skip` or cursor pagination + parallel `prisma.$transaction([findMany, count])`.
+- **Transactional Atomicity:** Wrap multi-table updates (e.g., slug rename + `ProductRedirect` creation, or product update + `AffiliateLink` replacement) inside `prisma.$transaction(...)`.
+- **Safe Slug Changes:** Whenever changing `Product.slug`, insert a `ProductRedirect` record mapping `oldSlug -> newSlug` in the same transaction so Google indexation and backlinks never break.
 
-### Local Development & Prototyping:
-```bash
-# Apply schema changes during rapid prototyping without generating migration files
-npx prisma db push
+## 4. Pre-Flight Checklist
 
-# Generate updated Prisma Client types
-npx prisma generate
-
-# Populate database with default seeds
-npm run prisma:seed # runs tsx prisma/seed.ts
-```
-
-### Production Migration Lifecycle:
-1. Generate declarative SQL migrations for versioned schema changes:
-   ```bash
-   npx prisma migrate dev --name <migration_name>
-   ```
-2. Configure `DATABASE_URL` (and `DIRECT_URL` if using Supabase/Neon connection poolers like PgBouncer).
-3. Apply pending migrations in CI/CD and production environments:
-   ```bash
-   npx prisma migrate deploy
-   ```
-
-## 4. Query Optimization & Safety Checklist
-
-- [ ] Select only necessary fields on large lists to avoid overfetching.
-- [ ] Use `include` thoughtfully; avoid deep recursive nested includes.
-- [ ] Verify referential integrity safety before running delete operations (`checkProductDeletionSafety`).
-- [ ] Execute multi-table updates inside `prisma.$transaction([...])` to ensure ACID atomicity.
+- [ ] No destructive migration or broad `DELETE` without `WHERE`.
+- [ ] New filter/sort columns backed by appropriate `@@index`.
+- [ ] All callers of modified fields checked across `src/` and `scripts/`.
+- [ ] Multi-step writes wrapped in `prisma.$transaction`.

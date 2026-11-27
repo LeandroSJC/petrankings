@@ -1,45 +1,54 @@
 ---
 name: affiliate-store-engine
 description: >-
-  Manages e-commerce store configurations, affiliate link normalization, partner tracking parameters,
-  and link integrity verification across Brazilian retail partners.
-  Use this skill when adding or updating partner stores and large retailers,
-  configuring affiliate tracking tags, or auditing outbound buy links.
+  Manages e-commerce partner store links (AffiliateLink), affiliate URL normalization, outbound
+  link security/SEO attributes, CDC e-commerce compliance, and automated link health checks across
+  Brazilian retailers. Use this skill when adding/updating partner links, checking broken URLs,
+  or modifying outbound buy buttons.
 ---
 
-# Affiliate & Partner Store Engine
+# Affiliate Store Engine & Link Health Watchdog
 
-This skill guides the integration, normalization, and management of e-commerce partner stores and monetization links within the PetRankings platform.
+This skill governs partner store link registration (`AffiliateLink`), outbound buy button rendering, regulatory compliance, and automated link health verification across **PetRankings**.
 
-## 1. Flexible Retailer & Partner Store Registry
+## 1. Data Model & Fallback Hierarchy
 
-The platform supports flexible store registration across large Brazilian retailers and pet specialty stores, allowing any store name with optional suggested autocompletion based on stores previously registered in the database. Outbound links are standardized with `rel="nofollow noopener sponsored"` and direct product URLs.
+Each `AffiliateLink` record linked to a `Product` stores:
 
-## 2. Link Structure & Fallback Logic
+- `store`: Retail partner name (free text with autocomplete from existing stores, unique per product).
+- `productUrl`: Canonical HTTPS product page on the retailer's site.
+- `affiliateUrl`: Optional monetized tracking URL.
 
-When rendering store buttons (`StoreButton.tsx`):
-1. **Target URL Hierarchy**:
-   - If `affiliateUrl` is present and valid (starts with `https://`), use `affiliateUrl`.
-   - If `affiliateUrl` is empty, fallback directly to `productUrl`.
-2. **Outbound Link Security & SEO**:
-   - Always render outbound purchase links with `rel="noopener noreferrer"` and `target="_blank"`.
-   - For affiliate links, apply `rel="sponsored noopener noreferrer"` when applicable to adhere to Google search guidelines.
+**Target URL Resolution:**
 
-## 3. Store Review & Rating Protocol
+1. If `affiliateUrl` is present and starts with `https://`, render `affiliateUrl`.
+2. Otherwise, fallback seamlessly to `productUrl`.
+3. Never invent or guess store ratings — product scores come exclusively from the deterministic Motor V5 (`Product.scoreTotal`).
 
-- **Manual Audit**: Store ratings (from `0.0` to `5.0`) and review counts (`reviewCount`) must reflect real numbers from the store page.
-- **Aggregation Engine**:
-  - Individual store ratings contribute equally to the arithmetic average of the product.
-  - Review counts are summed across all linked stores to calculate the total review volume used for ranking tie-breaking.
+## 2. Outbound Link Security, SEO & Regulatory Compliance
 
-## 4. Verification Checklist for Store Links
+- **HTML Attributes:** Always render outbound purchase links with `target="_blank"` and `rel="sponsored noopener noreferrer"` (or `rel="noopener noreferrer"` when non-monetized).
+- **Decreto nº 7.962/2013 & CDC (Arts. 30–31):** Partner links must point strictly to the exact corresponding product (same brand, line, species, and formulation). Generic category redirects or bait-and-switch links are prohibited.
+- **Editorial Independence:** Maintain the institutional disclosure that affiliate commissions never influence nutritional scores.
 
-- [ ] URL is valid and opens over HTTPS.
-- [ ] Affiliate tag or campaign parameter is active and correctly formatted.
-- [ ] Outbound links open in a new tab without security vulnerabilities (`target="_blank"` with `rel="noopener noreferrer"`).
-- [ ] Store logo displays correctly with high-contrast badge text.
+## 3. Automated Link Health Verification
 
-## 5. E-Commerce Regulatory Compliance (Decreto nº 7.962/2013 & CDC)
+Run the link health verification script periodically and before major releases:
 
-- **Transparência e Fidelidade de Oferta:** Em conformidade com o Decreto Federal nº 7.962/2013 (Regulamento do Comércio Eletrônico) e Arts. 30 e 31 do CDC, links de lojas parceiras devem direcionar estritamente à oferta correspondente exata (mesma marca, linha, espécie e formulação), vedando redirecionamentos genéricos ou desvios de produto.
-- **Transparência de Parcerias:** Links monetizados utilizam compulsoriamente os atributos `rel="sponsored noopener noreferrer"` e aviso institucional de independência editorial.
+```bash
+npx tsx .agents/skills/affiliate-store-engine/scripts/check-links.ts
+```
+
+**Health Criteria:**
+
+- Strict `https://` protocol.
+- HTTP `200 OK` (or valid `301/302/307/308` resolving to `200`; note some retailers return `403` to `HEAD` requests while still live).
+- Timeout of 8s with `AbortController` and custom `User-Agent: PetRankings-Bot/1.0 (+https://petrankings.com.br)`.
+- If `affiliateUrl` breaks, fallback to `productUrl`; if both return confirmed `404`, remove or replace the link in `/admin/produtos/[id]/editar`.
+
+## 4. Verification Checklist
+
+- [ ] All URLs start with `https://` and match the exact product formulation.
+- [ ] `affiliateUrl` falls back cleanly to `productUrl` when empty or invalid.
+- [ ] Outbound links include `target="_blank"` and `rel="sponsored noopener noreferrer"`.
+- [ ] `check-links.ts` executed cleanly with no permanent `404` links left active.

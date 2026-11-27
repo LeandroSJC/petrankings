@@ -2,101 +2,42 @@
 name: admin-dashboard-engineer
 description: >-
   Specialized engineering for the PetRankings administrative backoffice (/admin), including
-  product catalog workflows, ranking management, store rating calculation interfaces,
-  bulk operations (CSV/JSON import/export), contact inbox triage, and responsive data tables.
-  Use this skill when modifying admin views, building backoffice tools, optimizing CRUD workflows,
-  or streamlining editorial catalog productivity.
+  product catalog CRUD, Motor V5 score recalculation, manufacturer governance tickets (/admin/chamados),
+  contact inbox triage (/admin/mensagens), slug redirects (ProductRedirect), and responsive data tables.
+  Use this skill when modifying admin views, building backoffice tools, or streamlining catalog workflows.
 ---
 
 # Admin Dashboard & Backoffice Engineer
 
-This skill provides architecture guidelines, UI patterns, and productivity tools for the PetRankings backoffice (`/admin`), enabling seamless editorial management of rankings, products, store reviews, and contact messages.
+This skill provides architecture guidelines and UI patterns for the **PetRankings** backoffice (`/admin`), aligned with the **Motor V5** deterministic nutritional evaluation architecture.
 
 ## 1. Backoffice Information Architecture (`/admin`)
 
-- **`/admin` (Overview Dashboard)**:
-  - Key metrics cards: total published rankings, active products, store link health, unread contact messages.
-  - Quick action shortcuts: "Novo Ranking", "Novo Produto", "Conferir Mensagens".
-- **`/admin/rankings` (Rankings Manager)**:
-  - List with species pills, product counts, publication toggles (`isPublished`), and last data update dates.
-  - Navigation links to dedicated edit pages (`/admin/rankings/[id]/editar`).
-- **`/admin/produtos` (Product Catalog)**:
-  - Multi-store rating editor with automatic client-side arithmetic average calculation.
-  - Brand autocompletion, image preview, and linked rankings indicators.
-  - Safe deletion checks (warn if product is referenced in published rankings).
-  - Navigation links to dedicated edit pages (`/admin/produtos/[id]/editar`).
-- **`/admin/mensagens` (Contact Inbox)**:
-  - Status management (`nova`, `lida`, `arquivada`), spam cleanup, and message search.
+- **`/admin` (Overview Dashboard):** Metrics for published products, coadjuvant items, open manufacturer tickets (`ManufacturerTicket`), and unread contact messages.
+- **`/admin/produtos` (Product Catalog):** Filterable table by species, legal category, classification tier, publication status, and search query; quick links to dedicated create/edit pages.
+- **`/admin/produtos/novo` & `/admin/produtos/[id]/editar`:** Dedicated form pages for guaranteed analysis (MN), top ingredients, labeling flags (GMO, antioxidants, meat claim), HTML/SHA-256 custody metadata, packshot upload, affiliate links (`AffiliateLink`), and automatic Motor V5 score calculation.
+- **`/admin/chamados` (Canal do Fabricante):** Triage of `ManufacturerTicket` submissions (`ABERTO`, `EM_ANALISE`, `DEFERIDO`, `INDEFERIDO`), tracking 5-business-day `slaDeadline`, CNPJ/MAPA registration, batch updates, and technical rectification requests.
+- **`/admin/mensagens` (Contact Inbox):** Status management (`nova`, `lida`, `arquivada`) and spam cleanup.
 
-## 2. Dedicated Form Pages — NOT Modals
+## 2. Dedicated Form Pages — Never Modals
 
-> **CRITICAL PATTERN:** The admin uses dedicated route-based pages for all creation and editing flows. Do NOT implement modal/popup overlays for these operations. Modals close accidentally and cause data loss.
+> **CRITICAL PATTERN:** All creation and editing flows reside on dedicated routes (never modal dialogs) to prevent accidental dismissal and data loss.
 
-### Route Structure:
-| Action | Route |
-|---|---|
-| New Product | `/admin/produtos/novo` |
-| Edit Product | `/admin/produtos/[id]/editar` |
-| New Ranking | `/admin/rankings/novo` |
-| Edit Ranking | `/admin/rankings/[id]/editar` |
+Always attach a `beforeunload` guard (`isDirty`) on form pages so navigating away with unsaved edits prompts confirmation.
 
-### Form Components:
-- **`src/components/admin/ProductForm.tsx`**: Full product form with real-time average calculation and unsaved-changes protection.
-- **`src/components/admin/RankingForm.tsx`**: Full ranking form with slug preview and product linking.
+## 3. Product Commercial Naming Standard (Invariante 13)
 
-### Unsaved-Changes Guard Pattern:
-```tsx
-const [isDirty, setIsDirty] = useState(false);
+- **Canonical Formula:** `[Marca Comercial] [Linha] [Espécie / Porte] [Fase de Vida / Especialidade] [Sabor / Claim Principal] [Formato se Úmido]`
+  - Example: `Biofresh Cães Adultos Castrados Raças Médias Mix de Carnes`
+- **Mandatory Exclusions:** Never start with `"Ração"` / `"Ração Seca"` / `"Ração Úmida"`; never include package weights (`15kg`, `85g`), trademark symbols (`®`, `™`), or duplicate brand names.
+- **Diacritics & Plurals:** Preserve official Portuguese plural and accents (`Cães Adultos`, `Gatos Castrados`, `Raças Médias`, `Sênior`).
+- **Duplicate Check & Redirects:** Use `/api/products/check-duplicate` before creating new products. When renaming an existing product's `slug`, automatically record a `ProductRedirect` entry (`sourceSlug -> targetSlug`) inside the same Prisma transaction.
 
-useEffect(() => {
-  const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-    if (isDirty) {
-      e.preventDefault();
-      e.returnValue = '';
-    }
-  };
-  window.addEventListener('beforeunload', handleBeforeUnload);
-  return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-}, [isDirty]);
-```
+## 4. Admin Quality Checklist
 
-## 3. Real-Time Rating Calculation Protocol
-
-When creating or editing products in the admin panel:
-1. Allow dynamic addition/removal of store rows for large retailers and partner stores with autocompletion suggestions.
-2. Validate store URLs (ensure protocol starts with `https://`).
-3. Compute the arithmetic average in real time on the client:
-   $$\text{average} = \frac{\sum \text{valid ratings}}{\text{count of stores with valid ratings}}$$
-4. Upon save, propagate `dataUpdatedAt: new Date()` to all rankings associated with the modified product.
-
-## 4. Bulk Operations & Productivity Patterns
-
-- **CSV / JSON Export**: Enable editors to export ranking lists and product spreadsheets for external review.
-- **Batch Status Updates**: Support bulk publish/unpublish of draft rankings.
-- **Instant Search & Debounced Filters**: Implement responsive filtering by title, brand, species, or store key.
-
-## 5. Product Commercial Naming Standard (Invariante 13 Compliance)
-
-When creating, editing, or validating products in `/admin/produtos`:
-- **Canonical Formula**: `[Marca Comercial] [Linha] [Espécie / Porte] [Fase de Vida / Especialidade] [Sabor / Claim Principal] [Formato se Úmido]`.
-  - *Correct Example*: `Biofresh Cães Adultos Castrados Raças Médias Mix de Carnes`
-  - *Correct Example*: `Whiskas Sachê Atum ao Molho para Gatos Adultos`
-- **Mandatory Exclusions**:
-  - Never include the generic prefix `"Ração"`, `"Ração Seca"`, or `"Ração Úmida"`.
-  - Never include packaging weights or gramatures (`15kg`, `10,1 kg`, `85 g`).
-  - Never include trademark symbols (`®`, `™`).
-  - Never duplicate the brand name in the title.
-- **Plural Target & Official Portuguese Diacritics**:
-  - Use plural targets: `Cães Adultos`, `Gatos Castrados`, `Cães Filhotes`.
-  - Always enforce correct Portuguese accents: `Raças Médias` (not `Medias`), `Sênior` (not `Senior`).
-
-## 6. Admin Quality Checklist
-
-- [ ] All mutations require verified admin JWT credentials.
-- [ ] Forms provide clear feedback toasts and validation error indicators.
-- [ ] Tables support sorting by title, rating, and last updated timestamp.
-- [ ] Responsive layout allows management on tablets and mobile devices.
-- [ ] All CRUD routes use dedicated pages (not modals) to prevent data loss.
-- [ ] Unsaved-changes guard (`beforeunload`) is active on all form pages.
-- [ ] Product commercial names adhere to Invariante 13 (no "Ração" prefix, no weights, no symbols).
-
+- [ ] All mutations verify `petrankings_admin_token` JWT server-side.
+- [ ] Forms use dedicated routes with `beforeunload` unsaved-changes guard.
+- [ ] Product commercial names comply with Invariante 13.
+- [ ] Changing a product's guaranteed levels or ingredients triggers Motor V5 score recalculation (and keeps `ALIMENTO_COADJUVANTE` without competitive `scoreTotal`).
+- [ ] `ManufacturerTicket` SLA deadlines and status transitions are clearly visible in `/admin/chamados`.
+- [ ] Interface uses Vanilla CSS Design Tokens (zero Tailwind classes) and avoids prohibited terms ("Auditoria", "Perícia").

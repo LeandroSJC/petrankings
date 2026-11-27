@@ -38,6 +38,7 @@ The application stack operates 4 isolated containers connected via the bridge ne
 | `petrankings-umami` | `umami:postgresql-latest` | `3000` | Interno | Privacy-friendly, cookie-free web analytics |
 
 ### Invariante Crítica de Segurança de Rede
+>
 > ⚠️ **REGRA INEGOCIÁVEL:** A porta do PostgreSQL (`5432`) **JAMAIS** deve ser exposta publicamente (`0.0.0.0:5432`). Ela é obrigatoriamente vinculada a `127.0.0.1:5432:5432` no host da VM, acessível externamente **exclusivamente via Túnel Criptografado SSH**.
 
 ---
@@ -81,15 +82,26 @@ O PostgreSQL opera com parâmetros avançados de concorrência e memória no `do
 
 ## 4. Rotinas de Deploy e Manutenção Remota
 
-### A. Deploy Remoto Seguro (Zero Downtime)
-Para enviar alterações de código do GitHub para a máquina de produção:
+### A. Checklist Pré-Deploy (Obrigatório antes de subir para produção)
+
+1. **Tipagem estrita:** `npx tsc --noEmit` (exit code `0`).
+2. **Build de produção local (opcional/recomendado):** `npm run build`.
+3. **Validação de Sitemap e Canônicas:** `npx tsx .agents/skills/nextjs-performance-seo/scripts/validate-sitemap-canonicals.ts`.
+4. **Verificação de Links de Lojas:** `npx tsx .agents/skills/affiliate-store-engine/scripts/check-links.ts`.
+5. **Migrações Prisma (quando houver mudança de schema):** `npx prisma migrate deploy` dentro do ambiente/túnel antes de reiniciar o app.
+
+### B. Deploy Remoto Seguro (Zero Downtime)
+
+Para enviar alterações de código do GitHub para a máquina de produção (usando o alias `~/.ssh/config`):
 
 ```bash
-ssh -i "D:/Projetos/ssh-key-2026-10-03.key" ubuntu@168.138.144.63 "cd ~/petrankings && git pull origin main && docker compose build app && docker compose up -d app"
+ssh petrankings-vps "cd ~/petrankings && git pull origin main && docker compose build app && docker compose up -d app"
 ```
 
-### B. Gestão de Logs e Prevenção de Esgotamento de Disco
+### C. Gestão de Logs e Prevenção de Esgotamento de Disco
+
 Todos os containers usam o bloco âncora `x-logging` limitando logs a 50MB:
+
 ```yaml
 x-logging: &default-logging
   logging:
@@ -98,7 +110,9 @@ x-logging: &default-logging
       max-size: "50m"
       max-file: "3"
 ```
+
 A máquina possui cronjob semanal aos domingos às 04:00 para expurgo de imagens órfãs:
+
 ```bash
 0 4 * * 0 /usr/bin/docker image prune -f >> /var/log/docker-prune.log 2>&1
 ```
@@ -108,13 +122,16 @@ A máquina possui cronjob semanal aos domingos às 04:00 para expurgo de imagens
 ## 5. Túnel SSH e Operações Locais com o Banco
 
 ### Conexão Manual de Desenvolvimento
+
 ```powershell
 npm run tunel
 # Abre túnel na porta local 5433 mapeada para 127.0.0.1:5432 na VM
 ```
 
 ### Ingestão Automatizada de Produtos
+
 O comando abaixo gerencia a abertura do túnel em segundo plano, executa a rotina de cadastro e sincroniza fichas técnicas:
+
 ```powershell
 npm run cadastrar-produtos
 ```
@@ -127,13 +144,17 @@ npm run cadastrar-produtos
 2. **Cópia Compactada na VM:** Script diário às 03:00 da manhã (`/home/ubuntu/petrankings/scripts/backup-db.sh` -> `/home/ubuntu/backups_postgres/`).
    * *Retenção automática:* Backups com mais de 30 dias são expurgados automaticamente.
 3. **Cópia Fria Local:** Puxe o backup mais recente para sua máquina Windows com 1 comando:
+
    ```powershell
    npm run backup:puxar
    ```
+
    *(Salvo em `d:/Projetos/PetRankings/_backups_nuvem/petrankings_backup_YYYYMMDD_HHMMSS.sql.gz`).*
 
 ### Restauração de Desastre (Disaster Recovery)
+
 Caso seja necessário restaurar um dump no banco:
+
 ```bash
 # Na VM:
 gunzip -c /home/ubuntu/backups_postgres/petrankings_backup_NOME.sql.gz | docker exec -i petrankings-postgres psql -U petrankings -d petrankings

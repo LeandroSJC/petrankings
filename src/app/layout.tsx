@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Inter, Plus_Jakarta_Sans, Outfit } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -17,12 +17,6 @@ const inter = Inter({
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-plus-jakarta',
-  display: 'swap',
-});
-
-const outfit = Outfit({
-  subsets: ['latin'],
-  variable: '--font-outfit',
   display: 'swap',
 });
 
@@ -105,7 +99,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${plusJakarta.variable} ${outfit.variable}`} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${inter.variable} ${plusJakarta.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="alternate"
