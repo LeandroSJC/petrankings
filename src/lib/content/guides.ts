@@ -10564,7 +10564,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/comprar-racao-online-para-gatos-decreto-7962-2013-entrega-direitos.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Comprar caixas de sachês ou pacotes grandes de ração para gatos pela internet economiza tempo e dinheiro, mas traz imprevistos frequentes no transporte: sacos com microfuros remendados com fita adesiva, sachês estufados ou validade muito próxima do vencimento. Explicamos o que garantem o Decreto nº 7.962/2013 (Lei do Comércio Eletrônico), o Artigo 49 do CDC e as normas do Inmetro para exigir troca ou reembolso gratuito.',
       relatedProductSlugs: [],
@@ -10718,6 +10718,173 @@ export const GUIDES: GuideItem[] = [
         text: 'Antes de fechar sua próxima compra online, consulte a ficha técnica oficial em Matéria Seca (MS) e a avaliação nutricional das principais marcas de rações secas e sachês para gatos.',
         buttonText: 'Explorar Catálogo de Alimentos para Gatos',
         buttonUrl: '/catalogo?especie=Gatos',
+      },
+    },
+    {
+      slug: 'alimentacao-natural-pronta-para-caes-custo-mensal-vs-racao-seca',
+      title: 'Alimentação natural pronta para cães: Quanto custa por mês frente à ração seca?',
+      subtitle:
+        'A matemática da umidade de 72% nas refeições cozidas congeladas, o orçamento real por porte (5 kg, 15 kg e 30 kg) e como combinar os dois formatos sem desequilibrar a dieta.',
+      cluster: 'Custo por Dia & Economia',
+      speciesTarget: 'Cães',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-28',
+      updatedAt: '2026-11-28',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/alimentacao-natural-pronta-para-caes-custo-mensal-vs-racao-seca.webp',
+      isFeatured: true,
+      summary:
+        'As refeições cozidas prontas e congeladas ganharam espaço nos freezers dos pet shops brasileiros, mas o preço do pacote individual de 300 g ou 500 g costuma mascarar o custo real no fim do mês. Calculamos a necessidade energética de cães de 5 kg, 15 kg e 30 kg segundo o NRC e a ABINPET para comparar a Alimentação Natural pronta integral contra a ração seca Super Premium e a dieta mista 80/20.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'efeito-umidade-72-por-cento-densidade-calorica',
+          heading: '1. Por que o pacote de 500 g engana? A matemática dos 72% de água na comida cozida',
+          paragraphs: [
+            'Ao passar diante do freezer do pet shop, o tutor vê embalagens atrativas de alimentação natural pronta cozida (com pedacinhos visíveis de carne, cenoura, abóbora e arroz integral) vendidas por cerca de R$ 18 a R$ 24 o pacote de 500 gramas e pensa que o valor por quilo não está tão distante de uma ração Super Premium.',
+            'A diferença brutal aparece quando convertemos o alimento para calorias reais (Energia Metabolizável). Enquanto uma ração seca extrusada tem apenas 10% de umidade e entrega cerca de 3.800 kcal por quilo, uma refeição natural cozida e congelada contém entre 72% e 75% de água natural dos ingredientes, concentrando cerca de 1.250 kcal por quilo.',
+            'Na rotina do comedouro, essa diferença de umidade significa que o seu cão precisa ingerir um peso aproximadamente três vezes maior de comida natural cozida para receber exatamente a mesma quantidade de energia e nutrientes de uma porção de ração seca.',
+            'Um cão de porte médio de 15 kg, por exemplo, precisa de cerca de 760 kcal por dia (conforme as equações da FEDIAF e do NRC 2006 para cães domiciliados). Na ração seca Super Premium, isso equivale a apenas 200 gramas diários; na alimentação natural pronta congelada, o mesmo cão precisa comer cerca de 608 gramas todos os dias (mais de um pacote de meio quilo por dia).',
+          ],
+          table: {
+            caption:
+              'Simulação financeira mensal real por porte canino: Ração Seca Super Premium (R$ 26/kg; 3.800 kcal/kg) vs AN Pronta Congelada (R$ 42/kg; 1.250 kcal/kg) vs Dieta Mista 80/20',
+            headers: [
+              'Porte do Cão (Demanda Calórica)',
+              '100% Ração Seca Super Premium',
+              '100% AN Pronta Congelada',
+              'Híbrida Equilibrada (80% Seca + 20% AN)',
+            ],
+            rows: [
+              [
+                'Pequeno: 5 kg (~335 kcal/dia)',
+                '88 g/dia (2,6 kg/mês) = ~R$ 69/mês',
+                '268 g/dia (8,0 kg/mês) = ~R$ 338/mês',
+                '70 g seca + 54 g AN = ~R$ 123/mês',
+              ],
+              [
+                'Médio: 15 kg (~760 kcal/dia)',
+                '200 g/dia (6,0 kg/mês) = ~R$ 156/mês',
+                '608 g/dia (18,2 kg/mês) = ~R$ 766/mês',
+                '160 g seca + 122 g AN = ~R$ 278/mês',
+              ],
+              [
+                'Grande: 30 kg (~1.280 kcal/dia)',
+                '337 g/dia (10,1 kg/mês) = ~R$ 263/mês',
+                '1.024 g/dia (30,7 kg/mês) = ~R$ 1.290/mês',
+                '270 g seca + 205 g AN = ~R$ 469/mês',
+              ],
+              [
+                'Espaço no Freezer (Cão de 15 kg)',
+                'Zero (armazenamento em temperatura ambiente)',
+                '~18 kg/mês (ocupa quase toda a gaveta)',
+                '~3,7 kg/mês (cabe em uma prateleira pequena)',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'alimento-completo-registrado-mapa-vs-marmita-clandestina',
+          heading: '2. Alimento Completo registrado no MAPA vs "marmitinha artesanal": Como não cair em cilada?',
+          paragraphs: [
+            'Antes de decidir colocar a alimentação natural pronta no orçamento, o tutor precisa checar um requisito legal inegociável: se a empresa fabricante possui registro oficial no Ministério da Agricultura e Pecuária (MAPA) e se o produto está classificado no rótulo como Alimento Completo.',
+            'Pelo Decreto Federal nº 12.031/2024 e pela Instrução Normativa MAPA nº 30/2009, cozinhas industriais de alimentação natural comercial precisam seguir Boas Práticas de Fabricação, adicionar premix vitamínico-mineral (garantindo cálcio, fósforo na proporção de 1,0:1 a 2,0:1, zinco, iodo e vitaminas A, D e E) e imprimir a tabela completa de níveis de garantia na embalagem.',
+            'Com o crescimento desse mercado, porém, surgiram marmitas caseiras vendidas em redes sociais sem registro no MAPA, sem tabela nutricional e sem suplementação mineral. Pagar caro por carne e legumes cozidos sem cálcio e sem controle sanitário coloca o cão em risco real de desmineralização óssea e contaminação bacteriana.',
+            'Verifique sempre no verso do pacote congelado: o número de registro do estabelecimento no MAPA, a declaração explícita "Alimento Completo para Cães", o número do lote, a data de fabricação e a temperatura recomendada de conservação.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'O selo do MAPA garante balanço mineral e segurança contra bactérias',
+            text: 'Diferentemente de misturar arroz e peito de frango sem suplemento na ração (prática que dilui vitaminas e inverte a relação cálcio:fósforo), a Alimentação Natural comercial registrada como Alimento Completo no MAPA já contém todos os micronutrientes exigidos pela 11ª Edição do Manual Pet Food Brasil (ABINPET) em cada porção.',
+          },
+        },
+        {
+          id: 'custos-ocultos-freezer-descongelamento-e-dentes',
+          heading: '3. Os três custos ocultos da AN pronta: Freezer, rotina de descongelamento e tártaro',
+          paragraphs: [
+            'Além do valor direto na etiqueta (que fica cerca de 4,5 a 5 vezes mais alto por caloria do que uma ração seca Super Premium), a adoção de 100% de alimentação natural congelada traz três custos indiretos que pesam especialmente para quem tem cães médios ou grandes.',
+            'O primeiro é a logística de congelamento: manter 18 kg a 30 kg mensais de pacotes congelados para um cão de 15 kg a 30 kg exige espaço dedicado no freezer doméstico ou entregas quinzenais com frete refrigerado, que costumam acrescentar de R$ 40 a R$ 80 extras por mês no orçamento.',
+            'O segundo é a disciplina sanitária do descongelamento. A porção congelada nunca deve descongelar em cima da pia em temperatura ambiente (onde bactérias se multiplicam em poucas horas); ela precisa descer para a geladeira com 12 a 24 horas de antecedência e ser consumida em no máximo 48 a 72 horas após aberta.',
+            'O terceiro fator é a saúde bucal: alimentos úmidos macios aderem com mais facilidade à superfície dos dentes molares do que croquetes secos crocantes. Tutores que optam por dieta 100% úmida precisam redobrar a escovação dentária diária em casa para evitar gastos futuros com limpeza periodontal sob anestesia.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Nunca sirva comida recém-saída da geladeira ou fervendo do micro-ondas',
+            text: 'Servir a comida gelada reduz o aroma natural e pode causar desconforto gástrico em cães sensíveis. Já aquecer demais no micro-ondas gera pontos quentes capazes de queimar a língua do animal e degradar vitaminas termossensíveis. O ideal é amornar em banho-maria rápido até atingir temperatura morna agradável ao toque do dedo (~35 °C a 38 °C).',
+          },
+        },
+        {
+          id: 'estrategia-hibrida-80-20-economia-e-equilibrio',
+          heading: '4. A solução inteligente para o bolso: Como montar a dieta híbrida 80/20 sem errar?',
+          paragraphs: [
+            'Se você gosta dos benefícios da alimentação natural pronta (alta hidratação, aroma irresistível e ingredientes minimamente processados), mas o custo integral de R$ 766 a R$ 1.290 por mês foge do seu orçamento, a combinação híbrida de 80% de calorias em ração seca Super Premium + 20% em AN pronta completa entrega o melhor equilíbrio técnico e financeiro.',
+            'Porque ambos os alimentos são completos e balanceados pelo MAPA, você pode combiná-los sem causar carência de cálcio ou vitaminas, bastando respeitar rigorosamente a equivalência calórica para não engordar o cão.',
+            'Na prática, para um cão de 15 kg (760 kcal/dia), você reduz a ração seca em 20% (servindo 160 g em vez de 200 g) e completa os 20% restantes (~152 kcal) com cerca de 122 gramas de alimentação natural pronta completa.',
+            'O resultado aparece no comedouro e na fatura do cartão: o custo mensal cai de R$ 766 para cerca de R$ 278, o espaço ocupado no freezer cai para menos de 4 kg no mês e o seu cão desfruta todos os dias de uma refeição úmida aromática sem perder a praticidade e a economia da ração seca.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Pode misturar a ração seca e a AN pronta no mesmo prato?',
+            text: 'Para a grande maioria dos cães adultos saudáveis, servir a ração seca e a porção de alimentação natural completa juntas na mesma refeição (ou dar ração seca de manhã e a porção natural à noite) é perfeitamente seguro e bem digerido. Em cães com estômago muito sensível, oferecer em horários separados (manhã seca, noite natural) ajuda a acompanhar a firmeza das fezes com mais facilidade.',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'Alimentação natural pronta congelada é mais saudável do que ração seca Super Premium?',
+          a: 'Ambas atendem integralmente às exigências nutricionais do cão quando formuladas como Alimento Completo registrado no MAPA. A alimentação natural pronta destaca-se pela maior umidade (72% a 75% de água), menor processamento térmico e alta palatabilidade; já a ração seca Super Premium oferece excelente densidade nutricional, conservação prática sem freezer e custo por caloria cerca de 4 a 5 vezes menor.',
+        },
+        {
+          q: 'Fazer alimentação natural cozida em casa sai mais barato do que comprar a AN pronta?',
+          a: 'Cozinhar em casa seguindo a receita de um médico veterinário nutrólogo costuma reduzir o custo mensal em cerca de 30% a 40% em comparação à AN comercial pronta (pois você elimina a margem da fábrica e o frete congelado). Porém, ainda sai mais caro do que a ração seca Super Premium quando somamos carnes, vísceras, legumes, suplemento vitamínico-mineral obrigatório, gás de cozinha e tempo de preparo.',
+        },
+        {
+          q: 'Por quantos dias a alimentação natural pronta dura congelada no freezer?',
+          a: 'Quando mantida congelada continuamente a -18 °C na embalagem selada a vácuo de fábrica, a maioria das linhas registradas no MAPA possui validade entre 90 e 180 dias (confira sempre a data impressa no lote). Após descongelada na geladeira, deve ser consumida em até 48 a 72 horas e nunca recongelada.',
+        },
+        {
+          q: 'Se eu misturar AN pronta completa com ração seca, preciso respeitar o limite de 10% dos petiscos?',
+          a: 'Não, desde que a alimentação natural pronta seja oficialmente um Alimento Completo balanceado com premix mineral (e não apenas carne com arroz sem suplemento). A regra dos 10% da WSAVA aplica-se a petiscos e ingredientes isolados não balanceados; dois alimentos completos podem ser combinados em proporções como 80/20 ou 50/50 respeitando o total diário de calorias do cão.',
+        },
+      ],
+      conclusion:
+        'A alimentação natural pronta e congelada registrada no MAPA é uma opção segura, úmida e de alta palatabilidade, mas o seu teor de 72% a 75% de água faz com que o custo real por mês seja cerca de 4,5 a 5 vezes superior ao de uma ração seca Super Premium (saltando de ~R$ 156 para ~R$ 766 mensais em um cão de 15 kg). Para quem busca unir hidratação e sabor ao equilíbrio financeiro, a dieta híbrida 80/20 (80% das calorias em ração seca completa + 20% em AN pronta completa) reduz o gasto em mais de 60%, exige pouco espaço no freezer e preserva 100% do balanço mineral.',
+      references: [
+        {
+          title: 'Nutrient Requirements of Dogs and Cats (2006)',
+          institution: 'National Research Council (NRC / The National Academies)',
+          type: 'literatura',
+          url: 'https://nap.nationalacademies.org/catalog/10668/nutrient-requirements-of-dogs-and-cats',
+          details: 'Equações de Necessidade Energética de Manutenção (NEM) por peso metabólico (PC^0,75) aplicadas nas simulações de consumo diário para cães de 5 kg, 15 kg e 30 kg',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Metodologia de conversão para Matéria Seca (MS), densidade energética de alimentos extrusados vs alimentos úmidos/cozidos e parâmetros de balanceamento mineral (Ca:P)',
+        },
+        {
+          title: 'Decreto Federal nº 12.031/2024 e Instrução Normativa MAPA nº 30/2009',
+          institution: 'Presidência da República / Ministério da Agricultura e Pecuária (MAPA)',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12031.htm',
+          details: 'Requisitos de registro industrial, Boas Práticas de Fabricação e rotulagem obrigatória de Alimento Completo para dietas úmidas e congeladas comercializadas no Brasil',
+        },
+        {
+          title: 'WSAVA Global Nutrition Guidelines: Selecting Pet Food & Diet Combinations',
+          institution: 'World Small Animal Veterinary Association (WSAVA)',
+          type: 'literatura',
+          url: 'https://wsava.org/global-guidelines/global-nutrition-guidelines/',
+          details: 'Critérios clínicos para avaliação de dietas comerciais cozidas, higiene de descongelamento e combinação segura de alimentos completos sob cálculo calórico',
+        },
+      ],
+      callToAction: {
+        title: 'Compare Rações Secas e Úmidas Completas para Cães no PetRankings',
+        text: 'Quer descobrir quais alimentos completos para cães entregam a maior densidade proteica em Matéria Seca (MS), ingredientes nobres e melhor custo-benefício diário? Explore nosso catálogo.',
+        buttonText: 'Explorar Catálogo de Alimentos para Cães',
+        buttonUrl: '/catalogo?especie=Caes',
       },
     },
   ];
