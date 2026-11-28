@@ -10402,7 +10402,7 @@ export const GUIDES: GuideItem[] = [
       author: DEFAULT_GUIDE_AUTHOR,
       coverImageUrl:
         '/uploads/guias/cachorro-que-come-rapido-demais-manejo-torcao-gastrica.webp',
-      isFeatured: true,
+      isFeatured: false,
       summary:
         'Ver o cão devorar toda a vasilha de ração em menos de 40 segundos, engasgar ou regurgitar grãos inteiros costuma ser encarado apenas como gula. Explicamos como a ingestão voraz e a aerofagia desencadeiam a Dilatação-Torção Vólvulo Gástrica (DTVG), o que o clássico estudo da Universidade de Purdue comprovou sobre comedouros elevados e como os comedouros lentos e o fracionamento protegem o estômago do seu cão.',
       relatedProductSlugs: [],
@@ -10549,6 +10549,175 @@ export const GUIDES: GuideItem[] = [
         text: 'Quer comparar fórmulas específicas para Raças Médias, Grandes e Gigantes com avaliação nutricional completa na Matéria Seca (MS) e suporte articular? Acesse nosso catálogo técnico.',
         buttonText: 'Explorar Catálogo de Rações para Cães',
         buttonUrl: '/catalogo?especie=Caes',
+      },
+    },
+    {
+      slug: 'comprar-racao-online-para-gatos-decreto-7962-2013-entrega-direitos',
+      title: 'Comprar ração online para gatos: O que o Decreto 7.962/2013 garante na entrega?',
+      subtitle:
+        'Os direitos do tutor no comércio eletrônico contra pacotes furados, validade curta e sachês estufados, somados às tolerâncias de peso das Portarias Inmetro nº 248/2008 e nº 249/2021.',
+      cluster: 'Direito do Consumidor & Mercado',
+      speciesTarget: 'Gatos',
+      readingTimeMinutes: 8,
+      publishedAt: '2026-11-27',
+      updatedAt: '2026-11-27',
+      author: DEFAULT_GUIDE_AUTHOR,
+      coverImageUrl:
+        '/uploads/guias/comprar-racao-online-para-gatos-decreto-7962-2013-entrega-direitos.webp',
+      isFeatured: true,
+      summary:
+        'Comprar caixas de sachês ou pacotes grandes de ração para gatos pela internet economiza tempo e dinheiro, mas traz imprevistos frequentes no transporte: sacos com microfuros remendados com fita adesiva, sachês estufados ou validade muito próxima do vencimento. Explicamos o que garantem o Decreto nº 7.962/2013 (Lei do Comércio Eletrônico), o Artigo 49 do CDC e as normas do Inmetro para exigir troca ou reembolso gratuito.',
+      relatedProductSlugs: [],
+      sections: [
+        {
+          id: 'decreto-7962-2013-e-direito-de-arrependimento-cdc',
+          heading: '1. O que o Decreto nº 7.962/2013 e o CDC garantem em toda compra pet pela internet?',
+          paragraphs: [
+            'Cada vez mais tutores compram a ração seca e a caixa fechada de sachês do mês em lojas online, assinaturas recorrentes e grandes marketplaces. A surpresa desagradável costuma aparecer na hora de abrir a caixa de papelão: o pacote chegou rasgado no canto, remendado com fita adesiva pela transportadora ou com validade curta demais para o consumo de um gato.',
+            'Todas essas compras são protegidas diretamente pelo Decreto Federal nº 7.962, de 15 de março de 2013 (que regulamenta o Código de Defesa do Consumidor no comércio eletrônico). Pelo Artigo 2º desse Decreto, qualquer loja virtual ou marketplace é obrigado a exibir em destaque o CNPJ, o endereço físico e eletrônico, as características essenciais do produto (incluindo riscos à saúde) e o detalhamento claro do frete.',
+            'A maior blindagem prática para o tutor está no Artigo 5º do Decreto nº 7.962/2013, combinado com o Artigo 49 do CDC: você tem o direito absoluto de arrependimento no prazo de 7 dias corridos contados do recebimento do pedido, sem precisar justificar o motivo e com restituição integral do valor pago, incluindo o frete.',
+            'Além disso, nos marketplaces que intermediam vendas de pet shops parceiros, a jurisprudência consolidada do CDC reconhece a responsabilidade solidária da plataforma e do lojista. Se a loja parceira dificultar a devolução ou tentar cobrar o frete reverso, você pode acionar diretamente o suporte do marketplace exigindo a coleta gratuita.',
+          ],
+          callout: {
+            type: 'norma',
+            title: 'Validade curta não informada viola o Art. 2º do Decreto nº 7.962/2013',
+            text: 'Um gato adulto de 4 kg consome em média apenas 50 g de ração seca por dia (1,5 kg por mês). Se um anúncio promocional vende um saco de 7,5 kg sem avisar em destaque que o lote vence em 45 dias (tempo insuficiente para o felino consumir o pacote), há omissão de característica essencial. Você tem direito legal à devolução gratuita em 7 dias ou à substituição por lote com validade adequada.',
+          },
+        },
+        {
+          id: 'saches-estufados-e-sacos-furados-risco-sanitario',
+          heading: '2. Sachê estufado e saco com microfuro: Quando recusar imediatamente por risco à saúde?',
+          paragraphs: [
+            'No transporte rodoviário brasileiro, caixas de ração e sachês enfrentam empilhamento pesado e variações bruscas de temperatura. Por isso, dois defeitos de entrega exigem atenção sanitária imediata antes mesmo de guardar os alimentos no armário.',
+            'O primeiro e mais perigoso é o sachê úmido estufado (inchado de gás como um pequeno travesseiro) ou a lata de patê amassada na borda da tampa. Alimentos úmidos passam por esterilização comercial em autoclave para eliminar bactérias; quando o sachê estufa, significa que houve falha na vedação ou microfuro que permitiu proliferação de bactérias anaeróbicas produtoras de gás e toxinas graves.',
+            'Jamais abra um sachê estufado para "cheirar e ver se está bom", nem tente aproveitar o resto de uma caixa onde um sachê vazou e mofou os outros. Fotografe imediatamente a embalagem estufada junto com o número do lote e solicite a substituição integral do item.',
+            'O segundo problema frequente é o saco de ração seca que chega com um furinho minúsculo ou remendado com fita transparente. Esse pequeno rasgo já rompeu a atmosfera protetora de fábrica, permitindo a entrada de oxigênio (que acelera o ranço das gorduras e destrói vitaminas A e E), umidade e insetos durante o trajeto no galpão da transportadora.',
+          ],
+          table: {
+            caption:
+              'Guia de ação rápida ao receber entregas online de alimentos para gatos (Base: Decreto nº 7.962/2013, CDC e Portarias Inmetro nº 248/2008 e nº 249/2021)',
+            headers: [
+              'Problema Encontrado na Entrega',
+              'Risco para o Gato',
+              'Direito Legal e Como Agir na Hora',
+            ],
+            rows: [
+              [
+                'Sachê estufado ou lata com costura amassada',
+                'Alto (risco de toxinas bacterianas e intoxicação aguda)',
+                'Não abrir nem servir; fotografar lote e exigir reembolso/troca por vício sanitário (Art. 18 do CDC)',
+              ],
+              [
+                'Saco de ração seca furado ou colado com fita',
+                'Médio/Alto (oxidação de gorduras, formigas e roedores)',
+                'Recusar no ato ou acionar troca gratuita em 7 dias (Art. 5º do Decreto nº 7.962/2013)',
+              ],
+              [
+                'Validade próxima sem aviso claro no anúncio',
+                'Consumo após vencimento e perda nutricional',
+                'Exigir logística reversa grátis por omissão de informação essencial (Art. 2º, III do Decreto nº 7.962/2013)',
+              ],
+              [
+                'Peso líquido abaixo do declarado na frente',
+                'Prejuízo financeiro direto ao tutor',
+                'Conferir tolerância da Portaria Inmetro nº 248/2008 e solicitar estorno ou complementação',
+              ],
+            ],
+          },
+        },
+        {
+          id: 'tolerancia-peso-liquido-portarias-inmetro',
+          heading: '3. Pacote parece mais leve do que o anunciado? O que dizem as Portarias do Inmetro',
+          paragraphs: [
+            'Outra queixa recorrente em compras pela internet acontece quando o tutor coloca o pacote fechado na balança doméstica (ou pesa uma caixa de sachês) e nota que o peso está abaixo do valor prometido na página do produto.',
+            'No Brasil, a conferência de peso de mercadorias pré-embaladas segue dois regulamentos técnicos oficiais do Inmetro: a Portaria Inmetro nº 249/2021 (que exige a indicação do peso líquido exato no painel frontal em gramas ou quilogramas, proibindo expressões vagas como "peso aproximado") e a Portaria Inmetro nº 248/2008 (que fixa as tolerâncias máximas admitidas para menos).',
+            'Pela Tabela I da Portaria Inmetro nº 248/2008, sachês felinos na faixa de 50 g a 100 g (como os de 70 g ou 85 g) possuem tolerância individual máxima de 4,5 g para menos. Já pacotes de ração seca entre 1 kg e 10 kg (como 1,5 kg, 3 kg, 7,5 kg ou 10 kg) admitem tolerância máxima de 1,5% do peso nominal.',
+            'Na prática, isso significa que um saco de 3 kg pode variar no máximo 45 gramas para menos (nunca abaixo de 2,955 kg), e um saco de 10 kg no máximo 150 gramas (nunca abaixo de 9,850 kg). Se a diferença encontrada na sua entrega for maior do que esse limite (ou se o lojista anunciou 3 kg no site e enviou a nova versão reduzida de 2,7 kg), trata-se de descumprimento de oferta pelo Artigo 6º do Decreto nº 7.962/2013.',
+          ],
+          callout: {
+            type: 'atencao',
+            title: 'Atenção aos anúncios desatualizados após redução de peso (reduflação)',
+            text: 'Um erro muito comum nos marketplaces ocorre quando a fabricante reduz o pacote de 3 kg para 2,7 kg (ou o sachê de 85 g para 70 g), mas o lojista mantém o título antigo de "3 kg" no anúncio online. Pelo Art. 30 e Art. 35 do CDC, vale o que foi ofertado na tela na hora da compra: tire sempre um print do anúncio ao fechar o pedido.',
+          },
+        },
+        {
+          id: 'checklist-recebimento-em-30-segundos',
+          heading: '4. Checklist de 30 segundos ao receber sua encomenda pet em casa',
+          paragraphs: [
+            'Criar um hábito rápido de inspeção no momento em que a transportadora entrega o pedido evita quase todas as dores de cabeça com trocas e protege a saúde do seu gato antes de abrir o primeiro grão.',
+            'Passo 1 (Inspeção externa antes de cortar o lacre): aperte suavemente o saco de ração seca com as duas mãos. Se ouvir ar escapando com facilidade por algum canto ou notar farelo solto dentro da caixa de papelão, existe um microfuro escondido na embalagem.',
+            'Passo 2 (Teste do toque nos sachês): passe a mão sobre os sachês úmidos da caixa para confirmar se todos estão planos e maleáveis, sem nenhum pacote inchado de gás, melado de caldo ou com cheiro azedo.',
+            'Passo 3 (Registro fotográfico do lote e validade): fotografe a etiqueta de transporte, a data de validade e o número de lote antes de abrir o produto. Se encontrar qualquer irregularidade, abra o chamado imediatamente pelo canal oficial da loja ou marketplace dentro dos 7 dias garantidos pelo Decreto nº 7.962/2013.',
+          ],
+          callout: {
+            type: 'dica',
+            title: 'Nunca descarte a embalagem original antes de testar a aceitação',
+            text: 'Mesmo quando a entrega chega intacta, guarde o saco original com o lote legível e a nota fiscal eletrônica (NF-e) até o término do pacote. Esses dois documentos são exigidos tanto para acionar a garantia de satisfação da fabricante caso o gato rejeite o sabor quanto para eventual troca por vício oculto (como mofo interno ou carunchos descobertos após a abertura).',
+          },
+        },
+      ],
+      faq: [
+        {
+          q: 'A loja online pode cobrar o frete de volta se eu devolver a ração em até 7 dias?',
+          a: 'Não. Tanto o Artigo 49 do Código de Defesa do Consumidor quanto o Artigo 5º do Decreto Federal nº 7.962/2013 determinam que o exercício do direito de arrependimento em compras online não pode gerar nenhum ônus financeiro ao consumidor. O fornecedor deve arcar integralmente com o código de postagem ou a coleta reversa e devolver 100% do valor pago (produto + frete original).',
+        },
+        {
+          q: 'Se eu abrir o saco de ração seca para conferir e encontrar mofo ou bicho, ainda posso trocar?',
+          a: 'Sim. Nesse caso não se trata mais de simples arrependimento, mas de vício de qualidade que torna o alimento impróprio ao consumo (Artigo 18 do CDC). Para bens não duráveis como alimentos pet, você tem 30 dias a partir da constatação do problema oculto para exigir a troca imediata do produto ou a devolução integral do dinheiro.',
+        },
+        {
+          q: 'Comprei uma caixa com 12 sachês e apenas 2 vieram estufados: posso dar os outros 10 ao gato?',
+          a: 'Se os outros 10 sachês estiverem completamente intactos, planos, limpos por fora e dentro da validade (sem nenhum furo ou vazamento dos sachês danificados), costuma-se isolar e descartar apenas os estufados. Porém, caso os sachês pertençam ao mesmo lote e apresentem estufamento sem sinal de perfuração externa por transporte, acione também o SAC da fabricante para verificação do lote.',
+        },
+        {
+          q: 'O que fazer se o marketplace mandar eu resolver direto com o lojista parceiro?',
+          a: 'Pelo Código de Defesa do Consumidor, todos os integrantes da cadeia de fornecimento que lucram com a venda respondem solidariamente pelo defeito na entrega. Se o lojista parceiro não responder no prazo, protocole a reclamação contra o próprio marketplace na plataforma oficial consumidor.gov.br anexando as fotos e a nota fiscal.',
+        },
+      ],
+      conclusion:
+        'Comprar a ração e os sachês do seu gato pela internet é seguro e prático quando você conhece as regras que protegem a entrega. O Decreto Federal nº 7.962/2013 e o Artigo 49 do CDC asseguram transparência de oferta, responsabilidade solidária e devolução gratuita em até 7 dias, enquanto as Portarias Inmetro nº 248/2008 e nº 249/2021 definem os limites exatos de peso líquido. Reserve 30 segundos no recebimento para checar microfuros, validade compatível com o consumo do seu felino e sachês estufados, garantindo comida fresca e orçamento protegido.',
+      references: [
+        {
+          title: 'Decreto Federal nº 7.962, de 15 de março de 2013 (Lei do Comércio Eletrônico)',
+          institution: 'Presidência da República / Casa Civil',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7962.htm',
+          details: 'Regulamenta o Código de Defesa do Consumidor no comércio eletrônico: informações claras sobre produto, riscos e fornecedor (Art. 2º), garantia de meios eficazes para o direito de arrependimento em 7 dias (Art. 5º) e cumprimento pontual da oferta (Art. 6º)',
+        },
+        {
+          title: 'Portaria Inmetro nº 248, de 17 de julho de 2008',
+          institution: 'Instituto Nacional de Metrologia, Qualidade e Tecnologia (INMETRO)',
+          type: 'regulamento',
+          url: 'https://www.gov.br/inmetro/pt-br',
+          details: 'Regulamento Técnico Metrológico para verificação de conteúdo líquido de produtos pré-medidos (Tabela I: tolerância individual admissível de 4,5 g para embalagens de 50 g a 100 g, 1,5% para embalagens de 1 kg a 10 kg e 150 g para 10 kg a 15 kg)',
+        },
+        {
+          title: 'Portaria Inmetro nº 249, de 9 de junho de 2021',
+          institution: 'Instituto Nacional de Metrologia, Qualidade e Tecnologia (INMETRO)',
+          type: 'regulamento',
+          url: 'https://www.gov.br/inmetro/pt-br',
+          details: 'Regulamento Técnico Metrológico sobre indicação quantitativa frontal obrigatória em gramas (g) ou quilogramas (kg), proibindo termos vagos como "peso aproximado" ou "peso médio"',
+        },
+        {
+          title: 'Lei Federal nº 8.078/1990 (Código de Defesa do Consumidor)',
+          institution: 'Presidência da República / Casa Civil',
+          type: 'regulamento',
+          url: 'https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm',
+          details: 'Art. 18 (vício de qualidade e produtos impróprios), Art. 30 e 35 (vinculação da oferta em anúncios) e Art. 49 (direito de arrependimento em compras fora do estabelecimento comercial)',
+        },
+        {
+          title: 'Manual Pet Food Brasil (11ª Edição)',
+          institution: 'Associação Brasileira da Indústria de Produtos para Animais de Estimação (ABINPET)',
+          type: 'literatura',
+          url: 'https://abinpet.org.br/manual-pet-food-brasil/',
+          details: 'Segurança microbiológica de alimentos úmidos comercialmente estéreis (alerta para embalagens estufadas) e integridade de barreiras contra oxigênio em alimentos secos',
+        },
+      ],
+      callToAction: {
+        title: 'Compare Preços, Rótulos e Lojas Parceiras para Gatos no PetRankings',
+        text: 'Antes de fechar sua próxima compra online, consulte a ficha técnica oficial em Matéria Seca (MS) e a avaliação nutricional das principais marcas de rações secas e sachês para gatos.',
+        buttonText: 'Explorar Catálogo de Alimentos para Gatos',
+        buttonUrl: '/catalogo?especie=Gatos',
       },
     },
   ];
